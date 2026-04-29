@@ -4,6 +4,19 @@ Last inventory update: 2026-04-29.
 
 This file mirrors the core records in `projects.json`. It lists public context only. Environment variables are names only, not values.
 
+Canonical field mapping in this database:
+
+- `name`
+- `purpose`
+- `url`
+- `repo`
+- `hosting`
+- `status`
+- `issues`
+- `important files`
+- `env`
+- `notes`
+
 ## ezohata-incoming-ledger
 
 - **name:** ezohata-incoming-ledger

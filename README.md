@@ -22,6 +22,20 @@ It is intentionally public and text-first so agents can read current project con
 - [codex-build.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/prompts/codex-build.md)
 - [chatgpt-agent-instructions.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/prompts/chatgpt-agent-instructions.md)
 
+## ChatGPT Agent Usage
+
+Raw links:
+
+- projects.md: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md)
+- projects.json: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
+- agent rules: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
+
+Instruction:
+
+"Если задача связана с проектами, сначала прочитай projects.md,
+при необходимости используй projects.json,
+затем извлеки релевантный проект и используй данные."
+
 ## Safety Rules
 
 - This repo may list environment variable names, but it must never contain real tokens, keys, client secrets, refresh tokens, cookies, or private credentials.
