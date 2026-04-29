@@ -3,7 +3,11 @@
   "raw_files": {
     "projects_md": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md",
     "projects_json": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json",
-    "agent_rules": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md"
+    "agent_rules": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md",
+    "project_memory_schema": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/system/project-memory-schema.md",
+    "project_state_template": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/system/project-state-template.md",
+    "project_log_template": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/system/project-log-template.md",
+    "codex_project_workflow": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/system/codex-project-workflow.md"
   },
   "projects": [
     {
