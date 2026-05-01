@@ -1,0 +1,455 @@
+{
+  "schema_version": "project-index-v1",
+  "generated_at": "2026-05-01T17:44:39.931Z",
+  "source": "projects.json",
+  "projects": [
+    {
+      "name": "ezohata-incoming-ledger",
+      "slug": "ezohata-incoming-ledger",
+      "purpose": "Web app for EzoHata incoming payments, expenses, fact data, balances, provider imports, and channel analytics.",
+      "live_url": "https://ezohata-incoming-ledger.vercel.app",
+      "repo_url": "https://github.com/andylitvinov-design/finance",
+      "hosting": "Vercel project ezohata-incoming-ledger",
+      "status_summary": "Active production source is andylitvinov-design/finance. Old repo andylitvinov-design/ezohata-incoming-ledger is private/deprecated read-only according to GitHub metadata.",
+      "memory_files": {
+        "project_md": "projects/ezohata-incoming-ledger/PROJECT.md",
+        "system_map": "projects/ezohata-incoming-ledger/SYSTEM_MAP.md",
+        "data_schema": "projects/ezohata-incoming-ledger/DATA_SCHEMA.md",
+        "code_access": "projects/ezohata-incoming-ledger/CODE_ACCESS.md",
+        "data_samples": "projects/ezohata-incoming-ledger/DATA_SAMPLES.md",
+        "debug_log": "projects/ezohata-incoming-ledger/DEBUG_LOG.md",
+        "risks": "projects/ezohata-incoming-ledger/RISKS.md",
+        "codex_brief": "projects/ezohata-incoming-ledger/CODEX_BRIEF.md",
+        "state_file": "projects/ezohata-incoming-ledger/STATE.md",
+        "log_file": "projects/ezohata-incoming-ledger/LOG.md"
+      },
+      "verification_flags": {
+        "has_needs_verification": false,
+        "repo_mapping": "listed",
+        "live_mapping": "listed",
+        "env_status": "names listed",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "reiki-yggdrasil",
+      "slug": "reiki-yggdrasil",
+      "purpose": "Reiki Yggdrasil Vite/React platform with public learning UI, master cabinet, public masters catalog, and admin moderation.",
+      "live_url": "https://reiki-yggdrasil.vercel.app",
+      "repo_url": "https://github.com/andylitvinov-design/reiki-yggdrasil",
+      "hosting": "Vercel, Vite build",
+      "status_summary": "Public Vite/Supabase MVP with /, /profile, /masters, and /profile/admin.",
+      "memory_files": {
+        "project_md": "projects/reiki-yggdrasil/PROJECT.md",
+        "system_map": "projects/reiki-yggdrasil/SYSTEM_MAP.md",
+        "data_schema": "projects/reiki-yggdrasil/DATA_SCHEMA.md",
+        "code_access": "projects/reiki-yggdrasil/CODE_ACCESS.md",
+        "data_samples": "projects/reiki-yggdrasil/DATA_SAMPLES.md",
+        "debug_log": "projects/reiki-yggdrasil/DEBUG_LOG.md",
+        "risks": "projects/reiki-yggdrasil/RISKS.md",
+        "codex_brief": "projects/reiki-yggdrasil/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "listed",
+        "env_status": "names listed",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "brain-management",
+      "slug": "brain-management",
+      "purpose": "Management dashboard and ops workspace for Codex usage, daily thinking/audit data, mobile-run flows, and management reports.",
+      "live_url": "https://brain-management.pages.dev",
+      "repo_url": "https://github.com/andylitvinov-design/brain-management",
+      "hosting": "Cloudflare Pages",
+      "status_summary": "Private repo with Cloudflare Pages live dashboard. Dashboard snapshots live under dashboard-thinking/data/.",
+      "memory_files": {
+        "project_md": "projects/brain-management/PROJECT.md",
+        "system_map": "projects/brain-management/SYSTEM_MAP.md",
+        "data_schema": "projects/brain-management/DATA_SCHEMA.md",
+        "code_access": "projects/brain-management/CODE_ACCESS.md",
+        "data_samples": "projects/brain-management/DATA_SAMPLES.md",
+        "debug_log": "projects/brain-management/DEBUG_LOG.md",
+        "risks": "projects/brain-management/RISKS.md",
+        "codex_brief": "projects/brain-management/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "listed",
+        "env_status": "names listed",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "codex-links",
+      "slug": "codex-links",
+      "purpose": "Cloudflare Pages inbox, delivery timeline, reports surface, Slack-backed Codex Cloud command bridge, and codex-save diagnostics/remediation app.",
+      "live_url": "https://codex-links.pages.dev",
+      "repo_url": "https://github.com/andylitvinov-design/codex-links",
+      "hosting": "Cloudflare Pages projects codex-links and related codex-save",
+      "status_summary": "Public repo. Production command delivery is primarily Slack-backed Codex Cloud with local bridge/direct OpenAI paths as secondary or optional modes.",
+      "memory_files": {
+        "project_md": "projects/codex-links/PROJECT.md",
+        "system_map": "projects/codex-links/SYSTEM_MAP.md",
+        "data_schema": "projects/codex-links/DATA_SCHEMA.md",
+        "code_access": "projects/codex-links/CODE_ACCESS.md",
+        "data_samples": "projects/codex-links/DATA_SAMPLES.md",
+        "debug_log": "projects/codex-links/DEBUG_LOG.md",
+        "risks": "projects/codex-links/RISKS.md",
+        "codex_brief": "projects/codex-links/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "listed",
+        "env_status": "names listed",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "codex-links-myportal",
+      "slug": "codex-links-myportal",
+      "purpose": "Clean-room Cloudflare Pages inbox and finance sync app with PayPal, Plaid, Wise, and Binance provider ingestion.",
+      "live_url": "https://codex-links-myportal.pages.dev",
+      "repo_url": "unknown",
+      "hosting": "Cloudflare Pages project codex-links-myportal",
+      "status_summary": "Local checkout has no remote configured and is dirty. Cloudflare Pages app has token-gated /api/finance/sync and finance import helpers.",
+      "memory_files": {
+        "project_md": "projects/codex-links-myportal/PROJECT.md",
+        "system_map": "projects/codex-links-myportal/SYSTEM_MAP.md",
+        "data_schema": "projects/codex-links-myportal/DATA_SCHEMA.md",
+        "code_access": "projects/codex-links-myportal/CODE_ACCESS.md",
+        "data_samples": "projects/codex-links-myportal/DATA_SAMPLES.md",
+        "debug_log": "projects/codex-links-myportal/DEBUG_LOG.md",
+        "risks": "projects/codex-links-myportal/RISKS.md",
+        "codex_brief": "projects/codex-links-myportal/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "needs verification",
+        "live_mapping": "listed",
+        "env_status": "names listed",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "ezohata_ads",
+      "slug": "ezohata_ads",
+      "purpose": "Standalone EzoHata ads and analytics bundle.",
+      "live_url": "unknown",
+      "repo_url": "https://github.com/andylitvinov-design/ezohata_ads",
+      "hosting": "needs verification",
+      "status_summary": "Private related repo from GitHub inventory.",
+      "memory_files": {
+        "project_md": "projects/ezohata_ads/PROJECT.md",
+        "system_map": "projects/ezohata_ads/SYSTEM_MAP.md",
+        "data_schema": "projects/ezohata_ads/DATA_SCHEMA.md",
+        "code_access": "projects/ezohata_ads/CODE_ACCESS.md",
+        "data_samples": "projects/ezohata_ads/DATA_SAMPLES.md",
+        "debug_log": "projects/ezohata_ads/DEBUG_LOG.md",
+        "risks": "projects/ezohata_ads/RISKS.md",
+        "codex_brief": "projects/ezohata_ads/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "needs verification",
+        "env_status": "needs verification",
+        "deploy_status": "needs verification"
+      }
+    },
+    {
+      "name": "codex-daily-backups",
+      "slug": "codex-daily-backups",
+      "purpose": "Daily backup repository for changed eligible projects.",
+      "live_url": "not applicable",
+      "repo_url": "https://github.com/andylitvinov-design/codex-daily-backups",
+      "hosting": "GitHub repository",
+      "status_summary": "Private backup repo from GitHub inventory.",
+      "memory_files": {
+        "project_md": "projects/codex-daily-backups/PROJECT.md",
+        "system_map": "projects/codex-daily-backups/SYSTEM_MAP.md",
+        "data_schema": "projects/codex-daily-backups/DATA_SCHEMA.md",
+        "code_access": "projects/codex-daily-backups/CODE_ACCESS.md",
+        "data_samples": "projects/codex-daily-backups/DATA_SAMPLES.md",
+        "debug_log": "projects/codex-daily-backups/DEBUG_LOG.md",
+        "risks": "projects/codex-daily-backups/RISKS.md",
+        "codex_brief": "projects/codex-daily-backups/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "needs verification",
+        "env_status": "needs verification",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "active-projects-ops",
+      "slug": "active-projects-ops",
+      "purpose": "Cloud-ready ops and content projects.",
+      "live_url": "unknown",
+      "repo_url": "https://github.com/andylitvinov-design/active-projects-ops",
+      "hosting": "needs verification",
+      "status_summary": "Private related repo from GitHub inventory.",
+      "memory_files": {
+        "project_md": "projects/active-projects-ops/PROJECT.md",
+        "system_map": "projects/active-projects-ops/SYSTEM_MAP.md",
+        "data_schema": "projects/active-projects-ops/DATA_SCHEMA.md",
+        "code_access": "projects/active-projects-ops/CODE_ACCESS.md",
+        "data_samples": "projects/active-projects-ops/DATA_SAMPLES.md",
+        "debug_log": "projects/active-projects-ops/DEBUG_LOG.md",
+        "risks": "projects/active-projects-ops/RISKS.md",
+        "codex_brief": "projects/active-projects-ops/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "needs verification",
+        "env_status": "needs verification",
+        "deploy_status": "needs verification"
+      }
+    },
+    {
+      "name": "report",
+      "slug": "report",
+      "purpose": "Report-related project.",
+      "live_url": "unknown",
+      "repo_url": "https://github.com/andylitvinov-design/report",
+      "hosting": "needs verification",
+      "status_summary": "Public related repo from GitHub inventory.",
+      "memory_files": {
+        "project_md": "projects/report/PROJECT.md",
+        "system_map": "projects/report/SYSTEM_MAP.md",
+        "data_schema": "projects/report/DATA_SCHEMA.md",
+        "code_access": "projects/report/CODE_ACCESS.md",
+        "data_samples": "projects/report/DATA_SAMPLES.md",
+        "debug_log": "projects/report/DEBUG_LOG.md",
+        "risks": "projects/report/RISKS.md",
+        "codex_brief": "projects/report/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "needs verification",
+        "env_status": "needs verification",
+        "deploy_status": "needs verification"
+      }
+    },
+    {
+      "name": "artefacts",
+      "slug": "artefacts",
+      "purpose": "Artefacts marketplace MVP.",
+      "live_url": "unknown",
+      "repo_url": "https://github.com/andylitvinov-design/artefacts",
+      "hosting": "needs verification",
+      "status_summary": "Private related repo from GitHub inventory.",
+      "memory_files": {
+        "project_md": "projects/artefacts/PROJECT.md",
+        "system_map": "projects/artefacts/SYSTEM_MAP.md",
+        "data_schema": "projects/artefacts/DATA_SCHEMA.md",
+        "code_access": "projects/artefacts/CODE_ACCESS.md",
+        "data_samples": "projects/artefacts/DATA_SAMPLES.md",
+        "debug_log": "projects/artefacts/DEBUG_LOG.md",
+        "risks": "projects/artefacts/RISKS.md",
+        "codex_brief": "projects/artefacts/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "needs verification",
+        "env_status": "needs verification",
+        "deploy_status": "needs verification"
+      }
+    },
+    {
+      "name": "council",
+      "slug": "council",
+      "purpose": "SIA Council local MVP app.",
+      "live_url": "unknown",
+      "repo_url": "https://github.com/andylitvinov-design/council",
+      "hosting": "needs verification",
+      "status_summary": "Private related repo from GitHub inventory.",
+      "memory_files": {
+        "project_md": "projects/council/PROJECT.md",
+        "system_map": "projects/council/SYSTEM_MAP.md",
+        "data_schema": "projects/council/DATA_SCHEMA.md",
+        "code_access": "projects/council/CODE_ACCESS.md",
+        "data_samples": "projects/council/DATA_SAMPLES.md",
+        "debug_log": "projects/council/DEBUG_LOG.md",
+        "risks": "projects/council/RISKS.md",
+        "codex_brief": "projects/council/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "needs verification",
+        "env_status": "needs verification",
+        "deploy_status": "needs verification"
+      }
+    },
+    {
+      "name": "psitrends",
+      "slug": "psitrends",
+      "purpose": "PsiTrends project.",
+      "live_url": "https://psitrends.pages.dev",
+      "repo_url": "https://github.com/andylitvinov-design/psitrends-work",
+      "hosting": "Cloudflare Pages project psitrends",
+      "status_summary": "Private related repo and Cloudflare Pages project from inventory; mapping needs verification.",
+      "memory_files": {
+        "project_md": "projects/psitrends/PROJECT.md",
+        "system_map": "projects/psitrends/SYSTEM_MAP.md",
+        "data_schema": "projects/psitrends/DATA_SCHEMA.md",
+        "code_access": "projects/psitrends/CODE_ACCESS.md",
+        "data_samples": "projects/psitrends/DATA_SAMPLES.md",
+        "debug_log": "projects/psitrends/DEBUG_LOG.md",
+        "risks": "projects/psitrends/RISKS.md",
+        "codex_brief": "projects/psitrends/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "listed",
+        "env_status": "needs verification",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "ezohata-save",
+      "slug": "ezohata-save",
+      "purpose": "EzoHata save/diagnostics project.",
+      "live_url": "https://ezohata-save.pages.dev",
+      "repo_url": "unknown",
+      "hosting": "Cloudflare Pages project ezohata-save",
+      "status_summary": "Cloudflare Pages project found in inventory; repo mapping needs verification.",
+      "memory_files": {
+        "project_md": "projects/ezohata-save/PROJECT.md",
+        "system_map": "projects/ezohata-save/SYSTEM_MAP.md",
+        "data_schema": "projects/ezohata-save/DATA_SCHEMA.md",
+        "code_access": "projects/ezohata-save/CODE_ACCESS.md",
+        "data_samples": "projects/ezohata-save/DATA_SAMPLES.md",
+        "debug_log": "projects/ezohata-save/DEBUG_LOG.md",
+        "risks": "projects/ezohata-save/RISKS.md",
+        "codex_brief": "projects/ezohata-save/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "needs verification",
+        "live_mapping": "listed",
+        "env_status": "needs verification",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "codex-save",
+      "slug": "codex-save",
+      "purpose": "Operator-facing diagnostics/remediation site for codex-links.",
+      "live_url": "https://codex-save-cjb.pages.dev",
+      "repo_url": "https://github.com/andylitvinov-design/codex-links",
+      "hosting": "Cloudflare Pages project codex-save",
+      "status_summary": "Related subproject under codex-links/codex-save.",
+      "memory_files": {
+        "project_md": "projects/codex-save/PROJECT.md",
+        "system_map": "projects/codex-save/SYSTEM_MAP.md",
+        "data_schema": "projects/codex-save/DATA_SCHEMA.md",
+        "code_access": "projects/codex-save/CODE_ACCESS.md",
+        "data_samples": "projects/codex-save/DATA_SAMPLES.md",
+        "debug_log": "projects/codex-save/DEBUG_LOG.md",
+        "risks": "projects/codex-save/RISKS.md",
+        "codex_brief": "projects/codex-save/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "listed",
+        "env_status": "names listed",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "ezohata-dashboard",
+      "slug": "ezohata-dashboard",
+      "purpose": "EzoHata dashboard Cloudflare Pages project.",
+      "live_url": "https://ezohata-dashboard.pages.dev",
+      "repo_url": "unknown",
+      "hosting": "Cloudflare Pages project ezohata-dashboard",
+      "status_summary": "Cloudflare Pages project found in inventory; repo mapping needs verification.",
+      "memory_files": {
+        "project_md": "projects/ezohata-dashboard/PROJECT.md",
+        "system_map": "projects/ezohata-dashboard/SYSTEM_MAP.md",
+        "data_schema": "projects/ezohata-dashboard/DATA_SCHEMA.md",
+        "code_access": "projects/ezohata-dashboard/CODE_ACCESS.md",
+        "data_samples": "projects/ezohata-dashboard/DATA_SAMPLES.md",
+        "debug_log": "projects/ezohata-dashboard/DEBUG_LOG.md",
+        "risks": "projects/ezohata-dashboard/RISKS.md",
+        "codex_brief": "projects/ezohata-dashboard/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "needs verification",
+        "live_mapping": "listed",
+        "env_status": "needs verification",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "sales-bwa-photo",
+      "slug": "sales-bwa-photo",
+      "purpose": "Sales/BWA photo Cloudflare Pages project.",
+      "live_url": "https://sales-bwa-photo.pages.dev",
+      "repo_url": "unknown",
+      "hosting": "Cloudflare Pages project sales-bwa-photo",
+      "status_summary": "Cloudflare Pages project found in inventory; repo mapping needs verification.",
+      "memory_files": {
+        "project_md": "projects/sales-bwa-photo/PROJECT.md",
+        "system_map": "projects/sales-bwa-photo/SYSTEM_MAP.md",
+        "data_schema": "projects/sales-bwa-photo/DATA_SCHEMA.md",
+        "code_access": "projects/sales-bwa-photo/CODE_ACCESS.md",
+        "data_samples": "projects/sales-bwa-photo/DATA_SAMPLES.md",
+        "debug_log": "projects/sales-bwa-photo/DEBUG_LOG.md",
+        "risks": "projects/sales-bwa-photo/RISKS.md",
+        "codex_brief": "projects/sales-bwa-photo/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "needs verification",
+        "live_mapping": "listed",
+        "env_status": "needs verification",
+        "deploy_status": "listed"
+      }
+    }
+  ]
+}

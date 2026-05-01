@@ -1,9 +1,27 @@
 {
+  "schema_version": "2026-04-29-project-memory-v1",
   "last_inventory_update": "2026-04-29",
+  "memory_files": [
+    "projects.md",
+    "projects.json",
+    "systems/project-memory-schema.md",
+    "systems/project-state-template.md",
+    "systems/project-log-template.md"
+  ],
+  "workflow_files": [
+    "systems/agent-rules.md",
+    "systems/codex-project-workflow.md",
+    "prompts/chatgpt-agent-projects.md"
+  ],
   "raw_files": {
     "projects_md": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md",
     "projects_json": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json",
-    "agent_rules": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md"
+    "agent_rules": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md",
+    "project_memory_schema": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md",
+    "project_state_template": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-state-template.md",
+    "project_log_template": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-log-template.md",
+    "codex_project_workflow": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-workflow.md",
+    "chatgpt_agent_projects": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/prompts/chatgpt-agent-projects.md"
   },
   "projects": [
     {
@@ -13,13 +31,69 @@
       "repo_url": "https://github.com/andylitvinov-design/finance",
       "hosting": "Vercel project ezohata-incoming-ledger",
       "current_status": "Active production source is andylitvinov-design/finance. Old repo andylitvinov-design/ezohata-incoming-ledger is private/deprecated read-only according to GitHub metadata.",
-      "important_files": ["index.html", "config.js", "finance.js", "google-auth.js", "google-sheets.js", "sheet-config.json", "api/paypal-transactions.js", "api/wise-transactions.js", "scripts/release-guard.sh"],
-      "env_variables": ["EZOHATA_V2_APPS_SCRIPT_URL", "EZOHATA_LEGACY_MANUAL_FINANCE_URL", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_ENVIRONMENT", "PAYPAL_MCP_CLIENT_ID", "PAYPAL_MCP_REFRESH_TOKEN", "WISE_API_TOKEN", "WISE_PROFILE_ID", "WISE_API_BASE", "OPENAI_API_KEY", "OPENAI_EXPENSE_MODEL"],
-      "known_issues": ["Legacy reconcile-v2/ and old repo can mislead agents into using the wrong production source.", "Provider imports depend on configured Vercel env variables.", "Older ledger behavior has sensitive rules around Остатки, Расходы, СТАЛО, now, transfers, and payout math."],
-      "recent_tasks": ["Finance repo PR #5 Harden OCR fallback and document finance env.", "Old repo PR #13 Restore full channel reconciliation table."],
-      "next_actions": ["Verify open PR status before new production work.", "Keep release version and sheet-config.json aligned.", "Run npm test, npm run build, and npm run release-guard before PR."],
-      "risks": ["Breaking Google Sheets OAuth.", "Breaking provider import routes.", "Breaking manual finance formulas.", "Using the wrong Vercel deploy source."],
-      "rules_for_codex": ["Do not use legacy reconcile-v2/ as production source.", "Use branch -> PR -> merge.", "Run test/build/release guard.", "Treat old repo as reference only unless explicitly asked."]
+      "important_files": [
+        "index.html",
+        "config.js",
+        "finance.js",
+        "google-auth.js",
+        "google-sheets.js",
+        "sheet-config.json",
+        "api/paypal-transactions.js",
+        "api/wise-transactions.js",
+        "scripts/release-guard.sh"
+      ],
+      "env_variables": [
+        "EZOHATA_V2_APPS_SCRIPT_URL",
+        "EZOHATA_LEGACY_MANUAL_FINANCE_URL",
+        "PAYPAL_CLIENT_ID",
+        "PAYPAL_CLIENT_SECRET",
+        "PAYPAL_ENVIRONMENT",
+        "PAYPAL_MCP_CLIENT_ID",
+        "PAYPAL_MCP_REFRESH_TOKEN",
+        "WISE_API_TOKEN",
+        "WISE_PROFILE_ID",
+        "WISE_API_BASE",
+        "OPENAI_API_KEY",
+        "OPENAI_EXPENSE_MODEL"
+      ],
+      "known_issues": [
+        "Legacy reconcile-v2/ and old repo can mislead agents into using the wrong production source.",
+        "Provider imports depend on configured Vercel env variables.",
+        "Older ledger behavior has sensitive rules around Остатки, Расходы, СТАЛО, now, transfers, and payout math."
+      ],
+      "recent_tasks": [
+        "Finance repo PR #5 Harden OCR fallback and document finance env.",
+        "Old repo PR #13 Restore full channel reconciliation table."
+      ],
+      "next_actions": [
+        "Verify open PR status before new production work.",
+        "Keep release version and sheet-config.json aligned.",
+        "Run npm test, npm run build, and npm run release-guard before PR."
+      ],
+      "risks": [
+        "Breaking Google Sheets OAuth.",
+        "Breaking provider import routes.",
+        "Breaking manual finance formulas.",
+        "Using the wrong Vercel deploy source."
+      ],
+      "rules_for_codex": [
+        "Do not use legacy reconcile-v2/ as production source.",
+        "Use branch -> PR -> merge.",
+        "Run test/build/release guard.",
+        "Treat old repo as reference only unless explicitly asked."
+      ],
+      "memory": {
+        "state_file": "projects/ezohata-incoming-ledger/STATE.md",
+        "log_file": "projects/ezohata-incoming-ledger/LOG.md",
+        "project_md": "projects/ezohata-incoming-ledger/PROJECT.md",
+        "system_map": "projects/ezohata-incoming-ledger/SYSTEM_MAP.md",
+        "data_schema": "projects/ezohata-incoming-ledger/DATA_SCHEMA.md",
+        "code_access": "projects/ezohata-incoming-ledger/CODE_ACCESS.md",
+        "data_samples": "projects/ezohata-incoming-ledger/DATA_SAMPLES.md",
+        "debug_log": "projects/ezohata-incoming-ledger/DEBUG_LOG.md",
+        "risks": "projects/ezohata-incoming-ledger/RISKS.md",
+        "codex_brief": "projects/ezohata-incoming-ledger/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "reiki-yggdrasil",
@@ -28,13 +102,58 @@
       "repo_url": "https://github.com/andylitvinov-design/reiki-yggdrasil",
       "hosting": "Vercel, Vite build",
       "current_status": "Public Vite/Supabase MVP with /, /profile, /masters, and /profile/admin.",
-      "important_files": ["src/App.jsx", "src/main.jsx", "src/index.css", "src/pages/ProfilePage.jsx", "src/pages/MastersPage.jsx", "src/pages/AdminPage.jsx", "src/lib/supabaseClient.js", "supabase/migrations/20260428_master_cabinet_mvp.sql", "vercel.json"],
-      "env_variables": ["VITE_SUPABASE_URL", "VITE_SUPABASE_ANON_KEY", "VITE_ADMIN_EMAIL"],
-      "known_issues": ["Supabase credentials and seeded data require live verification.", "Vercel GitHub App access can block import/deploy visibility.", "Layout changes can accidentally collapse the accepted three-column desktop structure."],
-      "recent_tasks": ["Added /profile, /masters, /profile/admin, Supabase schema/seed, RU-first i18n-ready structure, and route-based app split."],
-      "next_actions": ["Verify Supabase env values and live auth/profile flow before claiming end-to-end completion."],
-      "risks": ["Breaking existing home page.", "Breaking RU default interface.", "Breaking route rewrites.", "Breaking Supabase auth/data flows.", "Breaking the three-column layout."],
-      "rules_for_codex": ["Preserve the existing home page.", "Keep RU default.", "Prefer additive route/module changes.", "Do not collapse the accepted three-column layout without explicit reason."]
+      "important_files": [
+        "src/App.jsx",
+        "src/main.jsx",
+        "src/index.css",
+        "src/pages/ProfilePage.jsx",
+        "src/pages/MastersPage.jsx",
+        "src/pages/AdminPage.jsx",
+        "src/lib/supabaseClient.js",
+        "supabase/migrations/20260428_master_cabinet_mvp.sql",
+        "vercel.json"
+      ],
+      "env_variables": [
+        "VITE_SUPABASE_URL",
+        "VITE_SUPABASE_ANON_KEY",
+        "VITE_ADMIN_EMAIL"
+      ],
+      "known_issues": [
+        "Supabase credentials and seeded data require live verification.",
+        "Vercel GitHub App access can block import/deploy visibility.",
+        "Layout changes can accidentally collapse the accepted three-column desktop structure."
+      ],
+      "recent_tasks": [
+        "Added /profile, /masters, /profile/admin, Supabase schema/seed, RU-first i18n-ready structure, and route-based app split."
+      ],
+      "next_actions": [
+        "Verify Supabase env values and live auth/profile flow before claiming end-to-end completion."
+      ],
+      "risks": [
+        "Breaking existing home page.",
+        "Breaking RU default interface.",
+        "Breaking route rewrites.",
+        "Breaking Supabase auth/data flows.",
+        "Breaking the three-column layout."
+      ],
+      "rules_for_codex": [
+        "Preserve the existing home page.",
+        "Keep RU default.",
+        "Prefer additive route/module changes.",
+        "Do not collapse the accepted three-column layout without explicit reason."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/reiki-yggdrasil/PROJECT.md",
+        "system_map": "projects/reiki-yggdrasil/SYSTEM_MAP.md",
+        "data_schema": "projects/reiki-yggdrasil/DATA_SCHEMA.md",
+        "code_access": "projects/reiki-yggdrasil/CODE_ACCESS.md",
+        "data_samples": "projects/reiki-yggdrasil/DATA_SAMPLES.md",
+        "debug_log": "projects/reiki-yggdrasil/DEBUG_LOG.md",
+        "risks": "projects/reiki-yggdrasil/RISKS.md",
+        "codex_brief": "projects/reiki-yggdrasil/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "brain-management",
@@ -43,13 +162,55 @@
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Cloudflare Pages",
       "current_status": "Private repo with Cloudflare Pages live dashboard. Dashboard snapshots live under dashboard-thinking/data/.",
-      "important_files": ["README.md", ".env.example", "dashboard-thinking/data/current-thinking-audit.json", "dashboard-thinking/data/current-daily-upgrade.json", "dashboard-thinking/data/current-daily-changes.json", "scripts/refresh-management-dashboards.js", "functions/api/mobile-run.js"],
-      "env_variables": ["GOOGLE_OAUTH_CLIENT_ID", "GOOGLE_OAUTH_CLIENT_SECRET", "GOOGLE_AUTH_SESSION_SECRET", "GOOGLE_AUTH_ALLOWED_EMAILS", "GOOGLE_AUTH_ALLOWED_DOMAIN"],
-      "known_issues": ["Morning report publish/API verification can fail on codex-links.pages.dev DNS/network reachability.", "Agents sometimes verify dashboard JSON from the wrong root path."],
-      "recent_tasks": ["Morning report flow uses refresh, verify current JSONs, publish, verify public API, and open inbox item on explicit request/failure."],
-      "next_actions": ["Re-check live report publishing path when DNS/network is available.", "Keep current JSON verification pointed at dashboard-thinking/data/."],
-      "risks": ["Reporting stale data.", "Mixing sibling repos into the management boundary.", "Skipping the fixed morning report sequence."],
-      "rules_for_codex": ["Read AGENTS.md, README.md, and STATE.md first when present.", "Preserve the management report flow order.", "Include exact failing command/check when a step fails."]
+      "important_files": [
+        "README.md",
+        ".env.example",
+        "dashboard-thinking/data/current-thinking-audit.json",
+        "dashboard-thinking/data/current-daily-upgrade.json",
+        "dashboard-thinking/data/current-daily-changes.json",
+        "scripts/refresh-management-dashboards.js",
+        "functions/api/mobile-run.js"
+      ],
+      "env_variables": [
+        "GOOGLE_OAUTH_CLIENT_ID",
+        "GOOGLE_OAUTH_CLIENT_SECRET",
+        "GOOGLE_AUTH_SESSION_SECRET",
+        "GOOGLE_AUTH_ALLOWED_EMAILS",
+        "GOOGLE_AUTH_ALLOWED_DOMAIN"
+      ],
+      "known_issues": [
+        "Morning report publish/API verification can fail on codex-links.pages.dev DNS/network reachability.",
+        "Agents sometimes verify dashboard JSON from the wrong root path."
+      ],
+      "recent_tasks": [
+        "Morning report flow uses refresh, verify current JSONs, publish, verify public API, and open inbox item on explicit request/failure."
+      ],
+      "next_actions": [
+        "Re-check live report publishing path when DNS/network is available.",
+        "Keep current JSON verification pointed at dashboard-thinking/data/."
+      ],
+      "risks": [
+        "Reporting stale data.",
+        "Mixing sibling repos into the management boundary.",
+        "Skipping the fixed morning report sequence."
+      ],
+      "rules_for_codex": [
+        "Read AGENTS.md, README.md, and STATE.md first when present.",
+        "Preserve the management report flow order.",
+        "Include exact failing command/check when a step fails."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/brain-management/PROJECT.md",
+        "system_map": "projects/brain-management/SYSTEM_MAP.md",
+        "data_schema": "projects/brain-management/DATA_SCHEMA.md",
+        "code_access": "projects/brain-management/CODE_ACCESS.md",
+        "data_samples": "projects/brain-management/DATA_SAMPLES.md",
+        "debug_log": "projects/brain-management/DEBUG_LOG.md",
+        "risks": "projects/brain-management/RISKS.md",
+        "codex_brief": "projects/brain-management/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "codex-links",
@@ -58,13 +219,68 @@
       "repo_url": "https://github.com/andylitvinov-design/codex-links",
       "hosting": "Cloudflare Pages projects codex-links and related codex-save",
       "current_status": "Public repo. Production command delivery is primarily Slack-backed Codex Cloud with local bridge/direct OpenAI paths as secondary or optional modes.",
-      "important_files": ["functions/api/commands.js", "functions/api/delivery.js", "functions/api/reports.js", "functions/_lib/dispatch.js", "functions/_lib/reports.js", "public/app.js", "public/version.json", "wrangler.toml/jsonc", "codex-save/"],
-      "env_variables": ["LINKS_WRITE_TOKEN", "ADMIN_TOKEN", "COMMAND_DISPATCH_MODE", "OPENAI_API_KEY", "CLOUD_BRIDGE_BASE_URL", "CLOUD_BRIDGE_SHARED_SECRET", "SLACK_BOT_TOKEN", "SLACK_CODEX_DISPATCH_TOKEN", "SLACK_SIGNING_SECRET", "SLACK_CODEX_CHANNEL_ID", "SLACK_CODEX_USER_ID", "SLACK_CODEX_MENTION"],
-      "known_issues": ["Cloud delivery can be fixed in repo while external worker/account linkage remains blocked.", "Release deploys require version triplet alignment.", "DNS/network reachability can block report verification."],
-      "recent_tasks": ["Open PR #148 fix: pass Slack url_private_download into Codex Cloud photo prompt.", "Open PR #137 Restore GitHub auto-sync push."],
-      "next_actions": ["Verify open PR status before new work.", "Confirm live Cloudflare behavior after production-facing changes."],
-      "risks": ["Breaking command lifecycle.", "Breaking Slack delivery.", "Breaking report rendering.", "Breaking Cloudflare KV contracts.", "Breaking codex-save diagnostics."],
-      "rules_for_codex": ["Keep public/version.json, public/index.html, and public/app.js build version aligned.", "Distinguish cloud plumbing from worker/account linkage.", "Verify live behavior when production-facing."]
+      "important_files": [
+        "functions/api/commands.js",
+        "functions/api/delivery.js",
+        "functions/api/reports.js",
+        "functions/_lib/dispatch.js",
+        "functions/_lib/reports.js",
+        "public/app.js",
+        "public/version.json",
+        "wrangler.toml/jsonc",
+        "codex-save/"
+      ],
+      "env_variables": [
+        "LINKS_WRITE_TOKEN",
+        "ADMIN_TOKEN",
+        "COMMAND_DISPATCH_MODE",
+        "OPENAI_API_KEY",
+        "CLOUD_BRIDGE_BASE_URL",
+        "CLOUD_BRIDGE_SHARED_SECRET",
+        "SLACK_BOT_TOKEN",
+        "SLACK_CODEX_DISPATCH_TOKEN",
+        "SLACK_SIGNING_SECRET",
+        "SLACK_CODEX_CHANNEL_ID",
+        "SLACK_CODEX_USER_ID",
+        "SLACK_CODEX_MENTION"
+      ],
+      "known_issues": [
+        "Cloud delivery can be fixed in repo while external worker/account linkage remains blocked.",
+        "Release deploys require version triplet alignment.",
+        "DNS/network reachability can block report verification."
+      ],
+      "recent_tasks": [
+        "Open PR #148 fix: pass Slack url_private_download into Codex Cloud photo prompt.",
+        "Open PR #137 Restore GitHub auto-sync push."
+      ],
+      "next_actions": [
+        "Verify open PR status before new work.",
+        "Confirm live Cloudflare behavior after production-facing changes."
+      ],
+      "risks": [
+        "Breaking command lifecycle.",
+        "Breaking Slack delivery.",
+        "Breaking report rendering.",
+        "Breaking Cloudflare KV contracts.",
+        "Breaking codex-save diagnostics."
+      ],
+      "rules_for_codex": [
+        "Keep public/version.json, public/index.html, and public/app.js build version aligned.",
+        "Distinguish cloud plumbing from worker/account linkage.",
+        "Verify live behavior when production-facing."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/codex-links/PROJECT.md",
+        "system_map": "projects/codex-links/SYSTEM_MAP.md",
+        "data_schema": "projects/codex-links/DATA_SCHEMA.md",
+        "code_access": "projects/codex-links/CODE_ACCESS.md",
+        "data_samples": "projects/codex-links/DATA_SAMPLES.md",
+        "debug_log": "projects/codex-links/DEBUG_LOG.md",
+        "risks": "projects/codex-links/RISKS.md",
+        "codex_brief": "projects/codex-links/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "codex-links-myportal",
@@ -73,13 +289,66 @@
       "repo_url": "unknown",
       "hosting": "Cloudflare Pages project codex-links-myportal",
       "current_status": "Local checkout has no remote configured and is dirty. Cloudflare Pages app has token-gated /api/finance/sync and finance import helpers.",
-      "important_files": ["functions/api/finance/sync.js", "functions/api/finance/plaid.js", "functions/_lib/finance.js", "functions/_lib/security.js", "public/finance-import.html", "public/td-easyweb-import.html", "wrangler.jsonc"],
-      "env_variables": ["LINKS_EXECUTOR_TOKEN", "FINANCE_CONNECT_TOKEN", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_API_BASE", "PLAID_CLIENT_ID", "PLAID_SECRET", "PLAID_API_BASE", "WISE_API_TOKEN", "WISE_PROFILE_ID", "WISE_API_BASE", "BINANCE_API_KEY", "BINANCE_SECRET_KEY", "BINANCE_API_BASE"],
-      "known_issues": ["Repo remote mapping needs verification.", "Dirty local checkout should not be touched for unrelated repo creation.", "Provider code path is not the same as live credential verification.", "Binance history has API window limits."],
-      "recent_tasks": ["Added PayPal, Wise balances/statements, Binance, Plaid/TD import helpers, and /api/finance/sync provider selection."],
-      "next_actions": ["Establish canonical remote or mark as local-only.", "Verify live Cloudflare secrets before claiming provider sync works."],
-      "risks": ["Leaking finance secrets.", "Overwriting dirty local changes.", "Confusing configured code with live provider access."],
-      "rules_for_codex": ["Do not touch the dirty myportal checkout for unrelated tasks.", "Use temp clone/workdir.", "Store only env names, never values."]
+      "important_files": [
+        "functions/api/finance/sync.js",
+        "functions/api/finance/plaid.js",
+        "functions/_lib/finance.js",
+        "functions/_lib/security.js",
+        "public/finance-import.html",
+        "public/td-easyweb-import.html",
+        "wrangler.jsonc"
+      ],
+      "env_variables": [
+        "LINKS_EXECUTOR_TOKEN",
+        "FINANCE_CONNECT_TOKEN",
+        "PAYPAL_CLIENT_ID",
+        "PAYPAL_CLIENT_SECRET",
+        "PAYPAL_API_BASE",
+        "PLAID_CLIENT_ID",
+        "PLAID_SECRET",
+        "PLAID_API_BASE",
+        "WISE_API_TOKEN",
+        "WISE_PROFILE_ID",
+        "WISE_API_BASE",
+        "BINANCE_API_KEY",
+        "BINANCE_SECRET_KEY",
+        "BINANCE_API_BASE"
+      ],
+      "known_issues": [
+        "Repo remote mapping needs verification.",
+        "Dirty local checkout should not be touched for unrelated repo creation.",
+        "Provider code path is not the same as live credential verification.",
+        "Binance history has API window limits."
+      ],
+      "recent_tasks": [
+        "Added PayPal, Wise balances/statements, Binance, Plaid/TD import helpers, and /api/finance/sync provider selection."
+      ],
+      "next_actions": [
+        "Establish canonical remote or mark as local-only.",
+        "Verify live Cloudflare secrets before claiming provider sync works."
+      ],
+      "risks": [
+        "Leaking finance secrets.",
+        "Overwriting dirty local changes.",
+        "Confusing configured code with live provider access."
+      ],
+      "rules_for_codex": [
+        "Do not touch the dirty myportal checkout for unrelated tasks.",
+        "Use temp clone/workdir.",
+        "Store only env names, never values."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/codex-links-myportal/PROJECT.md",
+        "system_map": "projects/codex-links-myportal/SYSTEM_MAP.md",
+        "data_schema": "projects/codex-links-myportal/DATA_SCHEMA.md",
+        "code_access": "projects/codex-links-myportal/CODE_ACCESS.md",
+        "data_samples": "projects/codex-links-myportal/DATA_SAMPLES.md",
+        "debug_log": "projects/codex-links-myportal/DEBUG_LOG.md",
+        "risks": "projects/codex-links-myportal/RISKS.md",
+        "codex_brief": "projects/codex-links-myportal/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "ezohata_ads",
@@ -88,13 +357,40 @@
       "repo_url": "https://github.com/andylitvinov-design/ezohata_ads",
       "hosting": "needs verification",
       "current_status": "Private related repo from GitHub inventory.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["needs verification"],
-      "recent_tasks": ["Skill installation and ads/analytics setup context exists in local memory."],
-      "next_actions": ["Inspect repo README, AGENTS, deploy config, and current hosting before agent work."],
-      "risks": ["Analytics/ads credentials and external account access are likely sensitive."],
-      "rules_for_codex": ["Do not infer credentials.", "Verify exact provider setup and repo-local rules first."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "needs verification"
+      ],
+      "recent_tasks": [
+        "Skill installation and ads/analytics setup context exists in local memory."
+      ],
+      "next_actions": [
+        "Inspect repo README, AGENTS, deploy config, and current hosting before agent work."
+      ],
+      "risks": [
+        "Analytics/ads credentials and external account access are likely sensitive."
+      ],
+      "rules_for_codex": [
+        "Do not infer credentials.",
+        "Verify exact provider setup and repo-local rules first."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/ezohata_ads/PROJECT.md",
+        "system_map": "projects/ezohata_ads/SYSTEM_MAP.md",
+        "data_schema": "projects/ezohata_ads/DATA_SCHEMA.md",
+        "code_access": "projects/ezohata_ads/CODE_ACCESS.md",
+        "data_samples": "projects/ezohata_ads/DATA_SAMPLES.md",
+        "debug_log": "projects/ezohata_ads/DEBUG_LOG.md",
+        "risks": "projects/ezohata_ads/RISKS.md",
+        "codex_brief": "projects/ezohata_ads/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "codex-daily-backups",
@@ -103,13 +399,40 @@
       "repo_url": "https://github.com/andylitvinov-design/codex-daily-backups",
       "hosting": "GitHub repository",
       "current_status": "Private backup repo from GitHub inventory.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["Sensitive projects may be encrypted-only or skipped from plaintext backups."],
-      "recent_tasks": ["Recent-upgrades backup automation saved selected project snapshots and reported preservation status."],
-      "next_actions": ["Inspect backup automation before relying on backup coverage."],
-      "risks": ["Accidentally exposing private/sensitive data."],
-      "rules_for_codex": ["Treat as sensitive backup infrastructure.", "Do not publish backup contents."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "Sensitive projects may be encrypted-only or skipped from plaintext backups."
+      ],
+      "recent_tasks": [
+        "Recent-upgrades backup automation saved selected project snapshots and reported preservation status."
+      ],
+      "next_actions": [
+        "Inspect backup automation before relying on backup coverage."
+      ],
+      "risks": [
+        "Accidentally exposing private/sensitive data."
+      ],
+      "rules_for_codex": [
+        "Treat as sensitive backup infrastructure.",
+        "Do not publish backup contents."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/codex-daily-backups/PROJECT.md",
+        "system_map": "projects/codex-daily-backups/SYSTEM_MAP.md",
+        "data_schema": "projects/codex-daily-backups/DATA_SCHEMA.md",
+        "code_access": "projects/codex-daily-backups/CODE_ACCESS.md",
+        "data_samples": "projects/codex-daily-backups/DATA_SAMPLES.md",
+        "debug_log": "projects/codex-daily-backups/DEBUG_LOG.md",
+        "risks": "projects/codex-daily-backups/RISKS.md",
+        "codex_brief": "projects/codex-daily-backups/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "active-projects-ops",
@@ -118,13 +441,40 @@
       "repo_url": "https://github.com/andylitvinov-design/active-projects-ops",
       "hosting": "needs verification",
       "current_status": "Private related repo from GitHub inventory.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["Shared repo, not necessarily one project per root."],
-      "recent_tasks": ["needs verification"],
-      "next_actions": ["Inspect repo boundary and subproject mapping before changes."],
-      "risks": ["Mixing independent project contexts."],
-      "rules_for_codex": ["Do not assume one repo equals one product.", "Read repo-local AGENTS.md and subproject docs first."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "Shared repo, not necessarily one project per root."
+      ],
+      "recent_tasks": [
+        "needs verification"
+      ],
+      "next_actions": [
+        "Inspect repo boundary and subproject mapping before changes."
+      ],
+      "risks": [
+        "Mixing independent project contexts."
+      ],
+      "rules_for_codex": [
+        "Do not assume one repo equals one product.",
+        "Read repo-local AGENTS.md and subproject docs first."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/active-projects-ops/PROJECT.md",
+        "system_map": "projects/active-projects-ops/SYSTEM_MAP.md",
+        "data_schema": "projects/active-projects-ops/DATA_SCHEMA.md",
+        "code_access": "projects/active-projects-ops/CODE_ACCESS.md",
+        "data_samples": "projects/active-projects-ops/DATA_SAMPLES.md",
+        "debug_log": "projects/active-projects-ops/DEBUG_LOG.md",
+        "risks": "projects/active-projects-ops/RISKS.md",
+        "codex_brief": "projects/active-projects-ops/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "report",
@@ -133,13 +483,39 @@
       "repo_url": "https://github.com/andylitvinov-design/report",
       "hosting": "needs verification",
       "current_status": "Public related repo from GitHub inventory.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["needs verification"],
-      "recent_tasks": ["needs verification"],
-      "next_actions": ["Inspect README, deploy config, and live URL."],
-      "risks": ["Unknown until repo inspection."],
-      "rules_for_codex": ["Mark uncertain assumptions as needs verification."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "needs verification"
+      ],
+      "recent_tasks": [
+        "needs verification"
+      ],
+      "next_actions": [
+        "Inspect README, deploy config, and live URL."
+      ],
+      "risks": [
+        "Unknown until repo inspection."
+      ],
+      "rules_for_codex": [
+        "Mark uncertain assumptions as needs verification."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/report/PROJECT.md",
+        "system_map": "projects/report/SYSTEM_MAP.md",
+        "data_schema": "projects/report/DATA_SCHEMA.md",
+        "code_access": "projects/report/CODE_ACCESS.md",
+        "data_samples": "projects/report/DATA_SAMPLES.md",
+        "debug_log": "projects/report/DEBUG_LOG.md",
+        "risks": "projects/report/RISKS.md",
+        "codex_brief": "projects/report/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "artefacts",
@@ -148,13 +524,39 @@
       "repo_url": "https://github.com/andylitvinov-design/artefacts",
       "hosting": "needs verification",
       "current_status": "Private related repo from GitHub inventory.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["needs verification"],
-      "recent_tasks": ["needs verification"],
-      "next_actions": ["Inspect repo-local README, STATE, AGENTS, and deploy config before changes."],
-      "risks": ["Unknown private project context."],
-      "rules_for_codex": ["Do not apply patterns from links or ezohata without checking this repo."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "needs verification"
+      ],
+      "recent_tasks": [
+        "needs verification"
+      ],
+      "next_actions": [
+        "Inspect repo-local README, STATE, AGENTS, and deploy config before changes."
+      ],
+      "risks": [
+        "Unknown private project context."
+      ],
+      "rules_for_codex": [
+        "Do not apply patterns from links or ezohata without checking this repo."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/artefacts/PROJECT.md",
+        "system_map": "projects/artefacts/SYSTEM_MAP.md",
+        "data_schema": "projects/artefacts/DATA_SCHEMA.md",
+        "code_access": "projects/artefacts/CODE_ACCESS.md",
+        "data_samples": "projects/artefacts/DATA_SAMPLES.md",
+        "debug_log": "projects/artefacts/DEBUG_LOG.md",
+        "risks": "projects/artefacts/RISKS.md",
+        "codex_brief": "projects/artefacts/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "council",
@@ -163,13 +565,39 @@
       "repo_url": "https://github.com/andylitvinov-design/council",
       "hosting": "needs verification",
       "current_status": "Private related repo from GitHub inventory.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["needs verification"],
-      "recent_tasks": ["needs verification"],
-      "next_actions": ["Inspect repo and hosting metadata."],
-      "risks": ["Unknown until repo inspection."],
-      "rules_for_codex": ["Verify local app assumptions before implementation."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "needs verification"
+      ],
+      "recent_tasks": [
+        "needs verification"
+      ],
+      "next_actions": [
+        "Inspect repo and hosting metadata."
+      ],
+      "risks": [
+        "Unknown until repo inspection."
+      ],
+      "rules_for_codex": [
+        "Verify local app assumptions before implementation."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/council/PROJECT.md",
+        "system_map": "projects/council/SYSTEM_MAP.md",
+        "data_schema": "projects/council/DATA_SCHEMA.md",
+        "code_access": "projects/council/CODE_ACCESS.md",
+        "data_samples": "projects/council/DATA_SAMPLES.md",
+        "debug_log": "projects/council/DEBUG_LOG.md",
+        "risks": "projects/council/RISKS.md",
+        "codex_brief": "projects/council/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "psitrends",
@@ -178,13 +606,39 @@
       "repo_url": "https://github.com/andylitvinov-design/psitrends-work",
       "hosting": "Cloudflare Pages project psitrends",
       "current_status": "Private related repo and Cloudflare Pages project from inventory; mapping needs verification.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["Repo-to-hosting mapping is inferred from names and needs verification."],
-      "recent_tasks": ["needs verification"],
-      "next_actions": ["Inspect repo and Cloudflare deployment source."],
-      "risks": ["Incorrect repo/live URL mapping."],
-      "rules_for_codex": ["Treat mapping as needs verification until confirmed."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "Repo-to-hosting mapping is inferred from names and needs verification."
+      ],
+      "recent_tasks": [
+        "needs verification"
+      ],
+      "next_actions": [
+        "Inspect repo and Cloudflare deployment source."
+      ],
+      "risks": [
+        "Incorrect repo/live URL mapping."
+      ],
+      "rules_for_codex": [
+        "Treat mapping as needs verification until confirmed."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/psitrends/PROJECT.md",
+        "system_map": "projects/psitrends/SYSTEM_MAP.md",
+        "data_schema": "projects/psitrends/DATA_SCHEMA.md",
+        "code_access": "projects/psitrends/CODE_ACCESS.md",
+        "data_samples": "projects/psitrends/DATA_SAMPLES.md",
+        "debug_log": "projects/psitrends/DEBUG_LOG.md",
+        "risks": "projects/psitrends/RISKS.md",
+        "codex_brief": "projects/psitrends/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "ezohata-save",
@@ -193,13 +647,40 @@
       "repo_url": "unknown",
       "hosting": "Cloudflare Pages project ezohata-save",
       "current_status": "Cloudflare Pages project found in inventory; repo mapping needs verification.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["needs verification"],
-      "recent_tasks": ["EzoHata deterministic diagnosis/remediation context exists in local memory."],
-      "next_actions": ["Map Cloudflare project to repo and inspect deployment source."],
-      "risks": ["Misrouting remediation commands.", "Confusing with codex-save."],
-      "rules_for_codex": ["Verify target app and command surface before making changes."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "needs verification"
+      ],
+      "recent_tasks": [
+        "EzoHata deterministic diagnosis/remediation context exists in local memory."
+      ],
+      "next_actions": [
+        "Map Cloudflare project to repo and inspect deployment source."
+      ],
+      "risks": [
+        "Misrouting remediation commands.",
+        "Confusing with codex-save."
+      ],
+      "rules_for_codex": [
+        "Verify target app and command surface before making changes."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/ezohata-save/PROJECT.md",
+        "system_map": "projects/ezohata-save/SYSTEM_MAP.md",
+        "data_schema": "projects/ezohata-save/DATA_SCHEMA.md",
+        "code_access": "projects/ezohata-save/CODE_ACCESS.md",
+        "data_samples": "projects/ezohata-save/DATA_SAMPLES.md",
+        "debug_log": "projects/ezohata-save/DEBUG_LOG.md",
+        "risks": "projects/ezohata-save/RISKS.md",
+        "codex_brief": "projects/ezohata-save/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "codex-save",
@@ -208,13 +689,44 @@
       "repo_url": "https://github.com/andylitvinov-design/codex-links",
       "hosting": "Cloudflare Pages project codex-save",
       "current_status": "Related subproject under codex-links/codex-save.",
-      "important_files": ["codex-save/README.md", "codex-save/package.json", "codex-save/public/"],
-      "env_variables": ["SAVE_STORE", "LINKS_WRITE_TOKEN", "ADMIN_TOKEN"],
-      "known_issues": ["Remediation creates real codex-links agent commands; it does not push directly to main."],
-      "recent_tasks": ["Diagnostics and remediation UX added to codex-links."],
-      "next_actions": ["Verify live project and KV binding before changing remediation flows."],
-      "risks": ["Triggering real commands unintentionally."],
-      "rules_for_codex": ["Treat as operational tooling for codex-links.", "Verify command side effects."]
+      "important_files": [
+        "codex-save/README.md",
+        "codex-save/package.json",
+        "codex-save/public/"
+      ],
+      "env_variables": [
+        "SAVE_STORE",
+        "LINKS_WRITE_TOKEN",
+        "ADMIN_TOKEN"
+      ],
+      "known_issues": [
+        "Remediation creates real codex-links agent commands; it does not push directly to main."
+      ],
+      "recent_tasks": [
+        "Diagnostics and remediation UX added to codex-links."
+      ],
+      "next_actions": [
+        "Verify live project and KV binding before changing remediation flows."
+      ],
+      "risks": [
+        "Triggering real commands unintentionally."
+      ],
+      "rules_for_codex": [
+        "Treat as operational tooling for codex-links.",
+        "Verify command side effects."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/codex-save/PROJECT.md",
+        "system_map": "projects/codex-save/SYSTEM_MAP.md",
+        "data_schema": "projects/codex-save/DATA_SCHEMA.md",
+        "code_access": "projects/codex-save/CODE_ACCESS.md",
+        "data_samples": "projects/codex-save/DATA_SAMPLES.md",
+        "debug_log": "projects/codex-save/DEBUG_LOG.md",
+        "risks": "projects/codex-save/RISKS.md",
+        "codex_brief": "projects/codex-save/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "ezohata-dashboard",
@@ -223,13 +735,39 @@
       "repo_url": "unknown",
       "hosting": "Cloudflare Pages project ezohata-dashboard",
       "current_status": "Cloudflare Pages project found in inventory; repo mapping needs verification.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["May be separate from current finance/Vercel incoming ledger production."],
-      "recent_tasks": ["needs verification"],
-      "next_actions": ["Verify whether this is legacy dashboard, active dashboard, or archived target."],
-      "risks": ["Confusing Cloudflare dashboard with Vercel incoming ledger."],
-      "rules_for_codex": ["Do not deploy here unless target is explicitly confirmed."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "May be separate from current finance/Vercel incoming ledger production."
+      ],
+      "recent_tasks": [
+        "needs verification"
+      ],
+      "next_actions": [
+        "Verify whether this is legacy dashboard, active dashboard, or archived target."
+      ],
+      "risks": [
+        "Confusing Cloudflare dashboard with Vercel incoming ledger."
+      ],
+      "rules_for_codex": [
+        "Do not deploy here unless target is explicitly confirmed."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/ezohata-dashboard/PROJECT.md",
+        "system_map": "projects/ezohata-dashboard/SYSTEM_MAP.md",
+        "data_schema": "projects/ezohata-dashboard/DATA_SCHEMA.md",
+        "code_access": "projects/ezohata-dashboard/CODE_ACCESS.md",
+        "data_samples": "projects/ezohata-dashboard/DATA_SAMPLES.md",
+        "debug_log": "projects/ezohata-dashboard/DEBUG_LOG.md",
+        "risks": "projects/ezohata-dashboard/RISKS.md",
+        "codex_brief": "projects/ezohata-dashboard/CODEX_BRIEF.md"
+      }
     },
     {
       "name": "sales-bwa-photo",
@@ -238,13 +776,39 @@
       "repo_url": "unknown",
       "hosting": "Cloudflare Pages project sales-bwa-photo",
       "current_status": "Cloudflare Pages project found in inventory; repo mapping needs verification.",
-      "important_files": ["needs verification"],
-      "env_variables": ["needs verification"],
-      "known_issues": ["needs verification"],
-      "recent_tasks": ["needs verification"],
-      "next_actions": ["Map project to repo before changes."],
-      "risks": ["Unknown project boundary."],
-      "rules_for_codex": ["Verify repo and deployment source first."]
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "needs verification"
+      ],
+      "recent_tasks": [
+        "needs verification"
+      ],
+      "next_actions": [
+        "Map project to repo before changes."
+      ],
+      "risks": [
+        "Unknown project boundary."
+      ],
+      "rules_for_codex": [
+        "Verify repo and deployment source first."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/sales-bwa-photo/PROJECT.md",
+        "system_map": "projects/sales-bwa-photo/SYSTEM_MAP.md",
+        "data_schema": "projects/sales-bwa-photo/DATA_SCHEMA.md",
+        "code_access": "projects/sales-bwa-photo/CODE_ACCESS.md",
+        "data_samples": "projects/sales-bwa-photo/DATA_SAMPLES.md",
+        "debug_log": "projects/sales-bwa-photo/DEBUG_LOG.md",
+        "risks": "projects/sales-bwa-photo/RISKS.md",
+        "codex_brief": "projects/sales-bwa-photo/CODEX_BRIEF.md"
+      }
     }
   ]
 }

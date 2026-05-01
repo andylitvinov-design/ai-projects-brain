@@ -4,6 +4,21 @@ Last inventory update: 2026-04-29.
 
 This file mirrors the core records in `projects.json`. It lists public context only. Environment variables are names only, not values.
 
+## Memory System
+
+- `projects.md` = human-readable project map
+- `projects.json` = machine-readable project database
+- `data/project-index.json` = generated project memory index
+- `projects/<slug>/PROJECT.md` = detailed per-project passport
+- `projects/<slug>/SYSTEM_MAP.md` = flow/runtime/deploy map
+- `projects/<slug>/DATA_SCHEMA.md` = data contracts and schema notes
+- `systems/project-memory-schema.md` = shared memory schema
+- `systems/project-memory-standard.md` = expanded memory standard
+- `systems/codex-project-update-protocol.md` = Codex memory update protocol
+- `systems/project-state-template.md` = current-state template
+- `systems/project-log-template.md` = change log template
+- `systems/codex-project-workflow.md` = Codex workflow
+
 Canonical field mapping in this database:
 
 - `name`
@@ -19,6 +34,8 @@ Canonical field mapping in this database:
 
 ## ezohata-incoming-ledger
 
+- **project memory:** `projects/ezohata-incoming-ledger/PROJECT.md`
+
 - **name:** ezohata-incoming-ledger
 - **purpose:** Web app for EzoHata incoming payments, expenses, fact data, balances, provider imports, and channel analytics.
 - **live URL:** https://ezohata-incoming-ledger.vercel.app
@@ -27,13 +44,18 @@ Canonical field mapping in this database:
 - **current status:** Active production source is `andylitvinov-design/finance`. Old repo `andylitvinov-design/ezohata-incoming-ledger` is private/deprecated read-only according to GitHub metadata.
 - **important files:** `index.html`, `config.js`, `finance.js`, `google-auth.js`, `google-sheets.js`, `sheet-config.json`, `api/paypal-transactions.js`, `api/wise-transactions.js`, `scripts/release-guard.sh`
 - **env variables:** `EZOHATA_V2_APPS_SCRIPT_URL`, `EZOHATA_LEGACY_MANUAL_FINANCE_URL`, `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`, `PAYPAL_ENVIRONMENT`, `PAYPAL_MCP_CLIENT_ID`, `PAYPAL_MCP_REFRESH_TOKEN`, `WISE_API_TOKEN`, `WISE_PROFILE_ID`, `WISE_API_BASE`, `OPENAI_API_KEY`, `OPENAI_EXPENSE_MODEL`
-- **known issues:** Legacy `reconcile-v2/` and old repo can mislead agents into using the wrong production source. Provider imports depend on configured Vercel env variables. Older ledger behavior has sensitive rules around `Остатки`, `Расходы`, `СТАЛО`, `now`, transfers, and payout math.
+- **known issues:** Legacy `reconcile-v2/` and old repo can mislead agents into
+  using the wrong production source. Provider imports depend on configured
+  Vercel env variables. Older ledger behavior has sensitive rules around
+  `Остатки`, `Расходы`, `СТАЛО`, `now`, transfers, and payout math.
 - **recent tasks:** Finance repo PR #5 `Harden OCR fallback and document finance env`; old repo PR #13 `Restore full channel reconciliation table`.
 - **next actions:** Verify open PR status before new production work. Keep release version and `sheet-config.json` aligned. Run `npm test`, `npm run build`, and `npm run release-guard` before PR.
 - **risks:** Breaking Google Sheets OAuth, provider import routes, manual finance formulas, or Vercel deploy source.
 - **rules for Codex:** Do not use legacy `reconcile-v2/` as production source. Use branch -> PR -> merge. Run test/build/release guard. Treat old repo as reference only unless explicitly asked.
 
 ## reiki-yggdrasil
+
+- **project memory:** `projects/reiki-yggdrasil/PROJECT.md`
 
 - **name:** reiki-yggdrasil
 - **purpose:** Reiki Yggdrasil Vite/React platform with public learning UI, master cabinet, public masters catalog, and admin moderation.
@@ -51,6 +73,8 @@ Canonical field mapping in this database:
 
 ## brain-management
 
+- **project memory:** `projects/brain-management/PROJECT.md`
+
 - **name:** brain-management
 - **purpose:** Management dashboard and ops workspace for Codex usage, daily thinking/audit data, mobile-run flows, and management reports.
 - **live URL:** https://brain-management.pages.dev
@@ -66,6 +90,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Read `AGENTS.md`, `README.md`, and `STATE.md` first when present. Preserve the management report flow order. Include exact failing command/check when a step fails.
 
 ## codex-links
+
+- **project memory:** `projects/codex-links/PROJECT.md`
 
 - **name:** codex-links
 - **purpose:** Cloudflare Pages inbox, delivery timeline, reports surface, Slack-backed Codex Cloud command bridge, and `codex-save` diagnostics/remediation app.
@@ -83,6 +109,8 @@ Canonical field mapping in this database:
 
 ## codex-links-myportal
 
+- **project memory:** `projects/codex-links-myportal/PROJECT.md`
+
 - **name:** codex-links-myportal
 - **purpose:** Clean-room Cloudflare Pages inbox and finance sync app with PayPal, Plaid, Wise, and Binance provider ingestion.
 - **live URL:** https://codex-links-myportal.pages.dev
@@ -98,6 +126,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Do not touch the dirty `myportal` checkout for unrelated tasks. Use temp clone/workdir. Store only env names, never values.
 
 ## ezohata_ads
+
+- **project memory:** `projects/ezohata_ads/PROJECT.md`
 
 - **name:** ezohata_ads
 - **purpose:** Standalone EzoHata ads and analytics bundle.
@@ -115,6 +145,8 @@ Canonical field mapping in this database:
 
 ## codex-daily-backups
 
+- **project memory:** `projects/codex-daily-backups/PROJECT.md`
+
 - **name:** codex-daily-backups
 - **purpose:** Daily backup repository for changed eligible projects.
 - **live URL:** not applicable
@@ -130,6 +162,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Treat as sensitive backup infrastructure. Do not publish backup contents.
 
 ## active-projects-ops
+
+- **project memory:** `projects/active-projects-ops/PROJECT.md`
 
 - **name:** active-projects-ops
 - **purpose:** Cloud-ready ops and content projects.
@@ -147,6 +181,8 @@ Canonical field mapping in this database:
 
 ## report
 
+- **project memory:** `projects/report/PROJECT.md`
+
 - **name:** report
 - **purpose:** Report-related project.
 - **live URL:** unknown
@@ -162,6 +198,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Mark uncertain assumptions as `needs verification`.
 
 ## artefacts
+
+- **project memory:** `projects/artefacts/PROJECT.md`
 
 - **name:** artefacts
 - **purpose:** Artefacts marketplace MVP.
@@ -179,6 +217,8 @@ Canonical field mapping in this database:
 
 ## council
 
+- **project memory:** `projects/council/PROJECT.md`
+
 - **name:** council
 - **purpose:** SIA Council local MVP app.
 - **live URL:** unknown
@@ -194,6 +234,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Verify local app assumptions before implementation.
 
 ## psitrends
+
+- **project memory:** `projects/psitrends/PROJECT.md`
 
 - **name:** psitrends
 - **purpose:** PsiTrends project.
@@ -211,6 +253,8 @@ Canonical field mapping in this database:
 
 ## ezohata-save
 
+- **project memory:** `projects/ezohata-save/PROJECT.md`
+
 - **name:** ezohata-save
 - **purpose:** EzoHata save/diagnostics project.
 - **live URL:** https://ezohata-save.pages.dev
@@ -226,6 +270,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Verify target app and command surface before making changes.
 
 ## codex-save
+
+- **project memory:** `projects/codex-save/PROJECT.md`
 
 - **name:** codex-save
 - **purpose:** Operator-facing diagnostics/remediation site for `codex-links`.
@@ -243,6 +289,8 @@ Canonical field mapping in this database:
 
 ## ezohata-dashboard
 
+- **project memory:** `projects/ezohata-dashboard/PROJECT.md`
+
 - **name:** ezohata-dashboard
 - **purpose:** EzoHata dashboard Cloudflare Pages project.
 - **live URL:** https://ezohata-dashboard.pages.dev
@@ -258,6 +306,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Do not deploy here unless target is explicitly confirmed.
 
 ## sales-bwa-photo
+
+- **project memory:** `projects/sales-bwa-photo/PROJECT.md`
 
 - **name:** sales-bwa-photo
 - **purpose:** Sales/BWA photo Cloudflare Pages project.
