@@ -1,6 +1,7 @@
 # Codex Brief - reiki-yggdrasil
 
 ## Before Starting
+
 - Read this file.
 - Read PROJECT.md.
 - Read SYSTEM_MAP.md.
@@ -9,6 +10,7 @@
 - Read repo-local AGENTS.md/README.md/STATE.md if present.
 
 ## Rules
+
 - Minimal safe fix.
 - Study code first.
 - Do not rewrite everything.
@@ -18,12 +20,14 @@
 - Report changed files, checks, risks.
 
 ## Project-Specific Rules
+
 - Preserve the existing home page.
 - Keep RU default.
 - Prefer additive route/module changes.
 - Do not collapse the accepted three-column layout without explicit reason.
 
 ## Standard Response Required From Codex
+
 1. What was found
 2. What changed
 3. Changed files

@@ -3,26 +3,33 @@
 ## Case Template
 
 ### CASE:
+
 needs verification
 
 ### Expected:
+
 needs verification
 
 ### Actual:
+
 needs verification
 
 ### Source Data:
+
 Only safe data without secrets.
 
 needs verification
 
 ### Difference:
+
 needs verification
 
 ### Suspected Cause:
+
 needs verification
 
 ### Related Files:
+
 - README.md
 - .env.example
 - dashboard-thinking/data/current-thinking-audit.json
@@ -32,4 +39,5 @@ needs verification
 - functions/api/mobile-run.js
 
 ### Status:
+
 needs verification

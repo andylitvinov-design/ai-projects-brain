@@ -1,6 +1,7 @@
 # Codex Brief - codex-save
 
 ## Before Starting
+
 - Read this file.
 - Read PROJECT.md.
 - Read SYSTEM_MAP.md.
@@ -9,6 +10,7 @@
 - Read repo-local AGENTS.md/README.md/STATE.md if present.
 
 ## Rules
+
 - Minimal safe fix.
 - Study code first.
 - Do not rewrite everything.
@@ -18,10 +20,12 @@
 - Report changed files, checks, risks.
 
 ## Project-Specific Rules
+
 - Treat as operational tooling for codex-links.
 - Verify command side effects.
 
 ## Standard Response Required From Codex
+
 1. What was found
 2. What changed
 3. Changed files

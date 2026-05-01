@@ -7,6 +7,7 @@
 [project-memory-schema.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md)
 
 Алгоритм:
+
 1. прочитай базу
 2. найди проект
 3. прочитай правила агентов

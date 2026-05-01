@@ -44,7 +44,10 @@ Canonical field mapping in this database:
 - **current status:** Active production source is `andylitvinov-design/finance`. Old repo `andylitvinov-design/ezohata-incoming-ledger` is private/deprecated read-only according to GitHub metadata.
 - **important files:** `index.html`, `config.js`, `finance.js`, `google-auth.js`, `google-sheets.js`, `sheet-config.json`, `api/paypal-transactions.js`, `api/wise-transactions.js`, `scripts/release-guard.sh`
 - **env variables:** `EZOHATA_V2_APPS_SCRIPT_URL`, `EZOHATA_LEGACY_MANUAL_FINANCE_URL`, `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`, `PAYPAL_ENVIRONMENT`, `PAYPAL_MCP_CLIENT_ID`, `PAYPAL_MCP_REFRESH_TOKEN`, `WISE_API_TOKEN`, `WISE_PROFILE_ID`, `WISE_API_BASE`, `OPENAI_API_KEY`, `OPENAI_EXPENSE_MODEL`
-- **known issues:** Legacy `reconcile-v2/` and old repo can mislead agents into using the wrong production source. Provider imports depend on configured Vercel env variables. Older ledger behavior has sensitive rules around `Остатки`, `Расходы`, `СТАЛО`, `now`, transfers, and payout math.
+- **known issues:** Legacy `reconcile-v2/` and old repo can mislead agents into
+  using the wrong production source. Provider imports depend on configured
+  Vercel env variables. Older ledger behavior has sensitive rules around
+  `Остатки`, `Расходы`, `СТАЛО`, `now`, transfers, and payout math.
 - **recent tasks:** Finance repo PR #5 `Harden OCR fallback and document finance env`; old repo PR #13 `Restore full channel reconciliation table`.
 - **next actions:** Verify open PR status before new production work. Keep release version and `sheet-config.json` aligned. Run `npm test`, `npm run build`, and `npm run release-guard` before PR.
 - **risks:** Breaking Google Sheets OAuth, provider import routes, manual finance formulas, or Vercel deploy source.
