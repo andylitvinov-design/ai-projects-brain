@@ -53,6 +53,26 @@ Canonical field mapping in this database:
 - **risks:** Breaking Google Sheets OAuth, provider import routes, manual finance formulas, or Vercel deploy source.
 - **rules for Codex:** Do not use legacy `reconcile-v2/` as production source. Use branch -> PR -> merge. Run test/build/release guard. Treat old repo as reference only unless explicitly asked.
 
+## Agent-Auditor
+
+- **project memory:** `projects/agent-auditor/PROJECT.md`
+
+- **name:** Agent-Auditor
+- **slug:** `agent-auditor`
+- **purpose:** Data-based project auditor for detecting mismatches, anomalies, and regression risks across user projects.
+- **live URL:** not applicable
+- **repo URL:** needs verification
+- **hosting:** not applicable / needs verification
+- **current status:** design/instruction project
+- **important files:** needs verification
+- **env variables:** none
+- **known issues:** Browser-based audits fail for private Google OAuth and Google Sheets data. Audit snapshot endpoint availability and exact contract need verification. Visual screenshots alone are insufficient for reliable finance audits.
+- **recent tasks:** Defined Agent-Auditor as a Data Auditor that uses project memory, schemas, debug logs, safe audit snapshots, and sanitized user-provided exports.
+- **next actions:** Verify whether a canonical repository exists. Verify the finance `/api/audit-snapshot` availability and response contract. Use `ezohata-incoming-ledger` as the first audit target.
+- **risks:** Requesting or storing secrets, trying to bypass Google OAuth, claiming live provider sync when only code paths exist, confusing the production finance repo with old deprecated repos, or mutating data during an audit.
+- **rules for Codex:** Read target project memory before auditing. Compare `DATA_SCHEMA` with the audit snapshot or sanitized user-provided export. Mark unknowns as `needs verification`. Never request or expose secrets. Do not log in to the target site as the audit method.
+- **notes:** Does not store secrets. Does not bypass OAuth. Uses safe audit snapshots and project memory.
+
 ## reiki-yggdrasil
 
 - **project memory:** `projects/reiki-yggdrasil/PROJECT.md`

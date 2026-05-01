@@ -96,6 +96,61 @@
       }
     },
     {
+      "slug": "agent-auditor",
+      "name": "Agent-Auditor",
+      "purpose": "Data-based project auditor for detecting mismatches, anomalies, and regression risks across user projects.",
+      "live_url": "not applicable",
+      "repo_url": "needs verification",
+      "hosting": "not applicable / needs verification",
+      "current_status": "design/instruction project",
+      "important_files": [
+        "needs verification"
+      ],
+      "env_variables": [
+        "none"
+      ],
+      "known_issues": [
+        "Browser-based audits fail for private Google OAuth and Google Sheets data.",
+        "Audit snapshot endpoint availability and exact contract need verification.",
+        "Visual screenshots alone are insufficient for reliable finance audits."
+      ],
+      "recent_tasks": [
+        "Defined Agent-Auditor as a Data Auditor that uses project memory, schemas, debug logs, safe audit snapshots, and sanitized user-provided exports."
+      ],
+      "next_actions": [
+        "Verify whether a canonical repository exists.",
+        "Verify the finance /api/audit-snapshot availability and response contract.",
+        "Use ezohata-incoming-ledger as the first audit target."
+      ],
+      "risks": [
+        "Requesting or storing secrets.",
+        "Trying to bypass Google OAuth.",
+        "Claiming live provider sync when only code paths exist.",
+        "Confusing the production finance repo with old deprecated repos.",
+        "Mutating data during an audit."
+      ],
+      "rules_for_codex": [
+        "Read target project memory before auditing.",
+        "Compare DATA_SCHEMA with the audit snapshot or sanitized user-provided export.",
+        "Mark unknowns as needs verification.",
+        "Never request or expose secrets.",
+        "Do not log in to the target site as the audit method."
+      ],
+      "notes": "Does not store secrets. Does not bypass OAuth. Uses safe audit snapshots and project memory.",
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/agent-auditor/PROJECT.md",
+        "system_map": "projects/agent-auditor/SYSTEM_MAP.md",
+        "data_schema": "projects/agent-auditor/DATA_SCHEMA.md",
+        "code_access": "projects/agent-auditor/CODE_ACCESS.md",
+        "data_samples": "projects/agent-auditor/DATA_SAMPLES.md",
+        "debug_log": "projects/agent-auditor/DEBUG_LOG.md",
+        "risks": "projects/agent-auditor/RISKS.md",
+        "codex_brief": "projects/agent-auditor/CODEX_BRIEF.md"
+      }
+    },
+    {
       "name": "reiki-yggdrasil",
       "purpose": "Reiki Yggdrasil Vite/React platform with public learning UI, master cabinet, public masters catalog, and admin moderation.",
       "live_url": "https://reiki-yggdrasil.vercel.app",

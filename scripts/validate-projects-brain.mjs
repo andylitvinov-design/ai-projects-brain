@@ -67,7 +67,7 @@ function readJson(filePath) {
 }
 
 function slugFor(project) {
-  return project.name;
+  return project.slug || project.name;
 }
 
 function walkFiles(dir, output = []) {

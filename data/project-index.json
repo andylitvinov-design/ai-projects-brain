@@ -1,6 +1,6 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-05-01T17:44:39.931Z",
+  "generated_at": "2026-05-01T21:01:26.897Z",
   "source": "projects.json",
   "projects": [
     {
@@ -27,6 +27,34 @@
         "has_needs_verification": false,
         "repo_mapping": "listed",
         "live_mapping": "listed",
+        "env_status": "names listed",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "Agent-Auditor",
+      "slug": "agent-auditor",
+      "purpose": "Data-based project auditor for detecting mismatches, anomalies, and regression risks across user projects.",
+      "live_url": "not applicable",
+      "repo_url": "needs verification",
+      "hosting": "not applicable / needs verification",
+      "status_summary": "design/instruction project",
+      "memory_files": {
+        "project_md": "projects/agent-auditor/PROJECT.md",
+        "system_map": "projects/agent-auditor/SYSTEM_MAP.md",
+        "data_schema": "projects/agent-auditor/DATA_SCHEMA.md",
+        "code_access": "projects/agent-auditor/CODE_ACCESS.md",
+        "data_samples": "projects/agent-auditor/DATA_SAMPLES.md",
+        "debug_log": "projects/agent-auditor/DEBUG_LOG.md",
+        "risks": "projects/agent-auditor/RISKS.md",
+        "codex_brief": "projects/agent-auditor/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "needs verification",
         "env_status": "names listed",
         "deploy_status": "listed"
       }
