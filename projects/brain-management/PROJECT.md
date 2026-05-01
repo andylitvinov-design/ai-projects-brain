@@ -2,17 +2,17 @@
 
 ## 1. Purpose
 
-Management dashboard and ops workspace for Codex
-usage, daily thinking/audit data, mobile-run
-flows, and management reports.
+Management dashboard and ops workspace for Codex usage,
+daily thinking/audit data, mobile-run flows, and management
+reports.
 
 ## 2. Live URLs
 
 - production: https://brain-management.pages.dev
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and
-  any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any
+  secondary live URLs need verification.
 
 ## 3. Repositories
 
@@ -20,8 +20,8 @@ flows, and management reports.
   https://github.com/andylitvinov-design/brain-management
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond
-  the listed inventory need verification.
+- needs verification: repo relationships beyond the listed
+  inventory need verification.
 
 ## 4. Hosting / Deploy
 
@@ -33,9 +33,8 @@ flows, and management reports.
 
 ## 5. Current Status
 
-Private repo with Cloudflare Pages live
-dashboard. Dashboard snapshots live under
-dashboard-thinking/data/.
+Private repo with Cloudflare Pages live dashboard. Dashboard
+snapshots live under dashboard-thinking/data/.
 
 ## 6. Important Files
 
@@ -49,8 +48,7 @@ dashboard-thinking/data/.
 
 ## 7. Environment Variable Names
 
-Only names are listed. Values must never be
-stored here.
+Only names are listed. Values must never be stored here.
 
 - GOOGLE_OAUTH_CLIENT_ID
 - GOOGLE_OAUTH_CLIENT_SECRET
@@ -60,51 +58,47 @@ stored here.
 
 ## 8. Known Issues
 
-- Morning report publish/API verification can
-  fail on codex-links.pages.dev DNS/network
-  reachability.
-- Agents sometimes verify dashboard JSON from
-  the wrong root path.
+- Morning report publish/API verification can fail on
+  codex-links.pages.dev DNS/network reachability.
+- Agents sometimes verify dashboard JSON from the wrong root
+  path.
 
 ## 9. Recent Tasks
 
-- Morning report flow uses refresh, verify
-  current JSONs, publish, verify public API, and
-  open inbox item on explicit request/failure.
+- Morning report flow uses refresh, verify current JSONs,
+  publish, verify public API, and open inbox item on
+  explicit request/failure.
 
 ## 10. Next Actions
 
-- Re-check live report publishing path when
-  DNS/network is available.
+- Re-check live report publishing path when DNS/network is
+  available.
 - Keep current JSON verification pointed at
   dashboard-thinking/data/.
 
 ## 11. Risks
 
 - Reporting stale data.
-- Mixing sibling repos into the management
-  boundary.
+- Mixing sibling repos into the management boundary.
 - Skipping the fixed morning report sequence.
 
 ## 12. Rules for Codex
 
-- Read AGENTS.md, README.md, and STATE.md first
-  when present.
+- Read AGENTS.md, README.md, and STATE.md first when
+  present.
 - Preserve the management report flow order.
-- Include exact failing command/check when a
-  step fails.
+- Include exact failing command/check when a step fails.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current
-  source still needs verification before
-  production work
-- live mapping: listed in inventory; live
-  behavior needs verification before claims
-- env status: names only; values and
-  completeness need verification
-- deploy status: hosting listed; deploy source
-  needs verification
+- repo mapping: listed in inventory; current source still
+  needs verification before production work
+- live mapping: listed in inventory; live behavior needs
+  verification before claims
+- env status: names only; values and completeness need
+  verification
+- deploy status: hosting listed; deploy source needs
+  verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live,
-  deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env,
+  and data-flow details.

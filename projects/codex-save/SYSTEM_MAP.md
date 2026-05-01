@@ -2,8 +2,8 @@
 
 ## 1. High-level Flow
 
-[INPUT] Operator-facing diagnostics/remediation
-site for codex-links.
+[INPUT] Operator-facing diagnostics/remediation site for
+codex-links.
 
 ↓
 
@@ -36,10 +36,10 @@ Related subproject under codex-links/codex-save.
 
 ## 5. Deploy Flow
 
-https://github.com/andylitvinov-design/codex-links
--> Cloudflare Pages project codex-save ->
-https://codex-save-cjb.pages.dev. Exact deploy
-source needs verification.
+https://github.com/andylitvinov-design/codex-links ->
+Cloudflare Pages project codex-save ->
+https://codex-save-cjb.pages.dev. Exact deploy source needs
+verification.
 
 ## 6. Critical Paths
 
@@ -51,5 +51,5 @@ source needs verification.
 
 - Exact deploy source: needs verification
 - Current live behavior: needs verification
-- Data flow details not listed in inventory:
-  needs verification
+- Data flow details not listed in inventory: needs
+  verification

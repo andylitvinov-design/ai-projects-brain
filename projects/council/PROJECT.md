@@ -9,8 +9,8 @@ SIA Council local MVP app.
 - production: needs verification
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and
-  any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any
+  secondary live URLs need verification.
 
 ## 3. Repositories
 
@@ -18,8 +18,8 @@ SIA Council local MVP app.
   https://github.com/andylitvinov-design/council
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond
-  the listed inventory need verification.
+- needs verification: repo relationships beyond the listed
+  inventory need verification.
 
 ## 4. Hosting / Deploy
 
@@ -39,8 +39,7 @@ Private related repo from GitHub inventory.
 
 ## 7. Environment Variable Names
 
-Only names are listed. Values must never be
-stored here.
+Only names are listed. Values must never be stored here.
 
 - needs verification
 
@@ -62,18 +61,16 @@ stored here.
 
 ## 12. Rules for Codex
 
-- Verify local app assumptions before
-  implementation.
+- Verify local app assumptions before implementation.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current
-  source still needs verification before
-  production work
+- repo mapping: listed in inventory; current source still
+  needs verification before production work
 - live mapping: needs verification
-- env status: names only; values and
-  completeness need verification
+- env status: names only; values and completeness need
+  verification
 - deploy status: needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live,
-  deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env,
+  and data-flow details.

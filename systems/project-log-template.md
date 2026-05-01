@@ -30,11 +30,10 @@
 
 ## Rule
 
-Each project change should add a short log entry
-when the task affects architecture, production,
-environment variables, deploys, authentication,
-payments, data, dashboards, or agent workflow.
+Each project change should add a short log entry when the
+task affects architecture, production, environment
+variables, deploys, authentication, payments, data,
+dashboards, or agent workflow.
 
-Every completed project task must append one
-short log entry unless it was purely
-conversational.
+Every completed project task must append one short log entry
+unless it was purely conversational.

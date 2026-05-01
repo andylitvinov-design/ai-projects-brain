@@ -9,8 +9,8 @@ Standalone EzoHata ads and analytics bundle.
 - production: needs verification
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and
-  any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any
+  secondary live URLs need verification.
 
 ## 3. Repositories
 
@@ -18,8 +18,8 @@ Standalone EzoHata ads and analytics bundle.
   https://github.com/andylitvinov-design/ezohata_ads
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond
-  the listed inventory need verification.
+- needs verification: repo relationships beyond the listed
+  inventory need verification.
 
 ## 4. Hosting / Deploy
 
@@ -39,8 +39,7 @@ Private related repo from GitHub inventory.
 
 ## 7. Environment Variable Names
 
-Only names are listed. Values must never be
-stored here.
+Only names are listed. Values must never be stored here.
 
 - needs verification
 
@@ -50,34 +49,32 @@ stored here.
 
 ## 9. Recent Tasks
 
-- Skill installation and ads/analytics setup
-  context exists in local memory.
+- Skill installation and ads/analytics setup context exists
+  in local memory.
 
 ## 10. Next Actions
 
-- Inspect repo README, AGENTS, deploy config,
-  and current hosting before agent work.
+- Inspect repo README, AGENTS, deploy config, and current
+  hosting before agent work.
 
 ## 11. Risks
 
-- Analytics/ads credentials and external account
-  access are likely sensitive.
+- Analytics/ads credentials and external account access are
+  likely sensitive.
 
 ## 12. Rules for Codex
 
 - Do not infer credentials.
-- Verify exact provider setup and repo-local
-  rules first.
+- Verify exact provider setup and repo-local rules first.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current
-  source still needs verification before
-  production work
+- repo mapping: listed in inventory; current source still
+  needs verification before production work
 - live mapping: needs verification
-- env status: names only; values and
-  completeness need verification
+- env status: names only; values and completeness need
+  verification
 - deploy status: needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live,
-  deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env,
+  and data-flow details.

@@ -9,8 +9,8 @@ Cloud-ready ops and content projects.
 - production: needs verification
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and
-  any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any
+  secondary live URLs need verification.
 
 ## 3. Repositories
 
@@ -18,8 +18,8 @@ Cloud-ready ops and content projects.
   https://github.com/andylitvinov-design/active-projects-ops
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond
-  the listed inventory need verification.
+- needs verification: repo relationships beyond the listed
+  inventory need verification.
 
 ## 4. Hosting / Deploy
 
@@ -39,15 +39,13 @@ Private related repo from GitHub inventory.
 
 ## 7. Environment Variable Names
 
-Only names are listed. Values must never be
-stored here.
+Only names are listed. Values must never be stored here.
 
 - needs verification
 
 ## 8. Known Issues
 
-- Shared repo, not necessarily one project per
-  root.
+- Shared repo, not necessarily one project per root.
 
 ## 9. Recent Tasks
 
@@ -55,8 +53,8 @@ stored here.
 
 ## 10. Next Actions
 
-- Inspect repo boundary and subproject mapping
-  before changes.
+- Inspect repo boundary and subproject mapping before
+  changes.
 
 ## 11. Risks
 
@@ -65,18 +63,16 @@ stored here.
 ## 12. Rules for Codex
 
 - Do not assume one repo equals one product.
-- Read repo-local AGENTS.md and subproject docs
-  first.
+- Read repo-local AGENTS.md and subproject docs first.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current
-  source still needs verification before
-  production work
+- repo mapping: listed in inventory; current source still
+  needs verification before production work
 - live mapping: needs verification
-- env status: names only; values and
-  completeness need verification
+- env status: names only; values and completeness need
+  verification
 - deploy status: needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live,
-  deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env,
+  and data-flow details.

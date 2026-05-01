@@ -4,24 +4,23 @@
 
 ### Problem
 
-Project-specific memory files were missing or
-incomplete for this project.
+Project-specific memory files were missing or incomplete for
+this project.
 
 ### Evidence
 
-projects.json listed the project, but the
-expanded eight-file memory set needed to be
-created.
+projects.json listed the project, but the expanded
+eight-file memory set needed to be created.
 
 ### Root Cause
 
-The repo previously used central inventory plus
-minimal Level 2 memory wiring.
+The repo previously used central inventory plus minimal
+Level 2 memory wiring.
 
 ### Fix
 
-Created the expanded project memory file set
-from safe inventory data.
+Created the expanded project memory file set from safe
+inventory data.
 
 ### Changed Files
 
@@ -40,5 +39,5 @@ needs verification
 
 ### Remaining Risks
 
-Inventory facts may be stale. Unknown fields
-remain marked as needs verification.
+Inventory facts may be stale. Unknown fields remain marked
+as needs verification.

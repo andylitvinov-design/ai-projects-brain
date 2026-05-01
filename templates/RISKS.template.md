@@ -24,5 +24,4 @@ needs verification
 
 - Do not publish secrets.
 - Do not invent project mappings.
-- Do not change production without explicit
-  instruction.
+- Do not change production without explicit instruction.

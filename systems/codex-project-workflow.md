@@ -4,18 +4,16 @@
 
 - Read `README.md`.
 - Read `AGENTS.md` if present.
-- Read `STATE.md` or `project-state.md` if
-  present.
+- Read `STATE.md` or `project-state.md` if present.
 - Read `projects.md`.
 - Read `projects.json`.
 - Read `systems/agent-rules.md`.
 
 ## 2. Identify target project
 
-- Match by project name, URL, repo, live URL, or
-  user wording.
-- If the target is unclear, mark
-  `needs verification`.
+- Match by project name, URL, repo, live URL, or user
+  wording.
+- If the target is unclear, mark `needs verification`.
 
 ## 3. Confirm production source
 
@@ -41,8 +39,7 @@
 - Run build.
 - Run lint if available.
 - Run project-specific guard scripts if listed.
-- Check live URL only when relevant and
-  possible.
+- Check live URL only when relevant and possible.
 
 ## 7. Report
 
@@ -60,5 +57,5 @@
 - Propose `STATE.md` update.
 - Append `LOG.md` entry.
 - Mark uncertain items as `needs verification`.
-- Ask user to confirm memory update if changes
-  are significant.
+- Ask user to confirm memory update if changes are
+  significant.

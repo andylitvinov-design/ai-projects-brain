@@ -13,8 +13,7 @@
 - PRs: needs verification
 - commits: needs verification
 - deployments: needs verification
-- dashboards:
-  https://ezohata-dashboard.pages.dev
+- dashboards: https://ezohata-dashboard.pages.dev
 
 ## 3. Important Files
 
@@ -32,7 +31,6 @@
 
 ## 5. Access Limitations
 
-ChatGPT may not have direct access to private
-repos. For analysis, share a PR, diff, changed
-files, safe error logs, and screenshots. Do not
-share secrets.
+ChatGPT may not have direct access to private repos. For
+analysis, share a PR, diff, changed files, safe error logs,
+and screenshots. Do not share secrets.

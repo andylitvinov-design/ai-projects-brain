@@ -36,8 +36,8 @@ Private related repo from GitHub inventory.
 ## 5. Deploy Flow
 
 https://github.com/andylitvinov-design/active-projects-ops
--> needs verification -> needs verification.
-Exact deploy source needs verification.
+-> needs verification -> needs verification. Exact deploy
+source needs verification.
 
 ## 6. Critical Paths
 
@@ -47,5 +47,5 @@ Exact deploy source needs verification.
 
 - Exact deploy source: needs verification
 - Current live behavior: needs verification
-- Data flow details not listed in inventory:
-  needs verification
+- Data flow details not listed in inventory: needs
+  verification

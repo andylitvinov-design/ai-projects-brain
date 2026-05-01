@@ -7,8 +7,7 @@
 - Read SYSTEM_MAP.md.
 - Read DATA_SCHEMA.md.
 - Read RISKS.md.
-- Read repo-local AGENTS.md/README.md/STATE.md
-  if present.
+- Read repo-local AGENTS.md/README.md/STATE.md if present.
 
 ## Rules
 
@@ -22,8 +21,7 @@
 
 ## Project-Specific Rules
 
-- Do not deploy here unless target is explicitly
-  confirmed.
+- Do not deploy here unless target is explicitly confirmed.
 
 ## Standard Response Required From Codex
 

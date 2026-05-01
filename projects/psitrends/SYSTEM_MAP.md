@@ -31,16 +31,15 @@ needs verification
 
 ## 4. Runtime Flow
 
-Private related repo and Cloudflare Pages
-project from inventory; mapping needs
-verification.
+Private related repo and Cloudflare Pages project from
+inventory; mapping needs verification.
 
 ## 5. Deploy Flow
 
-https://github.com/andylitvinov-design/psitrends-work
--> Cloudflare Pages project psitrends ->
-https://psitrends.pages.dev. Exact deploy source
-needs verification.
+https://github.com/andylitvinov-design/psitrends-work ->
+Cloudflare Pages project psitrends ->
+https://psitrends.pages.dev. Exact deploy source needs
+verification.
 
 ## 6. Critical Paths
 
@@ -50,5 +49,5 @@ needs verification.
 
 - Exact deploy source: needs verification
 - Current live behavior: needs verification
-- Data flow details not listed in inventory:
-  needs verification
+- Data flow details not listed in inventory: needs
+  verification

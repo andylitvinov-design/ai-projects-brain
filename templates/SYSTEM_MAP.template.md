@@ -35,8 +35,7 @@ needs verification
 
 ## 5. Deploy Flow
 
-GitHub -> hosting -> live, exact flow needs
-verification.
+GitHub -> hosting -> live, exact flow needs verification.
 
 ## 6. Critical Paths
 

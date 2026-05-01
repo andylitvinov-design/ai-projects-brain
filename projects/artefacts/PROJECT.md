@@ -9,8 +9,8 @@ Artefacts marketplace MVP.
 - production: needs verification
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and
-  any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any
+  secondary live URLs need verification.
 
 ## 3. Repositories
 
@@ -18,8 +18,8 @@ Artefacts marketplace MVP.
   https://github.com/andylitvinov-design/artefacts
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond
-  the listed inventory need verification.
+- needs verification: repo relationships beyond the listed
+  inventory need verification.
 
 ## 4. Hosting / Deploy
 
@@ -39,8 +39,7 @@ Private related repo from GitHub inventory.
 
 ## 7. Environment Variable Names
 
-Only names are listed. Values must never be
-stored here.
+Only names are listed. Values must never be stored here.
 
 - needs verification
 
@@ -54,8 +53,8 @@ stored here.
 
 ## 10. Next Actions
 
-- Inspect repo-local README, STATE, AGENTS, and
-  deploy config before changes.
+- Inspect repo-local README, STATE, AGENTS, and deploy
+  config before changes.
 
 ## 11. Risks
 
@@ -63,18 +62,17 @@ stored here.
 
 ## 12. Rules for Codex
 
-- Do not apply patterns from links or ezohata
-  without checking this repo.
+- Do not apply patterns from links or ezohata without
+  checking this repo.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current
-  source still needs verification before
-  production work
+- repo mapping: listed in inventory; current source still
+  needs verification before production work
 - live mapping: needs verification
-- env status: names only; values and
-  completeness need verification
+- env status: names only; values and completeness need
+  verification
 - deploy status: needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live,
-  deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env,
+  and data-flow details.

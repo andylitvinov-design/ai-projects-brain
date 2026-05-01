@@ -2,8 +2,8 @@
 
 ## 1. High-level Flow
 
-[INPUT] Daily backup repository for changed
-eligible projects.
+[INPUT] Daily backup repository for changed eligible
+projects.
 
 ↓
 
@@ -37,8 +37,8 @@ Private backup repo from GitHub inventory.
 ## 5. Deploy Flow
 
 https://github.com/andylitvinov-design/codex-daily-backups
--> GitHub repository -> not applicable. Exact
-deploy source needs verification.
+-> GitHub repository -> not applicable. Exact deploy source
+needs verification.
 
 ## 6. Critical Paths
 
@@ -48,5 +48,5 @@ deploy source needs verification.
 
 - Exact deploy source: needs verification
 - Current live behavior: needs verification
-- Data flow details not listed in inventory:
-  needs verification
+- Data flow details not listed in inventory: needs
+  verification

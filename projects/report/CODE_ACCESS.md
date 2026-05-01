@@ -2,8 +2,7 @@
 
 ## 1. Repo Links
 
-- canonical:
-  https://github.com/andylitvinov-design/report
+- canonical: https://github.com/andylitvinov-design/report
 - related: needs verification
 - deprecated: needs verification
 - needs verification: private repo access and
@@ -32,7 +31,6 @@
 
 ## 5. Access Limitations
 
-ChatGPT may not have direct access to private
-repos. For analysis, share a PR, diff, changed
-files, safe error logs, and screenshots. Do not
-share secrets.
+ChatGPT may not have direct access to private repos. For
+analysis, share a PR, diff, changed files, safe error logs,
+and screenshots. Do not share secrets.

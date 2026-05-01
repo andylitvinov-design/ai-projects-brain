@@ -2,10 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.cwd();
-const PROJECTS_JSON = path.join(
-  ROOT,
-  'projects.json',
-);
+const PROJECTS_JSON = path.join(ROOT, 'projects.json');
 const OUTPUT = path.join(
   ROOT,
   'data',
@@ -13,9 +10,7 @@ const OUTPUT = path.join(
 );
 
 function readJson(filePath) {
-  return JSON.parse(
-    fs.readFileSync(filePath, 'utf8'),
-  );
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
 function slugFor(project) {
@@ -27,9 +22,7 @@ function hasNeedsVerification(value) {
   if (Array.isArray(value))
     return value.some(hasNeedsVerification);
   if (value && typeof value === 'object') {
-    return Object.values(value).some(
-      hasNeedsVerification,
-    );
+    return Object.values(value).some(hasNeedsVerification);
   }
   return false;
 }
@@ -55,17 +48,12 @@ const index = {
     return {
       name: project.name,
       slug,
-      purpose:
-        project.purpose || 'needs verification',
-      live_url:
-        project.live_url || 'needs verification',
-      repo_url:
-        project.repo_url || 'needs verification',
-      hosting:
-        project.hosting || 'needs verification',
+      purpose: project.purpose || 'needs verification',
+      live_url: project.live_url || 'needs verification',
+      repo_url: project.repo_url || 'needs verification',
+      hosting: project.hosting || 'needs verification',
       status_summary:
-        project.current_status ||
-        'needs verification',
+        project.current_status || 'needs verification',
       memory_files: {
         project_md:
           memory.project_md ||
@@ -85,24 +73,19 @@ const index = {
         debug_log:
           memory.debug_log ||
           `projects/${slug}/DEBUG_LOG.md`,
-        risks:
-          memory.risks ||
-          `projects/${slug}/RISKS.md`,
+        risks: memory.risks || `projects/${slug}/RISKS.md`,
         codex_brief:
           memory.codex_brief ||
           `projects/${slug}/CODEX_BRIEF.md`,
         state_file:
-          memory.state_file ||
-          'needs verification',
-        log_file:
-          memory.log_file || 'needs verification',
+          memory.state_file || 'needs verification',
+        log_file: memory.log_file || 'needs verification',
       },
       verification_flags: {
         has_needs_verification:
           hasNeedsVerification(project),
         repo_mapping:
-          project.repo_url &&
-          project.repo_url !== 'unknown'
+          project.repo_url && project.repo_url !== 'unknown'
             ? 'listed'
             : 'needs verification',
         live_mapping:

@@ -22,45 +22,40 @@
 
 ## 3. Data Contracts
 
-- Ledger is the source of truth for visible
-  finance analytics unless a newer verified
-  source replaces it.
-- gross, fee, and net relationships must not be
-  guessed for provider-like rails.
-- Exact current schema and formulas need
-  verification before changing production
-  behavior.
+- Ledger is the source of truth for visible finance
+  analytics unless a newer verified source replaces it.
+- gross, fee, and net relationships must not be guessed for
+  provider-like rails.
+- Exact current schema and formulas need verification before
+  changing production behavior.
 
 ## 4. Storage
 
 - Google Sheets: needs verification
 - JSON/config files: needs verification
-- Provider APIs: names listed in inventory; live
-  access needs verification
+- Provider APIs: names listed in inventory; live access
+  needs verification
 
 ## 5. Derived Data
 
-- net may derive from gross minus fee when the
-  row contract confirms it.
-- amount_usd may derive from source amount and
-  exchange when the conversion contract confirms
-  it.
-- Dashboard aggregates derive from ledger rows;
-  exact current path needs verification.
+- net may derive from gross minus fee when the row contract
+  confirms it.
+- amount_usd may derive from source amount and exchange when
+  the conversion contract confirms it.
+- Dashboard aggregates derive from ledger rows; exact
+  current path needs verification.
 
 ## 6. Validation Rules
 
-- Do not accept missing fee/net for
-  provider-like rails without verification.
-- Preserve sensitive rules around balances,
-  expenses, transfers, and payout math.
+- Do not accept missing fee/net for provider-like rails
+  without verification.
+- Preserve sensitive rules around balances, expenses,
+  transfers, and payout math.
 - Exact required fields need verification.
 
 ## 7. Migration Notes
 
-- Do not use legacy reconcile-v2 as production
-  source.
-- Keep sheet-config.json, release version, and
-  live deploy source aligned.
-- Exact schema migration steps need
-  verification.
+- Do not use legacy reconcile-v2 as production source.
+- Keep sheet-config.json, release version, and live deploy
+  source aligned.
+- Exact schema migration steps need verification.

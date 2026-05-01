@@ -40,8 +40,7 @@ const SECRET_PATTERNS = [
   },
   {
     name: 'private_key assignment',
-    regex:
-      /\bprivate_key\s*[:=]\s*['"]?[^'"\s][^'"]{8,}/i,
+    regex: /\bprivate_key\s*[:=]\s*['"]?[^'"\s][^'"]{8,}/i,
   },
   {
     name: 'client_secret assignment',
@@ -64,9 +63,7 @@ function fail(message) {
 }
 
 function readJson(filePath) {
-  return JSON.parse(
-    fs.readFileSync(filePath, 'utf8'),
-  );
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
 function slugFor(project) {
@@ -96,14 +93,10 @@ function isTextFile(filePath) {
 }
 
 function validateNoSecrets() {
-  const files =
-    walkFiles(ROOT).filter(isTextFile);
+  const files = walkFiles(ROOT).filter(isTextFile);
 
   for (const filePath of files) {
-    const relative = path.relative(
-      ROOT,
-      filePath,
-    );
+    const relative = path.relative(ROOT, filePath);
     const lines = fs
       .readFileSync(filePath, 'utf8')
       .split(/\r?\n/);
@@ -120,10 +113,7 @@ function validateNoSecrets() {
   }
 }
 
-const projectsPath = path.join(
-  ROOT,
-  'projects.json',
-);
+const projectsPath = path.join(ROOT, 'projects.json');
 const indexPath = path.join(
   ROOT,
   'data',
@@ -132,36 +122,24 @@ const indexPath = path.join(
 
 const database = readJson(projectsPath);
 if (!Array.isArray(database.projects)) {
-  fail(
-    'projects.json must contain a projects array',
-  );
+  fail('projects.json must contain a projects array');
 }
 
 for (const project of database.projects) {
-  if (!project.name)
-    fail('Every project must have a name');
+  if (!project.name) fail('Every project must have a name');
 
   const slug = slugFor(project);
-  const projectDir = path.join(
-    ROOT,
-    'projects',
-    slug,
-  );
+  const projectDir = path.join(ROOT, 'projects', slug);
 
   if (
     !fs.existsSync(projectDir) ||
     !fs.statSync(projectDir).isDirectory()
   ) {
-    fail(
-      `Missing project folder: projects/${slug}/`,
-    );
+    fail(`Missing project folder: projects/${slug}/`);
   }
 
   for (const fileName of REQUIRED_MEMORY_FILES) {
-    const requiredPath = path.join(
-      projectDir,
-      fileName,
-    );
+    const requiredPath = path.join(projectDir, fileName);
     if (!fs.existsSync(requiredPath)) {
       fail(
         `Missing required memory file: projects/${slug}/${fileName}`,
@@ -173,9 +151,7 @@ for (const project of database.projects) {
     !project.memory ||
     typeof project.memory !== 'object'
   ) {
-    fail(
-      `Missing memory object for project: ${slug}`,
-    );
+    fail(`Missing memory object for project: ${slug}`);
   }
 
   const requiredMemoryKeys = {
@@ -211,10 +187,7 @@ if (!Array.isArray(index.projects)) {
   );
 }
 
-if (
-  index.projects.length !==
-  database.projects.length
-) {
+if (index.projects.length !== database.projects.length) {
   fail(
     'data/project-index.json project count does not match projects.json',
   );

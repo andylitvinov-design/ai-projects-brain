@@ -7,8 +7,7 @@
 - Read SYSTEM_MAP.md.
 - Read DATA_SCHEMA.md.
 - Read RISKS.md.
-- Read repo-local AGENTS.md/README.md/STATE.md
-  if present.
+- Read repo-local AGENTS.md/README.md/STATE.md if present.
 
 ## Rules
 
@@ -22,8 +21,8 @@
 
 ## Project-Specific Rules
 
-- Do not touch the dirty myportal checkout for
-  unrelated tasks.
+- Do not touch the dirty myportal checkout for unrelated
+  tasks.
 - Use temp clone/workdir.
 - Store only env names, never values.
 

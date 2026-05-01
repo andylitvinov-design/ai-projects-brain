@@ -12,17 +12,16 @@
 
 ## 3. Data Contracts
 
-Management dashboard and ops workspace for Codex
-usage, daily thinking/audit data, mobile-run
-flows, and management reports.
+Management dashboard and ops workspace for Codex usage,
+daily thinking/audit data, mobile-run flows, and management
+reports.
 
-Exact data contracts need verification from
-code, docs, or safe samples.
+Exact data contracts need verification from code, docs, or
+safe samples.
 
 ## 4. Storage
 
-- Cloudflare storage/bindings: needs
-  verification
+- Cloudflare storage/bindings: needs verification
 - needs verification
 
 ## 5. Derived Data
@@ -35,7 +34,7 @@ needs verification
 
 ## 7. Migration Notes
 
-- Preserve existing production behavior unless
-  explicitly changing it.
-- Mark unknown schema or storage details as
-  needs verification.
+- Preserve existing production behavior unless explicitly
+  changing it.
+- Mark unknown schema or storage details as needs
+  verification.
