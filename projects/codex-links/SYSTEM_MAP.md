@@ -2,23 +2,24 @@
 
 ## 1. High-level Flow
 
-[INPUT] User/operator commands, Slack-backed Codex Cloud events,
-delivery/report requests.
+[INPUT] User/operator commands, Slack-backed
+Codex Cloud events, delivery/report requests.
 
 ↓
 
-[PROCESSING] Cloudflare Pages Functions process commands, delivery
-state, reports, and optional command bridge paths.
+[PROCESSING] Cloudflare Pages Functions process
+commands, delivery state, reports, and optional
+command bridge paths.
 
 ↓
 
-[STORAGE] Cloudflare/KV-backed app state and project files need
-verification.
+[STORAGE] Cloudflare/KV-backed app state and
+project files need verification.
 
 ↓
 
-[OUTPUT] Inbox, delivery timeline, reports surface, and related
-codex-save diagnostics.
+[OUTPUT] Inbox, delivery timeline, reports
+surface, and related codex-save diagnostics.
 
 ## 2. Main Actors
 
@@ -31,20 +32,23 @@ codex-save diagnostics.
 
 ## 3. Data Flow
 
-Commands and report requests enter Cloudflare Pages Functions, pass
-through dispatch/report helpers, and surface in public app views.
-Slack-backed Codex Cloud is the primary production command delivery path
-per inventory.
+Commands and report requests enter Cloudflare
+Pages Functions, pass through dispatch/report
+helpers, and surface in public app views.
+Slack-backed Codex Cloud is the primary
+production command delivery path per inventory.
 
 ## 4. Runtime Flow
 
-Cloudflare Pages serves public assets and Functions for commands,
-delivery, reports, and dispatch helpers.
+Cloudflare Pages serves public assets and
+Functions for commands, delivery, reports, and
+dispatch helpers.
 
 ## 5. Deploy Flow
 
-GitHub -> Cloudflare Pages -> live codex-links pages; exact production
-binding needs verification.
+GitHub -> Cloudflare Pages -> live codex-links
+pages; exact production binding needs
+verification.
 
 ## 6. Critical Paths
 
@@ -58,4 +62,5 @@ binding needs verification.
 
 - Exact deploy source: needs verification
 - Current live behavior: needs verification
-- Data flow details not listed in inventory: needs verification
+- Data flow details not listed in inventory:
+  needs verification

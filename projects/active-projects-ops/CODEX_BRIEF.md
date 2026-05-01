@@ -7,7 +7,8 @@
 - Read SYSTEM_MAP.md.
 - Read DATA_SCHEMA.md.
 - Read RISKS.md.
-- Read repo-local AGENTS.md/README.md/STATE.md if present.
+- Read repo-local AGENTS.md/README.md/STATE.md
+  if present.
 
 ## Rules
 
@@ -22,7 +23,8 @@
 ## Project-Specific Rules
 
 - Do not assume one repo equals one product.
-- Read repo-local AGENTS.md and subproject docs first.
+- Read repo-local AGENTS.md and subproject docs
+  first.
 
 ## Standard Response Required From Codex
 

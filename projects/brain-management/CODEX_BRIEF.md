@@ -7,7 +7,8 @@
 - Read SYSTEM_MAP.md.
 - Read DATA_SCHEMA.md.
 - Read RISKS.md.
-- Read repo-local AGENTS.md/README.md/STATE.md if present.
+- Read repo-local AGENTS.md/README.md/STATE.md
+  if present.
 
 ## Rules
 
@@ -21,9 +22,11 @@
 
 ## Project-Specific Rules
 
-- Read AGENTS.md, README.md, and STATE.md first when present.
+- Read AGENTS.md, README.md, and STATE.md first
+  when present.
 - Preserve the management report flow order.
-- Include exact failing command/check when a step fails.
+- Include exact failing command/check when a
+  step fails.
 
 ## Standard Response Required From Codex
 

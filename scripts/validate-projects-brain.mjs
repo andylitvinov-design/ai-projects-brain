@@ -26,25 +26,37 @@ const SECRET_PATTERNS = [
     name: 'OpenAI-style secret token',
     regex: /\bsk-[A-Za-z0-9_-]{16,}/,
   },
-  { name: 'GitHub token', regex: /\bghp_[A-Za-z0-9_]{16,}/ },
-  { name: 'Slack bot token', regex: /\bxoxb-[A-Za-z0-9-]{16,}/ },
+  {
+    name: 'GitHub token',
+    regex: /\bghp_[A-Za-z0-9_]{16,}/,
+  },
+  {
+    name: 'Slack bot token',
+    regex: /\bxoxb-[A-Za-z0-9-]{16,}/,
+  },
   {
     name: 'private key material',
     regex: /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
   },
   {
     name: 'private_key assignment',
-    regex: /\bprivate_key\s*[:=]\s*['"]?[^'"\s][^'"]{8,}/i,
+    regex:
+      /\bprivate_key\s*[:=]\s*['"]?[^'"\s][^'"]{8,}/i,
   },
   {
     name: 'client_secret assignment',
-    regex: /\bclient_secret\s*[:=]\s*['"]?[^'"\s][^'"]{8,}/i,
+    regex:
+      /\bclient_secret\s*[:=]\s*['"]?[^'"\s][^'"]{8,}/i,
   },
   {
     name: 'API_KEY assignment',
-    regex: /\b[A-Z0-9_]*API_KEY\s*=\s*['"]?[^'"\s][^'"]{8,}/,
+    regex:
+      /\b[A-Z0-9_]*API_KEY\s*=\s*['"]?[^'"\s][^'"]{8,}/,
   },
-  { name: 'Bearer token', regex: /\bBearer\s+[A-Za-z0-9._~+/=-]{24,}/ },
+  {
+    name: 'Bearer token',
+    regex: /\bBearer\s+[A-Za-z0-9._~+/=-]{24,}/,
+  },
 ];
 
 function fail(message) {
@@ -52,7 +64,9 @@ function fail(message) {
 }
 
 function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return JSON.parse(
+    fs.readFileSync(filePath, 'utf8'),
+  );
 }
 
 function slugFor(project) {
@@ -60,7 +74,9 @@ function slugFor(project) {
 }
 
 function walkFiles(dir, output = []) {
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+  for (const entry of fs.readdirSync(dir, {
+    withFileTypes: true,
+  })) {
     if (SKIP_DIRS.has(entry.name)) continue;
 
     const fullPath = path.join(dir, entry.name);
@@ -74,15 +90,23 @@ function walkFiles(dir, output = []) {
 }
 
 function isTextFile(filePath) {
-  return /\.(cjs|js|json|md|mjs|txt|yaml|yml)$/i.test(filePath);
+  return /\.(cjs|js|json|md|mjs|txt|yaml|yml)$/i.test(
+    filePath,
+  );
 }
 
 function validateNoSecrets() {
-  const files = walkFiles(ROOT).filter(isTextFile);
+  const files =
+    walkFiles(ROOT).filter(isTextFile);
 
   for (const filePath of files) {
-    const relative = path.relative(ROOT, filePath);
-    const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
+    const relative = path.relative(
+      ROOT,
+      filePath,
+    );
+    const lines = fs
+      .readFileSync(filePath, 'utf8')
+      .split(/\r?\n/);
 
     lines.forEach((line, index) => {
       for (const pattern of SECRET_PATTERNS) {
@@ -96,29 +120,48 @@ function validateNoSecrets() {
   }
 }
 
-const projectsPath = path.join(ROOT, 'projects.json');
-const indexPath = path.join(ROOT, 'data', 'project-index.json');
+const projectsPath = path.join(
+  ROOT,
+  'projects.json',
+);
+const indexPath = path.join(
+  ROOT,
+  'data',
+  'project-index.json',
+);
 
 const database = readJson(projectsPath);
 if (!Array.isArray(database.projects)) {
-  fail('projects.json must contain a projects array');
+  fail(
+    'projects.json must contain a projects array',
+  );
 }
 
 for (const project of database.projects) {
-  if (!project.name) fail('Every project must have a name');
+  if (!project.name)
+    fail('Every project must have a name');
 
   const slug = slugFor(project);
-  const projectDir = path.join(ROOT, 'projects', slug);
+  const projectDir = path.join(
+    ROOT,
+    'projects',
+    slug,
+  );
 
   if (
     !fs.existsSync(projectDir) ||
     !fs.statSync(projectDir).isDirectory()
   ) {
-    fail(`Missing project folder: projects/${slug}/`);
+    fail(
+      `Missing project folder: projects/${slug}/`,
+    );
   }
 
   for (const fileName of REQUIRED_MEMORY_FILES) {
-    const requiredPath = path.join(projectDir, fileName);
+    const requiredPath = path.join(
+      projectDir,
+      fileName,
+    );
     if (!fs.existsSync(requiredPath)) {
       fail(
         `Missing required memory file: projects/${slug}/${fileName}`,
@@ -126,8 +169,13 @@ for (const project of database.projects) {
     }
   }
 
-  if (!project.memory || typeof project.memory !== 'object') {
-    fail(`Missing memory object for project: ${slug}`);
+  if (
+    !project.memory ||
+    typeof project.memory !== 'object'
+  ) {
+    fail(
+      `Missing memory object for project: ${slug}`,
+    );
   }
 
   const requiredMemoryKeys = {
@@ -141,9 +189,13 @@ for (const project of database.projects) {
     codex_brief: `projects/${slug}/CODEX_BRIEF.md`,
   };
 
-  for (const [key, expected] of Object.entries(requiredMemoryKeys)) {
+  for (const [key, expected] of Object.entries(
+    requiredMemoryKeys,
+  )) {
     if (project.memory[key] !== expected) {
-      fail(`Invalid memory.${key} for ${slug}: expected ${expected}`);
+      fail(
+        `Invalid memory.${key} for ${slug}: expected ${expected}`,
+      );
     }
   }
 }
@@ -154,10 +206,15 @@ if (!fs.existsSync(indexPath)) {
 
 const index = readJson(indexPath);
 if (!Array.isArray(index.projects)) {
-  fail('data/project-index.json must contain a projects array');
+  fail(
+    'data/project-index.json must contain a projects array',
+  );
 }
 
-if (index.projects.length !== database.projects.length) {
+if (
+  index.projects.length !==
+  database.projects.length
+) {
   fail(
     'data/project-index.json project count does not match projects.json',
   );
@@ -165,4 +222,6 @@ if (index.projects.length !== database.projects.length) {
 
 validateNoSecrets();
 
-console.log(`validation ok: ${database.projects.length} projects`);
+console.log(
+  `validation ok: ${database.projects.length} projects`,
+);

@@ -2,28 +2,31 @@
 
 ## 1. Purpose
 
-Operator-facing diagnostics/remediation site for codex-links.
+Operator-facing diagnostics/remediation site for
+codex-links.
 
 ## 2. Live URLs
 
 - production: https://codex-save-cjb.pages.dev
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and any secondary live URLs
-  need verification.
+- needs verification: preview/admin mappings and
+  any secondary live URLs need verification.
 
 ## 3. Repositories
 
-- canonical repo: https://github.com/andylitvinov-design/codex-links
+- canonical repo:
+  https://github.com/andylitvinov-design/codex-links
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond the listed inventory
-  need verification.
+- needs verification: repo relationships beyond
+  the listed inventory need verification.
 
 ## 4. Hosting / Deploy
 
 - provider: Cloudflare Pages
-- project name: Cloudflare Pages project codex-save
+- project name: Cloudflare Pages project
+  codex-save
 - deploy source: needs verification
 - branch: needs verification
 - deploy rules: needs verification
@@ -40,7 +43,8 @@ Related subproject under codex-links/codex-save.
 
 ## 7. Environment Variable Names
 
-Only names are listed. Values must never be stored here.
+Only names are listed. Values must never be
+stored here.
 
 - SAVE_STORE
 - LINKS_WRITE_TOKEN
@@ -48,16 +52,18 @@ Only names are listed. Values must never be stored here.
 
 ## 8. Known Issues
 
-- Remediation creates real codex-links agent commands; it does not push
-  directly to main.
+- Remediation creates real codex-links agent
+  commands; it does not push directly to main.
 
 ## 9. Recent Tasks
 
-- Diagnostics and remediation UX added to codex-links.
+- Diagnostics and remediation UX added to
+  codex-links.
 
 ## 10. Next Actions
 
-- Verify live project and KV binding before changing remediation flows.
+- Verify live project and KV binding before
+  changing remediation flows.
 
 ## 11. Risks
 
@@ -70,12 +76,15 @@ Only names are listed. Values must never be stored here.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current source still needs
-  verification before production work
-- live mapping: listed in inventory; live behavior needs verification
-  before claims
-- env status: names only; values and completeness need verification
-- deploy status: hosting listed; deploy source needs verification
+- repo mapping: listed in inventory; current
+  source still needs verification before
+  production work
+- live mapping: listed in inventory; live
+  behavior needs verification before claims
+- env status: names only; values and
+  completeness need verification
+- deploy status: hosting listed; deploy source
+  needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live, deploy, env, and data-flow
-  details.
+- needs verification: unconfirmed repo, live,
+  deploy, env, and data-flow details.

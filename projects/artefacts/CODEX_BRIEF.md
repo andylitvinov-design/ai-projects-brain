@@ -7,7 +7,8 @@
 - Read SYSTEM_MAP.md.
 - Read DATA_SCHEMA.md.
 - Read RISKS.md.
-- Read repo-local AGENTS.md/README.md/STATE.md if present.
+- Read repo-local AGENTS.md/README.md/STATE.md
+  if present.
 
 ## Rules
 
@@ -21,8 +22,8 @@
 
 ## Project-Specific Rules
 
-- Do not apply patterns from links or ezohata without checking this
-  repo.
+- Do not apply patterns from links or ezohata
+  without checking this repo.
 
 ## Standard Response Required From Codex
 

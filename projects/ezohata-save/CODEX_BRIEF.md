@@ -7,7 +7,8 @@
 - Read SYSTEM_MAP.md.
 - Read DATA_SCHEMA.md.
 - Read RISKS.md.
-- Read repo-local AGENTS.md/README.md/STATE.md if present.
+- Read repo-local AGENTS.md/README.md/STATE.md
+  if present.
 
 ## Rules
 
@@ -21,7 +22,8 @@
 
 ## Project-Specific Rules
 
-- Verify target app and command surface before making changes.
+- Verify target app and command surface before
+  making changes.
 
 ## Standard Response Required From Codex
 

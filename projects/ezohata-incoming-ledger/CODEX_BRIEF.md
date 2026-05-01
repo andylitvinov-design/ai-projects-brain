@@ -7,7 +7,8 @@
 - Read SYSTEM_MAP.md.
 - Read DATA_SCHEMA.md.
 - Read RISKS.md.
-- Read repo-local AGENTS.md/README.md/STATE.md if present.
+- Read repo-local AGENTS.md/README.md/STATE.md
+  if present.
 
 ## Rules
 
@@ -21,10 +22,12 @@
 
 ## Project-Specific Rules
 
-- Do not use legacy reconcile-v2/ as production source.
+- Do not use legacy reconcile-v2/ as production
+  source.
 - Use branch -> PR -> merge.
 - Run test/build/release guard.
-- Treat old repo as reference only unless explicitly asked.
+- Treat old repo as reference only unless
+  explicitly asked.
 
 ## Standard Response Required From Codex
 

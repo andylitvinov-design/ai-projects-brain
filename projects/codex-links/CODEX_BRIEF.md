@@ -7,7 +7,8 @@
 - Read SYSTEM_MAP.md.
 - Read DATA_SCHEMA.md.
 - Read RISKS.md.
-- Read repo-local AGENTS.md/README.md/STATE.md if present.
+- Read repo-local AGENTS.md/README.md/STATE.md
+  if present.
 
 ## Rules
 
@@ -21,9 +22,10 @@
 
 ## Project-Specific Rules
 
-- Keep public/version.json, public/index.html, and public/app.js build
-  version aligned.
-- Distinguish cloud plumbing from worker/account linkage.
+- Keep public/version.json, public/index.html,
+  and public/app.js build version aligned.
+- Distinguish cloud plumbing from worker/account
+  linkage.
 - Verify live behavior when production-facing.
 
 ## Standard Response Required From Codex

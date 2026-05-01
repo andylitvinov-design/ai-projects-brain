@@ -12,14 +12,17 @@
 
 ## 3. Data Contracts
 
-Clean-room Cloudflare Pages inbox and finance sync app with PayPal,
-Plaid, Wise, and Binance provider ingestion.
+Clean-room Cloudflare Pages inbox and finance
+sync app with PayPal, Plaid, Wise, and Binance
+provider ingestion.
 
-Exact data contracts need verification from code, docs, or safe samples.
+Exact data contracts need verification from
+code, docs, or safe samples.
 
 ## 4. Storage
 
-- Cloudflare storage/bindings: needs verification
+- Cloudflare storage/bindings: needs
+  verification
 - needs verification
 
 ## 5. Derived Data
@@ -32,5 +35,7 @@ needs verification
 
 ## 7. Migration Notes
 
-- Preserve existing production behavior unless explicitly changing it.
-- Mark unknown schema or storage details as needs verification.
+- Preserve existing production behavior unless
+  explicitly changing it.
+- Mark unknown schema or storage details as
+  needs verification.

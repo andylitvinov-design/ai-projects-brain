@@ -2,11 +2,12 @@
 
 ## 1. Repo Links
 
-- canonical: https://github.com/andylitvinov-design/codex-links
+- canonical:
+  https://github.com/andylitvinov-design/codex-links
 - related: needs verification
 - deprecated: needs verification
-- needs verification: private repo access and repo-to-hosting mapping
-  may need verification.
+- needs verification: private repo access and
+  repo-to-hosting mapping may need verification.
 
 ## 2. Useful Links
 
@@ -39,6 +40,7 @@
 
 ## 5. Access Limitations
 
-ChatGPT may not have direct access to private repos. For analysis, share
-a PR, diff, changed files, safe error logs, and screenshots. Do not
+ChatGPT may not have direct access to private
+repos. For analysis, share a PR, diff, changed
+files, safe error logs, and screenshots. Do not
 share secrets.

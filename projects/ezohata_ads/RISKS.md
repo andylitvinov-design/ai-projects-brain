@@ -2,23 +2,28 @@
 
 ## Critical Risks
 
-- Analytics/ads credentials and external account access are likely
-  sensitive.
+- Analytics/ads credentials and external account
+  access are likely sensitive.
 
 ## Data Risks
 
-- Unknown or stale data must stay marked as needs verification.
-- Data contracts need verification before schema changes.
+- Unknown or stale data must stay marked as
+  needs verification.
+- Data contracts need verification before schema
+  changes.
 
 ## Deploy Risks
 
 - needs verification
-- Deploy source and branch need verification before production work.
+- Deploy source and branch need verification
+  before production work.
 
 ## Security Risks
 
-- Environment variables are names only. Values must never be stored.
-- Private repo and provider data may be sensitive.
+- Environment variables are names only. Values
+  must never be stored.
+- Private repo and provider data may be
+  sensitive.
 
 ## Agent/Codex Risks
 
@@ -28,5 +33,7 @@
 
 - Do not publish secrets.
 - Do not add real environment variable values.
-- Do not invent repo, hosting, live URL, or data-flow mappings.
-- Do not change production without explicit instruction.
+- Do not invent repo, hosting, live URL, or
+  data-flow mappings.
+- Do not change production without explicit
+  instruction.

@@ -30,6 +30,7 @@ needs verification
 
 ## 5. Access Limitations
 
-ChatGPT may not have direct access to private repos. For analysis, share
-a PR, diff, changed files, safe error logs, and screenshots. Do not
+ChatGPT may not have direct access to private
+repos. For analysis, share a PR, diff, changed
+files, safe error logs, and screenshots. Do not
 share secrets.

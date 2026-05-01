@@ -13,7 +13,8 @@
 
 - Working: needs verification
 - Broken: needs verification
-- Unclear / needs verification: needs verification
+- Unclear / needs verification: needs
+  verification
 
 ## 3. Important files
 
@@ -27,8 +28,9 @@ Names only, no values:
 
 ## 5. Recent decisions
 
-- Date: needs verification Decision: needs verification Reason: needs
-  verification Risk: needs verification
+- Date: needs verification Decision: needs
+  verification Reason: needs verification Risk:
+  needs verification
 
 ## 6. Open issues
 

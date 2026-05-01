@@ -2,15 +2,16 @@
 
 ## 1. Purpose
 
-Daily backup repository for changed eligible projects.
+Daily backup repository for changed eligible
+projects.
 
 ## 2. Live URLs
 
 - production: not applicable
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and any secondary live URLs
-  need verification.
+- needs verification: preview/admin mappings and
+  any secondary live URLs need verification.
 
 ## 3. Repositories
 
@@ -18,8 +19,8 @@ Daily backup repository for changed eligible projects.
   https://github.com/andylitvinov-design/codex-daily-backups
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond the listed inventory
-  need verification.
+- needs verification: repo relationships beyond
+  the listed inventory need verification.
 
 ## 4. Hosting / Deploy
 
@@ -39,23 +40,26 @@ Private backup repo from GitHub inventory.
 
 ## 7. Environment Variable Names
 
-Only names are listed. Values must never be stored here.
+Only names are listed. Values must never be
+stored here.
 
 - needs verification
 
 ## 8. Known Issues
 
-- Sensitive projects may be encrypted-only or skipped from plaintext
-  backups.
+- Sensitive projects may be encrypted-only or
+  skipped from plaintext backups.
 
 ## 9. Recent Tasks
 
-- Recent-upgrades backup automation saved selected project snapshots and
-  reported preservation status.
+- Recent-upgrades backup automation saved
+  selected project snapshots and reported
+  preservation status.
 
 ## 10. Next Actions
 
-- Inspect backup automation before relying on backup coverage.
+- Inspect backup automation before relying on
+  backup coverage.
 
 ## 11. Risks
 
@@ -68,11 +72,14 @@ Only names are listed. Values must never be stored here.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current source still needs
-  verification before production work
+- repo mapping: listed in inventory; current
+  source still needs verification before
+  production work
 - live mapping: needs verification
-- env status: names only; values and completeness need verification
-- deploy status: hosting listed; deploy source needs verification
+- env status: names only; values and
+  completeness need verification
+- deploy status: hosting listed; deploy source
+  needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live, deploy, env, and data-flow
-  details.
+- needs verification: unconfirmed repo, live,
+  deploy, env, and data-flow details.

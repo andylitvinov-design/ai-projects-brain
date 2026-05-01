@@ -14,7 +14,8 @@
 
 Cloud-ready ops and content projects.
 
-Exact data contracts need verification from code, docs, or safe samples.
+Exact data contracts need verification from
+code, docs, or safe samples.
 
 ## 4. Storage
 
@@ -31,5 +32,7 @@ needs verification
 
 ## 7. Migration Notes
 
-- Preserve existing production behavior unless explicitly changing it.
-- Mark unknown schema or storage details as needs verification.
+- Preserve existing production behavior unless
+  explicitly changing it.
+- Mark unknown schema or storage details as
+  needs verification.
