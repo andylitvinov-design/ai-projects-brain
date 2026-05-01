@@ -72,6 +72,11 @@ layer, and a follow-up Codex prompt.
 Design/instruction project. It is a project memory entry and audit
 workflow description, not a confirmed deployed product.
 
+finance /api/audit-snapshot is live and reachable at
+https://ezohata-incoming-ledger.vercel.app/api/audit-snapshot.
+Agent-Auditor uses snapshot/data audit as its primary method, not
+browser/UI login.
+
 ## 9. Important Files
 
 - needs verification
@@ -96,5 +101,5 @@ Only names are listed. Values must never be stored here.
 - repo mapping: needs verification
 - hosting/deploy mapping: needs verification
 - important files: needs verification
-- finance /api/audit-snapshot availability: needs verification
+- finance /api/audit-snapshot availability: verified live
 - finance /api/audit-snapshot contract: needs verification
