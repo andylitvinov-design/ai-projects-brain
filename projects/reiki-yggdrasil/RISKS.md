@@ -27,7 +27,8 @@
 
 - Supabase credentials and seeded data require live verification.
 - Vercel GitHub App access can block import/deploy visibility.
-- Layout changes can accidentally collapse the accepted three-column desktop structure.
+- Layout changes can accidentally collapse the accepted three-column
+  desktop structure.
 
 ## Do Not Do
 

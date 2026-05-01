@@ -21,7 +21,8 @@
 
 ## Project-Specific Rules
 
-- Do not apply patterns from links or ezohata without checking this repo.
+- Do not apply patterns from links or ezohata without checking this
+  repo.
 
 ## Standard Response Required From Codex
 

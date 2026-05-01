@@ -12,7 +12,8 @@
 
 ## 3. Data Contracts
 
-Cloudflare Pages inbox, delivery timeline, reports surface, Slack-backed Codex Cloud command bridge, and codex-save diagnostics/remediation app.
+Cloudflare Pages inbox, delivery timeline, reports surface, Slack-backed
+Codex Cloud command bridge, and codex-save diagnostics/remediation app.
 
 Exact data contracts need verification from code, docs, or safe samples.
 

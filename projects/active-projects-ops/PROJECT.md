@@ -9,14 +9,17 @@ Cloud-ready ops and content projects.
 - production: needs verification
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any secondary live URLs
+  need verification.
 
 ## 3. Repositories
 
-- canonical repo: https://github.com/andylitvinov-design/active-projects-ops
+- canonical repo:
+  https://github.com/andylitvinov-design/active-projects-ops
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond the listed inventory need verification.
+- needs verification: repo relationships beyond the listed inventory
+  need verification.
 
 ## 4. Hosting / Deploy
 
@@ -63,9 +66,11 @@ Only names are listed. Values must never be stored here.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current source still needs verification before production work
+- repo mapping: listed in inventory; current source still needs
+  verification before production work
 - live mapping: needs verification
 - env status: names only; values and completeness need verification
 - deploy status: needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live, deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env, and data-flow
+  details.

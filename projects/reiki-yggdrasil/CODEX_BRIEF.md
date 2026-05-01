@@ -24,7 +24,8 @@
 - Preserve the existing home page.
 - Keep RU default.
 - Prefer additive route/module changes.
-- Do not collapse the accepted three-column layout without explicit reason.
+- Do not collapse the accepted three-column layout without explicit
+  reason.
 
 ## Standard Response Required From Codex
 

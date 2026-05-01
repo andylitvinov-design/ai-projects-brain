@@ -2,7 +2,8 @@
 
 ## Critical Risks
 
-- Analytics/ads credentials and external account access are likely sensitive.
+- Analytics/ads credentials and external account access are likely
+  sensitive.
 
 ## Data Risks
 

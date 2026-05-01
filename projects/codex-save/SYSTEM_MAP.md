@@ -2,23 +2,19 @@
 
 ## 1. High-level Flow
 
-[INPUT]
-Operator-facing diagnostics/remediation site for codex-links.
+[INPUT] Operator-facing diagnostics/remediation site for codex-links.
 
 ↓
 
-[PROCESSING]
-needs verification
+[PROCESSING] needs verification
 
 ↓
 
-[STORAGE]
-needs verification
+[STORAGE] needs verification
 
 ↓
 
-[OUTPUT]
-https://codex-save-cjb.pages.dev
+[OUTPUT] https://codex-save-cjb.pages.dev
 
 ## 2. Main Actors
 
@@ -39,7 +35,9 @@ Related subproject under codex-links/codex-save.
 
 ## 5. Deploy Flow
 
-https://github.com/andylitvinov-design/codex-links -> Cloudflare Pages project codex-save -> https://codex-save-cjb.pages.dev. Exact deploy source needs verification.
+https://github.com/andylitvinov-design/codex-links -> Cloudflare Pages
+project codex-save -> https://codex-save-cjb.pages.dev. Exact deploy
+source needs verification.
 
 ## 6. Critical Paths
 

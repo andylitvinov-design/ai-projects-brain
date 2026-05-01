@@ -12,7 +12,8 @@
 
 ## 3. Data Contracts
 
-Clean-room Cloudflare Pages inbox and finance sync app with PayPal, Plaid, Wise, and Binance provider ingestion.
+Clean-room Cloudflare Pages inbox and finance sync app with PayPal,
+Plaid, Wise, and Binance provider ingestion.
 
 Exact data contracts need verification from code, docs, or safe samples.
 

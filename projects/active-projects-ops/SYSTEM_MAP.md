@@ -2,23 +2,19 @@
 
 ## 1. High-level Flow
 
-[INPUT]
-Cloud-ready ops and content projects.
+[INPUT] Cloud-ready ops and content projects.
 
 ↓
 
-[PROCESSING]
-needs verification
+[PROCESSING] needs verification
 
 ↓
 
-[STORAGE]
-needs verification
+[STORAGE] needs verification
 
 ↓
 
-[OUTPUT]
-needs verification
+[OUTPUT] needs verification
 
 ## 2. Main Actors
 
@@ -39,7 +35,9 @@ Private related repo from GitHub inventory.
 
 ## 5. Deploy Flow
 
-https://github.com/andylitvinov-design/active-projects-ops -> needs verification -> needs verification. Exact deploy source needs verification.
+https://github.com/andylitvinov-design/active-projects-ops -> needs
+verification -> needs verification. Exact deploy source needs
+verification.
 
 ## 6. Critical Paths
 

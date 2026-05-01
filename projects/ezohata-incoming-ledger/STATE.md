@@ -3,7 +3,8 @@
 ## 1. Identity
 
 - Name: ezohata-incoming-ledger
-- Purpose: Web app for EzoHata incoming payments, expenses, fact data, balances, provider imports, and channel analytics.
+- Purpose: Web app for EzoHata incoming payments, expenses, fact data,
+  balances, provider imports, and channel analytics.
 - Live URL: https://ezohata-incoming-ledger.vercel.app
 - Repo URL: https://github.com/andylitvinov-design/finance
 - Hosting: Vercel project `ezohata-incoming-ledger`
@@ -13,7 +14,8 @@
 
 - Working: production source mapping points to `finance`
 - Broken: needs verification
-- Unclear / needs verification: provider imports, Google OAuth, and current PR status
+- Unclear / needs verification: provider imports, Google OAuth, and
+  current PR status
 
 ## 3. Important files
 
@@ -36,10 +38,9 @@ Names only, no values:
 
 ## 5. Recent decisions
 
-- Date: 2026-04-29
-  Decision: treat `finance` as the active production source
-  Reason: old repo and legacy paths can mislead agents
-  Risk: deploy/source confusion if legacy repo is used
+- Date: 2026-04-29 Decision: treat `finance` as the active production
+  source Reason: old repo and legacy paths can mislead agents Risk:
+  deploy/source confusion if legacy repo is used
 
 ## 6. Open issues
 

@@ -2,23 +2,20 @@
 
 ## 1. High-level Flow
 
-[INPUT]
-Web app for EzoHata incoming payments, expenses, fact data, balances, provider imports, and channel analytics.
+[INPUT] Web app for EzoHata incoming payments, expenses, fact data,
+balances, provider imports, and channel analytics.
 
 ↓
 
-[PROCESSING]
-needs verification
+[PROCESSING] needs verification
 
 ↓
 
-[STORAGE]
-needs verification
+[STORAGE] needs verification
 
 ↓
 
-[OUTPUT]
-https://ezohata-incoming-ledger.vercel.app
+[OUTPUT] https://ezohata-incoming-ledger.vercel.app
 
 ## 2. Main Actors
 
@@ -35,11 +32,15 @@ needs verification
 
 ## 4. Runtime Flow
 
-Active production source is andylitvinov-design/finance. Old repo andylitvinov-design/ezohata-incoming-ledger is private/deprecated read-only according to GitHub metadata.
+Active production source is andylitvinov-design/finance. Old repo
+andylitvinov-design/ezohata-incoming-ledger is private/deprecated
+read-only according to GitHub metadata.
 
 ## 5. Deploy Flow
 
-https://github.com/andylitvinov-design/finance -> Vercel project ezohata-incoming-ledger -> https://ezohata-incoming-ledger.vercel.app. Exact deploy source needs verification.
+https://github.com/andylitvinov-design/finance -> Vercel project
+ezohata-incoming-ledger -> https://ezohata-incoming-ledger.vercel.app.
+Exact deploy source needs verification.
 
 ## 6. Critical Paths
 

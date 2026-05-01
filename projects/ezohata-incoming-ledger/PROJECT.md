@@ -2,21 +2,24 @@
 
 ## 1. Purpose
 
-Web app for EzoHata incoming payments, expenses, fact data, balances, provider imports, and channel analytics.
+Web app for EzoHata incoming payments, expenses, fact data, balances,
+provider imports, and channel analytics.
 
 ## 2. Live URLs
 
 - production: https://ezohata-incoming-ledger.vercel.app
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any secondary live URLs
+  need verification.
 
 ## 3. Repositories
 
 - canonical repo: https://github.com/andylitvinov-design/finance
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond the listed inventory need verification.
+- needs verification: repo relationships beyond the listed inventory
+  need verification.
 
 ## 4. Hosting / Deploy
 
@@ -28,7 +31,9 @@ Web app for EzoHata incoming payments, expenses, fact data, balances, provider i
 
 ## 5. Current Status
 
-Active production source is andylitvinov-design/finance. Old repo andylitvinov-design/ezohata-incoming-ledger is private/deprecated read-only according to GitHub metadata.
+Active production source is andylitvinov-design/finance. Old repo
+andylitvinov-design/ezohata-incoming-ledger is private/deprecated
+read-only according to GitHub metadata.
 
 ## 6. Important Files
 
@@ -61,9 +66,11 @@ Only names are listed. Values must never be stored here.
 
 ## 8. Known Issues
 
-- Legacy reconcile-v2/ and old repo can mislead agents into using the wrong production source.
+- Legacy reconcile-v2/ and old repo can mislead agents into using the
+  wrong production source.
 - Provider imports depend on configured Vercel env variables.
-- Older ledger behavior has sensitive rules around Остатки, Расходы, СТАЛО, now, transfers, and payout math.
+- Older ledger behavior has sensitive rules around Остатки, Расходы,
+  СТАЛО, now, transfers, and payout math.
 
 ## 9. Recent Tasks
 
@@ -92,9 +99,12 @@ Only names are listed. Values must never be stored here.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current source still needs verification before production work
-- live mapping: listed in inventory; live behavior needs verification before claims
+- repo mapping: listed in inventory; current source still needs
+  verification before production work
+- live mapping: listed in inventory; live behavior needs verification
+  before claims
 - env status: names only; values and completeness need verification
 - deploy status: hosting listed; deploy source needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live, deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env, and data-flow
+  details.

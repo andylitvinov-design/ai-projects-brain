@@ -21,7 +21,8 @@
 
 ## Agent/Codex Risks
 
-- May be separate from current finance/Vercel incoming ledger production.
+- May be separate from current finance/Vercel incoming ledger
+  production.
 
 ## Do Not Do
 

@@ -2,23 +2,19 @@
 
 ## 1. High-level Flow
 
-[INPUT]
-Sales/BWA photo Cloudflare Pages project.
+[INPUT] Sales/BWA photo Cloudflare Pages project.
 
 ↓
 
-[PROCESSING]
-needs verification
+[PROCESSING] needs verification
 
 ↓
 
-[STORAGE]
-needs verification
+[STORAGE] needs verification
 
 ↓
 
-[OUTPUT]
-https://sales-bwa-photo.pages.dev
+[OUTPUT] https://sales-bwa-photo.pages.dev
 
 ## 2. Main Actors
 
@@ -35,11 +31,14 @@ needs verification
 
 ## 4. Runtime Flow
 
-Cloudflare Pages project found in inventory; repo mapping needs verification.
+Cloudflare Pages project found in inventory; repo mapping needs
+verification.
 
 ## 5. Deploy Flow
 
-needs verification -> Cloudflare Pages project sales-bwa-photo -> https://sales-bwa-photo.pages.dev. Exact deploy source needs verification.
+needs verification -> Cloudflare Pages project sales-bwa-photo ->
+https://sales-bwa-photo.pages.dev. Exact deploy source needs
+verification.
 
 ## 6. Critical Paths
 

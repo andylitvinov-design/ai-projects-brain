@@ -9,14 +9,16 @@ EzoHata save/diagnostics project.
 - production: https://ezohata-save.pages.dev
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any secondary live URLs
+  need verification.
 
 ## 3. Repositories
 
 - canonical repo: needs verification
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond the listed inventory need verification.
+- needs verification: repo relationships beyond the listed inventory
+  need verification.
 
 ## 4. Hosting / Deploy
 
@@ -28,7 +30,8 @@ EzoHata save/diagnostics project.
 
 ## 5. Current Status
 
-Cloudflare Pages project found in inventory; repo mapping needs verification.
+Cloudflare Pages project found in inventory; repo mapping needs
+verification.
 
 ## 6. Important Files
 
@@ -46,7 +49,8 @@ Only names are listed. Values must never be stored here.
 
 ## 9. Recent Tasks
 
-- EzoHata deterministic diagnosis/remediation context exists in local memory.
+- EzoHata deterministic diagnosis/remediation context exists in local
+  memory.
 
 ## 10. Next Actions
 
@@ -64,8 +68,10 @@ Only names are listed. Values must never be stored here.
 ## 13. Verification Status
 
 - repo mapping: needs verification
-- live mapping: listed in inventory; live behavior needs verification before claims
+- live mapping: listed in inventory; live behavior needs verification
+  before claims
 - env status: names only; values and completeness need verification
 - deploy status: hosting listed; deploy source needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live, deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env, and data-flow
+  details.

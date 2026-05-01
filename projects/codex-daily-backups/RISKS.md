@@ -21,7 +21,8 @@
 
 ## Agent/Codex Risks
 
-- Sensitive projects may be encrypted-only or skipped from plaintext backups.
+- Sensitive projects may be encrypted-only or skipped from plaintext
+  backups.
 
 ## Do Not Do
 

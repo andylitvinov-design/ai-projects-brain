@@ -21,7 +21,8 @@
 
 ## Agent/Codex Risks
 
-- Remediation creates real codex-links agent commands; it does not push directly to main.
+- Remediation creates real codex-links agent commands; it does not push
+  directly to main.
 
 ## Do Not Do
 

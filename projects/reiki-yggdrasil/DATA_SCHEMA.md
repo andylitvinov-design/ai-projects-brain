@@ -12,7 +12,8 @@
 
 ## 3. Data Contracts
 
-Reiki Yggdrasil Vite/React platform with public learning UI, master cabinet, public masters catalog, and admin moderation.
+Reiki Yggdrasil Vite/React platform with public learning UI, master
+cabinet, public masters catalog, and admin moderation.
 
 Exact data contracts need verification from code, docs, or safe samples.
 

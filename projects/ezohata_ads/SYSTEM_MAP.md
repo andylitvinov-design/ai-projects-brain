@@ -2,23 +2,19 @@
 
 ## 1. High-level Flow
 
-[INPUT]
-Standalone EzoHata ads and analytics bundle.
+[INPUT] Standalone EzoHata ads and analytics bundle.
 
 ↓
 
-[PROCESSING]
-needs verification
+[PROCESSING] needs verification
 
 ↓
 
-[STORAGE]
-needs verification
+[STORAGE] needs verification
 
 ↓
 
-[OUTPUT]
-needs verification
+[OUTPUT] needs verification
 
 ## 2. Main Actors
 
@@ -39,7 +35,8 @@ Private related repo from GitHub inventory.
 
 ## 5. Deploy Flow
 
-https://github.com/andylitvinov-design/ezohata_ads -> needs verification -> needs verification. Exact deploy source needs verification.
+https://github.com/andylitvinov-design/ezohata_ads -> needs verification
+-> needs verification. Exact deploy source needs verification.
 
 ## 6. Critical Paths
 

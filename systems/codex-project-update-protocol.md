@@ -1,12 +1,16 @@
 # Codex Project Update Protocol
 
-Use this protocol whenever Codex changes a project listed in `projects.json`.
+Use this protocol whenever Codex changes a project listed in
+`projects.json`.
 
 ## Required Steps
 
-1. Before changes, read the relevant project folder in `projects/<slug>/`.
+1. Before changes, read the relevant project folder in
+   `projects/<slug>/`.
 2. Do not change unrelated projects without explicit instruction.
-3. After work, update `DEBUG_LOG.md` when the task involved debugging, production behavior, data flow, deploy, auth, provider sync, dashboards, or agent workflow.
+3. After work, update `DEBUG_LOG.md` when the task involved debugging,
+   production behavior, data flow, deploy, auth, provider sync,
+   dashboards, or agent workflow.
 4. If new important files were discovered, update `PROJECT.md`.
 5. If data flow changed, update `SYSTEM_MAP.md`.
 6. If schema or data contract changed, update `DATA_SCHEMA.md`.

@@ -2,21 +2,24 @@
 
 ## 1. Purpose
 
-Clean-room Cloudflare Pages inbox and finance sync app with PayPal, Plaid, Wise, and Binance provider ingestion.
+Clean-room Cloudflare Pages inbox and finance sync app with PayPal,
+Plaid, Wise, and Binance provider ingestion.
 
 ## 2. Live URLs
 
 - production: https://codex-links-myportal.pages.dev
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any secondary live URLs
+  need verification.
 
 ## 3. Repositories
 
 - canonical repo: needs verification
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond the listed inventory need verification.
+- needs verification: repo relationships beyond the listed inventory
+  need verification.
 
 ## 4. Hosting / Deploy
 
@@ -28,7 +31,8 @@ Clean-room Cloudflare Pages inbox and finance sync app with PayPal, Plaid, Wise,
 
 ## 5. Current Status
 
-Local checkout has no remote configured and is dirty. Cloudflare Pages app has token-gated /api/finance/sync and finance import helpers.
+Local checkout has no remote configured and is dirty. Cloudflare Pages
+app has token-gated /api/finance/sync and finance import helpers.
 
 ## 6. Important Files
 
@@ -62,13 +66,15 @@ Only names are listed. Values must never be stored here.
 ## 8. Known Issues
 
 - Repo remote mapping needs verification.
-- Dirty local checkout should not be touched for unrelated repo creation.
+- Dirty local checkout should not be touched for unrelated repo
+  creation.
 - Provider code path is not the same as live credential verification.
 - Binance history has API window limits.
 
 ## 9. Recent Tasks
 
-- Added PayPal, Wise balances/statements, Binance, Plaid/TD import helpers, and /api/finance/sync provider selection.
+- Added PayPal, Wise balances/statements, Binance, Plaid/TD import
+  helpers, and /api/finance/sync provider selection.
 
 ## 10. Next Actions
 
@@ -90,8 +96,10 @@ Only names are listed. Values must never be stored here.
 ## 13. Verification Status
 
 - repo mapping: needs verification
-- live mapping: listed in inventory; live behavior needs verification before claims
+- live mapping: listed in inventory; live behavior needs verification
+  before claims
 - env status: names only; values and completeness need verification
 - deploy status: hosting listed; deploy source needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live, deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env, and data-flow
+  details.

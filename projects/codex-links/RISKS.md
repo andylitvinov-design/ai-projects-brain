@@ -25,7 +25,8 @@
 
 ## Agent/Codex Risks
 
-- Cloud delivery can be fixed in repo while external worker/account linkage remains blocked.
+- Cloud delivery can be fixed in repo while external worker/account
+  linkage remains blocked.
 - Release deploys require version triplet alignment.
 - DNS/network reachability can block report verification.
 

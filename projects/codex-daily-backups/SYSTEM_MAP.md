@@ -2,23 +2,19 @@
 
 ## 1. High-level Flow
 
-[INPUT]
-Daily backup repository for changed eligible projects.
+[INPUT] Daily backup repository for changed eligible projects.
 
 ↓
 
-[PROCESSING]
-needs verification
+[PROCESSING] needs verification
 
 ↓
 
-[STORAGE]
-needs verification
+[STORAGE] needs verification
 
 ↓
 
-[OUTPUT]
-not applicable
+[OUTPUT] not applicable
 
 ## 2. Main Actors
 
@@ -39,7 +35,8 @@ Private backup repo from GitHub inventory.
 
 ## 5. Deploy Flow
 
-https://github.com/andylitvinov-design/codex-daily-backups -> GitHub repository -> not applicable. Exact deploy source needs verification.
+https://github.com/andylitvinov-design/codex-daily-backups -> GitHub
+repository -> not applicable. Exact deploy source needs verification.
 
 ## 6. Critical Paths
 

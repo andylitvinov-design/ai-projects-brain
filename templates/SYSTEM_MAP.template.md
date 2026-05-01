@@ -2,23 +2,19 @@
 
 ## 1. High-level Flow
 
-[INPUT]
-needs verification
+[INPUT] needs verification
 
 ↓
 
-[PROCESSING]
-needs verification
+[PROCESSING] needs verification
 
 ↓
 
-[STORAGE]
-needs verification
+[STORAGE] needs verification
 
 ↓
 
-[OUTPUT]
-needs verification
+[OUTPUT] needs verification
 
 ## 2. Main Actors
 

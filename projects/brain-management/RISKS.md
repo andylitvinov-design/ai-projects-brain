@@ -23,7 +23,8 @@
 
 ## Agent/Codex Risks
 
-- Morning report publish/API verification can fail on codex-links.pages.dev DNS/network reachability.
+- Morning report publish/API verification can fail on
+  codex-links.pages.dev DNS/network reachability.
 - Agents sometimes verify dashboard JSON from the wrong root path.
 
 ## Do Not Do

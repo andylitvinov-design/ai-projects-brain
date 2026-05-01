@@ -2,21 +2,25 @@
 
 ## 1. Purpose
 
-Management dashboard and ops workspace for Codex usage, daily thinking/audit data, mobile-run flows, and management reports.
+Management dashboard and ops workspace for Codex usage, daily
+thinking/audit data, mobile-run flows, and management reports.
 
 ## 2. Live URLs
 
 - production: https://brain-management.pages.dev
 - preview: needs verification
 - admin: needs verification
-- needs verification: preview/admin mappings and any secondary live URLs need verification.
+- needs verification: preview/admin mappings and any secondary live URLs
+  need verification.
 
 ## 3. Repositories
 
-- canonical repo: https://github.com/andylitvinov-design/brain-management
+- canonical repo:
+  https://github.com/andylitvinov-design/brain-management
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: repo relationships beyond the listed inventory need verification.
+- needs verification: repo relationships beyond the listed inventory
+  need verification.
 
 ## 4. Hosting / Deploy
 
@@ -28,7 +32,8 @@ Management dashboard and ops workspace for Codex usage, daily thinking/audit dat
 
 ## 5. Current Status
 
-Private repo with Cloudflare Pages live dashboard. Dashboard snapshots live under dashboard-thinking/data/.
+Private repo with Cloudflare Pages live dashboard. Dashboard snapshots
+live under dashboard-thinking/data/.
 
 ## 6. Important Files
 
@@ -52,12 +57,14 @@ Only names are listed. Values must never be stored here.
 
 ## 8. Known Issues
 
-- Morning report publish/API verification can fail on codex-links.pages.dev DNS/network reachability.
+- Morning report publish/API verification can fail on
+  codex-links.pages.dev DNS/network reachability.
 - Agents sometimes verify dashboard JSON from the wrong root path.
 
 ## 9. Recent Tasks
 
-- Morning report flow uses refresh, verify current JSONs, publish, verify public API, and open inbox item on explicit request/failure.
+- Morning report flow uses refresh, verify current JSONs, publish,
+  verify public API, and open inbox item on explicit request/failure.
 
 ## 10. Next Actions
 
@@ -78,9 +85,12 @@ Only names are listed. Values must never be stored here.
 
 ## 13. Verification Status
 
-- repo mapping: listed in inventory; current source still needs verification before production work
-- live mapping: listed in inventory; live behavior needs verification before claims
+- repo mapping: listed in inventory; current source still needs
+  verification before production work
+- live mapping: listed in inventory; live behavior needs verification
+  before claims
 - env status: names only; values and completeness need verification
 - deploy status: hosting listed; deploy source needs verification
 - data flow: needs verification
-- needs verification: unconfirmed repo, live, deploy, env, and data-flow details.
+- needs verification: unconfirmed repo, live, deploy, env, and data-flow
+  details.

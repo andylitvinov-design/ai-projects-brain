@@ -12,7 +12,8 @@
 
 ## 3. Data Contracts
 
-Management dashboard and ops workspace for Codex usage, daily thinking/audit data, mobile-run flows, and management reports.
+Management dashboard and ops workspace for Codex usage, daily
+thinking/audit data, mobile-run flows, and management reports.
 
 Exact data contracts need verification from code, docs, or safe samples.
 

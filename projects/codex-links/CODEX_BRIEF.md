@@ -21,7 +21,8 @@
 
 ## Project-Specific Rules
 
-- Keep public/version.json, public/index.html, and public/app.js build version aligned.
+- Keep public/version.json, public/index.html, and public/app.js build
+  version aligned.
 - Distinguish cloud plumbing from worker/account linkage.
 - Verify live behavior when production-facing.
 

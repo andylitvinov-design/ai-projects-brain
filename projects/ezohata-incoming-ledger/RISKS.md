@@ -24,9 +24,11 @@
 
 ## Agent/Codex Risks
 
-- Legacy reconcile-v2/ and old repo can mislead agents into using the wrong production source.
+- Legacy reconcile-v2/ and old repo can mislead agents into using the
+  wrong production source.
 - Provider imports depend on configured Vercel env variables.
-- Older ledger behavior has sensitive rules around Остатки, Расходы, СТАЛО, now, transfers, and payout math.
+- Older ledger behavior has sensitive rules around Остатки, Расходы,
+  СТАЛО, now, transfers, and payout math.
 
 ## Do Not Do
 

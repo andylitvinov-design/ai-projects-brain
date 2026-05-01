@@ -2,23 +2,19 @@
 
 ## 1. High-level Flow
 
-[INPUT]
-EzoHata save/diagnostics project.
+[INPUT] EzoHata save/diagnostics project.
 
 ↓
 
-[PROCESSING]
-needs verification
+[PROCESSING] needs verification
 
 ↓
 
-[STORAGE]
-needs verification
+[STORAGE] needs verification
 
 ↓
 
-[OUTPUT]
-https://ezohata-save.pages.dev
+[OUTPUT] https://ezohata-save.pages.dev
 
 ## 2. Main Actors
 
@@ -35,11 +31,13 @@ needs verification
 
 ## 4. Runtime Flow
 
-Cloudflare Pages project found in inventory; repo mapping needs verification.
+Cloudflare Pages project found in inventory; repo mapping needs
+verification.
 
 ## 5. Deploy Flow
 
-needs verification -> Cloudflare Pages project ezohata-save -> https://ezohata-save.pages.dev. Exact deploy source needs verification.
+needs verification -> Cloudflare Pages project ezohata-save ->
+https://ezohata-save.pages.dev. Exact deploy source needs verification.
 
 ## 6. Critical Paths
 

@@ -24,7 +24,8 @@
 ## Agent/Codex Risks
 
 - Repo remote mapping needs verification.
-- Dirty local checkout should not be touched for unrelated repo creation.
+- Dirty local checkout should not be touched for unrelated repo
+  creation.
 - Provider code path is not the same as live credential verification.
 - Binance history has API window limits.
 

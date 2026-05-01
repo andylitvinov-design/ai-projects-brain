@@ -27,10 +27,8 @@ Names only, no values:
 
 ## 5. Recent decisions
 
-- Date: needs verification
-  Decision: needs verification
-  Reason: needs verification
-  Risk: needs verification
+- Date: needs verification Decision: needs verification Reason: needs
+  verification Risk: needs verification
 
 ## 6. Open issues
 
