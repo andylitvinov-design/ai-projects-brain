@@ -4,6 +4,21 @@ Last inventory update: 2026-04-29.
 
 This file mirrors the core records in `projects.json`. It lists public context only. Environment variables are names only, not values.
 
+## Memory System
+
+- `projects.md` = human-readable project map
+- `projects.json` = machine-readable project database
+- `data/project-index.json` = generated project memory index
+- `projects/<slug>/PROJECT.md` = detailed per-project passport
+- `projects/<slug>/SYSTEM_MAP.md` = flow/runtime/deploy map
+- `projects/<slug>/DATA_SCHEMA.md` = data contracts and schema notes
+- `systems/project-memory-schema.md` = shared memory schema
+- `systems/project-memory-standard.md` = expanded memory standard
+- `systems/codex-project-update-protocol.md` = Codex memory update protocol
+- `systems/project-state-template.md` = current-state template
+- `systems/project-log-template.md` = change log template
+- `systems/codex-project-workflow.md` = Codex workflow
+
 Canonical field mapping in this database:
 
 - `name`
@@ -18,6 +33,8 @@ Canonical field mapping in this database:
 - `notes`
 
 ## ezohata-incoming-ledger
+
+- **project memory:** `projects/ezohata-incoming-ledger/PROJECT.md`
 
 - **name:** ezohata-incoming-ledger
 - **purpose:** Web app for EzoHata incoming payments, expenses, fact data, balances, provider imports, and channel analytics.
@@ -35,6 +52,8 @@ Canonical field mapping in this database:
 
 ## reiki-yggdrasil
 
+- **project memory:** `projects/reiki-yggdrasil/PROJECT.md`
+
 - **name:** reiki-yggdrasil
 - **purpose:** Reiki Yggdrasil Vite/React platform with public learning UI, master cabinet, public masters catalog, and admin moderation.
 - **live URL:** https://reiki-yggdrasil.vercel.app
@@ -50,6 +69,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Preserve the existing home page. Keep RU default. Prefer additive route/module changes. Do not collapse the accepted three-column layout without explicit reason.
 
 ## brain-management
+
+- **project memory:** `projects/brain-management/PROJECT.md`
 
 - **name:** brain-management
 - **purpose:** Management dashboard and ops workspace for Codex usage, daily thinking/audit data, mobile-run flows, and management reports.
@@ -67,6 +88,8 @@ Canonical field mapping in this database:
 
 ## codex-links
 
+- **project memory:** `projects/codex-links/PROJECT.md`
+
 - **name:** codex-links
 - **purpose:** Cloudflare Pages inbox, delivery timeline, reports surface, Slack-backed Codex Cloud command bridge, and `codex-save` diagnostics/remediation app.
 - **live URL:** https://codex-links.pages.dev
@@ -82,6 +105,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Keep `public/version.json`, `public/index.html`, and `public/app.js` build version aligned. Distinguish cloud plumbing from worker/account linkage. Verify live behavior when production-facing.
 
 ## codex-links-myportal
+
+- **project memory:** `projects/codex-links-myportal/PROJECT.md`
 
 - **name:** codex-links-myportal
 - **purpose:** Clean-room Cloudflare Pages inbox and finance sync app with PayPal, Plaid, Wise, and Binance provider ingestion.
@@ -99,6 +124,8 @@ Canonical field mapping in this database:
 
 ## ezohata_ads
 
+- **project memory:** `projects/ezohata_ads/PROJECT.md`
+
 - **name:** ezohata_ads
 - **purpose:** Standalone EzoHata ads and analytics bundle.
 - **live URL:** unknown
@@ -114,6 +141,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Do not infer credentials. Verify exact provider setup and repo-local rules first.
 
 ## codex-daily-backups
+
+- **project memory:** `projects/codex-daily-backups/PROJECT.md`
 
 - **name:** codex-daily-backups
 - **purpose:** Daily backup repository for changed eligible projects.
@@ -131,6 +160,8 @@ Canonical field mapping in this database:
 
 ## active-projects-ops
 
+- **project memory:** `projects/active-projects-ops/PROJECT.md`
+
 - **name:** active-projects-ops
 - **purpose:** Cloud-ready ops and content projects.
 - **live URL:** unknown
@@ -146,6 +177,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Do not assume one repo equals one product. Read repo-local `AGENTS.md` and subproject docs first.
 
 ## report
+
+- **project memory:** `projects/report/PROJECT.md`
 
 - **name:** report
 - **purpose:** Report-related project.
@@ -163,6 +196,8 @@ Canonical field mapping in this database:
 
 ## artefacts
 
+- **project memory:** `projects/artefacts/PROJECT.md`
+
 - **name:** artefacts
 - **purpose:** Artefacts marketplace MVP.
 - **live URL:** unknown
@@ -178,6 +213,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Do not apply patterns from `links` or `ezohata` without checking this repo.
 
 ## council
+
+- **project memory:** `projects/council/PROJECT.md`
 
 - **name:** council
 - **purpose:** SIA Council local MVP app.
@@ -195,6 +232,8 @@ Canonical field mapping in this database:
 
 ## psitrends
 
+- **project memory:** `projects/psitrends/PROJECT.md`
+
 - **name:** psitrends
 - **purpose:** PsiTrends project.
 - **live URL:** https://psitrends.pages.dev
@@ -210,6 +249,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Treat mapping as `needs verification` until confirmed.
 
 ## ezohata-save
+
+- **project memory:** `projects/ezohata-save/PROJECT.md`
 
 - **name:** ezohata-save
 - **purpose:** EzoHata save/diagnostics project.
@@ -227,6 +268,8 @@ Canonical field mapping in this database:
 
 ## codex-save
 
+- **project memory:** `projects/codex-save/PROJECT.md`
+
 - **name:** codex-save
 - **purpose:** Operator-facing diagnostics/remediation site for `codex-links`.
 - **live URL:** https://codex-save-cjb.pages.dev
@@ -243,6 +286,8 @@ Canonical field mapping in this database:
 
 ## ezohata-dashboard
 
+- **project memory:** `projects/ezohata-dashboard/PROJECT.md`
+
 - **name:** ezohata-dashboard
 - **purpose:** EzoHata dashboard Cloudflare Pages project.
 - **live URL:** https://ezohata-dashboard.pages.dev
@@ -258,6 +303,8 @@ Canonical field mapping in this database:
 - **rules for Codex:** Do not deploy here unless target is explicitly confirmed.
 
 ## sales-bwa-photo
+
+- **project memory:** `projects/sales-bwa-photo/PROJECT.md`
 
 - **name:** sales-bwa-photo
 - **purpose:** Sales/BWA photo Cloudflare Pages project.
