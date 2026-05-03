@@ -1,0 +1,122 @@
+{
+  "version": "1.0",
+  "status": "canonical",
+  "owner": "Andrey Li",
+  "purpose": "Machine-readable source registry for Andrey Li agents. Agents must read this before free-text search when routing project, method, report, or business tasks.",
+  "primary_rule": "Use exact canonical sources from this registry before searching. Search is fallback, not the first step, for known source types.",
+  "repositories": {
+    "business_and_agents": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "base_path": "andrey-system",
+      "role": "business packaging, agent instructions, project-ready runtime, templates, structural examples"
+    },
+    "method": {
+      "repo": "andylitvinov-design/alchemy-method",
+      "role": "method logic, consultations, live Russian report examples, Dao/Wu Xing/homeopathy logic",
+      "registry": {
+        "path": "method-source-registry.json",
+        "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/method-source-registry.json"
+      }
+    }
+  },
+  "agent_entrypoints": {
+    "global_agent_start": {
+      "path": "andrey-system/AGENT-START-HERE.md",
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/AGENT-START-HERE.md"
+    },
+    "system_index": {
+      "path": "andrey-system/system-index.json",
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/system-index.json"
+    }
+  },
+  "task_routing": {
+    "client_report_ru": {
+      "priority": "exact_path_first",
+      "required_sources": [
+        {
+          "repo": "andylitvinov-design/alchemy-method",
+          "path": "method-source-registry.json",
+          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/method-source-registry.json"
+        },
+        {
+          "repo": "andylitvinov-design/alchemy-method",
+          "path": "consultations/reports-index.md",
+          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/reports-index.md"
+        },
+        {
+          "repo": "andylitvinov-design/alchemy-method",
+          "path": "consultations/report-logic.md",
+          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/report-logic.md"
+        },
+        {
+          "repo": "andylitvinov-design/alchemy-method",
+          "path": "consultations/examples/confidence-bach-report-example.md",
+          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/examples/confidence-bach-report-example.md",
+          "role": "primary live Russian client report style reference"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-template.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-template.md",
+          "role": "report format templates and structure"
+        }
+      ],
+      "forbidden_confusion": [
+        {
+          "path": "andrey-system/examples/sample-full-client-report.md",
+          "reason": "English structural sample, not the primary live Russian report style"
+        }
+      ]
+    },
+    "report_agent_runtime": {
+      "required_sources": [
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/project-ready/report-agent-project-instruction.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/agent/report-agent-playbook.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-agent-playbook.md"
+        }
+      ]
+    },
+    "business_builder": {
+      "required_sources": [
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/master-doc.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/master-doc.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/agent/business-builder-playbook.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/business-builder-playbook.md"
+        }
+      ]
+    }
+  },
+  "lookup_answers": {
+    "where_is_real_russian_client_report": {
+      "answer": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/examples/confidence-bach-report-example.md",
+      "path": "consultations/examples/confidence-bach-report-example.md",
+      "repo": "andylitvinov-design/alchemy-method"
+    },
+    "where_is_report_index": {
+      "answer": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/reports-index.md",
+      "path": "consultations/reports-index.md",
+      "repo": "andylitvinov-design/alchemy-method"
+    },
+    "where_is_report_agent_project_instruction": {
+      "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
+      "path": "andrey-system/project-ready/report-agent-project-instruction.md",
+      "repo": "andylitvinov-design/ai-projects-brain"
+    }
+  },
+  "search_policy": {
+    "known_sources": "Use exact paths from source-registry.json and method-source-registry.json first.",
+    "unknown_sources": "Use search only after checking the registries and entrypoints.",
+    "if_search_fails": "Report that search failed and list which registries and exact paths were checked. Do not claim a file is missing if an exact-path registry has not been checked."
+  }
+}
