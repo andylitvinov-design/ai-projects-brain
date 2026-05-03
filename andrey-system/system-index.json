@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
+  "version": "1.4",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -8,6 +8,8 @@
     "chatgpt_project": "runtime",
     "method_source": "andylitvinov-design/alchemy-method",
     "business_source": "andrey-system",
+    "report_agent_instruction_source": "project-ready/report-agent-project-instruction.md",
+    "report_writing_instruction_source": "core/report-template.md",
     "report_templates_source": "core/report-template.md",
     "report_examples_source": "examples/"
   },
@@ -26,7 +28,9 @@
       "instruction": "agent/report-agent-instructions.md",
       "playbook": "agent/report-agent-playbook.md",
       "project_ready": "project-ready/report-agent-project-instruction.md",
+      "writing_instructions": "core/report-template.md",
       "templates": "core/report-template.md",
+      "examples": "examples/",
       "formats": [
         "express_diagnosis",
         "full_client_report",
@@ -48,10 +52,19 @@
     "core/quality-checklist.md"
   ],
   "report_architecture": {
-    "runtime_instruction": "project-ready/report-agent-project-instruction.md",
+    "layer_1_agent_instruction": {
+      "file": "project-ready/report-agent-project-instruction.md",
+      "purpose": "who the agent is, which report type to choose, and what to do in each case"
+    },
+    "layer_2_report_writing_instructions": {
+      "file": "core/report-template.md",
+      "purpose": "what to check before writing each report and how to write it"
+    },
+    "layer_3_report_examples": {
+      "directory": "examples/",
+      "purpose": "concrete anonymized sample reports for style and structure"
+    },
     "workflow_playbook": "agent/report-agent-playbook.md",
-    "template_library": "core/report-template.md",
-    "examples_directory": "examples/",
     "method_logic": "andylitvinov-design/alchemy-method/consultations/report-logic.md",
     "dao_scale": "andylitvinov-design/alchemy-method/method/dao-resource-scale.md"
   },
