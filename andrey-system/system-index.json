@@ -1,5 +1,5 @@
 {
-  "version": "1.4",
+  "version": "1.5",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -11,7 +11,10 @@
     "report_agent_instruction_source": "project-ready/report-agent-project-instruction.md",
     "report_writing_instruction_source": "core/report-template.md",
     "report_templates_source": "core/report-template.md",
-    "report_examples_source": "examples/"
+    "structural_report_examples_source": "examples/",
+    "method_report_index_source": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
+    "method_report_logic_source": "andylitvinov-design/alchemy-method/consultations/report-logic.md",
+    "live_ru_report_example": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md"
   },
   "entry_points": {
     "agent": "AGENT-START-HERE.md",
@@ -30,7 +33,9 @@
       "project_ready": "project-ready/report-agent-project-instruction.md",
       "writing_instructions": "core/report-template.md",
       "templates": "core/report-template.md",
-      "examples": "examples/",
+      "structural_examples": "examples/",
+      "method_report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
+      "live_ru_report_example": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
       "formats": [
         "express_diagnosis",
         "full_client_report",
@@ -60,9 +65,14 @@
       "file": "core/report-template.md",
       "purpose": "what to check before writing each report and how to write it"
     },
-    "layer_3_report_examples": {
+    "layer_3_structural_report_examples": {
       "directory": "examples/",
-      "purpose": "concrete anonymized sample reports for style and structure"
+      "purpose": "structural sample reports for report formats; English samples are not the primary Russian client style source"
+    },
+    "layer_4_live_ru_report_examples": {
+      "index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
+      "primary_example": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
+      "purpose": "primary Russian client-facing tone and live report style"
     },
     "workflow_playbook": "agent/report-agent-playbook.md",
     "method_logic": "andylitvinov-design/alchemy-method/consultations/report-logic.md",
@@ -84,6 +94,9 @@
     "examples/sample-business-offer.md",
     "examples/sample-post.md"
   ],
+  "method_examples": [
+    "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md"
+  ],
   "reading_order": [
     "AGENT-START-HERE.md",
     "system-index.json",
@@ -92,6 +105,8 @@
     "agent/{selected-agent}-instructions.md",
     "agent/{selected-agent}-playbook.md",
     "core/{task-file}.md",
+    "alchemy-method/consultations/reports-index.md, if the task is about client reports",
+    "alchemy-method/consultations/examples/confidence-bach-report-example.md, if the output is a Russian client report",
     "examples/{relevant-example}.md"
   ]
 }
