@@ -2,25 +2,28 @@
 
 This file defines the working report templates for Report Agent.
 
-It replaces the old five-report-type logic with Andrey's practical diagnostic matrix:
+It follows Andrey's clarified diagnostic structure:
 
 1. Depth:
+   - Mini Express
    - Short Diagnosis
    - Deep Diagnosis
+   - Remedy-Only Analysis
 
 2. Status:
    - New Diagnosis
    - Repeat Diagnosis / Progress Check
 
-Optional blocks:
+Additional blocks:
 
-- Psychosomatics / Symptom Meaning
+- Psychosomatics / Link Between Self And Goal
+- Symptom Analysis
 - System Analysis
 - Remedy Relevance Check
 
 Main result of any report:
 
-**ясность → опора → назначение / поддержка → проверка**
+**ясность → опора → препарат / поддержка → проверка**
 
 ---
 
@@ -30,28 +33,30 @@ Choose:
 
 ```md
 Depth:
+- Mini Express
 - Short Diagnosis
 - Deep Diagnosis
+- Remedy-Only Analysis
 
 Status:
 - New Diagnosis
 - Repeat Diagnosis
 
-Optional blocks:
-- Psychosomatics / Symptom Meaning
+Additional blocks:
+- Psychosomatics / Link Between Self And Goal
+- Symptom Analysis
 - System Analysis
 - Remedy Relevance Check
 ```
 
-Do not start by choosing old labels such as Express / Full / Monthly unless they are only used internally.
+Core rules:
 
-For Andrey's actual client reports, the working choice is:
-
-```md
-Short or Deep?
-New or Repeat?
-Do we need symptom/system/remedy-check blocks?
-```
+- any Wu Xing analysis, even a short numeric snapshot, means **Deep Diagnosis**;
+- `Я + цель / здоровье` is almost always included;
+- `симптом` is included only when Andrey specifically evaluates it;
+- remedies/supports are included almost always;
+- **Mini Express** is the exception: it may be without remedies;
+- pure remedy analysis can be a standalone format.
 
 ---
 
@@ -77,16 +82,51 @@ Avoid:
 
 ---
 
-## 3. Short Diagnosis — New
+## 3. Mini Express
+
+Use when:
+
+- Andrey needs a tiny check;
+- user asks for very short answer;
+- no remedy selection is requested;
+- no Wu Xing is needed;
+- no support plan is required.
+
+Length:
+
+- 80–250 words.
+
+Template:
+
+```md
+Смотрю.
+
+Я X.X.
+Цель / здоровье X.X, если нужно.
+
+Коротко что сейчас.
+Главное — ...
+
+Дальше:
+...
+```
+
+No remedies by default.
+No Wu Xing.
+No long explanation.
+
+---
+
+## 4. Short Diagnosis — New
 
 Use when:
 
 - first check;
 - limited data;
 - quick orientation;
-- mainly resource / goal / symptom level;
+- mainly `Я + цель / здоровье` level;
 - remedy or Bach selection is needed;
-- no full Wu Xing required.
+- no Wu Xing required.
 
 Length:
 
@@ -98,7 +138,8 @@ Template:
 Смотрю.
 
 Я X.X.
-Цель / здоровье / симптом X.X, если нужно.
+Цель / здоровье X.X.
+Симптом X.X, только если специально оценён.
 
 Коротко что сейчас.
 Как будто ...
@@ -120,18 +161,18 @@ Template:
 Смотреть: ...
 ```
 
-Do not add full Wu Xing unless user asks or data clearly requires it.
+Do not add Wu Xing. If Wu Xing appears, switch to Deep Diagnosis.
 
 ---
 
-## 4. Short Diagnosis — Repeat / Progress Check
+## 5. Short Diagnosis — Repeat / Progress Check
 
 Use when:
 
 - previous diagnosis exists;
 - user asks to recheck;
-- only quick state/remedy update is needed;
-- no full Wu Xing required.
+- quick state/remedy update is needed;
+- no Wu Xing required.
 
 Length:
 
@@ -143,7 +184,8 @@ Template:
 Смотрю ещё раз.
 
 Я X.X.
-Здоровье / цель / симптом X.X, если нужно.
+Здоровье / цель X.X.
+Симптом X.X, только если специально оценён.
 
 Пока состояние ...
 Показатели выросли / без изменений / немного просели.
@@ -164,7 +206,7 @@ Template:
 Проверить через ...
 ```
 
-If it is a very short follow-up, use this compressed version:
+If it is a very short follow-up, use:
 
 ```md
 Привет. Ну как там?
@@ -182,14 +224,14 @@ If it is a very short follow-up, use this compressed version:
 
 ---
 
-## 5. Deep Diagnosis — New
+## 6. Deep Diagnosis — New
 
 Use when:
 
+- any Wu Xing analysis is included;
 - first serious report;
 - enough data;
 - health/symptom/systemic issue is present;
-- Wu Xing analysis is needed;
 - support plan is needed.
 
 Length:
@@ -207,22 +249,23 @@ Template:
 Образ состояния.
 Есть ли внутренний ресурс / потенциал.
 
-2. ЦЕЛЬ / ЗДОРОВЬЕ / СИМПТОМ
-Цель / здоровье / симптом X.X.
+2. ЦЕЛЬ / ЗДОРОВЬЕ
+Цель / здоровье X.X.
 Что показывает это поле.
 Где ограничение / страх / сжатие / потеря управления.
 
-[ОПЦИОНАЛЬНО] СИМПТОМ / ПСИХОСОМАТИКА
+3. СИМПТОМ
+Только если специально оценён.
 Симптом может отражать ...
 Как будто ...
+
+4. СВЯЗЬ Я И ЦЕЛИ / ЗДОРОВЬЯ
+В Я есть ...
+В цели / здоровье есть ...
+Между ними застревает ...
 Психологическая задача: ...
 
-[ОПЦИОНАЛЬНО] СИСТЕМА
-Здесь влияет внешний контекст: ...
-Как будто человек чувствует ...
-Задача вернуть ...
-
-3. УСИН
+5. УСИН
 Вода / почки — X.X
 Что происходит.
 Что поддержать.
@@ -243,13 +286,13 @@ Template:
 Что происходит.
 Что поддержать.
 
-4. ВЫВОД
+6. ВЫВОД
 Dao ступень / образ, если виден.
 Главный bottleneck.
 Что поддерживаем первым.
 Следующий реалистичный шаг.
 
-5. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
+7. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
 #1. Основная поддержка
 - ... — функция
 
@@ -262,7 +305,7 @@ Dao ступень / образ, если виден.
 #4. Гомеопатия / позже, если нужно
 - ... — функция
 
-6. ПРОВЕРКА
+8. ПРОВЕРКА
 Что отслеживать.
 Когда проверить.
 ```
@@ -272,7 +315,7 @@ Each element should be short: number → state → support.
 
 ---
 
-## 6. Deep Diagnosis — Repeat / Progress Check
+## 7. Deep Diagnosis — Repeat / Progress Check
 
 Use when:
 
@@ -292,7 +335,7 @@ Template:
 Смотрю твою систему / Смотрю ещё раз.
 
 Я X.X.
-Здоровье X.X.
+Здоровье / цель X.X.
 
 Вода X.X
 Дерево X.X
@@ -332,14 +375,80 @@ Template:
 Проверить через ...
 ```
 
-Use compact Wu Xing snapshot if indicators are even and stable.
+A compact Wu Xing snapshot is still Deep Diagnosis.
 Use full element explanation only if a specific element is clearly blocked.
 
 ---
 
-## 7. Optional Block — Psychosomatics / Symptom Meaning
+## 8. Remedy-Only Analysis
 
-Use only when there is a symptom or body metaphor.
+Use when the task is only to analyze remedies, reactions, or current relevance.
+
+Length:
+
+- 250–700 words.
+
+Template:
+
+```md
+Смотрю препараты.
+
+ОСНОВНАЯ ТЕМА
+Коротко что они вместе показывают.
+
+ЯДРО
+- remedy — role
+
+РЕАКЦИЯ / ЭМОЦИИ
+- remedy — role
+
+АДАПТАЦИЯ / ЗАЩИТА
+- remedy — role
+
+АКТУАЛЬНЫ СЕЙЧАС
+- ...
+
+НЕ АКТУАЛЬНЫ / УШЛИ
+- ...
+
+ЧТО ПРОВЕРИТЬ ДАЛЬШЕ
+- ...
+```
+
+This format can be used without `Я`, `цель`, or Wu Xing if the user only asks about remedies.
+
+---
+
+## 9. Additional Block — Psychosomatics / Link Between Self And Goal
+
+Psychosomatics often means the link between:
+
+```md
+Я ↔ цель / здоровье / симптом
+```
+
+Use when the report needs to explain why the person cannot move from current state to goal/health.
+
+Template:
+
+```md
+СВЯЗЬ Я И ЦЕЛИ / ЗДОРОВЬЯ
+В Я есть ...
+В цели / здоровье есть ...
+Между ними застревает ...
+
+Психологическая задача:
+А. Вернуть ...
+Б. Уменьшить ...
+```
+
+This can be included without a separate heading `ПСИХОСОМАТИКА`.
+
+---
+
+## 10. Additional Block — Symptom Analysis
+
+Use only when symptom is specifically assessed.
 
 Template:
 
@@ -384,7 +493,7 @@ Safety:
 
 ---
 
-## 8. Optional Block — System Analysis
+## 11. Additional Block — System Analysis
 
 Use when external system matters: family, work, father, partner, institution, country, money, clients.
 
@@ -407,7 +516,7 @@ Do not turn it into full constellation unless asked.
 
 ---
 
-## 9. Optional Block — Remedy Relevance Check
+## 12. Additional Block — Remedy Relevance Check
 
 Use in repeat diagnosis.
 
@@ -438,7 +547,7 @@ Important distinction:
 
 ---
 
-## 10. Remedy / Support Language
+## 13. Remedy / Support Language
 
 Describe remedies by function, not encyclopedia style.
 
@@ -463,7 +572,7 @@ Bad:
 
 ---
 
-## 11. Dao / Stage Language
+## 14. Dao / Stage Language
 
 Use Dao stage only when it helps.
 
@@ -481,7 +590,7 @@ Do not explain the full Dao ladder unless asked.
 
 ---
 
-## 12. Living Style Rules
+## 15. Living Style Rules
 
 Use:
 
@@ -508,7 +617,7 @@ Avoid:
 
 ---
 
-## 13. Safety
+## 16. Safety
 
 Alternative supports are not guarantees and not medical replacements.
 
@@ -536,16 +645,17 @@ Never:
 
 ---
 
-## 14. Final Checklist
+## 17. Final Checklist
 
 Before finalizing:
 
-- Short or Deep?
+- Mini Express, Short, Deep, or Remedy-Only?
 - New or Repeat?
-- Is Wu Xing needed?
-- Is psychomatic/system block needed?
+- If there is Wu Xing, did you classify as Deep?
+- Are `Я + цель/здоровье` included when relevant?
+- Is symptom included only if specifically assessed?
+- Is psychsomatic link needed between Self and goal/health?
 - Is remedy relevance check needed?
-- Is the report alive and short enough?
 - Are remedies described by function?
 - Is the next check clear?
 - Are uncertain points marked `needs verification`?
@@ -557,4 +667,4 @@ Main rule:
 
 The strongest report gives:
 
-**ясность → опору → назначение → проверку**
+**ясность → опору → препарат / поддержку → проверку**
