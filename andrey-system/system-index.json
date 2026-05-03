@@ -1,5 +1,5 @@
 {
-  "version": "1.2",
+  "version": "1.3",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -7,7 +7,9 @@
     "github": "knowledge_base",
     "chatgpt_project": "runtime",
     "method_source": "andylitvinov-design/alchemy-method",
-    "business_source": "andrey-system"
+    "business_source": "andrey-system",
+    "report_templates_source": "core/report-template.md",
+    "report_examples_source": "examples/"
   },
   "entry_points": {
     "agent": "AGENT-START-HERE.md",
@@ -20,9 +22,18 @@
       "project_ready": "project-ready/business-builder-project-instruction.md"
     },
     "report_agent": {
+      "role": "multi-format client reporting agent",
       "instruction": "agent/report-agent-instructions.md",
       "playbook": "agent/report-agent-playbook.md",
-      "project_ready": "project-ready/report-agent-project-instruction.md"
+      "project_ready": "project-ready/report-agent-project-instruction.md",
+      "templates": "core/report-template.md",
+      "formats": [
+        "express_diagnosis",
+        "full_client_report",
+        "monthly_progress_report",
+        "remedy_support_note",
+        "homeopathy_situation_decoder"
+      ]
     }
   },
   "project_ready": [
@@ -36,6 +47,14 @@
     "core/report-template.md",
     "core/quality-checklist.md"
   ],
+  "report_architecture": {
+    "runtime_instruction": "project-ready/report-agent-project-instruction.md",
+    "workflow_playbook": "agent/report-agent-playbook.md",
+    "template_library": "core/report-template.md",
+    "examples_directory": "examples/",
+    "method_logic": "andylitvinov-design/alchemy-method/consultations/report-logic.md",
+    "dao_scale": "andylitvinov-design/alchemy-method/method/dao-resource-scale.md"
+  },
   "agent_files": [
     "agent/agent-map.md",
     "agent/business-builder-instructions.md",
@@ -45,6 +64,10 @@
   ],
   "examples": [
     "examples/sample-express-diagnosis.md",
+    "examples/sample-full-client-report.md",
+    "examples/sample-monthly-progress-report.md",
+    "examples/sample-remedy-support-note.md",
+    "examples/sample-homeopathy-decoder.md",
     "examples/sample-business-offer.md",
     "examples/sample-post.md"
   ],
