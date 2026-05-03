@@ -1,12 +1,35 @@
-# Client Report Template
+# Client Report Template — Andrey Li System
 
-## 1. Current State
+Use this template for express diagnostics, monthly support reports, and extended client reports.
 
-Level:
+Rule: every report must connect pain → mechanism → resource → next level → practical action.
 
-Description:
+## 1. Client Request
 
-## 2. Core Mechanism
+Client name:
+
+Date:
+
+Request:
+
+Client language / direct quote:
+
+Context:
+
+## 2. Current State Summary
+
+Current level:
+
+Short diagnosis:
+
+Main visible symptoms:
+- energy:
+- clarity:
+- confidence:
+- movement/action:
+- money/business/relationships/health:
+
+## 3. Core Mechanism
 
 Initial impulse:
 
@@ -18,46 +41,105 @@ Repeating pattern:
 
 Current result:
 
-## 3. Resource Analysis
+Simple explanation for the client:
 
-Water:
+## 4. Resource Analysis — Wu Xing
 
-Wood:
+Water — base energy, safety, deep reserve:
 
-Fire:
+Wood — growth, direction, action:
 
-Earth:
+Fire — expression, visibility, joy, contact:
 
-Metal:
+Earth — support, stability, grounding, material base:
 
-## 4. Key Block
+Metal — structure, clarity, value, boundaries:
 
-Main limitation:
+Strongest element:
 
-## 5. Practical Actions
+Weakest / blocked element:
 
-Behavior:
+Main resource bottleneck:
 
-Mindset:
-
-Practical step:
-
-## 6. Support Tools
-
-Tool:
-
-Purpose:
-
-## 7. Target State
+## 5. Scale
 
 Current level:
 
 Target level:
 
-## 8. Forecast
+Meaning of current level:
+
+Meaning of target level:
+
+Expected movement:
+
+## 6. Key Block
+
+Main limitation:
+
+What drains resource:
+
+What prevents movement:
+
+What needs to be restored first:
+
+## 7. Potential
+
+What wants to grow:
+
+What quality can open:
+
+What new behavior can appear:
+
+## 8. Support Plan
+
+Psychological focus:
+
+Resource focus:
+
+Practical focus:
+
+Business / money focus, if relevant:
+
+Relationship / health focus, if relevant:
+
+## 9. Remedies / Support Tools
+
+Tool or remedy:
+
+Purpose:
+
+Expected direction of support:
+
+Important note:
+No medical guarantees. Any medical condition requires appropriate medical care when needed.
+
+## 10. Practical Actions
+
+Action 1:
+
+Action 2:
+
+Action 3:
+
+Minimum step for the next 7 days:
+
+## 11. Forecast
 
 Expected changes:
 
-## 9. Next Step
+What may improve first:
 
-Recommended next action:
+What may take longer:
+
+Risk / resistance:
+
+How to track progress:
+
+## 12. Recommended Next Step
+
+Suggested format:
+
+Why this format:
+
+Next session focus:
