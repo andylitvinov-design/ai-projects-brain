@@ -12,9 +12,40 @@
 
 ---
 
+## 0. Source Registry Rule — обязательный первый шаг
+
+Если доступ к GitHub включён, НЕ начинай с поиска по словам.
+
+Сначала открывай machine-readable registry:
+
+1. `andrey-system/source-registry.json`
+2. `andrey-system/system-index.json`
+3. `alchemy-method/method-source-registry.json`, если задача касается метода, отчётов, консультаций, ДАО, У-Син, гомеопатии или Bach
+
+Правило:
+
+- registry = source of truth для маршрутизации;
+- search = fallback, только если registry не содержит нужный источник;
+- если registry содержит точный путь, открывай точный путь, а не ищи по словам;
+- если файл не найден, сначала скажи, какие registry и exact paths были проверены.
+
+Known answer:
+
+Если пользователь спрашивает “где мой живой русский клиентский отчёт”, отвечай:
+
+`https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/examples/confidence-bach-report-example.md`
+
+Не отвечай:
+
+`andrey-system/examples/sample-full-client-report.md`
+
+потому что это английский structural sample, а не живой русский отчёт.
+
+---
+
 ## 1. GitHub как база знаний
 
-Если доступ к GitHub включён, сначала используй базу знаний.
+Если доступ к GitHub включён, сначала используй базу знаний через registry.
 
 Главный runtime / agent репозиторий:
 
@@ -26,11 +57,12 @@
 
 Читать в таком порядке:
 
-1. `andrey-system/AGENT-START-HERE.md`
+1. `andrey-system/source-registry.json`
 2. `andrey-system/system-index.json`
-3. `andrey-system/project-ready/report-agent-project-instruction.md`
-4. `andrey-system/agent/report-agent-playbook.md`
-5. `andrey-system/core/report-template.md`
+3. `andrey-system/AGENT-START-HERE.md`
+4. `andrey-system/project-ready/report-agent-project-instruction.md`
+5. `andrey-system/agent/report-agent-playbook.md`
+6. `andrey-system/core/report-template.md`
 
 Методический репозиторий:
 
@@ -38,11 +70,12 @@
 
 Для клиентских отчётов читать в таком порядке:
 
-1. `consultations/reports-index.md`
-2. `consultations/report-logic.md`
-3. `consultations/examples/confidence-bach-report-example.md`
-4. `method/dao-resource-scale.md`
-5. `consultations/session-structure.md`, если нужна логика сессии
+1. `method-source-registry.json`
+2. `consultations/reports-index.md`
+3. `consultations/report-logic.md`
+4. `consultations/examples/confidence-bach-report-example.md`
+5. `method/dao-resource-scale.md`
+6. `consultations/session-structure.md`, если нужна логика сессии
 
 Критически важно:
 
@@ -63,6 +96,9 @@
 
 Всегда различай:
 
+0. Source Registry — machine-readable routing before search.  
+   Файлы: `source-registry.json`, `alchemy-method/method-source-registry.json`
+
 1. Agent Instruction — кто ты и какой отчёт выбрать.  
    Файл: `project-ready/report-agent-project-instruction.md`
 
@@ -78,11 +114,13 @@
 
 Перед русским клиентским отчётом:
 
-1. Определи тип отчёта.
-2. Проверь `core/report-template.md` для структуры.
-3. Проверь `alchemy-method/consultations/reports-index.md`.
-4. Возьми тон и живой стиль из `confidence-bach-report-example.md`.
-5. Затем пиши отчёт.
+1. Проверь `source-registry.json`.
+2. Проверь `alchemy-method/method-source-registry.json`.
+3. Определи тип отчёта.
+4. Проверь `core/report-template.md` для структуры.
+5. Проверь `alchemy-method/consultations/reports-index.md`.
+6. Возьми тон и живой стиль из `confidence-bach-report-example.md`.
+7. Затем пиши отчёт.
 
 ---
 
@@ -333,6 +371,8 @@ what happened → what the person felt → how the person now lives
 
 Перед финальным ответом проверь:
 
+- проверен `source-registry.json`, если доступен GitHub;
+- проверен `method-source-registry.json`, если задача методическая или отчётная;
 - выбран правильный тип отчёта;
 - использован нужный шаблон / пример, если доступен GitHub;
 - для русского клиентского отчёта проверен `alchemy-method/consultations/reports-index.md`;
