@@ -1,5 +1,30 @@
 # MASTER DOC — Andrey Li System
 
+Version: 1.1
+Status: active
+Owner: Andrey Li
+Last updated: 2026-05-03
+Detailed method source: `andylitvinov-design/alchemy-method`
+
+---
+
+## 0. Repository Boundary
+
+This document is the business and positioning source of truth for `andrey-system`.
+
+For detailed method logic, diagnostics, Dao levels, neurodiagnostics, remedy templates, session structure, and report examples, use:
+
+- `andylitvinov-design/alchemy-method`
+
+Rule:
+
+- `alchemy-method` = method source of truth
+- `ai-projects-brain/andrey-system` = business packaging, agent instructions, offers, landing pages, pricing, and marketing
+
+Do not duplicate large method libraries here. Link to `alchemy-method` instead.
+
+---
+
 ## 1. Positioning
 
 I help people and entrepreneurs who are stuck in energy, clarity, health, or money identify the internal mechanism that blocks their growth, remove it, and move to a higher level of state and results.
@@ -38,28 +63,17 @@ You are stuck → I show why → we remove the block → you get energy, clarity
 
 ## 4. Core Method
 
+Detailed method source:
+
+- `andylitvinov-design/alchemy-method/method/master-method.md`
+
 ### Problem Cycle
 
 Impulse → Compression → Defense → Repetition → Exhaustion
 
-Meaning:
-- Impulse: the original desire, need, life force, or movement.
-- Compression: where the system closed, froze, or became blocked.
-- Defense: the protective strategy that formed.
-- Repetition: how the pattern keeps reproducing in life, health, money, or relationships.
-- Exhaustion: the symptom, loss of energy, stagnation, or crisis.
-
 ### Growth Cycle
 
 Awareness → Release → Resource → New Behavior → Stabilization → Expansion
-
-Meaning:
-- Awareness: understand the hidden mechanism.
-- Release: reduce compression and automatic repetition.
-- Resource: strengthen energy, stability, confidence, and support.
-- New Behavior: translate change into action.
-- Stabilization: make the new state more reliable.
-- Expansion: move to the next level of life, business, health, or realization.
 
 ## 5. Work System
 
@@ -81,13 +95,17 @@ Resource is analyzed across five elements:
 - Earth: stability, grounding, support, digestion of experience, material base.
 - Metal: structure, clarity, boundaries, value, precision.
 
-The method uses Wu Xing not as abstract philosophy, but as a diagnostic map of where resource is weak, blocked, excessive, or ready to grow.
+Full method details live in `alchemy-method`.
 
 ## 7. Scale — Measurement
 
 The system should measure movement from a current state to a target state.
 
-Base scale:
+For the detailed Dao Resource Ladder and 18 levels, use:
+
+- `alchemy-method/method/dao-resource-scale.md`
+
+Base business-facing scale:
 
 - 2.0 — compression / block / fear / shutdown.
 - 3.0 — stabilization / first support.
@@ -99,11 +117,6 @@ Goal:
 
 Move the client from current level → next realistic level.
 
-Example:
-
-Current state: 2.8 — compression, no clarity, low action.
-Target state: 4.0 — support, confidence, ability to move.
-
 ## 8. Tools
 
 Main tools:
@@ -113,9 +126,9 @@ Main tools:
 - System thinking: apply the same logic to life, business, money, and decisions.
 - Image/field reading: read the current psychological and business state through symbolic and intuitive perception.
 
-Homeopathy is not the whole method. It is an instrument inside the system:
-- correction: reduce compression and reaction;
-- growth: strengthen resource and stabilize the new level.
+Homeopathy is not the whole method. It is an instrument inside the system.
+
+For remedy templates, dynamic remedy relevance, and session structure, use `alchemy-method`.
 
 ## 9. Core Result
 
@@ -235,6 +248,8 @@ Reports should always include:
 - remedies or support tools;
 - target state;
 - next step.
+
+Detailed report logic and examples live in `alchemy-method/consultations/`.
 
 ## 17. Constraints
 
