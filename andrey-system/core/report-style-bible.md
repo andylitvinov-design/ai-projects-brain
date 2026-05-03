@@ -38,6 +38,8 @@ Typical openings:
 
 Привет. Разбираюсь.
 
+Смотрю твою систему.
+
 Сегодня проверил ещё раз.
 ```
 
@@ -75,11 +77,11 @@ The live report often follows this sequence:
 
 1. Direct greeting / live check.
 2. Current Self level: `Я X.X`.
-3. Short interpretation of the state.
-4. Comparison with previous state, if relevant.
-5. Hope / possibility: resource can be increased.
-6. Health figure / goal figure, if checked.
-7. Wu Xing analysis with organs.
+3. Health / resource level, if relevant: `Здоровье X.X`.
+4. Short interpretation of the state.
+5. Comparison with previous state, if relevant.
+6. Hope / possibility: resource can be increased.
+7. Wu Xing analysis with numbers and sometimes organs.
 8. Short conclusion.
 9. Appointment / support plan.
 10. Follow-up check in a few days.
@@ -104,6 +106,11 @@ Examples:
 Пока состояние без изменений.
 Я 2.2.
 Ещё держится, но не хватает ресурса.
+```
+
+```md
+Я 3.8.
+Здоровье 3.9.
 ```
 
 Important:
@@ -174,7 +181,65 @@ Do not write full textbook explanations of all elements.
 
 ---
 
-## 7. Potential vs Current State
+## 7. Compact Wu Xing Snapshot
+
+When the client is stable or the task is a progress check, use a compact numeric snapshot.
+
+Example:
+
+```md
+Смотрю твою систему.
+Я 3.8.
+Здоровье 3.9.
+
+Вода 3.8.
+Дерево 3.9.
+Огонь 3.9.
+Земля 3.9.
+Металл 3.8.
+```
+
+Then short conclusion:
+
+```md
+Показатели немного подросли.
+Закрепилась на уровне 5 ступени — Королева.
+
+Следующий шаг — перейти на 6 ступень: Капитан.
+```
+
+Use this when:
+
+- there is progress;
+- the system is relatively even;
+- no long element-by-element explanation is needed;
+- the main task is to mark the next Dao step.
+
+---
+
+## 8. Stage Transition Style
+
+When progress is visible, name the current stage and next step simply.
+
+Example:
+
+```md
+Закрепилась на уровне 5 ступени — Королева.
+Следующий шаг — перейти на 6 ступень: Капитан.
+
+Внутренний ресурс-потенциал уже есть.
+Но не хватает пока смелости выходить самостоятельно в мир, проявляться смелее.
+```
+
+This is a key style pattern:
+
+current stage → next stage → what resource is already there → what is missing for transition.
+
+Do not over-explain the whole Dao ladder.
+
+---
+
+## 9. Potential vs Current State
 
 A key Andrey pattern:
 
@@ -200,7 +265,7 @@ This gives clarity and hope.
 
 ---
 
-## 8. Practical Physical Support
+## 10. Practical Physical Support
 
 Andrey's reports can include very concrete body-level support.
 
@@ -227,7 +292,7 @@ Style rule:
 
 ---
 
-## 9. Assignment Structure
+## 11. Assignment Structure
 
 The appointment block is practical and tiered.
 
@@ -269,7 +334,44 @@ Use clear hierarchy:
 
 ---
 
-## 10. Remedy Language
+## 12. Remedy Relevance Check
+
+In progress reports, divide support tools into:
+
+- already not relevant / gone;
+- still actual;
+- less actual but can stay for stress;
+- slightly useful auxiliary support.
+
+Example:
+
+```md
+ПРОВЕРКА ПРЕПАРАТОВ
+
+1. ЭССЕНЦИИ БАХА
+
+Уже НЕ актуальны, ушли:
+- Holly
+- Water Violet
+- Rock Rose
+
+АКТУАЛЬНЫ:
+- Willow — обида, злость. Даёт смягчение контроля, больше принятия.
+- Chicory — контроль, опека. Даёт бескорыстное принятие, смягчает контроль.
+- Impatiens — раздражение, нетерпение. Даёт больше спокойствия, принятия.
+
+Это уже препараты не травмы, а более тонкой настройки.
+```
+
+This pattern is important:
+
+- first remove what is no longer needed;
+- then name what is current;
+- then explain the new layer of work.
+
+---
+
+## 13. Remedy Language
 
 Do not write long remedy descriptions.
 
@@ -280,13 +382,45 @@ Aspen — при фоновой тревожности, что выбивает 
 Mimulus — страх проявляться, действовать.
 Hornbeam — при отсутствии сил.
 Horsetail — каркас, структура, опора, собраться в форму.
+Willow — обида, злость. Даёт смягчение контроля, больше принятия.
+Chicory — контроль, опека. Смягчает контроль.
+Impatiens — раздражение, нетерпение. Даёт больше спокойствия.
 ```
 
 This is closer to Andrey's voice than encyclopedia-style descriptions.
 
 ---
 
-## 11. Follow-Up Report Pattern
+## 14. Tinctures And Naturopathy In Progress Checks
+
+For progress checks, keep tinctures and naturopathy very compact.
+
+Example:
+
+```md
+2. НАСТОЙКИ
+Актуальны:
+- мелисса — гармония
+- гинкго билоба — ясность
+- turkey tail — ровность эмоций
+
+Валерьяна при стрессе ещё актуальна, но меньше.
+```
+
+```md
+3. НАТУРОПАТИЯ
+Сейчас ещё немного полезны:
+- имбирь — огонь
+- тмин — успокаивает желудок
+- белый сезам — питает почки
+```
+
+Do not over-explain.
+The function is to update what remains useful now.
+
+---
+
+## 15. Follow-Up Report Pattern
 
 Andrey often writes a second short check after a few days.
 
@@ -326,13 +460,19 @@ Keep it very short:
 
 ---
 
-## 12. Living Formulas To Use
+## 16. Living Formulas To Use
 
 Good phrases:
 
 ```md
 Смотрю.
+Смотрю твою систему.
 Сейчас состояние лучше, чем было.
+Показатели немного подросли.
+Закрепилась на уровне...
+Следующий шаг — перейти на...
+Но пока не хватает...
+Это уже препараты не травмы, а более тонкой настройки.
 Но ресурс не такой большой.
 Хорошо, что вовремя спохватились.
 Внутренний ресурс есть.
@@ -360,7 +500,7 @@ Avoid:
 
 ---
 
-## 13. Report Length Rules
+## 17. Report Length Rules
 
 For a quick client note:
 
@@ -380,9 +520,16 @@ For follow-up check:
 - almost no theory;
 - only state, change, what remains relevant, next action.
 
+For progress / remedy relevance check:
+
+- 250–600 words;
+- numeric snapshot first;
+- short conclusion;
+- list what left and what remains actual.
+
 ---
 
-## 14. Safety Style
+## 18. Safety Style
 
 Use practical caution, but do not kill the living voice.
 
@@ -398,7 +545,7 @@ Avoid long legalistic disclaimers unless required.
 
 ---
 
-## 15. Core Principle
+## 19. Core Principle
 
 The report should give:
 
