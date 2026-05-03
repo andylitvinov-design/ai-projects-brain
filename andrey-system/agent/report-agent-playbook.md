@@ -26,24 +26,65 @@ clarity → resource → next realistic level → movement
 
 ## 2. Report Architecture
 
-Report Agent has three layers:
+Report Agent has four layers:
 
 1. Method layer — Dao level, Wu Xing, hidden mechanism, bottleneck, support.
 2. Template layer — select the correct report format.
-3. Output layer — write a clear, safe, practical client-facing report.
+3. Structural sample layer — use examples for format and layout.
+4. Live Russian style layer — use anonymized Russian method examples for real client-facing tone.
 
 Architecture files:
 
 - Runtime instruction: `project-ready/report-agent-project-instruction.md`
 - Playbook: `agent/report-agent-playbook.md`
 - Template library: `core/report-template.md`
-- Examples: `examples/`
+- Structural examples: `examples/`
+- Method report index: `alchemy-method/consultations/reports-index.md`
+- Live Russian report example: `alchemy-method/consultations/examples/confidence-bach-report-example.md`
 - Method logic: `alchemy-method/consultations/report-logic.md`
 - Dao scale: `alchemy-method/method/dao-resource-scale.md`
 
+Important distinction:
+
+- `andrey-system/examples/sample-full-client-report.md` is an English structural sample.
+- `alchemy-method/consultations/examples/confidence-bach-report-example.md` is the primary live Russian client report style reference.
+
 ---
 
-## 3. Report Type Routing
+## 3. Report Source Routing
+
+Before writing a client report, route sources correctly.
+
+### If the report is Russian and client-facing
+
+Read in this order:
+
+1. `alchemy-method/consultations/reports-index.md`
+2. `alchemy-method/consultations/report-logic.md`
+3. `alchemy-method/consultations/examples/confidence-bach-report-example.md`
+4. `andrey-system/core/report-template.md`
+5. `andrey-system/examples/` only as secondary structure reference
+
+Use:
+
+- `alchemy-method` for method and live Russian style;
+- `andrey-system` for runtime instructions, templates, and structural samples.
+
+### If asked where the real Russian report is
+
+Answer:
+
+`alchemy-method/consultations/examples/confidence-bach-report-example.md`
+
+Do not answer with:
+
+`andrey-system/examples/sample-full-client-report.md`
+
+because it is English and schematic.
+
+---
+
+## 4. Report Type Routing
 
 Choose the report type before writing.
 
@@ -85,7 +126,7 @@ Use when:
 
 ---
 
-## 4. Shared Report Logic
+## 5. Shared Report Logic
 
 Every report must connect:
 
@@ -104,7 +145,7 @@ Always look for:
 
 ---
 
-## 5. Dao Level Rules
+## 6. Dao Level Rules
 
 Use next realistic level, not ideal level.
 
@@ -142,7 +183,7 @@ Common stage images:
 
 ---
 
-## 6. Wu Xing Rules
+## 7. Wu Xing Rules
 
 Analyze each element simply:
 
@@ -168,7 +209,7 @@ Without Metal, resource has no structure.
 
 ---
 
-## 7. Hidden Mechanism Rules
+## 8. Hidden Mechanism Rules
 
 Use the problem cycle:
 
@@ -190,7 +231,7 @@ Do not push expansion if stabilization is needed first.
 
 ---
 
-## 8. Homeopathy Situation Decoder Rules
+## 9. Homeopathy Situation Decoder Rules
 
 Do not describe remedies separately.
 
@@ -222,7 +263,7 @@ Potency direction must be cautious and marked as verification, not guarantee.
 
 ---
 
-## 9. Template Reference
+## 10. Template Reference
 
 Use `core/report-template.md` for exact templates:
 
@@ -232,13 +273,15 @@ Use `core/report-template.md` for exact templates:
 - Remedy / Support Note;
 - Homeopathy Situation Decoder.
 
-Use `examples/` for sample outputs.
+Use `examples/` for structural sample outputs.
+
+Use `alchemy-method/consultations/examples/confidence-bach-report-example.md` for Russian live-style tone.
 
 Do not create a new report structure if one of the existing templates fits.
 
 ---
 
-## 10. Remedy / Support Safety
+## 11. Remedy / Support Safety
 
 When mentioning Bach, homeopathy, oils, naturopathy, artifacts, rituals, or practices:
 
@@ -265,7 +308,7 @@ Avoid:
 
 ---
 
-## 11. Client Language
+## 12. Client Language
 
 Depth inside, simplicity outside.
 
@@ -278,15 +321,25 @@ Use simple phrases:
 - задача этапа — не давить, а стабилизировать;
 - это требует проверки.
 
+For Russian client-facing reports, preserve Andrey's warm direct style from the live Russian example:
+
+- clear opening;
+- simple explanation before method language;
+- Dao / Wu Xing numbers;
+- practical conclusion;
+- follow-up questions.
+
 ---
 
-## 12. Final Quality Check
+## 13. Final Quality Check
 
 Before final report, check:
 
 - correct report type selected;
 - request clear;
 - current state clear;
+- for Russian client reports: `alchemy-method/consultations/reports-index.md` checked;
+- English structural sample not confused with live Russian report;
 - Dao level included when possible;
 - stage / image included when possible;
 - mechanism named;
@@ -302,7 +355,7 @@ Before final report, check:
 
 ---
 
-## 13. Main Rule
+## 14. Main Rule
 
 A good report gives the client:
 
