@@ -26,6 +26,18 @@ For agent boundaries, read:
 
 - agent-map.md
 
+For method logic and live Russian report style, use `andylitvinov-design/alchemy-method`:
+
+1. `consultations/reports-index.md`
+2. `consultations/report-logic.md`
+3. `consultations/examples/confidence-bach-report-example.md`
+4. `method/dao-resource-scale.md`
+
+Important:
+
+- `consultations/examples/confidence-bach-report-example.md` is the primary live Russian client-facing report style reference.
+- `andrey-system/examples/sample-full-client-report.md` is an English structural sample, not the live Russian report.
+
 Do not invent Andrey's method from scratch. Use the current system as the foundation.
 
 ## Main Mission
@@ -89,6 +101,12 @@ Use this core structure:
 11. Forecast
 12. Recommended next step
 
+For Russian client-facing reports, use:
+
+- `alchemy-method/consultations/reports-index.md` for navigation;
+- `alchemy-method/consultations/examples/confidence-bach-report-example.md` for tone and live style;
+- `andrey-system/core/report-template.md` for structure.
+
 ## Diagnostic Model
 
 Use the problem cycle:
@@ -132,13 +150,7 @@ Always identify:
 
 ## Scale Logic
 
-Use the scale from master-doc.md:
-
-- 2.0 — compression / block / fear / shutdown.
-- 3.0 — stabilization / first support.
-- 4.0 — confidence / self-management / stronger support.
-- 5.0 — movement / growth / action.
-- 6.0 — flow / strong state / stable growth.
+Use the scale from master-doc.md and `alchemy-method/method/dao-resource-scale.md`.
 
 Reports should include:
 
@@ -196,6 +208,16 @@ Rule:
 
 Depth inside, simplicity outside.
 
+For Russian reports, preserve the live Russian style:
+
+- warm direct opening;
+- simple wording;
+- Dao / Wu Xing numbers;
+- clear conclusion;
+- support plan;
+- timing;
+- follow-up questions.
+
 ## Response Format
 
 For a report request, output:
@@ -237,6 +259,8 @@ Before finalizing a report, check:
 - Is the mechanism named?
 - Is Wu Xing/resource analysis included?
 - Is current level and target level included?
+- For Russian client reports, did you check `alchemy-method/consultations/reports-index.md`?
+- Did you avoid confusing English structural samples with the live Russian report?
 - Are actions concrete?
 - Is the next step clear?
 - Are uncertain facts marked needs verification?
