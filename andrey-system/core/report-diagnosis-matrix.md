@@ -2,9 +2,10 @@
 
 This file defines the key diagnostic report variants for Andrey Li's Report Agent.
 
-It simplifies report selection into two main axes:
+The system is built on two main axes:
 
 1. Depth of diagnosis:
+   - Mini Express
    - Short Diagnosis
    - Deep Diagnosis
 
@@ -12,13 +13,149 @@ It simplifies report selection into two main axes:
    - New Diagnosis
    - Repeat Diagnosis / Progress Check
 
-Additional blocks such as psychosomatics or system analysis are optional and should be included only when relevant.
+Additional blocks:
+
+- Psychosomatics / Link Between Self And Goal
+- Symptom Analysis
+- System Analysis
+- Remedy Relevance Check
+- Remedy-Only Analysis
+
+Main principle:
+
+**ясность → опора → препарат / поддержка → проверка**
+
+---
+
+## 0. Critical Clarifications
+
+### 0.1. Wu Xing Rule
+
+If the report includes **any Wu Xing analysis**, even a short numeric snapshot, it is a **Deep Diagnosis**.
+
+Examples:
+
+```md
+Вода 3.8
+Дерево 3.9
+Огонь 3.9
+Земля 3.9
+Металл 3.8
+```
+
+This is already Deep Diagnosis, even if the explanation is short.
+
+Short Diagnosis does **not** include Wu Xing.
+
+---
+
+### 0.2. Self + Goal / Health Rule
+
+Almost every diagnosis includes:
+
+```md
+Я X.X
+Цель / здоровье X.X
+```
+
+Usually the report checks **Self + Goal** or **Self + Health**.
+
+Symptom is added only when Andrey specifically evaluates or asks about the symptom.
+
+---
+
+### 0.3. Psychosomatics Rule
+
+Psychosomatics is not just a separate optional block.
+
+In Andrey's method it often means:
+
+```md
+связь между Я и целью / здоровьем / симптомом
+```
+
+The psychodynamic meaning appears when we explain:
+
+- what happens in `Я`;
+- what happens in `цель / здоровье / симптом`;
+- what blocks movement between them;
+- what inner resource must be restored.
+
+So psychsomatics may be present as the **linking explanation**, even if there is no separate heading `ПСИХОСОМАТИКА`.
+
+---
+
+### 0.4. Remedies Rule
+
+Remedies / supports are included almost always.
+
+This can be:
+
+- Bach essences;
+- homeopathy;
+- tinctures;
+- naturopathy;
+- oils;
+- ritual / artifact / distance support;
+- practical phrase / contact support.
+
+Exception:
+
+**Mini Express** may be without remedies.
+
+---
+
+### 0.5. Remedy-Only Analysis
+
+There is also a separate format for pure remedy analysis.
+
+Use it when the input is mainly:
+
+- a list of remedies;
+- current remedy reactions;
+- what is still actual / not actual;
+- what to check next.
+
+This can be independent of full diagnosis.
 
 ---
 
 ## 1. Main Variants
 
-There are two key diagnostic formats.
+---
+
+## #0. Mini Express
+
+Use when:
+
+- Andrey needs a very quick check;
+- user asks for a tiny answer;
+- no remedy selection is requested;
+- no Wu Xing is needed;
+- no support plan is required.
+
+Core content:
+
+```md
+Смотрю.
+
+Я X.X.
+Цель / здоровье X.X, если нужно.
+
+Коротко что сейчас.
+Главное — ...
+
+Дальше:
+...
+```
+
+Typical length:
+
+- 80–250 words.
+
+No remedies by default.
+No Wu Xing.
+No long explanation.
 
 ---
 
@@ -30,7 +167,7 @@ Use when:
 - data is limited;
 - the task is mainly to check the current resource;
 - the main need is remedy selection, for example Bach essences;
-- no full Wu Xing analysis is required.
+- no Wu Xing analysis is required.
 
 Core content:
 
@@ -38,7 +175,8 @@ Core content:
 Смотрю.
 
 Я X.X.
-Цель / здоровье / симптом X.X, if relevant.
+Цель / здоровье X.X.
+Симптом X.X, only if specifically assessed.
 
 Коротко что сейчас.
 Главный bottleneck.
@@ -57,11 +195,11 @@ Typical length:
 
 - 250–600 words;
 - short paragraphs;
-- no full element-by-element Wu Xing breakdown.
+- no Wu Xing.
 
 Main principle:
 
-**resource / Self / goal → bottleneck → remedy selection → next check**
+**Self + goal/health → bottleneck → remedy selection → next check**
 
 ---
 
@@ -69,6 +207,7 @@ Main principle:
 
 Use when:
 
+- there is any Wu Xing analysis, even short;
 - there is enough client data;
 - the issue is complex;
 - the client needs a fuller map;
@@ -85,30 +224,34 @@ Current level.
 Current image.
 What is happening now.
 
-2. ЦЕЛЬ / ЗДОРОВЬЕ / СИМПТОМ
-Only if relevant.
-What the goal/health/symptom field shows.
+2. ЦЕЛЬ / ЗДОРОВЬЕ
+Almost always included.
+What the goal/health field shows.
 
-3. УСИН
+3. СИМПТОМ
+Only if specifically assessed.
+What the symptom field shows.
+
+4. УСИН
 Вода X.X
 Дерево X.X
 Огонь X.X
 Земля X.X
 Металл X.X
 
-4. ВЫВОД
+5. ВЫВОД
 Dao stage.
 Main bottleneck.
 First support.
 Next realistic step.
 
-5. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
+6. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
 А. Main support
 Б. Bach / emotional support
 В. Naturopathy / physical support
 Г. Homeopathy / other support, if relevant
 
-6. ПРОВЕРКА
+7. ПРОВЕРКА
 When to reassess.
 What to observe.
 ```
@@ -121,106 +264,13 @@ Typical length:
 
 Main principle:
 
-**Self → goal/health/symptom → Wu Xing → bottleneck → support → next step**
+**Self → goal/health → symptom if needed → Wu Xing → bottleneck → support → next step**
 
 ---
 
-## 2. Optional Blocks
+## 2. New vs Repeat Diagnosis
 
-These blocks are not mandatory.
-
-Use only when the input requires them.
-
----
-
-## A. Psychosomatics / Symptom Meaning Block
-
-Use when:
-
-- there is a body symptom;
-- symptom seems linked to stress;
-- there is a body metaphor: сжатость, скованность, ограничение, давление, невозможность двигаться;
-- the user asks for psychosomatic interpretation.
-
-Structure:
-
-```md
-СИМПТОМ
-Симптом может отражать ...
-Как будто ...
-
-Психологическая задача:
-А. Вернуть ...
-Б. Уменьшить ...
-```
-
-Important:
-
-- this is a psychodynamic / symbolic model;
-- not a medical diagnosis;
-- use safe language: “может быть связано”, “похоже на”, “needs verification”.
-
----
-
-## B. System Analysis Block
-
-Use when:
-
-- the issue includes family, work, external pressure, authority, relocation, institutional stress;
-- the symptom/problem is affected by a system around the person;
-- there are figures: father, partner, boss, country, institution, money, clients.
-
-Structure:
-
-```md
-СИСТЕМА
-Здесь влияет не только внутреннее состояние.
-Есть внешний контекст: ...
-
-Как будто человек чувствует:
-...
-
-Задача:
-вернуть своё место / право решать / чувство опоры.
-```
-
-Keep it short.
-Do not turn the report into a full systemic constellation unless asked.
-
----
-
-## C. Remedy Relevance Check Block
-
-Use in repeat diagnosis when checking what changed.
-
-Structure:
-
-```md
-ПРОВЕРКА ПРЕПАРАТОВ
-
-Уже НЕ актуальны / ушли:
-- ...
-
-АКТУАЛЬНЫ:
-- ...
-
-Менее актуальны, но могут пригодиться:
-- ...
-
-Это уже уровень ...
-```
-
-This block is especially important when the work moves:
-
-- from trauma support to finer tuning;
-- from crisis support to stabilization;
-- from stabilization to next Dao stage.
-
----
-
-## 3. New vs Repeat Diagnosis
-
-Each diagnosis can be new or repeat.
+Each diagnostic format can be new or repeat.
 
 ---
 
@@ -245,8 +295,9 @@ Structure:
 Смотрю.
 
 Я X.X.
-Коротко что сейчас.
+Цель / здоровье X.X.
 
+Коротко что сейчас.
 Главное сейчас: ...
 
 Поддержка:
@@ -281,7 +332,7 @@ Structure:
 Смотрю ещё раз.
 
 Я X.X.
-Здоровье X.X.
+Здоровье / цель X.X.
 
 Показатели выросли / без изменений / просели.
 
@@ -300,6 +351,156 @@ Structure:
 проверить через ...
 ```
 
+If Wu Xing is included, this is **Deep + Repeat**.
+
+---
+
+## 3. Optional / Additional Blocks
+
+These blocks are added only when relevant.
+
+---
+
+## A. Psychosomatics / Link Between Self And Goal
+
+Use when the report needs to explain the relationship between:
+
+```md
+Я ↔ цель / здоровье / симптом
+```
+
+This is often the heart of the report.
+
+Structure:
+
+```md
+СВЯЗЬ Я И ЦЕЛИ / ЗДОРОВЬЯ
+В Я есть ...
+В цели / здоровье есть ...
+Между ними застревает ...
+
+Психологическая задача:
+А. Вернуть ...
+Б. Уменьшить ...
+```
+
+This block may appear without the word “psychosomatics”.
+
+---
+
+## B. Symptom Analysis Block
+
+Use only when symptom is specifically assessed.
+
+Structure:
+
+```md
+СИМПТОМ
+Симптом может отражать ...
+Как будто ...
+
+Психологическая задача:
+А. Вернуть ...
+Б. Уменьшить ...
+```
+
+Important:
+
+- this is a psychodynamic / symbolic model;
+- not a medical diagnosis;
+- use safe language: “может быть связано”, “похоже на”, “needs verification”.
+
+---
+
+## C. System Analysis Block
+
+Use when:
+
+- the issue includes family, work, external pressure, authority, relocation, institutional stress;
+- the symptom/problem is affected by a system around the person;
+- there are figures: father, partner, boss, country, institution, money, clients.
+
+Structure:
+
+```md
+СИСТЕМА
+Здесь влияет не только внутреннее состояние.
+Есть внешний контекст: ...
+
+Как будто человек чувствует:
+...
+
+Задача:
+вернуть своё место / право решать / чувство опоры.
+```
+
+Keep it short.
+Do not turn the report into a full systemic constellation unless asked.
+
+---
+
+## D. Remedy Relevance Check Block
+
+Use in repeat diagnosis when checking what changed.
+
+Structure:
+
+```md
+ПРОВЕРКА ПРЕПАРАТОВ
+
+Уже НЕ актуальны / ушли:
+- ...
+
+АКТУАЛЬНЫ:
+- ...
+
+Менее актуальны, но могут пригодиться:
+- ...
+
+Это уже уровень ...
+```
+
+This block is especially important when the work moves:
+
+- from trauma support to finer tuning;
+- from crisis support to stabilization;
+- from stabilization to next Dao stage.
+
+---
+
+## E. Remedy-Only Analysis
+
+Use when the task is only to analyze remedies.
+
+Structure:
+
+```md
+Смотрю препараты.
+
+ОСНОВНАЯ ТЕМА
+...
+
+ЯДРО
+- remedy — role
+
+РЕАКЦИЯ / ЭМОЦИИ
+- remedy — role
+
+АДАПТАЦИЯ / ЗАЩИТА
+- remedy — role
+
+АКТУАЛЬНЫ СЕЙЧАС
+- ...
+
+НЕ АКТУАЛЬНЫ / УШЛИ
+- ...
+
+ЧТО ПРОВЕРИТЬ ДАЛЬШЕ
+- ...
+```
+
+This format can be used without `Я`, `цель`, or Wu Xing if the user only asks about remedies.
+
 ---
 
 ## 4. Final Selection Rule
@@ -308,6 +509,7 @@ Before writing, choose:
 
 ```md
 Depth:
+- Mini Express
 - Short Diagnosis
 - Deep Diagnosis
 
@@ -315,20 +517,24 @@ Status:
 - New Diagnosis
 - Repeat Diagnosis
 
-Optional blocks:
-- Psychosomatics / Symptom Meaning
+Additional blocks:
+- Psychosomatics / Link Between Self And Goal
+- Symptom Analysis
 - System Analysis
 - Remedy Relevance Check
+- Remedy-Only Analysis
 ```
 
 Example combinations:
 
 ```md
-Short + New = quick resource / goal check + Bach selection.
+Mini Express + New = tiny resource / goal check without remedies.
+Short + New = resource / goal check + Bach or remedy selection.
 Short + Repeat = quick recheck + update remedies.
-Deep + New = full Wu Xing diagnosis + support plan.
+Deep + New = Self + goal/health + Wu Xing + support plan.
 Deep + Repeat = Wu Xing progress check + stage transition + updated remedies.
-Deep + Psychosomatics = Self / symptom / health figure + support.
+Deep + Symptom = Self / goal-health / symptom + Wu Xing + support.
+Remedy-Only = pure analysis of remedies without full diagnosis.
 ```
 
 ---
@@ -337,15 +543,19 @@ Deep + Psychosomatics = Self / symptom / health figure + support.
 
 Do not overbuild.
 
-If the user asks for short diagnosis, do not add full Wu Xing.
+If there is any Wu Xing, it is Deep Diagnosis.
 
-If the user asks for deep diagnosis, include Wu Xing.
+If it is Short Diagnosis, do not add Wu Xing.
 
-If there is no body symptom, do not add psychosomatics.
+If it is Mini Express, do not add remedies unless asked.
+
+If the user asks for remedy analysis only, do not force full diagnosis.
+
+If there is no symptom assessment, do not add symptom analysis.
 
 If there is no previous data, do not pretend to compare.
 
-If there are previous remedies, always check:
+If there are previous remedies, check:
 
 - what stayed actual;
 - what left;
