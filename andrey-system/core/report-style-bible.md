@@ -40,6 +40,8 @@ Typical openings:
 
 Смотрю твою систему.
 
+Посмотрю, что сейчас.
+
 Сегодня проверил ещё раз.
 ```
 
@@ -239,7 +241,246 @@ Do not over-explain the whole Dao ladder.
 
 ---
 
-## 9. Potential vs Current State
+## 9. Figure-Based Psychosomatic Report
+
+Example 4 adds a separate report pattern:
+
+**Фигура Я → Симптом → Фигура здоровья → Вывод → поддержка**
+
+Use this when the task concerns psychosomatics, body symptom, acute stress, loss of control, or a symptom that symbolically mirrors a life situation.
+
+Structure:
+
+```md
+Посмотрю, что сейчас.
+
+1. ФИГУРА Я
+...
+
+2. СИМПТОМ
+...
+
+3. ФИГУРА ЗДОРОВЬЯ
+...
+
+ВЫВОД
+...
+```
+
+This format is not a medical diagnosis. It is a psychodynamic / symbolic model of how the symptom may reflect the current inner situation.
+
+---
+
+## 10. Figure Self Style
+
+For `ФИГУРА Я`, write the deeper potential first, then the current contraction.
+
+Example:
+
+```md
+Сила Я у него более 5 ед.
+
+Но сейчас Я чуть осунувшееся, 3.8.
+Тут скорее как обескураженность.
+Как будто в плен попал / ограничение какое-то.
+
+И потому он чуть дистанцируется от всего, что может его ограничить.
+```
+
+Important style rule:
+
+- show the deeper Self strength;
+- then show current weakened state;
+- use image language: плен, ограничение, обескураженность, дистанция;
+- do not over-psychologize.
+
+---
+
+## 11. Symptom Meaning Style
+
+For `СИМПТОМ`, connect the physical image with the psychological situation carefully.
+
+Example pattern:
+
+```md
+Симптом как раз про чувство связанности.
+Что он не управляет собой / чем-то в жизни.
+
+Физическое проявление симптома может быть как проявление смысла внешнего ограничения.
+
+Когда он не может позволить себе управлять вольно жизнью вокруг,
+внутренняя скованность может приводить к физической скованности.
+```
+
+Use phrases like:
+
+- может быть как проявление;
+- похоже на;
+- как будто;
+- психосоматическая модель;
+- needs verification, if uncertain.
+
+Avoid:
+
+- direct medical claims;
+- “симптом вызван только этим”;
+- guarantees that psychological support will remove physical symptoms.
+
+---
+
+## 12. Health Figure Style
+
+For `ФИГУРА ЗДОРОВЬЯ`, write the healing state as short inner phrases.
+
+Example:
+
+```md
+Я центральный.
+Я главный.
+На мне всё держится.
+Меня слушают.
+Ко мне прислушиваются.
+```
+
+Then explain simply:
+
+```md
+Вот это как раз те состояния, которые важно усилить внутри.
+Это можно ему говорить, подчёркивать.
+```
+
+This style turns the health figure into words the client / family can repeat.
+
+---
+
+## 13. Psychosomatic Solution Formula
+
+Use this when the symptom is linked with loss of agency:
+
+```md
+Решение здесь может быть психологическое.
+
+А. Вернуть чувство управления своей жизнью.
+Вера: ты можешь.
+
+Б. Уменьшить внутреннее напряжение,
+если чем-то нет возможности управлять.
+
+То есть задача — выйти из плена.
+Плена внешних обстоятельств или внутренних ограничений.
+```
+
+Core formula:
+
+loss of control → inner tension → body constraint image → restore agency + reduce tension.
+
+---
+
+## 14. Human Context In Reports
+
+Andrey includes real-life context directly and humanly.
+
+Example:
+
+```md
+Ну уволили, конечно, стресс, понимаю.
+
+Как раз эта динамика включается.
+Я не управляю,
+а мной управляют.
+И ограничивают.
+```
+
+This gives warmth and realism.
+
+Do not remove human phrases to make the report cleaner.
+
+---
+
+## 15. Support Through Words / Family Contact
+
+In some reports the practical action is not only remedies, but what relatives should tell the person.
+
+Example:
+
+```md
+Задача вернуть личный ресурс.
+Ощущение, что могу, что важный, решаю.
+
+Ты можешь как-нибудь ему позвонить и донести это:
+ты важный,
+ты решаешь,
+ты главный.
+```
+
+Use this when the client needs relational support, encouragement, or restoration of Self position.
+
+---
+
+## 16. Bach Deep Diagnostic Layers
+
+Example 4 uses two rows of Bach remedies.
+
+### First row — most relevant
+
+```md
+Наиболее актуальны:
+
+Aspen — фоновая тревожность.
+White Chestnut — сверхконтроль, напряжение, попытка разрулить ситуацию на уровне головы.
+Clematis — уход от реальности, избегание, дистанцирование.
+```
+
+First row = current main emotional field.
+
+### Second row — deeper / additional colors
+
+```md
+Второй ряд препаратов.
+Дополнительные краски ситуации:
+
+Rock Rose — паника, страх не справиться.
+Gorse — печаль, отчаяние, что ничего не поможет.
+
+Но эти состояния не ключевые.
+Они глубоко внутри, но присутствуют.
+```
+
+Second row = not core, but present in the background.
+
+This is important for nuanced Bach reports:
+
+core field → accompanying state → second row / deeper colors.
+
+---
+
+## 17. Remote Support Language
+
+Andrey may include distance support.
+
+Use living, practical wording:
+
+```md
+Препараты можно пить.
+Можно поставить на фото.
+Можно смотреть.
+
+Принимать внутрь быстрее.
+Но фоновая поддержка по фото тоже достаточно значима.
+
+Сейчас запускаю поддержку через эти препараты.
+Буду проверять состояние каждый день, корректировать при необходимости.
+```
+
+Safety rule:
+
+- present this as support direction;
+- do not guarantee outcome;
+- for serious medical symptoms, recommend appropriate medical care in parallel.
+
+---
+
+## 18. Potential vs Current State
 
 A key Andrey pattern:
 
@@ -265,7 +506,7 @@ This gives clarity and hope.
 
 ---
 
-## 10. Practical Physical Support
+## 19. Practical Physical Support
 
 Andrey's reports can include very concrete body-level support.
 
@@ -292,7 +533,7 @@ Style rule:
 
 ---
 
-## 11. Assignment Structure
+## 20. Assignment Structure
 
 The appointment block is practical and tiered.
 
@@ -334,7 +575,7 @@ Use clear hierarchy:
 
 ---
 
-## 12. Remedy Relevance Check
+## 21. Remedy Relevance Check
 
 In progress reports, divide support tools into:
 
@@ -371,7 +612,7 @@ This pattern is important:
 
 ---
 
-## 13. Remedy Language
+## 22. Remedy Language
 
 Do not write long remedy descriptions.
 
@@ -385,13 +626,18 @@ Horsetail — каркас, структура, опора, собраться �
 Willow — обида, злость. Даёт смягчение контроля, больше принятия.
 Chicory — контроль, опека. Смягчает контроль.
 Impatiens — раздражение, нетерпение. Даёт больше спокойствия.
+White Chestnut — сверхконтроль, попытка решить всё головой.
+Clematis — уход от реальности, дистанцирование.
+Rock Rose — паника, страх не справиться.
+Gorse — печаль, отчаяние, что ничего не поможет.
+American Ginseng — мягкое восстановление нервной системы при перегрузке.
 ```
 
 This is closer to Andrey's voice than encyclopedia-style descriptions.
 
 ---
 
-## 14. Tinctures And Naturopathy In Progress Checks
+## 23. Tinctures And Naturopathy In Progress Checks
 
 For progress checks, keep tinctures and naturopathy very compact.
 
@@ -420,7 +666,7 @@ The function is to update what remains useful now.
 
 ---
 
-## 15. Follow-Up Report Pattern
+## 24. Follow-Up Report Pattern
 
 Andrey often writes a second short check after a few days.
 
@@ -460,12 +706,13 @@ Keep it very short:
 
 ---
 
-## 16. Living Formulas To Use
+## 25. Living Formulas To Use
 
 Good phrases:
 
 ```md
 Смотрю.
+Посмотрю, что сейчас.
 Смотрю твою систему.
 Сейчас состояние лучше, чем было.
 Показатели немного подросли.
@@ -483,8 +730,13 @@ Good phrases:
 Здесь нужна хотя бы какая-то точка опоры.
 Это на потом.
 Это хорошо, что есть потенциал.
+Задача выйти из плена.
+Вернуть чувство управления своей жизнью.
+Ты важный. Ты решаешь. Ты главный.
 Дальше будет легче.
 Дистанционно я буду помогать.
+Сейчас запускаю поддержку.
+Буду проверять состояние каждый день.
 Можно проверить через пару дней.
 ```
 
@@ -500,7 +752,7 @@ Avoid:
 
 ---
 
-## 17. Report Length Rules
+## 26. Report Length Rules
 
 For a quick client note:
 
@@ -527,9 +779,18 @@ For progress / remedy relevance check:
 - short conclusion;
 - list what left and what remains actual.
 
+For psychosomatic figure report:
+
+- 500–900 words;
+- figure Self / symptom / health figure;
+- clear psychodynamic meaning;
+- emotional support phrase;
+- remedy support layers;
+- daily or near-term follow-up if acute.
+
 ---
 
-## 18. Safety Style
+## 27. Safety Style
 
 Use practical caution, but do not kill the living voice.
 
@@ -545,7 +806,7 @@ Avoid long legalistic disclaimers unless required.
 
 ---
 
-## 19. Core Principle
+## 28. Core Principle
 
 The report should give:
 
