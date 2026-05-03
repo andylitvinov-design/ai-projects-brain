@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v1.3 — Final Infrastructure Validation
+
+- Strengthened project-ready instructions (fully standalone runtime)
+- Added project_ready block to system-index.json
+- Fixed missing example file
+- Upgraded sample business offer to real format
+- Finalized agent symmetry (instructions / playbook / runtime)
+- Confirmed GitHub vs runtime separation
+
+Status: production-ready
+
 ## v1.2 — Runtime + Agent Architecture Finalization
 
 - Rebuilt project-ready files as fully standalone runtime instructions
