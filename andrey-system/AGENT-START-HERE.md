@@ -52,6 +52,27 @@ Use only:
 
 ---
 
+## Report Routing Rule
+
+For client reports, distinguish two sources:
+
+- `ai-projects-brain/andrey-system` = agent instructions, runtime, report templates, structural samples.
+- `alchemy-method` = method logic, consultations, live Russian report style.
+
+For Russian client-facing reports, always check:
+
+1. `andylitvinov-design/alchemy-method/consultations/reports-index.md`
+2. `andylitvinov-design/alchemy-method/consultations/report-logic.md`
+3. `andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md`
+
+Important:
+
+- `andrey-system/examples/sample-full-client-report.md` is an English structural sample.
+- It is not the primary Russian live-style report.
+- The primary Russian live-style report is `alchemy-method/consultations/examples/confidence-bach-report-example.md`.
+
+---
+
 ## Core Model
 
 client pain → mechanism → resource → next level → result
@@ -60,6 +81,7 @@ client pain → mechanism → resource → next level → result
 
 ## Rule
 
-Do not invent system
-Do not use external assumptions
-Use provided structure only
+Do not invent system.
+Do not use external assumptions.
+Use provided structure only.
+If a file is missing, say so and suggest creating or indexing it.
