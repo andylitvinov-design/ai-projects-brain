@@ -1,12 +1,18 @@
-# Report Templates Library — Andrey Li System
+# Report Writing Instructions And Templates — Andrey Li System
 
-This file defines reusable client report templates for Report Agent.
+This file is the report-level instruction library for Report Agent.
+
+It answers three questions:
+
+1. Which report format should be used?
+2. What must the agent check before writing this report?
+3. What exact structure should the final report follow?
 
 Report Agent is not a one-report generator. It is a multi-format client reporting agent.
 
 Main rule:
 
-raw client data → correct report type → structured report → safe support direction → next step
+raw client data → correct report type → pre-writing check → structured report → safe support direction → next step
 
 Every report must connect:
 
@@ -14,62 +20,136 @@ pain → hidden mechanism → Dao level → Wu Xing resource → bottleneck → 
 
 ---
 
-## 1. How To Choose Report Type
+## 1. Three-Layer Report Architecture
 
-Use the correct template based on user input and goal.
+### Layer 1 — Agent Instruction
+
+Location:
+
+`project-ready/report-agent-project-instruction.md`
+
+Purpose:
+
+- define Report Agent role;
+- choose the correct report type;
+- separate reports from business / marketing tasks;
+- enforce safety and quality rules.
+
+### Layer 2 — Report Writing Instructions
+
+Location:
+
+`core/report-template.md`
+
+Purpose:
+
+- explain how to write each report type;
+- define pre-writing checks;
+- define output structure;
+- prevent mixing formats.
+
+### Layer 3 — Concrete Examples
+
+Location:
+
+`examples/`
+
+Purpose:
+
+- show the final style;
+- give sample wording;
+- help the agent imitate structure without using private client data.
+
+---
+
+## 2. Report Type Routing
+
+Choose the report type before writing.
 
 ### Express Diagnosis
 
 Use when:
+
 - data is limited;
-- the client needs fast orientation;
+- client is new;
+- Andrey needs fast orientation;
 - the goal is first clarity or lead generation;
 - no deep previous history is provided.
 
-Default to Express Diagnosis if report type is unclear.
+Default to Express Diagnosis if the report type is unclear.
+
+Example:
+
+`examples/sample-express-diagnosis.md`
 
 ### Full Client Report
 
 Use when:
+
 - enough client data is available;
 - Andrey needs a serious written report;
-- the task includes diagnosis, support, plan, and tracking.
+- the task includes diagnosis, support, plan, and tracking;
+- the report may become a paid deliverable.
+
+Example:
+
+`examples/sample-full-client-report.md`
 
 ### Monthly Progress Report
 
 Use when:
+
 - there is previous data;
 - the client is in ongoing support;
 - the goal is to compare before/after and set the next cycle.
 
+Example:
+
+`examples/sample-monthly-progress-report.md`
+
 ### Remedy / Support Note
 
 Use when:
+
 - the task is mainly about Bach, homeopathy, oils, naturopathy, rituals, artifacts, or practices;
-- a full report is not required.
+- a full report is not required;
+- Andrey needs a short support explanation.
+
+Example:
+
+`examples/sample-remedy-support-note.md`
 
 ### Homeopathy Situation Decoder
 
 Use when:
+
 - the main input is a list of remedies;
-- the task is to reconstruct psychodynamics, root conflict, and what to verify next.
+- the task is to reconstruct psychodynamics, root conflict, adaptation strategy, and what to verify next.
+
+Example:
+
+`examples/sample-homeopathy-decoder.md`
 
 ---
 
-## 2. Shared Report Logic
+## 3. Shared Pre-Writing Check For All Reports
 
-Use this in all templates:
+Before writing any report, check:
 
-1. Request
-2. Current state
-3. Dao level / stage
-4. Hidden mechanism
-5. Wu Xing resource map
-6. Main bottleneck
-7. Core insight
-8. Support direction
-9. Practical action
-10. Tracking / next check
+1. What is the user asking for?
+2. Which report type fits best?
+3. Is this a first diagnosis, full report, progress report, support note, or remedy decoder?
+4. What data is missing?
+5. Can the report still be written as a hypothesis?
+6. What must be marked as `needs verification`?
+7. What safety limits apply?
+
+If data is incomplete:
+
+- do not stop;
+- create a best-effort report;
+- mark uncertain points as `needs verification`;
+- ask only for missing data if it is critical.
 
 Safe language:
 
@@ -89,7 +169,87 @@ Never:
 
 ---
 
-## 3. Template — Express Diagnosis
+## 4. Shared Method Logic
+
+Use this in all report types when relevant.
+
+### Dao Level
+
+Define:
+
+- current level;
+- stage / image;
+- what this level means;
+- main task;
+- risk;
+- next realistic level;
+- one-cycle goal.
+
+### Hidden Mechanism
+
+Use:
+
+Impulse → Compression → Defense → Repetition → Exhaustion
+
+### Wu Xing
+
+Analyze:
+
+- Water — energy, safety, deep reserve;
+- Wood — growth, action, direction;
+- Fire — expression, visibility, joy, contact;
+- Earth — support, stability, receiving;
+- Metal — structure, clarity, boundaries, value.
+
+Always identify:
+
+- strongest element;
+- weakest element;
+- main bottleneck;
+- first element to support.
+
+### Core Insight
+
+Every report needs one central conclusion.
+
+Format:
+
+The key issue is not only _____.
+The deeper mechanism is _____.
+The first support should be _____.
+The next movement is _____.
+
+---
+
+# 5. Express Diagnosis
+
+## 5.1 Purpose
+
+Fast orientation. Short, useful, clear.
+
+Use it when the user gives limited data or asks for quick understanding.
+
+## 5.2 Before Writing
+
+Check:
+
+- What is the client’s main pain?
+- What is visible from limited data?
+- What is the likely Dao level?
+- What is the weakest resource?
+- What is the first safe next step?
+
+Do not overload with theory.
+
+## 5.3 How To Write
+
+- 1–2 pages maximum in spirit;
+- client-facing language;
+- short paragraphs;
+- clear bottleneck;
+- practical next step.
+
+## 5.4 Template
 
 ```md
 # Express Diagnosis
@@ -145,7 +305,35 @@ The next movement is _____.
 
 ---
 
-## 4. Template — Full Client Report
+# 6. Full Client Report
+
+## 6.1 Purpose
+
+A complete paid-style diagnostic report.
+
+Use it when there is enough client data and the report must give depth, structure, support, and next steps.
+
+## 6.2 Before Writing
+
+Check:
+
+- What exactly did the client ask?
+- What is the current state?
+- Is there a goal field?
+- What is the current Dao level?
+- What is the main Wu Xing bottleneck?
+- What support direction matches this level?
+- What should not be promised?
+
+## 6.3 How To Write
+
+- Start with human understanding, not theory.
+- Then show method structure.
+- Give one core insight.
+- Do not scatter many equal interpretations.
+- End with practical actions and tracking.
+
+## 6.4 Template
 
 ```md
 # Client Report
@@ -285,7 +473,32 @@ Additional notes:
 
 ---
 
-## 5. Template — Monthly Progress Report
+# 7. Monthly Progress Report
+
+## 7.1 Purpose
+
+Compare dynamics and define the next support cycle.
+
+Use it for ongoing clients.
+
+## 7.2 Before Writing
+
+Check:
+
+- What was the previous level?
+- What changed?
+- What stabilized?
+- What is still blocked?
+- Has the bottleneck changed?
+- What is the next cycle goal?
+
+## 7.3 How To Write
+
+- Compare before/after clearly.
+- Do not repeat the whole old report.
+- Focus on movement, stabilization, remaining block, and next cycle.
+
+## 7.4 Template
 
 ```md
 # Monthly Progress Report
@@ -369,7 +582,30 @@ What data to bring next time:
 
 ---
 
-## 6. Template — Remedy / Support Note
+# 8. Remedy / Support Note
+
+## 8.1 Purpose
+
+Short explanation of a support direction, remedy, Bach flower, oil, ritual, practice, or artifact.
+
+## 8.2 Before Writing
+
+Check:
+
+- What state is being supported?
+- Which element / level is affected?
+- Is this a core tool or secondary support?
+- What should the client track?
+- What requires verification?
+
+## 8.3 How To Write
+
+- Do not turn it into a full report.
+- Explain the role of the support tool.
+- Connect it to the mechanism.
+- Use safe language.
+
+## 8.4 Template
 
 ```md
 # Remedy / Support Note
@@ -411,12 +647,49 @@ This is a support direction, not a medical prescription or guarantee. Medical sy
 
 ---
 
-## 7. Template — Homeopathy Situation Decoder
+# 9. Homeopathy Situation Decoder
 
-Use this template when the input is mainly a list of remedies.
+## 9.1 Purpose
+
+Decode the psychodynamics of a person through a list of remedies.
+
+Use when the input is mainly:
+
+- homeopathic remedies;
+- Bach flowers;
+- remedy reactions;
+- potency response;
+- remedy comparison.
+
+## 9.2 Before Writing
+
+Check:
+
+- Which remedies are central?
+- Which show trauma / root?
+- Which show emotional reaction?
+- Which show adaptation / defense?
+- What is only secondary?
+- Is the level provided or must it be estimated?
+- What needs verification?
+
+## 9.3 How To Write
 
 Do not describe remedies separately.
+
 Use remedies to reconstruct the person’s inner structure.
+
+Build three layers:
+
+1. Root / Trauma — what may have happened.
+2. Reaction / Emotion — what the person feels now.
+3. Adaptation / Strategy — how the person survives now.
+
+Formula:
+
+what happened → what the person felt → how the person now lives
+
+## 9.4 Template
 
 ```md
 # Homeopathy Situation Decoder
@@ -499,11 +772,12 @@ When to reassess:
 
 ---
 
-## 8. Quality Checklist For All Reports
+## 10. Quality Checklist For All Reports
 
 Before finalizing, check:
 
 - correct report type selected;
+- report-specific pre-writing check completed;
 - request is clear;
 - current state is clear;
 - Dao level is included when possible;
@@ -521,7 +795,7 @@ Before finalizing, check:
 
 ---
 
-## 9. Main Goal
+## 11. Main Goal
 
 The report must give:
 
