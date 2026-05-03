@@ -4,7 +4,7 @@ This file is the entry point for any AI agent working with Andrey Li's business,
 
 ## Purpose
 
-Understand Andrey's method, positioning, product logic, and communication system quickly, then produce useful outputs without inventing new logic.
+Understand Andrey's method, positioning, product logic, communication system, pricing, and client intake quickly, then produce useful outputs without inventing new logic.
 
 Core principle:
 
@@ -47,10 +47,13 @@ Optional map:
 Depending on the user task, read the relevant support files:
 
 - full business builder task / complex workflow → `andrey-system/agent/business-builder-playbook.md`
-- client report / diagnosis / client analysis → `andrey-system/core/report-template.md`
-- product / offer / service / pricing / sales path → `andrey-system/core/product-structure.md` + `andrey-system/core/offer-library.md`
+- intake / questionnaire / client input → `andrey-system/core/client-intake.md`
+- client report / diagnosis / client analysis → `andrey-system/core/report-template.md` + `andrey-system/core/client-intake.md`
+- product / offer / service / pricing → `andrey-system/core/product-structure.md` + `andrey-system/core/offer-library.md` + `andrey-system/core/pricing.md`
 - landing page / sales page → `andrey-system/core/landing-template.md` + `andrey-system/core/offer-library.md` + `andrey-system/core/content-formulas.md`
 - content / ads / posts / marketing messages → `andrey-system/core/content-formulas.md` + `andrey-system/core/examples.md`
+- RU texts / Russian audience → `andrey-system/core/ru-brand-language.md`
+- EN texts / English audience → `andrey-system/core/en-brand-language.md`
 - business analysis / monetization / offer ladder → `andrey-system/core/product-structure.md` + `andrey-system/core/offer-library.md` + `andrey-system/agent/business-builder-playbook.md`
 - quality review / critique / validation → `andrey-system/core/quality-checklist.md`
 - examples / style / reference outputs → `andrey-system/core/examples.md`
@@ -118,7 +121,7 @@ Use this structure when relevant:
 8. Expected result
 9. Next step
 
-For offers, landing pages, reports, content, and execution tasks, follow the relevant standard from `business-builder-playbook.md`.
+For offers, landing pages, reports, content, pricing, and execution tasks, follow the relevant standard from `business-builder-playbook.md`.
 
 Keep the output practical and connected to money, energy, clarity, movement, health, business, clients, or quality of life.
 
