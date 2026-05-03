@@ -1,11 +1,19 @@
 {
-  "version": "1.5",
+  "version": "1.6",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
+  "canonical_routing_source": "source-registry.json",
+  "routing_policy": {
+    "first_step": "Read source-registry.json before free-text search.",
+    "search_is": "fallback",
+    "known_sources": "Use exact paths from source-registry.json and linked method-source-registry.json first."
+  },
   "architecture": {
     "github": "knowledge_base",
     "chatgpt_project": "runtime",
+    "source_registry": "source-registry.json",
+    "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
     "method_source": "andylitvinov-design/alchemy-method",
     "business_source": "andrey-system",
     "report_agent_instruction_source": "project-ready/report-agent-project-instruction.md",
@@ -17,6 +25,7 @@
     "live_ru_report_example": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md"
   },
   "entry_points": {
+    "machine": "source-registry.json",
     "agent": "AGENT-START-HERE.md",
     "human": "README.md"
   },
@@ -34,6 +43,7 @@
       "writing_instructions": "core/report-template.md",
       "templates": "core/report-template.md",
       "structural_examples": "examples/",
+      "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
       "method_report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
       "live_ru_report_example": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
       "formats": [
@@ -57,6 +67,14 @@
     "core/quality-checklist.md"
   ],
   "report_architecture": {
+    "layer_0_source_registry": {
+      "file": "source-registry.json",
+      "purpose": "canonical machine-readable routing before search"
+    },
+    "layer_0_method_registry": {
+      "file": "andylitvinov-design/alchemy-method/method-source-registry.json",
+      "purpose": "canonical method/report source registry"
+    },
     "layer_1_agent_instruction": {
       "file": "project-ready/report-agent-project-instruction.md",
       "purpose": "who the agent is, which report type to choose, and what to do in each case"
@@ -97,14 +115,21 @@
   "method_examples": [
     "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md"
   ],
+  "known_answer_map": {
+    "real_russian_client_report": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
+    "report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
+    "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json"
+  },
   "reading_order": [
-    "AGENT-START-HERE.md",
+    "source-registry.json",
     "system-index.json",
+    "AGENT-START-HERE.md",
     "core/master-doc.md",
     "agent/agent-map.md",
     "agent/{selected-agent}-instructions.md",
     "agent/{selected-agent}-playbook.md",
     "core/{task-file}.md",
+    "alchemy-method/method-source-registry.json, if the task is about method or reports",
     "alchemy-method/consultations/reports-index.md, if the task is about client reports",
     "alchemy-method/consultations/examples/confidence-bach-report-example.md, if the output is a Russian client report",
     "examples/{relevant-example}.md"
