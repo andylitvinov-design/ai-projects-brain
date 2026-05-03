@@ -1,8 +1,14 @@
 {
-  "version": "1.0",
-  "status": "active",
+  "version": "1.2",
+  "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
+  "architecture": {
+    "github": "knowledge_base",
+    "chatgpt_project": "runtime",
+    "method_source": "andylitvinov-design/alchemy-method",
+    "business_source": "andrey-system"
+  },
   "entry_points": {
     "agent": "AGENT-START-HERE.md",
     "human": "README.md"
@@ -19,12 +25,23 @@
       "project_ready": "project-ready/report-agent-project-instruction.md"
     }
   },
+  "project_ready": [
+    "project-ready/business-builder-project-instruction.md",
+    "project-ready/report-agent-project-instruction.md"
+  ],
   "core_files": [
     "core/master-doc.md",
     "core/product-structure.md",
     "core/content-formulas.md",
     "core/report-template.md",
     "core/quality-checklist.md"
+  ],
+  "agent_files": [
+    "agent/agent-map.md",
+    "agent/business-builder-instructions.md",
+    "agent/business-builder-playbook.md",
+    "agent/report-agent-instructions.md",
+    "agent/report-agent-playbook.md"
   ],
   "examples": [
     "examples/sample-express-diagnosis.md",
@@ -33,9 +50,12 @@
   ],
   "reading_order": [
     "AGENT-START-HERE.md",
+    "system-index.json",
     "core/master-doc.md",
-    "agent/*",
-    "core/*",
-    "examples/*"
+    "agent/agent-map.md",
+    "agent/{selected-agent}-instructions.md",
+    "agent/{selected-agent}-playbook.md",
+    "core/{task-file}.md",
+    "examples/{relevant-example}.md"
   ]
 }
