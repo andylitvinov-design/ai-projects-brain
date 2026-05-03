@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "status": "active",
+  "owner": "Andrey Li",
+  "source_of_truth": "core/master-doc.md",
+  "entry_points": {
+    "agent": "AGENT-START-HERE.md",
+    "human": "README.md"
+  },
+  "agents": {
+    "business_builder": {
+      "instruction": "agent/business-builder-instructions.md",
+      "playbook": "agent/business-builder-playbook.md",
+      "project_ready": "project-ready/business-builder-project-instruction.md"
+    },
+    "report_agent": {
+      "instruction": "agent/report-agent-instructions.md",
+      "playbook": "agent/report-agent-playbook.md",
+      "project_ready": "project-ready/report-agent-project-instruction.md"
+    }
+  },
+  "core_files": [
+    "core/master-doc.md",
+    "core/product-structure.md",
+    "core/content-formulas.md",
+    "core/report-template.md",
+    "core/quality-checklist.md"
+  ],
+  "examples": [
+    "examples/sample-express-diagnosis.md",
+    "examples/sample-business-offer.md",
+    "examples/sample-post.md"
+  ],
+  "reading_order": [
+    "AGENT-START-HERE.md",
+    "core/master-doc.md",
+    "agent/*",
+    "core/*",
+    "examples/*"
+  ]
+}
