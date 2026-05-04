@@ -33,7 +33,7 @@ A short diagnosis includes Wu Xing but still stays short / unstructured.
 
 ### Fix
 
-Any Wu Xing analysis means Deep Diagnosis, even if the snapshot is compact.
+Any Wu Xing analysis means Deep Diagnosis minimum, even if the snapshot is compact.
 
 ---
 
@@ -179,7 +179,69 @@ Use shorter phrases, living rhythm, and direct observation:
 
 ---
 
-## 11. Main rule
+## 11. Full Client Report Too Schematic
+
+### Mistake
+
+The report is labeled Full Client Report, but it reads like a structured Deep Diagnosis:
+
+many headings, correct logic, but not enough warmth, image, client understanding, or perceived value.
+
+### Fix
+
+Add:
+
+- warmer opening;
+- image of the current state;
+- fuller link between Self and health/goal/symptom;
+- explanation of why support fits;
+- practical observation markers;
+- closing questions.
+
+Full does not mean more theory.
+
+Full means the client feels:
+
+```md
+I understand what is happening, what supports me, and what to check next.
+```
+
+---
+
+## 12. Mechanical Wu Xing Through Remedies
+
+### Mistake
+
+The report writes:
+
+```md
+Дерево — Beech.
+Огонь — Impatiens.
+Земля — Agrimony.
+```
+
+without explaining why each remedy maps to an element and what mechanism it shows.
+
+### Fix
+
+Use:
+
+```md
+remedy → element → mechanism → support direction
+```
+
+Example:
+
+```md
+Огонь — Impatiens.
+Есть энергия, но она ускорена.
+Система не выдерживает темп.
+Поддержка: снизить перегрев, вернуть мягкий ритм.
+```
+
+---
+
+## 13. Main rule
 
 Most weak reports fail because they miss one of these:
 
