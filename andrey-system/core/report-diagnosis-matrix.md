@@ -8,6 +8,7 @@ The system is built on two main axes:
    - Mini Express
    - Short Diagnosis
    - Deep Diagnosis
+   - Full Client Report
 
 2. Session status:
    - New Diagnosis
@@ -31,7 +32,7 @@ Main principle:
 
 ### 0.1. Wu Xing Rule
 
-If the report includes **any Wu Xing analysis**, even a short numeric snapshot, it is a **Deep Diagnosis**.
+If the report includes **any Wu Xing analysis**, even a short numeric snapshot, it is a **Deep Diagnosis minimum**.
 
 Examples:
 
@@ -265,6 +266,58 @@ Typical length:
 Main principle:
 
 **Self → goal/health → symptom if needed → Wu Xing → bottleneck → support → next step**
+
+---
+
+## #3. Full Client Report
+
+Use when the report must feel complete and valuable for the client, not only diagnostically correct.
+
+Full Client Report includes everything from Deep Diagnosis, plus:
+
+- warmer opening;
+- clear explanation of the client request;
+- stronger image of the current state;
+- fuller link between Self and health/goal/symptom;
+- explanation of why selected remedies/supports match the mechanism;
+- practical observation markers;
+- client-facing closing questions.
+
+A Full Client Report should not become longer through theory.
+
+It becomes fuller through:
+
+```md
+state → image → mechanism → support → client understanding → next check
+```
+
+Use Full Client Report when:
+
+- the user explicitly asks for “расширенный отчёт”, “полный клиентский отчёт”, “Full Client Report”;
+- the report is meant to be sent to a client as a complete paid/valuable document;
+- there is Dao + Wu Xing + remedy/support logic + practical plan;
+- the client needs not only diagnosis, but understanding and support.
+
+Difference from Deep Diagnosis:
+
+```md
+Deep Diagnosis = diagnostic structure.
+Full Client Report = diagnostic structure + client-facing depth, warmth, explanation, and perceived value.
+```
+
+Do not add theory to make it full.
+
+Add:
+
+- living opening;
+- image;
+- clear mechanism;
+- why this support fits;
+- what to observe;
+- when to recheck.
+
+Full Client Report does not replace Deep Diagnosis.
+It is an expanded client-facing format built on top of Deep Diagnosis.
 
 ---
 
@@ -512,6 +565,7 @@ Depth:
 - Mini Express
 - Short Diagnosis
 - Deep Diagnosis
+- Full Client Report
 
 Status:
 - New Diagnosis
@@ -533,6 +587,7 @@ Short + New = resource / goal check + Bach or remedy selection.
 Short + Repeat = quick recheck + update remedies.
 Deep + New = Self + goal/health + Wu Xing + support plan.
 Deep + Repeat = Wu Xing progress check + stage transition + updated remedies.
+Full Client Report + New = Deep Diagnosis + client-facing warmth, explanation, perceived value, and closing questions.
 Deep + Symptom = Self / goal-health / symptom + Wu Xing + support.
 Remedy-Only = pure analysis of remedies without full diagnosis.
 ```
@@ -543,13 +598,16 @@ Remedy-Only = pure analysis of remedies without full diagnosis.
 
 Do not overbuild.
 
-If there is any Wu Xing, it is Deep Diagnosis.
+If there is any Wu Xing, it is Deep Diagnosis minimum.
 
 If it is Short Diagnosis, do not add Wu Xing.
 
 If it is Mini Express, do not add remedies unless asked.
 
 If the user asks for remedy analysis only, do not force full diagnosis.
+
+If the user asks for Full Client Report, do not make it only a Deep Diagnosis with more headings.
+Add warmth, image, mechanism, support logic, observation markers, and closing questions.
 
 If there is no symptom assessment, do not add symptom analysis.
 
