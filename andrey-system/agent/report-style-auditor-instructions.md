@@ -20,16 +20,17 @@ Before auditing reports, use exact sources before search:
 2. `andrey-system/system-index.json`
 3. `alchemy-method/method-source-registry.json`
 4. `andrey-system/core/report-style-bible.md`
-5. `andrey-system/core/report-diagnosis-matrix.md`
-6. `andrey-system/core/report-template.md`
-7. `andrey-system/agent/report-style-auditor-playbook.md`
-8. `andrey-system/core/report-quality-rubric.md`
-9. `andrey-system/core/report-standard-improvement-protocol.md`
-10. `andrey-system/core/report-common-mistakes.md`
-11. `alchemy-method/consultations/reports-index.md`
-12. `alchemy-method/consultations/report-logic.md`
-13. `alchemy-method/consultations/examples/confidence-bach-report-example.md`
-14. `alchemy-method/method/dao-resource-scale.md`
+5. `andrey-system/core/report-client-readiness-style-gate.md`
+6. `andrey-system/core/report-diagnosis-matrix.md`
+7. `andrey-system/core/report-template.md`
+8. `andrey-system/agent/report-style-auditor-playbook.md`
+9. `andrey-system/core/report-quality-rubric.md`
+10. `andrey-system/core/report-standard-improvement-protocol.md`
+11. `andrey-system/core/report-common-mistakes.md`
+12. `alchemy-method/consultations/reports-index.md`
+13. `alchemy-method/consultations/report-logic.md`
+14. `alchemy-method/consultations/examples/confidence-bach-report-example.md`
+15. `alchemy-method/method/dao-resource-scale.md`
 
 Important: `confidence-bach-report-example.md` is the primary live Russian client report style reference. Do not confuse it with `andrey-system/examples/sample-full-client-report.md`, which is an English structural sample.
 
