@@ -6,6 +6,14 @@ A strong report gives:
 
 ясность → опора → поддержка → проверка → движение.
 
+But the report must also be possible to send to a real client as Andrey's living diagnostic message.
+
+Main audit principle:
+
+**client-ready living text first, method checklist second.**
+
+A report can contain Dao, Wu Xing, bottleneck, support, and safety, and still be bad if it sounds like a dry GPT report, is inflated, or cannot be sent to a client.
+
 ---
 
 ## 1. Scoring scale
@@ -13,27 +21,87 @@ A strong report gives:
 Score each category from 0 to 10.
 
 - 0–3: weak / missing
-- 4–6: partially works
+- 4–6: partially works / needs rewrite
 - 7–8: good but can improve
-- 9–10: strong and ready
+- 9–10: strong and client-ready
 
 Always explain the main reason for low scores.
 
+Do not score mechanically.
+
 ---
 
-## 2. Categories
+## 2. Client-Readiness Gate
 
-### Method accuracy
+Before scoring method details, answer:
 
-Checks whether the report follows Andrey Li method logic:
+```md
+Можно ли отправить этот текст клиенту как живое письмо Андрея?
+```
 
-request → current state → Dao level → Wu Xing if relevant → hidden mechanism → bottleneck → support → next check.
+If the answer is **no**, the report cannot pass, even if all formal method blocks are present.
 
-### Format match
+A report fails the Client-Readiness Gate if:
 
-Checks whether the report uses the correct format:
+- it sounds like GPT, an academic note, or a generic coaching report;
+- it is inflated 2–3 times beyond the value of the input;
+- the client must search through long explanations to understand the point;
+- it teaches the method instead of diagnosing the current state;
+- it contains internal QA, registry notes, or source-routing notes in the client-facing text;
+- it can be compressed by 40% or more without losing meaning.
 
-Mini Express, Short Diagnosis, Deep Diagnosis, Remedy-Only, Progress Check, Follow-Up, Psychosomatic Figure Report, or Full Support Report.
+---
+
+## 3. Required scoring block
+
+Use this scoring block for audits:
+
+```md
+Живой стиль Андрея: X/10
+Плотность текста / отсутствие воды: X/10
+Соответствие формату: X/10
+Клиентская ясность: X/10
+Методическая точность: X/10
+Bottleneck и главный механизм: X/10
+Практический следующий шаг: X/10
+Безопасность: X/10
+Готовность отправить клиенту: X/10
+Итог: проходит / не проходит / needs rewrite
+```
+
+---
+
+## 4. Hard fail rules
+
+### 4.1. Live style threshold
+
+If **Живой стиль Андрея** is below 7/10, the report does not pass.
+
+Reason: Andrey's reports are live diagnostic messages, not formal method summaries.
+
+### 4.2. Compression threshold
+
+If the report can be shortened by 40%+ without loss of meaning:
+
+- `Плотность текста / отсутствие воды` cannot be higher than 5/10;
+- `Готовность отправить клиенту` cannot be higher than 6/10;
+- final result cannot be stronger than `needs rewrite`.
+
+### 4.3. Format inflation threshold
+
+If the input is minimal and the report imitates a Full Client Report, the report fails format match.
+
+Small input requires a compact living note or Deep Snapshot, not a full report facade.
+
+### 4.4. Internal QA leakage
+
+If the client-facing report contains registry status, source notes, or `Quality check`, the report does not pass as client-ready.
+
+Internal QA belongs to the agent/auditor output only.
+
+---
+
+## 5. Categories
 
 ### Live Russian style
 
@@ -41,29 +109,76 @@ Checks whether the report sounds like Andrey's live diagnostic message, not a ge
 
 Look for:
 
-- short phrases;
+- `Смотрю`, `Я X.X`, `Главное здесь`, `Как будто`;
+- short phrases and short paragraphs;
+- number → image → meaning → action;
 - warm direct tone;
-- number → image → meaning;
 - practical support;
 - no academic over-explanation.
 
-### Dao / Wu Xing integration
+Bad signs:
 
-Checks whether Dao level and Wu Xing are used correctly and practically.
+- `в данном отчёте рассматривается`;
+- `следует отметить`;
+- `клиент демонстрирует`;
+- long theoretical introductions;
+- element encyclopedia blocks.
 
-A report should not explain the whole system. It should use the system to show the current state, bottleneck, and next realistic step.
+### Text density / absence of water
 
-### Psychodynamic depth
+Checks whether every paragraph gives:
 
-Checks whether the report names the hidden mechanism.
+- new clarity;
+- a sharper image;
+- a clearer bottleneck;
+- practical support;
+- a next check.
 
-Use the model:
+If a paragraph does not create clarity, support, or movement, remove it.
 
-Impulse → Compression → Defense → Repetition → Exhaustion.
+### Format match
 
-### Practical usefulness
+Checks whether the actual text matches the real report type:
 
-Checks whether the client knows what to do next:
+Mini Express, Short Diagnosis, Deep Diagnosis, Deep / Full Support Snapshot, Remedy-Only, Progress Check, Follow-Up, Psychosomatic Figure Report, or Full Support Report.
+
+Do not confuse:
+
+- full structure with full data;
+- long report with full client report;
+- remedy list with full diagnosis.
+
+### Client clarity
+
+Checks whether the client can quickly understand:
+
+- what is happening now;
+- what the main mechanism is;
+- what to support first;
+- what to do next;
+- what to check later.
+
+### Method accuracy
+
+Checks whether the report follows Andrey Li method logic:
+
+request → current state → Dao level → Wu Xing if relevant → hidden mechanism → bottleneck → support → next check.
+
+Method accuracy is not enough by itself. It must be expressed in living client language.
+
+### Bottleneck and main mechanism
+
+Checks whether the report names the one main block rather than listing many parallel interpretations.
+
+Strong reports separate:
+
+- core axis;
+- surface symptoms;
+- what needs verification.
+
+### Practical next step
+
+Checks whether the client knows what to do now:
 
 - what to support first;
 - what remedy/support is current;
@@ -74,40 +189,30 @@ Checks whether the client knows what to do next:
 
 Checks that there are no medical diagnoses, cure promises, treatment-stopping advice, guarantees, invented facts, or private data exposure.
 
-### System usefulness
+Use safe language without killing the living voice.
 
-Checks whether the audit identifies a reusable improvement for standards when the issue is systemic.
+### Client-send readiness
 
-### Overall report strength
-
-Overall answer to:
-
-Will the client feel clearer, more supported, and oriented toward the next realistic step?
-
----
-
-## 3. Required scoring block
+Final answer to:
 
 ```md
-Методическая точность: X/10
-Соответствие формату: X/10
-Живой русский стиль Андрея: X/10
-Dao / У-Син интеграция: X/10
-Глубина психодинамики: X/10
-Практичность: X/10
-Безопасность: X/10
-Системная полезность: X/10
-Итоговая сила отчёта: X/10
+Would Andrey be comfortable sending this to a client as-is?
 ```
+
+If no, the report needs rewrite.
 
 ---
 
-## 4. Quality check
+## 6. Quality check
 
 Use this checklist at the end:
 
 ```md
-Тип отчёта выбран: да/нет
+Можно отправить клиенту: да/нет
+Живой стиль Андрея есть: да/нет
+Текст сжатый и плотный: да/нет
+Формат выбран правильно: да/нет
+Размер соответствует входу: да/нет
 Текущее состояние есть: да/нет
 Dao уровень есть: да/нет/не нужен
 У-Син есть: да/нет/не нужен
@@ -115,16 +220,19 @@ Dao уровень есть: да/нет/не нужен
 Bottleneck есть: да/нет
 Поддержка связана с механизмом: да/нет
 Следующий шаг есть: да/нет
+Internal QA убран из клиентского текста: да/нет
 Безопасность соблюдена: да/нет
 Нужно обновить стандарты: да/нет
 ```
 
 ---
 
-## 5. Main rule
+## 7. Main rule
 
-Do not score mechanically.
+The strongest report is not the longest report.
 
-Every score must help improve the report.
+The strongest report gives:
 
-If the report is weak, identify the one change that would improve it most.
+**ясность → опора → что делать сейчас → что проверить потом**
+
+If a report is methodically correct but dry, inflated, and not client-ready, score it low and require rewrite.
