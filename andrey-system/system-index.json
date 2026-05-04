@@ -1,5 +1,5 @@
 {
-  "version": "1.6",
+  "version": "1.7",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -18,6 +18,11 @@
     "business_source": "andrey-system",
     "report_agent_instruction_source": "project-ready/report-agent-project-instruction.md",
     "report_writing_instruction_source": "core/report-template.md",
+    "report_diagnosis_matrix_source": "core/report-diagnosis-matrix.md",
+    "report_style_bible_source": "core/report-style-bible.md",
+    "report_quality_rubric_source": "core/report-quality-rubric.md",
+    "report_standard_improvement_protocol_source": "core/report-standard-improvement-protocol.md",
+    "report_common_mistakes_source": "core/report-common-mistakes.md",
     "report_templates_source": "core/report-template.md",
     "structural_report_examples_source": "examples/",
     "method_report_index_source": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
@@ -40,6 +45,8 @@
       "instruction": "agent/report-agent-instructions.md",
       "playbook": "agent/report-agent-playbook.md",
       "project_ready": "project-ready/report-agent-project-instruction.md",
+      "diagnosis_matrix": "core/report-diagnosis-matrix.md",
+      "style_bible": "core/report-style-bible.md",
       "writing_instructions": "core/report-template.md",
       "templates": "core/report-template.md",
       "structural_examples": "examples/",
@@ -47,12 +54,31 @@
       "method_report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
       "live_ru_report_example": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
       "formats": [
-        "express_diagnosis",
-        "full_client_report",
-        "monthly_progress_report",
-        "remedy_support_note",
-        "homeopathy_situation_decoder"
+        "mini_express",
+        "short_diagnosis",
+        "deep_diagnosis",
+        "remedy_only_analysis",
+        "progress_check",
+        "follow_up_check_note",
+        "psychosomatic_figure_report",
+        "full_support_report"
       ]
+    },
+    "report_style_auditor": {
+      "role": "quality control and standards improvement agent for Andrey Li reports",
+      "instruction": "agent/report-style-auditor-instructions.md",
+      "playbook": "agent/report-style-auditor-playbook.md",
+      "quality_rubric": "core/report-quality-rubric.md",
+      "standard_improvement_protocol": "core/report-standard-improvement-protocol.md",
+      "common_mistakes": "core/report-common-mistakes.md",
+      "style_bible": "core/report-style-bible.md",
+      "diagnosis_matrix": "core/report-diagnosis-matrix.md",
+      "report_templates": "core/report-template.md",
+      "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
+      "method_report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
+      "method_report_logic": "andylitvinov-design/alchemy-method/consultations/report-logic.md",
+      "dao_scale": "andylitvinov-design/alchemy-method/method/dao-resource-scale.md",
+      "live_ru_report_example": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md"
     }
   },
   "project_ready": [
@@ -64,6 +90,11 @@
     "core/product-structure.md",
     "core/content-formulas.md",
     "core/report-template.md",
+    "core/report-diagnosis-matrix.md",
+    "core/report-style-bible.md",
+    "core/report-quality-rubric.md",
+    "core/report-standard-improvement-protocol.md",
+    "core/report-common-mistakes.md",
     "core/quality-checklist.md"
   ],
   "report_architecture": {
@@ -79,9 +110,25 @@
       "file": "project-ready/report-agent-project-instruction.md",
       "purpose": "who the agent is, which report type to choose, and what to do in each case"
     },
+    "layer_1_style_auditor": {
+      "file": "agent/report-style-auditor-instructions.md",
+      "purpose": "quality control and standards improvement for written reports"
+    },
     "layer_2_report_writing_instructions": {
       "file": "core/report-template.md",
       "purpose": "what to check before writing each report and how to write it"
+    },
+    "layer_2_report_style_standards": {
+      "file": "core/report-style-bible.md",
+      "purpose": "living Russian report style and anti-GPT voice rules"
+    },
+    "layer_2_report_quality_standards": {
+      "file": "core/report-quality-rubric.md",
+      "purpose": "scoring rubric and report quality criteria"
+    },
+    "layer_2_standard_improvement": {
+      "file": "core/report-standard-improvement-protocol.md",
+      "purpose": "how auditors propose reusable improvements to standards"
     },
     "layer_3_structural_report_examples": {
       "directory": "examples/",
@@ -93,6 +140,7 @@
       "purpose": "primary Russian client-facing tone and live report style"
     },
     "workflow_playbook": "agent/report-agent-playbook.md",
+    "style_auditor_playbook": "agent/report-style-auditor-playbook.md",
     "method_logic": "andylitvinov-design/alchemy-method/consultations/report-logic.md",
     "dao_scale": "andylitvinov-design/alchemy-method/method/dao-resource-scale.md"
   },
@@ -101,7 +149,9 @@
     "agent/business-builder-instructions.md",
     "agent/business-builder-playbook.md",
     "agent/report-agent-instructions.md",
-    "agent/report-agent-playbook.md"
+    "agent/report-agent-playbook.md",
+    "agent/report-style-auditor-instructions.md",
+    "agent/report-style-auditor-playbook.md"
   ],
   "examples": [
     "examples/sample-express-diagnosis.md",
@@ -118,7 +168,8 @@
   "known_answer_map": {
     "real_russian_client_report": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
     "report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
-    "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json"
+    "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
+    "report_style_auditor": "andrey-system/agent/report-style-auditor-instructions.md"
   },
   "reading_order": [
     "source-registry.json",
