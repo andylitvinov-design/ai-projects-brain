@@ -8,6 +8,7 @@ It follows Andrey's clarified diagnostic structure:
    - Mini Express
    - Short Diagnosis
    - Deep Diagnosis
+   - Full Client Report
    - Remedy-Only Analysis
 
 2. Status:
@@ -36,6 +37,7 @@ Depth:
 - Mini Express
 - Short Diagnosis
 - Deep Diagnosis
+- Full Client Report
 - Remedy-Only Analysis
 
 Status:
@@ -51,7 +53,8 @@ Additional blocks:
 
 Core rules:
 
-- any Wu Xing analysis, even a short numeric snapshot, means **Deep Diagnosis**;
+- any Wu Xing analysis, even a short numeric snapshot, means **Deep Diagnosis minimum**;
+- Full Client Report is Deep Diagnosis plus client-facing warmth, image, mechanism, support logic, observation markers, and closing questions;
 - `Я + цель / здоровье` is almost always included;
 - `симптом` is included only when Andrey specifically evaluates it;
 - remedies/supports are included almost always;
@@ -315,7 +318,112 @@ Each element should be short: number → state → support.
 
 ---
 
-## 7. Deep Diagnosis — Repeat / Progress Check
+## 7. Full Client Report — New / Expanded
+
+Use when:
+
+- the user asks for a full or expanded client report;
+- the report should be sent to a client as a complete explanation;
+- Dao, Wu Xing, remedy/support, mechanism, and practical next step are all present;
+- the client needs warmth, clarity, and value, not only a diagnostic snapshot.
+
+Length:
+
+- 900–1600 words, but only if there is enough data;
+- still short paragraphs;
+- no textbook theory.
+
+Template:
+
+```md
+Смотрю.
+
+1. ЗАПРОС
+Что смотрим.
+Почему это важно сейчас.
+
+2. Я / ТЕКУЩЕЕ СОСТОЯНИЕ
+Я X.X.
+Dao level / stage.
+Current image.
+What is already working.
+What is compressed / missing.
+
+3. ЦЕЛЬ / ЗДОРОВЬЕ / СИМПТОМ
+Only include what was actually assessed.
+What the field shows.
+Image of the state.
+Safe psychodynamic wording.
+
+4. СВЯЗЬ Я И ЗДОРОВЬЯ / ЦЕЛИ
+What happens between Self and health/goal.
+Hidden mechanism.
+Where the movement gets blocked.
+
+5. DAO СТАДИЯ
+Current stage.
+Why transition is not happening yet.
+Next realistic stage.
+What must be stabilized.
+
+6. У-СИН
+For each relevant element:
+- number / remedy entry if used;
+- state;
+- mechanism;
+- support direction.
+
+7. ГЛАВНЫЙ МЕХАНИЗМ
+Impulse → Compression → Defense/Mask → Repetition → Exhaustion.
+Write in client language.
+
+8. BOTTLENECK
+One clear bottleneck.
+Why this bottleneck blocks movement.
+What softens it.
+
+9. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
+Main support first.
+Then emotional support.
+Then body/naturopathy/homeopathy if relevant.
+Each item = function in this client's mechanism.
+
+10. ПРАКТИЧЕСКОЕ ДЕЙСТВИЕ
+Small realistic action.
+What not to force.
+What to observe.
+
+11. СЛЕДУЮЩИЙ УРОВЕНЬ
+Current level.
+Target level.
+What will change if support works.
+
+12. ПРОВЕРКА
+When to recheck.
+What markers to watch.
+
+13. SAFETY
+Support language.
+No cure promises.
+Medical care stays in parallel when relevant.
+
+14. ВОПРОСЫ КЛИЕНТУ
+2–3 questions that help continue the work.
+```
+
+Main rule:
+
+Full Client Report is not “more sections”.
+
+Full Client Report is:
+
+```md
+diagnosis → image → mechanism → support → client understanding → next check
+```
+
+---
+
+## 8. Deep Diagnosis — Repeat / Progress Check
 
 Use when:
 
@@ -380,7 +488,7 @@ Use full element explanation only if a specific element is clearly blocked.
 
 ---
 
-## 8. Remedy-Only Analysis
+## 9. Remedy-Only Analysis
 
 Use when the task is only to analyze remedies, reactions, or current relevance.
 
@@ -419,7 +527,56 @@ This format can be used without `Я`, `цель`, or Wu Xing if the user only as
 
 ---
 
-## 9. Additional Block — Psychosomatics / Link Between Self And Goal
+## 10. Wu Xing Through Remedies Rule
+
+Sometimes Wu Xing is reconstructed through selected remedies, Bach essences, tinctures, homeopathy, or other supports.
+
+Use this only when the remedies are clearly treated as diagnostic entry points.
+
+In this case, always explain in one sentence:
+
+```md
+Здесь У-Син смотрится не как отдельная полная диагностика, а через препараты как вход: каждый препарат показывает, какая стихия и какой механизм сейчас активны.
+```
+
+Then for each element use:
+
+```md
+Стихия — препарат / support, approximate level if known.
+What state this shows.
+What mechanism is active.
+What support direction follows.
+```
+
+Bad:
+
+```md
+Дерево — Beech.
+Огонь — Impatiens.
+Земля — Agrimony.
+```
+
+Good:
+
+```md
+Дерево — Beech, около 3.3.
+Импульс роста есть, но он идёт через жёсткость и внутреннее "не так".
+Дерево хочет движения, но вместо живого роста появляется напряжённое исправление.
+Поддержка: смягчить жёсткость, чтобы рост стал живым, а не контролирующим.
+```
+
+Main formula:
+
+```md
+remedy → element → mechanism → support direction
+```
+
+Do not mechanically attach remedies to elements.
+Show what the remedy reveals in the client’s system.
+
+---
+
+## 11. Additional Block — Psychosomatics / Link Between Self And Goal
 
 Psychosomatics often means the link between:
 
@@ -446,7 +603,7 @@ This can be included without a separate heading `ПСИХОСОМАТИКА`.
 
 ---
 
-## 10. Additional Block — Symptom Analysis
+## 12. Additional Block — Symptom Analysis
 
 Use only when symptom is specifically assessed.
 
@@ -493,7 +650,7 @@ Safety:
 
 ---
 
-## 11. Additional Block — System Analysis
+## 13. Additional Block — System Analysis
 
 Use when external system matters: family, work, father, partner, institution, country, money, clients.
 
@@ -516,7 +673,7 @@ Do not turn it into full constellation unless asked.
 
 ---
 
-## 12. Additional Block — Remedy Relevance Check
+## 14. Additional Block — Remedy Relevance Check
 
 Use in repeat diagnosis.
 
@@ -547,7 +704,7 @@ Important distinction:
 
 ---
 
-## 13. Remedy / Support Language
+## 15. Remedy / Support Language
 
 Describe remedies by function, not encyclopedia style.
 
@@ -572,7 +729,7 @@ Bad:
 
 ---
 
-## 14. Dao / Stage Language
+## 16. Dao / Stage Language
 
 Use Dao stage only when it helps.
 
@@ -590,7 +747,7 @@ Do not explain the full Dao ladder unless asked.
 
 ---
 
-## 15. Living Style Rules
+## 17. Living Style Rules
 
 Use:
 
@@ -617,7 +774,7 @@ Avoid:
 
 ---
 
-## 16. Safety
+## 18. Safety
 
 Alternative supports are not guarantees and not medical replacements.
 
@@ -645,13 +802,15 @@ Never:
 
 ---
 
-## 17. Final Checklist
+## 19. Final Checklist
 
 Before finalizing:
 
-- Mini Express, Short, Deep, or Remedy-Only?
+- Mini Express, Short, Deep, Full Client Report, or Remedy-Only?
 - New or Repeat?
-- If there is Wu Xing, did you classify as Deep?
+- If there is Wu Xing, did you classify as Deep Diagnosis minimum?
+- If Full Client Report, did you add client-facing warmth, image, support logic, observation markers, and closing questions?
+- If Wu Xing is built through remedies/supports, did you show remedy/support → element → mechanism → support direction?
 - Are `Я + цель/здоровье` included when relevant?
 - Is symptom included only if specifically assessed?
 - Is psychsomatic link needed between Self and goal/health?
