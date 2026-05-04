@@ -1,14 +1,14 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "status": "canonical",
   "owner": "Andrey Li",
-  "purpose": "Machine-readable source registry for Andrey Li agents. Agents must read this before free-text search when routing project, method, report, or business tasks.",
+  "purpose": "Machine-readable source registry for Andrey Li agents. Agents must read this before free-text search when routing project, method, report, style-audit, or business tasks.",
   "primary_rule": "Use exact canonical sources from this registry before searching. Search is fallback, not the first step, for known source types.",
   "repositories": {
     "business_and_agents": {
       "repo": "andylitvinov-design/ai-projects-brain",
       "base_path": "andrey-system",
-      "role": "business packaging, agent instructions, project-ready runtime, templates, structural examples"
+      "role": "business packaging, agent instructions, project-ready runtime, templates, style standards, structural examples"
     },
     "method": {
       "repo": "andylitvinov-design/alchemy-method",
@@ -56,6 +56,18 @@
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-diagnosis-matrix.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-diagnosis-matrix.md",
+          "role": "report type selection matrix"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-style-bible.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-style-bible.md",
+          "role": "live Russian report style bible"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/core/report-template.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-template.md",
           "role": "report format templates and structure"
@@ -79,6 +91,52 @@
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/agent/report-agent-playbook.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-agent-playbook.md"
+        }
+      ]
+    },
+    "report_style_auditor": {
+      "priority": "exact_path_first",
+      "required_sources": [
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/agent/report-style-auditor-instructions.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-style-auditor-instructions.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/agent/report-style-auditor-playbook.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-style-auditor-playbook.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-quality-rubric.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-quality-rubric.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-standard-improvement-protocol.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-standard-improvement-protocol.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-common-mistakes.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-common-mistakes.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-style-bible.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-style-bible.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-diagnosis-matrix.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-diagnosis-matrix.md"
+        },
+        {
+          "repo": "andylitvinov-design/alchemy-method",
+          "path": "consultations/examples/confidence-bach-report-example.md",
+          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/examples/confidence-bach-report-example.md",
+          "role": "primary live Russian client report style reference"
         }
       ]
     },
@@ -111,6 +169,11 @@
     "where_is_report_agent_project_instruction": {
       "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
       "path": "andrey-system/project-ready/report-agent-project-instruction.md",
+      "repo": "andylitvinov-design/ai-projects-brain"
+    },
+    "where_is_report_style_auditor": {
+      "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-style-auditor-instructions.md",
+      "path": "andrey-system/agent/report-style-auditor-instructions.md",
       "repo": "andylitvinov-design/ai-projects-brain"
     }
   },
