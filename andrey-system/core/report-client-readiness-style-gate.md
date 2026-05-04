@@ -63,7 +63,63 @@ A paragraph is strong if it makes the client understand:
 
 ---
 
-## 3. Minimal Input Full Report Rule
+## 3. Four-part client report structure
+
+For full reports, prefer this client-facing structure:
+
+### Часть 1. Диагностика
+
+Short living diagnosis based on:
+
+1. Resource in the system and Dao stage.
+2. Emotional programs / systemic link / psychosomatics, if present.
+3. Wu Xing state, if relevant.
+4. Resonant remedies: one phrase for each, then the shared essence and conclusion.
+
+This part should name the current state, image, core axis, and bottleneck.
+
+### Часть 2. Назначение
+
+What to use and how.
+
+Include:
+
+- main support first;
+- secondary support second;
+- how to take / apply / observe, when known;
+- what to check in the first cycle.
+
+Do not turn this into a long remedy encyclopedia.
+
+### Часть 3. Примечание
+
+Psychodynamic note:
+
+- blocks;
+- stresses;
+- key challenges;
+- strategy of success;
+- what not to force;
+- what will show that the process is moving.
+
+This section can hold deeper meaning without overloading the main diagnosis.
+
+### Часть 4. Приложение
+
+Use only if helpful.
+
+Here the agent may add more detail:
+
+- up to 1–2 short paragraphs per remedy;
+- current Wu Xing / Dao stage explanation;
+- what may need to be added later;
+- what remains `needs verification`.
+
+The appendix is optional. Do not use it as a place for water.
+
+---
+
+## 4. Minimal Input Full Report Rule
 
 If the input contains only:
 
@@ -135,9 +191,25 @@ It must not become:
 
 ---
 
-## 4. Compression rule
+## 5. Compression and repetition rule
 
 If the text can be shortened by 40%+ without losing meaning, it is not client-ready.
+
+Do not repeat the main diagnostic formula in every section.
+
+Name the core formula once near the beginning and once in the conclusion.
+
+If the same idea appears in opening, general state, bottleneck, support, and conclusion, compress it.
+
+Good:
+
+```md
+Ресурс есть, но он сжат контролем.
+```
+
+Bad:
+
+Repeating the same idea in five different wordings.
 
 Signs of water:
 
@@ -157,7 +229,7 @@ Remove the explanation around it.
 
 ---
 
-## 5. Bach-led Wu Xing reports
+## 6. Bach-led Wu Xing reports
 
 Use this when Bach essences are given as diagnostic signals for Wu Xing.
 
@@ -165,7 +237,19 @@ Do not start with textbook element descriptions.
 
 Start with the state.
 
-Good structure:
+A short explanatory sentence is allowed when it directly clarifies the state.
+
+Good:
+
+```md
+В норме Дерево даёт движение и рост. Здесь движение есть, но оно выходит через раздражение.
+```
+
+Bad:
+
+Long textbook lists of what every element means.
+
+Core structure:
 
 ```md
 Смотрю.
@@ -198,45 +282,20 @@ Bottleneck:
 
 ---
 
-## 6. Full report from limited input — living structure
+## 7. Full report from limited input — living structure
 
-When the user explicitly asks for a full report but gives limited input, use this structure:
+When the user explicitly asks for a full report but gives limited input, use the four-part client report structure.
+
+Default form:
 
 ```md
-Смотрю.
-
-1. Общее состояние
-Я / здоровье X.X.
-Один живой образ.
-Что сейчас главное.
-
-2. У-Син / Bach-карта
-Не теория.
-Только что видно сейчас.
-- Земля / remedy — роль
-- Металл / remedy — роль
-- Огонь / remedy — роль
-- Дерево / remedy — роль
-- Вода — needs verification, if missing
-
-3. Ядро и поверхность
-Ядро: ...
-Поверхность: ...
-
-4. Bottleneck
-Одна точная формула.
-
-5. Поддержка
-Что поддержать первым.
-Что вторым.
-Что проверить.
-
-6. One-cycle goal
-Реалистичный переход уровня.
-
-7. Проверка
-Что смотреть через 7–10 дней.
+1. Диагностика
+2. Назначение
+3. Примечание
+4. Приложение
 ```
+
+If the case is very simple, the appendix can be omitted.
 
 Forbidden in this structure:
 
@@ -248,7 +307,7 @@ Forbidden in this structure:
 
 ---
 
-## 7. Main axis vs surface symptoms
+## 8. Main axis vs surface symptoms
 
 When there are several remedies, separate layers.
 
@@ -269,54 +328,6 @@ The client must know:
 - what is surface;
 - what is missing / needs verification;
 - what to support first.
-
----
-
-## 8. Bad vs good fragments
-
-### Bad
-
-```md
-Дерево отвечает за рост, движение, инициативу, право действовать и способность идти вперёд.
-```
-
-### Good
-
-```md
-Дерево сжато.
-Движение есть, но оно выходит раздражением.
-```
-
----
-
-### Bad
-
-```md
-Огонь отвечает за радость, контакт, живость, выражение, сердечное тепло и способность быть в процессе.
-```
-
-### Good
-
-```md
-Огонь ускорен.
-Не тепло, а внутренний мотор.
-```
-
----
-
-### Bad
-
-```md
-В данном отчёте рассматривается методическая логика состояния здоровья 3.3.
-```
-
-### Good
-
-```md
-Смотрю.
-Здоровье 3.3.
-Главное здесь — сжатость.
-```
 
 ---
 
