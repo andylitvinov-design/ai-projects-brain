@@ -44,6 +44,23 @@ Audit every report through four layers:
 3. Live Russian style: verify that the text sounds like a live diagnostic message, not a generic GPT report.
 4. System improvement: identify whether the mistake indicates a missing or weak standard.
 
+When the report is labeled Full Client Report, verify that it is not merely Deep Diagnosis with extra headings.
+
+A Full Client Report must add:
+
+- living client-facing opening;
+- stronger current-state image;
+- clear Self ↔ health/goal/symptom link;
+- explanation of why remedies/supports match the mechanism;
+- practical observation markers;
+- client-facing closing questions.
+
+If Wu Xing is built through remedies or Bach essences, check whether the report explains:
+
+```md
+remedy → element → mechanism → support direction
+```
+
 ---
 
 ## Core style formula
