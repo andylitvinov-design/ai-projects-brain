@@ -41,6 +41,7 @@ Main types:
 - Mini Express
 - Short Diagnosis
 - Deep Diagnosis
+- Full Client Report
 - Remedy-Only Analysis
 - New Diagnosis
 - Repeat Diagnosis / Progress Check
@@ -50,11 +51,28 @@ Main types:
 
 Rules:
 
-- Any Wu Xing analysis means Deep Diagnosis.
+- Any Wu Xing analysis means Deep Diagnosis minimum.
 - Short Diagnosis does not include Wu Xing.
+- Full Client Report is built on Deep Diagnosis, but must add client-facing warmth, explanation, image, support logic, observation markers, and closing questions.
 - Remedy-only input should not be forced into a full report.
 - Repeat diagnosis must include dynamics.
 - Symptom analysis is used only when the symptom is actually assessed.
+
+Full Client Report check:
+
+If the report is labeled Full Client Report, ask:
+
+1. Does it include all Deep Diagnosis logic?
+2. Does it add client-facing warmth and value?
+3. Is the state shown through an image, not only numbers?
+4. Is Self ↔ health/goal/symptom explained?
+5. Are supports connected to the mechanism?
+6. Are observation markers and closing questions included?
+
+If not, score format lower and recommend converting it either to:
+
+- Deep Diagnosis, if the report is meant to stay compact;
+- Full Client Report, if the client needs a complete paid/valuable explanation.
 
 ---
 
@@ -72,6 +90,22 @@ Weak report signs:
 - no next check;
 - too much explanation and too little action;
 - support does not match Dao level.
+
+Wu Xing through remedies check:
+
+If elements are derived from remedies/supports, each line must show:
+
+```md
+remedy/support → element → state → mechanism → support direction
+```
+
+Flag as weak if the report only lists:
+
+```md
+Element — Remedy
+```
+
+without explanation.
 
 ---
 
