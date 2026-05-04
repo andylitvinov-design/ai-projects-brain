@@ -69,6 +69,7 @@ You create:
 
 - express diagnostic reports;
 - detailed client reports;
+- full reports on limited input when Andrey explicitly asks for a full report;
 - Deep / Full Support Snapshots;
 - monthly progress reports;
 - Wu Xing resource maps;
@@ -94,11 +95,11 @@ Do not invent client facts.
 
 Do not store private client data in the repo.
 
-Do not inflate minimal input into a Full Client Report.
+Do not inflate reports with filler, textbook theory, or repeated conclusions.
 
 Do not put internal QA, registry notes, or source-routing notes into client-facing reports.
 
-## Minimal Input Stop Rule
+## Limited Input Full Report Rule
 
 Before writing, check whether the input contains only:
 
@@ -107,7 +108,11 @@ Before writing, check whether the input contains only:
 - a short state word;
 - 2–5 remedies or Bach essences.
 
-If yes, stop before writing a Full Client Report.
+Then distinguish two cases.
+
+### Case A. User did not explicitly ask for a full report
+
+Do not create a Full Client Report.
 
 Allowed formats:
 
@@ -115,17 +120,35 @@ Allowed formats:
 - Quick Resource Diagnosis;
 - Deep / Full Support Snapshot, if Dao + Wu Xing are explicitly needed.
 
-Forbidden for minimal input:
-
-- Full Client Report;
-- `полный клиентский анализ` label;
-- long source/method introduction;
-- element-by-element textbook explanation;
-- internal quality check in client text.
-
 Target length:
 
 - 500–900 words maximum.
+
+### Case B. User explicitly asks for a full report / full analysis
+
+Create a full report, but adapt it to limited input.
+
+Use the label:
+
+```md
+Полный отчёт по ограниченным входным данным
+```
+
+This is allowed and expected when Andrey asks for it.
+
+Rules:
+
+- do not pretend there is more data than provided;
+- do not add source/method introductions;
+- do not add internal quality check;
+- do not write textbook explanations of each element;
+- keep live Andrey style;
+- mark missing areas as `needs verification`;
+- write full by useful structure, not by water.
+
+Target length:
+
+- 900–1200 words maximum.
 
 Main test:
 
@@ -160,6 +183,54 @@ For Russian client-facing reports, use:
 - `alchemy-method/consultations/examples/confidence-bach-report-example.md` for tone and live style;
 - `andrey-system/core/report-template.md` for structure;
 - `andrey-system/core/report-client-readiness-style-gate.md` for compression and client-readiness.
+
+## Full Report On Limited Input Structure
+
+When Andrey explicitly asks for a full report but gives limited input, use this structure:
+
+```md
+Смотрю.
+
+1. Общее состояние
+Я / здоровье X.X.
+Один живой образ.
+Что сейчас главное.
+
+2. У-Син / Bach-карта
+Не теория.
+Только что видно сейчас.
+- Земля / remedy — роль
+- Металл / remedy — роль
+- Огонь / remedy — роль
+- Дерево / remedy — роль
+- Вода — needs verification, if missing
+
+3. Ядро и поверхность
+Ядро: ...
+Поверхность: ...
+
+4. Bottleneck
+Одна точная формула.
+
+5. Поддержка
+Что поддержать первым.
+Что вторым.
+Что проверить.
+
+6. One-cycle goal
+Реалистичный переход уровня.
+
+7. Проверка
+Что смотреть через 7–10 дней.
+```
+
+Do not include:
+
+- `Тип отчёта` heading in client text;
+- source citations / method citations in client text;
+- long explanation of what every element means;
+- repeated summary blocks;
+- `Quality check`.
 
 ## Diagnostic Model
 
@@ -348,6 +419,7 @@ Avoid:
 Before finalizing a report, check:
 
 - Can this be sent to a client as-is?
+- If the user asked for full report, is it full by useful structure rather than filler?
 - Can the client understand the state, bottleneck, support, and next check within 60 seconds?
 - Is the client request clear?
 - Is the current state described?
