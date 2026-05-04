@@ -63,7 +63,7 @@ A paragraph is strong if it makes the client understand:
 
 ---
 
-## 3. Minimal Input Stop Rule
+## 3. Minimal Input Full Report Rule
 
 If the input contains only:
 
@@ -72,7 +72,11 @@ If the input contains only:
 - a short state word;
 - 2–5 remedies or Bach essences;
 
-then the agent must stop before creating a Full Client Report.
+then the agent must distinguish two cases.
+
+### Case A. User did not explicitly ask for a full report
+
+Do not create a Full Client Report.
 
 Allowed formats:
 
@@ -80,25 +84,54 @@ Allowed formats:
 - Quick Resource Diagnosis;
 - Deep / Full Support Snapshot, if Wu Xing is explicitly needed.
 
-Forbidden:
+Target length:
 
-- Full Client Report;
-- `полный клиентский анализ` label;
-- long source or method introduction;
-- element-by-element textbook explanation;
-- internal quality check in client text.
+- 500–900 words maximum.
+
+### Case B. User explicitly asks for a full report / full analysis
+
+Create a full report, but adapt it to the limited input.
+
+This is allowed.
+
+Use the label:
+
+```md
+Full Report on Limited Input
+```
+
+or, in Russian:
+
+```md
+Полный отчёт по ограниченным входным данным
+```
+
+Rules:
+
+- do not pretend there is more client data than provided;
+- do not add source/method introductions;
+- do not add internal quality check;
+- do not write textbook explanations of each element;
+- keep live Andrey style;
+- keep short paragraphs;
+- mark missing areas as `needs verification`;
+- write full by structure, not by water.
 
 Target length:
 
-- 500–900 words maximum for this input type.
+- 900–1200 words maximum.
 
-Main test:
+A full report on limited input must still answer:
 
 ```md
-Can the client understand the state, bottleneck, support, and next check within the first 60 seconds of reading?
+Состояние → образ → У-Син/Bach → ядро → bottleneck → поддержка → one-cycle goal → проверка
 ```
 
-If no, shorten.
+It must not become:
+
+```md
+источники → методическая рамка → длинная теория → повтор выводов → quality check
+```
 
 ---
 
@@ -113,7 +146,7 @@ Signs of water:
 - long lists where one sentence is enough;
 - `Что значит...` blocks that restate the same point;
 - long psychodynamic chains without practical consequence;
-- full report structure built from minimal input.
+- full report structure built from minimal input as filler rather than useful client structure.
 
 Fix:
 
@@ -165,7 +198,57 @@ Bottleneck:
 
 ---
 
-## 6. Main axis vs surface symptoms
+## 6. Full report from limited input — living structure
+
+When the user explicitly asks for a full report but gives limited input, use this structure:
+
+```md
+Смотрю.
+
+1. Общее состояние
+Я / здоровье X.X.
+Один живой образ.
+Что сейчас главное.
+
+2. У-Син / Bach-карта
+Не теория.
+Только что видно сейчас.
+- Земля / remedy — роль
+- Металл / remedy — роль
+- Огонь / remedy — роль
+- Дерево / remedy — роль
+- Вода — needs verification, if missing
+
+3. Ядро и поверхность
+Ядро: ...
+Поверхность: ...
+
+4. Bottleneck
+Одна точная формула.
+
+5. Поддержка
+Что поддержать первым.
+Что вторым.
+Что проверить.
+
+6. One-cycle goal
+Реалистичный переход уровня.
+
+7. Проверка
+Что смотреть через 7–10 дней.
+```
+
+Forbidden in this structure:
+
+- `Тип отчёта` heading in client text;
+- source citations / method citations in client text;
+- long explanation of what every element means;
+- repeated summary blocks;
+- `Quality check`.
+
+---
+
+## 7. Main axis vs surface symptoms
 
 When there are several remedies, separate layers.
 
@@ -189,7 +272,7 @@ The client must know:
 
 ---
 
-## 7. Bad vs good fragments
+## 8. Bad vs good fragments
 
 ### Bad
 
@@ -237,28 +320,25 @@ The client must know:
 
 ---
 
-## 8. Size rules by input
+## 9. Size rules by input
 
-The size must match the input.
+The size must match both input and request.
 
 - Short / Bach note: 300–700 words.
 - Minimal-input Deep / Full Support Snapshot: 500–900 words.
+- Full report explicitly requested from minimal input: 900–1200 words maximum.
 - Deep / Full Support Snapshot with more context: 600–1000 words.
-- Full Client Report: 900–1400 words maximum, only with enough client data.
+- Full Client Report with enough data: 900–1400 words maximum.
 - Follow-Up Check Note: 120–300 words.
 - Progress / Remedy Relevance Check: 250–600 words.
 
-Minimal input cannot produce a Full Client Report.
+Minimal input can produce a full report only when the user explicitly asks for it.
 
-Minimal input can produce:
-
-- Short Remedy / Bach Decoder;
-- Quick Resource Diagnosis;
-- Deep / Full Support Snapshot, if Wu Xing and Dao are needed.
+But it must be full by useful structure, not by filler.
 
 ---
 
-## 9. Internal QA must stay internal
+## 10. Internal QA must stay internal
 
 Never include in client-facing report:
 
@@ -273,7 +353,7 @@ Client-facing text starts with the client state, not system process.
 
 ---
 
-## 10. Rewrite target for weak reports
+## 11. Rewrite target for weak reports
 
 If a report is dry, inflated, or GPT-like, rewrite it toward this rhythm:
 
