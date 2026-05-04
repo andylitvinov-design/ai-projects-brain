@@ -33,7 +33,18 @@ request → current state → Dao level → Wu Xing if relevant → hidden mecha
 
 Checks whether the report uses the correct format:
 
-Mini Express, Short Diagnosis, Deep Diagnosis, Remedy-Only, Progress Check, Follow-Up, Psychosomatic Figure Report, or Full Support Report.
+Mini Express, Short Diagnosis, Deep Diagnosis, Full Client Report, Remedy-Only, Progress Check, Follow-Up, Psychosomatic Figure Report, or Full Support Report.
+
+For Full Client Report, check that the report is not only a Deep Diagnosis with more headings.
+
+It must include:
+
+- client-facing warmth;
+- image of the current state;
+- link between Self and health/goal/symptom;
+- explanation of why support matches the mechanism;
+- practical observation markers;
+- closing questions.
 
 ### Live Russian style
 
@@ -52,6 +63,12 @@ Look for:
 Checks whether Dao level and Wu Xing are used correctly and practically.
 
 A report should not explain the whole system. It should use the system to show the current state, bottleneck, and next realistic step.
+
+If Wu Xing is built through remedies/supports, the report must explain the chain:
+
+```md
+remedy/support → element → mechanism → support direction
+```
 
 ### Psychodynamic depth
 
@@ -111,6 +128,8 @@ Use this checklist at the end:
 Текущее состояние есть: да/нет
 Dao уровень есть: да/нет/не нужен
 У-Син есть: да/нет/не нужен
+Full Client Report раскрыт как клиентский отчёт, а не только Deep Diagnosis: да/нет/не нужен
+У-Син через препараты объяснён: да/нет/не нужен
 Скрытый механизм есть: да/нет
 Bottleneck есть: да/нет
 Поддержка связана с механизмом: да/нет
