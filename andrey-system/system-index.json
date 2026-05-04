@@ -1,5 +1,5 @@
 {
-  "version": "1.7",
+  "version": "1.8",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -57,6 +57,7 @@
         "mini_express",
         "short_diagnosis",
         "deep_diagnosis",
+        "full_client_report",
         "remedy_only_analysis",
         "progress_check",
         "follow_up_check_note",
