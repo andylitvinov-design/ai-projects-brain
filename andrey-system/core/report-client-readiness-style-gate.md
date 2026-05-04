@@ -63,7 +63,46 @@ A paragraph is strong if it makes the client understand:
 
 ---
 
-## 3. Compression rule
+## 3. Minimal Input Stop Rule
+
+If the input contains only:
+
+- one Dao level;
+- one topic;
+- a short state word;
+- 2–5 remedies or Bach essences;
+
+then the agent must stop before creating a Full Client Report.
+
+Allowed formats:
+
+- Short Remedy / Bach Decoder;
+- Quick Resource Diagnosis;
+- Deep / Full Support Snapshot, if Wu Xing is explicitly needed.
+
+Forbidden:
+
+- Full Client Report;
+- `полный клиентский анализ` label;
+- long source or method introduction;
+- element-by-element textbook explanation;
+- internal quality check in client text.
+
+Target length:
+
+- 500–900 words maximum for this input type.
+
+Main test:
+
+```md
+Can the client understand the state, bottleneck, support, and next check within the first 60 seconds of reading?
+```
+
+If no, shorten.
+
+---
+
+## 4. Compression rule
 
 If the text can be shortened by 40%+ without losing meaning, it is not client-ready.
 
@@ -85,7 +124,7 @@ Remove the explanation around it.
 
 ---
 
-## 4. Bach-led Wu Xing reports
+## 5. Bach-led Wu Xing reports
 
 Use this when Bach essences are given as diagnostic signals for Wu Xing.
 
@@ -126,7 +165,7 @@ Bottleneck:
 
 ---
 
-## 5. Main axis vs surface symptoms
+## 6. Main axis vs surface symptoms
 
 When there are several remedies, separate layers.
 
@@ -150,7 +189,7 @@ The client must know:
 
 ---
 
-## 6. Bad vs good fragments
+## 7. Bad vs good fragments
 
 ### Bad
 
@@ -198,12 +237,13 @@ The client must know:
 
 ---
 
-## 7. Size rules by input
+## 8. Size rules by input
 
 The size must match the input.
 
 - Short / Bach note: 300–700 words.
-- Deep / Full Support Snapshot: 600–1000 words.
+- Minimal-input Deep / Full Support Snapshot: 500–900 words.
+- Deep / Full Support Snapshot with more context: 600–1000 words.
 - Full Client Report: 900–1400 words maximum, only with enough client data.
 - Follow-Up Check Note: 120–300 words.
 - Progress / Remedy Relevance Check: 250–600 words.
@@ -218,7 +258,7 @@ Minimal input can produce:
 
 ---
 
-## 8. Internal QA must stay internal
+## 9. Internal QA must stay internal
 
 Never include in client-facing report:
 
@@ -233,7 +273,7 @@ Client-facing text starts with the client state, not system process.
 
 ---
 
-## 9. Rewrite target for weak reports
+## 10. Rewrite target for weak reports
 
 If a report is dry, inflated, or GPT-like, rewrite it toward this rhythm:
 
