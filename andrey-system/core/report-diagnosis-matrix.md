@@ -8,6 +8,7 @@ The system is built on two main axes:
    - Mini Express
    - Short Diagnosis
    - Deep Diagnosis
+   - Deep / Full Support Snapshot
 
 2. Session status:
    - New Diagnosis
@@ -24,6 +25,8 @@ Additional blocks:
 Main principle:
 
 **ясность → опора → препарат / поддержка → проверка**
+
+The strongest report is not the longest report.
 
 ---
 
@@ -81,7 +84,7 @@ The psychodynamic meaning appears when we explain:
 - what blocks movement between them;
 - what inner resource must be restored.
 
-So psychsomatics may be present as the **linking explanation**, even if there is no separate heading `ПСИХОСОМАТИКА`.
+So psychosomatics may be present as the **linking explanation**, even if there is no separate heading `ПСИХОСОМАТИКА`.
 
 ---
 
@@ -117,6 +120,41 @@ Use it when the input is mainly:
 - what to check next.
 
 This can be independent of full diagnosis.
+
+---
+
+### 0.6. Full structure vs full data
+
+Do not confuse a long structure with a Full Client Report.
+
+A report can include Dao, Wu Xing, bottleneck, support, and a plan, but still be a limited-input snapshot.
+
+Full Client Report requires enough client data:
+
+- current client context;
+- body/symptom details, if health is the topic;
+- what worsens / improves the state;
+- remedy reactions or support history;
+- goal or follow-up context;
+- practical support plan.
+
+If the input is minimal, do not call the output Full Client Report.
+
+---
+
+### 0.7. Size must match input
+
+Recommended maximums:
+
+- Mini Express: 80–250 words.
+- Short / Bach note: 300–700 words.
+- Deep / Full Support Snapshot: 600–1000 words.
+- Deep Diagnosis with enough data: 600–1200 words.
+- Full Client Report / Full Support Report: 900–1400 words maximum, only when there is enough client data.
+- Follow-Up Check Note: 120–300 words.
+- Progress / Remedy Relevance Check: 250–600 words.
+
+If a report can be cut by 40%+ without losing meaning, it is overbuilt.
 
 ---
 
@@ -265,6 +303,109 @@ Typical length:
 Main principle:
 
 **Self → goal/health → symptom if needed → Wu Xing → bottleneck → support → next step**
+
+---
+
+## #2.1. Deep / Full Support Snapshot
+
+Use when:
+
+- the report includes Dao level and Wu Xing;
+- the input is limited but enough for a deep state map;
+- the user gives remedies / Bach essences as diagnostic signals;
+- the report needs bottleneck, support direction, and one short plan;
+- there is not enough client history for a true Full Client Report.
+
+This is not a Full Client Report, even if it has many sections.
+
+Good label:
+
+```md
+Deep Diagnosis / Full Support Snapshot
+```
+
+Required structure:
+
+```md
+Смотрю.
+
+Current state / Dao level.
+One living image.
+
+Wu Xing through the given inputs.
+Main vs secondary axis.
+Missing elements as needs verification.
+
+Bottleneck.
+First support element.
+Remedies/support by function.
+One-cycle goal.
+What to verify next.
+```
+
+Typical length:
+
+- 600–1000 words.
+
+Rules:
+
+- do not explain the whole Wu Xing theory;
+- do not write long encyclopedia descriptions of remedies;
+- mark missing elements as `needs verification`;
+- do not invent body symptoms or client history;
+- no internal QA notes in the client-facing version;
+- separate core axis from surface symptoms.
+
+Example for Bach-led Wu Xing:
+
+```md
+Agrimony + Cherry Plum = скрытое напряжение + контроль.
+Beech + Impatiens = раздражение + ускорение.
+Вода = needs verification.
+Первый шаг = Земля, не рывок.
+```
+
+---
+
+## #3. Full Client Report / Full Support Report
+
+Use only when there is enough data and support plan is needed.
+
+Required data should include most of:
+
+- current client situation;
+- current Self / health / goal level;
+- body or symptom details, if relevant;
+- what worsens / improves the state;
+- remedy reactions or previous support;
+- enough context to personalize the plan;
+- follow-up or verification structure.
+
+Core content:
+
+```md
+Смотрю.
+
+1. Я / текущее состояние
+2. Здоровье / цель / симптом
+3. УСИН
+4. ВЫВОД
+5. НАЗНАЧЕНИЕ
+   А. Основная поддержка
+   Б. Bach / эмоции
+   В. Натуропатия / тело
+6. Как принимать / что делать
+7. Когда проверить
+```
+
+Typical length:
+
+- 900–1400 words maximum;
+- short paragraphs;
+- no water;
+- no method encyclopedia.
+
+Do not use this label for minimal input.
 
 ---
 
@@ -503,6 +644,36 @@ This format can be used without `Я`, `цель`, or Wu Xing if the user only as
 
 ---
 
+## F. Bach-led Wu Xing Block
+
+Use when Bach remedies are explicitly mapped to Wu Xing elements or used as diagnostic signals.
+
+Structure:
+
+```md
+По Bach видно:
+- Element / remedy — function in current state
+- Element / remedy — function in current state
+
+Ядро:
+...
+
+Поверхность:
+...
+
+Needs verification:
+...
+```
+
+Rules:
+
+- do not explain every element as theory;
+- do not treat all remedies as equally important;
+- name main axis first;
+- missing Water or other missing element must be marked `needs verification`.
+
+---
+
 ## 4. Final Selection Rule
 
 Before writing, choose:
@@ -512,6 +683,8 @@ Depth:
 - Mini Express
 - Short Diagnosis
 - Deep Diagnosis
+- Deep / Full Support Snapshot
+- Full Client Report / Full Support Report
 
 Status:
 - New Diagnosis
@@ -523,6 +696,7 @@ Additional blocks:
 - System Analysis
 - Remedy Relevance Check
 - Remedy-Only Analysis
+- Bach-led Wu Xing Block
 ```
 
 Example combinations:
@@ -532,8 +706,10 @@ Mini Express + New = tiny resource / goal check without remedies.
 Short + New = resource / goal check + Bach or remedy selection.
 Short + Repeat = quick recheck + update remedies.
 Deep + New = Self + goal/health + Wu Xing + support plan.
+Deep / Full Support Snapshot = limited input + Dao + Wu Xing + support direction.
 Deep + Repeat = Wu Xing progress check + stage transition + updated remedies.
 Deep + Symptom = Self / goal-health / symptom + Wu Xing + support.
+Full Client Report = enough client data + full support plan + check structure.
 Remedy-Only = pure analysis of remedies without full diagnosis.
 ```
 
@@ -554,6 +730,8 @@ If the user asks for remedy analysis only, do not force full diagnosis.
 If there is no symptom assessment, do not add symptom analysis.
 
 If there is no previous data, do not pretend to compare.
+
+If input is minimal, do not imitate Full Client Report.
 
 If there are previous remedies, check:
 

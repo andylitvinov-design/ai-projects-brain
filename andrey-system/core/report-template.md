@@ -8,6 +8,7 @@ It follows Andrey's clarified diagnostic structure:
    - Mini Express
    - Short Diagnosis
    - Deep Diagnosis
+   - Full Client Report / Full Report on Limited Input
    - Remedy-Only Analysis
 
 2. Status:
@@ -36,6 +37,7 @@ Depth:
 - Mini Express
 - Short Diagnosis
 - Deep Diagnosis
+- Full Client Report / Full Report on Limited Input
 - Remedy-Only Analysis
 
 Status:
@@ -56,7 +58,9 @@ Core rules:
 - `симптом` is included only when Andrey specifically evaluates it;
 - remedies/supports are included almost always;
 - **Mini Express** is the exception: it may be without remedies;
-- pure remedy analysis can be a standalone format.
+- pure remedy analysis can be a standalone format;
+- if a full report is requested, use the 4-part structure;
+- full means useful structure, not extra water.
 
 ---
 
@@ -82,7 +86,94 @@ Avoid:
 
 ---
 
-## 3. Mini Express
+## 3. Full Client Report — 4-Part Structure
+
+Use this as the preferred structure for full reports.
+
+It is especially important when:
+
+- the user explicitly asks for a full report;
+- the input is short but a full analysis is requested;
+- Bach / remedies are used as diagnostic input;
+- Wu Xing is included;
+- the report needs diagnosis + support + psychodynamic note + appendix.
+
+Length:
+
+- full report from limited input: 900–1200 words;
+- full report with enough data: 900–1400 words.
+
+Template:
+
+```md
+Смотрю.
+
+## 1. Диагностика
+
+Я X.X.
+Здоровье / цель X.X, если есть.
+Эмоция / тема — ...
+
+Коротко что сейчас.
+Один живой образ.
+Главная формула состояния.
+
+Если есть У-Син / Bach:
+- Стихия / препарат — одна фраза о роли
+- Стихия / препарат — одна фраза о роли
+- Missing element — needs verification
+
+Ядро: ...
+Поверхность: ...
+Главный bottleneck: ...
+
+## 2. Назначение
+
+Основная поддержка:
+- ... — функция / как принимать или применять, если известно
+
+Вторичная поддержка:
+- ... — функция
+
+Что проверить в первом цикле:
+- ...
+
+## 3. Примечание
+
+Психодинамика:
+- какой блок / стресс / ключевой вызов;
+- что не форсировать;
+- стратегия успеха;
+- признаки, что процесс пошёл.
+
+## 4. Приложение
+
+Опционально.
+
+Кратко по препаратам:
+- remedy — до 1–2 коротких абзацов.
+
+Кратко по Dao / У-Син ступени:
+...
+
+Что ещё нужно проверить / добавить:
+- ... needs verification
+```
+
+Rules:
+
+- the main diagnosis goes in Part 1;
+- dosage / application / tracking goes in Part 2;
+- psychodynamics and strategy go in Part 3;
+- expanded remedy or Dao/Wu Xing explanations go in Part 4;
+- appendix is optional;
+- do not repeat the same diagnostic formula in every part;
+- no internal Quality check in the client-facing report;
+- no registry/source notes in the client-facing report.
+
+---
+
+## 4. Mini Express
 
 Use when:
 
@@ -117,7 +208,7 @@ No long explanation.
 
 ---
 
-## 4. Short Diagnosis — New
+## 5. Short Diagnosis — New
 
 Use when:
 
@@ -165,7 +256,7 @@ Do not add Wu Xing. If Wu Xing appears, switch to Deep Diagnosis.
 
 ---
 
-## 5. Short Diagnosis — Repeat / Progress Check
+## 6. Short Diagnosis — Repeat / Progress Check
 
 Use when:
 
@@ -224,7 +315,7 @@ If it is a very short follow-up, use:
 
 ---
 
-## 6. Deep Diagnosis — New
+## 7. Deep Diagnosis — New
 
 Use when:
 
@@ -232,7 +323,8 @@ Use when:
 - first serious report;
 - enough data;
 - health/symptom/systemic issue is present;
-- support plan is needed.
+- support plan is needed;
+- user does not need the 4-part full report format.
 
 Length:
 
@@ -313,9 +405,17 @@ Dao ступень / образ, если виден.
 Do not write textbook Wu Xing explanations.
 Each element should be short: number → state → support.
 
+Short explanatory method phrases are allowed when they clarify the current state.
+
+Good:
+
+```md
+В норме Дерево даёт движение и рост. Здесь движение есть, но оно выходит через раздражение.
+```
+
 ---
 
-## 7. Deep Diagnosis — Repeat / Progress Check
+## 8. Deep Diagnosis — Repeat / Progress Check
 
 Use when:
 
@@ -380,7 +480,7 @@ Use full element explanation only if a specific element is clearly blocked.
 
 ---
 
-## 8. Remedy-Only Analysis
+## 9. Remedy-Only Analysis
 
 Use when the task is only to analyze remedies, reactions, or current relevance.
 
@@ -419,7 +519,7 @@ This format can be used without `Я`, `цель`, or Wu Xing if the user only as
 
 ---
 
-## 9. Additional Block — Psychosomatics / Link Between Self And Goal
+## 10. Additional Block — Psychosomatics / Link Between Self And Goal
 
 Psychosomatics often means the link between:
 
@@ -446,7 +546,7 @@ This can be included without a separate heading `ПСИХОСОМАТИКА`.
 
 ---
 
-## 10. Additional Block — Symptom Analysis
+## 11. Additional Block — Symptom Analysis
 
 Use only when symptom is specifically assessed.
 
@@ -493,7 +593,7 @@ Safety:
 
 ---
 
-## 11. Additional Block — System Analysis
+## 12. Additional Block — System Analysis
 
 Use when external system matters: family, work, father, partner, institution, country, money, clients.
 
@@ -516,7 +616,7 @@ Do not turn it into full constellation unless asked.
 
 ---
 
-## 12. Additional Block — Remedy Relevance Check
+## 13. Additional Block — Remedy Relevance Check
 
 Use in repeat diagnosis.
 
@@ -547,7 +647,7 @@ Important distinction:
 
 ---
 
-## 13. Remedy / Support Language
+## 14. Remedy / Support Language
 
 Describe remedies by function, not encyclopedia style.
 
@@ -572,7 +672,7 @@ Bad:
 
 ---
 
-## 14. Dao / Stage Language
+## 15. Dao / Stage Language
 
 Use Dao stage only when it helps.
 
@@ -590,7 +690,7 @@ Do not explain the full Dao ladder unless asked.
 
 ---
 
-## 15. Living Style Rules
+## 16. Living Style Rules
 
 Use:
 
@@ -617,7 +717,7 @@ Avoid:
 
 ---
 
-## 16. Safety
+## 17. Safety
 
 Alternative supports are not guarantees and not medical replacements.
 
@@ -645,13 +745,14 @@ Never:
 
 ---
 
-## 17. Final Checklist
+## 18. Final Checklist
 
 Before finalizing:
 
-- Mini Express, Short, Deep, or Remedy-Only?
+- Mini Express, Short, Deep, Full 4-part, or Remedy-Only?
 - New or Repeat?
 - If there is Wu Xing, did you classify as Deep?
+- If full report is requested, did you use 4 parts?
 - Are `Я + цель/здоровье` included when relevant?
 - Is symptom included only if specifically assessed?
 - Is psychsomatic link needed between Self and goal/health?
@@ -660,6 +761,7 @@ Before finalizing:
 - Is the next check clear?
 - Are uncertain points marked `needs verification`?
 - No medical guarantees?
+- No repeated diagnostic formula in every section?
 
 Main rule:
 
