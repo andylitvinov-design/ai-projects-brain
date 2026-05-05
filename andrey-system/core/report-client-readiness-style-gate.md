@@ -22,10 +22,6 @@ Before sending or approving any report, ask:
 
 If no, rewrite.
 
-Do not approve the report only because it contains Dao level, Wu Xing, bottleneck, hidden mechanism, support, and safety.
-
-These are required, but not sufficient.
-
 The report must feel like Andrey is checking the state now.
 
 ---
@@ -43,16 +39,6 @@ The report should show only what helps the client:
 - что проверить потом.
 
 Delete anything that does not create clarity, support, or movement.
-
-A paragraph is weak if it only explains the method.
-
-A paragraph is strong if it makes the client understand:
-
-```md
-А, вот что со мной сейчас.
-Вот где узел.
-Вот что делать первым.
-```
 
 ---
 
@@ -80,16 +66,41 @@ Rules:
 
 ### Часть 2. Назначение
 
-What to use and how.
+Write this as a practical support plan, not as more diagnosis.
 
-Include:
+Required rhythm:
 
-- main support first;
-- secondary support second;
-- how to take / apply / observe, when known;
-- what to check in the first cycle.
+1. What is selected now.
+2. What it supports: 2–4 short bullets.
+3. Format: distance support / internal intake / observation / later verification.
+4. How to take / apply / observe, if known.
+5. Timing and follow-up.
+6. Short client question, if useful.
 
-Do not turn this into a long remedy encyclopedia.
+Example rhythm:
+
+```md
+Отобранные 4 эссенции сейчас основные.
+
+Они поддерживают:
+- снижение внутреннего напряжения;
+- мягкое отпускание контроля;
+- замедление нервной системы;
+- меньше раздражения.
+
+Формат:
+1. Дистанционная поддержка эссенциями.
+2. Дополнительно можно принимать внутрь, если получится купить препараты.
+
+Если принимать внутрь:
+- по ... капель каждой эссенции в воду;
+- принимать ... раз в день;
+- смотреть реакцию 7–10 дней.
+
+Проверить через ...
+```
+
+Do not explain the psychodynamics again in the prescription section.
 
 ### Часть 3. Примечание
 
@@ -160,17 +171,6 @@ or, in Russian:
 Полный отчёт по ограниченным входным данным
 ```
 
-Rules:
-
-- do not pretend there is more client data than provided;
-- do not add source/method introductions;
-- do not add internal quality check;
-- do not write textbook explanations of each element;
-- keep live Andrey style;
-- keep short paragraphs;
-- mark missing areas as `needs verification`;
-- write full by structure, not by water.
-
 Target length:
 
 - 600–900 words maximum.
@@ -209,22 +209,6 @@ Bad:
 
 Repeating the same idea in five different wordings.
 
-Signs of water:
-
-- the same idea repeated in several sections;
-- element theory before diagnosis;
-- long lists where one sentence is enough;
-- `Что значит...` blocks that restate the same point;
-- long psychodynamic chains without practical consequence;
-- full report structure built from minimal input as filler rather than useful client structure.
-
-Fix:
-
-```md
-Keep the strongest sentence.
-Remove the explanation around it.
-```
-
 ---
 
 ## 6. Bach-led Wu Xing reports
@@ -247,62 +231,12 @@ Bad:
 
 Long textbook lists of what every element means.
 
-Core structure in diagnosis:
-
-```md
-Смотрю.
-Здоровье 3.3.
-Это Крепость / сжатость.
-
-Главное здесь — ...
-
-По Bach видно:
-- Agrimony / Земля — one-sentence role
-- Cherry Plum / Металл — one-sentence role
-- Impatiens / Огонь — one-sentence role
-- Beech / Дерево — one-sentence role
-
-Ядро:
-...
-
-Поверхность:
-...
-
-Bottleneck:
-...
-```
-
-Expanded remedy descriptions belong to the appendix only.
+In diagnosis, each remedy gets one sentence only.
+Expanded remedy descriptions belong to the appendix.
 
 ---
 
-## 7. Full report from limited input — living structure
-
-When the user explicitly asks for a full report but gives limited input, use the four-part client report structure.
-
-Default form:
-
-```md
-1. Диагностика
-2. Назначение
-3. Примечание
-4. Приложение
-```
-
-If the case is simple, the appendix can be omitted.
-
-Forbidden in this structure:
-
-- `Тип отчёта` heading in client text;
-- source citations / method citations in client text;
-- long explanation of what every element means;
-- repeated summary blocks;
-- `Quality check`;
-- generic safety paragraph by default.
-
----
-
-## 8. Main axis vs surface symptoms
+## 7. Main axis vs surface symptoms
 
 When there are several remedies, separate layers.
 
@@ -326,7 +260,7 @@ The client must know:
 
 ---
 
-## 9. Safety style
+## 8. Safety style
 
 Safety is mandatory internally, but do not add generic safety notes automatically.
 
@@ -341,7 +275,7 @@ Never claim medical diagnosis, cure, guaranteed result, or stopping treatment.
 
 ---
 
-## 10. Size rules by input
+## 9. Size rules by input
 
 The size must match both input and request.
 
@@ -359,7 +293,7 @@ But it must be full by useful structure, not by filler.
 
 ---
 
-## 11. Internal QA must stay internal
+## 10. Internal QA must stay internal
 
 Never include in client-facing report:
 
@@ -374,7 +308,7 @@ Client-facing text starts with the client state, not system process.
 
 ---
 
-## 12. Rewrite target for weak reports
+## 11. Rewrite target for weak reports
 
 If a report is dry, inflated, or GPT-like, rewrite it toward this rhythm:
 
