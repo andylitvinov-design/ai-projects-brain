@@ -143,7 +143,7 @@ Template:
 Опционально.
 
 Кратко по препаратам:
-- remedy — 1–2 коротких абзаца: главное послание, что препарат помогает вернуть, ободряющий смысл.
+- remedy — максимум 1 короткий абзац: главное послание, что препарат помогает вернуть, ободряющий смысл.
 
 Кратко по Dao / У-Син ступени:
 ...
@@ -159,6 +159,7 @@ Rules:
 - Part 2 rhythm is: selected supports → what they support → format → intake/application/observation → timing/follow-up → short why;
 - Part 3 is one strong paragraph, not a second diagnosis;
 - Part 4 is supportive meaning/message, not dry encyclopedia;
+- Part 4 uses maximum 1 short paragraph per remedy;
 - no repeated diagnostic formula in every part;
 - no internal Quality check;
 - no registry/source notes;
@@ -485,7 +486,7 @@ Before finalizing:
 - Is Diagnosis compact, not appendix-like?
 - Is Appointment/Prescription a practical support plan, not more diagnosis?
 - Is Note one strong paragraph with psychsomatics/cause/action/Dao strategy?
-- Is Appendix supportive message, not dry encyclopedia?
+- Is Appendix maximum 1 short paragraph per remedy and supportive message, not dry encyclopedia?
 - Are remedies described by function?
 - Is the next check clear?
 - Are uncertain points marked `needs verification`?
