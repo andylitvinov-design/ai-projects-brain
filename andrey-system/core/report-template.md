@@ -19,7 +19,7 @@ Choose:
 ```md
 Depth:
 - Mini Express
-- Short Diagnosis
+- Short Diagnosis / Compact 4-Part Analysis
 - Deep Diagnosis
 - Full Client Report / Full Report on Limited Input
 - Remedy-Only Analysis
@@ -37,11 +37,11 @@ Additional blocks:
 
 Core rules:
 
+- if the user asks for analysis/report, use the 4-part structure even when short;
 - any Wu Xing analysis, even a short numeric snapshot, means **Deep Diagnosis**;
 - `Я + цель / здоровье` is almost always included;
 - `симптом` is included only when Andrey specifically evaluates it;
 - remedies/supports are included almost always;
-- if a full report is requested, use the 4-part structure;
 - full means useful structure, not extra water;
 - safety is internal by default and is written only when relevant.
 
@@ -69,12 +69,13 @@ Avoid:
 
 ---
 
-## 3. Full Client Report — Compact 4-Part Structure
+## 3. Compact 4-Part Analysis / Full Client Report
 
-Use this as the preferred structure for full reports.
+Use this as the preferred structure for both short analyses and full reports.
 
-Length:
+Difference is length:
 
+- short analysis: compact 4 parts, appendix can be 2–4 lines or omitted;
 - full report from limited input: 600–900 words;
 - full report with enough data: 900–1400 words.
 
@@ -196,14 +197,7 @@ Template:
 
 ## 5. Short Diagnosis — New
 
-Use when:
-
-- first check;
-- limited data;
-- quick orientation;
-- mainly `Я + цель / здоровье` level;
-- remedy or Bach selection is needed;
-- no Wu Xing required.
+Use only when user asks for a brief check, not a full analysis/report.
 
 Length: 250–600 words.
 
@@ -236,7 +230,7 @@ Template:
 Смотреть: ...
 ```
 
-Do not add Wu Xing. If Wu Xing appears, switch to Deep Diagnosis.
+Do not add Wu Xing. If Wu Xing appears or user asks for analysis/report, switch to compact 4-part analysis.
 
 ---
 
@@ -484,10 +478,10 @@ Never diagnose medically, promise cure, tell client to stop treatment, invent fa
 
 Before finalizing:
 
-- Mini Express, Short, Deep, Full 4-part, or Remedy-Only?
+- Mini Express, Short, Deep, Compact 4-part, Full 4-part, or Remedy-Only?
 - New or Repeat?
+- If user asks for analysis/report, did you use 4 parts?
 - If there is Wu Xing, did you classify as Deep?
-- If full report is requested, did you use 4 parts?
 - Is Diagnosis compact, not appendix-like?
 - Is Appointment/Prescription a practical support plan, not more diagnosis?
 - Is Note one strong paragraph with psychsomatics/cause/action/Dao strategy?
