@@ -37,6 +37,20 @@ ChatGPT and Codex.
 - Prefer fresh repo, hosting, provider, and live checks over
   stale notes.
 
+## Token Efficiency
+
+- Start with the project record, machine record, target
+  `PROJECT.md`, and repo-local entry files before reading
+  deeper docs or source files.
+- Do not read the whole repository to discover the task.
+- Expand context only from a specific file, function, route,
+  error, schema, or verification need.
+- Stop reading once the canonical repo, target files,
+  verification path, risks, and `needs verification` items are
+  known.
+- Prefer a compact handoff summary over repeating previous
+  checks when a session gets long.
+
 ## Minimal Safe Fix
 
 - Do not rewrite a project unless the task explicitly
