@@ -1,5 +1,5 @@
 {
-  "version": "1.7",
+  "version": "1.8",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -20,6 +20,7 @@
     "report_writing_instruction_source": "core/report-template.md",
     "report_diagnosis_matrix_source": "core/report-diagnosis-matrix.md",
     "report_style_bible_source": "core/report-style-bible.md",
+    "report_client_readiness_style_gate_source": "core/report-client-readiness-style-gate.md",
     "report_quality_rubric_source": "core/report-quality-rubric.md",
     "report_standard_improvement_protocol_source": "core/report-standard-improvement-protocol.md",
     "report_common_mistakes_source": "core/report-common-mistakes.md",
@@ -47,6 +48,7 @@
       "project_ready": "project-ready/report-agent-project-instruction.md",
       "diagnosis_matrix": "core/report-diagnosis-matrix.md",
       "style_bible": "core/report-style-bible.md",
+      "client_readiness_style_gate": "core/report-client-readiness-style-gate.md",
       "writing_instructions": "core/report-template.md",
       "templates": "core/report-template.md",
       "structural_examples": "examples/",
@@ -57,6 +59,9 @@
         "mini_express",
         "short_diagnosis",
         "deep_diagnosis",
+        "deep_full_support_snapshot",
+        "full_client_report_four_part",
+        "full_report_on_limited_input",
         "remedy_only_analysis",
         "progress_check",
         "follow_up_check_note",
@@ -72,6 +77,7 @@
       "standard_improvement_protocol": "core/report-standard-improvement-protocol.md",
       "common_mistakes": "core/report-common-mistakes.md",
       "style_bible": "core/report-style-bible.md",
+      "client_readiness_style_gate": "core/report-client-readiness-style-gate.md",
       "diagnosis_matrix": "core/report-diagnosis-matrix.md",
       "report_templates": "core/report-template.md",
       "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
@@ -92,6 +98,7 @@
     "core/report-template.md",
     "core/report-diagnosis-matrix.md",
     "core/report-style-bible.md",
+    "core/report-client-readiness-style-gate.md",
     "core/report-quality-rubric.md",
     "core/report-standard-improvement-protocol.md",
     "core/report-common-mistakes.md",
@@ -116,11 +123,15 @@
     },
     "layer_2_report_writing_instructions": {
       "file": "core/report-template.md",
-      "purpose": "what to check before writing each report and how to write it"
+      "purpose": "working report templates, including four-part full client report structure"
     },
     "layer_2_report_style_standards": {
       "file": "core/report-style-bible.md",
       "purpose": "living Russian report style and anti-GPT voice rules"
+    },
+    "layer_2_client_readiness_gate": {
+      "file": "core/report-client-readiness-style-gate.md",
+      "purpose": "mandatory client-readiness gate, compression rules, four-part structure, and limited-input full report handling"
     },
     "layer_2_report_quality_standards": {
       "file": "core/report-quality-rubric.md",
@@ -169,7 +180,8 @@
     "real_russian_client_report": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
     "report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
     "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
-    "report_style_auditor": "andrey-system/agent/report-style-auditor-instructions.md"
+    "report_style_auditor": "andrey-system/agent/report-style-auditor-instructions.md",
+    "report_client_readiness_gate": "andrey-system/core/report-client-readiness-style-gate.md"
   },
   "reading_order": [
     "source-registry.json",
@@ -179,6 +191,7 @@
     "agent/agent-map.md",
     "agent/{selected-agent}-instructions.md",
     "agent/{selected-agent}-playbook.md",
+    "core/report-client-readiness-style-gate.md, if the task is about reports or report audit",
     "core/{task-file}.md",
     "alchemy-method/method-source-registry.json, if the task is about method or reports",
     "alchemy-method/consultations/reports-index.md, if the task is about client reports",
