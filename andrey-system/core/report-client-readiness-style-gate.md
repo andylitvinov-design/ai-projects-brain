@@ -115,7 +115,7 @@ The appendix is not a dry encyclopedia.
 
 Use it for:
 
-- up to 1–2 short paragraphs per remedy;
+- maximum 1 short paragraph per remedy;
 - the main message of each remedy;
 - encouraging meaning: what the remedy helps return;
 - current Wu Xing / Dao stage explanation;
