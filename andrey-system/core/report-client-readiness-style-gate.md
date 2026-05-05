@@ -22,14 +22,7 @@ Before sending or approving any report, ask:
 
 If no, rewrite.
 
-Do not approve the report only because it contains:
-
-- Dao level;
-- Wu Xing;
-- bottleneck;
-- hidden mechanism;
-- support;
-- safety note.
+Do not approve the report only because it contains Dao level, Wu Xing, bottleneck, hidden mechanism, support, and safety.
 
 These are required, but not sufficient.
 
@@ -74,9 +67,16 @@ Short living diagnosis based on:
 1. Resource in the system and Dao stage.
 2. Emotional programs / systemic link / psychosomatics, if present.
 3. Wu Xing state, if relevant.
-4. Resonant remedies: one phrase for each, then the shared essence and conclusion.
+4. Resonant remedies: **one sentence for each**, then the shared essence and conclusion.
 
 This part should name the current state, image, core axis, and bottleneck.
+
+Rules:
+
+- no long remedy paragraphs here;
+- no long element theory here;
+- if listing manifestations after “может ощущаться как”, use maximum 3 items;
+- expanded remedy descriptions go only to the appendix.
 
 ### Часть 2. Назначение
 
@@ -93,16 +93,14 @@ Do not turn this into a long remedy encyclopedia.
 
 ### Часть 3. Примечание
 
-Psychodynamic note:
+Примечание = short conclusion / strategy, not a second diagnosis.
 
-- blocks;
-- stresses;
-- key challenges;
-- strategy of success;
+Include only:
+
+- main psychodynamic conclusion;
 - what not to force;
+- strategy of success;
 - what will show that the process is moving.
-
-This section can hold deeper meaning without overloading the main diagnosis.
 
 ### Часть 4. Приложение
 
@@ -175,7 +173,7 @@ Rules:
 
 Target length:
 
-- 900–1200 words maximum.
+- 600–900 words maximum.
 
 A full report on limited input must still answer:
 
@@ -249,7 +247,7 @@ Bad:
 
 Long textbook lists of what every element means.
 
-Core structure:
+Core structure in diagnosis:
 
 ```md
 Смотрю.
@@ -259,10 +257,10 @@ Core structure:
 Главное здесь — ...
 
 По Bach видно:
-- Agrimony / Земля — ...
-- Cherry Plum / Металл — ...
-- Impatiens / Огонь — ...
-- Beech / Дерево — ...
+- Agrimony / Земля — one-sentence role
+- Cherry Plum / Металл — one-sentence role
+- Impatiens / Огонь — one-sentence role
+- Beech / Дерево — one-sentence role
 
 Ядро:
 ...
@@ -272,13 +270,9 @@ Core structure:
 
 Bottleneck:
 ...
-
-Первый шаг:
-...
-
-Проверить через:
-...
 ```
+
+Expanded remedy descriptions belong to the appendix only.
 
 ---
 
@@ -295,7 +289,7 @@ Default form:
 4. Приложение
 ```
 
-If the case is very simple, the appendix can be omitted.
+If the case is simple, the appendix can be omitted.
 
 Forbidden in this structure:
 
@@ -303,7 +297,8 @@ Forbidden in this structure:
 - source citations / method citations in client text;
 - long explanation of what every element means;
 - repeated summary blocks;
-- `Quality check`.
+- `Quality check`;
+- generic safety paragraph by default.
 
 ---
 
@@ -331,13 +326,28 @@ The client must know:
 
 ---
 
-## 9. Size rules by input
+## 9. Safety style
+
+Safety is mandatory internally, but do not add generic safety notes automatically.
+
+Add an explicit safety sentence only when:
+
+- the user describes serious medical symptoms;
+- the report might sound like medical treatment;
+- there is risk of overpromising;
+- the user asks.
+
+Never claim medical diagnosis, cure, guaranteed result, or stopping treatment.
+
+---
+
+## 10. Size rules by input
 
 The size must match both input and request.
 
 - Short / Bach note: 300–700 words.
-- Minimal-input Deep / Full Support Snapshot: 500–900 words.
-- Full report explicitly requested from minimal input: 900–1200 words maximum.
+- Minimal-input Deep / Full Support Snapshot: 500–800 words.
+- Full report explicitly requested from minimal input: 600–900 words maximum.
 - Deep / Full Support Snapshot with more context: 600–1000 words.
 - Full Client Report with enough data: 900–1400 words maximum.
 - Follow-Up Check Note: 120–300 words.
@@ -349,7 +359,7 @@ But it must be full by useful structure, not by filler.
 
 ---
 
-## 10. Internal QA must stay internal
+## 11. Internal QA must stay internal
 
 Never include in client-facing report:
 
@@ -364,7 +374,7 @@ Client-facing text starts with the client state, not system process.
 
 ---
 
-## 11. Rewrite target for weak reports
+## 12. Rewrite target for weak reports
 
 If a report is dry, inflated, or GPT-like, rewrite it toward this rhythm:
 
@@ -387,10 +397,10 @@ If a report is dry, inflated, or GPT-like, rewrite it toward this rhythm:
 Bottleneck:
 ...
 
-Сейчас задача не ...
-А ...
+Назначение:
+...
 
-Дальше:
+Примечание:
 ...
 
 Проверить через ...
