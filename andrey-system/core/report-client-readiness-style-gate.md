@@ -44,7 +44,18 @@ Delete anything that does not create clarity, support, or movement.
 
 ## 3. Four-part client report structure
 
-For full reports, prefer this client-facing structure:
+Both short analyses and full reports should use Andrey's four-part structure when the user asks for an analysis/report:
+
+1. Диагностика
+2. Назначение
+3. Примечание
+4. Приложение
+
+Difference is only depth and length:
+
+- short analysis: compact four parts; appendix may be 2–4 lines or omitted;
+- full report: fuller four parts, but still compressed;
+- limited-input full report: 600–900 words maximum.
 
 ### Часть 1. Диагностика
 
@@ -80,31 +91,6 @@ Required rhythm:
 5. Timing and follow-up.
 6. One short note: what is key and why this order is chosen.
 7. Short client question, if useful.
-
-Example rhythm:
-
-```md
-Отобранные 4 эссенции сейчас основные.
-
-Они поддерживают:
-- снижение внутреннего напряжения;
-- мягкое отпускание контроля;
-- замедление нервной системы;
-- меньше раздражения.
-
-Формат:
-1. Дистанционная поддержка эссенциями.
-2. Дополнительно можно принимать внутрь, если получится купить препараты.
-
-Если принимать внутрь:
-- по ... капель каждой эссенции в воду;
-- принимать ... раз в день;
-- смотреть реакцию 7–10 дней.
-
-Главное здесь — сначала поддержать ядро, а не гнать систему в движение. Поэтому первыми идут Agrimony + Cherry Plum, а Impatiens + Beech — вторым слоем.
-
-Проверить через ...
-```
 
 Do not explain the whole psychodynamics again in the prescription section.
 
@@ -157,6 +143,7 @@ Do not create a Full Client Report.
 
 Allowed formats:
 
+- compact four-part analysis;
 - Short Remedy / Bach Decoder;
 - Quick Resource Diagnosis;
 - Deep / Full Support Snapshot, if Wu Xing is explicitly needed.
@@ -292,7 +279,7 @@ Never claim medical diagnosis, cure, guaranteed result, or stopping treatment.
 The size must match both input and request.
 
 - Short / Bach note: 300–700 words.
-- Minimal-input Deep / Full Support Snapshot: 500–800 words.
+- Minimal-input compact four-part analysis: 500–800 words.
 - Full report explicitly requested from minimal input: 600–900 words maximum.
 - Deep / Full Support Snapshot with more context: 600–1000 words.
 - Full Client Report with enough data: 900–1400 words maximum.
@@ -327,29 +314,17 @@ If a report is dry, inflated, or GPT-like, rewrite it toward this rhythm:
 ```md
 Смотрю.
 
-Здоровье X.X.
-Это ...
-
-Главное здесь — ...
-
-Как будто ...
-
-По препаратам видно:
-- ...
-
-Ядро:
+1. Диагностика
 ...
 
-Bottleneck:
+2. Назначение
 ...
 
-Назначение:
+3. Примечание
 ...
 
-Примечание:
+4. Приложение
 ...
-
-Проверить через ...
 ```
 
 Short.
