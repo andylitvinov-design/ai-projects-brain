@@ -1,5 +1,38 @@
 # Reiki Yggdrasil — LOG
 
+## 2026-05-05 — Add English course content memory
+
+Status: done.
+
+Added structured English-language course/program memory based on user-provided legacy `.doc` material:
+
+- `projects/reiki-yggdrasil/COURSE_CONTENT_EN.md`
+
+Covered:
+
+- English brand frame: `Temple Arts Academy`, `Holistic Therapies & Arts Studies`;
+- three-level structure: Bachelor of Holistic Health, Magister Programs, Grand-Magister Studies;
+- Bachelor/Foundation module map;
+- Magister tracks: Temple Therapy, Northern/Runes, Western/Tarot & Kabbalah, Taoism/Chinese Heritage, American Shamanism, Slavic Shamanism, Sufism & Money Magic;
+- English routing/content strategy for `/en` or locale-based UI;
+- bilingual content model recommendation;
+- translation/rewrite rules;
+- legal/safety/content risks;
+- needs verification list;
+- Codex usage note for future EN site implementation.
+
+Verification:
+
+- GitHub file created directly on `main`.
+- Documentation-only update; no app build checks required.
+
+Risks / not verified:
+
+- Current right to publish/rewrite English legacy text is not verified.
+- Whether to publicly use `Bachelor`, `Magister`, `Grand-Magister`, `Instructor` is not verified.
+- Current prices, duration, certification names, and issuing entity are not verified.
+- Current app i18n/routing implementation in `reiki-yggdrasil` repo was not changed in this update.
+
 ## 2026-05-05 — Add course content memory
 
 Status: done.
