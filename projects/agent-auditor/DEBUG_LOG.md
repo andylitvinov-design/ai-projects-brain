@@ -1,5 +1,12 @@
 # Debug Log - Agent-Auditor
 
+## 2026-05-05
+
+- Updated `projects/agent-auditor/PROJECT.md` with the new repair-ready Agent-Auditor instruction.
+- The instruction now requires: DATA + ROOT CAUSE FIRST, failing-layer proof, live endpoint evidence, JSON/provider parsing checks, finance/provider invariants, ranked severity, and a Codex-ready prompt.
+- Added explicit rule that if frontend already uses `response.json().catch(() => null)`, UI should not remain an equal hypothesis for raw JSON parse errors; likely failing layer is API/server/provider parsing and must be proven.
+- Commit: `6d4a01b263159d3449d54c3b935f0939afb53aaf`.
+
 ## 2026-05-01
 
 - Old browser-audit approach failed due to Google OAuth/private data
