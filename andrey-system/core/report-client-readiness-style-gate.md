@@ -53,20 +53,23 @@ Short living diagnosis based on:
 1. Resource in the system and Dao stage.
 2. Emotional programs / systemic link / psychosomatics, if present.
 3. Wu Xing state, if relevant.
-4. Resonant remedies: **one sentence for each**, then the shared essence and conclusion.
+4. Resonant remedies: short essence for each, then the shared essence and conclusion.
 
 This part should name the current state, image, core axis, and bottleneck.
 
 Rules:
 
+- a remedy may have one sentence or one very short mini-paragraph if it directly clarifies the state;
 - no long remedy paragraphs here;
 - no long element theory here;
 - if listing manifestations after “может ощущаться как”, use maximum 3 items;
-- expanded remedy descriptions go only to the appendix.
+- expanded remedy descriptions and main messages go to the appendix.
 
 ### Часть 2. Назначение
 
 Write this as a practical support plan, not as more diagnosis.
+
+This section may be more developed than the diagnosis.
 
 Required rhythm:
 
@@ -75,7 +78,8 @@ Required rhythm:
 3. Format: distance support / internal intake / observation / later verification.
 4. How to take / apply / observe, if known.
 5. Timing and follow-up.
-6. Short client question, if useful.
+6. One short note: what is key and why this order is chosen.
+7. Short client question, if useful.
 
 Example rhythm:
 
@@ -97,34 +101,42 @@ Example rhythm:
 - принимать ... раз в день;
 - смотреть реакцию 7–10 дней.
 
+Главное здесь — сначала поддержать ядро, а не гнать систему в движение. Поэтому первыми идут Agrimony + Cherry Plum, а Impatiens + Beech — вторым слоем.
+
 Проверить через ...
 ```
 
-Do not explain the psychodynamics again in the prescription section.
+Do not explain the whole psychodynamics again in the prescription section.
 
 ### Часть 3. Примечание
 
-Примечание = short conclusion / strategy, not a second diagnosis.
+Примечание = one strong paragraph.
 
-Include only:
+It should combine:
 
-- main psychodynamic conclusion;
-- what not to force;
-- strategy of success;
-- what will show that the process is moving.
+- psychosomatic essence;
+- root cause of the problem;
+- what to do / where to move;
+- current Dao-stage strategy;
+- what not to force.
+
+Do not make the note a second diagnosis.
+Do not write it as a long list.
 
 ### Часть 4. Приложение
 
-Use only if helpful.
+The appendix is not a dry encyclopedia.
 
-Here the agent may add more detail:
+Use it for:
 
 - up to 1–2 short paragraphs per remedy;
+- the main message of each remedy;
+- encouraging meaning: what the remedy helps return;
 - current Wu Xing / Dao stage explanation;
 - what may need to be added later;
 - what remains `needs verification`.
 
-The appendix is optional. Do not use it as a place for water.
+The appendix should give support and meaning, not water.
 
 ---
 
@@ -231,8 +243,8 @@ Bad:
 
 Long textbook lists of what every element means.
 
-In diagnosis, each remedy gets one sentence only.
-Expanded remedy descriptions belong to the appendix.
+In diagnosis, each remedy stays compact.
+Expanded remedy descriptions and messages belong to the appendix.
 
 ---
 
