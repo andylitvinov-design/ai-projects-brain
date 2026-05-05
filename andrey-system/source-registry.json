@@ -1,5 +1,5 @@
 {
-  "version": "1.1",
+  "version": "1.2",
   "status": "canonical",
   "owner": "Andrey Li",
   "purpose": "Machine-readable source registry for Andrey Li agents. Agents must read this before free-text search when routing project, method, report, style-audit, or business tasks.",
@@ -27,6 +27,38 @@
     "system_index": {
       "path": "andrey-system/system-index.json",
       "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/system-index.json"
+    }
+  },
+  "canonical_report_sources": {
+    "report_agent_project_instruction": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "path": "andrey-system/project-ready/report-agent-project-instruction.md",
+      "role": "runtime instruction for ChatGPT Project Report Agent"
+    },
+    "report_diagnosis_matrix": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "path": "andrey-system/core/report-diagnosis-matrix.md",
+      "role": "report type selection matrix"
+    },
+    "report_style_bible": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "path": "andrey-system/core/report-style-bible.md",
+      "role": "live Russian report style bible"
+    },
+    "report_client_readiness_style_gate": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "path": "andrey-system/core/report-client-readiness-style-gate.md",
+      "role": "mandatory client-readiness, compression, four-part full report structure, and limited-input full report rules"
+    },
+    "report_template": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "path": "andrey-system/core/report-template.md",
+      "role": "working report templates including four-part full client report structure"
+    },
+    "live_ru_report_example": {
+      "repo": "andylitvinov-design/alchemy-method",
+      "path": "consultations/examples/confidence-bach-report-example.md",
+      "role": "primary live Russian client-facing report style reference"
     }
   },
   "task_routing": {
@@ -68,9 +100,15 @@
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-client-readiness-style-gate.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-client-readiness-style-gate.md",
+          "role": "mandatory client-ready gate and four-part full report structure"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/core/report-template.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-template.md",
-          "role": "report format templates and structure"
+          "role": "report format templates and four-part full report structure"
         }
       ],
       "forbidden_confusion": [
@@ -86,6 +124,18 @@
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/project-ready/report-agent-project-instruction.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-client-readiness-style-gate.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-client-readiness-style-gate.md",
+          "role": "client-ready gate and four-part report structure"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-template.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-template.md",
+          "role": "working report templates"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
@@ -106,6 +156,12 @@
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/agent/report-style-auditor-playbook.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-style-auditor-playbook.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-client-readiness-style-gate.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-client-readiness-style-gate.md",
+          "role": "client-ready gate and four-part report structure"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
@@ -169,6 +225,11 @@
     "where_is_report_agent_project_instruction": {
       "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
       "path": "andrey-system/project-ready/report-agent-project-instruction.md",
+      "repo": "andylitvinov-design/ai-projects-brain"
+    },
+    "where_is_report_client_readiness_gate": {
+      "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-client-readiness-style-gate.md",
+      "path": "andrey-system/core/report-client-readiness-style-gate.md",
       "repo": "andylitvinov-design/ai-projects-brain"
     },
     "where_is_report_style_auditor": {
