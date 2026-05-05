@@ -97,8 +97,8 @@ Template:
 - максимум 3 пункта.
 
 Если есть У-Син / Bach:
-- Стихия / препарат — одна фраза о роли
-- Стихия / препарат — одна фраза о роли
+- Стихия / препарат — короткая суть / роль
+- Стихия / препарат — короткая суть / роль
 - Missing element — needs verification
 
 Ядро: ...
@@ -123,6 +123,9 @@ Template:
 - ...
 - смотреть реакцию ... дней.
 
+Ключевое примечание:
+...
+
 Проверить через ...
 
 Вопрос клиенту, если нужен:
@@ -131,18 +134,15 @@ Template:
 
 ## 3. Примечание
 
-Короткий вывод / стратегия:
-- главный психодинамический вывод;
-- что не форсировать;
-- стратегия успеха;
-- признаки, что процесс пошёл.
+Один сильный абзац:
+психосоматическая суть + причина проблемы + что делать / куда идти + текущая Dao-стратегия + что не форсировать.
 
 ## 4. Приложение
 
 Опционально.
 
 Кратко по препаратам:
-- remedy — до 1–2 коротких абзацов.
+- remedy — 1–2 коротких абзаца: главное послание, что препарат помогает вернуть, ободряющий смысл.
 
 Кратко по Dao / У-Син ступени:
 ...
@@ -153,11 +153,11 @@ Template:
 
 Rules:
 
-- Part 1 gives only one sentence per remedy;
+- Part 1 is compact but may use a short mini-paragraph per remedy if it truly clarifies the state;
 - Part 2 is a practical support plan, not more diagnosis;
-- Part 2 rhythm is: selected supports → what they support → format → intake/application/observation → timing/follow-up;
-- expanded remedy or Dao/Wu Xing explanations go in Part 4;
-- psychodynamics and strategy go in Part 3 as conclusion, not second diagnosis;
+- Part 2 rhythm is: selected supports → what they support → format → intake/application/observation → timing/follow-up → short why;
+- Part 3 is one strong paragraph, not a second diagnosis;
+- Part 4 is supportive meaning/message, not dry encyclopedia;
 - no repeated diagnostic formula in every part;
 - no internal Quality check;
 - no registry/source notes;
@@ -488,11 +488,10 @@ Before finalizing:
 - New or Repeat?
 - If there is Wu Xing, did you classify as Deep?
 - If full report is requested, did you use 4 parts?
-- In Diagnosis, are remedies one sentence each?
+- Is Diagnosis compact, not appendix-like?
 - Is Appointment/Prescription a practical support plan, not more diagnosis?
-- Are expanded remedy descriptions only in Appendix?
-- Are manifestation lists maximum 3 items?
-- Is Note a short conclusion/strategy, not second diagnosis?
+- Is Note one strong paragraph with psychsomatics/cause/action/Dao strategy?
+- Is Appendix supportive message, not dry encyclopedia?
 - Are remedies described by function?
 - Is the next check clear?
 - Are uncertain points marked `needs verification`?
