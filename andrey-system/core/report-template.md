@@ -73,14 +73,6 @@ Avoid:
 
 Use this as the preferred structure for full reports.
 
-It is especially important when:
-
-- the user explicitly asks for a full report;
-- the input is short but a full analysis is requested;
-- Bach / remedies are used as diagnostic input;
-- Wu Xing is included;
-- the report needs diagnosis + support + short psychodynamic conclusion + appendix.
-
 Length:
 
 - full report from limited input: 600–900 words;
@@ -115,14 +107,27 @@ Template:
 
 ## 2. Назначение
 
-Основная поддержка:
-- ... — функция / как принимать или применять, если известно
+Отобранные ... сейчас основные.
 
-Вторичная поддержка:
-- ... — функция
-
-Что проверить в первом цикле:
+Они поддерживают:
 - ...
+- ...
+- ...
+
+Формат:
+1. Дистанционная поддержка / основная форма поддержки.
+2. Дополнительно можно принимать / делать / наблюдать, если доступно.
+
+Если принимать / применять:
+- ...
+- ...
+- смотреть реакцию ... дней.
+
+Проверить через ...
+
+Вопрос клиенту, если нужен:
+- получится ли купить / сделать / наблюдать?
+- всё ли понятно в назначении?
 
 ## 3. Примечание
 
@@ -148,12 +153,11 @@ Template:
 
 Rules:
 
-- the main diagnosis goes in Part 1;
 - Part 1 gives only one sentence per remedy;
+- Part 2 is a practical support plan, not more diagnosis;
+- Part 2 rhythm is: selected supports → what they support → format → intake/application/observation → timing/follow-up;
 - expanded remedy or Dao/Wu Xing explanations go in Part 4;
-- dosage / application / tracking goes in Part 2;
 - psychodynamics and strategy go in Part 3 as conclusion, not second diagnosis;
-- appendix is optional;
 - no repeated diagnostic formula in every part;
 - no internal Quality check;
 - no registry/source notes;
@@ -287,9 +291,10 @@ Dao ступень / образ.
 Следующий реалистичный шаг.
 
 7. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
-#1. Основная поддержка — функция
-#2. Bach / эмоции — функция
-#3. Натуропатия / тело — функция
+Отобранные поддержки сейчас основные.
+Они поддерживают: ...
+Формат: ...
+Проверить через ...
 
 8. ПРОВЕРКА
 Что отслеживать.
@@ -484,6 +489,7 @@ Before finalizing:
 - If there is Wu Xing, did you classify as Deep?
 - If full report is requested, did you use 4 parts?
 - In Diagnosis, are remedies one sentence each?
+- Is Appointment/Prescription a practical support plan, not more diagnosis?
 - Are expanded remedy descriptions only in Appendix?
 - Are manifestation lists maximum 3 items?
 - Is Note a short conclusion/strategy, not second diagnosis?
