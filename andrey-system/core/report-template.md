@@ -150,7 +150,8 @@ Template:
 Rules:
 
 - Part 1 is compact but may use a short mini-paragraph per remedy if it truly clarifies the state;
-- Part 2 is short and direct: key remedies → take/use → 2 weeks → check;
+- Part 2 must use only the required short prescription template;
+- Forbidden in Part 2: `Отобранные поддержки сейчас`, `Они поддерживают`, `Формат`, `Дистанционная поддержка`, `Если принимать`, `5–7 дней`;
 - no long conditional chains in Part 2;
 - avoid equal `Назначение по функции: remedy — function` list as the main prescription format;
 - Part 3 is one strong paragraph, not a second diagnosis;
@@ -235,6 +236,9 @@ Bottleneck: ...
 - ...
 - ...
 
+Почему такой порядок:
+один короткий абзац.
+
 ## 3. Примечание
 
 Один абзац: психосоматика + причина + что делать + стратегия Dao + что не форсировать.
@@ -251,7 +255,13 @@ Never use the old linear structure:
 Краткая диагностика → У-Син карта → Общий вывод → Что поддержать первым → Назначение по функции → Проверка
 ```
 
-This old structure is forbidden for analysis/report requests.
+Never use the old prescription headings:
+
+```md
+Отобранные поддержки сейчас → Они поддерживают → Формат → Если принимать → 5–7 дней
+```
+
+These old structures are forbidden for analysis/report requests.
 
 ---
 
@@ -475,9 +485,8 @@ Before finalizing:
 - Did you avoid the old linear short-diagnosis structure?
 - If there is Wu Xing, did you keep it compact?
 - Is Diagnosis compact, not appendix-like?
-- Is Prescription short and direct?
-- Does Prescription include key remedies, take/use, 2 weeks, check?
-- Did you avoid long conditional chains?
+- Does Prescription use only the required short template?
+- Did you avoid forbidden prescription headings and 5–7 day checks?
 - Is Note one strong paragraph with psychsomatics/cause/action/Dao strategy?
 - Is Appendix maximum 1 short paragraph per remedy and supportive message, not dry encyclopedia?
 - Is the next check clear?
