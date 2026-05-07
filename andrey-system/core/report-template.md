@@ -26,7 +26,6 @@ Choose:
 Depth:
 - Mini Express
 - Compact 4-Part Analysis
-- Deep Diagnosis
 - Full Client Report / Full Report on Limited Input
 - Remedy-Only Analysis
 
@@ -39,7 +38,6 @@ Core rules:
 
 - if the user asks for analysis/report, use the 4-part structure even when short;
 - do not use linear `short diagnosis → conclusion → support → check`;
-- any Wu Xing analysis, even short numeric snapshot, means Deep Diagnosis;
 - full means useful structure, not extra water;
 - safety is internal by default and written only when relevant.
 
@@ -49,11 +47,13 @@ Core rules:
 
 Use this as the preferred structure for both short analyses and full reports.
 
-Difference is length:
+Length:
 
-- compact analysis: 350–800 words;
-- full report from limited input: 600–900 words;
-- full report with enough data: 900–1400 words.
+- compact analysis: **250–500 words**;
+- full report from limited input: **500–800 words**;
+- full report with enough data: **800–1200 words**.
+
+If a compact analysis exceeds 500 words, cut before sending.
 
 Template:
 
@@ -62,20 +62,17 @@ Template:
 
 ## 1. Диагностика
 
-Я / ресурс / здоровье X.X.
-Эмоция / тема — ...
-
+Ресурс / Я / здоровье X.X.
 Коротко что сейчас.
 Один живой образ.
-Главная формула состояния.
 
 Если есть У-Син / Bach:
-- Стихия / препарат — короткая суть / роль
-- Стихия / препарат — короткая суть / роль
+- Стихия / препарат — короткая суть / роль.
+- Стихия / препарат — короткая суть / роль.
 
 Ядро: ...
 Поверхность: ...
-Главный bottleneck: ...
+Bottleneck: ...
 
 ## 2. Назначение
 
@@ -84,7 +81,7 @@ andrey-system/core/report-prescription-template.md
 
 ## 3. Примечание
 
-Один сильный абзац:
+Один сильный абзац, 4–6 строк максимум:
 психосоматическая суть + причина проблемы + что делать / куда идти + текущая Dao-стратегия + что не форсировать.
 
 ## 4. Приложение
@@ -98,12 +95,12 @@ andrey-system/core/report-prescription-template.md
 
 Rules:
 
-- Part 1 is compact but may use a short mini-paragraph per remedy if it truly clarifies the state;
+- Part 1: opening 2–4 short paragraphs max;
+- Part 1: each remedy/element 1–2 sentences max;
 - Part 2 must use only `report-prescription-template.md`;
-- Forbidden in Part 2: `Отобранные поддержки сейчас`, `Они поддерживают`, `Формат`, `Дистанционная поддержка`, `Если принимать`, `5–7 дней`, long conditional chains;
 - Part 3 is one strong paragraph, not a second diagnosis;
 - Part 4 is supportive message, not dry encyclopedia;
-- Part 4 uses maximum 1 short paragraph per remedy;
+- Part 4 uses maximum 1 short paragraph / 1–2 sentences per remedy;
 - every remedy in Part 4 must have a clear `послание`;
 - no internal Quality check;
 - no registry/source notes;
@@ -130,20 +127,20 @@ Mini Express is not a client report and does not replace compact 4-part analysis
 
 Use when user asks for a short analysis/report, or gives limited input but still wants analysis.
 
-Length: 350–800 words.
+Length: **250–500 words**.
 
 ```md
 Смотрю.
 
 ## 1. Диагностика
 
-Я / ресурс / здоровье X.X.
+Ресурс / здоровье X.X.
 Коротко что сейчас.
 Образ.
 
-По препаратам / У-Син видно:
-- ... — короткая роль
-- ... — короткая роль
+По препаратам / У-Син:
+- ... — короткая роль.
+- ... — короткая роль.
 
 Ядро: ...
 Поверхность: ...
@@ -155,7 +152,7 @@ Use exactly `report-prescription-template.md`.
 
 ## 3. Примечание
 
-Один абзац: психосоматика + причина + что делать + стратегия Dao + что не форсировать.
+Один абзац, 4–6 строк максимум.
 
 ## 4. Приложение
 
@@ -175,41 +172,26 @@ Never use old structures:
 
 ---
 
-## 5. Deep Diagnosis — New
+## 5. Remedy-Only Analysis
 
-Use when:
+Use when the task is only to analyze remedies, reactions, or current relevance.
 
-- Wu Xing analysis is included;
-- enough data;
-- health/symptom/systemic issue is present;
-- support plan is needed;
-- user does not need compact/full 4-part report format.
-
-If this is client-facing analysis/report, prefer compact/full 4-part structure.
-Use older deep structure only when Andrey explicitly asks for technical/internal deep diagnosis.
-
----
-
-## 6. Remedy-Only Analysis
-
-Use when task is only to analyze remedies, reactions, or current relevance.
-
-Length: 250–700 words.
+Length: 250–500 words.
 
 If remedy analysis becomes a client report, use compact 4-part structure.
 
 ---
 
-## 7. Remedy / Support Language
+## 6. Remedy / Support Language
 
 Describe remedies by function, not encyclopedia style.
 
 Good:
 
 ```md
-Aspen — фоновая тревожность.
 Mimulus — страх проявляться, действовать.
-White Chestnut — сверхконтроль, попытка решить всё головой.
+Gorse — усталость надежды.
+Centaury — границы и право не отдавать ресурс.
 ```
 
 Bad:
@@ -221,7 +203,7 @@ Bad:
 
 ---
 
-## 8. Safety
+## 7. Safety
 
 Safety is mandatory internally, but do not add generic safety paragraphs automatically.
 
@@ -236,18 +218,17 @@ Never diagnose medically, promise cure, tell client to stop treatment, invent fa
 
 ---
 
-## 9. Final Checklist
+## 8. Final Checklist
 
 Before finalizing:
 
 - Did you use 4 parts for analysis/report?
-- Did you avoid old linear short-diagnosis structure?
+- Is compact report under 500 words?
 - Is Diagnosis compact and recognizable?
 - Does Part 2 follow `report-prescription-template.md` exactly?
-- Did you avoid forbidden prescription headings and 5–7 day checks?
-- Is Note one strong paragraph?
+- Is Note one strong paragraph, 4–6 lines maximum?
 - If Appendix exists: does every remedy have a clear `послание`?
-- Is Appendix maximum 1 short paragraph per remedy?
+- Is Appendix maximum 1 short paragraph / 1–2 sentences per remedy?
 - No generic safety paragraph by default?
 - No repeated diagnostic formula in every section?
 
