@@ -1,6 +1,6 @@
 # Report Client-Readiness Style Gate — Andrey Li Reports
 
-This file is the primary source for client-readiness and the mandatory report structure.
+This file is the primary source for client-readiness and mandatory report structure.
 
 Main rule:
 
@@ -25,7 +25,6 @@ A client report must give:
 - ясность;
 - образ;
 - bottleneck;
-- опору;
 - назначение;
 - проверку.
 
@@ -35,18 +34,20 @@ Delete anything that does not create clarity, support, or movement.
 
 ## 2. Four-part structure
 
-Both short analyses and full reports use Andrey's four-part structure:
+Both short analyses and full reports use four parts:
 
 1. Диагностика
 2. Назначение
 3. Примечание
 4. Приложение
 
-Difference is only depth and length:
+Difference is length only.
 
-- short analysis: compact four parts; appendix may be 2–4 lines or omitted;
-- full report: fuller four parts, still compressed;
-- limited-input full report: 600–900 words maximum.
+- compact analysis: **250–500 words**;
+- full report from limited input: **500–800 words**;
+- full report with enough data: **800–1200 words**.
+
+If a compact report is over 500 words, cut it before sending.
 
 ---
 
@@ -54,22 +55,24 @@ Difference is only depth and length:
 
 Diagnosis should help the client recognize himself/herself.
 
-It should include:
+Required:
 
 - resource / Dao stage;
 - current state;
 - one living image;
 - Wu Xing / Bach if relevant;
-- short essence of remedies;
 - core, surface, bottleneck.
 
-Rules:
+Compression rules:
 
-- one sentence or one very short mini-paragraph per remedy is allowed if it clarifies the state;
-- no long remedy paragraphs here;
-- no long element theory here;
-- if listing manifestations after “может ощущаться как”, use maximum 3 items;
-- expanded remedy descriptions and messages go to Appendix.
+- opening: 2–4 short paragraphs maximum;
+- each remedy/element: 1–2 sentences maximum;
+- no long remedy paragraphs;
+- no long element theory;
+- no list of more than 3 manifestations;
+- no repeated “general conclusion” in several wordings.
+
+Diagnosis is not an encyclopedia and not a teaching block.
 
 ---
 
@@ -82,7 +85,7 @@ Canonical source for this block:
 Always use only that file for Part 2.
 
 Do not duplicate another prescription structure here.
-If this file and `report-prescription-template.md` ever conflict, `report-prescription-template.md` wins for Part 2.
+If this file and `report-prescription-template.md` conflict, `report-prescription-template.md` wins for Part 2.
 
 Part 2 must be a short direct recommendation, not diagnosis.
 
@@ -106,6 +109,8 @@ Forbidden in Назначение:
 
 Примечание = one strong paragraph.
 
+Maximum: **4–6 lines**.
+
 It combines:
 
 - psychosomatic essence;
@@ -124,6 +129,8 @@ Do not write it as a long list.
 The appendix is optional.
 
 If it exists, **every remedy must have a clear послание**.
+
+Each remedy: **1 short paragraph / 1–2 sentences maximum**.
 
 Every remedy must answer:
 
@@ -146,16 +153,24 @@ Gorse — препарат для снижения безнадёжности.
 
 Rules:
 
-- maximum 1 short paragraph per remedy;
 - no dry encyclopedia;
 - no repetition of Diagnosis;
-- every remedy must include an inspiring/supportive message.
+- every remedy must include an inspiring/supportive message;
+- if the Appendix repeats the Diagnosis, delete it or rewrite as messages.
 
 ---
 
 ## 7. Compression rule
 
-If the text can be shortened by 40%+ without losing meaning, it is not client-ready.
+If the text can be shortened by 30%+ without losing meaning, it is not client-ready.
+
+Common water:
+
+- repeated “resource exists but...” formula;
+- explaining every element twice;
+- describing function in Diagnosis and again in Appendix;
+- long prescription commentary;
+- extra conclusions after a clear conclusion.
 
 Fix:
 
