@@ -78,20 +78,19 @@ Rules:
 
 ### Часть 2. Назначение
 
-Назначение must be written in Andrey's practical style: **key remedies + what/when to take, apply, add, or check**.
+Назначение must be short, direct, and practical.
 
-Do not write it as equal “function of each remedy” list.
+Do not write long chains of “if... if... if...”.
+Do not write equal “function of each remedy” lists as the prescription.
 Do not repeat the whole psychodynamics.
 
 Required rhythm:
 
-1. **Key remedies now** — 1–3 main remedies/supports.
-2. **Additional / second layer** — if needed.
-3. **When to add** — now / later / only if symptom appears / if reaction shows it.
-4. **How to take or apply** — if known.
-5. **How long to observe** — first cycle / check date.
-6. **What to watch** — 3–5 markers.
-7. One short note: what is key and why this order is chosen.
+1. Key remedies now.
+2. What to take / use.
+3. Term: **2 weeks**.
+4. When to check.
+5. One short note: why this order.
 
 Good prescription rhythm:
 
@@ -100,31 +99,25 @@ Good prescription rhythm:
 - Gorse
 - Centaury
 
-Их я бы поставил первыми на этот цикл.
+Принимать / использовать: Gorse + Centaury.
+Срок: 2 недели.
 
-Дополнительно:
-- Mimulus — подключать под конкретный шаг.
-- Impatiens — только если сильная спешка и раздражение.
+Проверить через 2 недели:
+- ресурс;
+- надежда;
+- границы;
+- страх шага;
+- раздражение.
 
-Если принимать внутрь:
-- собрать смесь из Gorse + Centaury;
-- принимать по обычной Bach-схеме / по ... капель, если схема известна;
-- смотреть реакцию 5–7 дней.
-
-Если появится больше опоры — можно добавить Mimulus под действие.
-Если будет сильная спешка — добавить Impatiens.
-
-Проверить через 5–7 дней: ресурс, надежда, границы, страх шага, раздражение.
+Почему так: сначала укрепляем Землю и Металл, потом движение пойдёт мягче.
 ```
 
 Bad prescription rhythm:
 
 ```md
-Назначение по функции:
-Gorse — вернуть веру.
-Mimulus — снизить страх.
-Centaury — укрепить границы.
-Impatiens — смягчить раздражение.
+Если появится больше опоры — можно добавить Mimulus.
+Если будет сильная спешка — добавить Impatiens.
+Если...
 ```
 
 ### Часть 3. Примечание

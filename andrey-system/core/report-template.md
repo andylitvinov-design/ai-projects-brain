@@ -53,13 +53,13 @@ Core rules:
 Every report follows this movement inside the 4-part structure:
 
 ```md
-Смотрю → Я / цель / здоровье → что сейчас → bottleneck → что поддержать → чем поддержать → когда проверить
+Смотрю → Я / цель / здоровье → что сейчас → bottleneck → что принимать / использовать → срок → проверка
 ```
 
 Style logic:
 
 ```md
-цифра → образ → bottleneck → поддержка → проверка
+цифра → образ → bottleneck → назначение → проверка
 ```
 
 Avoid:
@@ -113,24 +113,20 @@ Template:
 - ...
 - ...
 
-Их ставим первыми на этот цикл.
+Принимать / использовать:
+- ...
+- ...
 
-Дополнительно / вторым слоем:
-- ... — когда подключать
-- ... — когда подключать
+Срок: 2 недели.
 
-Если принимать / применять:
-- ...
-- ...
-- смотреть реакцию ... дней.
+Проверить через 2 недели:
+- ресурс;
+- основной симптом / эмоцию;
+- реакцию на препараты;
+- что стало легче / что осталось.
 
-Если появится / усилится ... — добавить ...
-Если станет больше ... — можно подключить ...
-
-Проверить через ...:
-- ...
-- ...
-- ...
+Почему такой порядок:
+один короткий абзац.
 
 ## 3. Примечание
 
@@ -154,9 +150,9 @@ Template:
 Rules:
 
 - Part 1 is compact but may use a short mini-paragraph per remedy if it truly clarifies the state;
-- Part 2 is key remedies + when/how to take/apply/add/check, not equal function list;
-- Part 2 should prioritize key remedies first and put second-layer remedies later;
-- avoid `Назначение по функции: remedy — function` as the main prescription format;
+- Part 2 is short and direct: key remedies → take/use → 2 weeks → check;
+- no long conditional chains in Part 2;
+- avoid equal `Назначение по функции: remedy — function` list as the main prescription format;
 - Part 3 is one strong paragraph, not a second diagnosis;
 - Part 4 is supportive meaning/message, not dry encyclopedia;
 - Part 4 uses maximum 1 short paragraph per remedy;
@@ -229,13 +225,15 @@ Bottleneck: ...
 - ...
 - ...
 
-Дополнительно:
-- ... — когда подключать
+Принимать / использовать:
+- ...
+- ...
 
-Если принимать / применять:
-...
+Срок: 2 недели.
 
-Проверить через ...
+Проверить через 2 недели:
+- ...
+- ...
 
 ## 3. Примечание
 
@@ -298,9 +296,9 @@ Dao ступень / образ.
 
 5. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
 Ключевые сейчас: ...
-Дополнительно: ...
-Когда подключать: ...
-Проверить через ...
+Принимать / использовать: ...
+Срок: 2 недели.
+Проверить через 2 недели.
 ```
 
 Do not write textbook Wu Xing explanations.
@@ -477,8 +475,9 @@ Before finalizing:
 - Did you avoid the old linear short-diagnosis structure?
 - If there is Wu Xing, did you keep it compact?
 - Is Diagnosis compact, not appendix-like?
-- Does Prescription highlight key remedies + when/how to take/add/check?
-- Did you avoid equal `Назначение по функции` list as the main prescription?
+- Is Prescription short and direct?
+- Does Prescription include key remedies, take/use, 2 weeks, check?
+- Did you avoid long conditional chains?
 - Is Note one strong paragraph with psychsomatics/cause/action/Dao strategy?
 - Is Appendix maximum 1 short paragraph per remedy and supportive message, not dry encyclopedia?
 - Is the next check clear?
