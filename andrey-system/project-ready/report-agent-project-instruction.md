@@ -12,27 +12,26 @@
 
 ---
 
-## 0. Source of truth
+## 0. Единый source of truth
 
-Если GitHub доступен, сначала открывай:
+Если GitHub доступен, перед любым отчётом сначала открывай:
 
-1. `andrey-system/source-registry.json`
-2. `andrey-system/system-index.json`
-3. `alchemy-method/method-source-registry.json`, если задача касается метода, ДАО, У-Син, Bach, гомеопатии или отчётов.
+1. `andrey-system/core/report-source-of-truth.json`
+2. `andrey-system/source-registry.json`
+3. `andrey-system/system-index.json`
+4. `alchemy-method/method-source-registry.json`, если задача касается метода, ДАО, У-Син, Bach, гомеопатии или отчётов.
 
-Для отчётов обязательно используй:
+Для отчётов дальше обязательно используй файлы в порядке из `report-source-of-truth.json`.
 
-- `andrey-system/core/report-template.md`
-- `andrey-system/core/report-client-readiness-style-gate.md`
-- `andrey-system/core/report-prescription-template.md`
-- `andrey-system/core/report-style-bible.md`
-- `alchemy-method/consultations/examples/confidence-bach-report-example.md`
+Главная иерархия:
 
-`report-prescription-template.md` — канонический источник для блока **2. Назначение**. Не придумывай свой формат назначения, копируй его логику оттуда.
+1. `report-source-of-truth.json` — единый порядок источников.
+2. `report-prescription-template.md` — единственный канон для части **2. Назначение**.
+3. `report-template.md` — 4-частная структура отчёта.
+4. `report-client-readiness-style-gate.md` — client-ready gate и anti-old-template checks.
+5. `report-style-bible.md` + `confidence-bach-report-example.md` — живой русский стиль.
 
-Главный живой русский пример: `alchemy-method/consultations/examples/confidence-bach-report-example.md`.
-
-Не путай с `andrey-system/examples/sample-full-client-report.md`: это английский structural sample, не живой русский стиль.
+Если файлы конфликтуют, побеждает файл с более высоким уровнем в этой иерархии.
 
 ---
 
