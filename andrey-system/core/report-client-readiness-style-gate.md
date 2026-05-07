@@ -80,45 +80,42 @@ Rules:
 
 Назначение must be short, direct, and practical.
 
-Do not write long chains of “if... if... if...”.
-Do not write equal “function of each remedy” lists as the prescription.
-Do not repeat the whole psychodynamics.
-
-Required rhythm:
-
-1. Key remedies now.
-2. What to take / use.
-3. Term: **2 weeks**.
-4. When to check.
-5. One short note: why this order.
-
-Good prescription rhythm:
+Required format:
 
 ```md
 Ключевые сейчас:
-- Gorse
-- Centaury
+- ...
+- ...
 
-Принимать / использовать: Gorse + Centaury.
+Принимать / использовать:
+- ...
+- ...
+
 Срок: 2 недели.
 
 Проверить через 2 недели:
 - ресурс;
-- надежда;
-- границы;
-- страх шага;
-- раздражение.
+- основной симптом / эмоцию;
+- реакцию на препараты;
+- что стало легче / что осталось.
 
-Почему так: сначала укрепляем Землю и Металл, потом движение пойдёт мягче.
+Почему такой порядок:
+один короткий абзац.
 ```
 
-Bad prescription rhythm:
+Forbidden headings and constructions in Назначение:
 
-```md
-Если появится больше опоры — можно добавить Mimulus.
-Если будет сильная спешка — добавить Impatiens.
-Если...
-```
+- `Отобранные поддержки сейчас:`
+- `Они поддерживают:`
+- `Формат:`
+- `Дистанционная поддержка:`
+- `Если принимать Bach внутрь:`
+- `смотреть реакцию 5–7 дней`
+- `Проверить через 5–7 дней`
+- long chains of `если... если... если...`
+- equal function list for all remedies as the prescription.
+
+Additional remedies only if truly needed, one line: `Дополнительно: ...`.
 
 ### Часть 3. Примечание
 
