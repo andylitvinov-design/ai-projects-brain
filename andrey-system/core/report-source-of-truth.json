@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "status": "canonical",
+  "purpose": "Single source of truth for Report Agent runtime routing and report block templates.",
+  "rule": "For any client analysis or report, read these files first and prefer them over older report examples or embedded patterns.",
+  "required_order": [
+    {
+      "path": "andrey-system/project-ready/report-agent-project-instruction.md",
+      "role": "runtime instruction for Report Agent"
+    },
+    {
+      "path": "andrey-system/core/report-prescription-template.md",
+      "role": "canonical and only source for Part 2: Назначение"
+    },
+    {
+      "path": "andrey-system/core/report-template.md",
+      "role": "four-part report structure and working report templates"
+    },
+    {
+      "path": "andrey-system/core/report-client-readiness-style-gate.md",
+      "role": "client readiness, compression and anti-old-template checks"
+    },
+    {
+      "path": "andrey-system/core/report-style-bible.md",
+      "role": "live Russian style rules"
+    },
+    {
+      "repo": "andylitvinov-design/alchemy-method",
+      "path": "consultations/examples/confidence-bach-report-example.md",
+      "role": "primary living Russian client report example"
+    }
+  ],
+  "hard_rules": {
+    "structure": "Any analysis/report uses 4 parts: Диагностика, Назначение, Примечание, Приложение.",
+    "prescription": "Part 2 must follow report-prescription-template.md exactly.",
+    "appendix": "If appendix exists, every remedy must include a clear supportive послание.",
+    "forbidden_prescription_patterns": [
+      "Отобранные поддержки сейчас",
+      "Они поддерживают",
+      "Формат",
+      "Дистанционная поддержка",
+      "Если принимать Bach внутрь",
+      "3–5 дней",
+      "5–7 дней"
+    ]
+  }
+}
