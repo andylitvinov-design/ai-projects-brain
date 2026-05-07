@@ -1,5 +1,17 @@
 # Codex Project Workflow
 
+## 0. Use autonomous project execution by default
+
+- Read and apply `systems/autonomous-project-executor.md` before project work.
+- Work autonomously by default: do not ask unnecessary questions before
+  safe read-only, docs, planning, diagnosis, or minimal patch-scope work.
+- If information is missing or uncertain, mark it as `needs verification`
+  and continue with the safest useful next action.
+- Ask the user only before risky actions such as deletion, secrets/env
+  changes, merge to `main`, production deploy, external publishing,
+  financial/account/access changes, irreversible changes, large rewrites,
+  or materially risky target selection.
+
 ## 1. Read context first
 
 Read shared project memory before repo-local implementation work:
@@ -7,6 +19,7 @@ Read shared project memory before repo-local implementation work:
 - Read `projects.md`.
 - Read `projects.json`.
 - Read `systems/agent-rules.md`.
+- Read `systems/autonomous-project-executor.md`.
 - Read `systems/project-memory-standard.md` when available.
 - Read the matching `projects/<slug>/PROJECT.md`.
 - Read `projects/<slug>/CODEX_BRIEF.md` when available.
@@ -43,6 +56,7 @@ Then read repo-local context in the target repository:
 - Use the smallest safe fix.
 - Preserve accepted UX and business logic.
 - Preserve user-facing routes, APIs, data contracts, raw links, deployment targets, and auth/data flows unless explicitly changed by the task.
+- For Codex prompts, include repo, goal, context to read first, exact files or areas, minimal safe fix, what not to change, checks/tests, risks, final report format, and `STATE.md`/`LOG.md` update check.
 
 ## 5. Task-specific investigation
 
@@ -86,6 +100,7 @@ For quality/site audits:
 - What changed.
 - Changed files.
 - Checks run.
+- Checks not run.
 - Preview/live links, if checked.
 - Risks.
 - What still needs verification.
@@ -99,4 +114,5 @@ For quality/site audits:
 - Append or propose `LOG.md` entry.
 - Update project memory files when meaningful implementation facts changed.
 - Mark uncertain items as `needs verification`.
-- Ask user to confirm memory update if changes are significant or cannot be safely committed in the same task.
+- Ask user to confirm memory update only when changes are significant,
+  risky, or cannot be safely committed in the same task.
