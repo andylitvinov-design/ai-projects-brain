@@ -38,6 +38,7 @@ Additional blocks:
 Core rules:
 
 - if the user asks for analysis/report, use the 4-part structure even when short;
+- do not use a linear `short diagnosis → conclusion → support → check` structure for analysis/report requests;
 - any Wu Xing analysis, even a short numeric snapshot, means **Deep Diagnosis**;
 - `Я + цель / здоровье` is almost always included;
 - `симптом` is included only when Andrey specifically evaluates it;
@@ -49,7 +50,7 @@ Core rules:
 
 ## 2. Universal Live Report Logic
 
-Every report follows this movement:
+Every report follows this movement inside the 4-part structure:
 
 ```md
 Смотрю → Я / цель / здоровье → что сейчас → bottleneck → что поддержать → чем поддержать → когда проверить
@@ -75,7 +76,7 @@ Use this as the preferred structure for both short analyses and full reports.
 
 Difference is length:
 
-- short analysis: compact 4 parts, appendix can be 2–4 lines or omitted;
+- compact analysis: 350–800 words, appendix can be 2–4 lines or omitted;
 - full report from limited input: 600–900 words;
 - full report with enough data: 900–1400 words.
 
@@ -169,10 +170,10 @@ Rules:
 
 ## 4. Mini Express
 
-Use when:
+Use only when:
 
 - Andrey needs a tiny check;
-- user asks for very short answer;
+- user asks for a very short answer;
 - no remedy selection is requested;
 - no Wu Xing is needed;
 - no support plan is required.
@@ -194,44 +195,67 @@ Template:
 ...
 ```
 
+Mini Express is not a client report and does not replace compact 4-part analysis when the user asks for analysis/report.
+
 ---
 
-## 5. Short Diagnosis
+## 5. Compact 4-Part Analysis — Short Form
 
-Use only when user asks for a brief check, not a full analysis/report.
+Use when the user asks for a short analysis/report, or gives limited input but still wants an analysis.
 
-Length: 250–600 words.
+Length: 350–800 words.
 
 Template:
 
 ```md
 Смотрю.
 
-Я X.X.
-Цель / здоровье X.X.
-Симптом X.X, только если специально оценён.
+## 1. Диагностика
 
+Я / ресурс / здоровье X.X.
 Коротко что сейчас.
-Как будто ...
+Образ.
 
-Главное здесь — ...
-Провисает прежде всего ...
+По препаратам / У-Син видно:
+- ... — короткая роль
+- ... — короткая роль
 
-ПОДБОР ПРЕПАРАТОВ
-#1. ... — функция
-#2. ... — функция
-#3. ... — функция
+Ядро: ...
+Поверхность: ...
+Bottleneck: ...
 
-ВЫВОД
-Сейчас задача — ...
-Поддерживаем ...
+## 2. Назначение
 
-ПРОВЕРКА
+Отобранные поддержки сейчас:
+- ...
+- ...
+
+Они поддерживают:
+- ...
+- ...
+
+Формат / наблюдение:
+...
+
 Проверить через ...
-Смотреть: ...
+
+## 3. Примечание
+
+Один абзац: психосоматика + причина + что делать + стратегия Dao + что не форсировать.
+
+## 4. Приложение
+
+Опционально.
+- remedy — главное послание / что помогает вернуть.
 ```
 
-Do not add Wu Xing. If Wu Xing appears or user asks for analysis/report, switch to compact 4-part analysis.
+Never use the old linear structure:
+
+```md
+Краткая диагностика → У-Син карта → Общий вывод → Что поддержать первым → Назначение по функции → Проверка
+```
+
+This old structure is forbidden for analysis/report requests.
 
 ---
 
@@ -244,9 +268,11 @@ Use when:
 - enough data;
 - health/symptom/systemic issue is present;
 - support plan is needed;
-- user does not need the 4-part full report format.
+- user does not need the compact/full 4-part report format.
 
 Length: 600–1000 words.
+
+If this is a client-facing analysis/report, prefer compact/full 4-part structure. Use this older deep structure only when Andrey explicitly asks for technical/internal deep diagnosis.
 
 Template:
 
@@ -254,58 +280,33 @@ Template:
 Смотрю.
 
 1. ФИГУРА Я / Я
-Я X.X.
-Что сейчас с Я.
-Образ состояния.
+...
 
 2. ЦЕЛЬ / ЗДОРОВЬЕ
-Цель / здоровье X.X.
-Что показывает это поле.
+...
 
-3. СИМПТОМ
-Только если специально оценён.
-Симптом может отражать ...
-Как будто ...
-
-4. СВЯЗЬ Я И ЦЕЛИ / ЗДОРОВЬЯ
-В Я есть ...
-В цели / здоровье есть ...
-Между ними застревает ...
-
-5. УСИН
+3. УСИН
 Вода — X.X. Что происходит. Что поддержать.
 Дерево — X.X. Что происходит. Что поддержать.
 Огонь — X.X. Что происходит. Что поддержать.
 Земля — X.X. Что происходит. Что поддержать.
 Металл — X.X. Что происходит. Что поддержать.
 
-6. ВЫВОД
+4. ВЫВОД
 Dao ступень / образ.
 Главный bottleneck.
 Что поддерживаем первым.
 Следующий реалистичный шаг.
 
-7. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
+5. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
 Отобранные поддержки сейчас основные.
 Они поддерживают: ...
 Формат: ...
 Проверить через ...
-
-8. ПРОВЕРКА
-Что отслеживать.
-Когда проверить.
 ```
 
 Do not write textbook Wu Xing explanations.
 Each element should be short: number → state → support.
-
-Short explanatory method phrases are allowed when they clarify the current state.
-
-Good:
-
-```md
-В норме Дерево даёт движение и рост. Здесь движение есть, но оно выходит через раздражение.
-```
 
 ---
 
@@ -321,19 +322,15 @@ Use when:
 
 Length: 400–900 words.
 
+If user asks for a client-facing report, use 4 parts and include dynamics inside them.
+
 Template:
 
 ```md
-Смотрю твою систему / Смотрю ещё раз.
+Смотрю ещё раз.
 
 Я X.X.
 Здоровье / цель X.X.
-
-Вода X.X
-Дерево X.X
-Огонь X.X
-Земля X.X
-Металл X.X
 
 ВЫВОД
 Показатели выросли / без изменений / просели.
@@ -352,9 +349,6 @@ Template:
 Что добавить / убрать.
 Проверить через ...
 ```
-
-A compact Wu Xing snapshot is still Deep Diagnosis.
-Use full element explanation only if a specific element is clearly blocked.
 
 ---
 
@@ -387,6 +381,8 @@ Template:
 ЧТО ПРОВЕРИТЬ ДАЛЬШЕ
 - ...
 ```
+
+If remedy analysis becomes a client report, use compact 4-part structure.
 
 ---
 
@@ -460,8 +456,6 @@ Bad:
 
 ## 11. Safety
 
-Alternative supports are not guarantees and not medical replacements.
-
 Safety is mandatory internally, but do not add generic safety paragraphs automatically.
 
 Add explicit safety only if:
@@ -479,10 +473,11 @@ Never diagnose medically, promise cure, tell client to stop treatment, invent fa
 
 Before finalizing:
 
-- Mini Express, Short, Deep, Compact 4-part, Full 4-part, or Remedy-Only?
+- Mini Express, Compact 4-part, Deep, Full 4-part, or Remedy-Only?
 - New or Repeat?
 - If user asks for analysis/report, did you use 4 parts?
-- If there is Wu Xing, did you classify as Deep?
+- Did you avoid the old linear short-diagnosis structure?
+- If there is Wu Xing, did you keep it compact?
 - Is Diagnosis compact, not appendix-like?
 - Is Appointment/Prescription a practical support plan, not more diagnosis?
 - Is Note one strong paragraph with psychsomatics/cause/action/Dao strategy?
