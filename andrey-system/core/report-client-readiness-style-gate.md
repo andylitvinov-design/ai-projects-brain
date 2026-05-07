@@ -78,21 +78,54 @@ Rules:
 
 ### Часть 2. Назначение
 
-Write this as a practical support plan, not as more diagnosis.
+Назначение must be written in Andrey's practical style: **key remedies + what/when to take, apply, add, or check**.
 
-This section may be more developed than the diagnosis.
+Do not write it as equal “function of each remedy” list.
+Do not repeat the whole psychodynamics.
 
 Required rhythm:
 
-1. What is selected now.
-2. What it supports: 2–4 short bullets.
-3. Format: distance support / internal intake / observation / later verification.
-4. How to take / apply / observe, if known.
-5. Timing and follow-up.
-6. One short note: what is key and why this order is chosen.
-7. Short client question, if useful.
+1. **Key remedies now** — 1–3 main remedies/supports.
+2. **Additional / second layer** — if needed.
+3. **When to add** — now / later / only if symptom appears / if reaction shows it.
+4. **How to take or apply** — if known.
+5. **How long to observe** — first cycle / check date.
+6. **What to watch** — 3–5 markers.
+7. One short note: what is key and why this order is chosen.
 
-Do not explain the whole psychodynamics again in the prescription section.
+Good prescription rhythm:
+
+```md
+Ключевые сейчас:
+- Gorse
+- Centaury
+
+Их я бы поставил первыми на этот цикл.
+
+Дополнительно:
+- Mimulus — подключать под конкретный шаг.
+- Impatiens — только если сильная спешка и раздражение.
+
+Если принимать внутрь:
+- собрать смесь из Gorse + Centaury;
+- принимать по обычной Bach-схеме / по ... капель, если схема известна;
+- смотреть реакцию 5–7 дней.
+
+Если появится больше опоры — можно добавить Mimulus под действие.
+Если будет сильная спешка — добавить Impatiens.
+
+Проверить через 5–7 дней: ресурс, надежда, границы, страх шага, раздражение.
+```
+
+Bad prescription rhythm:
+
+```md
+Назначение по функции:
+Gorse — вернуть веру.
+Mimulus — снизить страх.
+Centaury — укрепить границы.
+Impatiens — смягчить раздражение.
+```
 
 ### Часть 3. Примечание
 

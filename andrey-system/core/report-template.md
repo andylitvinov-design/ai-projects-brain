@@ -109,30 +109,28 @@ Template:
 
 ## 2. Назначение
 
-Отобранные ... сейчас основные.
-
-Они поддерживают:
-- ...
+Ключевые сейчас:
 - ...
 - ...
 
-Формат:
-1. Дистанционная поддержка / основная форма поддержки.
-2. Дополнительно можно принимать / делать / наблюдать, если доступно.
+Их ставим первыми на этот цикл.
+
+Дополнительно / вторым слоем:
+- ... — когда подключать
+- ... — когда подключать
 
 Если принимать / применять:
 - ...
 - ...
 - смотреть реакцию ... дней.
 
-Ключевое примечание:
-...
+Если появится / усилится ... — добавить ...
+Если станет больше ... — можно подключить ...
 
-Проверить через ...
-
-Вопрос клиенту, если нужен:
-- получится ли купить / сделать / наблюдать?
-- всё ли понятно в назначении?
+Проверить через ...:
+- ...
+- ...
+- ...
 
 ## 3. Примечание
 
@@ -156,8 +154,9 @@ Template:
 Rules:
 
 - Part 1 is compact but may use a short mini-paragraph per remedy if it truly clarifies the state;
-- Part 2 is a practical support plan, not more diagnosis;
-- Part 2 rhythm is: selected supports → what they support → format → intake/application/observation → timing/follow-up → short why;
+- Part 2 is key remedies + when/how to take/apply/add/check, not equal function list;
+- Part 2 should prioritize key remedies first and put second-layer remedies later;
+- avoid `Назначение по функции: remedy — function` as the main prescription format;
 - Part 3 is one strong paragraph, not a second diagnosis;
 - Part 4 is supportive meaning/message, not dry encyclopedia;
 - Part 4 uses maximum 1 short paragraph per remedy;
@@ -226,15 +225,14 @@ Bottleneck: ...
 
 ## 2. Назначение
 
-Отобранные поддержки сейчас:
+Ключевые сейчас:
 - ...
 - ...
 
-Они поддерживают:
-- ...
-- ...
+Дополнительно:
+- ... — когда подключать
 
-Формат / наблюдение:
+Если принимать / применять:
 ...
 
 Проверить через ...
@@ -299,9 +297,9 @@ Dao ступень / образ.
 Следующий реалистичный шаг.
 
 5. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
-Отобранные поддержки сейчас основные.
-Они поддерживают: ...
-Формат: ...
+Ключевые сейчас: ...
+Дополнительно: ...
+Когда подключать: ...
 Проверить через ...
 ```
 
@@ -479,10 +477,10 @@ Before finalizing:
 - Did you avoid the old linear short-diagnosis structure?
 - If there is Wu Xing, did you keep it compact?
 - Is Diagnosis compact, not appendix-like?
-- Is Appointment/Prescription a practical support plan, not more diagnosis?
+- Does Prescription highlight key remedies + when/how to take/add/check?
+- Did you avoid equal `Назначение по функции` list as the main prescription?
 - Is Note one strong paragraph with psychsomatics/cause/action/Dao strategy?
 - Is Appendix maximum 1 short paragraph per remedy and supportive message, not dry encyclopedia?
-- Are remedies described by function?
 - Is the next check clear?
 - Are uncertain points marked `needs verification`?
 - No generic safety paragraph by default?
