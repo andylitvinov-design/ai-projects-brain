@@ -1,14 +1,20 @@
 # Report Templates — Andrey Li Live Diagnostic Reports
 
-This file defines the working report templates for Report Agent.
+This file defines working report templates for Report Agent.
 
-Main result of any report:
+Main result:
 
-**ясность → опора → препарат / поддержка → проверка**
+**ясность → опора → назначение → проверка**
 
 Main rule:
 
 **Самый сильный отчёт — не самый длинный.**
+
+Canonical prescription source:
+
+`andrey-system/core/report-prescription-template.md`
+
+For Part 2 `Назначение`, always use that file. Do not invent a different prescription block.
 
 ---
 
@@ -27,56 +33,25 @@ Depth:
 Status:
 - New Diagnosis
 - Repeat Diagnosis
-
-Additional blocks:
-- Psychosomatics / Link Between Self And Goal
-- Symptom Analysis
-- System Analysis
-- Remedy Relevance Check
 ```
 
 Core rules:
 
 - if the user asks for analysis/report, use the 4-part structure even when short;
-- do not use a linear `short diagnosis → conclusion → support → check` structure for analysis/report requests;
-- any Wu Xing analysis, even a short numeric snapshot, means **Deep Diagnosis**;
-- `Я + цель / здоровье` is almost always included;
-- `симптом` is included only when Andrey specifically evaluates it;
-- remedies/supports are included almost always;
+- do not use linear `short diagnosis → conclusion → support → check`;
+- any Wu Xing analysis, even short numeric snapshot, means Deep Diagnosis;
 - full means useful structure, not extra water;
-- safety is internal by default and is written only when relevant.
+- safety is internal by default and written only when relevant.
 
 ---
 
-## 2. Universal Live Report Logic
-
-Every report follows this movement inside the 4-part structure:
-
-```md
-Смотрю → Я / цель / здоровье → что сейчас → bottleneck → что принимать / использовать → срок → проверка
-```
-
-Style logic:
-
-```md
-цифра → образ → bottleneck → назначение → проверка
-```
-
-Avoid:
-
-```md
-теория → классификация → длинное объяснение → общий совет
-```
-
----
-
-## 3. Compact 4-Part Analysis / Full Client Report
+## 2. Compact 4-Part Analysis / Full Client Report
 
 Use this as the preferred structure for both short analyses and full reports.
 
 Difference is length:
 
-- compact analysis: 350–800 words, appendix can be 2–4 lines or omitted;
+- compact analysis: 350–800 words;
 - full report from limited input: 600–900 words;
 - full report with enough data: 900–1400 words.
 
@@ -87,21 +62,16 @@ Template:
 
 ## 1. Диагностика
 
-Я X.X.
-Здоровье / цель X.X, если есть.
+Я / ресурс / здоровье X.X.
 Эмоция / тема — ...
 
 Коротко что сейчас.
 Один живой образ.
 Главная формула состояния.
 
-Если есть симптомы / проявления:
-- максимум 3 пункта.
-
 Если есть У-Син / Bach:
 - Стихия / препарат — короткая суть / роль
 - Стихия / препарат — короткая суть / роль
-- Missing element — needs verification
 
 Ядро: ...
 Поверхность: ...
@@ -109,24 +79,8 @@ Template:
 
 ## 2. Назначение
 
-Ключевые сейчас:
-- ...
-- ...
-
-Принимать / использовать:
-- ...
-- ...
-
-Срок: 2 недели.
-
-Проверить через 2 недели:
-- ресурс;
-- основной симптом / эмоцию;
-- реакцию на препараты;
-- что стало легче / что осталось.
-
-Почему такой порядок:
-один короткий абзац.
+Use exactly the structure from:
+andrey-system/core/report-prescription-template.md
 
 ## 3. Примечание
 
@@ -136,39 +90,31 @@ Template:
 ## 4. Приложение
 
 Опционально.
+Но если Приложение есть, у каждого препарата обязательно должно быть послание.
 
-Кратко по препаратам:
-- remedy — максимум 1 короткий абзац: главное послание, что препарат помогает вернуть, ободряющий смысл.
-
-Кратко по Dao / У-Син ступени:
-...
-
-Что ещё нужно проверить / добавить:
-- ... needs verification
+Формат:
+- remedy — послание: ... Что препарат помогает вернуть ...
 ```
 
 Rules:
 
 - Part 1 is compact but may use a short mini-paragraph per remedy if it truly clarifies the state;
-- Part 2 must use only the required short prescription template;
-- Forbidden in Part 2: `Отобранные поддержки сейчас`, `Они поддерживают`, `Формат`, `Дистанционная поддержка`, `Если принимать`, `5–7 дней`;
-- no long conditional chains in Part 2;
-- avoid equal `Назначение по функции: remedy — function` list as the main prescription format;
+- Part 2 must use only `report-prescription-template.md`;
+- Forbidden in Part 2: `Отобранные поддержки сейчас`, `Они поддерживают`, `Формат`, `Дистанционная поддержка`, `Если принимать`, `5–7 дней`, long conditional chains;
 - Part 3 is one strong paragraph, not a second diagnosis;
-- Part 4 is supportive meaning/message, not dry encyclopedia;
+- Part 4 is supportive message, not dry encyclopedia;
 - Part 4 uses maximum 1 short paragraph per remedy;
-- no repeated diagnostic formula in every part;
+- every remedy in Part 4 must have a clear `послание`;
 - no internal Quality check;
 - no registry/source notes;
 - no generic safety paragraph by default.
 
 ---
 
-## 4. Mini Express
+## 3. Mini Express
 
 Use only when:
 
-- Andrey needs a tiny check;
 - user asks for a very short answer;
 - no remedy selection is requested;
 - no Wu Xing is needed;
@@ -176,32 +122,15 @@ Use only when:
 
 Length: 80–250 words.
 
-Template:
-
-```md
-Смотрю.
-
-Я X.X.
-Цель / здоровье X.X, если нужно.
-
-Коротко что сейчас.
-Главное — ...
-
-Дальше:
-...
-```
-
-Mini Express is not a client report and does not replace compact 4-part analysis when the user asks for analysis/report.
+Mini Express is not a client report and does not replace compact 4-part analysis when user asks for analysis/report.
 
 ---
 
-## 5. Compact 4-Part Analysis — Short Form
+## 4. Compact 4-Part Analysis — Short Form
 
-Use when the user asks for a short analysis/report, or gives limited input but still wants an analysis.
+Use when user asks for a short analysis/report, or gives limited input but still wants analysis.
 
 Length: 350–800 words.
-
-Template:
 
 ```md
 Смотрю.
@@ -222,22 +151,7 @@ Bottleneck: ...
 
 ## 2. Назначение
 
-Ключевые сейчас:
-- ...
-- ...
-
-Принимать / использовать:
-- ...
-- ...
-
-Срок: 2 недели.
-
-Проверить через 2 недели:
-- ...
-- ...
-
-Почему такой порядок:
-один короткий абзац.
+Use exactly `report-prescription-template.md`.
 
 ## 3. Примечание
 
@@ -246,200 +160,47 @@ Bottleneck: ...
 ## 4. Приложение
 
 Опционально.
-- remedy — главное послание / что помогает вернуть.
+- remedy — послание: ... что помогает вернуть ...
 ```
 
-Never use the old linear structure:
+Never use old structures:
 
 ```md
 Краткая диагностика → У-Син карта → Общий вывод → Что поддержать первым → Назначение по функции → Проверка
 ```
 
-Never use the old prescription headings:
-
 ```md
 Отобранные поддержки сейчас → Они поддерживают → Формат → Если принимать → 5–7 дней
 ```
 
-These old structures are forbidden for analysis/report requests.
-
 ---
 
-## 6. Deep Diagnosis — New
+## 5. Deep Diagnosis — New
 
 Use when:
 
-- any Wu Xing analysis is included;
-- first serious report;
+- Wu Xing analysis is included;
 - enough data;
 - health/symptom/systemic issue is present;
 - support plan is needed;
-- user does not need the compact/full 4-part report format.
+- user does not need compact/full 4-part report format.
 
-Length: 600–1000 words.
-
-If this is a client-facing analysis/report, prefer compact/full 4-part structure. Use this older deep structure only when Andrey explicitly asks for technical/internal deep diagnosis.
-
-Template:
-
-```md
-Смотрю.
-
-1. ФИГУРА Я / Я
-...
-
-2. ЦЕЛЬ / ЗДОРОВЬЕ
-...
-
-3. УСИН
-Вода — X.X. Что происходит. Что поддержать.
-Дерево — X.X. Что происходит. Что поддержать.
-Огонь — X.X. Что происходит. Что поддержать.
-Земля — X.X. Что происходит. Что поддержать.
-Металл — X.X. Что происходит. Что поддержать.
-
-4. ВЫВОД
-Dao ступень / образ.
-Главный bottleneck.
-Что поддерживаем первым.
-Следующий реалистичный шаг.
-
-5. НАЗНАЧЕНИЕ / ПОДДЕРЖКА
-Ключевые сейчас: ...
-Принимать / использовать: ...
-Срок: 2 недели.
-Проверить через 2 недели.
-```
-
-Do not write textbook Wu Xing explanations.
-Each element should be short: number → state → support.
+If this is client-facing analysis/report, prefer compact/full 4-part structure.
+Use older deep structure only when Andrey explicitly asks for technical/internal deep diagnosis.
 
 ---
 
-## 7. Deep Diagnosis — Repeat / Progress Check
+## 6. Remedy-Only Analysis
 
-Use when:
-
-- there was previous work;
-- full recheck is needed;
-- Wu Xing progress should be compared;
-- remedies need updating;
-- Dao stage transition is visible.
-
-Length: 400–900 words.
-
-If user asks for a client-facing report, use 4 parts and include dynamics inside them.
-
-Template:
-
-```md
-Смотрю ещё раз.
-
-Я X.X.
-Здоровье / цель X.X.
-
-ВЫВОД
-Показатели выросли / без изменений / просели.
-Закрепилась / держится на уровне ...
-Следующий шаг — ...
-
-ПРОВЕРКА ПРЕПАРАТОВ
-Уже НЕ актуальны / ушли:
-- ...
-
-АКТУАЛЬНЫ:
-- ... — функция
-
-ДАЛЬШЕ
-Что оставить.
-Что добавить / убрать.
-Проверить через ...
-```
-
----
-
-## 8. Remedy-Only Analysis
-
-Use when the task is only to analyze remedies, reactions, or current relevance.
+Use when task is only to analyze remedies, reactions, or current relevance.
 
 Length: 250–700 words.
-
-Template:
-
-```md
-Смотрю препараты.
-
-ОСНОВНАЯ ТЕМА
-Коротко что они вместе показывают.
-
-ЯДРО
-- remedy — role
-
-РЕАКЦИЯ / ЭМОЦИИ
-- remedy — role
-
-АКТУАЛЬНЫ СЕЙЧАС
-- ...
-
-НЕ АКТУАЛЬНЫ / УШЛИ
-- ...
-
-ЧТО ПРОВЕРИТЬ ДАЛЬШЕ
-- ...
-```
 
 If remedy analysis becomes a client report, use compact 4-part structure.
 
 ---
 
-## 9. Additional Blocks
-
-Use only if needed.
-
-### Psychosomatics / Link Between Self And Goal
-
-```md
-СВЯЗЬ Я И ЦЕЛИ / ЗДОРОВЬЯ
-В Я есть ...
-В цели / здоровье есть ...
-Между ними застревает ...
-```
-
-### Symptom Analysis
-
-```md
-СИМПТОМ
-Симптом может быть связан с ...
-Как будто ...
-Здесь важно не утверждать, а смотреть как психосоматическую модель.
-```
-
-### System Analysis
-
-```md
-СИСТЕМА
-Здесь влияет не только внутреннее состояние.
-Есть внешний контекст: ...
-Как будто человек чувствует: ...
-Задача: ...
-```
-
-### Remedy Relevance Check
-
-```md
-Уже НЕ актуальны / ушли:
-- ...
-
-АКТУАЛЬНЫ:
-- ... — функция
-
-Менее актуальны:
-- ... — функция
-```
-
----
-
-## 10. Remedy / Support Language
+## 7. Remedy / Support Language
 
 Describe remedies by function, not encyclopedia style.
 
@@ -460,44 +221,36 @@ Bad:
 
 ---
 
-## 11. Safety
+## 8. Safety
 
 Safety is mandatory internally, but do not add generic safety paragraphs automatically.
 
 Add explicit safety only if:
 
 - serious medical symptoms are described;
-- the report might sound like medical treatment;
-- there is risk of overpromising;
+- report might sound like medical treatment;
+- risk of overpromising;
 - user asks.
 
 Never diagnose medically, promise cure, tell client to stop treatment, invent facts, or expose private data.
 
 ---
 
-## 12. Final Checklist
+## 9. Final Checklist
 
 Before finalizing:
 
-- Mini Express, Compact 4-part, Deep, Full 4-part, or Remedy-Only?
-- New or Repeat?
-- If user asks for analysis/report, did you use 4 parts?
-- Did you avoid the old linear short-diagnosis structure?
-- If there is Wu Xing, did you keep it compact?
-- Is Diagnosis compact, not appendix-like?
-- Does Prescription use only the required short template?
+- Did you use 4 parts for analysis/report?
+- Did you avoid old linear short-diagnosis structure?
+- Is Diagnosis compact and recognizable?
+- Does Part 2 follow `report-prescription-template.md` exactly?
 - Did you avoid forbidden prescription headings and 5–7 day checks?
-- Is Note one strong paragraph with psychsomatics/cause/action/Dao strategy?
-- Is Appendix maximum 1 short paragraph per remedy and supportive message, not dry encyclopedia?
-- Is the next check clear?
-- Are uncertain points marked `needs verification`?
+- Is Note one strong paragraph?
+- If Appendix exists: does every remedy have a clear `послание`?
+- Is Appendix maximum 1 short paragraph per remedy?
 - No generic safety paragraph by default?
 - No repeated diagnostic formula in every section?
 
 Main rule:
 
 **Самый сильный отчёт — не самый длинный.**
-
-The strongest report gives:
-
-**ясность → опору → препарат / поддержку → проверку**
