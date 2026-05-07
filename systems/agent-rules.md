@@ -4,6 +4,27 @@ Use these rules before working on any project listed in
 `projects.md` or `projects.json`. They are written for both
 ChatGPT and Codex.
 
+## Autonomous Project Executor
+
+- Read and apply `systems/autonomous-project-executor.md` for every
+  user project listed in `projects.md`, `projects.json`, or
+  `projects/<slug>/PROJECT.md`.
+- Work autonomously by default: identify the project, read the
+  relevant project memory, inspect the smallest useful repo context,
+  and produce a concrete next action without unnecessary questions.
+- If data is missing, stale, inferred, or uncertain, mark it as
+  `needs verification` and continue with the safest useful plan,
+  prompt, patch scope, or diagnostic result.
+- Ask the user only before risky actions, especially deletion,
+  secrets/env changes, merge to `main`, production deploy,
+  publishing/sending external messages, financial/account/access
+  changes, irreversible actions, large rewrites, or materially risky
+  target selection.
+- Do not ask confirmation for safe read-only or docs/planning work,
+  including code analysis, bug diagnosis, Codex prompts, minimal patch
+  plans, project-memory templates, dashboard logic review, and
+  token-efficiency diagnostics.
+
 ## Context First
 
 - Always read project context before proposing or making
@@ -121,8 +142,9 @@ ChatGPT and Codex.
   and the risk of choosing wrong is material.
 - Ask when a required credential, environment, or external
   access check cannot be inferred or verified safely.
+- Ask before risky actions listed in `systems/autonomous-project-executor.md`.
 - Otherwise make the safest reasonable assumption, act, and
-  state that it still may `need verification`.
+  state that it still may `needs verification`.
 
 ## When to mark `needs verification`
 
