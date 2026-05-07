@@ -1,6 +1,6 @@
 # Report Client-Readiness Style Gate — Andrey Li Reports
 
-This file is a mandatory addendum to report style and quality standards.
+This file is the primary source for client-readiness and the mandatory report structure.
 
 Main rule:
 
@@ -66,8 +66,8 @@ It should include:
 Rules:
 
 - one sentence or one very short mini-paragraph per remedy is allowed if it clarifies the state;
-- no long remedy paragraphs;
-- no long element theory;
+- no long remedy paragraphs here;
+- no long element theory here;
 - if listing manifestations after “может ощущаться как”, use maximum 3 items;
 - expanded remedy descriptions and messages go to Appendix.
 
@@ -79,36 +79,18 @@ Canonical source for this block:
 
 `andrey-system/core/report-prescription-template.md`
 
-Always use that file for Part 2.
+Always use only that file for Part 2.
 
-Назначение = short direct recommendation, not diagnosis.
+Do not duplicate another prescription structure here.
+If this file and `report-prescription-template.md` ever conflict, `report-prescription-template.md` wins for Part 2.
 
-Required structure:
-
-```md
-## 2. Назначение
-
-Ключевые сейчас:
-- ...
-- ...
-
-Принимать / использовать:
-- ...
-
-Срок: 2 недели.
-
-Проверить через 2 недели:
-- ресурс;
-- основной симптом / эмоцию;
-- реакцию на препараты;
-- что стало легче / что осталось.
-
-Почему такой порядок:
-один короткий абзац.
-```
+Part 2 must be a short direct recommendation, not diagnosis.
 
 Forbidden in Назначение:
 
+- `Ключевые сейчас:`
+- `Принимать / использовать:`
+- `Почему такой порядок:`
 - `Отобранные поддержки сейчас:`
 - `Они поддерживают:`
 - `Формат:`
