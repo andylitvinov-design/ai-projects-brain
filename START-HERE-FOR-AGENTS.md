@@ -70,6 +70,7 @@
 
 Если пользователь пишет про:
 
+- психотерапевт, терапевтический агент, Profile, профиль Andrey → `psychotherapist`.
 - финансы, ledger, PayPal, Wise, Яндекс, баланс, план/факт → `ezohata-incoming-ledger`.
 - Codex Links, Slack bridge, Codex Cloud, dispatch, commands → `codex-links`.
 - dashboard, thinking, daily changes, management reports → `brain-management`.
