@@ -20,6 +20,7 @@
 | codex-links | Codex Links | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | infra | active | `projects/codex-links/PROJECT.md` | Cloudflare live checks, version triplet, command lifecycle |
 | brain-management | Brain Management | `andylitvinov-design/brain-management` | https://brain-management.pages.dev | infra | active | `projects/brain-management/PROJECT.md` | dashboard JSON paths, report publish/API checks |
 | reiki-yggdrasil | Reiki Yggdrasil | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | site/course | active | `projects/reiki-yggdrasil/PROJECT.md` | Vercel live, Supabase auth/profile flow |
+| psychotherapist | Психотерапевт / Profile | `andylitvinov-design/Profile` | not applicable | method/personal therapy | active | `projects/psychotherapist/PROJECT.md` | verify Profile operating files; no client data; no secrets/env |
 | artefacts | Артефакты | `andylitvinov-design/artefacts` | needs verification | site | active/cloud-ready; repo+stack verified; live needs verification | `projects/artefacts/PROJECT.md` | `npm run build`, `npm run lint`, `npm run smoke:release`; live deploy needs verification |
 | active-projects-ops | Active Projects Ops | `andylitvinov-design/active-projects-ops` | mixed: sales + ezohata links confirmed in README | infra/site | active shared repo; subproject boundary required | `projects/active-projects-ops/PROJECT.md` | choose subproject first; verify live/deploy source |
 | psitrends | PsiTrends | `andylitvinov-design/psitrends-work` | https://psitrends.pages.dev | site | repo verified; live/deploy source needs verification | `projects/psitrends/PROJECT.md` | inspect repo tree; verify Cloudflare deploy source |
@@ -48,6 +49,7 @@
 | Codex Links, Slack bridge, dispatch, Codex Cloud, commands | `codex-links` |
 | dashboard, thinking, daily changes, management reports | `brain-management` |
 | Reiki Yggdrasil, masters, profile, admin, Supabase | `reiki-yggdrasil` |
+| психотерапевт, терапевтический агент, AI-психотерапевт, психосоматика Andrey, профиль Andrey, сжатие груди/нёба/лица/горла, вина, стыд, контакт, проявленность | `psychotherapist` |
 | artefacts, артефакты, marketplace | `artefacts` |
 | sales landing, sales-bwa-photo | `active-projects-ops` / subproject `sales` |
 | ezohata ops/docs hub | `active-projects-ops` / subproject `ezohata` |
