@@ -4,37 +4,77 @@ This repository is the raw-text context base for ChatGPT and Codex agents workin
 
 It is intentionally public and text-first so agents can read current project context through `raw.githubusercontent.com` links without GitHub authentication.
 
+## Agent Dispatcher Layer
+
+This repo now has a lightweight dispatcher layer so agents can quickly identify the right project and avoid scanning unrelated repositories.
+
+### Start here
+
+- Agent start guide: [START-HERE-FOR-AGENTS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md)
+- Project dispatcher index: [projects/index.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md)
+- Current focus: [CURRENT-FOCUS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md)
+- Project capsule standard: [systems/project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
+
+### Agent workflow
+
+1. Read `START-HERE-FOR-AGENTS.md`.
+2. Open `projects/index.md`.
+3. Identify the correct `project_key`.
+4. Read only the selected project capsule.
+5. If code work is needed, open the canonical repo from the project record.
+6. If production state matters, verify the listed live checks/endpoints.
+7. Keep unknowns as `needs verification`.
+8. Do not change secrets/env values.
+
+### Current routing examples
+
+- Finance, ledger, PayPal, Wise, Яндекс, balance, plan/fact → `ezohata-incoming-ledger`.
+- Codex Links, Slack bridge, dispatch, Codex Cloud, commands → `codex-links`.
+- Dashboards, thinking, daily changes, management reports → `brain-management`.
+- Reiki Yggdrasil, masters, profile, admin, Supabase → `reiki-yggdrasil`.
+- Artefacts / артефакты / marketplace → `artefacts`.
+- Project memory / agent dispatcher / project index → `ai-projects-brain`.
+
 ## Project Memory System
 
 This repo is the shared project memory layer for ChatGPT, Agent-Projector, and Codex. It identifies the canonical project, stores safe public context, and keeps unknowns explicit with `needs verification`.
 
 ### Where to inspect projects
 
+- Agent start guide: [START-HERE-FOR-AGENTS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md)
+- Project dispatcher index: [projects/index.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md)
+- Current focus: [CURRENT-FOCUS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md)
 - Human inventory: [projects.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md)
 - Machine inventory: [projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 - Generated index: [data/project-index.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/data/project-index.json)
 - Per-project memory: `projects/<slug>/PROJECT.md` and adjacent files
 - Agent rules: [systems/agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
 - Expanded standard: [systems/project-memory-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-standard.md)
+- Project capsule standard: [systems/project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 - Codex update protocol: [systems/codex-project-update-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-update-protocol.md)
 
 ### How Agent-Projector and ChatGPT use it
 
-1. Read `projects.md` to choose the project boundary.
-2. Use `projects.json` or `data/project-index.json` for structured lookup.
-3. Read the matching `projects/<slug>/PROJECT.md`.
-4. Read `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, `CODE_ACCESS.md`, `RISKS.md`, and `CODEX_BRIEF.md` when deeper project context is needed.
-5. Treat private repo access, live deploy state, credentials, and unverified mappings as `needs verification`.
+1. Read `START-HERE-FOR-AGENTS.md` first.
+2. Use `projects/index.md` to select a `project_key`.
+3. Read only the matching `projects/<slug>/PROJECT.md` and adjacent capsule files.
+4. Use `projects.json` or `data/project-index.json` only when structured lookup is needed.
+5. Read `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, `CODE_ACCESS.md`, `RISKS.md`, `CODEX_BRIEF.md`, `CHECKS.md`, and `DECISIONS.md` when deeper project context is needed.
+6. Treat private repo access, live deploy state, credentials, and unverified mappings as `needs verification`.
 
 ### How Codex updates memory
 
 After meaningful work, Codex should update the relevant project folder when facts change:
 
 - `PROJECT.md` for status, repo, hosting, env names, important files, or next actions.
+- `STATE.md` for current focus, active issues, next actions, and needs verification.
 - `SYSTEM_MAP.md` for flow or runtime changes.
 - `DATA_SCHEMA.md` for schema or data-contract changes.
+- `CHECKS.md` for verification commands, live endpoints, and manual checks.
+- `DECISIONS.md` for architecture choices that should not be re-litigated.
 - `DEBUG_LOG.md` for debugging evidence and fixes.
 - `RISKS.md` for new risks or guardrails.
+- `LOG.md` for short chronological updates.
 
 Run `node scripts/validate-projects-brain.mjs` before PR. If the index is stale, run `node scripts/sync-project-index.mjs`.
 
@@ -42,9 +82,10 @@ Run `node scripts/validate-projects-brain.mjs` before PR. If the index is stale,
 
 1. Add the project record to `projects.json`.
 2. Add the human summary to `projects.md`.
-3. Create `projects/<slug>/` from the templates in `templates/`.
-4. Mark unknown values as `needs verification`.
-5. Run the sync and validation scripts.
+3. Add a dispatcher row to `projects/index.md`.
+4. Create `projects/<slug>/` from the templates in `templates/` and the project capsule standard.
+5. Mark unknown values as `needs verification`.
+6. Run the sync and validation scripts.
 
 ### Secret safety
 
@@ -54,22 +95,32 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
 
 ## How To Use
 
-1. Start with the human-readable project database:
+1. Start with the agent dispatcher:
+   [START-HERE-FOR-AGENTS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md)
+2. Use the project dispatcher index:
+   [projects/index.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md)
+3. Check current priorities:
+   [CURRENT-FOCUS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md)
+4. Fall back to the human-readable project database:
    [raw projects.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md)
-2. Use the machine-readable version when an agent needs structured lookup:
+5. Use the machine-readable version when an agent needs structured lookup:
    [raw projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
-3. Apply the shared agent rules before changing production systems:
+6. Apply the shared agent rules before changing production systems:
    [raw agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
-4. Use the project memory schema and templates when creating or refreshing project state:
+7. Use the project memory schema and templates when creating or refreshing project state:
    [raw project-memory-schema.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md)
 
 ## Raw Files For ChatGPT
 
+- [START-HERE-FOR-AGENTS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md)
+- [projects/index.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md)
+- [CURRENT-FOCUS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md)
 - [projects.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md)
 - [projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 - [project-index.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/data/project-index.json)
 - [agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
 - [project-memory-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-standard.md)
+- [project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 - [codex-project-update-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-update-protocol.md)
 - [project-memory-schema.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md)
 - [project-state-template.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-state-template.md)
@@ -84,6 +135,9 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
 
 Raw links:
 
+- start guide: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md)
+- project index: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md)
+- current focus: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md)
 - projects.md: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md)
 - projects.json: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 - agent rules: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
@@ -92,26 +146,28 @@ Raw links:
 
 Instruction:
 
-"Если задача связана с проектами, сначала прочитай projects.md,
-при необходимости используй projects.json,
-затем прочитай agent-rules.md и project-memory-schema.md,
-извлеки релевантный проект и используй данные."
+"Если задача связана с проектами, сначала прочитай START-HERE-FOR-AGENTS.md, затем projects/index.md, определи project_key, прочитай только capsule выбранного проекта, затем agent-rules.md и нужные project docs. Не меняй secrets/env. Unknowns mark as needs verification."
 
 ## Memory Model
 
+- Dispatcher entry lives in `START-HERE-FOR-AGENTS.md`.
+- Fast project routing lives in `projects/index.md`.
+- Current top priorities live in `CURRENT-FOCUS.md`.
 - Human-readable central memory lives in `projects.md`.
 - Machine-readable central memory lives in `projects.json`.
 - Shared rules and templates live in `systems/`.
-- Project-specific human memory should live in the target repo, usually `STATE.md` and `LOG.md` or `docs/project-log.md`.
-- Machine consumers should use `projects.json.raw_files` to discover raw links.
+- Project-specific memory should live in `projects/<slug>/` and, when needed, in the target repo.
+- Machine consumers should use `projects.json.raw_files` or `projects/index.md` to discover raw links.
 
 ## How ChatGPT Should Read The Base
 
-1. Read `projects.md` for project boundaries, status, risks, and current notes.
-2. Read `projects.json` when structured lookup or exact raw links are needed.
-3. Read `systems/agent-rules.md` before giving operational advice.
-4. Read `systems/project-memory-schema.md` when updating project memory.
-5. Mark all unknown or stale facts as `needs verification`.
+1. Read `START-HERE-FOR-AGENTS.md`.
+2. Read `projects/index.md`.
+3. Identify the target `project_key`.
+4. Read only the matching project capsule.
+5. Read `systems/agent-rules.md` before operational advice.
+6. Read `systems/project-memory-schema.md` or `systems/project-capsule-standard.md` when updating project memory.
+7. Mark all unknown or stale facts as `needs verification`.
 
 ## How Codex Should Work With Projects
 
