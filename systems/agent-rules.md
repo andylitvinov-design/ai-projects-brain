@@ -24,6 +24,11 @@ ChatGPT and Codex.
   including code analysis, bug diagnosis, Codex prompts, minimal patch
   plans, project-memory templates, dashboard logic review, and
   token-efficiency diagnostics.
+- Do not ask for separate confirmation or notification before routine
+  safe git/file operations needed to complete an approved task:
+  creating a branch/worktree, editing/updating files, committing,
+  pushing a working branch, or opening/updating a pull request. Act
+  autonomously unless the action crosses a risky boundary listed above.
 
 ## Context First
 
