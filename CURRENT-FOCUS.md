@@ -9,7 +9,7 @@
 2. **codex-links** — Codex Cloud routing, Slack bridge, command dispatch, delivery timeline, report surfaces, codex-save diagnostics.
 3. **brain-management** — Codex efficiency dashboards, daily thinking/change reports, management report flow.
 4. **reiki-yggdrasil** — course/site platform, masters/profile/admin, Supabase verification.
-5. **artefacts** — artefact marketplace/site, repo and deploy mapping needs verification.
+5. **artefacts** — artefact marketplace/site; repo/stack verified, live deploy mapping still needs verification.
 6. **ai-projects-brain** — project memory dispatcher, project index, agent rules, memory standard.
 
 ## Frozen / do not spend time unless explicitly requested
@@ -51,6 +51,7 @@
 ## Next improvements
 
 - Add or normalize missing `CHECKS.md` and `DECISIONS.md` in high-priority project capsules.
-- Verify repo/live mapping for `artefacts`, `psitrends`, `ezohata-save`, `ezohata-dashboard`, and other `needs verification` projects.
+- Verify live deploy mapping for `artefacts`.
+- Verify repo/live mapping for `psitrends`, `ezohata-save`, `ezohata-dashboard`, and other `needs verification` projects.
 - Keep `projects/index.md` synchronized with `projects.md` and `projects.json` when project inventory changes.
 - Consider folders by project type later if the project list grows.
