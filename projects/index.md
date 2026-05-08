@@ -20,7 +20,7 @@
 | codex-links | Codex Links | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | infra | active | `projects/codex-links/PROJECT.md` | Cloudflare live checks, version triplet, command lifecycle |
 | brain-management | Brain Management | `andylitvinov-design/brain-management` | https://brain-management.pages.dev | infra | active | `projects/brain-management/PROJECT.md` | dashboard JSON paths, report publish/API checks |
 | reiki-yggdrasil | Reiki Yggdrasil | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | site/course | active | `projects/reiki-yggdrasil/PROJECT.md` | Vercel live, Supabase auth/profile flow |
-| artefacts | Артефакты | `andylitvinov-design/artefacts` | needs verification | site | active / needs verification | `projects/artefacts/PROJECT.md` | inspect repo-local README/STATE/AGENTS/deploy config |
+| artefacts | Артефакты | `andylitvinov-design/artefacts` | needs verification | site | active/cloud-ready; live needs verification | `projects/artefacts/PROJECT.md` | `npm run build`, `npm run lint`, `npm run smoke:release`; live deploy needs verification |
 | ai-projects-brain | AI Projects Brain | `andylitvinov-design/ai-projects-brain` | not applicable | infra | active | `README.md`, `START-HERE-FOR-AGENTS.md` | validation/sync scripts |
 | active-projects-ops | Active Projects Ops | `andylitvinov-design/active-projects-ops` | needs verification | infra | needs verification | `projects/active-projects-ops/PROJECT.md` | inspect boundaries and subprojects first |
 | psitrends | PsiTrends | `andylitvinov-design/psitrends-work` | https://psitrends.pages.dev | site | needs verification | `projects/psitrends/PROJECT.md` | verify repo-to-hosting mapping |
