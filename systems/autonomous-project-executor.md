@@ -37,7 +37,7 @@ Do not ask for confirmation for safe work such as:
 - test plan creation;
 - dashboard logic review;
 - token-efficiency diagnosis;
-- summarizing risks and next actions.
+- routine safe git/file operations required for an approved task: creating a branch or worktree, editing/updating files, committing, pushing a working branch, and opening/updating a pull request.
 
 If the target is somewhat uncertain but the next step is read-only or docs-only, proceed and mark uncertainty as `needs verification`.
 
