@@ -15,9 +15,11 @@
 Read project memory first:
 
 - PROJECT.md
+- AUTONOMY.md
 - SYSTEM_MAP.md
 - DATA_SCHEMA.md
 - RISKS.md
+- CHECKS.md if present
 - CODE_ACCESS.md if present
 - DATA_SAMPLES.md if present
 - DEBUG_LOG.md if present
@@ -40,6 +42,14 @@ Then inspect the canonical finance repo itself:
 - api/paypal-transactions.js
 - api/wise-transactions.js
 - scripts/release-guard.sh
+
+## Autonomy
+
+Default mode: Production Debugger Autopilot.
+
+Do not ask for confirmation before safe engineering actions: inspect repo/live/read-only endpoints, inspect recent PRs/commits, create branch, update files, add tests, run checks, commit/push a working branch, and open/update a PR.
+
+Stop before secrets/env changes, destructive data changes, production migrations/backfills with `--apply`, Google Sheets row rewrites/deletes, unclear production deploys, or changing finance semantics for balance/gross/net/fee/source without proven root cause and regression tests.
 
 ## Protected Data And UX
 
@@ -75,6 +85,7 @@ Never print or store env values.
 
 ## Rules
 
+- First prove the failing layer before patching.
 - Minimal safe fix.
 - Study code and data contracts first.
 - Do not rewrite everything.
@@ -90,7 +101,7 @@ Never print or store env values.
 For bug/data tasks:
 
 - Find concrete code first: file, function, data contract, endpoint, or formula path.
-- Check whether the issue is Google Sheets, provider import, ledger aggregation, UI rendering, deploy source, or env configuration related.
+- Check whether the issue is UI, API route, provider/import, normalization, ledger save, balance, analytics, Google Sheets, deploy source, or env configuration related.
 
 For finance/provider tasks:
 
@@ -108,9 +119,9 @@ For production checks:
 
 Expected checks from project memory:
 
-- npm test
-- npm run build
-- npm run release-guard
+- `node --test tests/*.test.*`
+- `bash scripts/release-guard.sh`
+- `npm run build`
 
 Also run narrower tests for touched modules when available.
 Report commands not run instead of implying they passed.
@@ -118,11 +129,13 @@ Report commands not run instead of implying they passed.
 ## Standard Response Required From Codex
 
 1. Studied files
-2. What was found
-3. What changed
-4. Changed files
-5. Verification commands and results
-6. Preview/live links, if checked
-7. Risks
-8. What remains `needs verification`
-9. Suggested STATE.md/LOG.md or project memory updates
+2. Failing layer / root cause
+3. What was found
+4. What changed
+5. Changed files
+6. Verification commands and results
+7. Preview/live links, if checked
+8. Risks
+9. Data migration/backfill status, separated from runtime fix
+10. What remains `needs verification`
+11. Suggested STATE.md/LOG.md or project memory updates
