@@ -16,7 +16,7 @@
 
 | project_key | Название | Repo | Prod URL | Type | Status | Main file | Checks |
 |---|---|---|---|---|---|---|---|
-| ezohata-incoming-ledger | Финансы / ledger | `andylitvinov-design/finance` | https://ezohata-incoming-ledger.vercel.app | app | active | `projects/ezohata-incoming-ledger/PROJECT.md` | `/api/status`, `/api/audit-snapshot`, tests/build/release guard |
+| ezohata-incoming-ledger | Финансы / ledger | `andylitvinov-design/ezohata-incoming-ledger` | https://ezohata-incoming-ledger.vercel.app | app | active | `projects/ezohata-incoming-ledger/PROJECT.md` | `/api/status`, `/api/debug-health`, `/api/debug-full`, `/api/audit-snapshot`, tests/build/release guard |
 | codex-links | Codex Links | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | infra | active | `projects/codex-links/PROJECT.md` | Cloudflare live checks, version triplet, command lifecycle |
 | brain-management | Brain Management | `andylitvinov-design/brain-management` | https://brain-management.pages.dev | infra | active | `projects/brain-management/PROJECT.md` | dashboard JSON paths, report publish/API checks |
 | reiki-yggdrasil | Reiki Yggdrasil | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | site/course | active | `projects/reiki-yggdrasil/PROJECT.md` | Vercel live, Supabase auth/profile flow |
