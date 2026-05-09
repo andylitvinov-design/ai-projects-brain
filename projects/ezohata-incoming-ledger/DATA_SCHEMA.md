@@ -1,61 +1,138 @@
-# Data Schema - ezohata-incoming-ledger
+# Data Schema — ezohata-incoming-ledger
 
-## 1. Main Data Entities
+## Current contract status
 
-- ledger row
-- provider transaction
-- fee record
-- payout/payment record
-- dashboard aggregate
-- exchange-rate-derived amount
-- needs verification
+Current production is legacy manual finance tabs. A ledger-v2 `amount_net` contract is not proven in production.
 
-## 2. Canonical Fields
+Treat `amount_net` as `needs verification` unless a concrete v2 ledger source is found and reconciled.
 
-| field      | meaning                              | source                        | required           | notes                                                            |
-| ---------- | ------------------------------------ | ----------------------------- | ------------------ | ---------------------------------------------------------------- |
-| gross      | original gross payment amount        | ledger/provider import        | needs verification | exact current field name needs verification                      |
-| fee        | provider or processing fee           | ledger/provider import        | needs verification | provider-like rails require verification when fee/net is missing |
-| net        | amount after fee                     | ledger/provider import        | needs verification | may equal gross only for direct/no-fee payments when verified    |
-| amount_usd | normalized USD amount                | ledger or derived calculation | needs verification | exchange handling needs verification                             |
-| exchange   | exchange rate or conversion metadata | ledger/config/provider        | needs verification | exact contract needs verification                                |
+## Core source areas
 
-## 3. Data Contracts
+```text
+fact
+Расходы
+Переводы
+Остатки
+Комиссии
+public source CSV
+provider imports
+browser debug state
+```
 
-- Ledger is the source of truth for visible finance
-  analytics unless a newer verified source replaces it.
-- gross, fee, and net relationships must not be guessed for
-  provider-like rails.
-- Exact current schema and formulas need verification before
-  changing production behavior.
+## Legacy balance source
 
-## 4. Storage
+Likely source of truth:
 
-- Google Sheets: needs verification
-- JSON/config files: needs verification
-- Provider APIs: names listed in inventory; live access
-  needs verification
+```text
+Остатки
+```
 
-## 5. Derived Data
+Headers:
 
-- net may derive from gross minus fee when the row contract
-  confirms it.
-- amount_usd may derive from source amount and exchange when
-  the conversion contract confirms it.
-- Dashboard aggregates derive from ledger rows; exact
-  current path needs verification.
+```text
+дата, канал, сумма, валюта, курс, сумма_usd, комментарий
+```
 
-## 6. Validation Rules
+## Legacy transfer rows
 
-- Do not accept missing fee/net for provider-like rails
-  without verification.
-- Preserve sensitive rules around balances, expenses,
-  transfers, and payout math.
-- Exact required fields need verification.
+Headers:
 
-## 7. Migration Notes
+```text
+дата перевода, кто, сумма, валюта, канал куда, курс, сумма в долларах
+```
 
-- Do not use legacy reconcile-v2 as production source.
-- Keep sheet-config.json, release version, and live deploy
-  source aligned.
-- Exact schema migration steps need verification.
+## Legacy expense rows
+
+Rows are stored by date/category and channel columns.
+
+Known categories include:
+
+```text
+now
+serviceIncome
+business
+flat
+food
+fun
+study
+travel
+exchange
+```
+
+## Legacy money rows / analytics rows
+
+Common fields:
+
+```text
+channel
+now
+nowUsd
+serviceIncome
+business
+flat / house
+food
+fun
+study
+travel / travelFun
+total
+exchange
+totalUsd
+```
+
+## Provider entry fields
+
+Provider import rows should preserve:
+
+```text
+id
+date
+channel
+direction
+localAmount
+currency
+usdAmount
+suggestedCategory
+organization
+confidence
+source
+sourceTransactionId
+feeAmount
+feeCurrency
+```
+
+Provider direction/sign semantics must not be changed without proof.
+
+## Money invariants
+
+```text
+paidTotalDisplay = abs(paidTotalSigned)
+orders70Percent = ordersTotal * 0.7
+payRemainingSigned = orders70Percent - paidTotalDisplay
+payRemainingDisplay = abs(payRemainingSigned)
+```
+
+`Сумма оплачена` is displayed positive even if the source/internal value is signed.
+
+## Debug snapshot contracts
+
+`/api/audit-snapshot` exposes a `summary` section with safe values or `needs_verification`.
+
+`/api/debug-analytics` may use public source CSV for period row splits but must not fake money totals.
+
+`/api/debug-balance-reconciliation` identifies likely source `Остатки`, but full private sheet reconciliation needs browser state or a safe credential path.
+
+## Provider error contract
+
+Provider non-JSON responses must become structured JSON or clear route errors with short redacted excerpts.
+
+Do not expose:
+
+```text
+raw HTML
+raw SyntaxError
+Bearer tokens
+client secrets
+refresh tokens
+cookies
+full provider pages
+```
