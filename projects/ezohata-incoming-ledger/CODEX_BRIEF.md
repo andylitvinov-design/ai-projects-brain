@@ -1,128 +1,169 @@
-# Codex Brief - ezohata-incoming-ledger
+# Codex Brief — ezohata-incoming-ledger
 
-## Project Identity
+## Project identity
 
-- repo: https://github.com/andylitvinov-design/finance
-- live URL: https://ezohata-incoming-ledger.vercel.app
-- hosting: Vercel project `ezohata-incoming-ledger`
-- target branch: needs verification
-- production source: `andylitvinov-design/finance`
-- deprecated/old source risk: old `andylitvinov-design/ezohata-incoming-ledger` and legacy `reconcile-v2/` must not be used as production source unless explicitly verified
-- purpose: Web app for EzoHata incoming payments, expenses, fact data, balances, provider imports, and channel analytics
+- Repo: `andylitvinov-design/ezohata-incoming-ledger`
+- Production URL: `https://ezohata-incoming-ledger.vercel.app`
+- Hosting: Vercel
+- Production source: repo root on `main`
+- Roadmap issue: `https://github.com/andylitvinov-design/ezohata-incoming-ledger/issues/49`
 
-## Before Starting
+Do not use stale repo mappings, old branches, or legacy folders as production source unless deploy/source is proven first.
 
-Read project memory first:
+## Core rule
 
-- PROJECT.md
-- SYSTEM_MAP.md
-- DATA_SCHEMA.md
-- RISKS.md
-- CODE_ACCESS.md if present
-- DATA_SAMPLES.md if present
-- DEBUG_LOG.md if present
-- this CODEX_BRIEF.md
+First prove the failing layer before patching.
 
-Then inspect the canonical finance repo itself:
+Layer chain:
 
-- AGENTS.md if present
-- README.md
-- STATE.md or project-state.md if present
-- LOG.md if present
-- package.json
-- Vercel/deploy config
-- index.html
-- config.js
-- finance.js
-- google-auth.js
-- google-sheets.js
-- sheet-config.json
-- api/paypal-transactions.js
-- api/wise-transactions.js
-- scripts/release-guard.sh
+```text
+UI → API route → provider/import → normalization → ledger save → balance → analytics
+```
 
-## Protected Data And UX
+## Start every debug task with source-of-truth checks
 
-Do not break:
+Use these first:
 
-- Google Sheets OAuth/read flows
-- provider import routes
-- manual finance formulas
-- ledger data contract
-- balances/channel analytics
-- payout/transfer/exchange semantics
-- Vercel production deploy source
-- `/api/status` and audit/snapshot style endpoints if present
+```bash
+curl -i https://ezohata-incoming-ledger.vercel.app/api/status
+curl -i https://ezohata-incoming-ledger.vercel.app/api/debug-health
+curl -i 'https://ezohata-incoming-ledger.vercel.app/api/debug-full?from=YYYY-MM-DD&to=YYYY-MM-DD'
+```
 
-## Env Names Only
+Then, if needed:
 
-Known env names include:
+```bash
+curl -i 'https://ezohata-incoming-ledger.vercel.app/api/audit-snapshot?from=YYYY-MM-DD&to=YYYY-MM-DD'
+curl -i 'https://ezohata-incoming-ledger.vercel.app/api/debug-analytics?from=YYYY-MM-DD&to=YYYY-MM-DD'
+curl -i 'https://ezohata-incoming-ledger.vercel.app/api/debug-balance-reconciliation?from=YYYY-MM-DD&to=YYYY-MM-DD'
+```
 
-- EZOHATA_V2_APPS_SCRIPT_URL
-- EZOHATA_LEGACY_MANUAL_FINANCE_URL
-- PAYPAL_CLIENT_ID
-- PAYPAL_CLIENT_SECRET
-- PAYPAL_ENVIRONMENT
-- PAYPAL_MCP_CLIENT_ID
-- PAYPAL_MCP_REFRESH_TOKEN
-- WISE_API_TOKEN
-- WISE_PROFILE_ID
-- WISE_API_BASE
-- OPENAI_API_KEY
-- OPENAI_EXPENSE_MODEL
+For each live/API check capture:
 
-Never print or store env values.
+```text
+URL
+method
+status
+content-type
+first 300 chars of body
+JSON parse result
+commit/source metadata
+```
 
-## Rules
+## Current data model
 
-- Minimal safe fix.
-- Study code and data contracts first.
-- Do not rewrite everything.
-- Do not use legacy `reconcile-v2/` as production source.
-- Treat old repos as reference only unless explicitly asked.
-- Use branch -> PR -> merge where possible.
-- Mark unknowns as `needs verification`.
-- Distinguish code path exists, env names documented, credentials configured, and live sync verified.
-- Do not claim provider sync or production behavior is fixed unless live checks were run.
+Current production model is legacy manual finance tabs. Do not assume a ledger-v2 `amount_net` contract exists in production.
 
-## Task-Type Checks
+Known legacy tabs/sources:
 
-For bug/data tasks:
+```text
+fact
+Расходы
+Переводы
+Остатки
+Комиссии
+public source CSV
+provider imports
+browser debug state
+```
 
-- Find concrete code first: file, function, data contract, endpoint, or formula path.
-- Check whether the issue is Google Sheets, provider import, ledger aggregation, UI rendering, deploy source, or env configuration related.
+Likely balance source:
 
-For finance/provider tasks:
+```text
+Остатки
+```
 
-- Preserve gross/net/fee semantics where present.
-- Preserve transfer/payout/exchange rules.
-- Keep manual ledger source-of-truth rules intact.
-- Avoid changing provider APIs without tests or explicit evidence.
+Legacy balance headers:
 
-For production checks:
+```text
+дата, канал, сумма, валюта, курс, сумма_usd, комментарий
+```
 
-- Verify canonical repo and production alias before claiming live behavior.
-- Use `/api/status`, `/api/audit-snapshot`, commit/deploy metadata, or documented health checks when available.
+## Money invariants
 
-## Verification Commands
+```text
+paidTotalDisplay = abs(paidTotalSigned)
+orders70Percent = ordersTotal * 0.7
+payRemainingSigned = orders70Percent - paidTotalDisplay
+payRemainingDisplay = abs(payRemainingSigned)
+```
 
-Expected checks from project memory:
+`Сумма оплачена` should display positive. Do not change the `Оплатить` formula without proving the calculation layer is wrong.
 
-- npm test
-- npm run build
-- npm run release-guard
+## UI debug mode
 
-Also run narrower tests for touched modules when available.
-Report commands not run instead of implying they passed.
+Normal URL: no debug controls.
 
-## Standard Response Required From Codex
+Debug tools are available only with:
 
-1. Studied files
-2. What was found
-3. What changed
-4. Changed files
-5. Verification commands and results
-6. Preview/live links, if checked
-7. Risks
-8. What remains `needs verification`
-9. Suggested STATE.md/LOG.md or project memory updates
+```text
+?debug=1
+```
+
+Use full debug copy in debug mode when a bug depends on browser state or visible UI cards.
+
+## Provider rules
+
+Provider non-JSON responses must become structured/clear JSON errors with short redacted excerpts. Do not expose raw HTML, raw SyntaxError, tokens, secrets, cookies, or full provider pages.
+
+Known state:
+
+- PayPal: text/non-JSON handling and redaction present.
+- Binance: text/non-JSON handling and redaction present.
+- Wise: text/non-JSON handling and redaction present.
+- TD Bank: route mapping needs verification.
+
+## Files to inspect first
+
+```text
+AGENTS.md
+api/status.js
+api/debug-health.js
+api/debug-full.js
+api/audit-snapshot.js
+api/debug-analytics.js
+api/debug-balance-reconciliation.js
+api/paypal-transactions.js
+api/wise-transactions.js
+api/binance-transactions.js
+index.html
+finance.js
+google-sheets.js
+balance-debug-helper.js
+full-debug-helper.js
+paid-total-display-sign-fix.js
+```
+
+## Constraints
+
+- Do not change secrets/env values.
+- Do not rewrite architecture.
+- Do not change finance semantics unless root cause is proven.
+- Do not change balance logic while working on observability.
+- Prefer max 3 key files per PR unless justified.
+- Add regression tests near the changed layer.
+
+## Required checks
+
+```bash
+node --test tests/*.test.*
+bash scripts/release-guard.sh
+npm run build # if package.json defines it
+```
+
+If a check cannot be run, report it as not run. Do not imply it passed.
+
+## Standard Codex output
+
+```text
+failing layer
+confidence
+evidence for
+evidence against
+changed files
+checks run
+risks
+live verification commands/results
+remaining needs verification
+next recommended PR
+```
