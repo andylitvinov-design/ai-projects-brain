@@ -13,6 +13,7 @@ This repo now has a lightweight dispatcher layer so agents can quickly identify 
 - Agent start guide: [START-HERE-FOR-AGENTS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md)
 - Project dispatcher index: [projects/index.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md)
 - Current focus: [CURRENT-FOCUS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md)
+- Production debug protocol: [systems/production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
 - Project capsule standard: [systems/project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 
 ### Agent workflow
@@ -21,10 +22,11 @@ This repo now has a lightweight dispatcher layer so agents can quickly identify 
 2. Open `projects/index.md`.
 3. Identify the correct `project_key`.
 4. Read only the selected project capsule.
-5. If code work is needed, open the canonical repo from the project record.
-6. If production state matters, verify the listed live checks/endpoints.
-7. Keep unknowns as `needs verification`.
-8. Do not change secrets/env values.
+5. If production/live state matters, read `systems/production-debug-protocol.md` and the selected project `CHECKS.md`, `RISKS.md`, and `DEBUG_LOG.md` before patching.
+6. If code work is needed, open the canonical repo from the project record.
+7. If production state matters, verify the listed live checks/endpoints.
+8. Keep unknowns as `needs verification`.
+9. Do not change secrets/env values.
 
 ### Current routing examples
 
@@ -49,6 +51,7 @@ This repo is the shared project memory layer for ChatGPT, Agent-Projector, and C
 - Generated index: [data/project-index.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/data/project-index.json)
 - Per-project memory: `projects/<slug>/PROJECT.md` and adjacent files
 - Agent rules: [systems/agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
+- Production debug protocol: [systems/production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
 - Expanded standard: [systems/project-memory-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-standard.md)
 - Project capsule standard: [systems/project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 - Codex update protocol: [systems/codex-project-update-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-update-protocol.md)
@@ -60,7 +63,8 @@ This repo is the shared project memory layer for ChatGPT, Agent-Projector, and C
 3. Read only the matching `projects/<slug>/PROJECT.md` and adjacent capsule files.
 4. Use `projects.json` or `data/project-index.json` only when structured lookup is needed.
 5. Read `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, `CODE_ACCESS.md`, `RISKS.md`, `CODEX_BRIEF.md`, `CHECKS.md`, and `DECISIONS.md` when deeper project context is needed.
-6. Treat private repo access, live deploy state, credentials, and unverified mappings as `needs verification`.
+6. For production bugs, read `systems/production-debug-protocol.md` before patching and prove production source of truth first.
+7. Treat private repo access, live deploy state, credentials, and unverified mappings as `needs verification`.
 
 ### How Codex updates memory
 
@@ -107,7 +111,9 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
    [raw projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 6. Apply the shared agent rules before changing production systems:
    [raw agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
-7. Use the project memory schema and templates when creating or refreshing project state:
+7. For production/live bugs, apply the production debug protocol before patching:
+   [raw production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
+8. Use the project memory schema and templates when creating or refreshing project state:
    [raw project-memory-schema.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md)
 
 ## Raw Files For ChatGPT
@@ -119,6 +125,7 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
 - [projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 - [project-index.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/data/project-index.json)
 - [agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
+- [production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
 - [project-memory-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-standard.md)
 - [project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 - [codex-project-update-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-update-protocol.md)
@@ -135,18 +142,19 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
 
 Raw links:
 
-- start guide: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md)
-- project index: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md)
-- current focus: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md)
-- projects.md: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md)
-- projects.json: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
-- agent rules: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
-- memory schema: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md)
-- Codex workflow: [https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-workflow.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-workflow.md)
+- start guide: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/START-HERE-FOR-AGENTS.md
+- project index: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/index.md
+- current focus: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md
+- projects.md: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md
+- projects.json: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json
+- agent rules: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md
+- production debug protocol: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md
+- memory schema: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md
+- Codex workflow: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-workflow.md
 
 Instruction:
 
-"Если задача связана с проектами, сначала прочитай START-HERE-FOR-AGENTS.md, затем projects/index.md, определи project_key, прочитай только capsule выбранного проекта, затем agent-rules.md и нужные project docs. Не меняй secrets/env. Unknowns mark as needs verification."
+"Если задача связана с проектами, сначала прочитай START-HERE-FOR-AGENTS.md, затем projects/index.md, определи project_key, прочитай только capsule выбранного проекта, затем agent-rules.md и нужные project docs. Для production bugs обязательно прочитай production-debug-protocol.md и докажи live source of truth перед patch. Не меняй secrets/env. Unknowns mark as needs verification."
 
 ## Memory Model
 
@@ -166,18 +174,20 @@ Instruction:
 3. Identify the target `project_key`.
 4. Read only the matching project capsule.
 5. Read `systems/agent-rules.md` before operational advice.
-6. Read `systems/project-memory-schema.md` or `systems/project-capsule-standard.md` when updating project memory.
-7. Mark all unknown or stale facts as `needs verification`.
+6. For production bugs, read `systems/production-debug-protocol.md` and the project `CHECKS.md`, `RISKS.md`, `DEBUG_LOG.md`.
+7. Read `systems/project-memory-schema.md` or `systems/project-capsule-standard.md` when updating project memory.
+8. Mark all unknown or stale facts as `needs verification`.
 
 ## How Codex Should Work With Projects
 
 1. Read the matching project record in this repo.
-2. Read `systems/agent-rules.md` and `systems/codex-project-workflow.md`.
+2. Read `systems/agent-rules.md`, `systems/production-debug-protocol.md`, and `systems/codex-project-workflow.md`.
 3. Open the canonical repo from the project record.
 4. Read repo-local `AGENTS.md`, `README.md`, `STATE.md`, project log, and deploy docs when present.
-5. Check git status before editing.
-6. Run the narrowest meaningful verification.
-7. Report changed files, checks, risks, and next actions.
+5. Check production source of truth before patching live bugs.
+6. Check git status before editing.
+7. Run the narrowest meaningful verification.
+8. Report changed files, checks, risks, and next actions.
 
 ## Safety Rules
 
