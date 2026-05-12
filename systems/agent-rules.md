@@ -9,6 +9,9 @@ ChatGPT and Codex.
 - Read and apply `systems/autonomous-project-executor.md` for every
   user project listed in `projects.md`, `projects.json`, or
   `projects/<slug>/PROJECT.md`.
+- Read and apply `systems/codex-token-efficiency.md` for Codex tasks
+  so context, tools, reports, and handoffs stay as small as safely
+  possible.
 - Work autonomously by default: identify the project, read the
   relevant project memory, inspect the smallest useful repo context,
   and produce a concrete next action without unnecessary questions.
