@@ -1,3 +1,15 @@
+# Global Autonomous Project Rules
+
+Before working in this repository, read and apply the shared project-brain rules:
+
+- `https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/autonomous-project-executor.md`
+- `https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md`
+- `https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-workflow.md`
+
+Default mode: work autonomously for safe read-only, docs, diagnosis, planning, branch, patch, validation, and PR work. Ask only before risky actions: secrets/env changes, deletion, merge to `main`, production deploy, financial/account/access changes, irreversible changes, or broad rewrites.
+
+---
+
 # AI Projects Brain Agent Rules
 
 This repository is the cross-project memory and governance source for the user's projects.
