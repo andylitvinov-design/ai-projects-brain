@@ -3,6 +3,16 @@
 > Главный диспетчерский вход для ChatGPT/Codex/Agent-Projector.  
 > Цель: быстро определить проект, прочитать минимум релевантного контекста и не трогать лишние репозитории.
 
+## 0. Стандарт качества мышления
+
+Перед дебагом, созданием промптов, управлением Codex/ботами, PR review или production-работой агент должен применять общий стандарт качества:
+
+- Agent Thinking Quality Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-thinking-quality-standard.md
+- Bot Quality Standard Usage Guide: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/bot-quality-standard-usage.md
+- Production Debug Protocol: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md
+
+Короткое правило: **сначала доказать failing layer, затем делать минимальное безопасное действие.**
+
 ## 1. Как работать агенту
 
 1. Сначала читать этот файл.
