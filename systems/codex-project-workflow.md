@@ -2,6 +2,9 @@
 
 ## 0. Use autonomous project execution by default
 
+- Read and apply `systems/agent-thinking-quality-standard.md` before
+  debugging, prompt writing, production fixes, project memory updates,
+  dashboard/observability work, or Codex task management.
 - Read and apply `systems/autonomous-project-executor.md` before project work.
 - Read and apply `systems/codex-token-efficiency.md` to keep context,
   tools, reports, and handoffs small without weakening verification.
@@ -30,6 +33,7 @@ when the task needs it:
 - Read `projects.md`.
 - Read `projects.json` when the target project is listed or repo/live mapping matters.
 - Read `systems/agent-rules.md`.
+- Read `systems/agent-thinking-quality-standard.md` when quality, debugging, prompting, Codex management, or production safety matters.
 - Read `systems/autonomous-project-executor.md`.
 - Read `systems/codex-token-efficiency.md`.
 - Read `systems/project-memory-standard.md` when available and relevant.
@@ -72,12 +76,14 @@ Then read repo-local context in the target repository:
 - Preserve accepted UX and business logic.
 - Preserve user-facing routes, APIs, data contracts, raw links, deployment targets, and auth/data flows unless explicitly changed by the task.
 - For Codex prompts, include repo, goal, context to read first, exact files or areas, minimal safe fix, what not to change, checks/tests, risks, final report format, token-efficiency constraints, and `STATE.md`/`LOG.md` update check.
+- For debugging prompts, include: `First prove the failing layer before patching.`
 
 ## 5. Task-specific investigation
 
 For bug tasks:
 
 - Find concrete code first: file, component/function, endpoint, line, or pattern.
+- Prove the failing layer before patching.
 - Do not start with broad hypotheses before locating the relevant implementation.
 - Do not reread unchanged files without a reason.
 
