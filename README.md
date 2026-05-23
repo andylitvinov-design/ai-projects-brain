@@ -15,6 +15,7 @@ This repo now has a lightweight dispatcher layer so agents can quickly identify 
 - Current focus: [CURRENT-FOCUS.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/CURRENT-FOCUS.md)
 - Production debug protocol: [systems/production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
 - Project capsule standard: [systems/project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
+- Claude Code prompt standard: [systems/claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
 
 ### Agent workflow
 
@@ -22,11 +23,12 @@ This repo now has a lightweight dispatcher layer so agents can quickly identify 
 2. Open `projects/index.md`.
 3. Identify the correct `project_key`.
 4. Read only the selected project capsule.
-5. If production/live state matters, read `systems/production-debug-protocol.md` and the selected project `CHECKS.md`, `RISKS.md`, and `DEBUG_LOG.md` before patching.
-6. If code work is needed, open the canonical repo from the project record.
-7. If production state matters, verify the listed live checks/endpoints.
-8. Keep unknowns as `needs verification`.
-9. Do not change secrets/env values.
+5. If the task is to create a prompt for Claude Code, read `systems/claude-code-prompt-standard.md` and the selected project's `CLAUDE_CODE_PROMPTS.md` if present.
+6. If production/live state matters, read `systems/production-debug-protocol.md` and the selected project `CHECKS.md`, `RISKS.md`, and `DEBUG_LOG.md` before patching.
+7. If code work is needed, open the canonical repo from the project record.
+8. If production state matters, verify the listed live checks/endpoints.
+9. Keep unknowns as `needs verification`.
+10. Do not change secrets/env values.
 
 ### Current routing examples
 
@@ -36,6 +38,15 @@ This repo now has a lightweight dispatcher layer so agents can quickly identify 
 - Reiki Yggdrasil, masters, profile, admin, Supabase → `reiki-yggdrasil`.
 - Artefacts / артефакты / marketplace → `artefacts`.
 - Project memory / agent dispatcher / project index → `ai-projects-brain`.
+
+## Claude Code Prompt Rule
+
+When Andrey asks ChatGPT to create a Claude Code prompt, ChatGPT must use this rule before writing the prompt:
+
+1. Read or apply `systems/claude-code-prompt-standard.md`.
+2. If the request is about a specific project, also read `projects/<project_key>/CLAUDE_CODE_PROMPTS.md` when present.
+3. Write prompts in low-token staged mode: `/clear`, one task, diagnose first, narrow scope, no broad repo scan, no full audit, no unrelated refactor, no long pasted history.
+4. Split large work into separate prompts: diagnose → inspect → minimal patch → test → verify.
 
 ## Project Memory System
 
@@ -52,6 +63,7 @@ This repo is the shared project memory layer for ChatGPT, Agent-Projector, and C
 - Per-project memory: `projects/<slug>/PROJECT.md` and adjacent files
 - Agent rules: [systems/agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
 - Production debug protocol: [systems/production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
+- Claude Code prompt standard: [systems/claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
 - Expanded standard: [systems/project-memory-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-standard.md)
 - Project capsule standard: [systems/project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 - Codex update protocol: [systems/codex-project-update-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-update-protocol.md)
@@ -61,10 +73,11 @@ This repo is the shared project memory layer for ChatGPT, Agent-Projector, and C
 1. Read `START-HERE-FOR-AGENTS.md` first.
 2. Use `projects/index.md` to select a `project_key`.
 3. Read only the matching `projects/<slug>/PROJECT.md` and adjacent capsule files.
-4. Use `projects.json` or `data/project-index.json` only when structured lookup is needed.
-5. Read `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, `CODE_ACCESS.md`, `RISKS.md`, `CODEX_BRIEF.md`, `CHECKS.md`, and `DECISIONS.md` when deeper project context is needed.
-6. For production bugs, read `systems/production-debug-protocol.md` before patching and prove production source of truth first.
-7. Treat private repo access, live deploy state, credentials, and unverified mappings as `needs verification`.
+4. If creating a Claude Code prompt, read `systems/claude-code-prompt-standard.md` and project-local `CLAUDE_CODE_PROMPTS.md` when present.
+5. Use `projects.json` or `data/project-index.json` only when structured lookup is needed.
+6. Read `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, `CODE_ACCESS.md`, `RISKS.md`, `CODEX_BRIEF.md`, `CHECKS.md`, and `DECISIONS.md` when deeper project context is needed.
+7. For production bugs, read `systems/production-debug-protocol.md` before patching and prove production source of truth first.
+8. Treat private repo access, live deploy state, credentials, and unverified mappings as `needs verification`.
 
 ### How Codex updates memory
 
@@ -111,9 +124,11 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
    [raw projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 6. Apply the shared agent rules before changing production systems:
    [raw agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
-7. For production/live bugs, apply the production debug protocol before patching:
+7. For Claude Code prompts, apply the prompt standard:
+   [raw claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
+8. For production/live bugs, apply the production debug protocol before patching:
    [raw production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
-8. Use the project memory schema and templates when creating or refreshing project state:
+9. Use the project memory schema and templates when creating or refreshing project state:
    [raw project-memory-schema.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md)
 
 ## Raw Files For ChatGPT
@@ -126,6 +141,7 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
 - [project-index.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/data/project-index.json)
 - [agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
 - [production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
+- [claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
 - [project-memory-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-standard.md)
 - [project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 - [codex-project-update-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-update-protocol.md)
@@ -148,13 +164,14 @@ Raw links:
 - projects.md: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.md
 - projects.json: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json
 - agent rules: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md
+- Claude Code prompt standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md
 - production debug protocol: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md
 - memory schema: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md
 - Codex workflow: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-workflow.md
 
 Instruction:
 
-"Если задача связана с проектами, сначала прочитай START-HERE-FOR-AGENTS.md, затем projects/index.md, определи project_key, прочитай только capsule выбранного проекта, затем agent-rules.md и нужные project docs. Для production bugs обязательно прочитай production-debug-protocol.md и докажи live source of truth перед patch. Не меняй secrets/env. Unknowns mark as needs verification."
+"Если задача связана с проектами, сначала прочитай START-HERE-FOR-AGENTS.md, затем projects/index.md, определи project_key, прочитай только capsule выбранного проекта, затем agent-rules.md и нужные project docs. Если пользователь просит создать промпт для Claude Code, обязательно прочитай claude-code-prompt-standard.md и проектный CLAUDE_CODE_PROMPTS.md, если он есть. Для production bugs обязательно прочитай production-debug-protocol.md и докажи live source of truth перед patch. Не меняй secrets/env. Unknowns mark as needs verification."
 
 ## Memory Model
 
@@ -164,6 +181,8 @@ Instruction:
 - Human-readable central memory lives in `projects.md`.
 - Machine-readable central memory lives in `projects.json`.
 - Shared rules and templates live in `systems/`.
+- Claude Code prompt standard lives in `systems/claude-code-prompt-standard.md`.
+- Project-specific Claude Code prompt rules live in `projects/<slug>/CLAUDE_CODE_PROMPTS.md` when present.
 - Project-specific memory should live in `projects/<slug>/` and, when needed, in the target repo.
 - Machine consumers should use `projects.json.raw_files` or `projects/index.md` to discover raw links.
 
@@ -174,9 +193,10 @@ Instruction:
 3. Identify the target `project_key`.
 4. Read only the matching project capsule.
 5. Read `systems/agent-rules.md` before operational advice.
-6. For production bugs, read `systems/production-debug-protocol.md` and the project `CHECKS.md`, `RISKS.md`, `DEBUG_LOG.md`.
-7. Read `systems/project-memory-schema.md` or `systems/project-capsule-standard.md` when updating project memory.
-8. Mark all unknown or stale facts as `needs verification`.
+6. If creating a Claude Code prompt, read `systems/claude-code-prompt-standard.md` and project-local `CLAUDE_CODE_PROMPTS.md` when present.
+7. For production bugs, read `systems/production-debug-protocol.md` and the project `CHECKS.md`, `RISKS.md`, `DEBUG_LOG.md`.
+8. Read `systems/project-memory-schema.md` or `systems/project-capsule-standard.md` when updating project memory.
+9. Mark all unknown or stale facts as `needs verification`.
 
 ## How Codex Should Work With Projects
 
