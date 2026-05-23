@@ -1,5 +1,5 @@
 {
-  "version": "1.8",
+  "version": "1.9",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -17,14 +17,41 @@
     "method_source": "andylitvinov-design/alchemy-method",
     "business_source": "andrey-system",
     "report_agent_instruction_source": "project-ready/report-agent-project-instruction.md",
-    "report_writing_instruction_source": "core/report-template.md",
+    "report_agent_runtime_rule_source": "project-ready/report-agent-project-instruction.md",
+    "report_agent_canonical_scope": "single canonical source for Report Agent structure, length, diagnosis, prescription, note, appendix, style, safety, and final checklist",
+    "report_writing_instruction_source": {
+      "canonical": "project-ready/report-agent-project-instruction.md",
+      "deprecated_pointer": "core/report-template.md",
+      "status": "deprecated pointer; canonical instruction wins"
+    },
     "report_diagnosis_matrix_source": "core/report-diagnosis-matrix.md",
-    "report_style_bible_source": "core/report-style-bible.md",
-    "report_client_readiness_style_gate_source": "core/report-client-readiness-style-gate.md",
+    "report_style_bible_source": {
+      "path": "core/report-style-bible.md",
+      "status": "secondary style reference only; canonical instruction wins"
+    },
+    "report_client_readiness_style_gate_source": {
+      "canonical": "project-ready/report-agent-project-instruction.md",
+      "deprecated_pointer": "core/report-client-readiness-style-gate.md",
+      "status": "deprecated pointer; canonical instruction wins"
+    },
     "report_quality_rubric_source": "core/report-quality-rubric.md",
     "report_standard_improvement_protocol_source": "core/report-standard-improvement-protocol.md",
     "report_common_mistakes_source": "core/report-common-mistakes.md",
-    "report_templates_source": "core/report-template.md",
+    "report_templates_source": {
+      "canonical": "project-ready/report-agent-project-instruction.md",
+      "deprecated_pointer": "core/report-template.md",
+      "status": "deprecated pointer; canonical instruction wins"
+    },
+    "report_prescription_template_source": {
+      "canonical": "project-ready/report-agent-project-instruction.md",
+      "deprecated_pointer": "core/report-prescription-template.md",
+      "status": "deprecated pointer; canonical instruction wins"
+    },
+    "report_source_of_truth_pointer": {
+      "canonical": "project-ready/report-agent-project-instruction.md",
+      "deprecated_pointer": "core/report-source-of-truth.json",
+      "status": "deprecated pointer; canonical instruction wins"
+    },
     "structural_report_examples_source": "examples/",
     "method_report_index_source": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
     "method_report_logic_source": "andylitvinov-design/alchemy-method/consultations/report-logic.md",
@@ -46,11 +73,25 @@
       "instruction": "agent/report-agent-instructions.md",
       "playbook": "agent/report-agent-playbook.md",
       "project_ready": "project-ready/report-agent-project-instruction.md",
+      "single_canonical_instruction": "project-ready/report-agent-project-instruction.md",
       "diagnosis_matrix": "core/report-diagnosis-matrix.md",
       "style_bible": "core/report-style-bible.md",
-      "client_readiness_style_gate": "core/report-client-readiness-style-gate.md",
-      "writing_instructions": "core/report-template.md",
-      "templates": "core/report-template.md",
+      "client_readiness_style_gate": {
+        "path": "core/report-client-readiness-style-gate.md",
+        "status": "deprecated pointer / compatibility file only; canonical instruction wins"
+      },
+      "writing_instructions": {
+        "path": "core/report-template.md",
+        "status": "deprecated pointer / compatibility file only; canonical instruction wins"
+      },
+      "templates": {
+        "path": "core/report-template.md",
+        "status": "deprecated pointer / compatibility file only; canonical instruction wins"
+      },
+      "prescription_template": {
+        "path": "core/report-prescription-template.md",
+        "status": "deprecated pointer / compatibility file only; canonical instruction wins"
+      },
       "structural_examples": "examples/",
       "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
       "method_report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
@@ -91,6 +132,19 @@
     "project-ready/business-builder-project-instruction.md",
     "project-ready/report-agent-project-instruction.md"
   ],
+  "deprecated_report_pointer_files": {
+    "canonical_source": "project-ready/report-agent-project-instruction.md",
+    "paths": [
+      "core/report-source-of-truth.json",
+      "core/report-client-readiness-style-gate.md",
+      "core/report-prescription-template.md",
+      "core/report-template.md"
+    ],
+    "conflict_rule": "If any pointer file conflicts with project-ready/report-agent-project-instruction.md, the project-ready instruction wins."
+  },
+  "guardrails": {
+    "report_html_template_reference_only": "andylitvinov-design/report is design/HTML-template reference only and must not be used as a Report Agent rules source."
+  },
   "core_files": [
     "core/master-doc.md",
     "core/product-structure.md",
@@ -115,7 +169,7 @@
     },
     "layer_1_agent_instruction": {
       "file": "project-ready/report-agent-project-instruction.md",
-      "purpose": "who the agent is, which report type to choose, and what to do in each case"
+      "purpose": "single canonical source for Report Agent structure, length, diagnosis, prescription, note, appendix, style, safety, and final checklist"
     },
     "layer_1_style_auditor": {
       "file": "agent/report-style-auditor-instructions.md",
@@ -123,15 +177,15 @@
     },
     "layer_2_report_writing_instructions": {
       "file": "core/report-template.md",
-      "purpose": "working report templates, including four-part full client report structure"
+      "purpose": "deprecated pointer; canonical instruction wins"
     },
     "layer_2_report_style_standards": {
       "file": "core/report-style-bible.md",
-      "purpose": "living Russian report style and anti-GPT voice rules"
+      "purpose": "secondary style reference only; canonical instruction wins"
     },
     "layer_2_client_readiness_gate": {
       "file": "core/report-client-readiness-style-gate.md",
-      "purpose": "mandatory client-readiness gate, compression rules, four-part structure, and limited-input full report handling"
+      "purpose": "deprecated pointer; canonical instruction wins"
     },
     "layer_2_report_quality_standards": {
       "file": "core/report-quality-rubric.md",
@@ -183,19 +237,30 @@
     "report_style_auditor": "andrey-system/agent/report-style-auditor-instructions.md",
     "report_client_readiness_gate": "andrey-system/core/report-client-readiness-style-gate.md"
   },
-  "reading_order": [
-    "source-registry.json",
-    "system-index.json",
-    "AGENT-START-HERE.md",
-    "core/master-doc.md",
-    "agent/agent-map.md",
-    "agent/{selected-agent}-instructions.md",
-    "agent/{selected-agent}-playbook.md",
-    "core/report-client-readiness-style-gate.md, if the task is about reports or report audit",
-    "core/{task-file}.md",
-    "alchemy-method/method-source-registry.json, if the task is about method or reports",
-    "alchemy-method/consultations/reports-index.md, if the task is about client reports",
-    "alchemy-method/consultations/examples/confidence-bach-report-example.md, if the output is a Russian client report",
-    "examples/{relevant-example}.md"
-  ]
+  "reading_order": {
+    "default": [
+      "source-registry.json",
+      "system-index.json",
+      "AGENT-START-HERE.md",
+      "core/master-doc.md",
+      "agent/agent-map.md",
+      "agent/{selected-agent}-instructions.md",
+      "agent/{selected-agent}-playbook.md",
+      "core/{task-file}.md",
+      "examples/{relevant-example}.md"
+    ],
+    "report_agent_runtime_or_client_report": [
+      "source-registry.json",
+      "system-index.json",
+      "project-ready/report-agent-project-instruction.md",
+      "andylitvinov-design/alchemy-method/method-source-registry.json",
+      "andylitvinov-design/alchemy-method/consultations/report-logic.md",
+      "andylitvinov-design/alchemy-method/method/dao-resource-scale.md, if needed",
+      "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md, if Russian client report",
+      "core/bach-remedy-short-markers.md, if Bach remedies are present",
+      "core/report-brevity-rules.md, if ultra-short/compression requested",
+      "core/report-diagnosis-matrix.md, if report type selection is ambiguous",
+      "core/report-style-bible.md, secondary style reference only"
+    ]
+  }
 }
