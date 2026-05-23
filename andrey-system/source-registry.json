@@ -1,5 +1,5 @@
 {
-  "version": "1.2",
+  "version": "1.3",
   "status": "canonical",
   "owner": "Andrey Li",
   "purpose": "Machine-readable source registry for Andrey Li agents. Agents must read this before free-text search when routing project, method, report, style-audit, or business tasks.",
@@ -17,6 +17,10 @@
         "path": "method-source-registry.json",
         "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/method-source-registry.json"
       }
+    },
+    "report_design": {
+      "repo": "andylitvinov-design/report",
+      "role": "design reference and dynamic report page template only; not a source of Report Agent rules"
     }
   },
   "agent_entrypoints": {
@@ -33,85 +37,136 @@
     "report_agent_project_instruction": {
       "repo": "andylitvinov-design/ai-projects-brain",
       "path": "andrey-system/project-ready/report-agent-project-instruction.md",
-      "role": "runtime instruction for ChatGPT Project Report Agent"
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
+      "role": "single canonical runtime instruction for ChatGPT Project Report Agent",
+      "priority": "first_required_source"
+    },
+    "live_ru_report_example": {
+      "repo": "andylitvinov-design/alchemy-method",
+      "path": "consultations/examples/confidence-bach-report-example.md",
+      "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/examples/confidence-bach-report-example.md",
+      "role": "primary live Russian client-facing report style reference"
+    },
+    "method_registry": {
+      "repo": "andylitvinov-design/alchemy-method",
+      "path": "method-source-registry.json",
+      "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/method-source-registry.json",
+      "role": "method source registry"
     },
     "report_diagnosis_matrix": {
       "repo": "andylitvinov-design/ai-projects-brain",
       "path": "andrey-system/core/report-diagnosis-matrix.md",
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-diagnosis-matrix.md",
       "role": "report type selection matrix"
     },
     "report_style_bible": {
       "repo": "andylitvinov-design/ai-projects-brain",
       "path": "andrey-system/core/report-style-bible.md",
-      "role": "live Russian report style bible"
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-style-bible.md",
+      "role": "live Russian report style bible and secondary style reference"
     },
-    "report_client_readiness_style_gate": {
+    "bach_remedy_short_markers": {
       "repo": "andylitvinov-design/ai-projects-brain",
-      "path": "andrey-system/core/report-client-readiness-style-gate.md",
-      "role": "mandatory client-readiness, compression, four-part full report structure, and limited-input full report rules"
+      "path": "andrey-system/core/bach-remedy-short-markers.md",
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/bach-remedy-short-markers.md",
+      "role": "short Bach remedy markers"
     },
-    "report_template": {
+    "report_brevity_rules": {
       "repo": "andylitvinov-design/ai-projects-brain",
-      "path": "andrey-system/core/report-template.md",
-      "role": "working report templates including four-part full client report structure"
+      "path": "andrey-system/core/report-brevity-rules.md",
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-brevity-rules.md",
+      "role": "ultra-short mode and compression rules"
     },
-    "live_ru_report_example": {
-      "repo": "andylitvinov-design/alchemy-method",
-      "path": "consultations/examples/confidence-bach-report-example.md",
-      "role": "primary live Russian client-facing report style reference"
+    "deprecated_pointer_files": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "paths": [
+        "andrey-system/core/report-source-of-truth.json",
+        "andrey-system/core/report-client-readiness-style-gate.md",
+        "andrey-system/core/report-prescription-template.md",
+        "andrey-system/core/report-template.md"
+      ],
+      "role": "compatibility pointers only; do not treat as independent Report Agent rules",
+      "conflict_rule": "If any pointer file conflicts with andrey-system/project-ready/report-agent-project-instruction.md, the project-ready instruction wins."
     }
   },
   "task_routing": {
     "client_report_ru": {
-      "priority": "exact_path_first",
+      "priority": "single_canonical_instruction_first",
       "required_sources": [
         {
-          "repo": "andylitvinov-design/alchemy-method",
-          "path": "method-source-registry.json",
-          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/method-source-registry.json"
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/project-ready/report-agent-project-instruction.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
+          "role": "single canonical source for Report Agent rules"
         },
         {
           "repo": "andylitvinov-design/alchemy-method",
-          "path": "consultations/reports-index.md",
-          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/reports-index.md"
+          "path": "method-source-registry.json",
+          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/method-source-registry.json",
+          "role": "method registry"
         },
         {
           "repo": "andylitvinov-design/alchemy-method",
           "path": "consultations/report-logic.md",
-          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/report-logic.md"
+          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/report-logic.md",
+          "role": "method logic for consultations and reports"
+        },
+        {
+          "repo": "andylitvinov-design/alchemy-method",
+          "path": "method/dao-resource-scale.md",
+          "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/method/dao-resource-scale.md",
+          "role": "Dao resource scale"
         },
         {
           "repo": "andylitvinov-design/alchemy-method",
           "path": "consultations/examples/confidence-bach-report-example.md",
           "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/examples/confidence-bach-report-example.md",
           "role": "primary live Russian client report style reference"
+        }
+      ],
+      "optional_sources": [
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/bach-remedy-short-markers.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/bach-remedy-short-markers.md",
+          "role": "use for Bach short markers when Bach remedies are present"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/report-brevity-rules.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-brevity-rules.md",
+          "role": "use for ultra-short or compression requests"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/core/report-diagnosis-matrix.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-diagnosis-matrix.md",
-          "role": "report type selection matrix"
+          "role": "use when report type selection is ambiguous"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/core/report-style-bible.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-style-bible.md",
-          "role": "live Russian report style bible"
-        },
+          "role": "secondary style reference; canonical instruction still wins"
+        }
+      ],
+      "deprecated_sources": [
         {
           "repo": "andylitvinov-design/ai-projects-brain",
-          "path": "andrey-system/core/report-client-readiness-style-gate.md",
-          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-client-readiness-style-gate.md",
-          "role": "mandatory client-ready gate and four-part full report structure"
-        },
-        {
-          "repo": "andylitvinov-design/ai-projects-brain",
-          "path": "andrey-system/core/report-template.md",
-          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-template.md",
-          "role": "report format templates and four-part full report structure"
+          "paths": [
+            "andrey-system/core/report-source-of-truth.json",
+            "andrey-system/core/report-client-readiness-style-gate.md",
+            "andrey-system/core/report-prescription-template.md",
+            "andrey-system/core/report-template.md"
+          ],
+          "role": "pointer files only; do not open as primary rules unless debugging legacy routing"
         }
       ],
       "forbidden_confusion": [
+        {
+          "repo": "andylitvinov-design/report",
+          "reason": "design / HTML template repository; not the canonical Report Agent rules source"
+        },
         {
           "path": "andrey-system/examples/sample-full-client-report.md",
           "reason": "English structural sample, not the primary live Russian report style"
@@ -119,28 +174,33 @@
       ]
     },
     "report_agent_runtime": {
+      "priority": "single_canonical_instruction_first",
       "required_sources": [
         {
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/project-ready/report-agent-project-instruction.md",
-          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md"
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
+          "role": "single canonical source for Report Agent runtime behavior"
+        }
+      ],
+      "optional_sources": [
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/agent/report-agent-playbook.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-agent-playbook.md",
+          "role": "secondary operational playbook"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/core/report-client-readiness-style-gate.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-client-readiness-style-gate.md",
-          "role": "client-ready gate and four-part report structure"
+          "role": "legacy pointer only; canonical instruction wins"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/core/report-template.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-template.md",
-          "role": "working report templates"
-        },
-        {
-          "repo": "andylitvinov-design/ai-projects-brain",
-          "path": "andrey-system/agent/report-agent-playbook.md",
-          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-agent-playbook.md"
+          "role": "legacy pointer only; canonical instruction wins"
         }
       ]
     },
@@ -156,12 +216,6 @@
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/agent/report-style-auditor-playbook.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-style-auditor-playbook.md"
-        },
-        {
-          "repo": "andylitvinov-design/ai-projects-brain",
-          "path": "andrey-system/core/report-client-readiness-style-gate.md",
-          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-client-readiness-style-gate.md",
-          "role": "client-ready gate and four-part report structure"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
@@ -228,7 +282,7 @@
       "repo": "andylitvinov-design/ai-projects-brain"
     },
     "where_is_report_client_readiness_gate": {
-      "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/report-client-readiness-style-gate.md",
+      "answer": "Deprecated pointer only. Use https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md as canonical source.",
       "path": "andrey-system/core/report-client-readiness-style-gate.md",
       "repo": "andylitvinov-design/ai-projects-brain"
     },
@@ -241,6 +295,7 @@
   "search_policy": {
     "known_sources": "Use exact paths from source-registry.json and method-source-registry.json first.",
     "unknown_sources": "Use search only after checking the registries and entrypoints.",
-    "if_search_fails": "Report that search failed and list which registries and exact paths were checked. Do not claim a file is missing if an exact-path registry has not been checked."
+    "if_search_fails": "Report that search failed and list which registries and exact paths were checked. Do not claim a file is missing if an exact-path registry has not been checked.",
+    "report_repo_guardrail": "Do not use andylitvinov-design/report as a source for Report Agent rules. It is only a design/template reference repository. For Report Agent rules, use andylitvinov-design/ai-projects-brain andrey-system/project-ready/report-agent-project-instruction.md."
   }
 }
