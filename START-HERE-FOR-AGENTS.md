@@ -10,8 +10,11 @@
 - Agent Thinking Quality Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-thinking-quality-standard.md
 - Bot Quality Standard Usage Guide: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/bot-quality-standard-usage.md
 - Production Debug Protocol: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md
+- Claude Code Prompt Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md
 
 Короткое правило: **сначала доказать failing layer, затем делать минимальное безопасное действие.**
+
+Если пользователь просит создать промпт для Claude Code, ChatGPT обязан сначала применить `systems/claude-code-prompt-standard.md`: low-token режим, одна задача, staged workflow, `/clear`, без broad repo scan, без полного аудита и без длинного стартового контекста.
 
 ## 1. Как работать агенту
 
@@ -25,6 +28,7 @@
    - `CODEX_BRIEF.md`
    - `LOG.md` если есть
    - `CHECKS.md` / `DECISIONS.md` если есть
+   - `CLAUDE_CODE_PROMPTS.md` если задача — создать или оптимизировать промпт для Claude Code
 5. Если задача про код — открыть canonical GitHub repo из `PROJECT.md` или `projects/index.md`.
 6. Если задача про production — проверить live URL, `/api/status`, `/api/audit-snapshot` или другие checks, если они указаны.
 7. Если данных нет — писать `needs verification`, не угадывать.
@@ -37,6 +41,7 @@
 - Не использовать legacy/deprecated repo как production source без явного подтверждения.
 - Не делать вывод о live-состоянии только по коду.
 - Не смешивать разные проекты в одну задачу.
+- Не создавать для Claude Code огромные промпты “проверь всё / исправь всё / задеплой всё” вместо staged workflow.
 
 ## 3. Что можно делать автономно
 
@@ -60,8 +65,10 @@
 3. `projects/<project_key>/STATE.md` — текущее состояние, если есть.
 4. `projects/<project_key>/SYSTEM_MAP.md` — архитектура.
 5. `projects/<project_key>/CHECKS.md` — как проверять.
-6. Repo-local `README.md`, `AGENTS.md`, `STATE.md`, tests, deploy docs.
-7. Live endpoints / deploy status, если задача про production.
+6. `systems/claude-code-prompt-standard.md` — обязательный общий стандарт, когда нужно написать промпт для Claude Code.
+7. `projects/<project_key>/CLAUDE_CODE_PROMPTS.md` — проектные правила для Claude Code промптов, если такой файл есть.
+8. Repo-local `README.md`, `AGENTS.md`, `STATE.md`, tests, deploy docs.
+9. Live endpoints / deploy status, если задача про production.
 
 `projects.md`, `projects.json`, `data/project-index.json` остаются дополнительными human/machine inventories.
 
@@ -104,3 +111,5 @@
 ## 8. Главная формула
 
 **Сначала project_key → потом только его capsule → потом repo/live checks → затем минимальное безопасное действие → затем memory update.**
+
+Для Claude Code промптов формула отдельная: **сначала `claude-code-prompt-standard.md` → затем проектный `CLAUDE_CODE_PROMPTS.md` → затем короткий staged prompt: diagnose → inspect → patch → test → verify.**
