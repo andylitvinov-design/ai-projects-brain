@@ -101,7 +101,22 @@ Only names are listed. Values must never be stored here.
 - Run test/build/release guard.
 - Treat old repo as reference only unless explicitly asked.
 
-## 13. Verification Status
+## 13. Claude Code Prompt Rules
+
+When Andrey asks ChatGPT to create a Claude Code prompt for this finance project, the assistant must read/apply:
+
+- Global standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md
+- Finance-specific standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/ezohata-incoming-ledger/CLAUDE_CODE_PROMPTS.md
+
+Default rule: prompts must be short, staged, and low-token: `/clear`, one task, diagnose first, no broad repo scan, no full audit, no unrelated refactor, no secrets/env changes, no destructive data repair/backfills, and no balance/gross/net/fee/source semantics changes without proven root cause and regression tests.
+
+Finance Claude Code prompts must classify bugs through:
+
+`deploy/source-of-truth -> UI -> API route -> provider/import -> normalization -> ledger save -> balance -> analytics`
+
+For production bugs, prove source of truth before patching formulas or UI logic.
+
+## 14. Verification Status
 
 - repo mapping: listed in inventory; current source still
   needs verification before production work
