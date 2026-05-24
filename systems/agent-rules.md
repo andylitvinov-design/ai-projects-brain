@@ -138,6 +138,22 @@ ChatGPT and Codex.
 - Mark unknowns, inferred facts, and stale facts as
   `needs verification`.
 
+## Link Formatting
+
+- All user-facing links must be clickable markdown links in
+  the form `[descriptive label](https://example.com)`.
+- Do not provide bare/raw URLs as the main link format in
+  ChatGPT answers, Codex prompts, reports, PR comments,
+  issue comments, project memory, or handoff notes.
+- For live site, preview, screenshot, GitHub, Vercel,
+  Lovable, documentation, and raw file references, always
+  provide a descriptive clickable label.
+- If a raw URL is needed for copy-paste, include it only as
+  an additional fenced code block after the clickable link.
+- Prefer live/preview/production links over internal editor
+  or workspace links. Mark internal-only links clearly when
+  no public/live link is available.
+
 ## When to ask questions
 
 - Ask a question only when the target project, production
