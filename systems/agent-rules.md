@@ -30,6 +30,26 @@ ChatGPT and Codex.
   pushing a working branch, or opening/updating a pull request. Act
   autonomously unless the action crosses a risky boundary listed above.
 
+## Task Clarification Mode / Grill Me
+
+- Read and apply `systems/task-clarification-mode.md` whenever the
+  user asks to clarify the task before implementation, including
+  phrases such as `grill me`, `режим grill me`, `прогриль меня`,
+  `прогриль задачу`, `проясни задачу`, or `сначала уточни задачу`.
+- In this mode, do not jump directly into coding, file edits, final
+  implementation prompts, or broad plans before clarifying the goal,
+  source of truth, scope, constraints, risks, verification, and
+  definition of done.
+- Ask only useful questions that reduce real uncertainty, group them
+  by decision block, and provide a recommended answer for each
+  question so the user can confirm or correct quickly.
+- If the answer can be found in the repo, project memory, docs, API,
+  logs, deployment metadata, screenshots, or existing files, inspect
+  those sources yourself instead of asking the user.
+- After clarification, output the final clarified task, assumptions and
+  `needs verification` items, implementation or prompt plan, likely
+  files/areas, verification checklist, and definition of done.
+
 ## Context First
 
 - Always read project context before proposing or making
