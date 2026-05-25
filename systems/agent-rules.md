@@ -4,6 +4,31 @@ Use these rules before working on any project listed in
 `projects.md` or `projects.json`. They are written for both
 ChatGPT and Codex.
 
+## Shared Agent Modes
+
+- Read and apply `systems/agent-modes.md` as the index of callable
+  modes for Andrey's projects.
+- Explicit user mode triggers override default autonomous behavior
+  unless safety, secrets, or risky-action rules require a pause.
+- If several modes are requested, combine them in this order:
+  task clarification, disciplined execution, implementation or
+  research, verification, then handoff/memory update.
+- Available callable modes:
+  - `systems/task-clarification-mode.md` for Grill Me / task
+    clarification.
+  - `systems/superpowers-mode.md` for disciplined context -> plan ->
+    minimal change -> verification execution.
+  - `systems/handoff-mode.md` for transferring state to the next
+    agent/session.
+  - `systems/playwright-verification-mode.md` for browser/UI checks.
+  - `systems/skill-creator-mode.md` for packaging repeatable workflows
+    into reusable skills.
+  - `systems/recent-research-mode.md` for Last 30 Days / fresh public
+    research.
+- Do not make Obsidian the default memory source. The canonical project
+  memory is GitHub `ai-projects-brain`. Use Obsidian only when the user
+  explicitly asks to save or sync notes into a vault.
+
 ## Autonomous Project Executor
 
 - Read and apply `systems/autonomous-project-executor.md` for every
