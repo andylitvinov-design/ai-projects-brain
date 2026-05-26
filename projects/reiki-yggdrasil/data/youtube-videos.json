@@ -1,0 +1,42 @@
+[
+  {
+    "videoId": "qipPFBpRNF8",
+    "title": "needs verification",
+    "url": "https://www.youtube.com/watch?v=qipPFBpRNF8",
+    "description": "needs verification",
+    "publishedAt": "needs verification",
+    "thumbnail": "needs verification",
+    "channelHandle": "@shamanic_academy",
+    "channelTitle": "Академия Древних Культур",
+    "playlistId": "needs verification",
+    "playlistTitle": "needs verification",
+    "detectedTopics": ["Дионис"],
+    "courseSlug": "misterii-dionisa",
+    "courseTitle": "Мистерии Диониса",
+    "language": "ru",
+    "visibility": "needs verification",
+    "manualReviewStatus": "needs verification",
+    "source": "manual-seed",
+    "lastCheckedAt": "2026-05-26"
+  },
+  {
+    "videoId": "sH-LjZwgNOI",
+    "title": "Мистерии Греции. Дионис 2",
+    "url": "https://www.youtube.com/watch?v=sH-LjZwgNOI",
+    "description": "needs verification",
+    "publishedAt": "needs verification",
+    "thumbnail": "needs verification",
+    "channelHandle": "@shamanic_academy",
+    "channelTitle": "Академия Древних Культур",
+    "playlistId": "needs verification",
+    "playlistTitle": "needs verification",
+    "detectedTopics": ["Дионис", "Мистерии Греции"],
+    "courseSlug": "misterii-dionisa",
+    "courseTitle": "Мистерии Диониса",
+    "language": "ru",
+    "visibility": "public",
+    "manualReviewStatus": "needs verification",
+    "source": "manual-seed",
+    "lastCheckedAt": "2026-05-26"
+  }
+]
