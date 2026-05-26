@@ -6,6 +6,9 @@ const ROOT = process.cwd();
 const OUT_FILE = path.join(ROOT, 'projects/reiki-yggdrasil/data/youtube-videos.json');
 const COURSES_FILE = path.join(ROOT, 'projects/reiki-yggdrasil/data/youtube-courses.json');
 const DEFAULT_HANDLE = '@shamanic_academy';
+const DEFAULT_CHANNEL_ID = 'UCjWq6NHZTQkUr3bC3WbXXcw';
+const DEFAULT_CHANNEL_TITLE = 'Академия Древних Культур';
+const DEFAULT_UPLOADS_PLAYLIST_ID = 'UUjWq6NHZTQkUr3bC3WbXXcw';
 const API_BASE = 'https://www.googleapis.com/youtube/v3';
 const DIONYSUS_KEYWORDS = ['дионис', 'dionysus', 'мистерии диониса', 'мистерии греции. дионис', 'вакх', 'bacchus', 'вакханалии', 'сатиры', 'менады', 'сатиры и менады', 'музыка диониса', 'любовь и друзья'];
 
@@ -25,15 +28,22 @@ function writeJson(filePath, data) {
 function parseArgs(argv = process.argv.slice(2)) {
   const args = {
     dryRun: false,
+    seedOnly: false,
     handle: process.env.YOUTUBE_CHANNEL_HANDLE || DEFAULT_HANDLE,
+    uploadsPlaylistId: process.env.YOUTUBE_UPLOADS_PLAYLIST_ID || '',
     outFile: OUT_FILE,
     vaultUrl: process.env.YOUTUBE_SECRET_VAULT_URL || ''
   };
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === '--dry-run') args.dryRun = true;
+    else if (argv[i] === '--seed-only') args.seedOnly = true;
     else if (argv[i] === '--handle') args.handle = argv[++i] || args.handle;
+    else if (argv[i] === '--uploads-playlist-id') args.uploadsPlaylistId = argv[++i] || args.uploadsPlaylistId;
     else if (argv[i] === '--out') args.outFile = argv[++i] || args.outFile;
     else if (argv[i] === '--vault-url') args.vaultUrl = argv[++i] || args.vaultUrl;
+  }
+  if (!args.uploadsPlaylistId && args.handle === DEFAULT_HANDLE) {
+    args.uploadsPlaylistId = DEFAULT_UPLOADS_PLAYLIST_ID;
   }
   return args;
 }
@@ -110,6 +120,19 @@ async function resolveChannel(handle, apiKey) {
   return channel;
 }
 
+function isQuotaExceeded(error) {
+  return error?.status === 403 && String(error.reason || error.message || '').includes('quotaExceeded');
+}
+
+function fallbackChannel(handle) {
+  const isDefaultHandle = handle === DEFAULT_HANDLE;
+  return {
+    id: isDefaultHandle ? DEFAULT_CHANNEL_ID : 'needs verification',
+    snippet: { title: isDefaultHandle ? DEFAULT_CHANNEL_TITLE : 'needs verification' },
+    fallbackSource: isDefaultHandle ? 'public-channel-id-derived-uploads-playlist' : 'explicit-uploads-playlist-id'
+  };
+}
+
 function normalizeVideo(item, channel, handle, playlistId) {
   const snippet = item.snippet || {};
   const videoId = snippet.resourceId?.videoId || item.contentDetails?.videoId || item.id || '';
@@ -139,8 +162,8 @@ function normalizeVideo(item, channel, handle, playlistId) {
   };
 }
 
-async function fetchUploads(channel, apiKey, handle) {
-  const playlistId = channel.contentDetails?.relatedPlaylists?.uploads;
+async function fetchUploads(channel, apiKey, handle, fallbackPlaylistId = '') {
+  const playlistId = channel.contentDetails?.relatedPlaylists?.uploads || fallbackPlaylistId;
   if (!playlistId) throw new Error('Uploads playlist not found.');
   const videos = [];
   let pageToken = '';
@@ -181,23 +204,60 @@ function updateCourses(videos) {
 async function main() {
   const args = parseArgs();
   const seed = readJson(args.outFile, []);
+  if (args.seedOnly) {
+    if (!args.dryRun) {
+      writeJson(args.outFile, seed);
+      updateCourses(seed);
+    }
+    console.log(JSON.stringify({
+      ok: true,
+      apiKeyStatus: 'not used',
+      apiFetchStatus: 'seedOnly',
+      mode: args.dryRun ? 'dry-run seed-only' : 'seed-only',
+      channelHandle: args.handle,
+      uploadsPlaylistId: args.uploadsPlaylistId || null,
+      totalVideos: seed.length,
+      dionysusVideos: seed.filter((video) => video.detectedTopics.includes('Дионис')).length,
+      message: 'Seed-only mode kept existing records; no YouTube API request was made.'
+    }, null, 2));
+    return;
+  }
+
   const apiKey = await getApiKey(args);
   if (!apiKey.value) {
     if (!args.dryRun) writeJson(args.outFile, seed);
     console.log(JSON.stringify({
       ok: true,
       apiKeyStatus: 'missing',
+      apiFetchStatus: 'notStarted',
       reason: apiKey.reason,
       mode: args.dryRun ? 'dry-run' : 'seed-only',
       channelHandle: args.handle,
-      videos: seed.length,
+      uploadsPlaylistId: args.uploadsPlaylistId || null,
+      totalVideos: seed.length,
       message: 'YOUTUBE_API_KEY missing; seed data kept.'
     }, null, 2));
     return;
   }
 
-  const channel = await resolveChannel(args.handle, apiKey.value);
-  const fetched = await fetchUploads(channel, apiKey.value, args.handle);
+  let channel;
+  let channelFetchStatus = 'ok';
+  try {
+    channel = await resolveChannel(args.handle, apiKey.value);
+  } catch (error) {
+    if (!isQuotaExceeded(error) || !args.uploadsPlaylistId) throw error;
+    channel = fallbackChannel(args.handle);
+    channelFetchStatus = 'quotaExceeded';
+  }
+
+  let fetched = [];
+  let apiFetchStatus = 'ok';
+  try {
+    fetched = await fetchUploads(channel, apiKey.value, args.handle, args.uploadsPlaylistId);
+  } catch (error) {
+    if (!isQuotaExceeded(error)) throw error;
+    apiFetchStatus = 'quotaExceeded';
+  }
   const merged = mergeVideos(seed, fetched);
   if (!args.dryRun) {
     writeJson(args.outFile, merged);
@@ -206,13 +266,20 @@ async function main() {
   console.log(JSON.stringify({
     ok: true,
     apiKeyStatus: 'configured',
+    apiFetchStatus,
+    channelFetchStatus,
     mode: args.dryRun ? 'dry-run' : 'write',
     channelId: channel.id,
     channelTitle: channel.snippet?.title || 'needs verification',
     channelHandle: args.handle,
+    uploadsPlaylistId: channel.contentDetails?.relatedPlaylists?.uploads || args.uploadsPlaylistId || null,
+    uploadsPlaylistSource: channel.contentDetails?.relatedPlaylists?.uploads ? 'channels.list' : channel.fallbackSource,
     fetchedVideos: fetched.length,
     totalVideos: merged.length,
-    dionysusVideos: merged.filter((video) => video.detectedTopics.includes('Дионис')).length
+    dionysusVideos: merged.filter((video) => video.detectedTopics.includes('Дионис')).length,
+    message: apiFetchStatus === 'quotaExceeded'
+      ? 'YouTube API quotaExceeded; seed records were preserved. Rerun after quota reset or with another API key/project.'
+      : 'YouTube inventory fetch completed.'
   }, null, 2));
 }
 

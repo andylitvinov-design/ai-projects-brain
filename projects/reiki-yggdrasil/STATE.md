@@ -2,7 +2,7 @@
 
 ## 2026-05-26 — YouTube inventory pipeline
 
-Status: blocked on YouTube Data API quota.
+Status: blocked on YouTube Data API quota; fallback uploads playlist support is implemented.
 
 A local YouTube inventory data layer was prepared in `ai-projects-brain` for `@shamanic_academy`.
 
@@ -43,9 +43,19 @@ Seeded Dionysus references:
 - fetched video count: 0 from the Data API in this run
 - Dionysus count after local classifier on seed data: 2
 
+## 2026-05-26 fallback update
+
+- script now accepts `YOUTUBE_UPLOADS_PLAYLIST_ID` and `--uploads-playlist-id`
+- default `@shamanic_academy` fallback uploads playlist: `UUjWq6NHZTQkUr3bC3WbXXcw`
+- fallback playlist ID is derived from public channel ID `UCjWq6NHZTQkUr3bC3WbXXcw`; it still needs YouTube Data API confirmation after quota reset
+- if `channels.list` returns `quotaExceeded`, the script tries `playlistItems.list` with the fallback playlist ID
+- if `playlistItems.list` also returns `quotaExceeded`, seed records are preserved and output reports `apiFetchStatus: "quotaExceeded"`
+- `--seed-only` keeps existing/manual seed records without making a YouTube API request
+- no Reiki Yggdrasil UI files were changed
+
 ## Needs verification
 
-- Re-run the fetch script after YouTube Data API quota is available.
+- Re-run the fetch script after YouTube Data API quota is available, or use another API key/project with available quota.
 - Confirm channel ID and full public upload count from `channels.list` and `playlistItems.list`.
 - Confirm all Dionysus-related videos from the fetched public upload set.
 - Confirm whether unlisted/private videos need manual export or OAuth.

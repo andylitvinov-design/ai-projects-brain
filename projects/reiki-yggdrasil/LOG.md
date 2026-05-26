@@ -48,6 +48,27 @@ Run results:
 - classifier run: 2 seeded Dionysus videos remain marked `needs verification`;
 - Reiki Yggdrasil UI was not changed.
 
+## 2026-05-26 — Add uploads playlist fallback for quota blocker
+
+Status: blocked on external API quota; infrastructure updated.
+
+Updated the YouTube fetch pipeline so `channels.list` quota failure no longer stops the script before trying the known uploads playlist.
+
+Added:
+
+- `YOUTUBE_UPLOADS_PLAYLIST_ID`
+- `--uploads-playlist-id`
+- default fallback uploads playlist for `@shamanic_academy`: `UUjWq6NHZTQkUr3bC3WbXXcw`
+- `--seed-only` mode for manual seed maintenance while API quota is unavailable
+- `apiFetchStatus: "quotaExceeded"` reporting when the Data API remains quota-blocked
+
+Notes:
+
+- uploads playlist ID is derived from public channel ID `UCjWq6NHZTQkUr3bC3WbXXcw` and still needs Data API confirmation after quota reset;
+- existing seed records remain the source of truth while quota is blocked;
+- next action is to rerun after quota reset or with another API key/project that has available quota;
+- Reiki Yggdrasil UI was not changed.
+
 ## 2026-05-05 — Add English course content memory
 
 Status: done.

@@ -1,6 +1,6 @@
 # Reiki Yggdrasil — YouTube Inventory
 
-Status: seed + local fetch pipeline prepared.
+Status: seed + local fetch pipeline prepared; full API fetch is blocked by YouTube Data API quota.
 
 ## Purpose
 
@@ -12,11 +12,12 @@ Collect public YouTube video metadata for the Reiki Yggdrasil learning UI and pr
 {
   "slug": "shamanic-academy",
   "handle": "@shamanic_academy",
-  "channelId": "needs verification",
+  "channelId": "UCjWq6NHZTQkUr3bC3WbXXcw",
   "title": "Академия Древних Культур",
+  "uploadsPlaylistId": "UUjWq6NHZTQkUr3bC3WbXXcw",
   "relatedProject": "reiki-yggdrasil",
   "enabled": true,
-  "notes": "Initial public channel for Reiki Yggdrasil video/course memory."
+  "notes": "Uploads playlist ID is derived from the public channel ID and still needs Data API confirmation."
 }
 ```
 
@@ -33,6 +34,7 @@ Confirmed local wallet:
 - provider: `YouTube Data API`
 - key name: `YOUTUBE_API_KEY`
 - default handle metadata: `YOUTUBE_CHANNEL_HANDLE=@shamanic_academy`
+- fallback uploads playlist metadata: `YOUTUBE_UPLOADS_PLAYLIST_ID=UUjWq6NHZTQkUr3bC3WbXXcw`
 - storage: macOS Keychain through local-only `127.0.0.1` Node server
 
 Never commit or print real key values. Do not add `VITE_YOUTUBE_API_KEY`.
@@ -54,6 +56,13 @@ With env:
 YOUTUBE_CHANNEL_HANDLE=@shamanic_academy node scripts/youtube/fetch-channel-videos.mjs
 ```
 
+With explicit fallback uploads playlist:
+
+```bash
+YOUTUBE_UPLOADS_PLAYLIST_ID=UUjWq6NHZTQkUr3bC3WbXXcw node scripts/youtube/fetch-channel-videos.mjs
+node scripts/youtube/fetch-channel-videos.mjs --uploads-playlist-id UUjWq6NHZTQkUr3bC3WbXXcw
+```
+
 With local vault URL:
 
 ```bash
@@ -66,12 +75,22 @@ Dry run:
 node scripts/youtube/fetch-channel-videos.mjs --dry-run
 ```
 
+Seed-only mode when API quota is fully unavailable:
+
+```bash
+node scripts/youtube/fetch-channel-videos.mjs --seed-only
+```
+
 ## YouTube API method
 
 1. `channels.list` with `forHandle` resolves `@shamanic_academy`.
 2. `contentDetails.relatedPlaylists.uploads` gives the uploads playlist.
 3. `playlistItems.list` fetches public uploaded videos with pagination.
 4. Records are normalized into the project memory JSON files.
+
+If `channels.list` returns HTTP 403 `quotaExceeded`, the script falls back to the known uploads playlist ID `UUjWq6NHZTQkUr3bC3WbXXcw` and tries `playlistItems.list`. This ID is derived from the public channel ID by replacing the leading `UC` with `UU`; it is useful as an operational fallback but still needs API confirmation once quota is available.
+
+If `playlistItems.list` also returns `quotaExceeded`, the script exits without failing the PR workflow, preserves seed records, and reports `apiFetchStatus: "quotaExceeded"`. Rerun after quota reset or with an alternative API key/project that has available YouTube Data API quota.
 
 ## Dionysus classification
 
