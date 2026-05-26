@@ -1,0 +1,22 @@
+[
+  {
+    "courseSlug": "misterii-dionisa",
+    "courseTitle": "Мистерии Диониса",
+    "project": "reiki-yggdrasil",
+    "channelSlugs": ["shamanic-academy"],
+    "topics": [
+      "Дионис",
+      "Dionysus",
+      "Вакх",
+      "Bacchus",
+      "вакханалии",
+      "сатиры",
+      "менады",
+      "Мистерии Греции"
+    ],
+    "videoIds": ["qipPFBpRNF8", "sH-LjZwgNOI"],
+    "status": "needs verification",
+    "lastCheckedAt": "2026-05-26",
+    "notes": "Seeded from user-provided links. Full YouTube Data API fetch needs local wallet/API-key execution."
+  }
+]
