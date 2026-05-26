@@ -54,23 +54,28 @@ function courseFor(text = '') {
 }
 
 async function getKeyFromVault(vaultUrl) {
-  if (!vaultUrl) return '';
+  if (!vaultUrl) return { value: '', reason: 'vault url not configured' };
   try {
     const response = await fetch(new URL('/api/secrets/read', vaultUrl), {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ project: 'YouTube Data API', names: ['YOUTUBE_API_KEY'] })
+      body: JSON.stringify({ project: 'Reiki Yggdrasil', names: ['YOUTUBE_API_KEY'] })
     });
-    if (!response.ok) return '';
+    if (!response.ok) return { value: '', reason: `vault http ${response.status}` };
     const json = await response.json();
-    return json?.secrets?.YOUTUBE_API_KEY?.value || '';
+    const entry = json?.secrets?.YOUTUBE_API_KEY;
+    if (!entry?.present || !entry.value) {
+      return { value: '', reason: entry?.error || 'secret not present' };
+    }
+    return { value: entry.value, reason: '' };
   } catch {
-    return '';
+    return { value: '', reason: 'vault read failed' };
   }
 }
 
 async function getApiKey(args) {
-  return process.env.YOUTUBE_API_KEY || await getKeyFromVault(args.vaultUrl);
+  if (process.env.YOUTUBE_API_KEY) return { value: process.env.YOUTUBE_API_KEY, reason: '' };
+  return getKeyFromVault(args.vaultUrl);
 }
 
 async function youtubeGet(resource, params, apiKey) {
@@ -82,7 +87,17 @@ async function youtubeGet(resource, params, apiKey) {
   const response = await fetch(url);
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`YouTube API ${resource} failed: ${response.status} ${body.slice(0, 300)}`);
+    let reason = body.slice(0, 300);
+    try {
+      const parsed = JSON.parse(body);
+      reason = parsed?.error?.errors?.[0]?.reason || parsed?.error?.message || reason;
+    } catch {
+      // Keep the short non-URL response excerpt above.
+    }
+    const error = new Error(`YouTube API ${resource} failed`);
+    error.status = response.status;
+    error.reason = reason;
+    throw error;
   }
   return response.json();
 }
@@ -167,11 +182,12 @@ async function main() {
   const args = parseArgs();
   const seed = readJson(args.outFile, []);
   const apiKey = await getApiKey(args);
-  if (!apiKey) {
+  if (!apiKey.value) {
     if (!args.dryRun) writeJson(args.outFile, seed);
     console.log(JSON.stringify({
       ok: true,
       apiKeyStatus: 'missing',
+      reason: apiKey.reason,
       mode: args.dryRun ? 'dry-run' : 'seed-only',
       channelHandle: args.handle,
       videos: seed.length,
@@ -180,8 +196,8 @@ async function main() {
     return;
   }
 
-  const channel = await resolveChannel(args.handle, apiKey);
-  const fetched = await fetchUploads(channel, apiKey, args.handle);
+  const channel = await resolveChannel(args.handle, apiKey.value);
+  const fetched = await fetchUploads(channel, apiKey.value, args.handle);
   const merged = mergeVideos(seed, fetched);
   if (!args.dryRun) {
     writeJson(args.outFile, merged);
@@ -200,4 +216,14 @@ async function main() {
   }, null, 2));
 }
 
-await main();
+try {
+  await main();
+} catch (error) {
+  console.log(JSON.stringify({
+    ok: false,
+    apiKeyStatus: 'configured',
+    reason: error.reason || error.message,
+    httpStatus: error.status || null
+  }, null, 2));
+  process.exitCode = 1;
+}

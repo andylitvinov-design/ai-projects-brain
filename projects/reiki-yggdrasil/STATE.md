@@ -2,7 +2,7 @@
 
 ## 2026-05-26 — YouTube inventory pipeline
 
-Status: in progress.
+Status: blocked on YouTube Data API quota.
 
 A local YouTube inventory data layer was prepared in `ai-projects-brain` for `@shamanic_academy`.
 
@@ -32,11 +32,22 @@ Seeded Dionysus references:
 - `qipPFBpRNF8`
 - `sH-LjZwgNOI`
 
+## 2026-05-26 fetch attempt
+
+- wallet status: configured; secret value was not printed or stored
+- requested channel handle: `@shamanic_academy`
+- public identity check: channel ID `UCjWq6NHZTQkUr3bC3WbXXcw`, title `Академия Древних Культур`
+- uploads playlist ID: `UUjWq6NHZTQkUr3bC3WbXXcw` (derived from public channel ID; Data API did not return `contentDetails` because quota failed first)
+- dry run result: YouTube Data API `channels.list` returned HTTP 403 `quotaExceeded`
+- write run result: same HTTP 403 `quotaExceeded`; JSON remains seeded data only
+- fetched video count: 0 from the Data API in this run
+- Dionysus count after local classifier on seed data: 2
+
 ## Needs verification
 
-- Run the fetch script locally with the saved wallet/API key.
-- Confirm channel ID and full video count.
-- Confirm all Dionysus-related videos.
+- Re-run the fetch script after YouTube Data API quota is available.
+- Confirm channel ID and full public upload count from `channels.list` and `playlistItems.list`.
+- Confirm all Dionysus-related videos from the fetched public upload set.
 - Confirm whether unlisted/private videos need manual export or OAuth.
 - Integrate reviewed JSON into the Reiki Yggdrasil UI only after data review.
 

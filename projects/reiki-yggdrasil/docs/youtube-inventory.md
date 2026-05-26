@@ -50,7 +50,8 @@ Never commit or print real key values. Do not add `VITE_YOUTUBE_API_KEY`.
 With env:
 
 ```bash
-YOUTUBE_API_KEY=... YOUTUBE_CHANNEL_HANDLE=@shamanic_academy node scripts/youtube/fetch-channel-videos.mjs
+# Export YOUTUBE_API_KEY from a secure shell first; do not paste the value into docs.
+YOUTUBE_CHANNEL_HANDLE=@shamanic_academy node scripts/youtube/fetch-channel-videos.mjs
 ```
 
 With local vault URL:

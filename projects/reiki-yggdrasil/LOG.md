@@ -34,6 +34,20 @@ Verification:
 - full Dionysus classification needs verification;
 - Reiki Yggdrasil UI was not changed.
 
+## 2026-05-26 — Verify wallet read path and hit YouTube quota blocker
+
+Status: blocked on external API quota.
+
+Updated the fetch script to read `YOUTUBE_API_KEY` from the local `codex-links` vault registry entry for `Reiki Yggdrasil` and to report missing/failed key reads without printing secret values.
+
+Run results:
+
+- wallet status: configured;
+- dry run: YouTube Data API returned HTTP 403 `quotaExceeded` at `channels.list`;
+- write run: same HTTP 403 `quotaExceeded`, so fetched video count stayed 0;
+- classifier run: 2 seeded Dionysus videos remain marked `needs verification`;
+- Reiki Yggdrasil UI was not changed.
+
 ## 2026-05-05 — Add English course content memory
 
 Status: done.

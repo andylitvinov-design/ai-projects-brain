@@ -20,12 +20,13 @@ The key is stored in macOS Keychain by the local wallet. Do not paste it into ch
 ## Run with env
 
 ```bash
-YOUTUBE_API_KEY=... YOUTUBE_CHANNEL_HANDLE=@shamanic_academy node scripts/youtube/fetch-channel-videos.mjs
+# Export YOUTUBE_API_KEY from a secure shell first; do not paste the value into docs.
+YOUTUBE_CHANNEL_HANDLE=@shamanic_academy node scripts/youtube/fetch-channel-videos.mjs
 ```
 
 ## Run with local vault
 
-If the local vault exposes `/api/secrets/read` for the `YouTube Data API` provider:
+If the local vault exposes `/api/secrets/read` for the `Reiki Yggdrasil` project secret:
 
 ```bash
 YOUTUBE_SECRET_VAULT_URL=http://127.0.0.1:8790 node scripts/youtube/fetch-channel-videos.mjs

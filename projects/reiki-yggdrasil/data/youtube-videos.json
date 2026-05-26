@@ -10,7 +10,9 @@
     "channelTitle": "Академия Древних Культур",
     "playlistId": "needs verification",
     "playlistTitle": "needs verification",
-    "detectedTopics": ["Дионис"],
+    "detectedTopics": [
+      "Дионис"
+    ],
     "courseSlug": "misterii-dionisa",
     "courseTitle": "Мистерии Диониса",
     "language": "ru",
@@ -30,7 +32,10 @@
     "channelTitle": "Академия Древних Культур",
     "playlistId": "needs verification",
     "playlistTitle": "needs verification",
-    "detectedTopics": ["Дионис", "Мистерии Греции"],
+    "detectedTopics": [
+      "Дионис",
+      "Мистерии Греции"
+    ],
     "courseSlug": "misterii-dionisa",
     "courseTitle": "Мистерии Диониса",
     "language": "ru",
