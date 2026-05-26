@@ -43,6 +43,8 @@ Then inspect the canonical finance repo itself:
 - api/wise-transactions.js
 - scripts/release-guard.sh
 
+If the task is to create, rewrite, or repair a Codex `/goal` prompt for this project, read and apply `systems/codex-goal-prompt-standard.md` before writing the goal.
+
 ## Autonomy
 
 Default mode: Production Debugger Autopilot.
@@ -95,6 +97,42 @@ Never print or store env values.
 - Mark unknowns as `needs verification`.
 - Distinguish code path exists, env names documented, credentials configured, and live sync verified.
 - Do not claim provider sync or production behavior is fixed unless live checks were run.
+
+## `/goal` Prompt Rules For Ezohata Debugger
+
+When this project generates a Codex `/goal`, the goal must be an execution contract, not a vague request or a copied chat history.
+
+Required shape:
+
+- one concrete outcome;
+- canonical repo `andylitvinov-design/finance` unless proven otherwise;
+- live URL/status or `needs verification`;
+- exact symptom/evidence when known;
+- required source-of-truth checks before patching;
+- failing-layer investigation list: provider/import, normalization, ledger save, aggregation, API route, UI render, deploy/alias, env/config;
+- boundaries: do not change secrets/env values, data contracts, auth, or finance semantics without proof;
+- definition of done: root cause, minimal patch, regression test/checks, live verification if production is affected;
+- final report: studied files/data, root cause, failing layer, changed files, tests, PR/commit/deploy status, live verification, risks, STATE/LOG update status.
+
+Bad `/goal` examples:
+
+- `fix balance`
+- `check everything and deploy`
+- `based on previous chats, you know what to do`
+- `audit all finance and repair all issues`
+
+Good `/goal` style:
+
+```text
+/goal
+Fix the May balance mismatch in `andylitvinov-design/finance` for `https://ezohata-incoming-ledger.vercel.app`.
+
+Before patching, verify `/api/status`, `/api/audit-snapshot`, and the relevant UI/API path. Prove whether the failing layer is provider/import, ledger normalization, aggregation, API, UI render, or deploy alias.
+
+Patch only the proven layer. Preserve amount_net/gross/fee, transfer, payout, exchange, and ledger contract semantics unless evidence proves that exact logic is wrong. Add a regression test, run project checks, and verify live if production changed.
+
+Final report: studied files/data, root cause, failing layer, changed files, checks, PR/commit/deploy status, live verification, remaining risks, STATE.md/LOG.md update status.
+```
 
 ## Task-Type Checks
 

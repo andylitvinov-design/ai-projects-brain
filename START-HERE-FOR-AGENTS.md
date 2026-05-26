@@ -11,10 +11,13 @@
 - Bot Quality Standard Usage Guide: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/bot-quality-standard-usage.md
 - Production Debug Protocol: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md
 - Claude Code Prompt Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md
+- Codex Goal Prompt Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-goal-prompt-standard.md
 
 Короткое правило: **сначала доказать failing layer, затем делать минимальное безопасное действие.**
 
 Если пользователь просит создать промпт для Claude Code, ChatGPT обязан сначала применить `systems/claude-code-prompt-standard.md`: low-token режим, одна задача, staged workflow, `/clear`, без broad repo scan, без полного аудита и без длинного стартового контекста.
+
+Если пользователь просит создать или исправить Codex `/goal`, Debugger goal, autonomous repair goal или production fix goal, ChatGPT/Agent-Projector обязан сначала применить `systems/codex-goal-prompt-standard.md`: `/goal` должен быть коротким execution contract, а не длинным отчётом, чатом или vague-задачей.
 
 ## 1. Как работать агенту
 
@@ -42,6 +45,7 @@
 - Не делать вывод о live-состоянии только по коду.
 - Не смешивать разные проекты в одну задачу.
 - Не создавать для Claude Code огромные промпты “проверь всё / исправь всё / задеплой всё” вместо staged workflow.
+- Не создавать для Codex `/goal` расплывчатые задачи “исправь всё / проверь всё / задеплой всё”; `/goal` должен иметь один результат, source of truth, boundaries и definition of done.
 
 ## 3. Что можно делать автономно
 
@@ -66,9 +70,10 @@
 4. `projects/<project_key>/SYSTEM_MAP.md` — архитектура.
 5. `projects/<project_key>/CHECKS.md` — как проверять.
 6. `systems/claude-code-prompt-standard.md` — обязательный общий стандарт, когда нужно написать промпт для Claude Code.
-7. `projects/<project_key>/CLAUDE_CODE_PROMPTS.md` — проектные правила для Claude Code промптов, если такой файл есть.
-8. Repo-local `README.md`, `AGENTS.md`, `STATE.md`, tests, deploy docs.
-9. Live endpoints / deploy status, если задача про production.
+7. `systems/codex-goal-prompt-standard.md` — обязательный общий стандарт, когда нужно написать или исправить Codex `/goal`.
+8. `projects/<project_key>/CLAUDE_CODE_PROMPTS.md` — проектные правила для Claude Code промптов, если такой файл есть.
+9. Repo-local `README.md`, `AGENTS.md`, `STATE.md`, tests, deploy docs.
+10. Live endpoints / deploy status, если задача про production.
 
 `projects.md`, `projects.json`, `data/project-index.json` остаются дополнительными human/machine inventories.
 
@@ -113,3 +118,5 @@
 **Сначала project_key → потом только его capsule → потом repo/live checks → затем минимальное безопасное действие → затем memory update.**
 
 Для Claude Code промптов формула отдельная: **сначала `claude-code-prompt-standard.md` → затем проектный `CLAUDE_CODE_PROMPTS.md` → затем короткий staged prompt: diagnose → inspect → patch → test → verify.**
+
+Для Codex `/goal` формула отдельная: **сначала `codex-goal-prompt-standard.md` → затем проектный capsule/CODEX_BRIEF → затем короткий execution contract: one outcome → source of truth → investigation scope → boundaries → definition of done → checks → final report.**
