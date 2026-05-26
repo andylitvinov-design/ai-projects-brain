@@ -1,5 +1,39 @@
 # Reiki Yggdrasil — LOG
 
+## 2026-05-26 — Add YouTube inventory seed and local fetch pipeline
+
+Status: in progress.
+
+Added a project-memory YouTube inventory layer for Reiki Yggdrasil, focused first on `@shamanic_academy` and Dionysus-related videos.
+
+Added:
+
+- `projects/reiki-yggdrasil/data/youtube-videos.schema.json`
+- `projects/reiki-yggdrasil/data/youtube-videos.json`
+- `projects/reiki-yggdrasil/data/youtube-courses.json`
+- `projects/reiki-yggdrasil/docs/youtube-inventory.md`
+- `scripts/youtube/fetch-channel-videos.mjs`
+- `scripts/youtube/classify-youtube-videos.mjs`
+- `scripts/youtube/README.md`
+- `projects/reiki-yggdrasil/STATE.md`
+
+Seeded known videos:
+
+- `qipPFBpRNF8`
+- `sH-LjZwgNOI`
+
+Secret handling:
+
+- real `YOUTUBE_API_KEY` values are not stored here;
+- the key is expected from local env or the `codex-links` local secret vault;
+- `VITE_YOUTUBE_API_KEY` is not used.
+
+Verification:
+
+- full channel fetch needs local execution with the saved YouTube API key;
+- full Dionysus classification needs verification;
+- Reiki Yggdrasil UI was not changed.
+
 ## 2026-05-05 — Add English course content memory
 
 Status: done.
