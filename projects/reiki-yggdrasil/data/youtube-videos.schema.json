@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reiki Yggdrasil YouTube Video Inventory",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "videoId",
+      "title",
+      "url",
+      "description",
+      "publishedAt",
+      "thumbnail",
+      "channelHandle",
+      "channelTitle",
+      "playlistId",
+      "playlistTitle",
+      "detectedTopics",
+      "courseSlug",
+      "courseTitle",
+      "language",
+      "visibility",
+      "manualReviewStatus",
+      "source",
+      "lastCheckedAt"
+    ],
+    "properties": {
+      "videoId": { "type": "string" },
+      "title": { "type": "string" },
+      "url": { "type": "string" },
+      "description": { "type": "string" },
+      "publishedAt": { "type": "string" },
+      "thumbnail": { "type": "string" },
+      "channelHandle": { "type": "string" },
+      "channelTitle": { "type": "string" },
+      "playlistId": { "type": "string" },
+      "playlistTitle": { "type": "string" },
+      "detectedTopics": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "courseSlug": { "type": "string" },
+      "courseTitle": { "type": "string" },
+      "language": { "type": "string" },
+      "visibility": { "type": "string" },
+      "manualReviewStatus": { "type": "string" },
+      "source": { "type": "string" },
+      "lastCheckedAt": { "type": "string" }
+    }
+  }
+}
