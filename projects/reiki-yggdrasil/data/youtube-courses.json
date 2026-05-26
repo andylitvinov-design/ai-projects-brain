@@ -1,0 +1,40 @@
+{
+  "channels": [
+    {
+      "slug": "shamanic-academy",
+      "handle": "@shamanic_academy",
+      "channelId": null,
+      "title": "needs verification",
+      "relatedProject": "reiki-yggdrasil",
+      "enabled": true,
+      "notes": "Initial YouTube inventory source. Resolve channelId through YouTube Data API v3 channels.list forHandle before trusting fetched metadata."
+    }
+  ],
+  "courses": [
+    {
+      "slug": "misterii-dionisa",
+      "title": "Мистерии Диониса",
+      "detectedTopic": "Дионис",
+      "keywords": [
+        "Дионис",
+        "Dionysus",
+        "Мистерии Диониса",
+        "Мистерии Греции. Дионис",
+        "Вакх",
+        "Bacchus",
+        "вакханалии",
+        "сатиры",
+        "менады",
+        "Сатиры и менады",
+        "Музыка Диониса",
+        "Любовь и друзья"
+      ],
+      "manualReviewDefault": "needs verification"
+    }
+  ],
+  "secretModel": {
+    "apiKeyName": "YOUTUBE_API_KEY",
+    "storage": "local-secret-vault/macOS Keychain",
+    "multipleChannels": "One YOUTUBE_API_KEY supports all configured channels. Do not create one key per channel."
+  }
+}

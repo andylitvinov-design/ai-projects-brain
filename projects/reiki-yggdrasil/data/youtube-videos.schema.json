@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects/reiki-yggdrasil/data/youtube-videos.schema.json",
+  "title": "Reiki Yggdrasil YouTube Videos",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "videoId",
+      "title",
+      "url",
+      "description",
+      "publishedAt",
+      "thumbnail",
+      "channelHandle",
+      "channelTitle",
+      "playlistId",
+      "playlistTitle",
+      "detectedTopics",
+      "courseSlug",
+      "courseTitle",
+      "language",
+      "visibility",
+      "manualReviewStatus",
+      "source",
+      "lastCheckedAt"
+    ],
+    "properties": {
+      "videoId": { "type": "string", "minLength": 1 },
+      "title": { "type": "string" },
+      "url": { "type": "string", "pattern": "^https://www\\.youtube\\.com/watch\\?v=[A-Za-z0-9_-]{6,}$" },
+      "description": { "type": "string" },
+      "publishedAt": { "type": "string" },
+      "thumbnail": { "type": "string" },
+      "channelHandle": { "type": "string" },
+      "channelTitle": { "type": "string" },
+      "playlistId": { "type": ["string", "null"] },
+      "playlistTitle": { "type": ["string", "null"] },
+      "detectedTopics": {
+        "type": "array",
+        "items": { "type": "string" },
+        "uniqueItems": true
+      },
+      "courseSlug": { "type": ["string", "null"] },
+      "courseTitle": { "type": ["string", "null"] },
+      "language": { "type": "string" },
+      "visibility": { "type": "string" },
+      "manualReviewStatus": {
+        "type": "string",
+        "enum": ["needs verification", "confirmed", "excluded"]
+      },
+      "source": { "type": "string" },
+      "lastCheckedAt": { "type": "string" }
+    }
+  }
+}

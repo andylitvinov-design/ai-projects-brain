@@ -1,5 +1,30 @@
 # Reiki Yggdrasil — LOG
 
+## 2026-05-26 — Prepare YouTube inventory pipeline
+
+Status: prepared; live fetch needs local wallet key configuration.
+
+Added a secure YouTube inventory path for `@shamanic_academy`:
+
+- `projects/reiki-yggdrasil/data/youtube-videos.schema.json`
+- `projects/reiki-yggdrasil/data/youtube-videos.json`
+- `projects/reiki-yggdrasil/data/youtube-courses.json`
+- `projects/reiki-yggdrasil/docs/youtube-inventory.md`
+- `scripts/youtube/fetch-channel-videos.mjs`
+- `scripts/youtube/classify-youtube-videos.mjs`
+- `scripts/youtube/README.md`
+
+Security:
+
+- The script reads `YOUTUBE_API_KEY` only from the local Codex Links Secret Vault / macOS Keychain flow.
+- No real key is stored in this repo.
+- No `VITE_YOUTUBE_API_KEY` or frontend-bundled key was added.
+
+Verification status:
+
+- Initial seed videos `qipPFBpRNF8` and `sH-LjZwgNOI` are stored as `needs verification`.
+- Dionysus classification is implemented, but no fetched title/description was verified because the local wallet status reported the key as missing during this run.
+
 ## 2026-05-05 — Add English course content memory
 
 Status: done.
