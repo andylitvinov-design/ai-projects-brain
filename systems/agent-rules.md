@@ -233,4 +233,10 @@ ChatGPT and Codex.
 - Mark `needs verification` when data is missing, inferred,
   stale, or not confirmed in the current turn.
 - Mark `needs verification` for uncertain repo mappings,
-  hosting mappings, production sources, live URLs, auth
+  hosting mappings, production sources, live URLs, auth or
+  access checks, provider permissions, deploy aliases,
+  branch/source-of-truth mappings, and test results not run
+  in the current environment.
+- Do not turn `needs verification` into a blocker when a safe
+  partial plan, patch scope, check command, or Codex prompt can
+  still move the task forward.
