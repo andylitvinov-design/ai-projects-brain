@@ -98,6 +98,26 @@ For quality/site audits:
 - Do not store real environment variable values.
 - Do not mix unrelated dirty worktree changes into the task.
 - Do not revert user changes unless explicitly asked.
+- Before switching to or basing work on a local default branch, inspect
+  `git worktree list`. A branch such as `main` may already be checked
+  out in another worktree.
+- If git reports `fatal: 'main' is already used by worktree at ...`,
+  do not treat it as a user blocker and do not ask the user to manually
+  repair the worktree. Create a new isolated temp worktree or temp clone
+  from `origin/<default-branch>` and continue the safe task there.
+- Prefer creating task branches directly from the remote base in a temp
+  worktree when the current checkout is dirty, on another task branch,
+  or the local default branch is occupied:
+  `git worktree add -b "$BRANCH" "$WORKTREE" "origin/$DEFAULT_BRANCH"`.
+- When handing terminal commands to the user, avoid partial snippets.
+  Provide a complete fresh-terminal script that includes setup,
+  worktree/branch creation, patching, checks, commit, push, PR, and final
+  status.
+- For long scripts containing nested Python, JSX, JSON, markdown, or
+  quotes, wrap the full script in a file-writing heredoc and then run it,
+  for example `cat > /tmp/task.sh <<'BASH' ... BASH` followed by
+  `bash /tmp/task.sh`. This prevents partial paste errors such as
+  `zsh: parse error near ')'`.
 
 ## 7. Verify
 
