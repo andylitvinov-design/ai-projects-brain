@@ -118,6 +118,27 @@ For quality/site audits:
   for example `cat > /tmp/task.sh <<'BASH' ... BASH` followed by
   `bash /tmp/task.sh`. This prevents partial paste errors such as
   `zsh: parse error near ')'`.
+- If the user shows `heredoc>` or repeated pasted script tails, stop
+  giving long heredoc scripts for that task. Use the smallest possible
+  continuation command, direct GitHub/API actions, or a previously created
+  worktree/branch instead.
+- If a temp worktree already contains the intended patch, continue from
+  that worktree. Do not recreate or reapply the same patch unless the
+  worktree is missing or corrupted.
+- If checks fail because a local binary is missing, for example
+  `sh: vite: command not found`, install dependencies in that worktree
+  with `npm ci` or `npm install` before changing code.
+- If a PR becomes conflicted because `main` moved after the branch was
+  pushed, prefer rebasing the existing branch and updating the existing
+  PR instead of opening duplicate PRs. A compact recovery command is often
+  enough: `cd "$WORKTREE" && git fetch origin --prune && git rebase
+  origin/main -X theirs && npm ci && npm run check && git push
+  --force-with-lease origin "$BRANCH"`.
+- After rebasing and force-pushing, check PR mergeability and CI, then
+  merge the same PR when it is green.
+- Record terminal failures and recovery in the report: partial heredoc
+  paste, occupied default branch, missing dependency install, conflicted
+  PR, rebase/force-with-lease recovery, and final CI/merge status.
 
 ## 7. Verify
 
