@@ -70,6 +70,34 @@ ChatGPT and Codex.
   command depends on a clean worktree, existing branch, or stash.
 - If state may vary, handle it inside the script instead of asking the
   user to remember previous terminal context.
+- For long terminal prompts, especially scripts that contain Python,
+  JSX, JSON, markdown, or nested quotes, wrap the whole script in a
+  file-writing heredoc and then run it, for example:
+  `cat > /tmp/task-name.sh <<'BASH' ... BASH` followed by
+  `bash /tmp/task-name.sh`.
+- If the user reports `zsh: parse error near ')'` after pasting a
+  terminal prompt, assume the prompt was pasted partially or shell tried
+  to execute embedded JS/Python/JSX. Do not give a short patch or
+  fragment as the fix; provide a new complete fresh-terminal heredoc
+  script from the beginning.
+- Always treat a new terminal window as zero-context. Do not ask the
+  user to continue from a failed partial paste; regenerate the complete
+  command with setup, checks, patch, verification, commit, push, PR, and
+  final status.
+- Before using `git switch main`, `git checkout main`, or any local
+  base branch, inspect `git worktree list`. A local branch may already
+  be checked out in another worktree.
+- If git reports `fatal: 'main' is already used by worktree at ...` or
+  the default branch is locked by another worktree, do not ask the user
+  to manually fix the worktree. Instead create an isolated temporary
+  worktree or temp clone from the remote base, for example:
+  `git worktree add -b "$BRANCH" "$WORKTREE" "origin/$DEFAULT_BRANCH"`.
+- Prefer basing task branches on `origin/<default-branch>` in a fresh
+  temp worktree when the current checkout is on another task branch,
+  dirty, or the local default branch is locked elsewhere.
+- Include optional cleanup instructions after merge when using a temp
+  worktree, for example:
+  `cd "$MAIN_REPO" && git worktree remove "$WORKTREE"`.
 
 ## Task Clarification Mode / Grill Me
 
@@ -140,6 +168,10 @@ ChatGPT and Codex.
   task.
 - Use a temp clone, branch, or worktree when the current
   checkout is dirty.
+- If the local default branch is already checked out in
+  another worktree, create an isolated task worktree from
+  `origin/<default-branch>` instead of switching the occupied
+  local branch.
 - Do not revert user changes unless explicitly asked.
 
 ## Production Awareness
