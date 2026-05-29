@@ -99,6 +99,39 @@ ChatGPT and Codex.
   worktree, for example:
   `cd "$MAIN_REPO" && git worktree remove "$WORKTREE"`.
 
+### Terminal Failure Recovery Playbook
+
+- If a long heredoc prompt fails and the terminal shows `heredoc>` or a
+  pasted tail of the script, stop giving heredoc scripts for that task.
+  Tell the user to press `Ctrl+C`, then switch to a shorter recovery
+  command, existing worktree continuation, or direct GitHub/API action.
+- If a previous script already created a branch/worktree and applied the
+  patch, do not regenerate the whole patch script. Continue from the
+  existing worktree with the smallest command that advances the task:
+  install dependencies, run checks, commit, push, or rebase.
+- If `npm run build` fails with `sh: vite: command not found` or another
+  missing local binary in a temp worktree, do not change code. Install
+  dependencies in that worktree (`npm ci` when `package-lock.json`
+  exists, otherwise `npm install`) and rerun the checks.
+- If a PR is pushed but later shows merge conflicts because `main` moved,
+  do not open a new long-script attempt by default. Prefer rebasing the
+  existing branch in the existing worktree with one short command, for
+  example:
+  `cd "$WORKTREE" && git fetch origin --prune && git rebase origin/main -X theirs && npm ci && npm run check && git push --force-with-lease origin "$BRANCH"`.
+- After a force-pushed rebase, check the existing PR's mergeability and
+  CI. If `mergeable: true` and checks pass, merge the existing PR rather
+  than creating another duplicate PR.
+- If a GitHub/API tool can safely close, update, rebase-equivalent patch,
+  or merge a PR, prefer the tool over asking the user to paste another
+  large terminal script.
+- Do not repeat the same terminal delivery mistake. After two terminal
+  paste failures in the same task, switch strategy immediately to
+  shortest-possible command, existing worktree continuation, or API work.
+- In reports, name the exact terminal failure, the root cause, and the
+  recovery rule used, for example: partial heredoc paste -> switched to
+  one-line rebase command; missing Vite binary -> ran `npm ci`; occupied
+  local `main` -> used temp worktree from `origin/main`.
+
 ## Task Clarification Mode / Grill Me
 
 - Read and apply `systems/task-clarification-mode.md` whenever the
