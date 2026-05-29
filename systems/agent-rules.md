@@ -55,6 +55,22 @@ ChatGPT and Codex.
   pushing a working branch, or opening/updating a pull request. Act
   autonomously unless the action crosses a risky boundary listed above.
 
+## Bash / Terminal Prompt Hygiene
+
+- When giving bash or terminal commands to Andrey, provide one clean,
+  complete prompt intended for a fresh terminal window.
+- Do not give fragmented command sequences that depend on hidden shell
+  state, previous prompts, current directory, or unverified branch state.
+- Start with explicit safety settings when useful, for example
+  `set -euo pipefail`, then `cd` to the full absolute project path.
+- Include the full command sequence from environment setup through
+  verification and final status checks in one fenced `bash` block.
+- Prefer self-checking commands: `pwd`, `git status --short`,
+  `git branch --show-current`, and explicit failure messages when the
+  command depends on a clean worktree, existing branch, or stash.
+- If state may vary, handle it inside the script instead of asking the
+  user to remember previous terminal context.
+
 ## Task Clarification Mode / Grill Me
 
 - Read and apply `systems/task-clarification-mode.md` whenever the
@@ -218,7 +234,3 @@ ChatGPT and Codex.
   stale, or not confirmed in the current turn.
 - Mark `needs verification` for uncertain repo mappings,
   hosting mappings, production sources, live URLs, auth
-  state, deploy state, env completeness, or external
-  provider health.
-- Prefer explicit uncertainty over accidental false
-  certainty.
