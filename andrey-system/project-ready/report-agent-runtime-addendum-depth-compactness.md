@@ -24,37 +24,45 @@ If there is a conflict between:
 then choose:
 
 ```md
-clarity → precision → living style → compactness → formal template
+clarity → precision → living style → compactness → canonical 4-part form
 ```
 
 The client should receive the distilled result, not the full reasoning path.
 
 ---
 
-## 2. Four-part structure is not a license to overbuild
+## 2. Four-part structure is mandatory, but compact
 
-The usual 4-part report structure is:
+The canonical client report structure is:
 
 1. Диагностика
 2. Назначение
 3. Примечание
 4. Приложение
 
-But do not force all 4 parts as large visible blocks if the case needs a compact note.
+Keep these 4 parts, but do not force them to become large blocks.
 
-For short / compact / repeat / Bach / Wu Xing progress reports, the 4-part logic may be compressed into:
+For short / compact / repeat / Bach / Wu Xing progress reports, compress the logic **inside** the 4 parts:
 
 ```md
-## 1. Вывод
-## 2. Что показывают препараты / стихии / данные
-## 3. Слабое звено / точка роста
-## 4. Психодинамика / психосоматика
-## 5. Назначение / проверка
+## 1. Диагностика
+Dynamic conclusion.
+Root / psychodynamics / psychosomatics.
+Remedy or element signals.
+Weak link / growth point.
+
+## 2. Назначение
+Canonical prescription format.
+Main and additional layers preserved.
+
+## 3. Примечание
+One short paragraph: what to do / not do now.
+
+## 4. Приложение
+Remedy messages: supportive, motivating, therapeutic phrases.
 ```
 
-`Приложение` is optional.
-
-Do not add a separate appendix if it makes the report longer without adding real client value.
+Do not replace the Appendix with transformation-arrow analysis unless the user explicitly requests that format.
 
 ---
 
@@ -95,33 +103,37 @@ Russian formula:
 Use this as the default when the user gives enough data for a deeper analysis but does not explicitly ask for a long full report:
 
 ```md
-## 1. Вывод
+## 1. Диагностика
 
-One compact paragraph. Main state / dynamic / meaning first.
+One compact paragraph with the main state / dynamic / meaning.
+Then short root / psychodynamics.
+Then only the signals that change the conclusion.
+Then weak link / growth point.
 
-## 2. Что показывают препараты / стихии / данные
+## 2. Назначение
 
-Only signals that change the conclusion. Tie remedies/supports to the current mechanism.
+What to take / do / observe.
+Course.
+Recheck timing.
 
-## 3. Слабое звено / точка роста
+## 3. Примечание
 
-One compact paragraph. Name the weak link and the next movement.
+Very short strategy for the current stage.
 
-## 4. Психодинамика / психосоматика
+## 4. Приложение
 
-Very short. Explain what kind of inner work this points to.
-Do not write a second diagnosis.
-
-## 5. Назначение / проверка
-
-Short prescription / support plan. Course. Recheck timing.
+Remedy messages if remedies are present.
 ```
+
+The logic remains:
+
+**вывод → корень → сигналы → слабое звено → назначение → примечание → послания**
 
 ---
 
 ## 5. Psychodynamic / psychosomatic block
 
-The psychodynamic block should be short but precise.
+The psychodynamic block should be short but precise and remain inside Диагностика unless a full separate psychosomatic report is requested.
 
 It should answer:
 
@@ -133,7 +145,7 @@ It should answer:
 Good:
 
 ```md
-В целом это про переход от режима “держаться и контролировать” к режиму “можно немного выдохнуть”. Работа сейчас — меньше заставлять себя, меньше спешить, больше чувствовать безопасную опору в теле.
+Корень здесь — страх расслабиться и потерять управление собой. Как будто внутри есть связка: “если отпущу контроль, могу провалиться”. Задача — учиться расслабляться без потери опоры.
 ```
 
 Bad:
@@ -157,7 +169,7 @@ Do not say “there is no follow-up template” if this file exists.
 The correct answer is:
 
 ```md
-There is a compact repeat Wu Xing + Bach note standard, and expanded input must be distilled, not expanded in length.
+There is a compact repeat Wu Xing + Bach note standard. It uses the canonical 4-part report structure and distills expanded input into a sharper client-facing conclusion.
 ```
 
 ---
@@ -187,13 +199,15 @@ If only longer, rewrite.
 A report fails compactness / client-readiness if:
 
 - it is called expanded but only becomes longer;
-- it forces all formal sections even when they add no value;
+- it breaks canonical 4-part form without need;
+- it forces large sections when compact blocks would work;
 - the first useful conclusion appears late;
 - the psychodynamic block becomes a second full report;
-- the client must read through process notes instead of receiving the distilled meaning.
+- the client must read through process notes instead of receiving the distilled meaning;
+- Appendix contains analysis instead of remedy messages.
 
 Verdict:
 
 ```md
-Needs rewrite: expanded input was not distilled into a sharper client-facing conclusion.
+Needs rewrite: expanded input was not distilled into a sharper client-facing 4-part report.
 ```
