@@ -11,124 +11,126 @@ Use this rule when the user gives:
 
 This is **not** a full expanded report.
 
-It is a compact repeat check.
+It is a compact repeat check inside the canonical 4-part report structure.
 
 Main principle:
 
-**one conclusion → remedy signals through elements → weak link / growth point → very short psychodynamic / psychosomatic meaning → prescription / check**
+**dynamic conclusion → root / psychodynamics → remedy signals through elements → weak link → canonical prescription → short note → remedy messages**
 
 ---
 
-## 1. When to use
-
-Use this format when the input is similar to:
-
-```md
-Было:
-Вода 2.4
-Дерево 2.6
-Огонь 2.8
-Земля 2.8
-Металл 3.3
-
-Через неделю:
-Вода 2.5
-Дерево 2.6
-Огонь 2.65
-Земля 2.9
-Металл 3.1
-
-Резонирующие препараты:
-Вода Mimulus
-Огонь Wild Oat
-Земля Impatience
-Металл Crab Apple
-```
-
-If the user only needs a repeat dynamic check, do not expand into Deep / Full Support Snapshot even though Wu Xing is present.
+## 1. Core rule
 
 Wu Xing still means the method depth is Deep, but the **client-facing form must stay compact**.
 
-Target length: **180–300 words**.
+Target length: **250–450 words**.
 
-Maximum length: **350 words** unless the user explicitly asks for a deep audit or full report.
+Maximum length: **550 words** unless the user explicitly asks for a deep full report.
+
+Do not use a separate 5-section structure if it conflicts with the canonical 4-part report format.
+
+Use the canonical parts:
+
+1. Диагностика
+2. Назначение
+3. Примечание
+4. Приложение
 
 ---
 
 ## 2. Required client-facing structure
 
 ```md
-## 1. Вывод
+## 1. Диагностика
 
-One short paragraph.
-Say the main dynamic first:
-- positive shift;
-- softening;
-- stabilization;
-- drop;
-- transition;
-- release of excessive control.
-
+Start with one compact dynamic conclusion.
 Do not retell all measurements.
 Use only the useful meaning.
 
-## 2. Что показывают препараты через стихии
+Then include, still inside Диагностика:
 
-Short signals only:
-- Mimulus / Water — ...
-- Wild Oat / Fire — ...
-- Impatience / Earth — ...
-- Crab Apple / Metal — ...
+- Психодинамика / психосоматика: the root of the situation.
+- What the remedies show through the elements.
+- The weak link / growth point.
+- If one element has no remedy, explain in one sentence:
+  "Дерево отдельно пока не трогаю: ..."
 
-If one element has no remedy, explain in one sentence:
-"Дерево отдельно пока не трогаю: оно сейчас зависит от ..."
+## 2. Назначение
 
-## 3. Слабое звено / точка роста
+Use the canonical prescription format from
+`andrey-system/project-ready/report-agent-project-instruction.md`.
 
-One short paragraph.
-Name the weak link and growth point.
+Keep main and additional layers separate.
+Do not put every remedy into #1 if some are additional.
+Do not write "#2. Дополнительно: пока не добавляю" if additional remedies exist.
 
-## 4. Психодинамика / психосоматика
+## 3. Примечание
 
-Very short.
-Explain what the whole dynamic says about inner work.
-Do not create a second diagnosis.
-Do not over-explain.
+One short paragraph:
+what to do / not do now;
+current strategy of the stage.
 
-## 5. Назначение
+## 4. Приложение
 
-Short list.
-How to take.
-Course.
-When to recheck.
+This must contain remedy messages, not analysis and not transformation arrows.
+
+Format:
+
+Remedy — послание: short supportive, motivating, therapeutic phrase.
 ```
 
 ---
 
-## 3. Good compressed example
+## 3. Good compact example
 
 ```md
-## 1. Вывод
+## 1. Диагностика
 
-Смотрю ещё раз. Динамика в целом позитивная: система не выросла резким рывком, а начала отпускать избыточное напряжение. Было больше жёсткости, настороженности и контроля. Сейчас больше мягкости: Вода течёт спокойнее, Дерево меньше сковано, Огонь не давит, а копится, Земля уже чувствует опору, Металл держит границы, но хватка стала мягче.
+Смотрю. Динамика в целом позитивная: система не пошла в резкий рывок, но начала отпускать лишнее напряжение. Было больше настороженности и жёстких границ. Сейчас больше мягкости: Вода течёт спокойнее, Дерево меньше сковано, Огонь копится, Земля начинает чувствовать опору, Металл держит форму, но уже не так зажимает всю систему.
 
-## 2. Что показывают препараты через стихии
+Психодинамика / психосоматика: корень здесь — страх расслабиться и потерять контроль. Как будто внутри долго было: “если я отпущу напряжение, я могу провалиться”. Сейчас задача — учиться расслабляться постепенно, без потери опоры.
 
-Mimulus по Воде говорит о страхе расслабиться и довериться потоку. Wild Oat по Огню — о новом импульсе, который ещё не оформился, но уже зреет. Impatience по Земле — о спешке, которая мешает спокойно опереться. Crab Apple по Металлу — о желании очиститься от внутреннего дискомфорта и смягчить жёсткую защиту.
+Препараты показывают механизм. Mimulus по Воде — страх довериться потоку. Wild Oat по Огню — новый импульс уже зреет, но направление ещё дозревает. Impatiens по Земле — внутреннее ускорение, которое мешает устойчиво опереться. Crab Apple по Металлу — желание очиститься от внутреннего дискомфорта и смягчить жёсткую защиту.
 
-Дерево отдельно пока не трогаем: оно сейчас больше зависит от того, насколько Вода расслабится, а Земля даст опору.
+Дерево отдельно пока не трогаю: движение появится, когда Вода расслабится, Земля укрепится, а Металл смягчит контроль.
 
-## 3. Слабое звено / точка роста
+Слабое место сейчас — не недостаток силы, а страх отпустить контроль слишком быстро. Точка роста — мягкая опора без давления.
 
-Главное слабое место сейчас — страх отпустить контроль слишком быстро. Точка роста — расслабляться постепенно, не проваливаясь, а сохраняя мягкую внутреннюю опору.
+## 2. Назначение
 
-## 4. Психодинамика / психосоматика
+Отобранные эссенции:
 
-В целом динамика говорит о переходе от режима “держаться и контролировать” к режиму “можно немного выдохнуть”. Внутренняя работа сейчас — меньше заставлять себя, меньше спешить, больше чувствовать безопасную опору в теле.
+#1. В первую очередь подходят: Эссенции Баха:
+1. Mimulus (конкретный страх)
+2. Wild Oat (поиск направления)
 
-## 5. Назначение
+#2. Дополнительно:
+3. Impatiens (внутреннее ускорение)
+4. Crab Apple (очищение / внутренний дискомфорт)
 
-Эссенции Баха: Mimulus, Wild Oat, Impatience, Crab Apple. Принимать по инструкции производителя, обычно в воде 2–4 раза в день. Курс: 2 недели. Повторная проверка через 1–2 недели.
+Можно купить в натуропатической аптеке или заказать онлайн.
+
+Принимать:
+- смесь: чуть воды и по инструкции производителя;
+- обычно 2–4 раза в день.
+
+Курс: 2 недели.
+
+Повторная проверка — через 1–2 недели.
+
+## 3. Примечание
+
+Сейчас важно не разгонять процесс и не требовать быстрого результата. Лучше поддержать спокойное восстановление: меньше давления, больше телесной опоры, больше мягкого разрешения “мне можно выдохнуть”.
+
+## 4. Приложение
+
+Mimulus — послание: я могу расслабляться постепенно и оставаться в безопасности.
+
+Wild Oat — послание: моё направление может дозреть спокойно, без давления и спешки.
+
+Impatiens — послание: я могу двигаться медленно, устойчиво и всё равно продвигаться вперёд.
+
+Crab Apple — послание: я могу принимать процесс очищения и восстановления без отвержения себя.
 ```
 
 ---
@@ -138,12 +140,14 @@ Mimulus по Воде говорит о страхе расслабиться и
 Do not:
 
 - write a long expanded report;
+- use a 5-part structure that conflicts with the canonical 4 parts;
 - retell every old measurement in prose;
 - create separate long blocks for each element;
 - repeat the same conclusion in different words;
 - use medical certainty for physical symptoms;
 - call a short repeat check a Full Client Report;
-- add a large appendix unless explicitly requested.
+- write transformation arrows in the final Appendix unless the user explicitly requests that format;
+- turn Appendix into analysis.
 
 If physical symptoms appear in the input, write cautiously:
 
@@ -159,15 +163,17 @@ If physical symptoms appear in the input, write cautiously:
 
 If a repeat Wu Xing + Bach report can be reduced to this structure without losing meaning, the original report is overbuilt.
 
-Score density low if:
+Score low if:
 
-- the report is longer than 350 words without a user request for depth;
+- the report is longer than needed without a user request for depth;
 - the first useful conclusion appears only after a long retelling;
 - the report describes all numbers but does not give a compact conclusion;
-- the psychodynamic block becomes a second full diagnosis.
+- the psychodynamic block becomes a second full diagnosis;
+- the prescription mixes main and additional layers;
+- the Appendix contains transformation arrows instead of remedy messages.
 
-The correct audit verdict in that case:
+Correct verdict:
 
 ```md
-Needs rewrite: too expanded for compact repeat Wu Xing + Bach check.
+Needs rewrite: compact repeat Wu Xing + Bach check must use canonical 4 parts, preserve remedy layers, and end with remedy messages.
 ```
