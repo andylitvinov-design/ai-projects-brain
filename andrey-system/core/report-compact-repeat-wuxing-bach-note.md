@@ -57,8 +57,8 @@ Then include, still inside Диагностика:
 
 ## 2. Назначение
 
-Use the canonical prescription format from
-`andrey-system/project-ready/report-agent-project-instruction.md`.
+Use the canonical Bach prescription format from
+`andrey-system/core/report-bach-intake-formula-rule.md`.
 
 Keep main and additional layers separate.
 Do not put every remedy into #1 if some are additional.
@@ -111,12 +111,13 @@ Remedy — послание: short supportive, motivating, therapeutic phrase.
 Можно купить в натуропатической аптеке или заказать онлайн.
 
 Принимать:
-- смесь: чуть воды и по инструкции производителя;
-- обычно 2–4 раза в день.
+
+* смесь: чуть воды и по 4 капли каждого препарата;
+* 2–4 раза в день.
 
 Курс: 2 недели.
 
-Повторная проверка — через 1–2 недели.
+Повторная проверка — что изменилось — через 1–2 недели.
 
 ## 3. Примечание
 
@@ -147,7 +148,8 @@ Do not:
 - use medical certainty for physical symptoms;
 - call a short repeat check a Full Client Report;
 - write transformation arrows in the final Appendix unless the user explicitly requests that format;
-- turn Appendix into analysis.
+- turn Appendix into analysis;
+- replace `по 4 капли каждого препарата` with `по инструкции производителя` unless the user explicitly asks for manufacturer-label wording.
 
 If physical symptoms appear in the input, write cautiously:
 
@@ -170,10 +172,11 @@ Score low if:
 - the report describes all numbers but does not give a compact conclusion;
 - the psychodynamic block becomes a second full diagnosis;
 - the prescription mixes main and additional layers;
-- the Appendix contains transformation arrows instead of remedy messages.
+- the Appendix contains transformation arrows instead of remedy messages;
+- the prescription says `по инструкции производителя` instead of `по 4 капли каждого препарата`.
 
 Correct verdict:
 
 ```md
-Needs rewrite: compact repeat Wu Xing + Bach check must use canonical 4 parts, preserve remedy layers, and end with remedy messages.
+Needs rewrite: compact repeat Wu Xing + Bach check must use canonical 4 parts, preserve remedy layers, use the four-drops Bach intake formula, and end with remedy messages.
 ```
