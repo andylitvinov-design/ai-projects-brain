@@ -2,7 +2,7 @@
 
 Status: canonical override supplement for Report Agent.
 
-This rule fixes the intake wording for Bach essence prescriptions in client reports.
+This rule fixes the intake wording and closing lines for Bach essence prescriptions in client reports.
 
 ---
 
@@ -24,6 +24,28 @@ Do not replace it with:
 ```
 
 unless the user explicitly asks for a medically cautious / manufacturer-label wording.
+
+---
+
+## Canonical course / follow-up / closing lines
+
+After the intake formula, always use:
+
+```md
+Курс: 2 недели.
+
+Повторная проверка — что изменилось — через 1–2 недели.
+
+Мне можно написать по готовности, я проверю состояние и дам анализ, рекомендации или коррекцию назначения.
+```
+
+Do not shorten this to only:
+
+```md
+Повторная проверка — через 1–2 недели.
+```
+
+unless the user explicitly asks for ultra-short output.
 
 ---
 
@@ -55,6 +77,8 @@ Use this structure for Bach prescriptions:
 Курс: 2 недели.
 
 Повторная проверка — что изменилось — через 1–2 недели.
+
+Мне можно написать по готовности, я проверю состояние и дам анализ, рекомендации или коррекцию назначения.
 ```
 
 ---
@@ -73,8 +97,14 @@ instead of:
 по 4 капли каждого препарата
 ```
 
+A report also needs correction if it omits the canonical closing line:
+
+```md
+Мне можно написать по готовности, я проверю состояние и дам анализ, рекомендации или коррекцию назначения.
+```
+
 The correct verdict:
 
 ```md
-Needs correction: Bach intake wording does not match Andrey Li client prescription format.
+Needs correction: Bach prescription wording does not match Andrey Li client prescription format.
 ```
