@@ -57,6 +57,9 @@ ChatGPT and Codex.
 
 ## Bash / Terminal Prompt Hygiene
 
+- Read and apply `systems/terminal-clean-slate-protocol.md` before
+  giving Andrey any terminal prompt, bash script, git command, Codex
+  command, push/PR command, deployment command, or recovery command.
 - When giving bash or terminal commands to Andrey, provide one clean,
   complete prompt intended for a fresh terminal window.
 - Do not give fragmented command sequences that depend on hidden shell
