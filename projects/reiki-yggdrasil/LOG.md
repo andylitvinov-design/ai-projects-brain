@@ -1,5 +1,29 @@
 # Reiki Yggdrasil — LOG
 
+## 2026-06-17 — Add lightweight delivery memory and private verification guidance
+
+Status: done.
+
+Updated central project memory to support the existing `/delivery` workflow without replacing it.
+
+Added / clarified:
+
+- current focus in `STATE.md` for delivery/private UI verification;
+- private cabinet / mandala verification rules in `CHECKS.md`;
+- delivery workflow decision in `DECISIONS.md`;
+- guidance that private/auth-only profile, cabinet, DAO talisman, mandala editor, user media, and saved user state should be verified locally when owner live session is unavailable;
+- guidance that authenticated live proof must remain `NOT VERIFIED` unless actually verified.
+
+Verification:
+
+- Documentation-only central memory update.
+- No app code, env, secrets, Supabase settings, or deployment settings changed.
+
+Risks / not verified:
+
+- Live private cabinet/auth flow was not tested in this memory update.
+- Repo-local `/delivery` still needs its small central-memory pointer added in the working code repo.
+
 ## 2026-05-26 — Add YouTube inventory seed and local fetch pipeline
 
 Status: in progress.
