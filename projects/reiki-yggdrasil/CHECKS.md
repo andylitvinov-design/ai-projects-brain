@@ -43,6 +43,29 @@ When auth/data/profile/admin behavior is touched:
 - verify seeded/public masters data if in scope;
 - verify RLS assumptions before claiming secure end-to-end behavior.
 
+## Private cabinet / mandala verification
+
+Some Reiki Yggdrasil features are inside private Google/Supabase-authenticated profile areas and cannot be fully verified on production live without the owner session.
+
+For private cabinet, profile, DAO talisman, mandala editor, user media, or saved user-specific state:
+
+- do not request or use real Google/Supabase credentials;
+- do not claim authenticated live proof unless actually verified;
+- use local dev verification by default when live auth is unavailable;
+- create safe local fixture/demo state when required;
+- verify exact UI behavior locally with screenshot, DOM check, test, or manual browser evidence;
+- mark authenticated live proof as `NOT VERIFIED` if the only missing part is owner session;
+- public deployment/live route may still be checked separately.
+
+For DAO/mandala tasks, check these items when relevant:
+
+- client photo is not squeezed into a line;
+- background off really removes unwanted fill/circle;
+- background size/field sliders affect the expected target;
+- show/hide toggles work for center, mini-mandalas, inner background, and outer background;
+- selected DAO style still renders the intended layout;
+- square/circle layout changes do not leave stale circular backgrounds.
+
 ## Do not
 
 - Do not break the existing home page.
@@ -58,6 +81,7 @@ Return:
 - changed files;
 - local checks;
 - live checks;
+- verification mode: public live, preview, local auth simulation, or owner-required;
 - Supabase checks if relevant;
 - UI/layout risks;
 - needs verification.
