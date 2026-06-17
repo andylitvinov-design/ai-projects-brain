@@ -1,5 +1,5 @@
 {
-  "version": "1.8",
+  "version": "1.9",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -17,6 +17,9 @@
     "method_source": "andylitvinov-design/alchemy-method",
     "business_source": "andrey-system",
     "report_agent_instruction_source": "project-ready/report-agent-project-instruction.md",
+    "repeat_remedy_check_standard_source": "core/report-repeat-remedy-check-standard.md",
+    "repeat_remedy_check_project_instruction_source": "project-ready/report-repeat-remedy-check-project-instruction.md",
+    "repeat_remedy_check_playbook_source": "agent/report-repeat-remedy-check-playbook.md",
     "report_writing_instruction_source": "core/report-template.md",
     "report_diagnosis_matrix_source": "core/report-diagnosis-matrix.md",
     "report_style_bible_source": "core/report-style-bible.md",
@@ -46,6 +49,9 @@
       "instruction": "agent/report-agent-instructions.md",
       "playbook": "agent/report-agent-playbook.md",
       "project_ready": "project-ready/report-agent-project-instruction.md",
+      "repeat_remedy_check_standard": "core/report-repeat-remedy-check-standard.md",
+      "repeat_remedy_check_project_ready": "project-ready/report-repeat-remedy-check-project-instruction.md",
+      "repeat_remedy_check_playbook": "agent/report-repeat-remedy-check-playbook.md",
       "diagnosis_matrix": "core/report-diagnosis-matrix.md",
       "style_bible": "core/report-style-bible.md",
       "client_readiness_style_gate": "core/report-client-readiness-style-gate.md",
@@ -64,6 +70,7 @@
         "full_report_on_limited_input",
         "remedy_only_analysis",
         "progress_check",
+        "repeat_remedy_check_eight_part",
         "follow_up_check_note",
         "psychosomatic_figure_report",
         "full_support_report"
@@ -73,6 +80,8 @@
       "role": "quality control and standards improvement agent for Andrey Li reports",
       "instruction": "agent/report-style-auditor-instructions.md",
       "playbook": "agent/report-style-auditor-playbook.md",
+      "repeat_remedy_check_playbook": "agent/report-repeat-remedy-check-playbook.md",
+      "repeat_remedy_check_standard": "core/report-repeat-remedy-check-standard.md",
       "quality_rubric": "core/report-quality-rubric.md",
       "standard_improvement_protocol": "core/report-standard-improvement-protocol.md",
       "common_mistakes": "core/report-common-mistakes.md",
@@ -89,7 +98,8 @@
   },
   "project_ready": [
     "project-ready/business-builder-project-instruction.md",
-    "project-ready/report-agent-project-instruction.md"
+    "project-ready/report-agent-project-instruction.md",
+    "project-ready/report-repeat-remedy-check-project-instruction.md"
   ],
   "core_files": [
     "core/master-doc.md",
@@ -102,6 +112,7 @@
     "core/report-quality-rubric.md",
     "core/report-standard-improvement-protocol.md",
     "core/report-common-mistakes.md",
+    "core/report-repeat-remedy-check-standard.md",
     "core/quality-checklist.md"
   ],
   "report_architecture": {
@@ -115,11 +126,19 @@
     },
     "layer_1_agent_instruction": {
       "file": "project-ready/report-agent-project-instruction.md",
-      "purpose": "who the agent is, which report type to choose, and what to do in each case"
+      "purpose": "who the agent is, which report type to choose, and what to do in each case; includes mandatory 8-part repeat remedy check routing"
+    },
+    "layer_1_repeat_remedy_check_instruction": {
+      "file": "project-ready/report-repeat-remedy-check-project-instruction.md",
+      "purpose": "project-ready addendum requiring 8-part repeat report structure"
     },
     "layer_1_style_auditor": {
       "file": "agent/report-style-auditor-instructions.md",
       "purpose": "quality control and standards improvement for written reports"
+    },
+    "layer_2_repeat_remedy_check_standard": {
+      "file": "core/report-repeat-remedy-check-standard.md",
+      "purpose": "canonical 8-part standard for repeat reports and remedy relevance checks"
     },
     "layer_2_report_writing_instructions": {
       "file": "core/report-template.md",
@@ -151,6 +170,7 @@
       "purpose": "primary Russian client-facing tone and live report style"
     },
     "workflow_playbook": "agent/report-agent-playbook.md",
+    "repeat_remedy_check_playbook": "agent/report-repeat-remedy-check-playbook.md",
     "style_auditor_playbook": "agent/report-style-auditor-playbook.md",
     "method_logic": "andylitvinov-design/alchemy-method/consultations/report-logic.md",
     "dao_scale": "andylitvinov-design/alchemy-method/method/dao-resource-scale.md"
@@ -161,6 +181,7 @@
     "agent/business-builder-playbook.md",
     "agent/report-agent-instructions.md",
     "agent/report-agent-playbook.md",
+    "agent/report-repeat-remedy-check-playbook.md",
     "agent/report-style-auditor-instructions.md",
     "agent/report-style-auditor-playbook.md"
   ],
@@ -181,7 +202,10 @@
     "report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
     "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
     "report_style_auditor": "andrey-system/agent/report-style-auditor-instructions.md",
-    "report_client_readiness_gate": "andrey-system/core/report-client-readiness-style-gate.md"
+    "report_client_readiness_gate": "andrey-system/core/report-client-readiness-style-gate.md",
+    "repeat_remedy_check_standard": "andrey-system/core/report-repeat-remedy-check-standard.md",
+    "repeat_remedy_check_project_instruction": "andrey-system/project-ready/report-repeat-remedy-check-project-instruction.md",
+    "repeat_remedy_check_playbook": "andrey-system/agent/report-repeat-remedy-check-playbook.md"
   },
   "reading_order": [
     "source-registry.json",
@@ -191,6 +215,9 @@
     "agent/agent-map.md",
     "agent/{selected-agent}-instructions.md",
     "agent/{selected-agent}-playbook.md",
+    "core/report-repeat-remedy-check-standard.md, if the task is a repeat report / remedy relevance check",
+    "project-ready/report-repeat-remedy-check-project-instruction.md, if the task is a repeat report / remedy relevance check",
+    "agent/report-repeat-remedy-check-playbook.md, if writing or auditing a repeat report / remedy relevance check",
     "core/report-client-readiness-style-gate.md, if the task is about reports or report audit",
     "core/{task-file}.md",
     "alchemy-method/method-source-registry.json, if the task is about method or reports",
