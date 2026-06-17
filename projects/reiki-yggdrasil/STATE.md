@@ -1,5 +1,26 @@
 # Reiki Yggdrasil — STATE
 
+## Current focus — delivery and private UI verification
+
+Current active context:
+
+- The working app is now also used through newer live targets such as `https://2mentalica.vercel.app` / `https://mentalica.vercel.app` in repo-local delivery rules; central memory still lists the legacy Reiki Yggdrasil URL and live mappings need periodic verification.
+- Recent work has focused on `/delivery`, profile/private cabinet, OpenAI wallet/settings, DAO talisman / mandala layouts, saved photos/backgrounds, and show/hide controls.
+- Private cabinet, profile, DAO talisman, mandala editor, user media, and saved user state may require Google/Supabase owner session on live.
+- Do not claim authenticated live proof for those areas unless actually verified. Use local dev / fixture / demo verification when owner session is unavailable.
+
+Current verification mode guidance:
+
+- Public pages: verify deployed live route when production-facing changes are made.
+- Private/auth-only UI: verify locally with safe fixture/demo state and mark authenticated live proof as `NOT VERIFIED` when owner session is required.
+- DAO/mandala UI: include visual or DOM proof for photo shape, background removal, slider behavior, show/hide toggles, and layout stability.
+
+Next actions:
+
+- Keep repo-local `/delivery` as the release-owner workflow; do not replace it with a heavy harness.
+- Add only lightweight central-memory and private-auth verification pointers to `/delivery`.
+- Update CHECKS/DECISIONS/RISKS when new durable verification knowledge appears.
+
 ## 2026-05-26 — YouTube inventory pipeline
 
 Status: blocked on YouTube Data API quota; fallback uploads playlist support is implemented.
