@@ -2,37 +2,59 @@
 
 This file defines the key diagnostic report variants for Andrey Li's Report Agent.
 
-The system is built on two main axes:
-
-1. Depth of diagnosis:
-   - Mini Express
-   - Short Diagnosis
-   - Deep Diagnosis
-   - Deep / Full Support Snapshot
-
-2. Session status:
-   - New Diagnosis
-   - Repeat Diagnosis / Progress Check
-
-Additional blocks:
-
-- Psychosomatics / Link Between Self And Goal
-- Symptom Analysis
-- System Analysis
-- Remedy Relevance Check
-- Remedy-Only Analysis
-
 Main principle:
 
 **ясность → опора → препарат / поддержка → проверка**
 
 The strongest report is not the longest report.
 
+Canonical runtime source:
+
+```md
+andrey-system/project-ready/report-agent-project-instruction.md
+```
+
+Canonical repeat remedy check source:
+
+```md
+andrey-system/core/report-repeat-remedy-check-standard.md
+```
+
 ---
 
 ## 0. Critical Clarifications
 
-### 0.1. Wu Xing Rule
+### 0.1. Default structure vs repeat structure
+
+Default new client reports use 4 parts:
+
+```md
+1. Диагностика
+2. Назначение
+3. Примечание
+4. Приложение
+```
+
+Repeat remedy checks use 8 parts:
+
+```md
+1. Диагностика
+2. Что изменилось
+3. Что показывают препараты сейчас
+4. Вывод
+5. Решение
+6. Назначение
+7. Ожидаемое направление поддержки
+8. Приложение. Послания препаратов
+```
+
+This is a hard routing rule.
+
+If the user asks to recheck, update remedies, compare old/new remedies, see what left, what remains, or what is actual now, use the 8-part repeat structure.
+
+---
+
+### 0.2. Wu Xing Rule
 
 If the report includes **any Wu Xing analysis**, even a short numeric snapshot, it is a **Deep Diagnosis**.
 
@@ -50,9 +72,17 @@ This is already Deep Diagnosis, even if the explanation is short.
 
 Short Diagnosis does **not** include Wu Xing.
 
+If it is both Wu Xing and repeat remedy check, use:
+
+```md
+Deep + Repeat Remedy Check
+```
+
+but keep the 8-part repeat structure.
+
 ---
 
-### 0.2. Self + Goal / Health Rule
+### 0.3. Self + Goal / Health Rule
 
 Almost every diagnosis includes:
 
@@ -67,14 +97,12 @@ Symptom is added only when Andrey specifically evaluates or asks about the sympt
 
 ---
 
-### 0.3. Psychosomatics Rule
+### 0.4. Psychosomatics Rule
 
-Psychosomatics is not just a separate optional block.
-
-In Andrey's method it often means:
+Psychosomatics is often the link between:
 
 ```md
-связь между Я и целью / здоровьем / симптомом
+Я ↔ цель / здоровье / симптом
 ```
 
 The psychodynamic meaning appears when we explain:
@@ -84,11 +112,19 @@ The psychodynamic meaning appears when we explain:
 - what blocks movement between them;
 - what inner resource must be restored.
 
-So psychosomatics may be present as the **linking explanation**, even if there is no separate heading `ПСИХОСОМАТИКА`.
+So psychosomatics may be present as the linking explanation, even without a separate heading.
+
+In repeat remedy check, this appears in:
+
+```md
+4. Вывод
+```
+
+as a concise psychodynamic formula.
 
 ---
 
-### 0.4. Remedies Rule
+### 0.5. Remedies Rule
 
 Remedies / supports are included almost always.
 
@@ -108,22 +144,20 @@ Exception:
 
 ---
 
-### 0.5. Remedy-Only Analysis
+### 0.6. Remedy-Only Analysis
 
-There is also a separate format for pure remedy analysis.
-
-Use it when the input is mainly:
+Use Remedy-Only Analysis when the input is mainly:
 
 - a list of remedies;
 - current remedy reactions;
 - what is still actual / not actual;
 - what to check next.
 
-This can be independent of full diagnosis.
+If there are previous remedies and the task is to compare old/new actual relevance, use Repeat Remedy Check instead.
 
 ---
 
-### 0.6. Full structure vs full data
+### 0.7. Full structure vs full data
 
 Do not confuse a long structure with a Full Client Report.
 
@@ -142,17 +176,18 @@ If the input is minimal, do not call the output Full Client Report.
 
 ---
 
-### 0.7. Size must match input
+### 0.8. Size must match input
 
 Recommended maximums:
 
 - Mini Express: 80–250 words.
 - Short / Bach note: 300–700 words.
 - Deep / Full Support Snapshot: 600–1000 words.
+- Repeat Remedy Check: 500–900 words, still in 8 parts.
 - Deep Diagnosis with enough data: 600–1200 words.
 - Full Client Report / Full Support Report: 900–1400 words maximum, only when there is enough client data.
 - Follow-Up Check Note: 120–300 words.
-- Progress / Remedy Relevance Check: 250–600 words.
+- Progress / Remedy Relevance Check: 250–600 words if ultra-compact; but if remedies are compared old/new, use Repeat Remedy Check.
 
 If a report can be cut by 40%+ without losing meaning, it is overbuilt.
 
@@ -205,7 +240,8 @@ Use when:
 - data is limited;
 - the task is mainly to check the current resource;
 - the main need is remedy selection, for example Bach essences;
-- no Wu Xing analysis is required.
+- no Wu Xing analysis is required;
+- there is no old remedy set to compare.
 
 Core content:
 
@@ -217,7 +253,7 @@ Core content:
 Симптом X.X, only if specifically assessed.
 
 Коротко что сейчас.
-Главный bottleneck.
+Главное слабое место.
 
 ПОДБОР ПРЕПАРАТОВ
 - remedy 1 — function
@@ -237,7 +273,7 @@ Typical length:
 
 Main principle:
 
-**Self + goal/health → bottleneck → remedy selection → next check**
+**Self + goal/health → weak point → remedy selection → next check**
 
 ---
 
@@ -279,7 +315,7 @@ What the symptom field shows.
 
 5. ВЫВОД
 Dao stage.
-Main bottleneck.
+Main weak point.
 First support.
 Next realistic step.
 
@@ -302,7 +338,7 @@ Typical length:
 
 Main principle:
 
-**Self → goal/health → symptom if needed → Wu Xing → bottleneck → support → next step**
+**Self → goal/health → symptom if needed → Wu Xing → weak point → support → next step**
 
 ---
 
@@ -313,7 +349,7 @@ Use when:
 - the report includes Dao level and Wu Xing;
 - the input is limited but enough for a deep state map;
 - the user gives remedies / Bach essences as diagnostic signals;
-- the report needs bottleneck, support direction, and one short plan;
+- the report needs weak point, support direction, and one short plan;
 - there is not enough client history for a true Full Client Report.
 
 This is not a Full Client Report, even if it has many sections.
@@ -336,7 +372,7 @@ Wu Xing through the given inputs.
 Main vs secondary axis.
 Missing elements as needs verification.
 
-Bottleneck.
+Weak point.
 First support element.
 Remedies/support by function.
 One-cycle goal.
@@ -356,14 +392,132 @@ Rules:
 - no internal QA notes in the client-facing version;
 - separate core axis from surface symptoms.
 
-Example for Bach-led Wu Xing:
+---
+
+## #2.2. Repeat Remedy Check / Progress Check With Previous Remedies
+
+Use when:
+
+- there was previous work;
+- the user asks to recheck;
+- there is a previous remedy set;
+- the goal is to see what changed;
+- old remedies may have worked through a layer;
+- the task is to see what left, what remains, and what is now central.
+
+Format name:
 
 ```md
-Agrimony + Cherry Plum = скрытое напряжение + контроль.
-Beech + Impatiens = раздражение + ускорение.
-Вода = needs verification.
-Первый шаг = Земля, не рывок.
+Повторный отчёт / проверка актуальности препаратов
 ```
+
+Canonical source:
+
+```md
+andrey-system/core/report-repeat-remedy-check-standard.md
+```
+
+Hard rule:
+
+Repeat Remedy Check always uses 8 parts:
+
+```md
+1. Диагностика
+2. Что изменилось
+3. Что показывают препараты сейчас
+4. Вывод
+5. Решение
+6. Назначение
+7. Ожидаемое направление поддержки
+8. Приложение. Послания препаратов
+```
+
+Focus:
+
+- current state;
+- what changed;
+- what old remedies showed;
+- what proves old remedies left or became background;
+- what remedies are now actual;
+- current psychodynamic formula;
+- main weak point;
+- solution before prescription;
+- expected direction of support;
+- recheck timing.
+
+Structure:
+
+```md
+1. Диагностика
+Смотрю.
+[Name] сейчас как будто ...
+Ресурса немного не хватает / ресурс вырос / состояние сменило слой.
+Главное ядро сейчас — ...
+Это тема ...
+
+2. Что изменилось
+Ушли / стали фоном препараты, которые показывали:
+- old remedy — old layer.
+- old remedy — old layer.
+
+Это говорит, что стало меньше ...
+Но вместе с этим ближе проявился ...
+
+3. Что показывают препараты сейчас
+- current remedy — current function.
+- current remedy — current function.
+
+4. Вывод
+Психодинамика ситуации сейчас:
+“...”
+Главное слабое место — ...
+
+5. Решение
+Главная задача сейчас — ...
+Чтобы не нужно было ...
+Вернуть / усилить ...
+
+6. Назначение
+А) В первую очередь подходят:
+- ...
+
+Б) Дополнительно / по желанию:
+- ...
+
+Как принимать: ...
+Курс: ...
+Повторная проверка: ...
+
+7. Ожидаемое направление поддержки
+Может стать больше ...
+Проверяем: ...
+
+8. Приложение. Послания препаратов
+Remedy: ...
+```
+
+Bad:
+
+```md
+Почти ушли / стали фоном: Agrimony, Olive, Vine, Clematis, Water Violet.
+```
+
+Good:
+
+```md
+Ушли или стали фоном препараты, которые показывали старый слой:
+- Olive — полное истощение.
+- Vine — жёсткое давление и попытку управлять ситуацией.
+- Clematis — уход из контакта.
+- Water Violet — холодную дистанцию и закрытость.
+- Agrimony — маскировку боли через “всё нормально”.
+
+Это говорит, что стало меньше защитного слоя.
+Больше настоящести.
+Но вместе с этим ближе проявился внутренний стресс.
+```
+
+If Wu Xing is included, this is **Deep + Repeat Remedy Check**, but the 8-part repeat structure remains mandatory.
 
 ---
 
@@ -377,7 +531,7 @@ Required data should include most of:
 - current Self / health / goal level;
 - body or symptom details, if relevant;
 - what worsens / improves the state;
-- remedy reactions or previous support;
+- remedy reactions or support history;
 - enough context to personalize the plan;
 - follow-up or verification structure.
 
@@ -407,6 +561,8 @@ Typical length:
 
 Do not use this label for minimal input.
 
+Do not use this label for a repeat remedy check unless the user also provided enough full client data.
+
 ---
 
 ## 2. New vs Repeat Diagnosis
@@ -426,7 +582,7 @@ Use when:
 Focus:
 
 - current level;
-- current bottleneck;
+- current weak point;
 - first support;
 - what to start with.
 
@@ -455,19 +611,17 @@ Use when:
 
 - there was previous work;
 - the user asks to recheck;
-- there is a previous remedy set;
 - the goal is to see what changed.
 
-Focus:
+If old remedies are involved, route to:
 
-- what changed;
-- what improved;
-- what remains;
-- what remedies are no longer relevant;
-- what is now actual;
-- next Dao step.
+```md
+#2.2. Repeat Remedy Check / Progress Check With Previous Remedies
+```
 
-Structure:
+and use the 8-part structure.
+
+If the repeat check is only a tiny status note without remedy comparison, it may be compact:
 
 ```md
 Смотрю ещё раз.
@@ -481,18 +635,9 @@ Structure:
 Сейчас закрепилась на уровне ...
 Следующий шаг ...
 
-ПРОВЕРКА ПРЕПАРАТОВ
-Ушли:
-- ...
-
-Актуальны:
-- ...
-
 Дальше:
 проверить через ...
 ```
-
-If Wu Xing is included, this is **Deep + Repeat**.
 
 ---
 
@@ -526,6 +671,8 @@ Structure:
 ```
 
 This block may appear without the word “psychosomatics”.
+
+In repeat remedy check, it is usually compressed into part 4 `Вывод` and part 5 `Решение`.
 
 ---
 
@@ -584,34 +731,47 @@ Do not turn the report into a full systemic constellation unless asked.
 
 Use in repeat diagnosis when checking what changed.
 
-Structure:
+If previous remedies are present, use full Repeat Remedy Check structure.
+
+Required 8 parts:
 
 ```md
-ПРОВЕРКА ПРЕПАРАТОВ
+1. Диагностика
+2. Что изменилось
+3. Что показывают препараты сейчас
+4. Вывод
+5. Решение
+6. Назначение
+7. Ожидаемое направление поддержки
+8. Приложение. Послания препаратов
+```
 
-Уже НЕ актуальны / ушли:
-- ...
+Inside part 2, always explain the old layer:
 
-АКТУАЛЬНЫ:
-- ...
+```md
+Ушли / стали фоном препараты, которые показывали:
+- old remedy — old layer.
+```
 
-Менее актуальны, но могут пригодиться:
-- ...
+Then interpret:
 
-Это уже уровень ...
+```md
+Это говорит, что стало меньше ...
+Но вместе с этим ближе проявился ...
 ```
 
 This block is especially important when the work moves:
 
 - from trauma support to finer tuning;
 - from crisis support to stabilization;
-- from stabilization to next Dao stage.
+- from stabilization to next Dao stage;
+- from protective layer to deeper authentic stress / need / support.
 
 ---
 
 ## E. Remedy-Only Analysis
 
-Use when the task is only to analyze remedies.
+Use when the task is only to analyze remedies and there is no old set to compare.
 
 Structure:
 
@@ -640,7 +800,7 @@ Structure:
 - ...
 ```
 
-This format can be used without `Я`, `цель`, or Wu Xing if the user only asks about remedies.
+If the central task is old/new relevance, prefer Repeat Remedy Check.
 
 ---
 
@@ -672,6 +832,8 @@ Rules:
 - name main axis first;
 - missing Water or other missing element must be marked `needs verification`.
 
+If Bach-led Wu Xing appears in a repeat remedy check, do not create a separate competing structure. Put it inside the 8 parts.
+
 ---
 
 ## 4. Final Selection Rule
@@ -695,6 +857,7 @@ Additional blocks:
 - Symptom Analysis
 - System Analysis
 - Remedy Relevance Check
+- Repeat Remedy Check 8-part
 - Remedy-Only Analysis
 - Bach-led Wu Xing Block
 ```
@@ -704,10 +867,12 @@ Example combinations:
 ```md
 Mini Express + New = tiny resource / goal check without remedies.
 Short + New = resource / goal check + Bach or remedy selection.
-Short + Repeat = quick recheck + update remedies.
+Short + Repeat = quick recheck only if no old/new remedy comparison.
+Repeat Remedy Check = previous remedies + what left / what remains / what is actual now, always 8 parts.
 Deep + New = Self + goal/health + Wu Xing + support plan.
 Deep / Full Support Snapshot = limited input + Dao + Wu Xing + support direction.
 Deep + Repeat = Wu Xing progress check + stage transition + updated remedies.
+Deep + Repeat Remedy Check = Wu Xing/Bach progress check with previous remedies, still 8 parts.
 Deep + Symptom = Self / goal-health / symptom + Wu Xing + support.
 Full Client Report = enough client data + full support plan + check structure.
 Remedy-Only = pure analysis of remedies without full diagnosis.
@@ -737,7 +902,11 @@ If there are previous remedies, check:
 
 - what stayed actual;
 - what left;
-- what changed in the layer of work.
+- what changed in the layer of work;
+- what shows that the old remedies left or became background;
+- what is now central.
+
+If there are previous remedies and an updated remedy set, use 8 parts.
 
 The strongest report is not the longest report.
 
