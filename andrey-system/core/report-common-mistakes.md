@@ -111,6 +111,8 @@ If the user asks for a справка, keep it short:
 - why it is relevant here;
 - common conclusion.
 
+If the user asks for repeat remedy check / repeated Bach check / what left and what remains, use the 8-part repeat structure from `core/report-repeat-remedy-check-standard.md`.
+
 ---
 
 ## 6. Wu Xing added to a short diagnosis
@@ -124,6 +126,8 @@ A short diagnosis includes Wu Xing but still stays short / unstructured.
 Any Wu Xing analysis means Deep Diagnosis, even if the snapshot is compact.
 
 If the input is limited, use Deep / Full Support Snapshot rather than Full Client Report.
+
+If it is also a repeat remedy check, keep the repeat-check 8-part structure.
 
 ---
 
@@ -158,8 +162,16 @@ The report describes symptoms, elements, and remedies but never names the main b
 Add one clear sentence:
 
 ```md
-Главный bottleneck сейчас — ...
+Главное слабое место сейчас — ...
 ```
+
+or:
+
+```md
+Главная узкая зона — ...
+```
+
+Do not use English `bottleneck` in client-facing Russian text.
 
 ---
 
@@ -232,6 +244,18 @@ Add:
 Смотреть: ...
 ```
 
+For repeat remedy check, this belongs inside:
+
+```md
+6. Назначение
+```
+
+and is reinforced in:
+
+```md
+7. Ожидаемое направление поддержки
+```
+
 ---
 
 ## 13. No dynamics in repeat report
@@ -249,11 +273,89 @@ Add:
 - what dropped;
 - which remedies left;
 - which remain actual;
-- next Dao step.
+- next Dao step, if Dao is part of the check.
+
+For repeat remedy check, the required structure is:
+
+```md
+1. Диагностика
+2. Что изменилось
+3. Что показывают препараты сейчас
+4. Вывод
+5. Решение
+6. Назначение
+7. Ожидаемое направление поддержки
+8. Приложение. Послания препаратов
+```
 
 ---
 
-## 14. Unsafe certainty
+## 14. Repeat remedy check written in 4 parts
+
+### Mistake
+
+The user asks for a repeated report / remedy relevance check, but the agent writes the default 4-part report:
+
+```md
+1. Диагностика
+2. Назначение
+3. Примечание
+4. Приложение
+```
+
+This is wrong for repeat remedy checks because it hides the dynamics.
+
+### Fix
+
+Use the canonical 8-part structure:
+
+```md
+1. Диагностика
+2. Что изменилось
+3. Что показывают препараты сейчас
+4. Вывод
+5. Решение
+6. Назначение
+7. Ожидаемое направление поддержки
+8. Приложение. Послания препаратов
+```
+
+---
+
+## 15. Old remedies marked as “left” without evidence
+
+### Mistake
+
+The report says:
+
+```md
+Почти ушли / стали фоном: Agrimony, Olive, Vine, Clematis, Water Violet.
+```
+
+But it does not explain what shows that they left or what old layer they represented.
+
+### Fix
+
+Always explain the old layer:
+
+```md
+Ушли или стали фоном препараты, которые показывали старый слой:
+- Olive — полное истощение.
+- Vine — жёсткое давление и попытку управлять ситуацией.
+- Clematis — уход из контакта.
+- Water Violet — холодную дистанцию и закрытость.
+- Agrimony — маскировку боли через “всё нормально”.
+
+Это говорит, что стало меньше защитного слоя.
+Больше настоящести.
+Но вместе с этим ближе проявился внутренний стресс.
+```
+
+If this explanation is absent, the repeat report is incomplete.
+
+---
+
+## 16. Unsafe certainty
 
 ### Mistake
 
@@ -268,9 +370,22 @@ Use safe language:
 - needs verification;
 - не заменяет медицинскую помощь.
 
+For expected effects in repeat remedy check, write:
+
+```md
+Ожидаемое направление поддержки: может стать больше ...
+Проверяем: ...
+```
+
+not:
+
+```md
+При приёме препаратов растёт ...
+```
+
 ---
 
-## 15. Over-polished style
+## 17. Over-polished style
 
 ### Mistake
 
@@ -289,7 +404,7 @@ Use shorter phrases, living rhythm, and direct observation:
 
 ---
 
-## 16. Main rule
+## 18. Main rule
 
 Most weak reports fail because they miss one of these:
 
@@ -297,8 +412,10 @@ Most weak reports fail because they miss one of these:
 - correct format;
 - live tone;
 - text density;
-- bottleneck;
+- bottleneck / weak point;
 - next step;
-- safe support language.
+- safe support language;
+- for repeat checks: the 8-part structure;
+- for repeat checks: an explanation of what shows old remedies left.
 
 Fix those first.
