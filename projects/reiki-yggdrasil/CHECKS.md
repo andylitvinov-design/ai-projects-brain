@@ -64,6 +64,7 @@ For DAO/mandala tasks, check these items when relevant:
 - background size/field sliders affect the expected target;
 - show/hide toggles work for center, mini-mandalas, inner background, and outer background;
 - selected DAO style still renders the intended layout;
+- DAO layout does not break;
 - square/circle layout changes do not leave stale circular backgrounds.
 
 ## Do not
