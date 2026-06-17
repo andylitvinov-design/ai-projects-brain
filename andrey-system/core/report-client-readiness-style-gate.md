@@ -9,13 +9,18 @@ Single canonical source:
 Use that file for:
 
 - client-readiness criteria;
-- four-part report structure;
+- default four-part report structure;
+- mandatory eight-part repeat remedy check structure;
 - report length and compression;
 - diagnosis limits;
 - prescription format;
-- note format;
+- note / solution format;
 - appendix/remedy-message rules;
 - final checklist.
+
+Repeat remedy checks also use:
+
+`andrey-system/core/report-repeat-remedy-check-standard.md`
 
 Do not add alternative rules here.
 If this file conflicts with `project-ready/report-agent-project-instruction.md`, the project-ready instruction wins.
