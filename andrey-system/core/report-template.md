@@ -8,13 +8,18 @@ Single canonical source:
 
 Use that file for:
 
-- report structure;
+- default report structure;
+- mandatory eight-part repeat remedy check structure;
 - report length;
 - diagnosis limits;
 - prescription format;
-- note format;
+- solution / note format;
 - appendix/remedy-message rules;
 - final checklist.
+
+For repeat remedy checks, also use:
+
+`andrey-system/core/report-repeat-remedy-check-standard.md`
 
 Do not add alternative templates here.
 If this file conflicts with `project-ready/report-agent-project-instruction.md`, the project-ready instruction wins.
