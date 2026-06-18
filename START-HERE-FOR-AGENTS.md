@@ -10,10 +10,13 @@
 - Agent Thinking Quality Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-thinking-quality-standard.md
 - Bot Quality Standard Usage Guide: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/bot-quality-standard-usage.md
 - Production Debug Protocol: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md
+- Delivery Auth Boundary Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/delivery-auth-boundary-standard.md
 - Claude Code Prompt Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md
 - Codex Goal Prompt Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-goal-prompt-standard.md
 
 Короткое правило: **сначала доказать failing layer, затем делать минимальное безопасное действие.**
+
+Если задача касается `/delivery`, production verification, live-check, Google OAuth, Supabase/private auth или кабинетов за логином, агент обязан применять `systems/delivery-auth-boundary-standard.md`: ожидаемый auth-boundary не является ошибкой delivery; допустимый финал — `STATUS: SUCCESS_WITH_AUTH_LIMITATION`.
 
 Если пользователь просит создать промпт для Claude Code, ChatGPT обязан сначала применить `systems/claude-code-prompt-standard.md`: low-token режим, одна задача, staged workflow, `/clear`, без broad repo scan, без полного аудита и без длинного стартового контекста.
 
@@ -34,12 +37,14 @@
    - `CLAUDE_CODE_PROMPTS.md` если задача — создать или оптимизировать промпт для Claude Code
 5. Если задача про код — открыть canonical GitHub repo из `PROJECT.md` или `projects/index.md`.
 6. Если задача про production — проверить live URL, `/api/status`, `/api/audit-snapshot` или другие checks, если они указаны.
-7. Если данных нет — писать `needs verification`, не угадывать.
+7. Если production/live проверка упирается только в ожидаемый Google/Supabase/private auth-boundary, не считать это ошибкой: применить `STATUS: SUCCESS_WITH_AUTH_LIMITATION` при наличии safe proof по стандарту.
+8. Если данных нет — писать `needs verification`, не угадывать.
 
 ## 2. Что нельзя делать
 
 - Не менять secrets/env values.
 - Не добавлять реальные токены, ключи, cookies, refresh tokens.
+- Не запрашивать и не использовать реальные Google/Supabase/private auth credentials для проверки live кабинетов.
 - Не путать похожие репозитории.
 - Не использовать legacy/deprecated repo как production source без явного подтверждения.
 - Не делать вывод о live-состоянии только по коду.
@@ -69,11 +74,12 @@
 3. `projects/<project_key>/STATE.md` — текущее состояние, если есть.
 4. `projects/<project_key>/SYSTEM_MAP.md` — архитектура.
 5. `projects/<project_key>/CHECKS.md` — как проверять.
-6. `systems/claude-code-prompt-standard.md` — обязательный общий стандарт, когда нужно написать промпт для Claude Code.
-7. `systems/codex-goal-prompt-standard.md` — обязательный общий стандарт, когда нужно написать или исправить Codex `/goal`.
-8. `projects/<project_key>/CLAUDE_CODE_PROMPTS.md` — проектные правила для Claude Code промптов, если такой файл есть.
-9. Repo-local `README.md`, `AGENTS.md`, `STATE.md`, tests, deploy docs.
-10. Live endpoints / deploy status, если задача про production.
+6. `systems/delivery-auth-boundary-standard.md` — обязательный общий стандарт для `/delivery`, live verification и auth-gated production checks.
+7. `systems/claude-code-prompt-standard.md` — обязательный общий стандарт, когда нужно написать промпт для Claude Code.
+8. `systems/codex-goal-prompt-standard.md` — обязательный общий стандарт, когда нужно написать или исправить Codex `/goal`.
+9. `projects/<project_key>/CLAUDE_CODE_PROMPTS.md` — проектные правила для Claude Code промптов, если такой файл есть.
+10. Repo-local `README.md`, `AGENTS.md`, `STATE.md`, tests, deploy docs.
+11. Live endpoints / deploy status, если задача про production.
 
 `projects.md`, `projects.json`, `data/project-index.json` остаются дополнительными human/machine inventories.
 
@@ -116,6 +122,8 @@
 ## 8. Главная формула
 
 **Сначала project_key → потом только его capsule → потом repo/live checks → затем минимальное безопасное действие → затем memory update.**
+
+Для `/delivery` формула: **ожидаемый auth-boundary не равен ошибке; public/login/deploy/local-or-code proof могут дать `STATUS: SUCCESS_WITH_AUTH_LIMITATION`.**
 
 Для Claude Code промптов формула отдельная: **сначала `claude-code-prompt-standard.md` → затем проектный `CLAUDE_CODE_PROMPTS.md` → затем короткий staged prompt: diagnose → inspect → patch → test → verify.**
 
