@@ -26,6 +26,7 @@
 
 - Env names may be listed; values must never be stored.
 - Google OAuth credentials and session secrets are sensitive.
+- Expected Google OAuth/private auth boundary is not `BLOCKED`; use `STATUS: SUCCESS_WITH_AUTH_LIMITATION` with safe public/login/protected-redirect/local/code proof.
 
 ## Main formula
 

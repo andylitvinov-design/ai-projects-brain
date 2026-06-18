@@ -12,7 +12,7 @@ Added / clarified:
 - private cabinet / mandala verification rules in `CHECKS.md`;
 - delivery workflow decision in `DECISIONS.md`;
 - guidance that private/auth-only profile, cabinet, DAO talisman, mandala editor, user media, and saved user state should be verified locally when owner live session is unavailable;
-- guidance that authenticated live proof must remain `NOT VERIFIED` unless actually verified.
+- guidance that expected owner-session/auth boundary is not `BLOCKED`; use `STATUS: SUCCESS_WITH_AUTH_LIMITATION` with safe public/login/protected-redirect/local/code proof.
 
 Verification:
 

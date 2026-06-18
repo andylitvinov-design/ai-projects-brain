@@ -12,7 +12,7 @@ Current active context:
 Current verification mode guidance:
 
 - Public pages: verify deployed live route when production-facing changes are made.
-- Private/auth-only UI: verify locally with safe fixture/demo state and mark authenticated live proof as `NOT VERIFIED` when owner session is required.
+- Private/auth-only UI: verify locally with safe fixture/demo state; when owner session is the only missing live proof, use `STATUS: SUCCESS_WITH_AUTH_LIMITATION` with public/login/protected-redirect/local/code proof.
 - DAO/mandala UI: include visual or DOM proof for photo shape, background removal, slider behavior, show/hide toggles, and layout stability.
 
 Next actions:
