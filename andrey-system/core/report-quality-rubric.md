@@ -12,7 +12,7 @@ Main audit principle:
 
 **client-ready living text first, method checklist second.**
 
-A report can contain Dao, Wu Xing, bottleneck, support, and safety, and still be bad if it sounds like a dry GPT report, is inflated, or cannot be sent to a client.
+A report can contain Dao, Wu Xing, bottleneck, support, and safety, and still be bad if it sounds dry, generic, inflated, or cannot be sent to a client.
 
 ---
 
@@ -43,7 +43,7 @@ If the answer is **no**, the report cannot pass, even if all formal method block
 
 A report fails the Client-Readiness Gate if:
 
-- it sounds like GPT, an academic note, or a generic coaching report;
+- it sounds like an academic note or a generic coaching report;
 - it is inflated 2–3 times beyond the value of the input;
 - the client must search through long explanations to understand the point;
 - it teaches the method instead of diagnosing the current state;
@@ -52,12 +52,45 @@ A report fails the Client-Readiness Gate if:
 
 ---
 
-## 3. Required scoring block
+## 3. Anti-AI QA Gate
+
+Before final scoring, run `core/anti-ai-writing-style.md`.
+
+This gate checks whether the text is practical, alive, compressed, and client-ready.
+
+The report fails this gate if:
+
+- the first 5–7 lines do not orient the client;
+- formal openings or generic phrases dominate;
+- paragraphs do not have a clear function;
+- remedy descriptions sound like encyclopedia entries;
+- Wu Xing is explained like a textbook instead of diagnosed;
+- recommendations stay vague instead of giving an exact next action;
+- the report can be shortened by 30–40% without losing meaning;
+- safety language is either missing or so legalistic that it kills the living voice.
+
+Hard scoring rule:
+
+```md
+If Anti-AI / live style QA is below 7/10,
+Готовность отправить клиенту cannot be above 6/10.
+```
+
+If the text sounds generic rather than like Andrey's living client message:
+
+```md
+Живой стиль Андрея cannot be above 6/10.
+```
+
+---
+
+## 4. Required scoring block
 
 Use this scoring block for audits:
 
 ```md
 Живой стиль Андрея: X/10
+Anti-AI / live style QA: X/10
 Плотность текста / отсутствие воды: X/10
 Соответствие формату: X/10
 Клиентская ясность: X/10
@@ -71,15 +104,21 @@ Bottleneck и главный механизм: X/10
 
 ---
 
-## 4. Hard fail rules
+## 5. Hard fail rules
 
-### 4.1. Live style threshold
+### 5.1. Live style threshold
 
 If **Живой стиль Андрея** is below 7/10, the report does not pass.
 
 Reason: Andrey's reports are live diagnostic messages, not formal method summaries.
 
-### 4.2. Compression threshold
+### 5.2. Anti-AI QA threshold
+
+If **Anti-AI / live style QA** is below 7/10, the report does not pass as final client text.
+
+Reason: a report can be methodically correct but still sound generic, inflated, formal, or lifeless.
+
+### 5.3. Compression threshold
 
 If the report can be shortened by 40%+ without loss of meaning:
 
@@ -87,13 +126,13 @@ If the report can be shortened by 40%+ without loss of meaning:
 - `Готовность отправить клиенту` cannot be higher than 6/10;
 - final result cannot be stronger than `needs rewrite`.
 
-### 4.3. Format inflation threshold
+### 5.4. Format inflation threshold
 
 If the input is minimal and the report imitates a Full Client Report, the report fails format match.
 
 Small input requires a compact living note or Deep Snapshot, not a full report facade.
 
-### 4.4. Internal QA leakage
+### 5.5. Internal QA leakage
 
 If the client-facing report contains registry status, source notes, or `Quality check`, the report does not pass as client-ready.
 
@@ -101,11 +140,11 @@ Internal QA belongs to the agent/auditor output only.
 
 ---
 
-## 5. Categories
+## 6. Categories
 
 ### Live Russian style
 
-Checks whether the report sounds like Andrey's live diagnostic message, not a generic GPT report.
+Checks whether the report sounds like Andrey's live diagnostic message, not a generic report.
 
 Look for:
 
@@ -123,6 +162,32 @@ Bad signs:
 - `клиент демонстрирует`;
 - long theoretical introductions;
 - element encyclopedia blocks.
+
+### Anti-AI / live style QA
+
+Checks whether the report passed `core/anti-ai-writing-style.md` as a practical pre-delivery critic.
+
+Look for:
+
+- first 5–7 lines orient the client quickly;
+- each paragraph has a function;
+- weak phrases are removed or rewritten;
+- method is translated into client meaning;
+- generic recommendations become exact next actions;
+- remedy and Wu Xing blocks are functional, not encyclopedic;
+- safety is precise and human;
+- the report does not contain polished filler.
+
+Scoring:
+
+```md
+10 — no generic filler; phrase-level edits complete; report is alive and ready.
+8 — mostly clean; 2–5 lines can still be sharpened.
+6 — readable but still contains generic phrases or inflated blocks.
+4 — formal/generic voice dominates; major rewrite needed.
+2 — mostly method summary or generic coaching prose.
+0 — not client-ready due to safety failure, internal QA leakage, or no useful client orientation.
+```
 
 ### Text density / absence of water
 
@@ -203,12 +268,14 @@ If no, the report needs rewrite.
 
 ---
 
-## 6. Quality check
+## 7. Quality check
 
 Use this checklist at the end:
 
 ```md
 Можно отправить клиенту: да/нет
+Anti-AI pass выполнен: да/нет
+Первые 7 строк дают состояние: да/нет
 Живой стиль Андрея есть: да/нет
 Текст сжатый и плотный: да/нет
 Формат выбран правильно: да/нет
@@ -227,7 +294,7 @@ Internal QA убран из клиентского текста: да/нет
 
 ---
 
-## 7. Main rule
+## 8. Main rule
 
 The strongest report is not the longest report.
 
