@@ -4,6 +4,15 @@ Use these rules before working on any project listed in
 `projects.md` or `projects.json`. They are written for both
 ChatGPT and Codex.
 
+## Thinking Quality Standard
+
+- Read and apply `systems/agent-thinking-quality-standard.md` for debugging,
+  prompt writing, Codex task management, production fixes, project memory
+  updates, and quality scoring.
+- Core rule: `First prove the failing layer before patching.`
+- If the failing layer is not proven, mark it `needs verification` and keep
+  the next step safe, small, and reversible.
+
 ## Shared Agent Modes
 
 - Read and apply `systems/agent-modes.md` as the index of callable
