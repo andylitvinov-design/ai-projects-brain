@@ -1,37 +1,45 @@
-# Anti-AI Writing Style — Andrey Li Reports
+# Anti-AI Writing Style QA Gate — Andrey Li Reports
 
-Status: draft standard 1.0  
+Status: draft standard 2.0  
 Owner: Andrey Li system  
-Scope: client reports, Bach / homeopathy / naturopathy notes, Dao / Wu Xing diagnostics, business texts, and support notes written in Andrey's voice.
+Role: critic + fixer before client delivery  
+Scope: client reports, Bach / homeopathy / naturopathy notes, Dao / Wu Xing diagnostics, business texts, support notes, and follow-up checks written in Andrey's voice.
 
 ---
 
-## 1. Purpose
+## 0. What this file is
 
-This file is a final quality gate against generic AI-style writing.
+This file is not a style wish-list.
 
-It exists to protect report quality:
+It is a practical QA gate.
 
-- remove generic GPT voice;
-- remove formal filler and empty transitions;
-- keep the text alive, short, diagnostic, and client-facing;
-- preserve Andrey's living Russian style;
-- make every paragraph give clarity, support, movement, or a check.
-
-Main standard:
+Before a report goes to a client, this file acts as a critic:
 
 ```md
-The text should sound like a living diagnostic note from Andrey,
-not like a polished generic report about a client.
+scan → mark weak phrases → score → rewrite → check again
 ```
 
-The core movement stays:
+The document must help the agent answer:
+
+```md
+Can this text be sent to a real client as Andrey's living message?
+If not, what exactly must be cut, replaced, or rewritten?
+```
+
+Core standard:
+
+```md
+The report must not sound like a generic AI report.
+It must sound like Andrey is looking at the client's state now.
+```
+
+Core movement:
 
 ```md
 цифра → образ → bottleneck → опора → поддержка → проверка
 ```
 
-Or even shorter:
+Client result:
 
 ```md
 ясность → опора → что делать сейчас → что проверить потом
@@ -39,409 +47,788 @@ Or even shorter:
 
 ---
 
-## 2. What counts as generic AI-style writing
+## 1. Source ideas absorbed into this gate
 
-In this system, generic AI-style writing means text that is:
+This standard combines five idea families.
 
-- too smooth but not alive;
-- formal instead of direct;
-- long but low in useful signal;
-- filled with universal phrases that fit any report;
-- organized like an essay instead of a live diagnostic note;
-- explaining the method instead of showing the current state;
-- safe-sounding but vague;
-- confident without enough data;
-- full of support words without actual support.
+### 1.1. Andrey live report style
 
-Typical weak pattern:
+From existing system standards:
 
 ```md
-introductory framing → abstract explanation → category description → balanced conclusion → generic recommendation
+Смотрю → Я X.X → состояние → образ → bottleneck → поддержка → проверка
 ```
 
-Andrey-style report pattern:
-
-```md
-Смотрю → Я X.X → что происходит → образ → главный bottleneck → чем поддержать → когда проверить
-```
-
----
-
-## 3. External ideas absorbed into this standard
-
-This standard adapts public writing-quality ideas, but does not copy an external guide.
-
-Useful concepts:
-
-1. AI-content cleanup discussions often point to repeated editorial commentary, formulaic conclusions, unsupported confidence, and unreliable references as warning signs.
-2. Plain-language standards emphasize that writing should be clear, concise, direct, audience-aware, and easy to use.
-3. AI-slop discussions describe low-quality generated text as filler that lacks substance, relevance, or meaning.
-4. Quality research on generated text often evaluates coherence, relevance, and whether the text actually serves the reader.
-
-How this translates into Andrey reports:
-
-- no filler;
-- no fake authority;
-- no invented certainty;
-- no method lecture when a client needs orientation;
-- no long beautiful paragraph if one live sentence works better.
-
----
-
-## 4. Weak phrases to rewrite
-
-These phrases are not banned in every possible context, but they are strong warning signs.
-
-### 4.1. Formal Russian markers
-
-Avoid or rewrite:
-
-```md
-В данном отчёте рассматривается...
-Следует отметить...
-Важно подчеркнуть...
-Необходимо отметить...
-Клиент демонстрирует...
-Данная ситуация указывает на...
-На основании представленных данных можно сделать вывод...
-Рекомендуется осуществлять мониторинг...
-Можно сделать вывод о том, что...
-В целом можно сказать...
-Таким образом...
-В заключение...
-Данный процесс может способствовать...
-```
-
-Better Andrey-style replacements:
-
-```md
-Смотрю.
-Главное здесь — ...
-По состоянию видно ...
-Как будто ...
-Сейчас задача — ...
-Это требует проверки.
-Проверить лучше через ...
-```
-
-### 4.2. English markers, if writing in English
-
-Avoid or rewrite:
-
-```md
-It is important to note that...
-It is worth mentioning...
-In conclusion...
-Overall...
-This highlights the importance of...
-This can serve as a powerful tool for...
-This comprehensive approach...
-A nuanced understanding of...
-```
-
-Better:
-
-```md
-Main point:
-What I see:
-The bottleneck is:
-The next step is:
-Needs verification.
-```
-
-### 4.3. Inflated spiritual / therapeutic words
-
-Use carefully. Do not let them replace diagnosis.
-
-Weak when unsupported:
-
-```md
-глубокая трансформация
-мощная активация
-уникальный процесс
-целостное восстановление
-гармонизация на всех уровнях
-выход на новый уровень
-прорыв
-```
-
-Better:
-
-```md
-Здесь пока не прорыв.
-Скорее нужно вернуть опору.
-Ресурс есть, но он сжат.
-Первым делом поддержать Воду / Я / тело.
-```
-
----
-
-## 5. The final Anti-AI pass
-
-Before sending any client-facing text, the agent must run an internal Anti-AI pass.
-
-Ask:
-
-```md
-1. Does this sound like Andrey is looking now?
-2. Is the first useful state visible in the first 5–7 lines?
-3. Can I remove 30–40% without losing meaning?
-4. Are there abstract paragraphs that do not change the client's understanding?
-5. Is there a number, image, bottleneck, support, or next check?
-6. Are remedies/supports described by function, not encyclopedia description?
-7. Is there any unsupported certainty or invented data?
-8. Is safety present without turning the text into legal prose?
-```
-
-If the text fails, do not send it as final.
-
-Rewrite it.
-
----
-
-## 6. Rewrite principles
-
-### 6.1. Replace framing with seeing
-
-Bad:
-
-```md
-В данном отчёте рассматривается текущее состояние клиента и возможные направления поддержки.
-```
-
-Better:
-
-```md
-Смотрю.
-Сейчас главное — не разгонять систему, а вернуть опору.
-```
-
-### 6.2. Replace category explanation with function
-
-Bad:
-
-```md
-Aspen традиционно применяется при состояниях неопределённой тревожности, когда человек испытывает внутреннее беспокойство без очевидной причины.
-```
-
-Better:
-
-```md
-Aspen — фоновая тревожность, которая выбивает опору под ногами.
-```
-
-### 6.3. Replace long interpretation with bottleneck
-
-Bad:
-
-```md
-Состояние клиента может быть связано с комплексным сочетанием эмоциональной нестабильности, сниженной способности к саморегуляции и недостаточным уровнем внутренней устойчивости.
-```
-
-Better:
-
-```md
-Главное здесь — не слабость.
-Скорее система не держит опору, когда появляется неопределённость.
-```
-
-### 6.4. Replace generic recommendation with next action
-
-Bad:
-
-```md
-Рекомендуется продолжать наблюдение за динамикой состояния и при необходимости корректировать поддержку.
-```
-
-Better:
-
-```md
-Проверить через 3–5 дней.
-Если Я подрастёт хотя бы до 3.3, можно будет усиливать следующий слой.
-```
-
-### 6.5. Replace safety fog with precise caution
-
-Bad:
-
-```md
-Данные рекомендации не являются медицинским заключением и должны рассматриваться исключительно как дополнительная информация.
-```
-
-Better:
-
-```md
-Это направление поддержки, не медицинский диагноз.
-Если симптомы серьёзные, лучше параллельно держать связь с врачом.
-```
-
----
-
-## 7. Andrey-style replacement rules
-
-### Rule 1. Start from the current state
-
-Prefer:
-
-```md
-Смотрю.
-Я 3.3.
-Здоровье 3.1.
-Сейчас состояние держится, но ресурс неустойчивый.
-```
-
-Avoid:
-
-```md
-Перед нами комплексная картина, в которой сочетаются несколько уровней внутренней динамики.
-```
-
-### Rule 2. One paragraph = one useful movement
-
-Each paragraph should do one of these:
-
-- name current state;
-- give image;
-- name bottleneck;
-- show what is already resourceful;
-- show what to support;
-- name next check.
-
-If a paragraph does none of this, remove it.
-
-### Rule 3. Do not polish away life
-
-Andrey's style can be slightly rough, direct, and spoken.
-
-Good:
-
-```md
-Тут скорее как обескураженность.
-Как будто человек чуть потерял управление.
-Не всё рухнуло, но опора просела.
-```
-
-Too polished:
-
-```md
-Наблюдается снижение субъективного ощущения контроля, что может быть связано с актуализацией внутренней уязвимости.
-```
-
-### Rule 4. Keep method inside, client language outside
-
-The agent may think in Dao, Wu Xing, Bach, psychodynamics, and bottleneck logic.
-
-But the client-facing text should receive the useful result, not the whole reasoning chain.
+Key rule:
 
 ```md
 Depth inside. Simplicity outside.
 ```
 
-### Rule 5. Use uncertainty honestly
+The agent may think in Dao, Wu Xing, Bach, remedy logic, psychodynamics, and safety.
 
-Use:
+The client should receive the useful result, not the whole reasoning chain.
+
+### 1.2. Plain language / clear writing
+
+Use plain-language principles:
+
+- put the useful point early;
+- write for the reader's next action;
+- remove filler;
+- use concrete words;
+- prefer short sentences;
+- one paragraph = one useful movement.
+
+### 1.3. AI-style cleanup patterns
+
+Common weak AI patterns:
+
+- formulaic introductions;
+- formulaic conclusions;
+- repeated balanced phrasing;
+- editorial commentary instead of content;
+- unsupported confidence;
+- generic claims that fit any client;
+- long smooth paragraphs with little diagnostic value.
+
+### 1.4. AI slop / low-signal content
+
+Low-signal generated text usually has one or more of these problems:
+
+- lots of words, little useful information;
+- no specific reader value;
+- no real decision support;
+- no clear next action;
+- safe but vague;
+- polished but empty.
+
+### 1.5. Report safety standards
+
+Anti-AI editing must never remove necessary safety.
+
+Keep:
+
+- `needs verification` when data is uncertain;
+- medical caution when symptoms are serious;
+- no cure guarantees;
+- no advice to stop medical care;
+- no invented facts;
+- no fake precision.
+
+Safety must be precise, not dead.
+
+Good:
+
+```md
+Это направление поддержки, не медицинский диагноз.
+Если симптомы серьёзные, лучше держать связь с врачом.
+```
+
+Weak:
+
+```md
+Настоящий документ предоставляется исключительно в информационных целях и не является заменой консультации специалиста...
+```
+
+Use long legal phrasing only when the context explicitly requires it.
+
+---
+
+## 2. Mandatory QA workflow
+
+Run this workflow before final delivery.
+
+### Step 1. First 7 lines test
+
+Check the first 5–7 lines.
+
+They must show at least 3 of these:
+
+```md
+Смотрю / Посмотрел
+Я X.X / ресурс X.X
+текущее состояние
+главная проблема
+образ
+bottleneck
+первый шаг поддержки
+```
+
+Fail signs:
+
+- the report starts with a formal introduction;
+- the client does not know what is happening after 7 lines;
+- there is a title, context, and explanation, but no state;
+- the text begins like an article.
+
+Fix:
+
+```md
+Move the current state and bottleneck to the top.
+Delete the theoretical entrance.
+Start with what is seen now.
+```
+
+### Step 2. Paragraph signal test
+
+For each paragraph, mark its function:
+
+```md
+STATE — names current state
+NUMBER — gives Dao / resource / Wu Xing level
+IMAGE — gives living image
+BOTTLENECK — names the main block
+SUPPORT — gives support direction
+ACTION — tells what to do
+CHECK — tells when/how to verify
+SAFETY — keeps safe limits
+```
+
+If a paragraph has no function, cut it.
+
+If three paragraphs repeat the same function, compress them into one.
+
+Rule:
+
+```md
+Every paragraph must create clarity, support, or movement.
+```
+
+### Step 3. Phrase detox
+
+Scan for weak phrases from section 5.
+
+For each phrase:
+
+```md
+mark → decide if needed → replace with living wording → re-read
+```
+
+If a phrase is safety-critical, keep the meaning but rewrite it humanly.
+
+### Step 4. Method-to-client translation
+
+Check whether the text teaches the method instead of helping the client.
+
+Weak:
+
+```md
+Element Water corresponds to fear, kidneys, depth, and survival. In this case it indicates...
+```
+
+Better:
+
+```md
+Вода просела.
+Там страх и желание сжаться.
+Воду надо поддержать первой.
+```
+
+Rule:
+
+```md
+No textbook blocks in client-facing text unless the user explicitly asked for teaching.
+```
+
+### Step 5. Compression test
+
+Ask:
+
+```md
+Can I cut 30–40% without losing meaning?
+```
+
+If yes:
+
+- `Плотность текста / отсутствие воды` cannot be above 5/10;
+- `Готовность отправить клиенту` cannot be above 6/10;
+- the report needs rewrite.
+
+Compress by removing:
+
+- duplicated interpretations;
+- long introductions;
+- category explanations;
+- generic encouragement;
+- repeated safety phrasing;
+- remedy encyclopedia blocks.
+
+### Step 6. Practicality test
+
+The client must know:
+
+```md
+1. What is happening now?
+2. What is the main bottleneck?
+3. What should be supported first?
+4. What exactly to do now?
+5. When to check again?
+```
+
+If any answer is missing, the text is not ready.
+
+### Step 7. Safety test
+
+Check for hard safety failures:
+
+- medical diagnosis presented as fact;
+- promise of cure;
+- guaranteed result;
+- advice to stop treatment;
+- invented data;
+- private data leakage;
+- too much certainty without data.
+
+Fix by adding precise caution:
+
+```md
+Это направление поддержки.
+Требует проверки.
+Не заменяет медицинскую помощь.
+```
+
+---
+
+## 3. Pass / fail rules
+
+### Hard fail
+
+The text cannot be sent if:
+
+```md
+Живой стиль Андрея < 7/10
+or
+client-readiness < 7/10
+or
+text can be shortened by 40%+ without loss
+or
+there is no current state
+or
+there is no bottleneck
+or
+there is no next step / check
+or
+there is unsafe certainty
+or
+internal QA/source notes leaked into client text
+```
+
+### Conditional pass
+
+The text can pass with minor edits if:
+
+```md
+main state is clear
+bottleneck is present
+support is linked to mechanism
+style is mostly alive
+only 3–7 phrases need sharpening
+safety is intact
+```
+
+### Strong pass
+
+The text is strong if:
+
+```md
+first 7 lines orient the client
+numbers are alive, not formal
+image is present
+bottleneck is simple
+support is practical
+next check is clear
+no generic filler remains
+```
+
+---
+
+## 4. QA scoring card
+
+Use this scoring card before final delivery.
+
+```md
+Anti-AI / live style QA
+
+First 7 lines show useful state: X/10
+Generic phrase load: X/10
+Text density / no water: X/10
+Andrey voice: X/10
+Number → image → bottleneck chain: X/10
+Support linked to mechanism: X/10
+Practical next step: X/10
+Safety without dead legal tone: X/10
+Client-send readiness: X/10
+
+Verdict: pass / minor rewrite / major rewrite / do not send
+```
+
+Scoring guide:
+
+```md
+10 — alive, specific, compressed, client-ready.
+8 — strong, but a few lines can be sharpened.
+6 — understandable, but generic phrases and smooth filler remain.
+4 — formal report style dominates; rewrite required.
+2 — mostly generic prose, method summary, or coaching filler.
+0 — unsafe, leaked internal QA, or cannot be sent.
+```
+
+---
+
+## 5. Weak phrase detector
+
+Use this as a literal scan list.
+
+### 5.1. Formal report openings
+
+Mark and usually delete:
+
+```md
+В данном отчёте рассматривается...
+В этом отчёте я рассмотрю...
+Ниже представлен анализ...
+Перед нами комплексная картина...
+На основании предоставленной информации...
+```
+
+Replace with:
+
+```md
+Смотрю.
+Посмотрел.
+Смотрю твою систему.
+Сейчас видно вот что.
+Главное здесь — ...
+```
+
+### 5.2. Empty emphasis phrases
+
+Mark and replace:
+
+```md
+Важно отметить...
+Следует отметить...
+Необходимо подчеркнуть...
+Стоит обратить внимание...
+Следует учитывать...
+```
+
+Replace with the actual point:
+
+```md
+Главное здесь — ...
+Сейчас важнее всего ...
+Тут не про ..., а про ...
+Это требует проверки.
+```
+
+### 5.3. Institutional / clinical distance
+
+Mark and rewrite:
+
+```md
+Клиент демонстрирует...
+У клиента наблюдается...
+Наблюдается тенденция к...
+Имеет место снижение...
+Проявляется дисбаланс...
+```
+
+Replace with:
+
+```md
+Смотрю: ...
+По состоянию видно ...
+Как будто ...
+Тело / система сейчас ...
+Здесь проседает ...
+```
+
+### 5.4. Abstract conclusion formulas
+
+Mark and usually delete:
+
+```md
+Таким образом...
+В целом можно сказать...
+Подводя итог...
+В заключение...
+Это говорит о том, что...
+Можно сделать вывод, что...
+```
+
+Replace with:
+
+```md
+Вывод простой:
+Главное:
+Сейчас задача:
+Дальше:
+Проверить через:
+```
+
+### 5.5. Generic recommendation formulas
+
+Mark and rewrite:
+
+```md
+Рекомендуется продолжать наблюдение...
+Рекомендуется осуществлять мониторинг...
+Необходимо провести коррекцию...
+Следует уделить внимание...
+В дальнейшем целесообразно...
+```
+
+Replace with:
+
+```md
+Проверить через 3–5 дней.
+Если станет легче — снять лишнее.
+Если ресурс не подрастёт — усилить опору.
+Пока оставить #1 и #2.
+```
+
+### 5.6. Remedy encyclopedia language
+
+Mark and compress:
+
+```md
+Препарат традиционно применяется при...
+Данное средство может быть полезно в ситуациях, когда...
+Эссенция направлена на гармонизацию...
+Способствует восстановлению баланса...
+```
+
+Replace with functional language:
+
+```md
+Aspen — фоновая тревожность.
+White Chestnut — сверхконтроль, голова не отпускает.
+Hornbeam — нет сил начать.
+Horsetail — каркас, структура, опора.
+```
+
+### 5.7. Inflated transformation language
+
+Mark and require proof:
+
+```md
+глубокая трансформация
+мощная активация
+полное восстановление
+гармонизация на всех уровнях
+выход на новый уровень
+прорыв
+```
+
+Replace with grounded wording:
+
+```md
+Пока задача проще.
+Вернуть опору.
+Снять зажим.
+Удержать ресурс.
+Проверить динамику.
+```
+
+### 5.8. Unsupported certainty
+
+Mark as safety risk:
+
+```md
+точно вызвано
+это причина
+обязательно поможет
+гарантированно приведёт
+уберёт симптом
+решит проблему
+```
+
+Replace with:
 
 ```md
 похоже на
 может быть как
+вероятно
+это направление поддержки
 требует проверки
 needs verification
-это направление поддержки
-```
-
-Avoid:
-
-```md
-точно вызвано
-гарантированно приведёт
-обязательно уберёт симптом
 ```
 
 ---
 
-## 8. Typical failures and fixes
+## 6. Rewrite recipes
 
-### Failure A. The text explains too much before helping
+### Recipe 1. Article intro → live opening
 
-Symptom:
-
-- first useful point appears after 3–5 paragraphs;
-- the report starts like an article;
-- client must search for the point.
-
-Fix:
+Bad:
 
 ```md
-Move the current state and bottleneck into the first 5–7 lines.
-Delete the theoretical entrance.
+В данном отчёте рассматривается текущее состояние клиента, его эмоциональный фон и возможные направления поддержки.
 ```
 
-### Failure B. The report lists categories but does not diagnose
-
-Symptom:
-
-- Wu Xing elements are explained like a textbook;
-- remedies are described like encyclopedia entries;
-- no main axis.
-
-Fix:
+Rewrite:
 
 ```md
-For each element/remedy, write only:
-number/state → what it means now → what to support.
+Смотрю.
+Сейчас главное — ресурс просел, но не рухнул.
+Нужно вернуть опору и не разгонять систему раньше времени.
 ```
 
-### Failure C. The text is warm but vague
+### Recipe 2. Abstract psychology → image + bottleneck
 
-Symptom:
-
-- many supportive words;
-- no concrete state;
-- no next step.
-
-Fix:
+Bad:
 
 ```md
-Add a number, image, bottleneck, and check date.
+Клиент демонстрирует признаки внутреннего напряжения, связанного с трудностью адаптации к внешним обстоятельствам.
 ```
 
-### Failure D. The text is safe but dead
-
-Symptom:
-
-- too many disclaimers;
-- legalistic tone;
-- no living voice.
-
-Fix:
+Rewrite:
 
 ```md
-Keep one precise safety sentence.
-Return to human language.
+Смотрю: напряжение держится не на поверхности.
+Как будто человек всё время собирает себя усилием.
+Главный bottleneck — нет спокойной опоры внутри.
 ```
 
-### Failure E. The report sounds like a system prompt leaked into the client text
+### Recipe 3. Method explanation → client meaning
 
-Symptom:
-
-- source names;
-- quality check;
-- routing notes;
-- internal labels;
-- meta-comments about the report.
-
-Fix:
+Bad:
 
 ```md
-Remove all internal QA from the client-facing report.
-Keep QA only in auditor output.
+Элемент Дерева связан с движением, ростом, направлением и способностью проявлять волю.
+```
+
+Rewrite:
+
+```md
+Дерево просело.
+Трудно двинуться вперёд и проявиться.
+Нужна не сила давления, а точка направления.
+```
+
+### Recipe 4. Remedy description → role in mechanism
+
+Bad:
+
+```md
+White Chestnut может быть полезен при навязчивых мыслях и повторяющихся ментальных циклах.
+```
+
+Rewrite:
+
+```md
+White Chestnut — голова не отпускает.
+Нужен, чтобы снять сверхконтроль и дать системе выдохнуть.
+```
+
+### Recipe 5. Generic conclusion → next check
+
+Bad:
+
+```md
+В дальнейшем рекомендуется наблюдать за динамикой и корректировать поддержку при необходимости.
+```
+
+Rewrite:
+
+```md
+Проверить через 3–5 дней.
+Если тревога снизится, можно будет снять второстепенные препараты.
+Если Я не подрастёт — усиливать опору.
+```
+
+### Recipe 6. Dead safety → human safety
+
+Bad:
+
+```md
+Данный анализ не является медицинской рекомендацией и не заменяет консультацию профильного специалиста.
+```
+
+Rewrite:
+
+```md
+Это направление поддержки, не медицинский диагноз.
+Если симптомы серьёзные, лучше держать связь с врачом.
 ```
 
 ---
 
-## 9. Before / After examples
+## 7. Report-type specific checks
 
-### Example 1
+### 7.1. Mini Express
+
+Must have:
+
+```md
+1 current state
+1 bottleneck
+1 support direction
+1 next step
+```
+
+Must not have:
+
+```md
+long Wu Xing explanation
+full remedy encyclopedia
+big theory block
+```
+
+### 7.2. Short Diagnosis
+
+Must have:
+
+```md
+current state
+Dao level if available
+main mechanism
+bottleneck
+support
+check
+```
+
+Must not become a Full Report unless input is rich enough.
+
+### 7.3. Deep Diagnosis / Wu Xing
+
+Must have:
+
+```md
+Wu Xing as diagnosis, not textbook
+numbers or clear state
+main imbalance
+bottleneck
+support linked to element/resource
+```
+
+Each element should be compact:
+
+```md
+number/state → what it means now → what to support
+```
+
+### 7.4. Remedy-only / Bach decoder
+
+Must have:
+
+```md
+main emotional field
+mechanism
+roles of remedies
+main vs secondary supports
+what to check next
+```
+
+Must not become a full client report unless asked.
+
+### 7.5. Progress / repeat check
+
+Must have dynamics:
+
+```md
+what grew
+what left
+what remains actual
+what is less actual
+next layer
+next check
+```
+
+Fail if it only repeats the first report.
+
+### 7.6. Follow-up note
+
+Must be short:
+
+```md
+Привет / Ну как там?
+Что началось / не началось?
+Current state
+What remains relevant
+One next question or action
+```
+
+Fail if it expands into a full report.
+
+### 7.7. Psychosomatic figure report
+
+Must keep careful language:
+
+```md
+похоже на
+может быть как
+психосоматическая модель
+требует проверки
+```
+
+Must not claim direct medical cause.
+
+---
+
+## 8. Practical line-editing checklist
+
+Use this for actual editing.
+
+```md
+[ ] Delete formal opening.
+[ ] Move current state into first 7 lines.
+[ ] Add / keep Я X.X if available.
+[ ] Add image if text is abstract.
+[ ] Name one main bottleneck.
+[ ] Cut duplicated interpretations.
+[ ] Replace “клиент демонстрирует” style phrases.
+[ ] Compress remedy descriptions into function lines.
+[ ] Remove textbook Wu Xing explanations.
+[ ] Turn generic recommendation into exact next action.
+[ ] Keep one precise safety note if needed.
+[ ] Remove internal QA, source notes, routing notes.
+[ ] Check that each paragraph has a function.
+[ ] Re-read aloud: does it sound like Andrey?
+```
+
+---
+
+## 9. The critic's output format
+
+When this file is used as a critic, the agent should output edits in this form:
+
+```md
+## Anti-AI QA verdict
+Verdict: pass / minor rewrite / major rewrite / do not send
+Main problem:
+What to cut:
+What to rewrite:
+Safety issue, if any:
+
+## Phrase hits
+- “...” → why weak → replacement
+- “...” → why weak → replacement
+
+## Structural fixes
+1. Move ... to the top.
+2. Cut ...
+3. Add ...
+
+## Improved fragment
+...
+
+## Final check
+First 7 lines useful: да/нет
+Bottleneck present: да/нет
+Support linked to mechanism: да/нет
+Next check present: да/нет
+Safety preserved: да/нет
+Client-ready: да/нет
+```
+
+---
+
+## 10. Examples: bad → better
+
+### 10.1. Empty emphasis
 
 Bad:
 
@@ -457,7 +844,7 @@ Better:
 Сначала надо вернуть устойчивость.
 ```
 
-### Example 2
+### 10.2. Clinical distance
 
 Bad:
 
@@ -472,7 +859,7 @@ Better:
 Как будто человек всё время собирает себя усилием.
 ```
 
-### Example 3
+### 10.3. Generic support
 
 Bad:
 
@@ -487,7 +874,7 @@ Better:
 Она про то, чтобы снять внутренний зажим и вернуть дыхание.
 ```
 
-### Example 4
+### 10.4. Vague monitoring
 
 Bad:
 
@@ -502,7 +889,7 @@ Better:
 Если тревога уйдёт, часть препаратов можно будет снять.
 ```
 
-### Example 5
+### 10.5. Textbook Wu Xing
 
 Bad:
 
@@ -518,78 +905,79 @@ Better:
 Воду надо поддержать первой.
 ```
 
----
-
-## 10. Auditor scoring rule
-
-When auditing, treat Anti-AI compliance as part of:
-
-- Live Russian style;
-- Text density / absence of water;
-- Client clarity;
-- Client-send readiness;
-- System usefulness.
-
-Suggested scoring:
-
-```md
-10 — text is alive, specific, compressed, and sounds like Andrey.
-8 — mostly alive; a few smooth or formal lines can be sharpened.
-6 — understandable, but many generic phrases remain.
-4 — formal report style dominates; needs rewrite.
-2 — mostly generic prose, method summary, or generic coaching text.
-0 — cannot be sent to client; internal QA/source notes or unsafe confidence present.
-```
-
-Hard fail:
-
-```md
-If the text sounds like generic prose rather than Andrey's living client message,
-Живой стиль Андрея cannot be above 6/10.
-```
-
----
-
-## 11. Safety notes
-
-Anti-AI editing must not remove necessary safety.
-
-Do not remove:
-
-- `needs verification` when data is uncertain;
-- medical caution for serious symptoms;
-- statement that support is not a medical diagnosis;
-- reminder to keep medical care in parallel when relevant;
-- limits around guarantees and promises.
-
-But rewrite safety so it stays human.
-
-Good:
-
-```md
-Это направление поддержки, не медицинский диагноз.
-Если симптомы серьёзные, лучше держать связь с врачом.
-```
+### 10.6. Overbuilt conclusion
 
 Bad:
 
 ```md
-Настоящий документ не является медицинской рекомендацией и предоставляется исключительно в информационных целях...
+Таким образом, можно сделать вывод, что работа должна быть направлена на постепенное восстановление внутренней устойчивости, эмоционального баланса и способности к самостоятельному движению.
 ```
 
-Use the longer legal version only if the context explicitly requires it.
+Better:
+
+```md
+Вывод простой.
+Сначала опора.
+Потом движение.
+Сейчас рано требовать от себя рывка.
+```
 
 ---
 
-## 12. Final checklist for agents
+## 11. What not to overcorrect
 
-Before final answer, check:
+Do not remove all softness.
+
+Some phrases are useful in Andrey's style:
+
+```md
+похоже на
+как будто
+может быть
+в принципе
+я вижу возможность
+это требует проверки
+```
+
+They keep the report human and safe.
+
+Do not remove all repetitions.
+
+Some repetition is useful when it builds support:
+
+```md
+Ты важный.
+Ты решаешь.
+Ты главный.
+```
+
+Do not remove all disclaimers.
+
+Safety must remain when needed.
+
+Do not turn Andrey's living rhythm into sterile minimalism.
+
+The goal is not shorter at any cost.
+
+The goal is:
+
+```md
+more signal, less filler
+more life, less formal polish
+more support, less generic comfort
+```
+
+---
+
+## 12. Final delivery gate
+
+Before final output, answer:
 
 ```md
 Anti-AI pass done: да/нет
 Generic intro removed: да/нет
 Formal filler removed: да/нет
-Main state visible in first 5–7 lines: да/нет
+Main state visible in first 7 lines: да/нет
 Number / image / bottleneck present: да/нет
 Support linked to mechanism: да/нет
 Next check present: да/нет
@@ -598,11 +986,16 @@ Safety kept: да/нет
 Client can receive this as Andrey's message: да/нет
 ```
 
-If any of the core answers are weak, rewrite before sending.
+If any of these are weak:
+
+```md
+Do not send.
+Rewrite first.
+```
 
 ---
 
-## 13. How this file relates to other standards
+## 13. Relation to other standards
 
 Use together with:
 
@@ -610,14 +1003,15 @@ Use together with:
 - `andrey-system/core/report-client-readiness-style-gate.md` — sendability gate;
 - `andrey-system/core/report-quality-rubric.md` — scoring;
 - `andrey-system/agent/report-style-auditor-instructions.md` — auditor behavior;
+- `andrey-system/agent/report-style-auditor-playbook.md` — audit workflow;
 - `alchemy-method/consultations/examples/confidence-bach-report-example.md` — primary live Russian example.
 
 This file is narrower than the style bible.
 
-It answers one question:
+It answers:
 
 ```md
-What exactly should be removed or rewritten when the report starts sounding generic?
+What exactly should the critic cut, mark, and rewrite before the client sees the report?
 ```
 
 ---
@@ -625,12 +1019,18 @@ What exactly should be removed or rewritten when the report starts sounding gene
 ## 14. Minimal prompt for future agents
 
 ```md
-Before finalizing, run `andrey-system/core/anti-ai-writing-style.md`.
-Remove generic phrases, formal filler, long theoretical entrances, and polished but lifeless prose.
-Rewrite into Andrey's live structure:
+Before finalizing a client report, run `andrey-system/core/anti-ai-writing-style.md` as a critic.
 
+Do not just say “style is okay”.
+Scan the text.
+Mark weak phrases.
+Cut filler.
+Rewrite formal lines.
+Check the first 7 lines.
+Check every paragraph for function.
+Keep safety.
+Make the text sound like Andrey is looking now.
+
+Final structure should move toward:
 Смотрю → Я X.X → образ → bottleneck → поддержка → проверка.
-
-Keep safety, uncertainty, and needs verification where needed.
-Do not send text that sounds like a generic report.
 ```
