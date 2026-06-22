@@ -1,5 +1,5 @@
 {
-  "version": "1.4",
+  "version": "1.5",
   "status": "canonical",
   "owner": "Andrey Li",
   "purpose": "Machine-readable source registry for Andrey Li agents. Agents must read this before free-text search when routing project, method, report, style-audit, or business tasks.",
@@ -40,6 +40,13 @@
       "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
       "role": "single canonical runtime instruction for ChatGPT Project Report Agent",
       "priority": "first_required_source"
+    },
+    "report_agent_anti_ai_gate_project_instruction": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "path": "andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
+      "role": "canonical runtime addendum forcing Report Agent to run the anti-AI QA gate before final client delivery",
+      "priority": "required_runtime_addendum"
     },
     "anti_ai_writing_style_gate": {
       "repo": "andylitvinov-design/ai-projects-brain",
@@ -105,6 +112,12 @@
           "path": "andrey-system/project-ready/report-agent-project-instruction.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
           "role": "single canonical source for Report Agent rules"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
+          "role": "runtime addendum requiring Anti-AI QA pass before final client delivery"
         },
         {
           "repo": "andylitvinov-design/alchemy-method",
@@ -194,6 +207,12 @@
           "path": "andrey-system/project-ready/report-agent-project-instruction.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
           "role": "single canonical source for Report Agent runtime behavior"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
+          "role": "runtime addendum requiring Anti-AI QA pass before final client-facing delivery"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
@@ -304,6 +323,11 @@
     "where_is_report_agent_project_instruction": {
       "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
       "path": "andrey-system/project-ready/report-agent-project-instruction.md",
+      "repo": "andylitvinov-design/ai-projects-brain"
+    },
+    "where_is_report_agent_anti_ai_gate_project_instruction": {
+      "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
+      "path": "andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
       "repo": "andylitvinov-design/ai-projects-brain"
     },
     "where_is_report_client_readiness_gate": {
