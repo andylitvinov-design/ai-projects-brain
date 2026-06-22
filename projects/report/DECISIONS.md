@@ -28,6 +28,7 @@ Use README-listed files as source of truth:
 - Do not store private client data.
 - Do not infer deployment or root build commands.
 - Relationship with `dao-usin-bach-report-kit` must be verified before cross-repo changes.
+- Expected private cabinet/login auth boundary is not `BLOCKED`; use `STATUS: SUCCESS_WITH_AUTH_LIMITATION` with safe public/login/protected-redirect/local/code proof.
 
 ## Main formula
 

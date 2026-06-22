@@ -17,6 +17,7 @@
 - `/api/audit-snapshot` is the preferred data source for audits.
 - Do not rely only on UI screenshots when audit snapshot exists.
 - Browser login / Google OAuth should not be required for agent audit.
+- Expected auth boundary is not `BLOCKED`; use `STATUS: SUCCESS_WITH_AUTH_LIMITATION` with safe public/login/local/code proof when authenticated post-login proof is the only missing piece.
 
 ## Amount semantics
 

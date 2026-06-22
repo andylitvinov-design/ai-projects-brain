@@ -25,7 +25,7 @@
 - Add only lightweight central-memory and verification-mode pointers to `/delivery`.
 - Project-specific durable knowledge belongs in `ai-projects-brain/projects/reiki-yggdrasil/*`, not as duplicated long text inside `/delivery`.
 - For private/auth-only profile, cabinet, DAO talisman, mandala editor, user media, or saved user state, use local dev / fixture / demo verification when owner live session is unavailable.
-- Authenticated live proof must remain `NOT VERIFIED` unless actually verified with a safe session.
+- Expected auth boundary is not `BLOCKED`; use `STATUS: SUCCESS_WITH_AUTH_LIMITATION` with safe public/login/protected-redirect/local/code proof when authenticated post-login live proof requires an owner session.
 
 ## Deployment
 

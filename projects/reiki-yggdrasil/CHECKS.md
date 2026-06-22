@@ -54,7 +54,7 @@ For private cabinet, profile, DAO talisman, mandala editor, user media, or saved
 - use local dev verification by default when live auth is unavailable;
 - create safe local fixture/demo state when required;
 - verify exact UI behavior locally with screenshot, DOM check, test, or manual browser evidence;
-- mark authenticated live proof as `NOT VERIFIED` if the only missing part is owner session;
+- use `STATUS: SUCCESS_WITH_AUTH_LIMITATION` if the only missing part is expected owner-session/authenticated post-login live proof and safe public/login/protected-redirect/local/code proof passed;
 - public deployment/live route may still be checked separately.
 
 For DAO/mandala tasks, check these items when relevant:
