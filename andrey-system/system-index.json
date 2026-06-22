@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "2.1",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -17,6 +17,7 @@
     "method_source": "andylitvinov-design/alchemy-method",
     "business_source": "andrey-system",
     "report_agent_instruction_source": "project-ready/report-agent-project-instruction.md",
+    "report_agent_anti_ai_gate_project_instruction_source": "project-ready/report-agent-anti-ai-gate-project-instruction.md",
     "repeat_remedy_check_standard_source": "core/report-repeat-remedy-check-standard.md",
     "repeat_remedy_check_project_instruction_source": "project-ready/report-repeat-remedy-check-project-instruction.md",
     "repeat_remedy_check_playbook_source": "agent/report-repeat-remedy-check-playbook.md",
@@ -50,6 +51,7 @@
       "instruction": "agent/report-agent-instructions.md",
       "playbook": "agent/report-agent-playbook.md",
       "project_ready": "project-ready/report-agent-project-instruction.md",
+      "anti_ai_gate_project_ready": "project-ready/report-agent-anti-ai-gate-project-instruction.md",
       "repeat_remedy_check_standard": "core/report-repeat-remedy-check-standard.md",
       "repeat_remedy_check_project_ready": "project-ready/report-repeat-remedy-check-project-instruction.md",
       "repeat_remedy_check_playbook": "agent/report-repeat-remedy-check-playbook.md",
@@ -102,6 +104,7 @@
   "project_ready": [
     "project-ready/business-builder-project-instruction.md",
     "project-ready/report-agent-project-instruction.md",
+    "project-ready/report-agent-anti-ai-gate-project-instruction.md",
     "project-ready/report-repeat-remedy-check-project-instruction.md"
   ],
   "core_files": [
@@ -132,6 +135,10 @@
       "file": "project-ready/report-agent-project-instruction.md",
       "purpose": "who the agent is, which report type to choose, and what to do in each case; includes mandatory 8-part repeat remedy check routing"
     },
+    "layer_1_anti_ai_gate_runtime_addendum": {
+      "file": "project-ready/report-agent-anti-ai-gate-project-instruction.md",
+      "purpose": "runtime addendum requiring Report Agent to run the final writing QA gate before client delivery"
+    },
     "layer_1_repeat_remedy_check_instruction": {
       "file": "project-ready/report-repeat-remedy-check-project-instruction.md",
       "purpose": "project-ready addendum requiring 8-part repeat report structure"
@@ -154,7 +161,7 @@
     },
     "layer_2_anti_ai_writing_style_gate": {
       "file": "core/anti-ai-writing-style.md",
-      "purpose": "mandatory pre-delivery QA critic for generic AI-style phrase detection, line editing, compression, and client-ready rewrite"
+      "purpose": "pre-delivery writing QA critic for phrase detection, line editing, compression, and client-ready rewrite"
     },
     "layer_2_client_readiness_gate": {
       "file": "core/report-client-readiness-style-gate.md",
@@ -209,6 +216,7 @@
     "real_russian_client_report": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
     "report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
     "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
+    "report_agent_anti_ai_gate_project_instruction": "andrey-system/project-ready/report-agent-anti-ai-gate-project-instruction.md",
     "anti_ai_writing_style_gate": "andrey-system/core/anti-ai-writing-style.md",
     "report_style_auditor": "andrey-system/agent/report-style-auditor-instructions.md",
     "report_client_readiness_gate": "andrey-system/core/report-client-readiness-style-gate.md",
@@ -224,6 +232,7 @@
     "agent/agent-map.md",
     "agent/{selected-agent}-instructions.md",
     "agent/{selected-agent}-playbook.md",
+    "project-ready/report-agent-anti-ai-gate-project-instruction.md, mandatory when writing a client-facing report",
     "core/report-repeat-remedy-check-standard.md, if the task is a repeat report / remedy relevance check",
     "project-ready/report-repeat-remedy-check-project-instruction.md, if the task is a repeat report / remedy relevance check",
     "agent/report-repeat-remedy-check-playbook.md, if writing or auditing a repeat report / remedy relevance check",
