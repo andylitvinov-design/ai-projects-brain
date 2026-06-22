@@ -20,17 +20,18 @@ Before auditing reports, use exact sources before search:
 2. `andrey-system/system-index.json`
 3. `alchemy-method/method-source-registry.json`
 4. `andrey-system/core/report-style-bible.md`
-5. `andrey-system/core/report-client-readiness-style-gate.md`
-6. `andrey-system/core/report-diagnosis-matrix.md`
-7. `andrey-system/core/report-template.md`
-8. `andrey-system/agent/report-style-auditor-playbook.md`
-9. `andrey-system/core/report-quality-rubric.md`
-10. `andrey-system/core/report-standard-improvement-protocol.md`
-11. `andrey-system/core/report-common-mistakes.md`
-12. `alchemy-method/consultations/reports-index.md`
-13. `alchemy-method/consultations/report-logic.md`
-14. `alchemy-method/consultations/examples/confidence-bach-report-example.md`
-15. `alchemy-method/method/dao-resource-scale.md`
+5. `andrey-system/core/anti-ai-writing-style.md`
+6. `andrey-system/core/report-client-readiness-style-gate.md`
+7. `andrey-system/core/report-diagnosis-matrix.md`
+8. `andrey-system/core/report-template.md`
+9. `andrey-system/agent/report-style-auditor-playbook.md`
+10. `andrey-system/core/report-quality-rubric.md`
+11. `andrey-system/core/report-standard-improvement-protocol.md`
+12. `andrey-system/core/report-common-mistakes.md`
+13. `alchemy-method/consultations/reports-index.md`
+14. `alchemy-method/consultations/report-logic.md`
+15. `alchemy-method/consultations/examples/confidence-bach-report-example.md`
+16. `alchemy-method/method/dao-resource-scale.md`
 
 Important: `confidence-bach-report-example.md` is the primary live Russian client report style reference. Do not confuse it with `andrey-system/examples/sample-full-client-report.md`, which is an English structural sample.
 
@@ -61,18 +62,46 @@ The report must be useful to a real client.
 
 ---
 
+## Second audit gate: Anti-AI QA
+
+After client-readiness and before detailed method scoring, run `andrey-system/core/anti-ai-writing-style.md` as a critic.
+
+Do not just say “style is okay”.
+
+You must actively check:
+
+- first 5–7 lines: do they orient the client quickly?
+- paragraph signal: does each paragraph have a function?
+- phrase hits: are there formal openings, empty emphasis phrases, clinical distance, abstract conclusions, generic recommendations, remedy encyclopedia language, inflated transformation words, or unsupported certainty?
+- compression: can 30–40% be removed without loss?
+- method-to-client translation: does the report teach the method instead of helping the client?
+- practicality: does the client know what to do and when to check again?
+- safety: is caution present without dead legal tone?
+
+If the Anti-AI QA gate fails, the report cannot be scored as client-ready.
+
+Hard rule:
+
+```md
+If the text sounds like generic AI prose rather than Andrey's living client message,
+Живой стиль Андрея cannot be above 6/10.
+```
+
+---
+
 ## Audit layers
 
-Audit every report through six layers, in this order:
+Audit every report through seven layers, in this order:
 
 1. Client-readiness: whether the text can be sent to a client as-is.
-2. Live Russian style: whether it sounds like a living diagnostic message, not GPT.
-3. Compression: whether the report is inflated relative to the input.
-4. Format: verify the actual report type, not only the claimed type.
-5. Method: verify Dao level, Wu Xing if relevant, hidden mechanism, bottleneck, support direction, and next check.
-6. System improvement: identify whether the mistake indicates a missing or weak standard.
+2. Anti-AI QA: phrase-level criticism, line editing, compression, and generic-style removal.
+3. Live Russian style: whether it sounds like a living diagnostic message, not GPT.
+4. Compression: whether the report is inflated relative to the input.
+5. Format: verify the actual report type, not only the claimed type.
+6. Method: verify Dao level, Wu Xing if relevant, hidden mechanism, bottleneck, support direction, and next check.
+7. System improvement: identify whether the mistake indicates a missing or weak standard.
 
-If style, compression, or client-readiness fails, score the report low even if method blocks are formally present.
+If style, anti-AI QA, compression, or client-readiness fails, score the report low even if method blocks are formally present.
 
 ---
 
@@ -93,7 +122,10 @@ The auditor must actively penalize:
 - generic psychodynamic prose;
 - inflated Full Client Report from minimal input;
 - internal QA shown to clients;
-- dry formal openings.
+- dry formal openings;
+- weak phrases listed in `anti-ai-writing-style.md`;
+- generic recommendations without exact next action;
+- remedy descriptions that explain the remedy but not its role in the mechanism.
 
 ---
 
@@ -102,6 +134,8 @@ The auditor must actively penalize:
 A report does not pass if:
 
 - `Живой стиль Андрея` is below 7/10;
+- `Anti-AI / live style QA` is below 7/10;
+- the first 5–7 lines do not give useful orientation;
 - the text can be compressed by 40%+ without loss;
 - it sounds like GPT rather than a live client message;
 - it teaches the method instead of diagnosing the state;
@@ -125,6 +159,8 @@ Use safe wording:
 
 Safety must be present but should not make the text legalistic or dead.
 
+Anti-AI editing must not remove safety. It should rewrite safety into precise human language.
+
 ---
 
 ## Output structure
@@ -134,11 +170,12 @@ Use this structure unless the user asks for a shorter mode:
 1. General assessment
 2. Scores by rubric
 3. Client-readiness verdict
-4. What does not match the standard
-5. Exact text edits: Было / Лучше
-6. Improved fragment
-7. What to improve in standards
-8. Quality check
+4. Anti-AI QA verdict
+5. What does not match the standard
+6. Exact text edits: Было / Лучше
+7. Improved fragment
+8. What to improve in standards
+9. Quality check
 
 Each audit must give practical edits, not only commentary.
 

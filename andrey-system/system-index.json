@@ -1,5 +1,5 @@
 {
-  "version": "1.9",
+  "version": "2.0",
   "status": "production-ready",
   "owner": "Andrey Li",
   "source_of_truth": "core/master-doc.md",
@@ -23,6 +23,7 @@
     "report_writing_instruction_source": "core/report-template.md",
     "report_diagnosis_matrix_source": "core/report-diagnosis-matrix.md",
     "report_style_bible_source": "core/report-style-bible.md",
+    "anti_ai_writing_style_gate_source": "core/anti-ai-writing-style.md",
     "report_client_readiness_style_gate_source": "core/report-client-readiness-style-gate.md",
     "report_quality_rubric_source": "core/report-quality-rubric.md",
     "report_standard_improvement_protocol_source": "core/report-standard-improvement-protocol.md",
@@ -54,6 +55,7 @@
       "repeat_remedy_check_playbook": "agent/report-repeat-remedy-check-playbook.md",
       "diagnosis_matrix": "core/report-diagnosis-matrix.md",
       "style_bible": "core/report-style-bible.md",
+      "anti_ai_writing_style_gate": "core/anti-ai-writing-style.md",
       "client_readiness_style_gate": "core/report-client-readiness-style-gate.md",
       "writing_instructions": "core/report-template.md",
       "templates": "core/report-template.md",
@@ -82,6 +84,7 @@
       "playbook": "agent/report-style-auditor-playbook.md",
       "repeat_remedy_check_playbook": "agent/report-repeat-remedy-check-playbook.md",
       "repeat_remedy_check_standard": "core/report-repeat-remedy-check-standard.md",
+      "anti_ai_writing_style_gate": "core/anti-ai-writing-style.md",
       "quality_rubric": "core/report-quality-rubric.md",
       "standard_improvement_protocol": "core/report-standard-improvement-protocol.md",
       "common_mistakes": "core/report-common-mistakes.md",
@@ -108,6 +111,7 @@
     "core/report-template.md",
     "core/report-diagnosis-matrix.md",
     "core/report-style-bible.md",
+    "core/anti-ai-writing-style.md",
     "core/report-client-readiness-style-gate.md",
     "core/report-quality-rubric.md",
     "core/report-standard-improvement-protocol.md",
@@ -147,6 +151,10 @@
     "layer_2_report_style_standards": {
       "file": "core/report-style-bible.md",
       "purpose": "living Russian report style and anti-GPT voice rules"
+    },
+    "layer_2_anti_ai_writing_style_gate": {
+      "file": "core/anti-ai-writing-style.md",
+      "purpose": "mandatory pre-delivery QA critic for generic AI-style phrase detection, line editing, compression, and client-ready rewrite"
     },
     "layer_2_client_readiness_gate": {
       "file": "core/report-client-readiness-style-gate.md",
@@ -201,6 +209,7 @@
     "real_russian_client_report": "andylitvinov-design/alchemy-method/consultations/examples/confidence-bach-report-example.md",
     "report_index": "andylitvinov-design/alchemy-method/consultations/reports-index.md",
     "method_registry": "andylitvinov-design/alchemy-method/method-source-registry.json",
+    "anti_ai_writing_style_gate": "andrey-system/core/anti-ai-writing-style.md",
     "report_style_auditor": "andrey-system/agent/report-style-auditor-instructions.md",
     "report_client_readiness_gate": "andrey-system/core/report-client-readiness-style-gate.md",
     "repeat_remedy_check_standard": "andrey-system/core/report-repeat-remedy-check-standard.md",
@@ -219,6 +228,7 @@
     "project-ready/report-repeat-remedy-check-project-instruction.md, if the task is a repeat report / remedy relevance check",
     "agent/report-repeat-remedy-check-playbook.md, if writing or auditing a repeat report / remedy relevance check",
     "core/report-client-readiness-style-gate.md, if the task is about reports or report audit",
+    "core/anti-ai-writing-style.md, mandatory before final client-facing report delivery and during report audit",
     "core/{task-file}.md",
     "alchemy-method/method-source-registry.json, if the task is about method or reports",
     "alchemy-method/consultations/reports-index.md, if the task is about client reports",

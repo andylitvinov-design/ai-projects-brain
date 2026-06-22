@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
+  "version": "1.4",
   "status": "canonical",
   "owner": "Andrey Li",
   "purpose": "Machine-readable source registry for Andrey Li agents. Agents must read this before free-text search when routing project, method, report, style-audit, or business tasks.",
@@ -40,6 +40,13 @@
       "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
       "role": "single canonical runtime instruction for ChatGPT Project Report Agent",
       "priority": "first_required_source"
+    },
+    "anti_ai_writing_style_gate": {
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "path": "andrey-system/core/anti-ai-writing-style.md",
+      "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/anti-ai-writing-style.md",
+      "role": "mandatory pre-delivery QA gate for removing generic AI-style writing and rewriting reports into Andrey's living client-facing style",
+      "priority": "required_before_final_client_delivery"
     },
     "live_ru_report_example": {
       "repo": "andylitvinov-design/alchemy-method",
@@ -122,6 +129,12 @@
           "path": "consultations/examples/confidence-bach-report-example.md",
           "url": "https://github.com/andylitvinov-design/alchemy-method/blob/main/consultations/examples/confidence-bach-report-example.md",
           "role": "primary live Russian client report style reference"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/anti-ai-writing-style.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/anti-ai-writing-style.md",
+          "role": "mandatory final QA gate before sending Russian client reports: scan weak phrases, cut filler, rewrite formal/generic AI-style wording, preserve safety"
         }
       ],
       "optional_sources": [
@@ -181,6 +194,12 @@
           "path": "andrey-system/project-ready/report-agent-project-instruction.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md",
           "role": "single canonical source for Report Agent runtime behavior"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/anti-ai-writing-style.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/anti-ai-writing-style.md",
+          "role": "mandatory final QA gate for report agent before client-facing delivery"
         }
       ],
       "optional_sources": [
@@ -216,6 +235,12 @@
           "repo": "andylitvinov-design/ai-projects-brain",
           "path": "andrey-system/agent/report-style-auditor-playbook.md",
           "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/agent/report-style-auditor-playbook.md"
+        },
+        {
+          "repo": "andylitvinov-design/ai-projects-brain",
+          "path": "andrey-system/core/anti-ai-writing-style.md",
+          "url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/anti-ai-writing-style.md",
+          "role": "mandatory auditor QA gate for phrase-level criticism, line editing, compression, and client-readiness before delivery"
         },
         {
           "repo": "andylitvinov-design/ai-projects-brain",
@@ -284,6 +309,11 @@
     "where_is_report_client_readiness_gate": {
       "answer": "Deprecated pointer only. Use https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/project-ready/report-agent-project-instruction.md as canonical source.",
       "path": "andrey-system/core/report-client-readiness-style-gate.md",
+      "repo": "andylitvinov-design/ai-projects-brain"
+    },
+    "where_is_anti_ai_writing_style_gate": {
+      "answer": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/andrey-system/core/anti-ai-writing-style.md",
+      "path": "andrey-system/core/anti-ai-writing-style.md",
       "repo": "andylitvinov-design/ai-projects-brain"
     },
     "where_is_report_style_auditor": {
