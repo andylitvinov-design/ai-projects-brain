@@ -1,6 +1,6 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-05-01T21:01:26.897Z",
+  "generated_at": "2026-05-13T21:50:12.139Z",
   "source": "projects.json",
   "projects": [
     {
@@ -476,6 +476,34 @@
         "repo_mapping": "needs verification",
         "live_mapping": "listed",
         "env_status": "needs verification",
+        "deploy_status": "listed"
+      }
+    },
+    {
+      "name": "shamanic-academy-youtube",
+      "slug": "shamanic-academy-youtube",
+      "purpose": "Public knowledge base for videos, meditations, shorts, practices, and course-like material from YouTube channel Академия Древних Культур (@shamanic_academy).",
+      "live_url": "https://www.youtube.com/@shamanic_academy",
+      "repo_url": "https://github.com/andylitvinov-design/ai-projects-brain",
+      "hosting": "GitHub raw text / public YouTube source data",
+      "status_summary": "Initial public index collected on 2026-05-13: 105 public entries (94 videos, 11 shorts), 102 with per-video metadata, 3 needing verification.",
+      "memory_files": {
+        "project_md": "projects/shamanic-academy-youtube/PROJECT.md",
+        "system_map": "projects/shamanic-academy-youtube/SYSTEM_MAP.md",
+        "data_schema": "projects/shamanic-academy-youtube/DATA_SCHEMA.md",
+        "code_access": "projects/shamanic-academy-youtube/CODE_ACCESS.md",
+        "data_samples": "projects/shamanic-academy-youtube/DATA_SAMPLES.md",
+        "debug_log": "projects/shamanic-academy-youtube/DEBUG_LOG.md",
+        "risks": "projects/shamanic-academy-youtube/RISKS.md",
+        "codex_brief": "projects/shamanic-academy-youtube/CODEX_BRIEF.md",
+        "state_file": "projects/shamanic-academy-youtube/STATE.md",
+        "log_file": "projects/shamanic-academy-youtube/LOG.md"
+      },
+      "verification_flags": {
+        "has_needs_verification": false,
+        "repo_mapping": "listed",
+        "live_mapping": "listed",
+        "env_status": "names listed",
         "deploy_status": "listed"
       }
     }

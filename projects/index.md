@@ -29,6 +29,7 @@
 | ai-projects-brain | AI Projects Brain | `andylitvinov-design/ai-projects-brain` | not applicable | infra | active | `README.md`, `START-HERE-FOR-AGENTS.md` | validation/sync scripts |
 | codex-save | Codex Save | `andylitvinov-design/codex-links` | https://codex-save-cjb.pages.dev | infra | active subproject | `projects/codex-save/PROJECT.md` | verify KV binding and command side effects |
 | agent-auditor | Agent Auditor | needs verification | not applicable | method/infra | design | `projects/agent-auditor/PROJECT.md` | verify canonical repo and audit snapshot contracts |
+| shamanic-academy-youtube | Shamanic Academy YouTube | `andylitvinov-design/ai-projects-brain` | https://www.youtube.com/@shamanic_academy | course/method | public index; needs editorial verification | `projects/shamanic-academy-youtube/PROJECT.md` | public YouTube tab refresh; validate project brain |
 
 ## Secondary / needs verification projects
 
@@ -56,6 +57,7 @@
 | report template, A4 report, Алхимия Души report | `report` |
 | council, SIA Council | `council` |
 | project brain, память проектов, базы проектов | `ai-projects-brain` |
+| @shamanic_academy, Академия Древних Культур, Shamanic Academy YouTube, видео медитации практики | `shamanic-academy-youtube` |
 | auditor, audit snapshot, data auditor | `agent-auditor` |
 
 ## Type meanings

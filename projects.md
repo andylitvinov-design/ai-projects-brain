@@ -342,3 +342,21 @@ Canonical field mapping in this database:
 - **next actions:** Map project to repo before changes.
 - **risks:** Unknown project boundary.
 - **rules for Codex:** Verify repo and deployment source first.
+
+## shamanic-academy-youtube
+
+- **project memory:** `projects/shamanic-academy-youtube/PROJECT.md`
+
+- **name:** shamanic-academy-youtube
+- **purpose:** Public knowledge base for videos, meditations, shorts, practices, and course-like material from YouTube channel Академия Древних Культур (@shamanic_academy).
+- **live URL:** https://www.youtube.com/@shamanic_academy
+- **repo URL:** https://github.com/andylitvinov-design/ai-projects-brain
+- **hosting:** GitHub raw text / public YouTube source data
+- **current status:** Initial public index collected on 2026-05-13: 105 public entries (94 videos, 11 shorts), 102 with per-video metadata, 3 needing verification.
+- **important files:** `projects/shamanic-academy-youtube/VIDEO_INDEX.md`, `projects/shamanic-academy-youtube/MEDITATIONS.md`, `projects/shamanic-academy-youtube/HIGHLIGHTS.md`, `projects/shamanic-academy-youtube/videos.json`
+- **env variables:** none
+- **known issues:** RSS is incomplete; some public tab entries lack per-video metadata; classification is rule-based and needs editorial review.
+- **recent tasks:** Created initial public YouTube video and meditation index on 2026-05-13.
+- **next actions:** Review high-priority meditations/practices; map confirmed assets to Reiki Yggdrasil, Artefacts, or future courses; refresh public metadata when YouTube changes.
+- **risks:** Storing login-only YouTube data, treating derived classification as confirmed taxonomy, or using unavailable videos as confirmed public assets.
+- **rules for Codex:** Use public YouTube data only. Do not store cookies, OAuth tokens, YouTube Studio data, or private data. Mark uncertain metadata as `needs verification`.
