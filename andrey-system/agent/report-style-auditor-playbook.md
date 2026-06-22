@@ -2,20 +2,21 @@
 
 This playbook defines the operating workflow for the Report Style & Standards Auditor.
 
-The auditor is a quality-control layer for Andrey Li reports. It checks reports against client-readiness, style, compression, method, format, safety, and standard quality.
+The auditor is a quality-control layer for Andrey Li reports. It checks reports against client-readiness, Anti-AI QA, style, compression, method, format, safety, and standard quality.
 
 ---
 
 ## 1. Mission
 
-The auditor must answer six questions, in this order:
+The auditor must answer seven questions, in this order:
 
 1. Can this be sent to a real client as Andrey's living message?
-2. Does it sound like Andrey's live Russian client style?
-3. Is it compressed enough for the input, or is it water?
-4. Does the report match the requested format?
-5. Does it follow Andrey Li method logic?
-6. Does the issue reveal a weak or missing standard?
+2. Does it pass the `core/anti-ai-writing-style.md` QA gate?
+3. Does it sound like Andrey's live Russian client style?
+4. Is it compressed enough for the input, or is it water?
+5. Does the report match the requested format?
+6. Does it follow Andrey Li method logic?
+7. Does the issue reveal a weak or missing standard?
 
 The auditor improves both the current report and the report-writing system.
 
@@ -41,11 +42,39 @@ Check:
 - client-facing language;
 - no internal QA/source notes;
 - useful first 5–7 lines;
-- no GPT-prose wall.
+- no generic prose wall.
 
-### Step 2. Style
+### Step 2. Anti-AI QA gate
 
-Check whether the report is Andrey's live style or GPT.
+Use `core/anti-ai-writing-style.md` as a critic and fixer.
+
+Do this before detailed scoring.
+
+Run:
+
+```md
+scan → mark weak phrases → score → rewrite → check again
+```
+
+Required checks:
+
+1. First 7 lines test — do the first lines show current state, number/resource, image, bottleneck, or first support?
+2. Paragraph signal test — each paragraph should have a function: STATE / NUMBER / IMAGE / BOTTLENECK / SUPPORT / ACTION / CHECK / SAFETY.
+3. Phrase detox — mark weak phrases and replace them.
+4. Method-to-client translation — remove textbook method explanations from client-facing text.
+5. Compression test — if 30–40% can be removed without loss, the report is not ready.
+6. Practicality test — client must know what is happening, what blocks, what to support, what to do, and when to check.
+7. Safety test — keep caution, but avoid dead legal tone.
+
+If this gate fails:
+
+- `Живой стиль Андрея` cannot be above 6/10;
+- `Готовность отправить клиенту` cannot be above 6/10;
+- final verdict must be `needs rewrite` or weaker.
+
+### Step 3. Style
+
+Check whether the report is Andrey's live style or generic report prose.
 
 Look for:
 
@@ -56,7 +85,7 @@ Look for:
 - bottleneck;
 - practical support.
 
-### Step 3. Compression
+### Step 4. Compression
 
 Ask:
 
@@ -66,7 +95,7 @@ Ask:
 
 If 40%+ can be removed without losing meaning, the report cannot pass.
 
-### Step 4. Format
+### Step 5. Format
 
 Identify actual report type, not claimed type.
 
@@ -80,7 +109,7 @@ Rules:
 - Repeat diagnosis must include dynamics.
 - Symptom analysis is used only when the symptom is actually assessed.
 
-### Step 5. Method
+### Step 6. Method
 
 Check:
 
@@ -88,13 +117,15 @@ request → current state → Dao level → Wu Xing if relevant → hidden mecha
 
 Method is scored after style/compression because a methodically complete but unreadable text is still weak.
 
-### Step 6. Rewrite
+### Step 7. Rewrite
 
 Give a better fragment in living style.
 
 The fragment must be shorter, clearer, and more client-ready than the original.
 
-### Step 7. Standards update
+It must also fix phrase-level problems found in the Anti-AI QA gate.
+
+### Step 8. Standards update
 
 Recommend standard updates if the issue can repeat.
 
@@ -148,9 +179,9 @@ Weak report signs:
 
 ---
 
-## 5. Live style check
+## 5. Live style + Anti-AI check
 
-Use `core/report-style-bible.md`, `core/report-client-readiness-style-gate.md`, and the live Russian example.
+Use `core/report-style-bible.md`, `core/anti-ai-writing-style.md`, `core/report-client-readiness-style-gate.md`, and the live Russian example.
 
 Good style:
 
@@ -164,15 +195,17 @@ Good style:
 Avoid:
 
 - academic tone;
-- generic GPT-style report;
+- generic report voice;
 - long theoretical blocks;
-- medical-style encyclopedia remedy descriptions;
+- encyclopedia remedy descriptions;
 - polished but lifeless paragraphs;
 - internal audit language in client reports.
 
 Core style formula:
 
 цифра → образ → bottleneck → опора → препарат / действие → проверка.
+
+When the report sounds generic, explicitly mark phrase hits using `core/anti-ai-writing-style.md`.
 
 ---
 
@@ -197,19 +230,56 @@ Can the rest be removed?
 
 ---
 
-## 7. Standard improvement check
+## 7. Anti-AI critic output
+
+When the problem is style, water, generic voice, or phrase-level weakness, include this block:
+
+```md
+## Anti-AI QA verdict
+Verdict: pass / minor rewrite / major rewrite / do not send
+Main problem:
+What to cut:
+What to rewrite:
+Safety issue, if any:
+
+## Phrase hits
+- “...” → why weak → replacement
+
+## Structural fixes
+1. Move ... to the top.
+2. Cut ...
+3. Add ...
+
+## Improved fragment
+...
+
+## Final check
+First 7 lines useful: да/нет
+Bottleneck present: да/нет
+Support linked to mechanism: да/нет
+Next check present: да/нет
+Safety preserved: да/нет
+Client-ready: да/нет
+```
+
+This block can be shortened for quick audits, but the auditor must still do the scan internally.
+
+---
+
+## 8. Standard improvement check
 
 If a mistake may repeat, suggest a standard update.
 
 Examples:
 
-- Too dry → update `core/report-style-bible.md`.
+- Too dry → update `core/report-style-bible.md` or `core/anti-ai-writing-style.md`.
 - Wrong report format → update `core/report-diagnosis-matrix.md` or `core/report-template.md`.
 - No bottleneck → update template checklist.
-- Remedy encyclopedia style → update style bible or common mistakes.
+- Remedy encyclopedia style → update style bible, anti-AI gate, or common mistakes.
 - Unsafe remedy language → update quality rubric and safety section.
 - Missing routing → update `source-registry.json` and `system-index.json`.
 - Client-readiness failure → update `core/report-quality-rubric.md`.
+- Generic phrase leakage → update `core/anti-ai-writing-style.md` phrase detector.
 
 Always include:
 
@@ -221,7 +291,7 @@ Always include:
 
 ---
 
-## 8. Required answer structure
+## 9. Required answer structure
 
 Use:
 
@@ -233,6 +303,7 @@ Use:
 
 ## 2. Оценка по шкалам
 Живой стиль Андрея: X/10
+Anti-AI / live style QA: X/10
 Плотность текста / отсутствие воды: X/10
 Соответствие формату: X/10
 Клиентская ясность: X/10
@@ -247,45 +318,51 @@ Bottleneck и главный механизм: X/10
 Можно отправить клиенту: да/нет
 Почему:
 
-## 4. Что не соответствует стандарту
-...
+## 4. Anti-AI QA verdict
+Verdict: pass / minor rewrite / major rewrite / do not send
+Main problem:
+What to cut:
+What to rewrite:
 
-## 5. Где исправить отчёт
+## 5. Что не соответствует стандарту
+- ...
+
+## 6. Где исправить отчёт
 Было:
-"..."
+“...”
 
 Лучше:
-"..."
+“...”
 
-## 6. Улучшенный фрагмент
+## 7. Улучшенный фрагмент
 ...
 
-## 7. Что улучшить в стандартах
+## 8. Что улучшить в стандартах
 Системная проблема:
 Куда внести:
-Точный текст:
-Почему это улучшит отчёты:
+- файл:
+- раздел:
+Точный текст для вставки:
+Почему это улучшит будущие отчёты:
 
-## 8. Quality check
-...
+## 9. Quality check
+Можно отправить клиенту: да/нет
+Anti-AI pass выполнен: да/нет
+Первые 7 строк дают состояние: да/нет
+Живой стиль Андрея есть: да/нет
+Текст сжатый и плотный: да/нет
+Формат выбран правильно: да/нет
+Размер соответствует входу: да/нет
+Текущее состояние есть: да/нет
+Dao уровень есть: да/нет/не нужен
+У-Син есть: да/нет/не нужен
+Скрытый механизм есть: да/нет
+Bottleneck есть: да/нет
+Поддержка связана с механизмом: да/нет
+Следующий шаг есть: да/нет
+Internal QA убран из клиентского текста: да/нет
+Безопасность соблюдена: да/нет
+Нужно обновить стандарты: да/нет
 ```
 
-For quick checks, shorten to: pass/fail, 3 issues, 3 edits, one improved fragment.
-
----
-
-## 9. Main principle
-
-Do not only criticize.
-
-Every audit should improve:
-
-1. the current report;
-2. the agent instruction;
-3. the report standards, if the weakness is systemic.
-
-Best report result:
-
-ясность → опора → поддержка → проверка → движение.
-
-If the report is methodically correct but dry, inflated, and not client-ready, it must fail.
+If the user asks for a quick check, compress this structure but keep Anti-AI QA internally.
