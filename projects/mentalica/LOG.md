@@ -1,5 +1,14 @@
 # Mentalica LOG
 
+## 2026-06-25 — Clarified copy behavior and Codex continuation prompt
+
+- User asked to treat requests like `скопируй 2mentalica на mentalica` and `сделай чтобы mentalica работала как 2mentalica` as draft → production transfer/copy requests.
+- Updated `projects/mentalica/DRAFT_TO_PRODUCTION_PROTOCOL.md`.
+- Protocol now says:
+  - copy/transfer everything safely transferable through GitHub/Vercel workflow: code, UI, app files, docs, tests, public assets, Supabase migration files, release notes/memory updates;
+  - do not copy raw Supabase rows, auth users, Storage files, or env values by default;
+  - after doing the safe part, always provide a ready Codex continuation prompt for remaining Vercel/Supabase/live verification and any approved data/storage migration plan.
+
 ## 2026-06-25 — Added draft → production transfer protocol
 
 - User asked to remember the scheme for future requests like `перенести данные с черновой на чистовой`.
