@@ -1,5 +1,21 @@
 # Mentalica LOG
 
+## 2026-06-25 — Added draft → production transfer protocol
+
+- User asked to remember the scheme for future requests like `перенести данные с черновой на чистовой`.
+- Added `projects/mentalica/DRAFT_TO_PRODUCTION_PROTOCOL.md`.
+- Protocol defines:
+  - trigger phrases;
+  - project mapping `main/2mentalica` → `production/mentalica`;
+  - default meaning of `перенести данные` as code/UI/files/docs/tests/Supabase migration files through PR;
+  - explicit exclusion of raw Supabase rows, auth users, Storage files, and env values unless a separate database plan is requested;
+  - GitHub PR workflow and post-merge verification checklist;
+  - final report format.
+- Recorded current transfer event:
+  - PR `https://github.com/andylitvinov-design/reiki-yggdrasil/pull/455`
+  - merge commit `b8c312ee6d69c258e42755df0794fdd565061c1d`
+  - CI success before merge.
+
 ## 2026-06-25 — Mapped Mentalica to Reiki Yggdrasil
 
 - User clarified: `Mentalica` is the domain for project `Reiki Yggdrasil`.

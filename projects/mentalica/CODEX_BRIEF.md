@@ -8,10 +8,40 @@ Use this brief whenever the user asks about Mentalica, 2Mentalica, `mentalica.ve
 - 2Mentalica is the draft/working variant for the same Reiki Yggdrasil domain flow.
 - Canonical repo: https://github.com/andylitvinov-design/reiki-yggdrasil
 - Canonical project memory: `projects/reiki-yggdrasil/PROJECT.md`
+- Draft → production transfer protocol: `projects/mentalica/DRAFT_TO_PRODUCTION_PROTOCOL.md`
 - Canonical live URL: https://reiki-yggdrasil.vercel.app
 - Draft/baseline Mentalica URL: https://2mentalica.vercel.app
 - Target Mentalica URL: https://mentalica.vercel.app
 - User clarified Psitherapy is separate and must not be mixed into Mentalica/Reiki Yggdrasil.
+
+## Critical command routing
+
+If the user asks to transfer from draft to clean/production, e.g.:
+
+- `перенеси данные с черновой на чистовой`
+- `перенеси 2mentalica на mentalica`
+- `обнови mentalica из 2mentalica`
+- `выпусти черновую версию в чистовую`
+
+then use `projects/mentalica/DRAFT_TO_PRODUCTION_PROTOCOL.md`.
+
+Default meaning:
+
+- transfer code/UI/app files/docs/tests/Supabase migration files from `main` to `production` through PR;
+- do **not** copy raw Supabase table rows, auth users, Storage files, or env values unless the user explicitly asks for a separate database/data migration plan;
+- do **not** overwrite production data.
+
+Known release mapping:
+
+- draft branch/site: `main` → `https://2mentalica.vercel.app`
+- production branch/site: `production` → `https://mentalica.vercel.app`
+
+Known transfer event:
+
+- 2026-06-25 PR: `https://github.com/andylitvinov-design/reiki-yggdrasil/pull/455`
+- merge commit: `b8c312ee6d69c258e42755df0794fdd565061c1d`
+- result: code/schema migrations from `main/2mentalica` were merged to `production/mentalica`.
+- not transferred: raw Supabase rows/auth users/storage/env values.
 
 ## Vercel / Supabase context
 
@@ -41,6 +71,7 @@ cat AGENTS.md 2>/dev/null || echo 'AGENTS.md not found'
 cat README.md 2>/dev/null || echo 'README.md not found'
 cat STATE.md 2>/dev/null || echo 'STATE.md not found'
 cat LOG.md 2>/dev/null || echo 'LOG.md not found'
+cat docs/release-workflow.md 2>/dev/null || echo 'docs/release-workflow.md not found'
 cat package.json
 cat vercel.json
 ls src
@@ -80,6 +111,7 @@ Mentalica domain mapping:
 - canonical live: https://reiki-yggdrasil.vercel.app
 - draft Mentalica URL: https://2mentalica.vercel.app
 - target Mentalica URL: https://mentalica.vercel.app
+- draft → production protocol: projects/mentalica/DRAFT_TO_PRODUCTION_PROTOCOL.md
 
 Important clarification:
 - Mentalica is a domain/deployment name for Reiki Yggdrasil.
@@ -89,8 +121,8 @@ Important clarification:
 Target branch: codex/mentalica-task
 
 Before changes:
-- Read projects/reiki-yggdrasil/PROJECT.md and projects/mentalica/PROJECT.md from ai-projects-brain.
-- In repo, read AGENTS.md, README.md, STATE.md, LOG.md, package.json, vercel.json, and app structure.
+- Read projects/reiki-yggdrasil/PROJECT.md, projects/mentalica/PROJECT.md, and projects/mentalica/DRAFT_TO_PRODUCTION_PROTOCOL.md from ai-projects-brain.
+- In repo, read AGENTS.md, README.md, STATE.md, LOG.md, docs/release-workflow.md, package.json, vercel.json, and app structure.
 - Verify git remote is andylitvinov-design/reiki-yggdrasil.
 - Verify Vercel mapping for reiki-yggdrasil.vercel.app, 2mentalica.vercel.app, and mentalica.vercel.app.
 - Treat 2mentalica.vercel.app as draft/current baseline and mentalica.vercel.app as target.
