@@ -11,6 +11,9 @@ Use this protocol when the user asks, in any wording:
 - `перенеси черновой проект на чистовой`
 - `обнови mentalica из 2mentalica`
 - `выпусти черновую версию в чистовую`
+- `скопируй 2mentalica на mentalica`
+- `скопируй черновую в чистовую`
+- `сделай чтобы mentalica работала как 2mentalica`
 
 ## Project mapping
 
@@ -26,18 +29,28 @@ Mentalica/2Mentalica is a domain/deployment flow for Reiki Yggdrasil, not a sepa
 
 Psitherapy is separate and must not be used.
 
-## Meaning of “перенести данные”
+## Meaning of “перенести данные” / “скопировать”
 
-By default, when the user asks to transfer from draft to production, it means:
+By default, when the user asks to transfer/copy from draft to production, it means:
 
-1. Transfer **code, UI, app files, docs, tests, and Supabase migration files** from `main` to `production` through a GitHub PR.
-2. Do **not** copy raw Supabase table rows, auth users, Storage files, or env values unless the user explicitly asks for a database/data migration and approves a separate database plan.
-3. Do **not** overwrite production data.
+1. Transfer/copy **everything that can be safely transferred by GitHub/Vercel workflow**:
+   - code;
+   - UI;
+   - app files;
+   - docs;
+   - tests;
+   - public assets committed to Git;
+   - Supabase migration files committed to Git;
+   - release notes / memory updates.
+2. Use GitHub PR workflow from `main` to `production`.
+3. Do **not** copy raw Supabase table rows, auth users, Storage files, or env values unless the user explicitly asks for a database/data migration and approves a separate database plan.
+4. Do **not** overwrite production data.
+5. After doing the safe transferable part, immediately provide a ready Codex prompt for the remaining work: Vercel live verification, env/domain checks, Supabase redirects, database/storage copy plan if needed, and browser QA.
 
 Use this wording in the report:
 
 ```text
-Код/миграции перенесены. Сырые Supabase rows/auth users/storage/env values не копировались, чтобы не перетереть production-данные.
+Код/миграции и всё, что безопасно переносится через Git, перенесено. Сырые Supabase rows/auth users/storage/env values не копировались, чтобы не перетереть production-данные. Ниже даю prompt для Codex, чтобы он доделал оставшуюся проверку и то, что требует Vercel/Supabase/live доступа.
 ```
 
 ## Required checks before transfer
@@ -90,6 +103,28 @@ title: Release main draft to production
 7. Never force-push `production`.
 8. Never direct-push to `production` unless the user explicitly approves an emergency manual path.
 
+## What to do after the safe transfer
+
+After Git/PR transfer, always produce a Codex continuation prompt. The prompt must tell Codex to:
+
+1. Verify `mentalica.vercel.app` deployed from `production` after the merge.
+2. Compare `mentalica.vercel.app` against `2mentalica.vercel.app`.
+3. Verify Vercel env names exist for production, without printing values.
+4. Verify Supabase Auth Site URL and redirects include:
+   - `https://mentalica.vercel.app/profile`
+   - `https://mentalica.vercel.app/profile/admin`
+   - keep legacy/draft redirects during migration.
+5. Verify Supabase schema/migrations are applied.
+6. Verify private Storage bucket/policies if the app uses uploaded photos/media.
+7. Verify routes:
+   - `/`
+   - `/profile`
+   - `/masters`
+   - `/profile/admin`
+   - `/profile/mandalas` if present.
+8. Run browser QA: console, network, mobile, desktop three-column layout, RU-default UI.
+9. If raw database rows/storage/auth users must be copied, stop and propose a separate safe database migration plan before doing it.
+
 ## Current known transfer event
 
 On 2026-06-25:
@@ -140,16 +175,17 @@ Check:
 
 ## Final report format
 
-Every draft → production transfer report must include:
+Every draft → production transfer/copy report must include:
 
-1. Summary: transferred or blocked.
+1. Summary: transferred/copied or blocked.
 2. Direction: `main/2mentalica` → `production/mentalica`.
 3. PR link and merge commit, if merged.
 4. CI/checks status.
-5. What was transferred.
-6. What was **not** transferred.
-7. URLs that still need live verification.
-8. Risks/blockers.
+5. What was transferred/copied.
+6. What was **not** transferred/copied.
+7. Ready Codex prompt for remaining work.
+8. URLs that still need live verification.
+9. Risks/blockers.
 
 ## If the user asks “всё готово?”
 
@@ -159,3 +195,4 @@ Answer precisely:
 - If Vercel deploy status was not verified: say `Vercel live deploy нужно ещё проверить.`
 - If raw database rows were not copied: say `Сырые данные Supabase не переносились.`
 - Do not claim raw data/env/storage/auth were transferred unless a separate data migration was performed and verified.
+- Always provide the Codex continuation prompt when anything remains to verify or copy.
