@@ -1,33 +1,38 @@
 # Mentalica CODEX_BRIEF
 
-Use this brief whenever the user asks about Mentalica, 2mentalica, or migrating/synchronizing the two.
+Use this brief whenever the user asks about Mentalica, 2Mentalica, `mentalica.vercel.app`, or `2mentalica.vercel.app`.
 
 ## Confirmed context
 
-- Draft/baseline URL: https://2mentalica.vercel.app
-- Target URL: https://mentalica.vercel.app
-- User intent: `2mentalica.vercel.app` is the draft/current working variant for `mentalica.vercel.app`.
-- Live observation on 2026-06-25: both URLs were reachable and returned title `Рейки Иггдрасиль`.
+- Mentalica is the domain/deployment name for project **Reiki Yggdrasil**.
+- 2Mentalica is the draft/working variant for the same Reiki Yggdrasil domain flow.
+- Canonical repo: https://github.com/andylitvinov-design/reiki-yggdrasil
+- Canonical project memory: `projects/reiki-yggdrasil/PROJECT.md`
+- Canonical live URL: https://reiki-yggdrasil.vercel.app
+- Draft/baseline Mentalica URL: https://2mentalica.vercel.app
+- Target Mentalica URL: https://mentalica.vercel.app
+- User clarified Psitherapy is separate and must not be mixed into Mentalica/Reiki Yggdrasil.
 
-## Unknowns
+## Vercel / Supabase context
 
-- Repo: needs verification
-- Hosting project names: Vercel / needs verification
-- Deploy source branches: needs verification
-- Env names: needs verification
-- Build/dev/test commands: needs verification
-- Important files: needs verification
+- Hosting: Vercel, Vite build, exact domain/alias/project mapping needs verification.
+- Supabase context: use Reiki Yggdrasil env names only:
+  - `VITE_SUPABASE_URL`
+  - `VITE_SUPABASE_ANON_KEY`
+  - `VITE_ADMIN_EMAIL`
+- Do not use Psitherapy Supabase project/ref/env names.
+- Do not print env values.
 
-## Mandatory first commands/checks
+## Mandatory first checks
 
 ```bash
 pwd
 git status --short
 git remote -v
 git branch --show-current
-ls
-find .. -maxdepth 2 -iname '*mentalica*' -o -iname '*reports*'
 ```
+
+Confirm repo remote is `andylitvinov-design/reiki-yggdrasil`.
 
 Then inspect:
 
@@ -35,17 +40,30 @@ Then inspect:
 cat AGENTS.md 2>/dev/null || echo 'AGENTS.md not found'
 cat README.md 2>/dev/null || echo 'README.md not found'
 cat STATE.md 2>/dev/null || echo 'STATE.md not found'
-cat project-state.md 2>/dev/null || echo 'project-state.md not found'
 cat LOG.md 2>/dev/null || echo 'LOG.md not found'
 cat package.json
-cat vercel.json 2>/dev/null || echo 'vercel.json not found'
+cat vercel.json
+ls src
 ```
+
+Important files to review for Reiki Yggdrasil / Mentalica domain work:
+
+- `src/App.jsx`
+- `src/main.jsx`
+- `src/index.css`
+- `src/pages/ProfilePage.jsx`
+- `src/pages/MastersPage.jsx`
+- `src/pages/AdminPage.jsx`
+- `src/lib/supabaseClient.js`
+- `supabase/migrations/20260428_master_cabinet_mvp.sql`
+- `vercel.json`
 
 If Vercel CLI is available and authenticated:
 
 ```bash
 vercel whoami
 vercel project ls
+vercel inspect https://reiki-yggdrasil.vercel.app
 vercel inspect https://2mentalica.vercel.app
 vercel inspect https://mentalica.vercel.app
 vercel env ls
@@ -56,16 +74,51 @@ Do not print env values.
 ## Default task prompt
 
 ```text
-Project: Mentalica
-Draft/baseline URL: https://2mentalica.vercel.app
-Target URL: https://mentalica.vercel.app
-Repo: needs verification
-Hosting: Vercel / needs verification
+Project: Reiki Yggdrasil
+Mentalica domain mapping:
+- canonical repo: https://github.com/andylitvinov-design/reiki-yggdrasil
+- canonical live: https://reiki-yggdrasil.vercel.app
+- draft Mentalica URL: https://2mentalica.vercel.app
+- target Mentalica URL: https://mentalica.vercel.app
+
+Important clarification:
+- Mentalica is a domain/deployment name for Reiki Yggdrasil.
+- 2Mentalica is the draft/working variant for the same Reiki Yggdrasil domain flow.
+- Psitherapy is a separate project; do not mix it in.
+
 Target branch: codex/mentalica-task
 
-Treat 2mentalica.vercel.app as the draft/current working baseline for mentalica.vercel.app.
-First verify repo, Vercel project mapping, production vs preview, env names, build settings, and routes.
-Do not expose secrets. Do not rewrite the app. Make minimal branch-based changes. Preserve current user flows and mobile/desktop UX unless the task explicitly asks to change them.
-Run repo-defined checks and verify both URLs after changes.
-Report changed files, checks run, URLs checked, risks, and what was not verified.
+Before changes:
+- Read projects/reiki-yggdrasil/PROJECT.md and projects/mentalica/PROJECT.md from ai-projects-brain.
+- In repo, read AGENTS.md, README.md, STATE.md, LOG.md, package.json, vercel.json, and app structure.
+- Verify git remote is andylitvinov-design/reiki-yggdrasil.
+- Verify Vercel mapping for reiki-yggdrasil.vercel.app, 2mentalica.vercel.app, and mentalica.vercel.app.
+- Treat 2mentalica.vercel.app as draft/current baseline and mentalica.vercel.app as target.
+- Do not expose env values. Env names only: VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_ADMIN_EMAIL.
+
+Must preserve:
+- RU-default UI.
+- Routes /, /profile, /masters, /profile/admin.
+- Existing home page unless task explicitly changes it.
+- Supabase auth/data flows.
+- Vercel rewrites/domain routing.
+- Accepted desktop three-column structure.
+
+Checks:
+- npm install or npm ci as appropriate.
+- npm run build.
+- npm test / npm run lint if available.
+- Browser-check /, /profile, /masters, /profile/admin on available preview/live URLs.
+- Compare draft 2mentalica and target mentalica.
+- Check console/network and mobile/desktop layout.
+
+Report:
+- confirmed repo
+- confirmed Vercel project/domain mapping
+- changed files
+- checks run
+- URLs checked
+- env names needed, no values
+- risks
+- what was not verified
 ```
