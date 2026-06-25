@@ -7,11 +7,29 @@ Last updated: 2026-06-25
 - `Mentalica` / `2Mentalica` is a domain/deployment mapping for project `Reiki Yggdrasil`.
 - Canonical repo: https://github.com/andylitvinov-design/reiki-yggdrasil
 - Canonical project memory: `projects/reiki-yggdrasil/PROJECT.md`
+- Draft → production transfer protocol: `projects/mentalica/DRAFT_TO_PRODUCTION_PROTOCOL.md`
 - Canonical live URL: https://reiki-yggdrasil.vercel.app
 - `https://2mentalica.vercel.app` is the draft/current working Mentalica domain variant for Reiki Yggdrasil.
 - `https://mentalica.vercel.app` is the target/production-facing Mentalica domain for Reiki Yggdrasil.
 - Both Mentalica URLs were reachable on 2026-06-25 and returned the app title `Рейки Иггдрасиль`, consistent with the Reiki Yggdrasil mapping.
 - Exact Vercel project/alias mapping for all three URLs still needs verification.
+
+## Current transfer status
+
+On 2026-06-25, draft code/schema migrations were transferred from `main/2mentalica` to `production/mentalica`:
+
+- PR: `https://github.com/andylitvinov-design/reiki-yggdrasil/pull/455`
+- direction: `main` → `production`
+- merge commit: `b8c312ee6d69c258e42755df0794fdd565061c1d`
+- CI before merge: success
+- transferred: code, UI, app files, docs, tests, and Supabase migration files present in Git
+- not transferred: raw Supabase table rows, auth users, Storage files, env values
+
+When asked `всё готово?`, answer precisely:
+
+- code/schema branch transfer: done;
+- raw database/auth/storage/env transfer: not done and not attempted;
+- live Vercel deployment/browser QA: requires current verification after deploy.
 
 ## Hard boundaries
 
@@ -31,6 +49,8 @@ Invalidated assumptions:
 ## Default working assumption
 
 When the user says `Mentalica`, `mentalica`, `2Mentalica`, `2mentalica`, or asks to move/copy/sync from `2mentalica`, route the work to **Reiki Yggdrasil** and treat `2mentalica.vercel.app` as the baseline to compare against `mentalica.vercel.app`.
+
+When the user asks to transfer from draft to clean/production, use `projects/mentalica/DRAFT_TO_PRODUCTION_PROTOCOL.md`.
 
 ## Confirmed context from Reiki Yggdrasil memory
 
@@ -60,6 +80,8 @@ When the user says `Mentalica`, `mentalica`, `2Mentalica`, `2mentalica`, or asks
 - Production vs preview branch mapping.
 - Whether `mentalica.vercel.app` and `2mentalica.vercel.app` are aliases of the same Vercel project or separate Vercel projects.
 - Whether the app title `Рейки Иггдрасиль` is the desired title for Mentalica domains.
+- Current post-merge live Vercel deployment status for `mentalica.vercel.app`.
+- Live browser QA for `/`, `/profile`, `/masters`, `/profile/admin` after deployment.
 
 ## Recent user intent
 
@@ -68,6 +90,7 @@ When the user says `Mentalica`, `mentalica`, `2Mentalica`, `2mentalica`, or asks
 - User added Vercel and Supabase integrations and asked to find and record everything so agents no longer get lost.
 - User corrected that Psitherapy is separate and must not be mixed with Mentalica.
 - User clarified that Mentalica is the domain for Reiki Yggdrasil.
+- User asked to store the draft → production transfer protocol in `ai-projects-brain`.
 
 ## Safe next action
 
