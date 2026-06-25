@@ -1,158 +1,160 @@
-# Mentalica
+# Mentalica domain mapping
 
 ## Identity
 
-- **name:** Mentalica
+- **name:** Mentalica / 2Mentalica
 - **slug:** `mentalica`
-- **purpose:** Mentalica web app for self-analysis / mentalica interface flows. Exact product scope still needs verification from the canonical repo.
-- **primary live URL:** https://mentalica.vercel.app
-- **draft/staging URL:** https://2mentalica.vercel.app
-- **relationship:** `2mentalica.vercel.app` is the draft/working variant for `mentalica.vercel.app` and should be treated as the source/baseline to compare before production-facing Mentalica changes.
-- **repo URL:** needs verification
-- **likely local checkout:** needs verification
-- **hosting:** Vercel / needs verification
-- **Supabase:** needs verification. Do **not** assume the `psitherapy` Supabase project belongs to Mentalica.
-- **current status:** Both `https://2mentalica.vercel.app` and `https://mentalica.vercel.app` were reachable on 2026-06-25 and both returned the app title `Рейки Иггдрасиль`; exact Vercel project and deploy source still need verification.
+- **type:** domain/deployment mapping for Reiki Yggdrasil, not a separate product repo.
+- **canonical project:** `reiki-yggdrasil`
+- **canonical project memory:** `projects/reiki-yggdrasil/PROJECT.md`
+- **canonical repo URL:** https://github.com/andylitvinov-design/reiki-yggdrasil
+- **canonical live URL:** https://reiki-yggdrasil.vercel.app
+- **target Mentalica URL:** https://mentalica.vercel.app
+- **draft/staging Mentalica URL:** https://2mentalica.vercel.app
+- **hosting:** Vercel, Vite build / exact Vercel project aliases need verification
+- **Supabase:** use the Reiki Yggdrasil Supabase context, not Psitherapy. Known env names from Reiki Yggdrasil memory: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_ADMIN_EMAIL`. Values must never be printed.
+- **current status:** User clarified on 2026-06-25 that Mentalica is the domain for the Reiki Yggdrasil project. Earlier live checks found both `2mentalica.vercel.app` and `mentalica.vercel.app` reachable and returning title `Рейки Иггдрасиль`, which is consistent with the Reiki Yggdrasil mapping.
 
-## Hard boundary: Mentalica is not Psitherapy
+## Hard boundary: Mentalica is not a separate project
 
 The user explicitly clarified on 2026-06-25:
 
-- `Psitherapy` is a separate project.
-- `Mentalica` / `2Mentalica` is another project.
-- Agents must not merge, mix, or infer backend/repo/deploy settings between Psitherapy and Mentalica.
+- `Mentalica` is a domain/deployment name for project `Reiki Yggdrasil`.
+- `2Mentalica` is the draft/working variant for that same Reiki Yggdrasil project/domain flow.
+- `Psitherapy` is a separate project and must not be mixed with Mentalica/Reiki Yggdrasil.
 
 Therefore:
 
-- Supabase project `psitherapy` / ref `juzezltvilqozvmuxrvu` must **not** be recorded as Mentalica backend.
-- Local paths, branches, or worktrees containing `psitherapy` are not canonical for Mentalica unless later explicitly verified.
-- Any previous assumption that Mentalica might use Psitherapy backend is invalid.
+- Do **not** search for a separate `mentalica` repo as the default path.
+- Do **not** use Psitherapy repo, Supabase project, env names, routes, or UI assumptions for Mentalica.
+- Do use `andylitvinov-design/reiki-yggdrasil` as the canonical repo unless a later verified migration changes this.
+- Do use `projects/reiki-yggdrasil/PROJECT.md` as the main project passport.
+- Treat this file as an alias/domain note that prevents future agents from getting lost.
 
 ## Source-of-truth rules
 
-1. For any Mentalica task, first check this file, then inspect the actual repo-local docs.
-2. Treat `https://2mentalica.vercel.app` as the draft/current working baseline unless the user explicitly says otherwise.
-3. Treat `https://mentalica.vercel.app` as the target/production-facing Mentalica URL.
-4. Do not assume the repo from name alone; verify local git remote, Vercel project, and deploy source.
-5. Do not assume Supabase from similarly named therapy projects; verify the actual env names and Supabase project from the Mentalica repo/Vercel settings.
-6. Do not copy patterns from Psitherapy, Reiki Yggdrasil, Artefacts, EzoHata, or Codex Links without checking the Mentalica repo.
+1. For any `mentalica`, `2mentalica`, `mentalica.vercel.app`, or `2mentalica.vercel.app` task, route the work to **Reiki Yggdrasil**.
+2. First read `projects/reiki-yggdrasil/PROJECT.md`, then repo-local `AGENTS.md`, `README.md`, `STATE.md`, `LOG.md`, `package.json`, `vercel.json`, and app structure.
+3. Treat `https://2mentalica.vercel.app` as draft/current working baseline for the Mentalica domain.
+4. Treat `https://mentalica.vercel.app` as target/production-facing Mentalica domain.
+5. Compare against canonical Reiki Yggdrasil live URL `https://reiki-yggdrasil.vercel.app` when domain/deployment behavior is unclear.
+6. Preserve Reiki Yggdrasil constraints: RU-default UI, routes `/`, `/profile`, `/masters`, `/profile/admin`, Supabase auth/data flows, Vercel rewrites, and accepted desktop three-column layout.
 7. Do not expose env values or secrets; store env names only.
 
-## What to inspect first in repo
+## Reiki Yggdrasil context to apply
 
-- `AGENTS.md` — if missing, report `AGENTS.md not found`
-- `README.md`
-- `STATE.md` / `project-state.md`
-- `LOG.md`
-- `package.json`
-- `vercel.json`
-- `.env.example` or env docs
-- `.vercel/project.json`, if present, for Vercel `orgId`/`projectId`
-- `src/`, `app/`, `pages/`, `components/` or actual app structure
-- router/app shell
-- layout/nav components
-- actual Mentalica pages and user flows
+From the canonical project memory:
+
+- repo: https://github.com/andylitvinov-design/reiki-yggdrasil
+- live: https://reiki-yggdrasil.vercel.app
+- hosting: Vercel, Vite build
+- purpose: Reiki Yggdrasil Vite/React platform with public learning UI, master cabinet, public masters catalog, and admin moderation.
+- important files:
+  - `src/App.jsx`
+  - `src/main.jsx`
+  - `src/index.css`
+  - `src/pages/ProfilePage.jsx`
+  - `src/pages/MastersPage.jsx`
+  - `src/pages/AdminPage.jsx`
+  - `src/lib/supabaseClient.js`
+  - `supabase/migrations/20260428_master_cabinet_mvp.sql`
+  - `vercel.json`
+- env names:
+  - `VITE_SUPABASE_URL`
+  - `VITE_SUPABASE_ANON_KEY`
+  - `VITE_ADMIN_EMAIL`
 
 ## Known URLs
 
-- Draft/current working baseline: https://2mentalica.vercel.app
-- Target Mentalica URL: https://mentalica.vercel.app
-
-## Important files
-
-needs verification. Do not use Psitherapy paths/files as Mentalica source unless the repo/deploy mapping proves it.
-
-Likely files to identify after repo verification:
-
-- app/router entry
-- layout/navigation components
-- key page components
-- styles
-- `package.json`
-- `vercel.json`
-- env docs / Supabase client, if any
-
-## Env names
-
-needs verification. Do not infer from Psitherapy. Do not print env values.
+- Canonical Reiki Yggdrasil live: https://reiki-yggdrasil.vercel.app
+- Mentalica target domain: https://mentalica.vercel.app
+- Mentalica draft/staging domain: https://2mentalica.vercel.app
 
 ## Known issues / context
 
-- The user wants `2mentalica` migrated/synchronized into `mentalica` completely.
-- `2mentalica` should be understood as the draft variant, not as an unrelated project.
-- User clarified Psitherapy is separate and must not be confused with Mentalica/2Mentalica.
-- UI topics mentioned before may be related to a separate reports/psitherapy app and must be re-verified before applying to Mentalica.
+- User wants everything from `2mentalica` moved/synchronized to `mentalica` fully.
+- This means synchronizing the draft Mentalica deployment/domain state into the target Mentalica deployment/domain for the Reiki Yggdrasil project.
+- Earlier confusion with Psitherapy is now corrected: Psitherapy is separate.
+- Earlier confusion that Mentalica might be a separate repo is now corrected: Mentalica is a domain/deployment mapping for Reiki Yggdrasil.
+- Exact Vercel project/alias mapping for `2mentalica`, `mentalica`, and `reiki-yggdrasil` still needs verification from Vercel CLI/dashboard or `.vercel/project.json`.
 
 ## Risks
 
-- Confusing Mentalica with Psitherapy because of similar psychotherapy/report language.
-- Confusing Mentalica with Reiki Yggdrasil because both live URLs currently expose title text `Рейки Иггдрасиль`.
-- Editing the wrong repo or wrong Vercel project.
-- Treating Vercel preview/staging as production without verification.
-- Losing env variables during migration.
-- Breaking actual Mentalica routes/user flows.
-- Changing UX/design while the requested task is only migration/synchronization.
+- Confusing Mentalica with a separate project repo.
+- Confusing Mentalica with Psitherapy.
+- Breaking Reiki Yggdrasil public home page.
+- Breaking RU-default interface.
+- Breaking `/`, `/profile`, `/masters`, `/profile/admin` routes.
+- Breaking Supabase auth/data flows.
+- Breaking Vercel rewrites or aliases.
+- Breaking accepted desktop three-column layout.
+- Repointing production domains without confirming preview/production mapping.
 
 ## Default Codex workflow
 
-For Mentalica tasks:
+For Mentalica/2Mentalica tasks:
 
-1. Verify repo and deploy source.
-2. Verify Vercel project(s), domains, aliases, production branch, and preview branch.
-3. Verify whether Mentalica uses Supabase; if yes, identify only env names and Supabase project name/ref from Mentalica settings.
-4. Compare `2mentalica.vercel.app` and `mentalica.vercel.app`.
-5. Use `2mentalica` as baseline/current draft unless user says otherwise.
-6. Make minimal branch-based changes.
+1. Load `projects/reiki-yggdrasil/PROJECT.md` and this domain mapping file.
+2. Open repo `andylitvinov-design/reiki-yggdrasil`.
+3. Read repo-local `AGENTS.md`, `README.md`, `STATE.md`, `LOG.md`, `package.json`, `vercel.json`, and relevant source files.
+4. Verify Vercel domain/project mapping for:
+   - `https://reiki-yggdrasil.vercel.app`
+   - `https://2mentalica.vercel.app`
+   - `https://mentalica.vercel.app`
+5. Treat `2mentalica.vercel.app` as draft baseline and `mentalica.vercel.app` as target domain.
+6. Make minimal branch-based changes in `reiki-yggdrasil` only.
 7. Run repo-defined checks.
-8. Verify preview/live URLs.
+8. Verify all three URLs where possible.
 9. Report changed files, checks run, risks, and what was not verified.
 
 ## Canonical Codex prompt seed
 
 ```text
-Project: Mentalica
-Draft/baseline URL: https://2mentalica.vercel.app
-Target URL: https://mentalica.vercel.app
-Repo: needs verification
-Hosting: Vercel / needs verification
-Supabase: needs verification; do not assume Psitherapy backend
+Project: Reiki Yggdrasil
+Mentalica domain mapping:
+- canonical repo: https://github.com/andylitvinov-design/reiki-yggdrasil
+- canonical live: https://reiki-yggdrasil.vercel.app
+- draft Mentalica URL: https://2mentalica.vercel.app
+- target Mentalica URL: https://mentalica.vercel.app
+
+Important clarification:
+- Mentalica is a domain/deployment name for Reiki Yggdrasil.
+- 2Mentalica is the draft/working variant for the same Reiki Yggdrasil domain flow.
+- Psitherapy is a separate project; do not mix it in.
+
 Target branch: codex/mentalica-<task-slug>
 
-Hard boundary:
-- Psitherapy is a separate project.
-- Mentalica/2Mentalica is another project.
-- Do not mix Psitherapy repo, Supabase project, env names, routes, or UI assumptions into Mentalica unless explicitly verified from Mentalica deploy settings.
-
 Before changes:
-- Read AGENTS.md, README.md, STATE.md/project-state.md, LOG.md, package.json, vercel.json, .vercel/project.json, and app structure.
-- Verify git remote and current branch.
-- Verify which Vercel project serves 2mentalica.vercel.app.
-- Verify which Vercel project serves mentalica.vercel.app.
-- Verify whether Mentalica uses Supabase and list env names only.
-- Treat 2mentalica.vercel.app as the draft/current working baseline for mentalica.vercel.app.
-- Do not expose env values.
+- Read projects/reiki-yggdrasil/PROJECT.md and projects/mentalica/PROJECT.md from ai-projects-brain.
+- In repo, read AGENTS.md, README.md, STATE.md, LOG.md, package.json, vercel.json, and app structure.
+- Verify git remote is andylitvinov-design/reiki-yggdrasil.
+- Verify Vercel mapping for reiki-yggdrasil.vercel.app, 2mentalica.vercel.app, and mentalica.vercel.app.
+- Treat 2mentalica.vercel.app as draft/current baseline and mentalica.vercel.app as target.
+- Do not expose env values. Env names only: VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, VITE_ADMIN_EMAIL.
 
-Rules:
-- Do not rewrite the whole project.
-- Do not change UX/design unless required by the task.
-- Do not break routes, forms, data flows, mobile layout, or Vercel rewrites.
-- Keep 2mentalica available until mentalica is verified.
-- Distinguish production and preview.
+Must preserve:
+- RU-default UI.
+- Routes /, /profile, /masters, /profile/admin.
+- Existing home page unless task explicitly changes it.
+- Supabase auth/data flows.
+- Vercel rewrites/domain routing.
+- Accepted desktop three-column structure.
 
 Checks:
-- Use package.json scripts.
-- Run build and lint/test if available.
-- Browser-check draft and target URLs.
-- Check console/network errors and mobile viewport.
+- npm install or npm ci as appropriate.
+- npm run build.
+- npm test / npm run lint if available.
+- Browser-check /, /profile, /masters, /profile/admin on available preview/live URLs.
+- Compare draft 2mentalica and target mentalica.
+- Check console/network and mobile/desktop layout.
 
 Report:
 - confirmed repo
-- confirmed Vercel project(s)
-- confirmed Supabase project or `none/needs verification`
+- confirmed Vercel project/domain mapping
 - changed files
 - checks run
-- preview/live URLs checked
-- env names needed
+- URLs checked
+- env names needed, no values
 - risks
 - what was not verified
 ```
