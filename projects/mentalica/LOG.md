@@ -1,5 +1,13 @@
 # Mentalica LOG
 
+## 2026-06-25 — Clarified Psitherapy separation
+
+- User clarified: `Psitherapy` is a separate project.
+- User clarified: `Mentalica` / `2Mentalica` is another project.
+- Updated Mentalica memory to forbid mixing Psitherapy backend/repo/env/routes/UI assumptions into Mentalica.
+- Marked Supabase project `psitherapy` / ref `juzezltvilqozvmuxrvu` as **not Mentalica backend**.
+- Mentalica Supabase remains `needs verification` until a separate Mentalica-linked Supabase project is confirmed.
+
 ## 2026-06-25 — Initial registration
 
 - Added Mentalica project memory.
