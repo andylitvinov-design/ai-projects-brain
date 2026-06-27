@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Install /save durable agent memory into the current project repo.
+# Install durable agent memory commands into the current project repo.
 # Run from a project root after cloning ai-projects-brain nearby or setting BRAIN_DIR.
 
 BRAIN_DIR="${BRAIN_DIR:-../ai-projects-brain}"
 PROJECT_DIR="${PROJECT_DIR:-$(pwd)}"
+
+copy_if_exists() {
+  local src="$1"
+  local dst="$2"
+  if [ -f "$src" ]; then
+    mkdir -p "$(dirname "$dst")"
+    cp "$src" "$dst"
+    echo "Installed: $dst"
+  else
+    echo "Skipped optional adapter, missing: $src"
+  fi
+}
 
 if [ ! -d "$PROJECT_DIR" ]; then
   echo "Project dir does not exist: $PROJECT_DIR" >&2
@@ -14,8 +26,6 @@ fi
 
 mkdir -p "$PROJECT_DIR/agent-memory/topics"
 mkdir -p "$PROJECT_DIR/agent-memory/component-notes"
-mkdir -p "$PROJECT_DIR/.codex/skills/save"
-mkdir -p "$PROJECT_DIR/.claude/commands"
 
 # Project memory templates
 if [ ! -f "$PROJECT_DIR/agent-memory/active.md" ]; then
@@ -38,19 +48,23 @@ for topic in delivery audit mobile ux copy auth; do
   fi
 done
 
-# Codex adapter
-cp "$BRAIN_DIR/templates/codex/skills/save/SKILL.md" "$PROJECT_DIR/.codex/skills/save/SKILL.md"
+# Codex adapters
+copy_if_exists "$BRAIN_DIR/templates/codex/skills/save/SKILL.md" "$PROJECT_DIR/.codex/skills/save/SKILL.md"
+copy_if_exists "$BRAIN_DIR/templates/codex/skills/memory/SKILL.md" "$PROJECT_DIR/.codex/skills/memory/SKILL.md"
+copy_if_exists "$BRAIN_DIR/templates/codex/skills/memory-review/SKILL.md" "$PROJECT_DIR/.codex/skills/memory-review/SKILL.md"
 
-# Claude Code adapter
-cp "$BRAIN_DIR/templates/claude-code/commands/save.md" "$PROJECT_DIR/.claude/commands/save.md"
+# Claude Code adapters
+copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/save.md" "$PROJECT_DIR/.claude/commands/save.md"
+copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/memory.md" "$PROJECT_DIR/.claude/commands/memory.md"
+copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/memory-review.md" "$PROJECT_DIR/.claude/commands/memory-review.md"
 
 cat <<'EOF'
-/save memory system installed.
+Agent memory system installed.
 
 Created/updated:
 - agent-memory/
-- .codex/skills/save/SKILL.md
-- .claude/commands/save.md
+- Codex command adapters when available
+- Claude Code command adapters when available
 
 Next:
 - add a short reference to AGENTS.md / CLAUDE.md if the project uses them
