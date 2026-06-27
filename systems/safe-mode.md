@@ -3,6 +3,7 @@
 Callable trigger: `/safe`
 
 Canonical concept / idea backlog: `systems/safe-concept.md`
+Routing matrix: `systems/safe-routing.md`
 
 Use this mode when Andrey asks to improve safety, prevent user-visible frontend errors, prepare a release, audit an app, or run recurring checks across projects.
 
@@ -22,16 +23,17 @@ Before auditing or patching a project:
 1. Read `projects.md` and identify the target projects.
 2. Read `projects.json` when repo/live mapping matters.
 3. Read `systems/agent-rules.md` and `systems/codex-project-workflow.md`.
-4. Read `systems/safe-concept.md` when adding new `/safe` ideas or changing the long-term checklist.
-5. Read the target `projects/<slug>/PROJECT.md`.
-6. In the target repo, read the smallest useful set:
+4. Read `systems/safe-routing.md` before choosing files/checks.
+5. Read `systems/safe-concept.md` when adding new `/safe` ideas or changing the long-term checklist.
+6. Read the target `projects/<slug>/PROJECT.md`.
+7. In the target repo, read the smallest useful set:
    - `AGENTS.md` if present;
    - `CODEX_BRIEF.md` or `README.md`;
    - `STATE.md` / `LOG.md` if present;
    - deploy config (`vercel.json`, `wrangler.toml`, `wrangler.jsonc`, Netlify config, package scripts);
    - auth/API/database files directly relevant to the audit.
 
-Do not scan the whole repo first. Use search to find exact security, auth, form, API, and error-boundary files.
+Do not scan the whole repo first. Use routing and search to find exact security, auth, form, API, skill, and error-boundary files.
 
 ## Audit scope
 
@@ -114,6 +116,17 @@ For user-facing routes:
 - console has no blocking runtime errors in key flows when browser verification is available;
 - mobile and desktop primary layout still render after fixes.
 
+### 9. Agent skill and workflow safety
+
+For projects that include agent skills, workflow packages, `SKILL.md`, routing files, or installable third-party skills:
+
+- route through `systems/safe-routing.md`;
+- inspect skill instructions, examples, tool permissions, scripts, dependency files, and package metadata;
+- check prompt injection, data leakage, risky local code, vulnerable dependencies, and excessive permissions;
+- optionally run a scanner such as NVIDIA SkillSpector when available;
+- treat scanner output as evidence, not automatic truth;
+- do not store scanner API keys or LLM provider credentials in project memory.
+
 ## Fix rules
 
 Use **minimal safe fix**.
@@ -127,7 +140,8 @@ Prefer small changes such as:
 - add a rate-limit guard to one paid endpoint;
 - document required RLS policies when live DB access is not available;
 - add safe headers in deploy config;
-- add missing auth guard on one route.
+- add missing auth guard on one route;
+- narrow a skill permission boundary or document a manual review requirement before install.
 
 Do not:
 
@@ -136,6 +150,7 @@ Do not:
 - store secret values in project memory;
 - merge to `main` or production deploy without explicit permission;
 - rewrite app architecture during a safety audit;
+- install or trust new third-party skills without review;
 - claim live security is fixed unless live behavior was verified.
 
 ## Daily cross-project safe sweep
@@ -143,12 +158,12 @@ Do not:
 When asked to run `/safe` across all projects:
 
 1. Use `projects.md` / `projects.json` to list active projects with live URLs and canonical repos.
-2. Prioritize projects with public live URLs, auth, payments, Supabase, public forms, uploads, or paid API calls.
+2. Prioritize projects with public live URLs, auth, payments, Supabase, public forms, uploads, paid API calls, or newly changed agent skills.
 3. For each project, inspect only high-signal files and recent memory.
 4. Classify findings:
-   - `critical`: secrets exposed, open DB/user data, unauthenticated admin, paid API abuse path, live blank screen;
-   - `high`: missing RLS/policies evidence, public form without abuse guard, raw internal errors shown, broken auth flow;
-   - `medium`: missing headers, weak validation, excessive API response fields, missing error boundary;
+   - `critical`: secrets exposed, open DB/user data, unauthenticated admin, paid API abuse path, live blank screen, malicious or highly unsafe skill package;
+   - `high`: missing RLS/policies evidence, public form without abuse guard, raw internal errors shown, broken auth flow, high-risk skill permission or prompt issue;
+   - `medium`: missing headers, weak validation, excessive API response fields, missing error boundary, unreviewed skill dependency risk;
    - `low`: docs gaps, stale memory, unclear deploy mapping.
 5. Apply safe docs/planning updates directly when appropriate.
 6. For code fixes, create a focused branch/PR or a Codex-ready prompt per project unless the user explicitly authorized autonomous code changes in that repo.
@@ -172,6 +187,7 @@ Use the narrowest available commands:
 - `npm test` or project-specific tests when configured;
 - `npm run build` for frontend projects;
 - route/browser smoke checks when live or local app can be opened;
+- optional static skill scan when agent skills are in scope;
 - platform-specific checks named in project memory.
 
 If checks cannot be run, say so clearly.
@@ -181,6 +197,7 @@ If checks cannot be run, say so clearly.
 Keep reports compact:
 
 - Project / repo / live URL
+- Selected route(s)
 - Files checked
 - Findings by severity
 - Fixes applied
