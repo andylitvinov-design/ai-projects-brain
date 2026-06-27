@@ -82,15 +82,18 @@ agent-memory/active.md
 agent-memory/index.md
 ```
 
-Then read likely relevant files based on user input:
+Then classify the `/save` input and read only likely relevant files:
 
 ```txt
-agent-memory/mistakes.md
 agent-memory/topics/<scope>.md
 agent-memory/component-notes/<Component>.md
 ```
 
-Do not read `archive.md` unless you are checking for replaced/conflicting old rules.
+Read `agent-memory/mistakes.md` only when the input is a mistake, repeat signal, or asks to check a previous failure.
+
+Do not read `archive.md` unless checking for replaced/conflicting old rules.
+
+Never load the whole memory tree by default.
 
 ---
 
