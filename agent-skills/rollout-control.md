@@ -1,6 +1,6 @@
 # Agent Memory Rollout Control
 
-This file defines how to roll out the instruction router and `/save` memory system across projects.
+This file defines how to roll out the instruction router and agent memory system across projects.
 
 The goal is to avoid a situation where the brain kit exists but active projects do not actually load it.
 
@@ -8,7 +8,7 @@ The goal is to avoid a situation where the brain kit exists but active projects 
 
 ## Rollout principle
 
-Each project must have a small boot router and local memory.
+Each project must have a small boot router, local memory, and self-learning support.
 
 Minimum installed project state:
 
@@ -19,8 +19,12 @@ agent-memory/active.md
 agent-memory/index.md
 agent-memory/topics/
 agent-memory/component-notes/
+agent-memory/candidates.md
+agent-memory/metrics.md
 .codex/skills/save/SKILL.md
+.codex/skills/learn-pass/SKILL.md
 .claude/commands/save.md
+.claude/commands/learn-pass.md
 ```
 
 Recommended full state:
@@ -54,14 +58,20 @@ For each project:
 - [ ] `CLAUDE.md` exists or equivalent Claude boot reference exists.
 - [ ] Boot reference tells agents to read `agent-memory/active.md` and `agent-memory/index.md`.
 - [ ] Boot reference tells agents to load only relevant topic/component memory.
+- [ ] Boot reference tells agents not to load candidates/metrics except during `/learn-pass` or `/memory-review`.
 - [ ] `agent-memory/active.md` exists.
 - [ ] `agent-memory/index.md` exists.
 - [ ] `agent-memory/topics/` exists.
 - [ ] `agent-memory/component-notes/` exists.
+- [ ] `agent-memory/candidates.md` exists.
+- [ ] `agent-memory/metrics.md` exists.
 - [ ] `.codex/skills/save/SKILL.md` exists.
+- [ ] `.codex/skills/learn-pass/SKILL.md` exists.
 - [ ] `.claude/commands/save.md` exists.
+- [ ] `.claude/commands/learn-pass.md` exists.
 - [ ] `/save` is treated as upsert, not append.
-- [ ] `/delivery` reports `Applied memory` when relevant.
+- [ ] `/learn-pass` creates candidates/metrics instead of polluting active memory.
+- [ ] `/delivery` reports `Applied memory` and `Learning Pass` when relevant.
 - [ ] `/audit` checks repeated known mistakes when relevant.
 
 ---
@@ -73,8 +83,9 @@ Run in a safe branch:
 1. `/memory` should show active memory without loading archive.
 2. `/save` should create or update a durable rule.
 3. Repeating the same `/save` with similar wording should update the existing rule, not duplicate it.
-4. `/memory-review` should identify duplicates/conflicts and keep `active.md` compact.
-5. `/delivery` should mention `Applied memory` in the final report.
+4. `/learn-pass` should create or update a candidate/metric after meaningful work.
+5. `/memory-review` should identify duplicates/conflicts and keep `active.md` compact.
+6. `/delivery` should mention `Applied memory` and `Learning Pass` in the final report when relevant.
 
 ---
 
@@ -82,14 +93,14 @@ Run in a safe branch:
 
 Update this table during rollout.
 
-| Project | Boot router | agent-memory | Codex adapters | Claude adapters | Smoke tested | Notes |
-|---|---:|---:|---:|---:|---:|---|
-| ai-projects-brain | yes | partial | templates | templates | partial | canonical source |
-| reiki-yggdrasil | pending | pending | pending | pending | pending | active product repo |
-| report | pending | pending | pending | pending | pending | active product repo |
-| finance | pending | pending | pending | pending | pending | active project repo |
-| codex-links | pending | pending | pending | pending | pending | command bridge |
-| active-projects-ops | pending | pending | pending | pending | pending | ops repo |
+| Project | Boot router | agent-memory | Self-learning files | Codex adapters | Claude adapters | Smoke tested | Notes |
+|---|---:|---:|---:|---:|---:|---:|---|
+| ai-projects-brain | yes | partial | yes | templates | templates | partial | canonical source |
+| reiki-yggdrasil | partial | yes | yes | yes | yes | pending | AGENTS merge pending |
+| report | partial | yes | yes | yes | yes | pending | AGENTS merge pending |
+| finance | partial | yes | yes | yes | yes | pending | boot smoke pending |
+| codex-links | partial | yes | yes | yes | yes | pending | boot smoke pending |
+| active-projects-ops | partial | yes | yes | yes | yes | pending | boot smoke pending |
 
 ---
 
@@ -101,6 +112,7 @@ Rollout is complete for a project when:
 agent can discover instructions
 agent does not load the whole tree
 /save works as upsert
+/learn-pass creates candidates/metrics
 /memory can inspect active memory
 /memory-review can compact memory
 /delivery and /audit use scoped memory
@@ -112,6 +124,6 @@ agent does not load the whole tree
 
 - Do not copy all brain docs into every project.
 - Do not overwrite project-specific AGENTS.md / CLAUDE.md.
-- Do not load archive by default.
+- Do not load archive/candidates/metrics by default.
 - Do not treat raw chat logs as active memory.
 - Do not keep contradictory active rules.
