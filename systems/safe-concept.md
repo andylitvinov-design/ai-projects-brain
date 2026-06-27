@@ -3,6 +3,7 @@
 Status: living canonical concept for Andrey's `/safe` mode.
 
 Primary mode file: `systems/safe-mode.md`
+Routing file: `systems/safe-routing.md`
 
 Use this document as the place to accumulate new safety ideas, checks, patterns, and lessons learned. Keep `safe-mode.md` compact and operational; keep this concept document broader and evolutionary.
 
@@ -18,6 +19,7 @@ Vibe-coded products can reach real users before they have a normal production-re
 - raw internal errors shown to users;
 - frontend white screens from null/missing data;
 - legal/privacy gaps once user data is collected;
+- unsafe agent skills or workflow packages installed with implicit trust;
 - agents claiming a live fix without verifying the live target.
 
 `/safe` is a repeatable safety and reliability mode that catches these issues early and keeps every project closer to production-safe without rewriting the product.
@@ -26,12 +28,13 @@ Vibe-coded products can reach real users before they have a normal production-re
 
 1. **User safety and secrets first.** Never request, print, store, or commit secret values.
 2. **Project memory first.** Start from `projects.md`, `projects.json`, and the target `projects/<slug>/PROJECT.md`.
-3. **Smallest useful context.** Inspect high-signal files before any wide repo scan.
-4. **Minimal safe fix.** Fix the proven issue with the smallest reversible change.
-5. **Server-side trust boundary.** Client validation is UX only; security checks must exist on the server/API/database layer.
-6. **No raw internal errors to users.** Users get neutral messages; details stay in server logs.
-7. **No live claims without live checks.** Separate code-level fix, configured env, deployed version, and verified live behavior.
-8. **Report uncertainty.** Missing data is `needs verification`, not a blocker for safe partial progress.
+3. **Route before scanning.** Use `systems/safe-routing.md` before choosing files or checks.
+4. **Smallest useful context.** Inspect high-signal files before any wide repo scan.
+5. **Minimal safe fix.** Fix the proven issue with the smallest reversible change.
+6. **Server-side trust boundary.** Client validation is UX only; security checks must exist on the server/API/database layer.
+7. **No raw internal errors to users.** Users get neutral messages; details stay in server logs.
+8. **No live claims without live checks.** Separate code-level fix, configured env, deployed version, and verified live behavior.
+9. **Report uncertainty.** Missing data is `needs verification`, not a blocker for safe partial progress.
 
 ## 3. Safety domains
 
@@ -131,6 +134,20 @@ Look for practical issues:
 - fetch/proxy routes that could become SSRF-like;
 - dependency scripts or build artifacts that leak sensitive data.
 
+### I. Agent skill / workflow package safety
+
+Agent skills, reusable workflows, and tool packages can execute with high trust. Before installing or relying on them, check:
+
+- prompt injection patterns in skill instructions;
+- data leakage risks in examples, logs, reports, or tool outputs;
+- dangerous local code, shell scripts, or install hooks;
+- vulnerable dependencies and lockfile drift;
+- excessive tool permissions or unclear trust boundaries;
+- system prompt or memory poisoning risks;
+- whether third-party skills need sandboxing, pinning, or manual review.
+
+NVIDIA SkillSpector can be used as optional evidence for this domain, especially for static scans of local skills, repositories, zip files, directories, or single skill files. Treat its output as an input to human/agent review, not as automatic truth.
+
 ## 4. Release gate checklist
 
 Before a public release or after major AI-generated changes, `/safe` should answer:
@@ -143,8 +160,9 @@ Before a public release or after major AI-generated changes, `/safe` should answ
 6. Are paid/external APIs protected from abuse?
 7. Are raw internal errors hidden from users?
 8. Are key routes checked on desktop and mobile?
-9. What checks ran and what checks did not run?
-10. What exact PR/commit/deploy/live URL was verified?
+9. Are agent skills/workflow packages reviewed if the project includes them?
+10. What checks ran and what checks did not run?
+11. What exact PR/commit/deploy/live URL was verified?
 
 ## 5. Daily sweep model
 
@@ -155,7 +173,8 @@ Daily `/safe` should prioritize projects by risk:
 3. Payments/finance/provider imports.
 4. Paid AI/API endpoints.
 5. Recently changed frontend routes.
-6. Projects with unclear repo/live/deploy mapping.
+6. Agent skills or workflow packages newly added or changed.
+7. Projects with unclear repo/live/deploy mapping.
 
 The daily output should be compact:
 
@@ -180,6 +199,7 @@ Prefer:
 - one rate-limit guard for paid endpoint;
 - safe headers in deploy config;
 - RLS policy documentation or migration when verified;
+- skill permission narrowing or documentation before installation;
 - small test/smoke check for the failing path.
 
 Avoid:
@@ -188,13 +208,14 @@ Avoid:
 - secret rotation without explicit instruction;
 - direct production deploy without permission;
 - broad dependency upgrades unless needed for a proven vulnerability;
+- installing unreviewed third-party skills into trusted agent environments;
 - claiming security is fixed without live/config verification.
 
 ## 7. Finding severity
 
-- `critical`: secret exposed, open DB/user data, unauthenticated admin, paid API abuse path, live blank screen on primary route.
-- `high`: missing RLS evidence for user data, public form without abuse guard, raw internal errors exposed, broken auth protection.
-- `medium`: missing security headers, weak validation, excessive API response fields, missing error boundary.
+- `critical`: secret exposed, open DB/user data, unauthenticated admin, paid API abuse path, live blank screen on primary route, malicious or highly unsafe skill package.
+- `high`: missing RLS evidence for user data, public form without abuse guard, raw internal errors exposed, broken auth protection, high-risk skill prompt/tool permission issue.
+- `medium`: missing security headers, weak validation, excessive API response fields, missing error boundary, unreviewed skill dependency risk.
 - `low`: stale docs, unclear deploy mapping, missing checklist, non-blocking console warnings.
 
 ## 8. Idea intake loop
@@ -216,9 +237,12 @@ When Andrey sends a new `/safe` idea, article, X/Twitter post, audit result, inc
 - Add Cloudflare/Vercel security headers snippets per platform.
 - Add privacy policy minimum template for small public projects.
 - Add daily report JSON schema for `brain-management` dashboard ingestion.
+- Add agent skill review template, including optional SkillSpector static scan output.
 - Add incident-to-rule loop: every real bug/security issue becomes a reusable `/safe` check if it can recur.
 
 ## 10. Source notes
 
 - Andrey's initial vibe-coding safety checklist: privacy/GDPR/CCPA awareness, Supabase RLS, auth unhappy paths, security headers, OWASP checks, server-side validation, env/API-key leakage, rate limiting, CAPTCHA/Turnstile, CORS, and safe user-facing errors.
 - X/Twitter reference from Prajwal Tomar shared by Andrey: source text needs verification because the linked post did not expose readable text through the available fetch path.
+- `zhaoxuya520/reverse-skill`: source idea is routing before action by target type, user intent, and toolchain; `/safe` adapts this defensively through `systems/safe-routing.md`.
+- NVIDIA SkillSpector: security scanner for AI agent skills. Useful source idea: scan skills before installation/use for prompt injection patterns, data leakage, risky code, dependency issues, permission boundaries, and related skill risks.
