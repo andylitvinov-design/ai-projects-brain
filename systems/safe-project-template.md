@@ -31,7 +31,21 @@ List private routes, admin pages, role-gated features, internal APIs, and provid
 | --- | --- | --- | --- | --- | --- |
 | | | | | | |
 
-## 4. Data inventory
+## 4. Critical frontend journeys
+
+List the user journeys `/safe` must smoke-check for runtime, interaction, and visual polish.
+
+| Journey | Route(s) | Main user actions | Mobile required? | Expected safe result | Last checked |
+| --- | --- | --- | --- | --- | --- |
+| Home / landing | | click primary CTA, navigate menu | yes/no | no broken links, clear CTA | |
+| Login / auth | | login/logout/reset, wrong password | yes/no | safe auth states | |
+| Profile / dashboard | | open, refresh, back, edit/save | yes/no | no white screen, safe states | |
+| Admin action | | wrong role, save, delete/cancel | yes/no | guarded and reversible | |
+| Order / checkout | | submit, double-click, invalid data | yes/no | no duplicate order/payment | |
+| Upload / gallery | | wrong file, large file, missing image | yes/no | safe validation/fallback | |
+| Search / filter | | no results, reset, pagination | yes/no | clear empty states | |
+
+## 5. Data inventory
 
 | Data type | Stored where | Sensitive? | Retention/delete notes | Export/delete status |
 | --- | --- | --- | --- | --- |
@@ -40,7 +54,7 @@ List private routes, admin pages, role-gated features, internal APIs, and provid
 | Uploaded files | | yes/no | | needs verification |
 | Logs / analytics | | yes/no | | needs verification |
 
-## 5. Environment variable names
+## 6. Environment variable names
 
 Store names only. Never store values.
 
@@ -48,7 +62,7 @@ Store names only. Never store values.
 | --- | --- | --- | --- | --- |
 | | yes/no | local/preview/prod | | |
 
-## 6. Auth and roles
+## 7. Auth and roles
 
 - Auth provider:
 - Roles:
@@ -60,7 +74,7 @@ Store names only. Never store values.
 - Expired/reused link tested:
 - Direct API access tested:
 
-## 7. Database / storage safety
+## 8. Database / storage safety
 
 - Database provider:
 - User-data tables:
@@ -70,22 +84,28 @@ Store names only. Never store values.
 - Service-role usage:
 - Migrations to inspect:
 
-## 8. Bot, rate-limit, and API-cost controls
+## 9. Bot, rate-limit, and API-cost controls
 
 | Endpoint/form | Risk | Current control | Missing control | Priority |
 | --- | --- | --- | --- | --- |
 | | | | | |
 
-## 9. Error handling and UX safety
+## 10. Frontend UX safety and polish
 
 - Route error boundary exists:
 - API safe error wrapper exists:
 - Raw provider/database errors hidden from users:
-- Loading/empty/error/unauthorized states exist:
+- Loading/empty/success/error/unauthorized states exist:
+- Duplicate submit guard exists:
+- Double-click behavior checked:
+- Back/refresh behavior checked:
+- Mobile layout checked:
+- Desktop layout checked:
+- Visual polish known issues:
 - Last browser smoke check:
 - Last mobile check:
 
-## 10. Headers and browser baseline
+## 11. Headers and browser baseline
 
 - CSP or CSP plan:
 - X-Content-Type-Options:
@@ -95,7 +115,7 @@ Store names only. Never store values.
 - CORS policy:
 - HSTS status:
 
-## 11. Dependency and supply-chain checks
+## 12. Dependency and supply-chain checks
 
 - Package manager:
 - Lockfile present:
@@ -105,7 +125,7 @@ Store names only. Never store values.
 - Optional SkillSpector scan status:
 - Known accepted findings baseline:
 
-## 12. Observability and incident response
+## 13. Observability and incident response
 
 - Error logging provider:
 - Deployment logs location:
@@ -115,7 +135,7 @@ Store names only. Never store values.
 - Last known good deploy/commit:
 - Incident contact / owner:
 
-## 13. Safe verification commands
+## 14. Safe verification commands
 
 List the narrowest commands Codex should run before reporting success.
 
@@ -126,16 +146,33 @@ npm test
 npm run build
 ```
 
-## 14. Known risks / needs verification
+## 15. Frontend smoke checks
+
+List the narrowest browser/manual checks Codex should do for user-facing UI.
+
+```text
+- Open live/preview/local home page.
+- Check desktop primary route.
+- Check mobile primary route.
+- Click primary CTA.
+- Submit one key form empty, invalid, and valid when safe.
+- Double-click submit/CTA when duplicate action is risky.
+- Refresh after data loads.
+- Use browser back/forward.
+- Confirm no raw internal error, blank screen, broken layout, or messy visual state.
+```
+
+## 16. Known risks / needs verification
 
 - `needs verification`:
 - `needs verification`:
 - `needs verification`:
 
-## 15. Last /safe result
+## 17. Last /safe result
 
 - Date:
 - Routes selected:
+- Frontend routes/actions checked:
 - Critical findings:
 - High findings:
 - Fixes applied:
