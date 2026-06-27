@@ -1,6 +1,6 @@
-# ChatGPT Daily Memory Review Automation
+# ChatGPT Daily Memory Optimizer Automation
 
-This spec defines a daily ChatGPT automation for keeping agent memory compact and useful.
+This spec defines a daily ChatGPT automation for keeping agent memory compact, clear, and actively optimized.
 
 It complements repo-level `/memory-review`.
 
@@ -14,16 +14,19 @@ Daily at 08:15 Europe/Tirane.
 
 ## Goal
 
-Review newly saved agent-memory rules and summarize what should be compacted, merged, clarified, archived, or promoted.
+Optimize newly saved agent-memory rules and memory-related instruction files.
+
+This automation should not merely read and summarize. It should safely improve the instruction set when changes are low-risk and non-destructive.
 
 The automation should produce a human-readable report:
 
 ```txt
-what changed
+what was reviewed
+what was changed
 what was merged
-what should be archived
-what should be clarified
-what active memory should become
+what was archived or marked replaced
+what became clearer/shorter
+what still needs user decision
 ```
 
 ---
@@ -36,7 +39,7 @@ Primary source of truth:
 ai-projects-brain
 ```
 
-Project repos may be reviewed when recent work touched their `agent-memory/` folders.
+Project repos may be optimized when recent work touched their `agent-memory/` folders.
 
 Recommended priority:
 
@@ -52,40 +55,72 @@ Recommended priority:
 2. Identify duplicate or overlapping rules.
 3. Identify vague rules without `Apply when`, `Check`, or `Failure if ignored`.
 4. Identify contradictions or replaced decisions.
-5. Propose a compacted version of active memory.
-6. Separate proposed changes into:
-   - safe automatic cleanup
-   - needs user confirmation
+5. Identify overlong instructions that can be shortened without losing meaning.
+6. Apply safe optimizations directly when repository writes are available.
+7. Separate remaining issues into:
+   - safely changed
+   - patch-ready but not applied
+   - needs user decision
    - project-specific follow-up
-7. Report before/after summary.
+8. Report before/after summary.
+
+---
+
+## Safe automatic optimizations
+
+The automation may directly update Markdown instruction files when the change is safe and non-destructive:
+
+- merge duplicate rules with the same scope;
+- tighten wording while preserving meaning;
+- move noisy or low-priority active rules to archive;
+- mark superseded rules as `replaced`;
+- add missing `Apply when`, `Check`, or `Failure if ignored` when obvious;
+- consolidate repeated topic entries into one clearer rule;
+- update `index.md` routing if a topic file was renamed or consolidated.
+
+---
+
+## Changes that need user decision
+
+Do not silently apply changes that alter product meaning or remove important decisions.
+
+Ask or report as `needs decision` when:
+
+- two active rules conflict and both may still be valid;
+- a product/UX decision appears outdated but not explicitly replaced;
+- deleting a rule would remove historical context needed for future work;
+- a rule is tied to payments, auth, data deletion, production deploy, or user safety;
+- the intended future behavior is ambiguous.
 
 ---
 
 ## Report format
 
 ```md
-## Daily memory review — YYYY-MM-DD
+## Daily memory optimizer — YYYY-MM-DD
 
 ### Reviewed
 - repo/path
 
-### What was found
-- duplicates:
-- vague rules:
-- conflicts:
-- inactive/never-applied rules:
+### Changed automatically
+- merged:
+- shortened:
+- archived:
+- marked replaced:
+- fields fixed:
 
-### Proposed compaction
+### Before / after examples
 Before:
 - ...
 
 After:
 - ...
 
-### Recommended actions
-- safe to merge:
-- archive candidates:
-- needs decision:
+### Needs user decision
+- ...
+
+### Files changed
+- ...
 
 ### Next project follow-up
 - ...
@@ -95,15 +130,17 @@ After:
 
 ## Important constraints
 
-The automation should not silently rewrite repositories unless explicitly asked in that run.
-
 Default behavior:
 
 ```txt
-review and report only
+optimize safe Markdown instructions directly; report anything unsafe or ambiguous
 ```
 
-If the user later asks to apply the review, then update files through GitHub or the relevant repo workflow.
+The automation should not silently rewrite code, product logic, payment/auth rules, or destructive workflows.
+
+Repository writes are allowed only for safe Markdown instruction optimization.
+
+If repository writes are unavailable, produce a patch-ready report instead.
 
 ---
 
@@ -113,4 +150,4 @@ If the user later asks to apply the review, then update files through GitHub or 
 
 `/memory-review` maintains project memory on demand.
 
-The daily ChatGPT automation gives a regular external review layer so memory does not become noisy, duplicated, or inconsistent.
+The daily ChatGPT automation provides regular external optimization so memory does not become noisy, duplicated, vague, or inconsistent.
