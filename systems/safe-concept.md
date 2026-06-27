@@ -4,6 +4,8 @@ Status: living canonical concept for Andrey's `/safe` mode.
 
 Primary mode file: `systems/safe-mode.md`
 Routing file: `systems/safe-routing.md`
+Project template: `systems/safe-project-template.md`
+Daily report schema: `systems/safe-report-schema.md`
 
 Use this document as the place to accumulate new safety ideas, checks, patterns, and lessons learned. Keep `safe-mode.md` compact and operational; keep this concept document broader and evolutionary.
 
@@ -20,6 +22,7 @@ Vibe-coded products can reach real users before they have a normal production-re
 - frontend white screens from null/missing data;
 - legal/privacy gaps once user data is collected;
 - unsafe agent skills or workflow packages installed with implicit trust;
+- missing rollback, backups, observability, or evidence after a fix;
 - agents claiming a live fix without verifying the live target.
 
 `/safe` is a repeatable safety and reliability mode that catches these issues early and keeps every project closer to production-safe without rewriting the product.
@@ -30,11 +33,14 @@ Vibe-coded products can reach real users before they have a normal production-re
 2. **Project memory first.** Start from `projects.md`, `projects.json`, and the target `projects/<slug>/PROJECT.md`.
 3. **Route before scanning.** Use `systems/safe-routing.md` before choosing files or checks.
 4. **Smallest useful context.** Inspect high-signal files before any wide repo scan.
-5. **Minimal safe fix.** Fix the proven issue with the smallest reversible change.
-6. **Server-side trust boundary.** Client validation is UX only; security checks must exist on the server/API/database layer.
-7. **No raw internal errors to users.** Users get neutral messages; details stay in server logs.
-8. **No live claims without live checks.** Separate code-level fix, configured env, deployed version, and verified live behavior.
-9. **Report uncertainty.** Missing data is `needs verification`, not a blocker for safe partial progress.
+5. **Prefer repo-level SAFE.md.** Use `systems/safe-project-template.md` to create a compact project safety map when missing.
+6. **Minimal safe fix.** Fix the proven issue with the smallest reversible change.
+7. **Server-side trust boundary.** Client validation is UX only; security checks must exist on the server/API/database layer.
+8. **No raw internal errors to users.** Users get neutral messages; details stay in server logs.
+9. **No live claims without live checks.** Separate code-level fix, configured env, deployed version, and verified live behavior.
+10. **No production safety without rollback awareness.** For data or production work, know how to roll back or mark it `needs verification`.
+11. **Evidence over confidence.** Every report should say what was checked, what was not checked, and why.
+12. **Report uncertainty.** Missing data is `needs verification`, not a blocker for safe partial progress.
 
 ## 3. Safety domains
 
@@ -59,7 +65,8 @@ Check:
 - frontend prefixes such as `VITE_*` / `NEXT_PUBLIC_*`;
 - service-role/admin/provider keys;
 - logs and error reporting;
-- API responses that may include tokens, raw provider objects, cookies, auth headers, or private IDs.
+- API responses that may include tokens, raw provider objects, cookies, auth headers, or private IDs;
+- whether a secret scan exists or is marked `needs verification`.
 
 Rule: if a key is in the browser, treat it as public. Only anonymous/public keys designed for client use may appear in frontend code.
 
@@ -72,6 +79,7 @@ Check:
 - anon key cannot read unrelated user data;
 - admin pages use server-side or policy-backed authorization;
 - API responses select explicit fields instead of returning whole rows;
+- storage buckets have public/private rules;
 - migrations document policies without real secrets.
 
 ### D. Auth and access control
@@ -96,7 +104,8 @@ Check:
 - rate limits exist for paid API endpoints and expensive operations;
 - Cloudflare Turnstile/CAPTCHA or equivalent is planned/implemented where public spam risk exists;
 - CORS allows only intended origins unless the API is intentionally public;
-- uploads validate size, MIME type, ownership, and path.
+- uploads validate size, MIME type, ownership, and path;
+- retries, queues, background jobs, and webhooks cannot multiply provider/API cost unexpectedly.
 
 ### F. Frontend reliability and user-facing errors
 
@@ -107,7 +116,8 @@ Check:
 - loading, empty, error, unauthorized, and offline-ish states exist where relevant;
 - raw stack traces, SQL errors, provider payloads, internal IDs, and debug dumps are not shown to users;
 - console has no blocking runtime errors in key flows when browser verification is available;
-- mobile and desktop layouts still render.
+- mobile and desktop layouts still render;
+- critical journeys have a clear smoke-check path.
 
 ### G. Security headers and browser baseline
 
@@ -118,6 +128,7 @@ Check platform config for:
 - `Referrer-Policy`;
 - `Permissions-Policy`;
 - `X-Frame-Options` or CSP `frame-ancestors`;
+- CORS origin policy;
 - HSTS only after HTTPS/live domain behavior is verified.
 
 ### H. OWASP-style practical checks
@@ -140,13 +151,25 @@ Agent skills, reusable workflows, and tool packages can execute with high trust.
 
 - prompt injection patterns in skill instructions;
 - data leakage risks in examples, logs, reports, or tool outputs;
-- dangerous local code, shell scripts, or install hooks;
+- risky local code, shell scripts, or install hooks;
 - vulnerable dependencies and lockfile drift;
 - excessive tool permissions or unclear trust boundaries;
 - system prompt or memory poisoning risks;
 - whether third-party skills need sandboxing, pinning, or manual review.
 
 NVIDIA SkillSpector can be used as optional evidence for this domain, especially for static scans of local skills, repositories, zip files, directories, or single skill files. Treat its output as an input to human/agent review, not as automatic truth.
+
+### J. Observability, rollback, and data resilience
+
+For production and data-bearing projects, check:
+
+- deployment/error logs location;
+- health check or smoke check;
+- last known good commit/deploy;
+- rollback method;
+- backup/export status;
+- incident owner or next responder;
+- whether repeated findings from earlier `/safe` runs are still open.
 
 ## 4. Release gate checklist
 
@@ -161,8 +184,9 @@ Before a public release or after major AI-generated changes, `/safe` should answ
 7. Are raw internal errors hidden from users?
 8. Are key routes checked on desktop and mobile?
 9. Are agent skills/workflow packages reviewed if the project includes them?
-10. What checks ran and what checks did not run?
-11. What exact PR/commit/deploy/live URL was verified?
+10. Is rollback/backup/observability known for production/data changes?
+11. What checks ran and what checks did not run?
+12. What exact PR/commit/deploy/live URL was verified?
 
 ## 5. Daily sweep model
 
@@ -174,16 +198,19 @@ Daily `/safe` should prioritize projects by risk:
 4. Paid AI/API endpoints.
 5. Recently changed frontend routes.
 6. Agent skills or workflow packages newly added or changed.
-7. Projects with unclear repo/live/deploy mapping.
+7. Repeated previous critical/high findings.
+8. Projects with unclear repo/live/deploy mapping.
 
-The daily output should be compact:
+The daily output should be compact and optionally JSON-compatible with `systems/safe-report-schema.md`:
 
 - checked projects;
+- selected routes;
 - high/critical findings;
 - fixes applied;
 - PRs opened/updated;
 - checks run/not run;
 - live status;
+- rollback/backup status;
 - risks and `needs verification`;
 - next action.
 
@@ -199,7 +226,9 @@ Prefer:
 - one rate-limit guard for paid endpoint;
 - safe headers in deploy config;
 - RLS policy documentation or migration when verified;
+- repo-level `SAFE.md` for public/production projects;
 - skill permission narrowing or documentation before installation;
+- rollback/backup note for production/data changes;
 - small test/smoke check for the failing path.
 
 Avoid:
@@ -213,10 +242,10 @@ Avoid:
 
 ## 7. Finding severity
 
-- `critical`: secret exposed, open DB/user data, unauthenticated admin, paid API abuse path, live blank screen on primary route, malicious or highly unsafe skill package.
-- `high`: missing RLS evidence for user data, public form without abuse guard, raw internal errors exposed, broken auth protection, high-risk skill prompt/tool permission issue.
-- `medium`: missing security headers, weak validation, excessive API response fields, missing error boundary, unreviewed skill dependency risk.
-- `low`: stale docs, unclear deploy mapping, missing checklist, non-blocking console warnings.
+- `critical`: secret exposed, open DB/user data, unauthenticated admin, paid API abuse path, live blank screen on primary route, malicious or highly unsafe skill package, missing rollback for risky production fix.
+- `high`: missing RLS evidence for user data, public form without abuse guard, raw internal errors exposed, broken auth protection, high-risk skill prompt/tool permission issue, no backup/rollback path for data-bearing app.
+- `medium`: missing security headers, weak validation, excessive API response fields, missing error boundary, unreviewed skill dependency risk, missing observability path.
+- `low`: stale docs, unclear deploy mapping, missing checklist, missing `SAFE.md`, non-blocking console warnings.
 
 ## 8. Idea intake loop
 
@@ -226,19 +255,20 @@ When Andrey sends a new `/safe` idea, article, X/Twitter post, audit result, inc
 2. Convert it into one or more concrete checks.
 3. Add the idea to this concept document if it changes the long-term model.
 4. Add only the operational subset to `systems/safe-mode.md` if agents must execute it every time.
-5. If it is project-specific, update that project `PROJECT.md`, `RISKS.md`, `CODEX_BRIEF.md`, `STATE.md`, or `LOG.md` instead.
-6. Keep source references short. If source content cannot be fetched, mark `source text needs verification` and do not invent details.
+5. Add route-selection changes to `systems/safe-routing.md`.
+6. Add templates/contracts to separate files when the idea would bloat `safe-mode.md`.
+7. If it is project-specific, update that project `PROJECT.md`, `RISKS.md`, `CODEX_BRIEF.md`, `SAFE.md`, `STATE.md`, or `LOG.md` instead.
+8. Keep source references short. If source content cannot be fetched, mark `source text needs verification` and do not invent details.
 
 ## 9. Open improvement backlog
 
-- Add project-level `SAFE.md` template for repos with public live apps.
-- Add standard browser smoke script template for frontend routes.
-- Add Supabase RLS audit prompt/template.
 - Add Cloudflare/Vercel security headers snippets per platform.
 - Add privacy policy minimum template for small public projects.
-- Add daily report JSON schema for `brain-management` dashboard ingestion.
+- Add browser smoke script template per common stack.
+- Add Supabase RLS audit prompt/template.
 - Add agent skill review template, including optional SkillSpector static scan output.
 - Add incident-to-rule loop: every real bug/security issue becomes a reusable `/safe` check if it can recur.
+- Add `brain-management` ingestion path for `systems/safe-report-schema.md`.
 
 ## 10. Source notes
 
