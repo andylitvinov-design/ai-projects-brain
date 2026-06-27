@@ -19,6 +19,7 @@ Use it together with `systems/agent-rules.md`.
 
 | Mode | Trigger examples | Use when | Source file |
 | --- | --- | --- | --- |
+| Safe | `/safe`, `режим safe`, `проверь безопасность`, `чтобы пользователь не видел ошибок` | A project needs security, privacy, API-cost, bot-abuse, auth, headers, frontend runtime-error, and user-facing error-safety checks. | `systems/safe-mode.md` |
 | Grill Me / Task Clarification | `grill me`, `прогриль задачу`, `проясни задачу` | Requirements are unclear and must be clarified before implementation. | `systems/task-clarification-mode.md` |
 | Superpowers | `используй superpowers`, `строгий режим`, `сначала план и проверка` | The task needs disciplined context -> plan -> minimal edits -> verification. | `systems/superpowers-mode.md` |
 | Handoff | `сделай handoff`, `передай следующему агенту`, `обнови HANDOFF.md` | A future agent must continue without rereading the full chat. | `systems/handoff-mode.md` |
