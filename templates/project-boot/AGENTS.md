@@ -12,5 +12,6 @@ Before `/delivery`, `/audit`, `/save`, `/memory`, or `/memory-review`:
 
 For `/save`, use `.codex/skills/save/SKILL.md` if present.
 For `/memory`, use `.codex/skills/memory/SKILL.md` if present.
+For `/memory-review`, use `.codex/skills/memory-review/SKILL.md` if present.
 
 Do not load the whole instruction tree by default.
