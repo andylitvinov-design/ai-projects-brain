@@ -55,7 +55,7 @@ if [ ! -f "$PROJECT_DIR/agent-memory/index.md" ]; then
   cp "$BRAIN_DIR/templates/project-agent-memory/index-template.md" "$PROJECT_DIR/agent-memory/index.md"
 fi
 
-for file in archive.md mistakes.md; do
+for file in archive.md mistakes.md candidates.md metrics.md; do
   if [ ! -f "$PROJECT_DIR/agent-memory/$file" ]; then
     printf "# %s\n\n" "$file" > "$PROJECT_DIR/agent-memory/$file"
   fi
@@ -71,11 +71,13 @@ done
 copy_if_exists "$BRAIN_DIR/templates/codex/skills/save/SKILL.md" "$PROJECT_DIR/.codex/skills/save/SKILL.md"
 copy_if_exists "$BRAIN_DIR/templates/codex/skills/memory/SKILL.md" "$PROJECT_DIR/.codex/skills/memory/SKILL.md"
 copy_if_exists "$BRAIN_DIR/templates/codex/skills/memory-review/SKILL.md" "$PROJECT_DIR/.codex/skills/memory-review/SKILL.md"
+copy_if_exists "$BRAIN_DIR/templates/codex/skills/learn-pass/SKILL.md" "$PROJECT_DIR/.codex/skills/learn-pass/SKILL.md"
 
 # Claude Code adapters
 copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/save.md" "$PROJECT_DIR/.claude/commands/save.md"
 copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/memory.md" "$PROJECT_DIR/.claude/commands/memory.md"
 copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/memory-review.md" "$PROJECT_DIR/.claude/commands/memory-review.md"
+copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/learn-pass.md" "$PROJECT_DIR/.claude/commands/learn-pass.md"
 
 cat <<'EOF'
 Agent memory system installed.
@@ -83,6 +85,7 @@ Agent memory system installed.
 Created/updated:
 - AGENTS.md / CLAUDE.md if missing
 - agent-memory/
+- candidates.md and metrics.md for self-learning
 - Codex command adapters when available
 - Claude Code command adapters when available
 
@@ -91,4 +94,5 @@ If AGENTS.md or CLAUDE.md already existed, merge the router snippet manually fro
 Next:
 - run a test /save in a safe branch
 - run /memory to confirm active memory is discoverable
+- run /learn-pass after a meaningful task
 EOF
