@@ -2,6 +2,8 @@
 
 Callable trigger: `/safe`
 
+Canonical concept / idea backlog: `systems/safe-concept.md`
+
 Use this mode when Andrey asks to improve safety, prevent user-visible frontend errors, prepare a release, audit an app, or run recurring checks across projects.
 
 ## Goal
@@ -20,8 +22,9 @@ Before auditing or patching a project:
 1. Read `projects.md` and identify the target projects.
 2. Read `projects.json` when repo/live mapping matters.
 3. Read `systems/agent-rules.md` and `systems/codex-project-workflow.md`.
-4. Read the target `projects/<slug>/PROJECT.md`.
-5. In the target repo, read the smallest useful set:
+4. Read `systems/safe-concept.md` when adding new `/safe` ideas or changing the long-term checklist.
+5. Read the target `projects/<slug>/PROJECT.md`.
+6. In the target repo, read the smallest useful set:
    - `AGENTS.md` if present;
    - `CODEX_BRIEF.md` or `README.md`;
    - `STATE.md` / `LOG.md` if present;
@@ -150,6 +153,15 @@ When asked to run `/safe` across all projects:
 5. Apply safe docs/planning updates directly when appropriate.
 6. For code fixes, create a focused branch/PR or a Codex-ready prompt per project unless the user explicitly authorized autonomous code changes in that repo.
 7. Report what was checked, what was fixed, what remains `needs verification`, and exact next commands/checks.
+
+## New idea intake
+
+When Andrey sends a new `/safe` idea, source, article, post, incident, or checklist:
+
+1. Add durable ideas and source notes to `systems/safe-concept.md`.
+2. Add only repeatable operational checks to this file.
+3. Mark unavailable source text as `source text needs verification` instead of inventing details.
+4. Convert real incidents into reusable checks when they can recur.
 
 ## Minimum checks per project
 
