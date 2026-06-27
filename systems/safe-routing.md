@@ -4,6 +4,8 @@ Status: defensive routing layer for `/safe`.
 
 Primary mode: `systems/safe-mode.md`
 Canonical concept: `systems/safe-concept.md`
+Project template: `systems/safe-project-template.md`
+Daily report schema: `systems/safe-report-schema.md`
 
 This document adds a routing step before a `/safe` audit. First classify the project and risk surface, then inspect the smallest useful files.
 
@@ -23,7 +25,7 @@ If an external source is dual-use, extract only the safe routing idea and leave 
    - hosting/data/toolchain;
    - live vs local vs unknown status.
 3. If no route fits, mark `route needs verification` and use the closest read-only baseline route.
-4. For cross-surface projects, combine routes in priority order: secrets/data/auth, paid API cost, frontend runtime, headers/privacy/docs.
+4. For cross-surface projects, combine routes in priority order: secrets/data/auth, paid API cost, frontend runtime, headers/privacy/docs, rollback/observability.
 5. After routing, read the smallest useful project files named by that route.
 6. Use minimal safe fix and report checks run/not run.
 
@@ -31,14 +33,15 @@ If an external source is dual-use, extract only the safe routing idea and leave 
 
 | Project type | Primary route | High-signal files |
 | --- | --- | --- |
-| Vite/React SPA with Supabase | Supabase + frontend reliability + auth route | `src/lib/*supabase*`, auth/profile/admin pages, route tree, migrations, `vercel.json` |
-| Cloudflare Pages app/functions | Cloudflare API/functions safety route | `functions/api/*`, `functions/_lib/*`, `wrangler.toml`, `wrangler.jsonc`, `public/*` |
-| Vercel app/API | Vercel API/frontend route | `api/*`, `app/api/*`, `pages/api/*`, `vercel.json`, auth/server utilities |
-| Finance/provider import app | Provider/API-cost/data-minimization route | provider API routes, sync/import scripts, sheet/data config, release guards |
-| Public content/landing site | Forms/headers/frontend route | contact forms, upload forms, analytics/ads config, headers/deploy config |
-| Admin dashboard | Auth/admin access-control route | admin pages, role checks, session middleware, API permissions |
-| AI/API endpoint app | Paid API + prompt/data safety route | AI route handlers, rate limits, auth gates, logs, prompt/data storage |
+| Vite/React SPA with Supabase | Supabase + frontend reliability + auth route | `SAFE.md`, `src/lib/*supabase*`, auth/profile/admin pages, route tree, migrations, `vercel.json` |
+| Cloudflare Pages app/functions | Cloudflare API/functions safety route | `SAFE.md`, `functions/api/*`, `functions/_lib/*`, `wrangler.toml`, `wrangler.jsonc`, `public/*` |
+| Vercel app/API | Vercel API/frontend route | `SAFE.md`, `api/*`, `app/api/*`, `pages/api/*`, `vercel.json`, auth/server utilities |
+| Finance/provider import app | Provider/API-cost/data-minimization route | `SAFE.md`, provider API routes, sync/import scripts, sheet/data config, release guards |
+| Public content/landing site | Forms/headers/frontend route | `SAFE.md`, contact forms, upload forms, analytics/ads config, headers/deploy config |
+| Admin dashboard | Auth/admin access-control route | `SAFE.md`, admin pages, role checks, session middleware, API permissions |
+| AI/API endpoint app | Paid API + prompt/data safety route | `SAFE.md`, AI route handlers, rate limits, auth gates, logs, prompt/data storage |
 | Agent skill / workflow package | Agent skill safety route | `SKILL.md`, routing docs, tool manifests, install scripts, package files, examples |
+| Data-bearing production app | Backup/rollback/observability route | `SAFE.md`, deploy docs, backup/export scripts, health checks, logging config |
 | Unknown project | Baseline inventory route | README, AGENTS, PROJECT.md, deploy config, package scripts |
 
 ## By risk surface
@@ -56,7 +59,9 @@ If an external source is dual-use, extract only the safe routing idea and leave 
 | Headers/CORS | Browser baseline route | CSP plan, nosniff, referrer policy, permissions policy, frame protection, CORS origins |
 | Privacy/legal | Privacy baseline route | collected data, storage provider, privacy policy, delete/export notes |
 | Supply chain | Dependency/CI route | lockfiles, package scripts, secret scanning plan, dependency audit plan |
-| Agent skill package | Skill safety route | prompt injection risk, data leakage risk, dangerous code, vulnerable dependencies, tool permissions |
+| Agent skill package | Skill safety route | prompt injection risk, data leakage risk, risky local code, vulnerable dependencies, tool permissions |
+| Rollback/backups | Resilience route | last known good deploy, rollback command/path, backup/export status, data recovery risk |
+| Observability | Monitoring route | logs location, error reporting, health check, alert owner, repeated findings |
 
 ## By user intent
 
@@ -71,6 +76,9 @@ If an external source is dual-use, extract only the safe routing idea and leave 
 | `проверь платные API/счета` | Paid API/provider cost-control route |
 | `проверь skill/agent skill` | Agent skill safety route |
 | `перед релизом` | Release gate route from `systems/safe-concept.md` |
+| `проверь rollback/backup` | Backup/rollback/observability route |
+| `отчет для dashboard` | JSON report route using `systems/safe-report-schema.md` |
+| `создай SAFE.md` | Project safety map route using `systems/safe-project-template.md` |
 | `после багов/инцидента` | Incident-to-rule route: turn recurring issue into `/safe` check |
 | `добавь новую идею в /safe` | Idea intake route: update `safe-concept.md`; update `safe-mode.md` only if operational |
 
@@ -86,6 +94,7 @@ If an external source is dual-use, extract only the safe routing idea and leave 
 | Slack/command bridge | Check command tokens, replay/auth checks, logs, webhook validation, admin-only actions |
 | Payment/finance providers | Check server-only credentials, rate limits, safe provider logs, explicit data fields |
 | Agent skills | Check skill instructions, tool permissions, examples, dependency files, scripts, and optional SkillSpector output |
+| Dashboard/reporting | Check JSON schema, stale data handling, report source paths, and public/private report exposure |
 
 ## Optional scanner: SkillSpector
 
@@ -111,6 +120,7 @@ Every routed `/safe` pass must report:
 - fixes applied or PR/prompt created;
 - checks run/not run;
 - live status;
+- rollback/backup status when relevant;
 - `needs verification` items;
 - next action.
 
@@ -118,4 +128,4 @@ Every routed `/safe` pass must report:
 
 - `zhaoxuya520/reverse-skill` uses a routing matrix that routes by target type, user intent, and toolchain before action.
 - `/safe` adopts the routing pattern defensively for Andrey-owned production safety work.
-- NVIDIA SkillSpector is a security scanner for AI agent skills; its README describes scanning Git repos, URLs, zip files, directories, or files, and patterns for prompt injection, data leakage, dependency risk, dangerous code, and related skill security issues.
+- NVIDIA SkillSpector is a security scanner for AI agent skills; its README describes scanning Git repos, URLs, zip files, directories, or files, and patterns for prompt injection, data leakage, dependency risk, risky code, and related skill security issues.
