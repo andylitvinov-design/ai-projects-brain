@@ -15,7 +15,7 @@ rules remain maintainable
 
 ## Core model
 
-Use a 4-layer instruction system:
+Use a 5-layer instruction system:
 
 ```txt
 Layer 0 — boot instructions
@@ -73,6 +73,7 @@ Examples:
 ```txt
 .codex/skills/save/SKILL.md
 .codex/skills/memory/SKILL.md
+.codex/skills/memory-review/SKILL.md
 .claude/commands/save.md
 .claude/commands/memory.md
 .claude/commands/memory-review.md
@@ -85,7 +86,7 @@ Examples:
 ```txt
 /save -> load save adapter + agent-memory active/index
 /memory -> load memory adapter + active/index
-/memory-review -> load memory-review adapter + active/index/topics
+/memory-review -> load memory-review adapter + active/index/topics/archive as needed
 /delivery -> load delivery rules + active/index + scoped memory
 /audit -> load audit rules + active/index + scoped memory
 ```
@@ -260,6 +261,7 @@ Command adapters are recommended:
 ```txt
 .codex/skills/save/SKILL.md
 .codex/skills/memory/SKILL.md
+.codex/skills/memory-review/SKILL.md
 .claude/commands/save.md
 .claude/commands/memory.md
 .claude/commands/memory-review.md
@@ -284,6 +286,7 @@ Before `/delivery`, `/audit`, `/save`, `/memory`, or `/memory-review`:
 
 For `/save`, use `.codex/skills/save/SKILL.md` if present.
 For `/memory`, use `.codex/skills/memory/SKILL.md` if present.
+For `/memory-review`, use `.codex/skills/memory-review/SKILL.md` if present.
 ```
 
 ### CLAUDE.md snippet
