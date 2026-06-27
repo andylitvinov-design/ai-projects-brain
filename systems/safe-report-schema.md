@@ -9,7 +9,7 @@ Use this schema when `brain-management` or another dashboard needs to ingest `/s
 - Make daily reports machine-readable.
 - Separate checked, fixed, skipped, and `needs verification` items.
 - Avoid storing secrets or sensitive raw payloads.
-- Preserve evidence: PRs, commits, checks, live URLs, and exact failing commands.
+- Preserve evidence: PRs, commits, checks, live URLs, frontend actions, and exact failing commands.
 
 ## JSON shape
 
@@ -31,6 +31,8 @@ Use this schema when `brain-management` or another dashboard needs to ingest `/s
     "high": 0,
     "medium": 0,
     "low": 0,
+    "frontend_critical": 0,
+    "frontend_high": 0,
     "fixes_applied": 0,
     "prs_opened": 0,
     "needs_verification": 0
@@ -42,7 +44,7 @@ Use this schema when `brain-management` or another dashboard needs to ingest `/s
       "repo": "https://github.com/owner/repo",
       "live_url": "https://example.com",
       "status": "checked",
-      "selected_routes": ["frontend-runtime", "headers-cors"],
+      "selected_routes": ["frontend-runtime", "frontend-interaction", "visual-polish", "headers-cors"],
       "priority_reason": "public live URL with auth and forms",
       "files_checked": [
         "README.md",
@@ -50,23 +52,43 @@ Use this schema when `brain-management` or another dashboard needs to ingest `/s
         "vercel.json",
         "src/App.jsx"
       ],
+      "frontend_checks": [
+        {
+          "route": "/profile",
+          "viewport": "mobile 390x844",
+          "action": "double-click save button",
+          "expected": "one save request or disabled submit while saving",
+          "observed": "two save requests can be sent",
+          "status": "failed",
+          "severity": "high"
+        }
+      ],
+      "visual_polish_checks": [
+        {
+          "route": "/orders",
+          "viewport": "desktop 1440x900",
+          "area": "order cards",
+          "observed": "cards overlap when title is long",
+          "severity": "medium"
+        }
+      ],
       "findings": [
         {
           "severity": "high",
-          "category": "raw-user-facing-error",
-          "title": "Raw provider error can be shown to users",
-          "evidence": "file/path.ext:123 or command/check output summary",
-          "risk": "Users may see internal provider details.",
-          "recommended_fix": "Show neutral message and log details server-side.",
-          "status": "fixed"
+          "category": "frontend-duplicate-submit",
+          "title": "Profile save can be submitted twice",
+          "evidence": "route /profile, mobile viewport, double-click save produced duplicate requests",
+          "risk": "User may create duplicate state or conflicting profile updates.",
+          "recommended_fix": "Disable submit while saving and make server update idempotent where possible.",
+          "status": "pr_opened"
         }
       ],
       "fixes": [
         {
           "type": "pr",
-          "title": "Hide raw provider errors from users",
+          "title": "Guard duplicate profile save submit",
           "url": "https://github.com/owner/repo/pull/123",
-          "changed_files": ["src/lib/errors.js"]
+          "changed_files": ["src/pages/Profile.jsx"]
         }
       ],
       "checks_run": [
@@ -78,7 +100,7 @@ Use this schema when `brain-management` or another dashboard needs to ingest `/s
       ],
       "checks_not_run": [
         {
-          "check": "live browser smoke",
+          "check": "authenticated live mobile browser smoke",
           "reason": "live auth requires manual credentials"
         }
       ],
@@ -87,7 +109,7 @@ Use this schema when `brain-management` or another dashboard needs to ingest `/s
         "url": "https://example.com",
         "result": "needs verification"
       },
-      "state_log_update": "not needed / updated / proposed / needs verification",
+      "state_log_safe_update": "not needed / updated / proposed / needs verification",
       "next_action": "Review PR #123 and verify live after deploy."
     }
   ],
@@ -106,6 +128,7 @@ Use this schema when `brain-management` or another dashboard needs to ingest `/s
 - Do not store raw tokens, cookies, auth headers, private provider payloads, or user private data.
 - If evidence may contain sensitive data, summarize it instead of copying it.
 - Every project entry must include `status`, `selected_routes`, `files_checked`, `findings`, `checks_run`, `checks_not_run`, and `next_action`.
+- For user-facing UI, include `frontend_checks` or explicitly explain why frontend checks were not run.
 - Every unverified claim must use `needs verification`.
 - A fix is not `live verified` unless the deployed/live target was checked.
 
@@ -115,6 +138,14 @@ Use this schema when `brain-management` or another dashboard needs to ingest `/s
 - `partially_checked`
 - `skipped`
 - `blocked`
+- `needs_verification`
+
+## Frontend check status values
+
+- `passed`
+- `failed`
+- `partially_checked`
+- `not_run`
 - `needs_verification`
 
 ## Severity values
@@ -140,8 +171,10 @@ A dashboard can show:
 
 - projects checked today;
 - critical/high findings;
+- frontend critical/high findings;
 - PRs opened;
 - live checks passed/failed/not run;
+- frontend routes/actions checked;
 - repeated findings from previous days;
 - stale project memory or missing `SAFE.md`;
 - daily trend of open critical/high items.
