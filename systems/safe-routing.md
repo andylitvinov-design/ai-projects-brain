@@ -38,6 +38,7 @@ If an external source is dual-use, extract only the safe routing idea and leave 
 | Public content/landing site | Forms/headers/frontend route | contact forms, upload forms, analytics/ads config, headers/deploy config |
 | Admin dashboard | Auth/admin access-control route | admin pages, role checks, session middleware, API permissions |
 | AI/API endpoint app | Paid API + prompt/data safety route | AI route handlers, rate limits, auth gates, logs, prompt/data storage |
+| Agent skill / workflow package | Agent skill safety route | `SKILL.md`, routing docs, tool manifests, install scripts, package files, examples |
 | Unknown project | Baseline inventory route | README, AGENTS, PROJECT.md, deploy config, package scripts |
 
 ## By risk surface
@@ -55,6 +56,7 @@ If an external source is dual-use, extract only the safe routing idea and leave 
 | Headers/CORS | Browser baseline route | CSP plan, nosniff, referrer policy, permissions policy, frame protection, CORS origins |
 | Privacy/legal | Privacy baseline route | collected data, storage provider, privacy policy, delete/export notes |
 | Supply chain | Dependency/CI route | lockfiles, package scripts, secret scanning plan, dependency audit plan |
+| Agent skill package | Skill safety route | prompt injection risk, data leakage risk, dangerous code, vulnerable dependencies, tool permissions |
 
 ## By user intent
 
@@ -67,6 +69,7 @@ If an external source is dual-use, extract only the safe routing idea and leave 
 | `проверь админку/роли` | Auth/admin access-control route |
 | `проверь формы от ботов` | Public forms + bot/cost protection route |
 | `проверь платные API/счета` | Paid API/provider cost-control route |
+| `проверь skill/agent skill` | Agent skill safety route |
 | `перед релизом` | Release gate route from `systems/safe-concept.md` |
 | `после багов/инцидента` | Incident-to-rule route: turn recurring issue into `/safe` check |
 | `добавь новую идею в /safe` | Idea intake route: update `safe-concept.md`; update `safe-mode.md` only if operational |
@@ -82,6 +85,20 @@ If an external source is dual-use, extract only the safe routing idea and leave 
 | Google Sheets/OAuth | Check OAuth boundary, no token logging, least data returned, provider sync status separated from code path |
 | Slack/command bridge | Check command tokens, replay/auth checks, logs, webhook validation, admin-only actions |
 | Payment/finance providers | Check server-only credentials, rate limits, safe provider logs, explicit data fields |
+| Agent skills | Check skill instructions, tool permissions, examples, dependency files, scripts, and optional SkillSpector output |
+
+## Optional scanner: SkillSpector
+
+When a project includes agent skills, skill packages, workflow skills, or third-party skills before installation, consider NVIDIA SkillSpector as an optional scanner.
+
+Use static-only scanning by default when enough:
+
+- scan a local skill directory or `SKILL.md`;
+- produce JSON/Markdown/SARIF report when useful;
+- use baseline suppression only after reviewing accepted findings;
+- do not store LLM provider keys in the repo or project memory.
+
+Treat scanner output as evidence, not as automatic truth. Review high/critical findings manually before changing project rules.
 
 ## Minimal route outputs
 
@@ -101,3 +118,4 @@ Every routed `/safe` pass must report:
 
 - `zhaoxuya520/reverse-skill` uses a routing matrix that routes by target type, user intent, and toolchain before action.
 - `/safe` adopts the routing pattern defensively for Andrey-owned production safety work.
+- NVIDIA SkillSpector is a security scanner for AI agent skills; its README describes scanning Git repos, URLs, zip files, directories, or files, and patterns for prompt injection, data leakage, dependency risk, dangerous code, and related skill security issues.
