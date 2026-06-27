@@ -29,6 +29,95 @@ Save only reusable lessons.
 
 ---
 
+## Key invariant
+
+`/save` must behave as **upsert**, not append.
+
+```txt
+Find similar memory -> update / merge / replace
+No similar memory -> create new structured memory
+```
+
+Never blindly add another paragraph to the end of a file.
+
+The skill is a **memory governance operator**. It must:
+
+1. filter weak signals;
+2. classify the lesson;
+3. route it to the right file;
+4. merge or replace similar memory;
+5. make the rule checkable;
+6. prevent memory bloat.
+
+---
+
+## Memory types
+
+Every saved lesson should be understood as one or more memory types.
+
+### 1. Procedural memory
+
+How the agent should work.
+
+Examples:
+
+```txt
+In /delivery, do not ask for unnecessary confirmations.
+If auth blocks live verification, verify public parts and document the blocker.
+```
+
+Usually stored in:
+
+```txt
+/agent-memory/active.md
+/agent-memory/topics/delivery.md
+/agent-memory/topics/audit.md
+/agent-memory/topics/auth.md
+```
+
+### 2. Semantic memory
+
+What is true about the product, user preferences, product decisions, UX, or architecture.
+
+Examples:
+
+```txt
+The Orders page should not contain a standalone photo gallery.
+Client-facing copy should be compact and plain-language.
+```
+
+Usually stored in:
+
+```txt
+/agent-memory/topics/ux.md
+/agent-memory/topics/copy.md
+/agent-memory/topics/<feature>.md
+/agent-memory/component-notes/<Component>.md
+```
+
+### 3. Episodic memory
+
+What happened, what went wrong, and why a lesson was created.
+
+Examples:
+
+```txt
+The agent collapsed mobile navigation into a hamburger again; the user corrected it.
+The agent made AI intake copy too long; the user requested a shorter client-facing style.
+```
+
+Usually stored in:
+
+```txt
+/agent-memory/mistakes.md
+```
+
+Important:
+
+Episodic memory should normally produce a derived procedural or semantic rule. Do not keep raw complaints without a future lesson.
+
+---
+
 ## When this skill is triggered
 
 Run this skill when the user explicitly writes one of these commands or phrases:
@@ -60,7 +149,7 @@ Also consider running it when a strong learning signal appears during `/delivery
 для всех страниц
 ```
 
-But automatic saving must be conservative. If the signal is weak, suggest a candidate lesson instead of saving it.
+Automatic saving must be conservative. If the signal is weak, suggest a candidate lesson instead of saving it.
 
 ---
 
@@ -185,7 +274,7 @@ Signals:
 
 Rules:
 
-- If score >= 3: save.
+- If score >= 3: save or update existing memory.
 - If score is 1–2: create a candidate suggestion, do not save automatically.
 - If score <= 0: do not save.
 - Explicit `/save` always saves unless the content is unsafe, impossible, or clearly nonsensical.
@@ -240,11 +329,13 @@ Map of memory topics and where agents should look.
 
 Durable mistake log with corrected behavior.
 
-This is not a raw complaint log. Each entry must include the future correction.
+This is not a raw complaint log. Each entry must include the future correction and ideally a derived procedural or semantic rule.
 
 ### `/agent-memory/topics/*.md`
 
-Scoped topic rules, such as delivery, mobile, UX, copy, auth.
+Scoped topic documents, such as delivery, mobile, UX, copy, auth.
+
+Prefer consolidated topic sections over many tiny repeated entries.
 
 ### `/agent-memory/component-notes/*.md`
 
@@ -266,12 +357,17 @@ Every saved item must use this format:
 ## YYYY-MM-DD — Short descriptive title
 
 Type: mistake | rule | product_decision | ux_decision | user_preference | workflow_lesson | component_note  
+Memory type: procedural | semantic | episodic  
 Scope: global | delivery | audit | UX | copy | mobile | auth | component | page  
 Priority: low | medium | high  
-Status: active | candidate | archived  
+Status: active | candidate | archived | replaced  
+Replaced by: optional title/id if status is replaced  
 
 User signal:
 > Original user wording or concise paraphrase.
+
+Evidence:
+- User correction / task / PR / issue that supports this memory item.
 
 Lesson:
 Clear reusable rule for future agents.
@@ -283,22 +379,60 @@ Apply when:
 Check:
 - Observable verification that the lesson was applied.
 
+Failure if ignored:
+- Concrete risk or repeated failure that may happen if this memory is ignored.
+
 Avoid:
 - Anti-pattern 1
 - Anti-pattern 2
+
+Last applied:
+- YYYY-MM-DD — task/PR/issue where this memory was used, or `never`.
 
 Related files/components:
 - optional
 ```
 
-Every active item must include both:
+Every active item must include:
 
 ```txt
 Apply when
 Check
+Failure if ignored
+```
+
+Recommended fields for all active high-priority rules:
+
+```txt
+Evidence
+Last applied
 ```
 
 If an item cannot be applied or checked, it must not be active memory.
+
+---
+
+## Status semantics
+
+### `active`
+
+Loaded by default when relevant. Must be reusable, scoped, and checkable.
+
+### `candidate`
+
+Potentially useful but not strong enough yet. Do not load by default unless the task is directly related.
+
+### `archived`
+
+Old, rare, noisy, low-priority, or no longer generally useful. Do not load by default.
+
+### `replaced`
+
+A previous rule/decision that has been superseded by a newer rule.
+
+Important:
+
+Do not keep contradictory rules active. If a new user decision overrides an old one, mark the old item as `replaced` and link to the new item.
 
 ---
 
@@ -307,6 +441,12 @@ If an item cannot be applied or checked, it must not be active memory.
 ### Mistake
 
 Use when the agent did something wrong.
+
+Memory type:
+
+```txt
+episodic + derived procedural/semantic
+```
 
 Saved mainly to:
 
@@ -320,6 +460,12 @@ component-notes/<Component>.md when applicable
 
 Use when the user defines how agents should behave.
 
+Memory type:
+
+```txt
+procedural
+```
+
 Saved mainly to:
 
 ```txt
@@ -330,6 +476,12 @@ topics/delivery.md or topics/audit.md if workflow-specific
 ### Product decision
 
 Use when the user defines how the product should work.
+
+Memory type:
+
+```txt
+semantic
+```
 
 Saved mainly to:
 
@@ -342,6 +494,12 @@ component-notes/<Component>.md
 
 Use when the user defines a stable style preference.
 
+Memory type:
+
+```txt
+semantic + sometimes procedural
+```
+
 Saved mainly to:
 
 ```txt
@@ -352,6 +510,12 @@ relevant topic file otherwise
 ### Workflow lesson
 
 Use for delivery, audit, testing, deploy, GitHub, auth, verification.
+
+Memory type:
+
+```txt
+procedural
+```
 
 Saved mainly to:
 
@@ -371,13 +535,17 @@ When `/save` is triggered:
 1. Read the user message and immediate surrounding context.
 2. Extract only the reusable lesson.
 3. Classify the lesson type.
-4. Determine scope.
-5. Determine priority.
-6. Search existing memory for similar rules.
-7. If duplicate exists, update/merge instead of adding a new entry.
-8. Save to the correct file.
-9. Ensure `Apply when` and `Check` exist.
-10. Report exactly what was saved and where.
+4. Assign memory type: procedural / semantic / episodic.
+5. Determine scope.
+6. Determine priority.
+7. Search existing memory for similar or conflicting rules.
+8. If similar memory exists, update/merge instead of adding a new entry.
+9. If conflicting active memory exists, decide whether to replace it or keep both only if scopes differ.
+10. Save to the correct file.
+11. Ensure `Apply when`, `Check`, and `Failure if ignored` exist.
+12. Add or update `Evidence`.
+13. Set `Last applied` to `never` unless this save occurs during a task where the lesson was already applied.
+14. Report exactly what was saved, updated, replaced, or not saved.
 
 Routing table:
 
@@ -393,19 +561,21 @@ component_note -> component-notes/<Component>.md
 
 ---
 
-## Duplicate prevention
+## Upsert behavior
 
-Before writing a new item, search memory for related wording and scope.
+`/save` must use this write strategy:
 
-If similar rule exists:
+```txt
+1. Search for same scope + similar lesson.
+2. Search for same scope + contradictory lesson.
+3. If same/similar exists: update existing entry.
+4. If contradictory exists: mark old entry as replaced or narrow scopes.
+5. If no related item exists: create new entry.
+```
 
-- do not duplicate;
-- merge the new signal into the existing rule;
-- update `User signal` or add a short `Repeated signal` line;
-- increase priority if the error repeated;
-- improve `Check` if the previous version was vague.
+Examples:
 
-Duplicate example:
+### Similar rule
 
 Existing:
 
@@ -422,8 +592,66 @@ Again, do not turn top navigation into hamburger.
 Action:
 
 ```txt
-Update existing mobile nav rule. Do not add a second rule.
+Update the existing mobile navigation rule. Add evidence/repeated signal. Do not create a duplicate.
 ```
+
+### Contradictory rule
+
+Existing active rule:
+
+```txt
+Mobile nav must always stay expanded.
+```
+
+New user decision:
+
+```txt
+On very small screens, use a compact drawer.
+```
+
+Action:
+
+```txt
+Do not keep both as broad active rules.
+Replace the old broad rule or narrow it to larger mobile/tablet widths.
+Mark the old broad rule as replaced if fully superseded.
+```
+
+---
+
+## Duplicate prevention
+
+Before writing a new item, search memory for related wording and scope.
+
+If similar rule exists:
+
+- do not duplicate;
+- merge the new signal into the existing rule;
+- update `User signal` or add a short `Repeated signal` line;
+- increase priority if the error repeated;
+- improve `Check` if the previous version was vague;
+- add or update `Evidence`;
+- preserve a concise history only if it helps future decisions.
+
+Memory should consolidate into topic documents, not grow as many small repeated entries.
+
+---
+
+## Topic document consolidation
+
+Prefer this:
+
+```txt
+topics/mobile.md -> one consolidated section for mobile navigation rules
+```
+
+Over this:
+
+```txt
+10 separate entries saying not to collapse the menu
+```
+
+A topic document should summarize the current active rule and keep only minimal evidence/history needed to understand why it exists.
 
 ---
 
@@ -434,12 +662,17 @@ After saving, respond briefly:
 ```md
 Saved to memory.
 
+Action: created / updated / replaced / archived / candidate
 Type: mistake / rule / decision / preference / workflow lesson
+Memory type: procedural / semantic / episodic
 Scope: ...
 Files updated:
 - /agent-memory/...
 
 Future agents should apply this when:
+- ...
+
+Check:
 - ...
 ```
 
@@ -455,6 +688,18 @@ If uncertain:
 I treated this as a candidate lesson, not active memory, because it may be one-time.
 ```
 
+If a rule was replaced:
+
+```md
+Updated memory.
+
+Replaced old active rule:
+- ...
+
+New active rule:
+- ...
+```
+
 ---
 
 ## How /delivery must use saved memory
@@ -466,6 +711,12 @@ At the beginning of `/delivery`:
 3. Classify task scope.
 4. Read only relevant topic/component memory.
 5. Apply relevant rules.
+
+During `/delivery`:
+
+- Watch for repeated mistakes or strong learning signals.
+- Do not save weak signals automatically.
+- If a rule is applied, be ready to update `Last applied` when appropriate.
 
 At the end of `/delivery`, report:
 
@@ -496,6 +747,15 @@ At the beginning of `/audit`:
 4. If repeated, mention the previous memory item in the audit result.
 5. Do not create new memory unless explicit `/save` or strong trigger exists.
 
+Audit output should distinguish:
+
+```txt
+new issue
+repeat of known issue
+conflict with existing memory
+possible lesson candidate
+```
+
 ---
 
 ## /memory command
@@ -521,21 +781,39 @@ Output should be short and actionable:
 3. Keep primary actions visible without extra taps.
 ```
 
+It should not dump archive or long evidence by default.
+
 ---
 
 ## /memory-review command
 
 `/memory-review` cleans memory instead of adding new memory.
 
+It is a required maintenance loop, not an optional nice-to-have.
+
+Run `/memory-review` when:
+
+```txt
+active.md has more than 50 rules
+duplicate rules are detected
+the user says memory feels noisy/conflicting
+a project accumulates more than 10 new saved lessons
+there are contradictory active rules
+many rules have never been applied
+```
+
 It must:
 
 1. Find duplicate rules.
 2. Merge similar items.
-3. Archive outdated or low-priority items.
-4. Move broad high-priority rules to `active.md`.
-5. Keep `active.md` under 30–50 rules.
-6. Ensure every active item has `Apply when` and `Check`.
-7. Remove vague entries that are not actionable.
+3. Mark superseded items as `replaced`.
+4. Archive outdated or low-priority items.
+5. Move broad high-priority rules to `active.md`.
+6. Keep `active.md` under 30–50 rules.
+7. Ensure every active item has `Apply when`, `Check`, and `Failure if ignored`.
+8. Remove or archive vague entries that are not actionable.
+9. Prefer topic-document consolidation over many tiny entries.
+10. Update `index.md` if topic routing changed.
 
 Final report:
 
@@ -545,12 +823,81 @@ Final report:
 Merged:
 - ...
 
+Replaced:
+- ...
+
 Archived:
 - ...
 
 Active memory size:
 - before: N
 - after: M
+
+Remaining conflicts:
+- none / list
+```
+
+---
+
+## Replacement and conflict handling
+
+When the user changes a decision:
+
+1. Find existing active rules in the same scope.
+2. If the new decision fully supersedes the old one, mark the old rule as `replaced`.
+3. Add `Replaced by` to the old rule.
+4. Create or update the new active rule.
+5. Do not leave contradictory active rules.
+
+If both rules can coexist only under different conditions, narrow their `Apply when` sections.
+
+Example:
+
+```txt
+Rule A applies to desktop and tablet.
+Rule B applies to very small mobile screens.
+```
+
+---
+
+## Evidence and application tracking
+
+### Evidence
+
+Use `Evidence` to explain why a memory item exists.
+
+Examples:
+
+```txt
+- User correction: “я уже просил верхнее меню не сворачивать”
+- Repeat issue: mobile nav collapsed again during /delivery
+- GitHub issue: #123
+```
+
+Do not include long transcripts. Keep evidence concise.
+
+### Last applied
+
+Use `Last applied` to show the memory is alive.
+
+Examples:
+
+```txt
+- 2026-06-27 — /delivery mobile navigation task
+- never
+```
+
+If a high-priority active rule is never applied for a long time, `/memory-review` may archive it or move it to a topic file.
+
+### Failure if ignored
+
+Use this to make the risk concrete.
+
+Example:
+
+```txt
+Failure if ignored:
+- Agent may collapse the mobile navigation into a hamburger again, repeating a known rejected UX pattern.
 ```
 
 ---
@@ -612,12 +959,16 @@ Saved as:
 ## 2026-06-27 — Keep client-facing copy compact
 
 Type: mistake, user_preference  
+Memory type: episodic, semantic  
 Scope: UX / copy  
 Priority: high  
 Status: active  
 
 User signal:
 > Агент опять сделал слишком длинный текст.
+
+Evidence:
+- User correction on 2026-06-27.
 
 Lesson:
 Client-facing screens should use compact, calm, plain-language copy. Avoid long explanations and professional jargon.
@@ -630,9 +981,15 @@ Apply when:
 Check:
 - Text is readable on mobile and avoids long multi-paragraph explanations.
 
+Failure if ignored:
+- Client-facing pages may become too dense and hard for ordinary users to understand.
+
 Avoid:
 - Dense therapeutic terminology
 - Long repeated explanatory blocks
+
+Last applied:
+- never
 ```
 
 ### Example 2 — one-time tweak
@@ -659,7 +1016,31 @@ Input:
 область: Orders / client UX
 ```
 
-Saved as topic/component memory.
+Saved as semantic topic/component memory.
+
+### Example 4 — replacement
+
+Existing active rule:
+
+```txt
+Mobile top nav must always stay expanded.
+```
+
+Input:
+
+```txt
+/save
+решение: на очень маленьких экранах можно использовать compact drawer, но на обычном mobile меню должно быть видно
+область: mobile navigation
+```
+
+Action:
+
+```txt
+Update the mobile navigation topic.
+Mark the old broad rule as replaced or narrow its Apply when.
+Create the new conditional rule as active.
+```
 
 ---
 
@@ -667,4 +1048,4 @@ Saved as topic/component memory.
 
 Never let this system become a giant instruction dump.
 
-The learning loop succeeds only when future agents can read a small relevant memory set, apply it, and verify it.
+The learning loop succeeds only when future agents can read a small relevant memory set, apply it, verify it, and prune it when it becomes stale or redundant.
