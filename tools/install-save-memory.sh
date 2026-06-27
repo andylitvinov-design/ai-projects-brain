@@ -19,6 +19,21 @@ copy_if_exists() {
   fi
 }
 
+copy_if_missing() {
+  local src="$1"
+  local dst="$2"
+  if [ -f "$dst" ]; then
+    echo "Kept existing: $dst"
+    echo "Review template if needed: $src"
+  elif [ -f "$src" ]; then
+    mkdir -p "$(dirname "$dst")"
+    cp "$src" "$dst"
+    echo "Installed: $dst"
+  else
+    echo "Skipped missing template: $src"
+  fi
+}
+
 if [ ! -d "$PROJECT_DIR" ]; then
   echo "Project dir does not exist: $PROJECT_DIR" >&2
   exit 1
@@ -26,6 +41,10 @@ fi
 
 mkdir -p "$PROJECT_DIR/agent-memory/topics"
 mkdir -p "$PROJECT_DIR/agent-memory/component-notes"
+
+# Project boot/router templates. Do not overwrite existing project-specific instructions.
+copy_if_missing "$BRAIN_DIR/templates/project-boot/AGENTS.md" "$PROJECT_DIR/AGENTS.md"
+copy_if_missing "$BRAIN_DIR/templates/project-boot/CLAUDE.md" "$PROJECT_DIR/CLAUDE.md"
 
 # Project memory templates
 if [ ! -f "$PROJECT_DIR/agent-memory/active.md" ]; then
@@ -62,11 +81,14 @@ cat <<'EOF'
 Agent memory system installed.
 
 Created/updated:
+- AGENTS.md / CLAUDE.md if missing
 - agent-memory/
 - Codex command adapters when available
 - Claude Code command adapters when available
 
+If AGENTS.md or CLAUDE.md already existed, merge the router snippet manually from templates/project-boot/.
+
 Next:
-- add a short reference to AGENTS.md / CLAUDE.md if the project uses them
 - run a test /save in a safe branch
+- run /memory to confirm active memory is discoverable
 EOF
