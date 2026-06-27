@@ -5,6 +5,8 @@
 - Read and apply `systems/autonomous-project-executor.md` before project work.
 - Read and apply `systems/codex-token-efficiency.md` to keep context,
   tools, reports, and handoffs small without weakening verification.
+- For ChatGPT-written prompts that Andrey will send to `/delivery`, read and
+  apply `systems/chatgpt-delivery-prompt-standard.md`.
 - Work autonomously by default: do not ask unnecessary questions before
   safe read-only, docs, planning, diagnosis, or minimal patch-scope work.
 - If information is missing or uncertain, mark it as `needs verification`
@@ -13,6 +15,36 @@
   changes, merge to `main`, production deploy, external publishing,
   financial/account/access changes, irreversible changes, large rewrites,
   or materially risky target selection.
+
+## 0.1 ChatGPT -> Codex routing
+
+Use these routes before writing or sending execution prompts:
+
+1. Abstract task -> `/planner` -> clarified task -> ChatGPT technical
+   `/delivery` prompt -> Andrey sends to `/delivery`.
+2. Clear task -> ChatGPT technical `/delivery` prompt -> Andrey sends to
+   `/delivery`.
+3. Large strategic task -> `/supergoal` -> milestones -> optional `/planner`
+   for unclear or risky milestones -> ChatGPT technical `/delivery` prompt ->
+   Andrey sends to `/delivery`.
+
+`/planner` is ChatGPT-side task formulation. It asks clarifying questions,
+defines source of truth, success criteria, allowed and forbidden actions,
+verification, risks, stop conditions, and the context/token budget before a
+final delivery prompt is written.
+
+`/delivery` is Codex execution mode. Codex should not execute planner output
+until Andrey sends a final `/delivery` prompt.
+
+`/audit` is inspection mode for existing code, data, PRs, sites, calculations,
+or production behavior. It is not prompt QA.
+
+`/supergoal` manages large multi-stage objectives across sessions, repos, PRs,
+or milestones.
+
+Clear tasks should not be slowed down by `/planner`. Abstract, risky, or unclear
+tasks should use `/planner` first. Do not create `/prompt-audit`; ChatGPT
+delivery prompts must be technically strong by default.
 
 ## 1. Read context first, but start with the smallest useful set
 
@@ -71,7 +103,11 @@ Then read repo-local context in the target repository:
 - Use the smallest safe fix.
 - Preserve accepted UX and business logic.
 - Preserve user-facing routes, APIs, data contracts, raw links, deployment targets, and auth/data flows unless explicitly changed by the task.
-- For Codex prompts, include repo, goal, context to read first, exact files or areas, minimal safe fix, what not to change, checks/tests, risks, final report format, token-efficiency constraints, and `STATE.md`/`LOG.md` update check.
+- For Codex prompts, follow `systems/chatgpt-delivery-prompt-standard.md`.
+  Include repo, goal, context to read first, exact files or areas or search
+  strategy, source of truth, minimal safe fix, what not to change, proof before
+  patching, checks/tests, risks, final report format, token-efficiency
+  constraints, and `STATE.md`/`LOG.md` update check.
 
 ## 5. Task-specific investigation
 

@@ -9,6 +9,7 @@ Use it together with `systems/agent-rules.md`.
 2. Project context rules always apply for project work.
 3. Explicit user mode trigger wins over default autonomous behavior.
 4. If several modes are requested, combine them in this order:
+   - `/planner` when the task itself is still abstract, risky, or unclear
    - `grill-me` / task clarification
    - `superpowers` / disciplined execution
    - implementation or research mode
@@ -19,6 +20,7 @@ Use it together with `systems/agent-rules.md`.
 
 | Mode | Trigger examples | Use when | Source file |
 | --- | --- | --- | --- |
+| Planner | `/planner`, `сформулируй задачу`, `помоги сделать точный prompt для delivery` | ChatGPT must formulate an abstract/risky/unclear task before writing a `/delivery` prompt for Andrey. | `systems/planner-mode.md` |
 | Grill Me / Task Clarification | `grill me`, `прогриль задачу`, `проясни задачу` | Requirements are unclear and must be clarified before implementation. | `systems/task-clarification-mode.md` |
 | Superpowers | `используй superpowers`, `строгий режим`, `сначала план и проверка` | The task needs disciplined context -> plan -> minimal edits -> verification. | `systems/superpowers-mode.md` |
 | Handoff | `сделай handoff`, `передай следующему агенту`, `обнови HANDOFF.md` | A future agent must continue without rereading the full chat. | `systems/handoff-mode.md` |
@@ -29,7 +31,12 @@ Use it together with `systems/agent-rules.md`.
 ## Default behavior without an explicit mode
 
 - For normal project work, use `systems/agent-rules.md` and `systems/autonomous-project-executor.md`.
-- For unclear tasks, proactively use the light version of Grill Me: ask only the minimum necessary questions, with recommended answers.
+- For abstract, risky, or unclear tasks that need an execution prompt, use
+  `/planner` before writing the final `/delivery` prompt.
+- For clear tasks, write the technical `/delivery` prompt directly using
+  `systems/chatgpt-delivery-prompt-standard.md`.
+- Do not create `/prompt-audit`; prompt strength is part of the default
+  ChatGPT delivery prompt standard.
 - For UI changes, include browser verification in the plan even when Playwright is not explicitly requested.
 - For long or multi-session tasks, produce a handoff summary at the end.
 
