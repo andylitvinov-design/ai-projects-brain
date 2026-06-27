@@ -22,7 +22,7 @@ Layer 0 — boot instructions
 Layer 1 — command adapters
 Layer 2 — active project memory
 Layer 3 — scoped topic/component memory
-Layer 4 — archive/history
+Layer 4 — archive/history/candidates/metrics
 ```
 
 Agents should load from top to bottom only as needed.
@@ -42,24 +42,21 @@ CLAUDE.md
 .claude/commands/*.md
 ```
 
-Boot instructions must be short.
-
-They should not contain all rules.
-
-They should tell the agent where to look.
+Boot instructions must be short. They should not contain all rules. They should tell the agent where to look.
 
 Recommended content:
 
 ```md
 ## Agent memory router
 
-For any /delivery, /audit, /save, /memory, or /memory-review task:
+For any /delivery, /audit, /save, /memory, /memory-review, or /learn-pass task:
 
 1. Read `agent-memory/active.md`.
 2. Read `agent-memory/index.md`.
 3. Identify task scope.
 4. Load only relevant topic/component memory.
 5. Do not load archive unless resolving conflicts or running /memory-review.
+6. Do not load candidates/metrics unless running /learn-pass or /memory-review.
 ```
 
 ---
@@ -74,9 +71,11 @@ Examples:
 .codex/skills/save/SKILL.md
 .codex/skills/memory/SKILL.md
 .codex/skills/memory-review/SKILL.md
+.codex/skills/learn-pass/SKILL.md
 .claude/commands/save.md
 .claude/commands/memory.md
 .claude/commands/memory-review.md
+.claude/commands/learn-pass.md
 ```
 
 These files should be loaded only when the relevant command is invoked.
@@ -84,9 +83,10 @@ These files should be loaded only when the relevant command is invoked.
 Examples:
 
 ```txt
-/save -> load save adapter + agent-memory active/index
-/memory -> load memory adapter + active/index
-/memory-review -> load memory-review adapter + active/index/topics/archive as needed
+/save -> load save adapter + active/index + relevant target memory
+/memory -> load memory adapter + active/index + requested topic
+/memory-review -> load memory-review adapter + active/index/topics/archive/candidates/metrics as needed
+/learn-pass -> load learn-pass adapter + active/index + task evidence + candidates/metrics
 /delivery -> load delivery rules + active/index + scoped memory
 /audit -> load audit rules + active/index + scoped memory
 ```
@@ -108,8 +108,6 @@ It must stay compact:
 ```txt
 30–50 active rules maximum
 ```
-
-It should contain only high-value rules that apply often.
 
 Every active rule must include:
 
@@ -149,17 +147,20 @@ mobile UX task -> active.md + index.md + topics/mobile.md + topics/ux.md
 copy task -> active.md + index.md + topics/copy.md
 orders task -> active.md + index.md + component-notes/Orders.md if present
 save task -> active.md + index.md + relevant target files
+learn-pass -> active.md + index.md + relevant topic + candidates/metrics
 ```
 
 ---
 
-## Layer 4 — archive/history
+## Layer 4 — archive/history/candidates/metrics
 
 Files:
 
 ```txt
 agent-memory/archive.md
 agent-memory/mistakes.md
+agent-memory/candidates.md
+agent-memory/metrics.md
 ```
 
 Do not load by default.
@@ -168,9 +169,11 @@ Load them only when:
 
 ```txt
 running /memory-review
+running /learn-pass
 checking if a bug is repeated
 resolving conflicts
 understanding why a rule exists
+tracking whether rules worked
 ```
 
 ---
@@ -191,6 +194,8 @@ Usually load:
 Rarely load:
 - archive.md
 - full mistakes.md
+- candidates.md
+- metrics.md
 - all topic files
 ```
 
@@ -207,7 +212,7 @@ Never load the whole instruction tree by default.
 Before loading scoped memory, classify the task:
 
 ```txt
-workflow: delivery | audit | save | memory | memory-review
+workflow: delivery | audit | save | memory | memory-review | learn-pass
 area: UX | copy | mobile | auth | deploy | backend | data | component
 component/page: optional
 risk: low | medium | high
@@ -254,6 +259,8 @@ agent-memory/active.md
 agent-memory/index.md
 agent-memory/topics/
 agent-memory/component-notes/
+agent-memory/candidates.md
+agent-memory/metrics.md
 ```
 
 Command adapters are recommended:
@@ -262,9 +269,11 @@ Command adapters are recommended:
 .codex/skills/save/SKILL.md
 .codex/skills/memory/SKILL.md
 .codex/skills/memory-review/SKILL.md
+.codex/skills/learn-pass/SKILL.md
 .claude/commands/save.md
 .claude/commands/memory.md
 .claude/commands/memory-review.md
+.claude/commands/learn-pass.md
 ```
 
 ---
@@ -276,17 +285,19 @@ Command adapters are recommended:
 ```md
 ## Agent memory router
 
-Before `/delivery`, `/audit`, `/save`, `/memory`, or `/memory-review`:
+Before `/delivery`, `/audit`, `/save`, `/memory`, `/memory-review`, or `/learn-pass`:
 
 1. Read `agent-memory/active.md`.
 2. Read `agent-memory/index.md`.
 3. Identify task scope.
 4. Read only relevant topic/component files.
 5. Do not load archive unless resolving conflicts or running `/memory-review`.
+6. Do not load candidates/metrics unless running `/learn-pass` or `/memory-review`.
 
 For `/save`, use `.codex/skills/save/SKILL.md` if present.
 For `/memory`, use `.codex/skills/memory/SKILL.md` if present.
 For `/memory-review`, use `.codex/skills/memory-review/SKILL.md` if present.
+For `/learn-pass`, use `.codex/skills/learn-pass/SKILL.md` if present.
 ```
 
 ### CLAUDE.md snippet
@@ -294,16 +305,18 @@ For `/memory-review`, use `.codex/skills/memory-review/SKILL.md` if present.
 ```md
 ## Agent memory router
 
-Before delivery/audit/save/memory work:
+Before delivery/audit/save/memory/memory-review/learn-pass work:
 
 1. Read `agent-memory/active.md`.
 2. Read `agent-memory/index.md`.
 3. Load only scoped topic/component memory.
 4. Do not load archive by default.
+5. Do not load candidates/metrics unless running `/learn-pass` or `/memory-review`.
 
 For `/save`, use `.claude/commands/save.md` if present.
 For `/memory`, use `.claude/commands/memory.md` if present.
 For `/memory-review`, use `.claude/commands/memory-review.md` if present.
+For `/learn-pass`, use `.claude/commands/learn-pass.md` if present.
 ```
 
 ---
@@ -318,8 +331,9 @@ common rules live in brain
 project rules live in project memory
 agents load only relevant memory
 active.md stays compact
-archive is not loaded by default
+archive/candidates/metrics are not loaded by default
 /save writes through upsert
+/learn-pass creates candidates and metrics
 /memory-review prevents bloat
-/delivery reports Applied memory
+/delivery reports Applied memory and Learning Pass when relevant
 ```
