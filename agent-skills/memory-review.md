@@ -1,26 +1,27 @@
 # /memory-review — Maintain Agent Memory
 
-Use `/memory-review` to clean, merge, replace, and archive memory.
+Use `/memory-review` to clean, merge, replace, promote, and archive repo-local agent memory.
 
-This command prevents the learning loop from becoming a giant instruction dump.
+This command prevents the learning loop from becoming a large instruction dump.
 
 Canonical related specs:
 
 - `agent-skills/save.md`
 - `agent-skills/save-runtime.md`
+- `agent-skills/learn-pass.md`
 - `agent-skills/memory.md`
 
 ---
 
 ## Purpose
 
-`/memory-review` is the maintenance part of the loop:
+`/memory-review` is the maintenance step of the loop:
 
 ```txt
-Save -> Apply -> Check -> Prune
+/save -> apply -> /learn-pass -> candidates/metrics -> review -> active/archive
 ```
 
-It does not add random new rules. It improves the existing memory set.
+It should improve existing memory. It should not add unrelated new rules.
 
 ---
 
@@ -29,30 +30,63 @@ It does not add random new rules. It improves the existing memory set.
 Run `/memory-review` when:
 
 - `active.md` grows too large;
-- duplicate rules appear;
+- duplicate or near-duplicate rules appear;
 - active rules conflict;
-- user says memory is noisy or inconsistent;
-- many saved lessons have accumulated;
-- active rules have no `Apply when`, `Check`, or `Failure if ignored`;
-- many active rules have never been applied.
+- user says memory is noisy, stale, or inconsistent;
+- many saved lessons/candidates have accumulated;
+- active rules lack `Apply when`, `Check`, or `Failure if ignored`;
+- metrics show rules are never applied or keep failing.
+
+---
+
+## Files to inspect
+
+Always inspect:
+
+- `agent-memory/active.md`
+- `agent-memory/index.md`
+
+Inspect only as needed:
+
+- `agent-memory/topics/*.md`
+- `agent-memory/component-notes/*.md`
+- `agent-memory/candidates.md`
+- `agent-memory/metrics.md`
+- `agent-memory/mistakes.md`
+- `agent-memory/archive.md`
+
+Do not load unrelated topic/component files just because they exist.
 
 ---
 
 ## Behavior
 
-1. Locate local `agent-memory/`.
-2. Read `active.md`, `index.md`, topic files, component notes, and archive only as needed.
-3. Find duplicate or near-duplicate rules.
-4. Merge similar rules.
-5. Find contradictory active rules.
-6. Replace, narrow, or archive conflicting rules.
-7. Ensure every active rule has:
+1. Count active rules before changes.
+2. Find duplicates, near-duplicates, vague rules, and missing required fields.
+3. Merge similar rules into the strongest scoped entry.
+4. Find contradictory active rules.
+5. Replace, narrow, or archive conflicting rules.
+6. Promote candidates only when evidence is strong enough.
+7. Move old, rare, noisy, or never-applied rules out of `active.md`.
+8. Ensure every active rule has:
    - `Apply when`
    - `Check`
    - `Failure if ignored`
-8. Move old/rare/noisy rules out of `active.md`.
-9. Keep `active.md` compact.
-10. Update `index.md` if routing changed.
+9. Update `metrics.md` when a rule is kept, revised, promoted, archived, or replaced.
+10. Update `index.md` if routing changes.
+11. Count active rules after changes.
+
+---
+
+## Status handling
+
+- `active`: compact, reusable, checkable, and worth loading frequently.
+- `candidate`: plausible but not yet proven; keep in `candidates.md`.
+- `needs_revision`: useful idea but scope/check/evidence is weak; revise before keeping active.
+- `replaced`: superseded by a newer rule; include `Replaced by`.
+- `archived`: old, rare, too local, outdated, or noisy; keep a short reference, not a long history.
+
+Do not delete important product decisions. Mark them archived or replaced with a clear reference.
 
 ---
 
@@ -61,7 +95,13 @@ Run `/memory-review` when:
 ```md
 ## Memory review complete
 
+Changed files:
+- ...
+
 Merged:
+- ...
+
+Promoted:
 - ...
 
 Replaced:
@@ -79,17 +119,20 @@ Active memory size:
 
 Remaining conflicts:
 - none / list
+
+Needs user decision:
+- none / list
 ```
 
 ---
 
 ## Rules
 
-- Do not delete important product decisions without marking them archived or replaced.
 - Do not keep contradictory rules active.
-- Do not keep raw chat snippets as active memory.
+- Do not keep chat transcripts as active memory.
 - Prefer one strong topic rule over many repeated small entries.
-- Archive old evidence rather than loading it every time.
+- Archive long evidence rather than loading it every time.
+- If evidence is weak, keep a candidate instead of promoting it.
 
 ---
 
