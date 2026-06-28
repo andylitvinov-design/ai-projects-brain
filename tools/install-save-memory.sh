@@ -76,12 +76,14 @@ copy_if_exists "$BRAIN_DIR/templates/codex/skills/save/SKILL.md" "$PROJECT_DIR/.
 copy_if_exists "$BRAIN_DIR/templates/codex/skills/memory/SKILL.md" "$PROJECT_DIR/.codex/skills/memory/SKILL.md"
 copy_if_exists "$BRAIN_DIR/templates/codex/skills/memory-review/SKILL.md" "$PROJECT_DIR/.codex/skills/memory-review/SKILL.md"
 copy_if_exists "$BRAIN_DIR/templates/codex/skills/learn-pass/SKILL.md" "$PROJECT_DIR/.codex/skills/learn-pass/SKILL.md"
+copy_if_exists "$BRAIN_DIR/templates/codex/skills/upgrade/SKILL.md" "$PROJECT_DIR/.codex/skills/upgrade/SKILL.md"
 
 # Claude Code adapters
 copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/save.md" "$PROJECT_DIR/.claude/commands/save.md"
 copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/memory.md" "$PROJECT_DIR/.claude/commands/memory.md"
 copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/memory-review.md" "$PROJECT_DIR/.claude/commands/memory-review.md"
 copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/learn-pass.md" "$PROJECT_DIR/.claude/commands/learn-pass.md"
+copy_if_exists "$BRAIN_DIR/templates/claude-code/commands/upgrade.md" "$PROJECT_DIR/.claude/commands/upgrade.md"
 
 cat <<'EOF'
 Agent memory system installed.
@@ -90,7 +92,7 @@ Created/updated:
 - AGENTS.md / CLAUDE.md if missing
 - agent-memory/
 - candidates.md and metrics.md for self-learning
-- harness-proposals.md and harness-regression-tests.md for Self-Harness
+- harness-proposals.md and harness-regression-tests.md for /upgrade
 - Codex command adapters when available
 - Claude Code command adapters when available
 
@@ -100,5 +102,5 @@ Next:
 - run a test /save in a safe branch
 - run /memory to confirm active memory is discoverable
 - run /learn-pass after a meaningful task
-- validate Self-Harness proposals before promoting them
+- run /upgrade to validate harness proposals before promoting them
 EOF
