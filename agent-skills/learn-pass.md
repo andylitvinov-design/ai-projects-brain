@@ -8,6 +8,13 @@ It is different from `/save`:
 
 - `/save` = user-directed memory write.
 - `/learn-pass` = agent-initiated reflection that creates candidates, updates metrics, and proposes/promotes rules when evidence is strong.
+- ChatGPT auto memory update = implicit `/learn-pass` when the user reports a reusable error in chat.
+
+Canonical related spec:
+
+```txt
+agent-skills/chatgpt-auto-memory-update.md
+```
 
 ---
 
@@ -23,11 +30,21 @@ Task experience -> Learning Pass -> candidates.md / metrics.md -> promotion or a
 
 ---
 
+## Critical rule for ChatGPT
+
+When the user reports a real error, repeated failure, ignored rule, false success, or missing memory update in the current chat, ChatGPT must treat that as an implicit learning event.
+
+If the relevant project repo is accessible, ChatGPT should update the project memory immediately without waiting for `/save`.
+
+If writing is not possible, ChatGPT must say exactly why and provide a patch-ready memory update.
+
+---
+
 ## Principles from current agent-memory practice
 
 1. Keep raw episodes as evidence; do not overwrite them too aggressively.
 2. Consolidate slowly, not after every tiny event.
-3. Use candidates before active memory.
+3. Use candidates before active memory unless the user explicitly confirms the rule or the failure is high-risk/repeated.
 4. Promote only repeated, verified, or high-confidence lessons.
 5. Track whether active rules are applied and whether they worked.
 6. Merge, replace, or archive instead of appending endlessly.
@@ -42,6 +59,8 @@ Run `/learn-pass` automatically after:
 - `/audit` completion;
 - failed build/check/deploy;
 - repeated user correction;
+- user reports that memory did not update automatically;
+- user reports that an existing rule was ignored;
 - `STATUS: BLOCKED` with a reusable blocker pattern;
 - `/memory-review`;
 - a task where existing memory was applied.
@@ -199,6 +218,24 @@ Promoted / revised / archived:
 - ...
 
 Needs user decision:
+- ...
+```
+
+If the user directly reported an error and memory was updated, report:
+
+```md
+## Auto memory update
+
+Detected lesson:
+- ...
+
+Files updated:
+- ...
+
+Future rule:
+- ...
+
+Still needs:
 - ...
 ```
 
