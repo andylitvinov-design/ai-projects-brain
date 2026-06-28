@@ -9,6 +9,7 @@ Canonical related specs:
 ```txt
 agent-skills/self-harness.md
 agent-skills/upgrade-quality-rubric.md
+agent-skills/upgrade-daily-protocol.md
 ```
 
 ---
@@ -56,7 +57,40 @@ Harness evolution quality
 Current standards alignment
 ```
 
+Also inspect operational indicators:
+
+```txt
+false success count
+ignored memory count
+repeated user correction count
+blocked task patterns
+missing Learning Pass reports
+missing Applied memory reports
+unreviewed candidates count
+rules marked needs_revision
+harness proposals without validation
+```
+
 The goal is to identify what is weak before changing anything.
+
+---
+
+## Daily operating protocol
+
+The daily automation must follow:
+
+```txt
+agent-skills/upgrade-daily-protocol.md
+```
+
+Daily `/upgrade` should not only inspect instructions. It should check whether agents actually performed well:
+
+- Did tasks end with real verification?
+- Did agents avoid false success?
+- Did memory get applied?
+- Did new lessons become candidates/metrics?
+- Did repeated failures lead to harness proposals?
+- Did proposals get validated before promotion?
 
 ---
 
@@ -71,10 +105,12 @@ Relevant principle families:
 - weakness mining from execution traces;
 - minimal harness proposals tied to observed failures;
 - proposal validation and regression tests;
+- replay/rollout of prior difficult trajectories;
 - candidate memory before active promotion;
 - metrics for applied/failed rules;
 - task-wise routing instead of one giant harness;
-- human decision for high-risk/global changes.
+- human decision for high-risk/global changes;
+- verify that agents actually invoke and follow harness artifacts.
 
 If web access is unavailable, use the latest locally stored rubric and say that public standards were not refreshed.
 
@@ -109,13 +145,14 @@ Project code should not be changed by `/upgrade` unless explicitly requested.
    - `agent-memory/harness-proposals.md`
    - `agent-memory/harness-regression-tests.md`
 2. Score current quality using `upgrade-quality-rubric.md`.
-3. Compare against current public harness principles when web access is available.
-4. Mine recent weaknesses from failures, missed rules, repeated corrections, and memory metrics.
-5. Propose the smallest harness change that would prevent the issue.
-6. Validate the proposal with a smoke test, replay, checklist, or user confirmation.
-7. Apply only low-risk Markdown changes automatically.
-8. For high-risk/global changes, create an issue/PR handoff or prompt instead.
-9. Record the proposal and validation result.
+3. Check operational indicators from `upgrade-daily-protocol.md`.
+4. Compare against current public harness principles when web access is available.
+5. Mine recent weaknesses from failures, missed rules, repeated corrections, and memory metrics.
+6. Propose the smallest harness change that would prevent the issue.
+7. Validate the proposal with a smoke test, replay, checklist, or user confirmation.
+8. Apply only low-risk Markdown changes automatically.
+9. For high-risk/global changes, create an issue/PR handoff or prompt instead.
+10. Record the proposal and validation result.
 
 ---
 
@@ -154,6 +191,14 @@ Quality score:
 - Self-learning quality: 0-3
 - Harness evolution quality: 0-3
 - Current standards alignment: 0-3
+
+Operational indicators:
+- false success count:
+- ignored memory count:
+- repeated correction count:
+- blocked pattern count:
+- unreviewed candidates:
+- unvalidated harness proposals:
 
 Standards checked:
 - ...
