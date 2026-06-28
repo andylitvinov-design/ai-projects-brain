@@ -7,6 +7,9 @@
   tools, reports, and handoffs small without weakening verification.
 - For ChatGPT-written prompts that Andrey will send to `/delivery`, read and
   apply `systems/chatgpt-delivery-prompt-standard.md`.
+- Start `/planner`, `/delivery`, `/audit`, `/audit-fin`, and `/critic` with
+  `/context-scout` from `systems/context-scout-mode.md` before planning,
+  editing, auto-fixing, or critique.
 - Work autonomously by default: do not ask unnecessary questions before
   safe read-only, docs, planning, diagnosis, or minimal patch-scope work.
 - If information is missing or uncertain, mark it as `needs verification`
@@ -27,6 +30,14 @@ Use these routes before writing or sending execution prompts:
 3. Large strategic task -> `/supergoal` -> milestones -> optional `/planner`
    for unclear or risky milestones -> ChatGPT technical `/delivery` prompt ->
    Andrey sends to `/delivery`.
+4. Existing implementation/data/site concern -> `/audit` -> verification
+   checklist -> safe deterministic fixes or repair prompt.
+5. Finance/ledger concern -> `/audit-fin` -> last-30-days default period unless
+   overridden -> finance invariants -> safe deterministic fixes or repair prompt.
+6. Proposed goal/loop/prompt concern -> `/critic` -> improved execution prompt.
+
+Each route starts with `/context-scout` preflight and its compact
+`CONTEXT BUNDLE`.
 
 `/planner` is ChatGPT-side task formulation. It asks clarifying questions,
 defines source of truth, success criteria, allowed and forbidden actions,
@@ -38,6 +49,11 @@ until Andrey sends a final `/delivery` prompt.
 
 `/audit` is inspection mode for existing code, data, PRs, sites, calculations,
 or production behavior. It is not prompt QA.
+
+`/audit-fin` is finance-sensitive audit mode. It defaults to the last 30 days
+unless the user overrides the period.
+
+`/critic` critiques a proposed goal, loop, task, or prompt before execution.
 
 `/supergoal` manages large multi-stage objectives across sessions, repos, PRs,
 or milestones.

@@ -17,6 +17,14 @@ Agents should start from:
 
 `projects.md`, `projects.json`, and `data/project-index.json` remain important inventories, but the dispatcher layer is the fastest entry path.
 
+## Context Scout preflight
+
+`/context-scout` is the shared read-only preflight for `/planner`, `/delivery`,
+`/audit`, `/audit-fin`, and `/critic`. It produces a compact project-aware
+`CONTEXT BUNDLE` before the owning workflow plans, edits, auto-fixes, or
+critiques. The scout itself must not mutate files, issues, PRs, deployments,
+archives, or data.
+
 ## Source separation
 
 - Project memory lives here.
