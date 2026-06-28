@@ -1,15 +1,26 @@
 # Agent Memory Index
 
-Always read `active.md`.
+Use this file as the routing map for repo-local memory. Keep it short.
 
-Use topic files only when relevant:
+Always load:
 
-- delivery
-- audit
-- mobile
-- ux
-- copy
+- `active.md` — compact high-value rules
 
-Use component notes only when editing that component.
+Load only when relevant:
 
-Do not load old notes by default.
+- `topics/delivery.md` — delivery workflow, verification, PR/deploy behavior
+- `topics/audit.md` — audit workflow, repeated mistakes, issue writing
+- `topics/mobile.md` — mobile layout, viewport, navigation, touch/keyboard behavior
+- `topics/ux.md` — product UX decisions and interaction rules
+- `topics/copy.md` — client-facing wording and style rules
+- `topics/auth.md` — auth, private routes, login, redirect, session behavior
+- `component-notes/<Component>.md` — component/page-specific rules
+
+Load only for memory maintenance:
+
+- `candidates.md` — `/learn-pass` candidates that are not active yet
+- `metrics.md` — application counts, failures, confidence, promotion/archive decisions
+- `archive.md` — old, replaced, or low-priority memory
+- `mistakes.md` — concise repeated-failure evidence and corrected behavior
+
+Do not load the full `agent-memory/` tree by default. Classify the task scope first, then load the smallest useful set.
