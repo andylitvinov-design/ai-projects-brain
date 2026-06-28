@@ -55,9 +55,13 @@ if [ ! -f "$PROJECT_DIR/agent-memory/index.md" ]; then
   cp "$BRAIN_DIR/templates/project-agent-memory/index-template.md" "$PROJECT_DIR/agent-memory/index.md"
 fi
 
-for file in archive.md mistakes.md candidates.md metrics.md; do
+for file in archive.md mistakes.md candidates.md metrics.md harness-proposals.md harness-regression-tests.md; do
   if [ ! -f "$PROJECT_DIR/agent-memory/$file" ]; then
-    printf "# %s\n\n" "$file" > "$PROJECT_DIR/agent-memory/$file"
+    if [ -f "$BRAIN_DIR/templates/project-agent-memory/$file" ]; then
+      cp "$BRAIN_DIR/templates/project-agent-memory/$file" "$PROJECT_DIR/agent-memory/$file"
+    else
+      printf "# %s\n\n" "$file" > "$PROJECT_DIR/agent-memory/$file"
+    fi
   fi
 done
 
@@ -86,6 +90,7 @@ Created/updated:
 - AGENTS.md / CLAUDE.md if missing
 - agent-memory/
 - candidates.md and metrics.md for self-learning
+- harness-proposals.md and harness-regression-tests.md for Self-Harness
 - Codex command adapters when available
 - Claude Code command adapters when available
 
@@ -95,4 +100,5 @@ Next:
 - run a test /save in a safe branch
 - run /memory to confirm active memory is discoverable
 - run /learn-pass after a meaningful task
+- validate Self-Harness proposals before promoting them
 EOF
