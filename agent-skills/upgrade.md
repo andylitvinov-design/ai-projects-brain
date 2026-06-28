@@ -4,10 +4,11 @@
 
 It improves the agent harness itself: prompts, command adapters, routing rules, memory schemas, validation gates, installer templates, and tool-use workflows.
 
-Canonical related spec:
+Canonical related specs:
 
 ```txt
 agent-skills/self-harness.md
+agent-skills/upgrade-quality-rubric.md
 ```
 
 ---
@@ -31,8 +32,51 @@ Examples:
 ## Core loop
 
 ```txt
-Weakness mining -> Harness proposal -> Validation -> Controlled promotion -> Regression monitoring
+Quality check -> Standards check -> Weakness mining -> Harness proposal -> Validation -> Controlled promotion -> Regression monitoring
 ```
+
+---
+
+## Quality check
+
+Every `/upgrade` run must score current agent-system quality using:
+
+```txt
+agent-skills/upgrade-quality-rubric.md
+```
+
+Score these dimensions from 0 to 3:
+
+```txt
+Memory quality
+Harness quality
+Verification quality
+Self-learning quality
+Harness evolution quality
+Current standards alignment
+```
+
+The goal is to identify what is weak before changing anything.
+
+---
+
+## Current standards check
+
+When web access is available, compare local practice with current public agent-harness principles.
+
+Use recent public research and best-practice ideas as inspiration, not as automatic authority.
+
+Relevant principle families:
+
+- weakness mining from execution traces;
+- minimal harness proposals tied to observed failures;
+- proposal validation and regression tests;
+- candidate memory before active promotion;
+- metrics for applied/failed rules;
+- task-wise routing instead of one giant harness;
+- human decision for high-risk/global changes.
+
+If web access is unavailable, use the latest locally stored rubric and say that public standards were not refreshed.
 
 ---
 
@@ -64,12 +108,14 @@ Project code should not be changed by `/upgrade` unless explicitly requested.
    - `agent-memory/metrics.md`
    - `agent-memory/harness-proposals.md`
    - `agent-memory/harness-regression-tests.md`
-2. Mine recent weaknesses from failures, missed rules, repeated corrections, and memory metrics.
-3. Propose the smallest harness change that would prevent the issue.
-4. Validate the proposal with a smoke test, replay, checklist, or user confirmation.
-5. Apply only low-risk Markdown changes automatically.
-6. For high-risk/global changes, create an issue/PR handoff instead.
-7. Record the proposal and validation result.
+2. Score current quality using `upgrade-quality-rubric.md`.
+3. Compare against current public harness principles when web access is available.
+4. Mine recent weaknesses from failures, missed rules, repeated corrections, and memory metrics.
+5. Propose the smallest harness change that would prevent the issue.
+6. Validate the proposal with a smoke test, replay, checklist, or user confirmation.
+7. Apply only low-risk Markdown changes automatically.
+8. For high-risk/global changes, create an issue/PR handoff or prompt instead.
+9. Record the proposal and validation result.
 
 ---
 
@@ -91,7 +137,8 @@ Needs user decision when:
 - changes core `/delivery` globally;
 - changes production/deploy/auth/data behavior;
 - increases context load significantly;
-- conflicts with existing instructions.
+- conflicts with existing instructions;
+- requires code changes or live system changes.
 
 ---
 
@@ -99,6 +146,17 @@ Needs user decision when:
 
 ```md
 ## Upgrade
+
+Quality score:
+- Memory quality: 0-3
+- Harness quality: 0-3
+- Verification quality: 0-3
+- Self-learning quality: 0-3
+- Harness evolution quality: 0-3
+- Current standards alignment: 0-3
+
+Standards checked:
+- ...
 
 Weakness mined:
 - ...
@@ -110,6 +168,15 @@ Validation:
 - pass / fail / not run
 
 Applied changes:
+- ...
+
+Could not fix automatically:
+- ...
+
+Improvement ideas:
+- ...
+
+Prompts for next automation/Codex:
 - ...
 
 Regression risk:
