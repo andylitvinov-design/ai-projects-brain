@@ -23,6 +23,8 @@ ChatGPT and Codex.
   task clarification, disciplined execution, implementation or
   research, verification, then handoff/memory update.
 - Available callable modes:
+  - `systems/planner-mode.md` for `/planner`, ChatGPT-side task
+    formulation before a delivery prompt is written.
   - `systems/task-clarification-mode.md` for Grill Me / task
     clarification.
   - `systems/superpowers-mode.md` for disciplined context -> plan ->
@@ -34,6 +36,14 @@ ChatGPT and Codex.
     into reusable skills.
   - `systems/recent-research-mode.md` for Last 30 Days / fresh public
     research.
+- Read and apply `systems/chatgpt-delivery-prompt-standard.md` as the
+  default standard for every ChatGPT-written prompt that Andrey will send
+  to `/delivery`.
+- `/planner` is for abstract, risky, or unclear task formulation on the
+  ChatGPT side. ChatGPT writes prompts for Andrey. Codex executes only
+  through `/delivery`.
+- Do not create `/prompt-audit` or a separate manual prompt-audit mode.
+  Clear tasks should go directly to a strong `/delivery` prompt.
 - Do not make Obsidian the default memory source. The canonical project
   memory is GitHub `ai-projects-brain`. Use Obsidian only when the user
   explicitly asks to save or sync notes into a vault.
