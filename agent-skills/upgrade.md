@@ -1,122 +1,129 @@
-# /upgrade — Controlled Self-Harness Upgrade Mode
+# /upgrade — Safe Agent Harness Upgrade Mode
 
-`/upgrade` is the user-facing name for the Self-Harness improvement loop.
+`/upgrade` is the user-facing name for controlled Self-Harness improvement.
 
-It improves the agent harness itself: prompts, command adapters, memory routing, verification gates, installer templates, and workflow rules.
+It improves the agent harness itself: prompts, command adapters, routing rules, memory schemas, validation gates, installer templates, and tool-use workflows.
 
-It must be controlled, minimal, and validated.
+Canonical related spec:
+
+```txt
+agent-skills/self-harness.md
+```
 
 ---
 
 ## Purpose
 
-Find recurring weaknesses in agent behavior and improve the harness so future agents do better without requiring the user to repeat the same correction.
+Use `/upgrade` when the agent system itself needs improvement, not only project code or project memory.
+
+Examples:
+
+- repeated delivery/audit failures;
+- ignored memory rules;
+- false `STATUS: SUCCESS`;
+- missing verification gates;
+- bad command behavior;
+- overgrown or contradictory instructions;
+- weak routing between ChatGPT, Codex, Claude Code, and project memory.
 
 ---
 
-## What counts as harness
+## Core loop
 
 ```txt
-AGENTS.md / CLAUDE.md router snippets
-.codex/skills/*/SKILL.md
-.claude/commands/*.md
+Weakness mining -> Harness proposal -> Validation -> Controlled promotion -> Regression monitoring
+```
+
+---
+
+## What /upgrade may change
+
+Low-risk Markdown harness files only, when safe:
+
+```txt
 agent-skills/*.md
-agent-memory/index.md
-agent-memory topic schemas
-verification gates
-installer templates
-daily automation prompts
-```
-
----
-
-## Upgrade loop
-
-```txt
-1. Mine weaknesses from mistakes/candidates/metrics and recent user corrections.
-2. Create or update a harness proposal.
-3. Validate the proposal with a small regression check.
-4. Apply only safe Markdown/routing changes directly.
-5. Escalate risky/global changes to issue/PR/user decision.
-6. Track the result in harness-regression-tests.md or metrics.md.
-```
-
----
-
-## Safe auto-apply
-
-`/upgrade` may directly apply changes only when all are true:
-
-- Markdown-only harness/instruction change;
-- minimal and scoped;
-- tied to a confirmed or repeated weakness;
-- no product code changes;
-- no auth, payment, data deletion, deploy, or secret-risk changes;
-- observable check exists;
-- context load is not meaningfully increased.
-
----
-
-## Needs issue/PR/user decision
-
-Escalate instead of applying when:
-
-- change affects many projects globally;
-- rule conflicts with existing project instructions;
-- change touches auth, payments, production deploy, private data, or destructive actions;
-- change increases context load significantly;
-- validation cannot be run or evidence is weak.
-
----
-
-## Files used
-
-Read when relevant:
-
-```txt
-agent-memory/mistakes.md
-agent-memory/candidates.md
-agent-memory/metrics.md
+templates/codex/skills/*/SKILL.md
+templates/claude-code/commands/*.md
+templates/project-boot/*.md
+templates/project-agent-memory/*.md
+tools/install-save-memory.sh
 agent-memory/harness-proposals.md
 agent-memory/harness-regression-tests.md
-agent-memory/topics/delivery.md
-agent-memory/topics/audit.md
-agent-memory/topics/learn-pass.md
 ```
 
-Do not load the whole memory tree by default.
+Project code should not be changed by `/upgrade` unless explicitly requested.
 
 ---
 
-## Output format
+## Required behavior
+
+1. Read relevant memory:
+   - `agent-memory/active.md`
+   - `agent-memory/index.md`
+   - `agent-memory/candidates.md`
+   - `agent-memory/metrics.md`
+   - `agent-memory/harness-proposals.md`
+   - `agent-memory/harness-regression-tests.md`
+2. Mine recent weaknesses from failures, missed rules, repeated corrections, and memory metrics.
+3. Propose the smallest harness change that would prevent the issue.
+4. Validate the proposal with a smoke test, replay, checklist, or user confirmation.
+5. Apply only low-risk Markdown changes automatically.
+6. For high-risk/global changes, create an issue/PR handoff instead.
+7. Record the proposal and validation result.
+
+---
+
+## Safe auto-apply policy
+
+Can auto-apply when all are true:
+
+- Markdown-only harness change;
+- scoped to one project or one command;
+- tied to a confirmed failure;
+- no product code changes;
+- no auth/payment/data/deploy weakening;
+- no broad vague instruction bloat;
+- has an observable check.
+
+Needs user decision when:
+
+- affects many projects;
+- changes core `/delivery` globally;
+- changes production/deploy/auth/data behavior;
+- increases context load significantly;
+- conflicts with existing instructions.
+
+---
+
+## Required report
 
 ```md
-## /upgrade report
+## Upgrade
 
-Weaknesses found:
+Weakness mined:
 - ...
 
-Harness proposals:
+Harness proposal:
 - ...
 
-Applied safely:
+Validation:
+- pass / fail / not run
+
+Applied changes:
 - ...
 
-Needs validation / PR / user decision:
+Regression risk:
 - ...
 
-Regression checks:
-- ...
-
-Next action:
+Next check:
 - ...
 ```
 
 ---
 
-## Relationship to other modes
+## Relationship to other commands
 
-- `/save` stores explicit user-confirmed lessons.
-- `/learn-pass` creates candidates and metrics after meaningful work.
+- `/save` saves user-confirmed lessons.
+- `/learn-pass` turns task experience into candidates and metrics.
 - `/memory-review` compacts and promotes memory.
-- `/upgrade` improves the harness itself when patterns show that memory/routing/commands/checks should change.
+- `/upgrade` improves the harness that controls future agent behavior.
