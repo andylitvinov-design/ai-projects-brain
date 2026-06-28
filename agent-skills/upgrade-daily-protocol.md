@@ -19,7 +19,24 @@ Every daily run should:
 
 ---
 
-## Daily inputs
+## Evidence model
+
+`/upgrade` must not rely only on manually saved memory.
+
+It should use four evidence layers:
+
+```txt
+1. Project memory evidence
+2. GitHub / workflow evidence
+3. Conversation / user-reported evidence
+4. External standards evidence
+```
+
+Each daily report should state which layers were available and which were not.
+
+---
+
+## 1. Project memory evidence
 
 Read in this order:
 
@@ -32,10 +49,106 @@ agent-memory/mistakes.md
 agent-memory/harness-proposals.md
 agent-memory/harness-regression-tests.md
 relevant topic files
-recent issue/PR notes if accessible
 ```
 
 Do not load archive unless resolving conflicts.
+
+Use this layer to detect:
+
+```txt
+duplicate rules
+ignored rules
+needs_revision rules
+unreviewed candidates
+unvalidated harness proposals
+stale active memory
+missing Apply when / Check / Failure if ignored
+```
+
+---
+
+## 2. GitHub / workflow evidence
+
+When GitHub access is available, inspect recent work signals, especially:
+
+```txt
+recent issues
+recent issue comments
+recent PRs
+recent PR comments / review feedback
+changed files in harness/memory areas
+failed or blocked workflow notes
+mentions of STATUS: BLOCKED / STATUS: SUCCESS
+mentions of Applied memory / Learning Pass
+```
+
+Use this layer to detect:
+
+```txt
+false success patterns
+blocked task patterns
+repeated implementation failures
+missing delivery/audit handoff sections
+harness files changed without validation
+issues that should have created memory updates
+```
+
+If workflow/CI logs are accessible, inspect failing check names and summaries.
+
+If they are not accessible, report `workflow evidence unavailable`.
+
+---
+
+## 3. Conversation / user-reported evidence
+
+Use current chat context when the user reports:
+
+```txt
+this happened again
+agent ignored a rule
+memory did not update
+false success
+post-task error
+missing verification
+```
+
+This is a strong signal and should trigger automatic memory update when project repo write access exists.
+
+Use this layer to detect:
+
+```txt
+high-confidence user-confirmed lessons
+self-learning failures
+missing auto-memory updates
+rules that should be promoted from candidate to active/topic memory
+```
+
+---
+
+## 4. External standards evidence
+
+When web access is available, compare the local system with current public agent-harness ideas.
+
+Track the comparison as principles, not raw citations inside memory:
+
+```txt
+Self-Harness: weakness mining -> harness proposal -> proposal validation
+RHO: replay/rollout past trajectories and use self-consistency preference
+Adaptive Auto-Harness: task-wise routing, harness tree, human-steering hooks
+Harness Updating vs Benefit: verify that agents actually invoke and follow the harness
+```
+
+Use these as checks:
+
+- Are weaknesses mined from real failures?
+- Are harness proposals minimal and tied to evidence?
+- Are proposals validated before promotion?
+- Are old failures replayed or smoke-tested?
+- Is there task-wise routing instead of one giant context?
+- Are human decisions requested for risky/global changes?
+- Do agents actually load and follow the changed harness?
+
+If web access is unavailable, report `standards refresh unavailable` and use the local rubric.
 
 ---
 
@@ -64,32 +177,8 @@ missing Applied memory reports
 unreviewed candidates count
 rules marked needs_revision
 harness proposals without validation
+issues/PRs that should have produced memory updates
 ```
-
----
-
-## Current standards comparison
-
-When web access is available, compare the local system with current agent-harness ideas.
-
-Track the comparison as principles, not raw citations inside memory:
-
-```txt
-Self-Harness: weakness mining -> harness proposal -> proposal validation
-RHO: replay/rollout past trajectories and use self-consistency preference
-Adaptive Auto-Harness: task-wise routing, harness tree, human-steering hooks
-Harness Updating vs Benefit: verify that agents actually invoke and follow the harness
-```
-
-Use these as checks:
-
-- Are weaknesses mined from real failures?
-- Are harness proposals minimal and tied to evidence?
-- Are proposals validated before promotion?
-- Are old failures replayed or smoke-tested?
-- Is there task-wise routing instead of one giant context?
-- Are human decisions requested for risky/global changes?
-- Do agents actually load and follow the changed harness?
 
 ---
 
@@ -106,7 +195,9 @@ The daily automation may directly apply these safe Markdown-only fixes:
 - add missing adapter/router references;
 - add harness proposal entries;
 - add harness regression test entries;
-- update metrics for applied/failed rules.
+- update metrics for applied/failed rules;
+- add memory update when a GitHub issue/comment clearly contains a reusable lesson;
+- add an issue/PR handoff prompt when the fix requires code or high-risk workflow changes.
 
 ---
 
@@ -132,6 +223,13 @@ For these, create a patch-ready issue/PR prompt.
 ```md
 ## Daily Memory Upgrade — YYYY-MM-DD
 
+### Evidence sources
+- project memory: available / unavailable
+- GitHub issues/PRs: available / unavailable
+- workflow/CI logs: available / unavailable
+- conversation/user report: available / unavailable
+- external standards refresh: available / unavailable
+
 ### Quality score
 - Memory quality: 0-3
 - Harness quality: 0-3
@@ -147,6 +245,7 @@ For these, create a patch-ready issue/PR prompt.
 - blocked pattern count:
 - unreviewed candidates:
 - unvalidated harness proposals:
+- issue/PR lessons not yet in memory:
 
 ### Standards checked
 - ...
@@ -185,6 +284,7 @@ The daily automation is working when:
 repeated failures decrease
 false success cases decrease
 ignored memory cases decrease
+issue/PR lessons are converted into memory or candidates
 active memory stays compact
 candidates get promoted or archived
 harness proposals get validated
