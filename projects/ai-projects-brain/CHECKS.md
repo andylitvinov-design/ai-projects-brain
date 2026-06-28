@@ -13,6 +13,8 @@ Run in canonical repo: `andylitvinov-design/ai-projects-brain`.
 Recommended checks:
 
 - `node scripts/validate-projects-brain.mjs`
+- `node scripts/verify-context-scout.mjs` when `/context-scout` or mode wiring
+  changes
 - `node scripts/sync-project-index.mjs` when project inventory changes
 - `git diff --check` if available locally
 

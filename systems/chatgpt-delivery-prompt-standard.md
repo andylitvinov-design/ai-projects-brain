@@ -16,6 +16,9 @@ manual prompt-checking workflow.
   unclear or risky milestones, then a technical `/delivery` prompt.
 
 ChatGPT writes prompts for Andrey. Codex executes only through `/delivery`.
+Every `/delivery` prompt should tell Codex to start with `/context-scout` from
+`systems/context-scout-mode.md` and produce a compact `CONTEXT BUNDLE` before
+planning or editing.
 
 ## Required prompt structure
 
@@ -37,6 +40,7 @@ when it is clearly irrelevant, and mark unknowns as `needs verification`.
 
 ### 3. Read first
 
+- `systems/context-scout-mode.md` for the required read-only preflight;
 - relevant project memory from `projects.md`, `projects.json`, or
   `projects/<slug>/PROJECT.md`;
 - repo-local `AGENTS.md`;
@@ -151,4 +155,5 @@ Before giving Andrey a `/delivery` prompt, ChatGPT should verify that it include
 - risks and `needs verification`;
 - `STATE.md` / `LOG.md` instruction;
 - token-efficiency constraints;
+- `/context-scout` preflight;
 - no secrets or env values.

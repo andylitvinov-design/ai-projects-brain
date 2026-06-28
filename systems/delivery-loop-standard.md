@@ -27,12 +27,20 @@ task → acceptance criteria → implementation → result quality gate
 
 No extra delegation language is required. `/delivery` alone is sufficient.
 
+Every `/delivery` run starts with `/context-scout` preflight from
+`systems/context-scout-mode.md`. Inspect first, produce the compact
+`CONTEXT BUNDLE`, then plan and edit. Reuse existing patterns, implement
+minimal safe changes, run the narrowest meaningful tests/checks, and report
+files changed, checks run, risks, and rollback steps.
+
 ---
 
 ## Non-Negotiable Requirements
 
 ### SUCCESS requires all of:
 
+- `/context-scout` was run first and its target/project assumptions were either
+  confirmed or marked `needs verification`.
 - Task implemented.
 - Acceptance criteria extracted.
 - Every criterion has evidence.

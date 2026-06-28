@@ -23,8 +23,19 @@ ChatGPT and Codex.
   task clarification, disciplined execution, implementation or
   research, verification, then handoff/memory update.
 - Available callable modes:
+  - `systems/context-scout-mode.md` for the read-only `/context-scout`
+    preflight before `/planner`, `/delivery`, `/audit`, `/audit-fin`, and
+    `/critic`.
   - `systems/planner-mode.md` for `/planner`, ChatGPT-side task
     formulation before a delivery prompt is written.
+  - `systems/delivery-loop-standard.md` for `/delivery`, Codex-side
+    release-owner execution.
+  - `systems/audit-mode.md` for `/audit`, verification checklist and
+    safe deterministic fixes only.
+  - `systems/audit-fin-mode.md` for `/audit-fin`, last-30-days default
+    finance audits and balance/source-record invariants.
+  - `systems/critic-mode.md` for `/critic`, pre-execution critique and
+    improved execution prompts.
   - `systems/task-clarification-mode.md` for Grill Me / task
     clarification.
   - `systems/superpowers-mode.md` for disciplined context -> plan ->
@@ -39,6 +50,10 @@ ChatGPT and Codex.
 - Read and apply `systems/chatgpt-delivery-prompt-standard.md` as the
   default standard for every ChatGPT-written prompt that Andrey will send
   to `/delivery`.
+- Start `/planner`, `/delivery`, `/audit`, `/audit-fin`, and `/critic` with
+  `/context-scout` from `systems/context-scout-mode.md` before planning,
+  editing, auto-fixing, or critique. The scout is read-only and must never
+  mutate files, issues, PRs, deployments, archives, or data.
 - `/planner` is for abstract, risky, or unclear task formulation on the
   ChatGPT side. ChatGPT writes prompts for Andrey. Codex executes only
   through `/delivery`.
@@ -179,6 +194,9 @@ ChatGPT and Codex.
 
 ## Context First
 
+- Operational shortcut: `/context-scout` is the compact preflight form of
+  Context First. Produce its `CONTEXT BUNDLE` before `/planner`, `/delivery`,
+  `/audit`, `/audit-fin`, or `/critic` continues.
 - Always read project context before proposing or making
   changes.
 - Read the current project record in `projects.md` first.

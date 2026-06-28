@@ -11,12 +11,15 @@
 - Bot Quality Standard Usage Guide: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/bot-quality-standard-usage.md
 - Production Debug Protocol: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md
 - Delivery Auth Boundary Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/delivery-auth-boundary-standard.md
+- Context Scout Mode: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/context-scout-mode.md
 - Claude Code Prompt Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md
 - Codex Goal Prompt Standard: https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-goal-prompt-standard.md
 
 Короткое правило: **сначала доказать failing layer, затем делать минимальное безопасное действие.**
 
 Если задача касается `/delivery`, production verification, live-check, Google OAuth, Supabase/private auth или кабинетов за логином, агент обязан применять `systems/delivery-auth-boundary-standard.md`: ожидаемый auth-boundary не является ошибкой delivery; допустимый финал — `STATUS: SUCCESS_WITH_AUTH_LIMITATION`.
+
+Перед `/planner`, `/delivery`, `/audit`, `/audit-fin` и `/critic` агент обязан выполнить read-only `/context-scout` из `systems/context-scout-mode.md` и собрать компактный `CONTEXT BUNDLE`.
 
 Если пользователь просит создать промпт для Claude Code, ChatGPT обязан сначала применить `systems/claude-code-prompt-standard.md`: low-token режим, одна задача, staged workflow, `/clear`, без broad repo scan, без полного аудита и без длинного стартового контекста.
 
@@ -74,12 +77,13 @@
 3. `projects/<project_key>/STATE.md` — текущее состояние, если есть.
 4. `projects/<project_key>/SYSTEM_MAP.md` — архитектура.
 5. `projects/<project_key>/CHECKS.md` — как проверять.
-6. `systems/delivery-auth-boundary-standard.md` — обязательный общий стандарт для `/delivery`, live verification и auth-gated production checks.
-7. `systems/claude-code-prompt-standard.md` — обязательный общий стандарт, когда нужно написать промпт для Claude Code.
-8. `systems/codex-goal-prompt-standard.md` — обязательный общий стандарт, когда нужно написать или исправить Codex `/goal`.
-9. `projects/<project_key>/CLAUDE_CODE_PROMPTS.md` — проектные правила для Claude Code промптов, если такой файл есть.
-10. Repo-local `README.md`, `AGENTS.md`, `STATE.md`, tests, deploy docs.
-11. Live endpoints / deploy status, если задача про production.
+6. `systems/context-scout-mode.md` — обязательный preflight для `/planner`, `/delivery`, `/audit`, `/audit-fin`, `/critic`.
+7. `systems/delivery-auth-boundary-standard.md` — обязательный общий стандарт для `/delivery`, live verification и auth-gated production checks.
+8. `systems/claude-code-prompt-standard.md` — обязательный общий стандарт, когда нужно написать промпт для Claude Code.
+9. `systems/codex-goal-prompt-standard.md` — обязательный общий стандарт, когда нужно написать или исправить Codex `/goal`.
+10. `projects/<project_key>/CLAUDE_CODE_PROMPTS.md` — проектные правила для Claude Code промптов, если такой файл есть.
+11. Repo-local `README.md`, `AGENTS.md`, `STATE.md`, tests, deploy docs.
+12. Live endpoints / deploy status, если задача про production.
 
 `projects.md`, `projects.json`, `data/project-index.json` остаются дополнительными human/machine inventories.
 

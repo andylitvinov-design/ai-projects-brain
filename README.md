@@ -138,13 +138,16 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
    [raw projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 6. Apply the shared agent rules before changing production systems:
    [raw agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
-7. For Claude Code prompts, apply the prompt standard:
+7. Before `/planner`, `/delivery`, `/audit`, `/audit-fin`, or `/critic`, run the
+   read-only context scout:
+   [raw context-scout-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/context-scout-mode.md)
+8. For Claude Code prompts, apply the prompt standard:
    [raw claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
-8. For Codex `/goal` prompts, apply the goal prompt standard:
+9. For Codex `/goal` prompts, apply the goal prompt standard:
    [raw codex-goal-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-goal-prompt-standard.md)
-9. For production/live bugs, apply the production debug protocol before patching:
+10. For production/live bugs, apply the production debug protocol before patching:
    [raw production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
-10. Use the project memory schema and templates when creating or refreshing project state:
+11. Use the project memory schema and templates when creating or refreshing project state:
    [raw project-memory-schema.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-memory-schema.md)
 
 ## Raw Files For ChatGPT
@@ -156,6 +159,12 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
 - [projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 - [project-index.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/data/project-index.json)
 - [agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
+- [context-scout-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/context-scout-mode.md)
+- [agent-modes.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-modes.md)
+- [planner-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/planner-mode.md)
+- [audit-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-mode.md)
+- [audit-fin-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-fin-mode.md)
+- [critic-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/critic-mode.md)
 - [production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
 - [claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
 - [codex-goal-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-goal-prompt-standard.md)

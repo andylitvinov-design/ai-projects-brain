@@ -4,6 +4,10 @@
 abstract, broad, risky, or underspecified goal into a precise task before
 ChatGPT writes a prompt for `/delivery`.
 
+`/planner` starts with `/context-scout` preflight from
+`systems/context-scout-mode.md`. Use the read-only `CONTEXT BUNDLE` before
+asking questions or writing the execution prompt.
+
 `/planner` does not execute code, does not open PRs, and does not replace
 Codex delivery. Codex executes only after Andrey sends a final prompt to
 `/delivery`.
@@ -27,23 +31,27 @@ where ChatGPT can immediately write a strong `/delivery` prompt.
 
 When `/planner` is active, ChatGPT must:
 
-1. Restate the raw goal.
-2. Identify what is vague, risky, or underspecified.
-3. Use available project memory and repo docs before asking questions.
-4. Ask grouped clarifying questions only where they reduce real uncertainty.
-5. Provide recommended default answers for each question.
-6. Identify the likely project, repository, live target, and source of truth.
-7. Mark uncertain items as `needs verification`.
-8. Define success criteria and definition of done.
-9. Define allowed actions and forbidden actions.
-10. Define the verification rubric and expected checks.
-11. Define stop conditions.
-12. Define the context/token budget.
-13. Define whether `STATE.md`, `LOG.md`, or equivalent project memory should be
+1. Run `/context-scout` first.
+2. Restate the raw goal.
+3. Identify what is vague, risky, or underspecified.
+4. Use available project memory and repo docs before asking questions.
+5. If the task is unclear, ask only 1-3 soft A/B/C questions with recommended
+   defaults.
+6. If the task is clear enough, produce one copy-paste-ready `/delivery /goal`
+   prompt instead of a long final essay.
+7. Identify the likely project, repository, live target, and source of truth.
+8. Mark uncertain items as `needs verification`.
+9. Define success criteria and definition of done.
+10. Define allowed actions and forbidden actions.
+11. Define the verification rubric and expected checks.
+12. Define stop conditions.
+13. Define the context/token budget.
+14. Define whether `STATE.md`, `LOG.md`, or equivalent project memory should be
     updated.
-14. Produce a clarified task statement.
-15. Produce a delivery prompt skeleton, not a final execution prompt, until the
-    task is clear enough.
+15. Produce a clarified task statement.
+16. Do not require Andrey to manually create a GitHub issue. If issue tracking
+    is useful, include instructions for Codex to create or update it inside the
+    `/delivery` workflow.
 
 ## Looper-style loop design
 
@@ -65,7 +73,7 @@ loop-design fields when they help make the task executable:
 
 ## Output format
 
-Use this structure by default:
+If the task is still unclear after `/context-scout`, use this structure:
 
 1. Краткое понимание
 2. Что неясно
@@ -78,9 +86,9 @@ Use this structure by default:
 9. Clarified task
 10. Delivery prompt skeleton
 
-The skeleton should follow
-`systems/chatgpt-delivery-prompt-standard.md` once the task is clear enough to
-send to `/delivery`.
+If the task is clear enough, output only a compact `CONTEXT BUNDLE` summary
+followed by one copy-paste-ready `/delivery /goal` prompt that follows
+`systems/chatgpt-delivery-prompt-standard.md`.
 
 ## Mode boundaries
 
