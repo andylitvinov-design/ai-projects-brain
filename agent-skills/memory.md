@@ -8,6 +8,8 @@ Canonical related specs:
 
 - `agent-skills/save.md`
 - `agent-skills/save-runtime.md`
+- `agent-skills/learn-pass.md`
+- `agent-skills/memory-review.md`
 
 ---
 
@@ -39,7 +41,7 @@ It helps users and agents verify what the system currently believes before start
 2. Read `agent-memory/active.md`.
 3. Read `agent-memory/index.md`.
 4. If a topic is provided, read only the relevant topic/component file.
-5. Do not load archive by default.
+5. Do not load `archive.md`, `candidates.md`, or `metrics.md` unless the user explicitly asks for maintenance/review context.
 6. Return a short summary of active memory.
 
 ---
@@ -64,19 +66,20 @@ If no topic is provided:
 ## Active memory overview
 
 - delivery: ...
+- audit: ...
 - mobile: ...
 - copy: ...
+- auth: ...
 ```
 
 ---
 
-## Do not
-
-Do not output:
+## Do not output
 
 - long evidence history;
 - archived rules;
-- raw saved transcripts;
+- candidates unless explicitly requested;
+- metrics unless explicitly requested;
 - unrelated topics;
 - every file in memory.
 
