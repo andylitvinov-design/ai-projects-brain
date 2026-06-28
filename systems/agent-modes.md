@@ -15,10 +15,19 @@ Use it together with `systems/agent-rules.md`.
    - verification mode
    - handoff / memory update
 
+## Canonical mode concept docs
+
+- `/safe` concept and idea backlog: `systems/safe-concept.md`
+- `/safe` routing matrix: `systems/safe-routing.md`
+- `/safe` frontend UX checks: `systems/safe-frontend-ux-checks.md`
+- `/safe` project template: `systems/safe-project-template.md`
+- `/safe` daily report schema: `systems/safe-report-schema.md`
+
 ## Available modes
 
 | Mode | Trigger examples | Use when | Source file |
 | --- | --- | --- | --- |
+| Safe | `/safe`, `режим safe`, `проверь безопасность`, `чтобы пользователь не видел ошибок`, `сайт не срабатывает`, `интерфейс неаккуратный` | A project needs privacy, API-cost, bot-protection, auth, headers, frontend runtime-error, user-facing error-safety, UX interaction/polish, rollback, observability, or agent-skill safety checks. Route first with `systems/safe-routing.md`; use `systems/safe-frontend-ux-checks.md` for UI; add durable new ideas to `systems/safe-concept.md`. | `systems/safe-mode.md` |
 | Grill Me / Task Clarification | `grill me`, `прогриль задачу`, `проясни задачу` | Requirements are unclear and must be clarified before implementation. | `systems/task-clarification-mode.md` |
 | Superpowers | `используй superpowers`, `строгий режим`, `сначала план и проверка` | The task needs disciplined context -> plan -> minimal edits -> verification. | `systems/superpowers-mode.md` |
 | Handoff | `сделай handoff`, `передай следующему агенту`, `обнови HANDOFF.md` | A future agent must continue without rereading the full chat. | `systems/handoff-mode.md` |
