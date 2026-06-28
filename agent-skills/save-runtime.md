@@ -1,8 +1,6 @@
 # /save Runtime Protocol
 
-This file defines the executable behavior of `/save` in any agent environment.
-
-It is tool-agnostic and can be used by Codex, Claude Code, or any repo agent that can read/write files.
+This file defines executable `/save` behavior for agents that can read/write Markdown files.
 
 Canonical design spec:
 
@@ -10,17 +8,25 @@ Canonical design spec:
 agent-skills/save.md
 ```
 
+Related lifecycle specs:
+
+```txt
+agent-skills/learn-pass.md
+agent-skills/memory-review.md
+agent-skills/memory.md
+```
+
 ---
 
 ## Command contract
 
-When user invokes:
+Run this protocol when the user invokes:
 
 ```txt
 /save
 ```
 
-or one of the strong save triggers:
+or a strong memory trigger such as:
 
 ```txt
 память:
@@ -31,7 +37,7 @@ or one of the strong save triggers:
 запомни
 ```
 
-the agent must run this protocol.
+`/save` is user-directed. Use `/learn-pass` for agent-initiated candidates and metrics.
 
 ---
 
@@ -39,13 +45,7 @@ the agent must run this protocol.
 
 ### Step 1 — Locate memory root
 
-Find project memory root:
-
-```txt
-./agent-memory
-```
-
-If missing, create the standard structure:
+Find or create:
 
 ```txt
 agent-memory/
@@ -53,6 +53,8 @@ agent-memory/
   index.md
   archive.md
   mistakes.md
+  candidates.md
+  metrics.md
   topics/
     delivery.md
     audit.md
@@ -63,17 +65,11 @@ agent-memory/
   component-notes/
 ```
 
-If the project is not a product/code repo and is itself a brain repo, use:
-
-```txt
-agent-memory/
-```
-
-in the current repo as the local memory store.
+If the repo itself is the brain repo, use its local `agent-memory/` as the repo-local memory store.
 
 ---
 
-### Step 2 — Read current memory
+### Step 2 — Read the smallest useful memory set
 
 Always read:
 
@@ -82,31 +78,33 @@ agent-memory/active.md
 agent-memory/index.md
 ```
 
-Then classify the `/save` input and read only likely relevant files:
+Then classify the `/save` input and read only relevant scoped files:
 
 ```txt
 agent-memory/topics/<scope>.md
 agent-memory/component-notes/<Component>.md
 ```
 
-Read `agent-memory/mistakes.md` only when the input is a mistake, repeat signal, or asks to check a previous failure.
+Read `mistakes.md` only for repeated mistakes or previous-failure checks.
 
-Do not read `archive.md` unless checking for replaced/conflicting old rules.
+Read `archive.md` only to resolve old conflicts or replacements.
 
-Never load the whole memory tree by default.
+Read `candidates.md` and `metrics.md` only when updating an existing candidate, promoting a candidate, or recording application evidence.
+
+Never load the full memory tree by default.
 
 ---
 
 ### Step 3 — Extract the durable lesson
 
-Convert user input into this internal object:
+Convert the signal into this object:
 
 ```yaml
-raw_signal: "original or paraphrased user signal"
+raw_signal: "original or concise paraphrase"
 lesson: "future reusable rule"
 type: mistake | rule | product_decision | ux_decision | user_preference | workflow_lesson | component_note
 memory_type: procedural | semantic | episodic
-scope: [global | delivery | audit | UX | copy | mobile | auth | component | page]
+scope: global | delivery | audit | UX | copy | mobile | auth | component | page | data
 priority: low | medium | high
 status: active | candidate | archived | replaced
 related_files: []
@@ -118,7 +116,7 @@ evidence: []
 last_applied: never
 ```
 
-If the input is too vague, ask no clarification unless absolutely necessary. Prefer saving as `candidate` only when the user explicitly used `/save` but the scope is unclear.
+If the input is too vague but explicitly asks to save, save a scoped candidate instead of inventing details.
 
 ---
 
@@ -128,19 +126,17 @@ Use the scoring from `agent-skills/save.md`.
 
 ```txt
 score >= 3 -> save/update
-score 1-2  -> candidate suggestion unless explicit /save
+score 1-2  -> candidate unless explicit /save
 score <= 0 -> do not save
 ```
 
-Explicit `/save` normally saves.
-
-Do not save unsafe, impossible, or nonsensical content.
+Explicit `/save` normally saves unless the content is unsafe, impossible, or clearly nonsensical.
 
 ---
 
 ### Step 5 — Upsert, never append blindly
 
-Search active/topic/component memory for:
+Search active/topic/component/candidate memory for:
 
 ```txt
 same scope + similar lesson
@@ -150,7 +146,7 @@ same user preference
 same workflow rule
 ```
 
-Then choose exactly one action:
+Choose one action:
 
 ```txt
 create
@@ -164,17 +160,16 @@ not_saved
 
 Rules:
 
-- Similar existing item -> update/merge it.
-- Repeated mistake -> update existing item, add evidence, possibly raise priority.
+- Similar existing item -> update or merge it.
+- Repeated mistake -> update existing item, add concise evidence, and consider higher priority.
 - Contradiction -> mark old item `replaced` or narrow scopes.
-- New durable lesson -> create new item.
+- New durable lesson -> create a structured item in the right file.
+- Weak but plausible lesson -> write/update `candidates.md`.
 - One-time tweak -> do not save.
 
 ---
 
 ### Step 6 — Route to memory files
-
-Routing table:
 
 ```txt
 mistake -> mistakes.md + relevant topic/component file
@@ -184,82 +179,71 @@ ux_decision -> topics/ux.md / topics/mobile.md / component note
 workflow_lesson -> topics/delivery.md / topics/audit.md / topics/auth.md
 user_preference -> active.md if broad, otherwise topic file
 component_note -> component-notes/<Component>.md
+weak reusable lesson -> candidates.md
+application/promotion/failure stats -> metrics.md
+old/replaced/noisy item -> archive.md or status=replaced in place
 ```
 
-When writing to `active.md`, keep it compact.
-
-If `active.md` grows above 50 rules, add a visible note that `/memory-review` is required.
+When writing to `active.md`, keep it compact. If it grows above 50 rules, run `/memory-review` instead of adding more.
 
 ---
 
 ### Step 7 — Required entry schema
 
-Write memory entries in this format:
-
 ```md
 ## YYYY-MM-DD — Short descriptive title
 
-Type: mistake | rule | product_decision | ux_decision | user_preference | workflow_lesson | component_note  
+Type: mistake | rule | product_decision | ux_decision | user_preference | workflow_lesson | component_note | candidate_lesson  
 Memory type: procedural | semantic | episodic  
-Scope: global | delivery | audit | UX | copy | mobile | auth | component | page  
+Scope: global | delivery | audit | UX | copy | mobile | auth | component | page | data  
 Priority: low | medium | high  
 Status: active | candidate | archived | replaced  
 Replaced by: optional title/id if status is replaced  
 
 User signal:
-> Original user wording or concise paraphrase.
+> Original wording or concise paraphrase.
 
 Evidence:
-- User correction / task / PR / issue that supports this memory item.
+- Short user correction / task / PR / issue reference.
 
 Lesson:
 Clear reusable rule for future agents.
 
 Apply when:
 - Situation 1
-- Situation 2
 
 Check:
 - Observable verification that the lesson was applied.
 
 Failure if ignored:
-- Concrete risk or repeated failure that may happen if this memory is ignored.
+- Concrete repeated problem this prevents.
 
 Avoid:
 - Anti-pattern 1
-- Anti-pattern 2
 
 Last applied:
-- YYYY-MM-DD — task/PR/issue where this memory was used, or `never`.
+- YYYY-MM-DD — task/PR/issue where used, or `never`
 
 Related files/components:
 - optional
 ```
 
-Active memory is invalid unless it has:
-
-```txt
-Apply when
-Check
-Failure if ignored
-```
+Active memory is invalid unless it has `Apply when`, `Check`, and `Failure if ignored`.
 
 ---
 
-### Step 8 — Update index if needed
+### Step 8 — Update routing and metrics
 
-If a new topic file or component note is created, update:
+Update `agent-memory/index.md` when creating a new topic or component note.
 
-```txt
-agent-memory/index.md
-```
+Update `metrics.md` when:
 
-Add a short route:
+- a rule is promoted from candidate to active;
+- an active rule was applied during the task;
+- a rule needs revision;
+- a rule is archived or replaced.
 
-```md
-- <scope> -> topics/<scope>.md
-- <component> -> component-notes/<Component>.md
-```
+Do not create metrics noise for trivial one-off saves.
 
 ---
 
@@ -294,24 +278,9 @@ Not saved as durable memory because this looks like a one-time task detail.
 
 ## Compatibility requirements
 
-This protocol must work in:
+This protocol must work in Codex CLI, Codex cloud tasks, Claude Code, GitHub PR tasks, and local terminal agents.
 
-```txt
-Codex CLI / Codex cloud tasks
-Claude Code
-normal GitHub PR tasks
-local terminal agents
-```
-
-Therefore it must rely only on:
-
-```txt
-plain markdown files
-git-compatible text edits
-no proprietary database
-no hidden chat memory
-no remote service
-```
+Therefore it must rely only on Markdown files and git-compatible edits. Do not require hidden chat memory, a database, or an agent-specific service.
 
 ---
 
@@ -319,22 +288,17 @@ no remote service
 
 The agent must not:
 
-```txt
-append raw chat dumps
-save every task
-save one-time visual tweaks
-keep contradictory active rules
-load archive by default
-create duplicate topic rules
-```
+- save every task;
+- save one-time visual tweaks;
+- keep contradictory active rules;
+- load archive/candidates/metrics by default;
+- create duplicate topic rules.
 
 The agent must:
 
-```txt
-upsert
-merge duplicates
-replace contradictions
-keep active memory small
-prefer topic consolidation
-run /memory-review when needed
-```
+- upsert;
+- merge duplicates;
+- replace contradictions;
+- keep active memory small;
+- prefer topic consolidation;
+- run `/memory-review` when needed.
