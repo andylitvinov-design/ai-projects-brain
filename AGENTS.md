@@ -36,14 +36,14 @@ Apply the global Autonomous Project Executor mode:
 
 ## Agent memory router
 
-Before `/delivery`, `/audit`, `/save`, `/memory`, `/memory-review`, `/learn-pass`, or memory-instruction work:
+Before `/delivery`, `/audit`, `/save`, `/memory`, `/memory-review`, `/learn-pass`, `/upgrade`, or memory-instruction work:
 
 1. Read `agent-memory/active.md` if present.
 2. Read `agent-memory/index.md` if present.
 3. Identify task scope.
 4. Read only relevant topic/component memory.
 5. Do not load `archive.md` unless resolving conflicts or running `/memory-review`.
-6. Do not load `candidates.md` or `metrics.md` unless running `/learn-pass` or `/memory-review`.
+6. Do not load `candidates.md`, `metrics.md`, `harness-proposals.md`, or `harness-regression-tests.md` unless running `/learn-pass`, `/memory-review`, or `/upgrade`.
 7. Use `.codex/skills/*` or `.claude/commands/*` adapters only for the invoked command.
 
 ## Memory rules
