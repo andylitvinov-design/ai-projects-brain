@@ -1,6 +1,6 @@
 # Active Agent Memory
 
-This file contains only high-value rules that are safe to load before `/delivery`, `/audit`, `/save`, `/memory`, `/memory-review`, and `/learn-pass` in the brain repo.
+This file contains only high-value rules that are safe to load before `/delivery`, `/audit`, `/save`, `/memory`, `/memory-review`, `/learn-pass`, `/upgrade`, or memory-instruction work in the brain repo.
 
 Hard cap: 30–50 active rules. If this file grows beyond the cap, run `/memory-review` before adding more.
 
@@ -20,14 +20,14 @@ User signal:
 > The brain repo should maintain repo-local agent memory and installable memory rules for active projects.
 
 Evidence:
-- Canonical specs: `agent-skills/save.md`, `agent-skills/learn-pass.md`, `agent-skills/memory-review.md`
+- Canonical specs: `agent-skills/save.md`, `agent-skills/learn-pass.md`, `agent-skills/memory-review.md`, `agent-skills/upgrade.md`
 - Boot router: `AGENTS.md`
 
 Lesson:
-Agent memory is a compact instruction system, not a transcript. Use `/save` for user-directed durable rules, `/learn-pass` for candidate lessons and metrics, and `/memory-review` for merge/replace/archive. Always upsert instead of appending duplicates.
+Agent memory is a compact instruction system, not a transcript. Use `/save` for user-directed durable rules, `/learn-pass` for candidate lessons and metrics, `/memory-review` for merge/replace/archive, and `/upgrade` for safe harness improvements. Always upsert instead of appending duplicates.
 
 Apply when:
-- Running `/delivery`, `/audit`, `/save`, `/memory`, `/memory-review`, or `/learn-pass`
+- Running `/delivery`, `/audit`, `/save`, `/memory`, `/memory-review`, `/learn-pass`, or `/upgrade`
 - Editing `agent-memory/` files
 - Updating memory-related command/skill instructions or project templates
 
@@ -35,7 +35,8 @@ Check:
 - Every active rule has `Apply when`, `Check`, and `Failure if ignored`.
 - Similar or conflicting memory items are merged, narrowed, replaced, or archived instead of duplicated.
 - Weak or single-signal lessons go to `candidates.md`, not `active.md`.
-- `archive.md`, `candidates.md`, and `metrics.md` are not loaded by default.
+- Harness changes are recorded in `harness-proposals.md` and validated through `harness-regression-tests.md` before broad promotion.
+- `archive.md`, `candidates.md`, `metrics.md`, `harness-proposals.md`, and `harness-regression-tests.md` are not loaded by default.
 
 Failure if ignored:
 - Memory can become noisy, causing agents to miss important rules or repeat known mistakes.
@@ -45,14 +46,18 @@ Avoid:
 - Contradictory active rules
 - One-time project tweaks in active memory
 - Promoting weak candidates without evidence
+- Applying broad harness changes without validation
 
 Last applied:
-- 2026-06-28 — Memory Optimizer pass
+- 2026-06-29 — Memory Upgrade automation pass
 
 Related files/components:
 - `agent-memory/index.md`
 - `agent-memory/candidates.md`
 - `agent-memory/metrics.md`
+- `agent-memory/harness-proposals.md`
+- `agent-memory/harness-regression-tests.md`
 - `agent-skills/save-runtime.md`
 - `agent-skills/learn-pass.md`
 - `agent-skills/memory-review.md`
+- `agent-skills/upgrade.md`
