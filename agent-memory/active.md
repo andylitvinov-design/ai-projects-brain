@@ -49,7 +49,7 @@ Avoid:
 - Applying broad harness changes without validation
 
 Last applied:
-- 2026-06-29 — Memory Upgrade automation pass
+- 2026-06-30 — Memory Upgrade automation pass
 
 Related files/components:
 - `agent-memory/index.md`
