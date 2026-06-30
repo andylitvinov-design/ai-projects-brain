@@ -91,6 +91,9 @@ Only names are listed. Values must never be stored here.
 - Prefer additive route/module changes.
 - Do not collapse the accepted three-column layout without
   explicit reason.
+- For `/improve`, use `systems/improve-mode.md`: keep the sweep read-only,
+  focus on route/auth/profile/admin risks, Supabase data-flow gaps, accepted
+  UX constraints, missing verification, and admin moderation flow.
 
 ## 13. Verification Status
 

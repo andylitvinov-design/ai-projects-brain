@@ -2,7 +2,7 @@
 
 `/context-scout` is the universal read-only preflight for Andrey's agent
 workflows. It gathers a compact project-aware `CONTEXT BUNDLE` before planning,
-delivery, audit, finance audit, or critique starts.
+delivery, audit, finance audit, critique, or improvement discovery starts.
 
 This is inspired by OpenHuman Super Context, but it is implemented only inside
 our own workflow harness. Do not install OpenHuman. Do not add OS-level
@@ -17,6 +17,7 @@ Run `/context-scout` before:
 - `/audit`
 - `/audit-fin`
 - `/critic`
+- `/improve`
 
 The workflow that follows may plan, edit, create issues, open PRs, or run
 checks according to its own rules. `/context-scout` itself must never mutate
@@ -94,6 +95,9 @@ CONTEXT BUNDLE:
   invariants before any analysis.
 - `/critic`: use the bundle to critique assumptions, budget, checks, and the
   execution prompt before work begins.
+- `/improve`: use accepted project-specific save lessons from `CODEX_BRIEF.md`,
+  `DEBUG_LOG.md`, `RISKS.md`, and `STATE.md` where relevant before proposing
+  improvement plans.
 
 The bundle is evidence, not a final answer. If the next workflow discovers that
 the scout picked the wrong project or missed a higher-priority rule, correct the

@@ -46,6 +46,10 @@ The `/save` entry should capture only reusable operational lessons:
 Do not store secrets, raw env values, irrelevant chat history, or broad logs.
 Codex may propose a rule update, but must not perform broad self-rewrites.
 Default proposed lessons to `proposal` or `needs verification` until validated.
+Store accepted lessons in the smallest relevant project memory target
+(`CODEX_BRIEF.md`, `DEBUG_LOG.md`, `PROJECT.md`, `SYSTEM_MAP.md`,
+`DATA_SCHEMA.md`, `RISKS.md`, `STATE.md`, or `LOG.md`). Do not create a giant
+global `SAVE_LOG`.
 
 ## Response Contract
 
