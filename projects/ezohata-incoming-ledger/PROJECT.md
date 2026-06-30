@@ -100,6 +100,9 @@ Only names are listed. Values must never be stored here.
 - Use branch -> PR -> merge.
 - Run test/build/release guard.
 - Treat old repo as reference only unless explicitly asked.
+- For `/improve`, use `systems/improve-mode.md`: keep the sweep read-only,
+  focus on ledger invariants, stale audit gaps, provider/import fragility, and
+  verification gaps, and never mutate financial data.
 
 ## 13. Claude Code Prompt Rules
 

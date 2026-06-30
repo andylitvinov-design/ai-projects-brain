@@ -7,9 +7,10 @@
   tools, reports, and handoffs small without weakening verification.
 - For ChatGPT-written prompts that Andrey will send to `/delivery`, read and
   apply `systems/chatgpt-delivery-prompt-standard.md`.
-- Start `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`, and `/critic` with
-  `/context-scout` from `systems/context-scout-mode.md` before planning,
-  editing, auto-fixing, or critique.
+- Start `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`,
+  `/critic`, and `/improve` with `/context-scout` from
+  `systems/context-scout-mode.md` before planning, editing, auto-fixing,
+  critique, or improvement discovery.
 - Work autonomously by default: do not ask unnecessary questions before
   safe read-only, docs, planning, diagnosis, or minimal patch-scope work.
 - If information is missing or uncertain, mark it as `needs verification`
@@ -38,6 +39,8 @@ Use these routes before writing or sending execution prompts:
 6. Finance/ledger concern -> `/audit-fin` -> last-30-days default period unless
    overridden -> finance invariants -> safe deterministic fixes or repair prompt.
 7. Proposed goal/loop/prompt concern -> `/critic` -> improved execution prompt.
+8. Broad strategic improvement discovery -> `/improve` -> prioritized
+   delivery-ready plans or GitHub issues.
 
 Each route starts with `/context-scout` preflight and its compact
 `CONTEXT BUNDLE`.
@@ -62,12 +65,20 @@ unless the user overrides the period.
 
 `/critic` critiques a proposed goal, loop, task, or prompt before execution.
 
+`/improve` is read-only strategic audit/planning mode for discovering
+high-leverage improvements, recurring risks, missing checks, and token/context
+waste. It produces delivery-ready plans or GitHub issues; it does not execute
+product code changes.
+
 `/supergoal` manages large multi-stage objectives across sessions, repos, PRs,
 or milestones.
 
 Clear tasks should not be slowed down by `/planner`. Abstract, risky, or unclear
 tasks should use `/planner` first. Do not create `/prompt-audit`; ChatGPT
 delivery prompts must be technically strong by default.
+
+Use `/improve` when the user wants strategic improvement discovery rather than
+a concrete implementation, verification-only audit, or live safety sweep.
 
 ## 1. Read context first, but start with the smallest useful set
 
@@ -243,6 +254,7 @@ Avoid long narratives unless the user asks for analysis.
   `templates/codex-save-entry-template.md`.
 - `/save` should preserve reusable context-selection and verification lessons,
   not duplicate the final report.
+- Tiny one-line edits do not need `/save` unless there is a reusable lesson.
 - Mark uncertain items as `needs verification`.
 - Ask user to confirm memory update only when changes are significant,
   risky, or cannot be safely committed in the same task.

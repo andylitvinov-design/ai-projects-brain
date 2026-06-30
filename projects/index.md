@@ -1,6 +1,6 @@
 # Projects Index
 
-> Быстрый диспетчер проектов для агентов.  
+> Быстрый диспетчер проектов для агентов.
 > Использовать перед чтением подробных `projects/<project_key>/PROJECT.md` файлов.
 
 ## How to use
@@ -41,6 +41,8 @@
 | ezohata-save | EzoHata Save | unknown | https://ezohata-save.pages.dev | infra | repo mapping not found in GitHub inventory | `projects/ezohata-save/PROJECT.md` |
 | ezohata-dashboard | EzoHata Dashboard | unknown | https://ezohata-dashboard.pages.dev | app/archive | repo mapping not found in GitHub inventory | `projects/ezohata-dashboard/PROJECT.md` |
 | sales-bwa-photo | Sales BWA Photo | unknown | https://sales-bwa-photo.pages.dev | site | likely under `active-projects-ops/sales`; needs deploy source verification | `projects/sales-bwa-photo/PROJECT.md` |
+| psihotavr | Psihotavr | `andylitvinov-design/psihotavr` | https://psihotavr.vercel.app | app/site | Daily Improve Sweep target; project memory file missing in this repo snapshot | needs verification |
+| psitherapy | Psitherapy / psihothetapy / homeopathy site | needs verification | https://psitherapy.vercel.app | site | Daily Improve Sweep target; canonical GitHub repo needs verification | needs verification |
 
 ## Agent Entry map
 
