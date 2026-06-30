@@ -24,6 +24,7 @@ Use it together with `systems/agent-rules.md`.
 - `/safe` frontend UX checks: `systems/safe-frontend-ux-checks.md`
 - `/safe` project template: `systems/safe-project-template.md`
 - `/safe` daily report schema: `systems/safe-report-schema.md`
+- `/audit-ui` reusable UI audit standard: `systems/audit-ui.md`
 
 ## Available modes
 
@@ -33,6 +34,7 @@ Use it together with `systems/agent-rules.md`.
 | Planner | `/planner`, `сформулируй задачу`, `помоги сделать точный prompt для delivery` | ChatGPT must formulate an abstract/risky/unclear task before writing a `/delivery` prompt for Andrey. | `systems/planner-mode.md` |
 | Delivery | `/delivery`, `/delivery /goal`, `выполни delivery` | Codex executes a scoped task through context, implementation, checks, PR/merge/deploy proof, and final report. | `systems/delivery-loop-standard.md` |
 | Audit | `/audit`, `проверь`, `сделай аудит` | Inspect existing code, data, PRs, sites, calculations, or production behavior with a verification checklist and safe deterministic fixes only. | `systems/audit-mode.md` |
+| UI Audit | `/audit-ui`, `UI audit`, `audit ui`, `проверь интерфейс` | Audit or minimally fix UI taste, structure, responsive states, polish, hardening, and browser verification without a redesign unless explicitly requested. | `systems/audit-ui.md` |
 | Finance Audit | `/audit-fin`, `финансовый аудит`, `проверь финансы` | Audit finance/ledger data for a period, defaulting to the last 30 days, with strict balance and source-record boundaries. | `systems/audit-fin-mode.md` |
 | Critic | `/critic`, `раскритикуй задачу`, `проверь prompt перед запуском` | Critique a proposed goal, task, loop, prompt, or workflow before execution and return an improved execution prompt. | `systems/critic-mode.md` |
 | Safe | `/safe`, `режим safe`, `проверь безопасность`, `чтобы пользователь не видел ошибок`, `сайт не срабатывает`, `интерфейс неаккуратный` | A project needs privacy, API-cost, bot-protection, auth, headers, frontend runtime-error, user-facing error-safety, UX interaction/polish, rollback, observability, or agent-skill safety checks. Route first with `systems/safe-routing.md`; use `systems/safe-frontend-ux-checks.md` for UI; add durable new ideas to `systems/safe-concept.md`. | `systems/safe-mode.md` |
@@ -46,7 +48,7 @@ Use it together with `systems/agent-rules.md`.
 ## Default behavior without an explicit mode
 
 - For normal project work, use `systems/agent-rules.md` and `systems/autonomous-project-executor.md`.
-- `/planner`, `/delivery`, `/audit`, `/audit-fin`, and `/critic` start with
+- `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`, and `/critic` start with
   `/context-scout` preflight from `systems/context-scout-mode.md`.
 - For abstract, risky, or unclear tasks that need an execution prompt, use
   `/planner` before writing the final `/delivery` prompt.
@@ -54,7 +56,8 @@ Use it together with `systems/agent-rules.md`.
   `systems/chatgpt-delivery-prompt-standard.md`.
 - Do not create `/prompt-audit`; prompt strength is part of the default
   ChatGPT delivery prompt standard.
-- For UI changes, include browser verification in the plan even when Playwright is not explicitly requested.
+- For UI audit or polish work, use `systems/audit-ui.md` and include browser
+  verification in the plan when a dev server, preview, or live URL is available.
 - For long or multi-session tasks, produce a handoff summary at the end.
 
 ## Obsidian note

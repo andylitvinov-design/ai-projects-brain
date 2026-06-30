@@ -24,7 +24,7 @@ ChatGPT and Codex.
   research, verification, then handoff/memory update.
 - Available callable modes:
   - `systems/context-scout-mode.md` for the read-only `/context-scout`
-    preflight before `/planner`, `/delivery`, `/audit`, `/audit-fin`, and
+    preflight before `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`, and
     `/critic`.
   - `systems/planner-mode.md` for `/planner`, ChatGPT-side task
     formulation before a delivery prompt is written.
@@ -32,6 +32,8 @@ ChatGPT and Codex.
     release-owner execution.
   - `systems/audit-mode.md` for `/audit`, verification checklist and
     safe deterministic fixes only.
+  - `systems/audit-ui.md` for `/audit-ui`, UI taste, polish, hardening,
+    responsiveness, anti-slop checks, and browser verification.
   - `systems/audit-fin-mode.md` for `/audit-fin`, last-30-days default
     finance audits and balance/source-record invariants.
   - `systems/critic-mode.md` for `/critic`, pre-execution critique and
@@ -50,7 +52,7 @@ ChatGPT and Codex.
 - Read and apply `systems/chatgpt-delivery-prompt-standard.md` as the
   default standard for every ChatGPT-written prompt that Andrey will send
   to `/delivery`.
-- Start `/planner`, `/delivery`, `/audit`, `/audit-fin`, and `/critic` with
+- Start `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`, and `/critic` with
   `/context-scout` from `systems/context-scout-mode.md` before planning,
   editing, auto-fixing, or critique. The scout is read-only and must never
   mutate files, issues, PRs, deployments, archives, or data.
