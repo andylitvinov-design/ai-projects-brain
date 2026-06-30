@@ -4,6 +4,25 @@ Use this file only during `/upgrade`, `/learn-pass`, or `/memory-review`.
 
 Each check should be small, replayable, and tied to a known harness weakness.
 
+## R005 — Project routers keep maintenance-file scope aligned
+
+Scope: active project `AGENTS.md` memory-router sections  
+Status: active  
+Last checked: 2026-06-30
+
+Scenario:
+- `/learn-pass`, `/memory-review`, or `/upgrade` runs in an active project repo that has `agent-memory/harness-proposals.md` and `agent-memory/harness-regression-tests.md`.
+
+Expected:
+- Default `/delivery` and `/audit` load only `active.md`, `index.md`, and relevant topics/components.
+- `archive.md` loads only for conflict resolution or `/memory-review`.
+- `candidates.md`, `metrics.md`, `harness-proposals.md`, and `harness-regression-tests.md` load only for `/learn-pass`, `/memory-review`, or `/upgrade`.
+- If `mistakes.md` exists, it loads only for `/learn-pass`, `/memory-review`, `/upgrade`, or conflict resolution.
+
+Failure signal:
+- Project router says harness proposals/tests are only for `/upgrade`, so `/learn-pass` or `/memory-review` may skip valid maintenance context.
+- Project router allows maintenance files during ordinary `/delivery` or `/audit`.
+
 ## R001 — Router finds relevant topic memory without loading everything
 
 Scope: `agent-memory/index.md`  
