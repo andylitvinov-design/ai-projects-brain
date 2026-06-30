@@ -36,6 +36,7 @@ for (const file of [
   'systems/planner-mode.md',
   'systems/delivery-loop-standard.md',
   'systems/audit-mode.md',
+  'systems/audit-ui.md',
   'systems/audit-fin-mode.md',
   'systems/critic-mode.md',
 ]) {

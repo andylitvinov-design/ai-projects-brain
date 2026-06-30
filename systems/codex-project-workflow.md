@@ -7,7 +7,7 @@
   tools, reports, and handoffs small without weakening verification.
 - For ChatGPT-written prompts that Andrey will send to `/delivery`, read and
   apply `systems/chatgpt-delivery-prompt-standard.md`.
-- Start `/planner`, `/delivery`, `/audit`, `/audit-fin`, and `/critic` with
+- Start `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`, and `/critic` with
   `/context-scout` from `systems/context-scout-mode.md` before planning,
   editing, auto-fixing, or critique.
 - Work autonomously by default: do not ask unnecessary questions before
@@ -32,9 +32,12 @@ Use these routes before writing or sending execution prompts:
    Andrey sends to `/delivery`.
 4. Existing implementation/data/site concern -> `/audit` -> verification
    checklist -> safe deterministic fixes or repair prompt.
-5. Finance/ledger concern -> `/audit-fin` -> last-30-days default period unless
+5. UI taste, layout, responsive, polish, or hardening concern -> `/audit-ui`
+   -> mode selection -> critique/audit/polish/hardening checklist -> minimal
+   safe fixes plus browser verification when available.
+6. Finance/ledger concern -> `/audit-fin` -> last-30-days default period unless
    overridden -> finance invariants -> safe deterministic fixes or repair prompt.
-6. Proposed goal/loop/prompt concern -> `/critic` -> improved execution prompt.
+7. Proposed goal/loop/prompt concern -> `/critic` -> improved execution prompt.
 
 Each route starts with `/context-scout` preflight and its compact
 `CONTEXT BUNDLE`.
@@ -49,6 +52,10 @@ until Andrey sends a final `/delivery` prompt.
 
 `/audit` is inspection mode for existing code, data, PRs, sites, calculations,
 or production behavior. It is not prompt QA.
+
+`/audit-ui` is the UI-specific audit and minimal-fix standard for taste,
+composition, responsive states, polish, hardening, anti-slop checks, and
+browser verification. It must not become a redesign unless explicitly requested.
 
 `/audit-fin` is finance-sensitive audit mode. It defaults to the last 30 days
 unless the user overrides the period.

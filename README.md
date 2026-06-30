@@ -17,6 +17,7 @@ This repo now has a lightweight dispatcher layer so agents can quickly identify 
 - Project capsule standard: [systems/project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 - Claude Code prompt standard: [systems/claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
 - Codex goal prompt standard: [systems/codex-goal-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-goal-prompt-standard.md)
+- UI audit standard: [systems/audit-ui.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-ui.md)
 
 ### Agent workflow
 
@@ -163,6 +164,7 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
 - [agent-modes.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-modes.md)
 - [planner-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/planner-mode.md)
 - [audit-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-mode.md)
+- [audit-ui.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-ui.md)
 - [audit-fin-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-fin-mode.md)
 - [critic-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/critic-mode.md)
 - [production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)
