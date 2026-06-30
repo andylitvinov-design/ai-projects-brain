@@ -63,6 +63,11 @@ ChatGPT and Codex.
   memory is GitHub `ai-projects-brain`. Use Obsidian only when the user
   explicitly asks to save or sync notes into a vault.
 
+## OKF-compatible knowledge layer
+
+- Read `systems/okf-knowledge-layer.md` when using `knowledge/` for compact agent navigation.
+- `knowledge/` is a pilot index only; canonical source remains `projects.md`, `projects.json`, `projects/<slug>/PROJECT.md`, and `systems/*.md`.
+
 ## Autonomous Project Executor
 
 - Read and apply `systems/autonomous-project-executor.md` for every
