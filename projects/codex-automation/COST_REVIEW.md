@@ -1,6 +1,6 @@
 # Codex Automation Cost Review
 
-Last updated: 2026-05-06
+Last updated: 2026-06-30
 
 Purpose: estimate value, daily cost risk, and recommended operating policy for the user's Codex automation surfaces.
 
@@ -127,6 +127,12 @@ Operating rule:
 - No scheduled Codex generation without a budget cap.
 - No direct OpenAI route as default unless there is a clear reason.
 - Every execution route should write: command id/request id, route, started_at, finished_at, final_status, and rough cost class.
+- ChatGPT Automations are the default scheduler. Do not keep or create a
+  Codex-side automation when a ChatGPT automation already owns the workflow.
+- A Codex-side schedule needs explicit reason, frequency, owner, stop condition,
+  and token-risk note. Hourly schedules need an operational-safety justification.
+- `codex-delivery-loop`, `codex-delivery-loop-now`, and `skill-progression-map`
+  are the clearest disable/archive candidates from the 2026-06-30 local audit.
 
 ## 8. Local verification for `air-andrii.lan`
 

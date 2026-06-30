@@ -63,6 +63,37 @@ ChatGPT and Codex.
   memory is GitHub `ai-projects-brain`. Use Obsidian only when the user
   explicitly asks to save or sync notes into a vault.
 
+## Automation Scheduler Ownership
+
+- ChatGPT Automations are the default scheduler for recurring agent work.
+- Do not create a Codex-side automation when an existing ChatGPT automation
+  already covers the workflow.
+- A Codex-side automation requires an explicit reason, frequency, owner, stop
+  condition, and token-risk note before it is added or kept scheduled.
+- Codex-side automations must not duplicate ChatGPT Automations or run hourly
+  unless the hourly cadence is explicitly justified as operational safety work.
+- Prefer disabling, archiving, or converting duplicates to manual/on-demand
+  runs. Do not delete automation memory files without a backup.
+
+## Ponytail Gate
+
+Before proposing or writing code, check:
+
+- Is this change actually needed?
+- Is it already implemented in the repo?
+- Does stdlib solve it?
+- Does the browser, platform, or framework solve it natively?
+- Does an installed dependency already solve it?
+- Can it be config, HTML, CSS, or one line?
+
+Only then write the minimum safe code.
+
+Safety exception: do not remove validation, auth, security, accessibility,
+data-loss protection, tests, logging, or production verification just to reduce
+code.
+
+Ponytail is a rule/gate, not a dependency, plugin, global install, or agent.
+
 ## OKF-compatible knowledge layer
 
 - Read `systems/okf-knowledge-layer.md` when using `knowledge/` for compact agent navigation.

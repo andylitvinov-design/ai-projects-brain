@@ -1,8 +1,28 @@
 # Codex Automation System Map
 
-Last updated: 2026-05-05
+Last updated: 2026-06-30
 
 Purpose: one compact map of what is actually automated around Codex, where it lives, how it is triggered, how to verify it, and what still needs local verification.
+
+## 0. Scheduler ownership
+
+ChatGPT Automations are the main scheduler for recurring agent work. Codex-side
+automations are secondary and must not duplicate ChatGPT Automations. A
+Codex-side automation is allowed only when it has an explicit reason, frequency,
+owner, stop condition, and token-risk note. Do not add hourly Codex loops unless
+the hourly cadence is explicitly justified as operational safety work.
+
+Ponytail Gate is recorded as a rule/gate in `systems/agent-rules.md`; it is not
+installed as a plugin, dependency, global service, or separate automation.
+
+Expected ChatGPT Automation architecture:
+
+| Automation | Schedule | Purpose | Scheduler owner |
+|---|---|---|---|
+| Morning System Upgrade | Daily 08:30 Europe/Sarajevo | Memory Upgrade, Codex efficiency report, Ponytail Gate / Lazy Senior Check, instruction-bloat check, workflow weakness mining | ChatGPT Automations |
+| PR Merge Sweep | Daily 08:30 Europe/Sarajevo | Check open/recently merged PRs, safely merge low-risk ready PRs, detect wrong-base merges, salvage safe hunks onto fresh `main`, verify UI default-state regressions | ChatGPT Automations |
+| Codex Delivery Loop | Daily 12:00 | Find unfinished delivery tasks, branches without PRs, blocked statuses, failed CI, undeployed/unverified changes, forgotten worktrees/branches, and delivery recovery needs | ChatGPT Automations |
+| Weekly Live Safe Sweep | Monday 09:00 Europe/Sarajevo | Weekly `/safe` pass for live/public project security and UX checks, with minimal safe fixes only | ChatGPT Automations |
 
 ## 1. Automation surfaces
 
@@ -21,7 +41,28 @@ Purpose: one compact map of what is actually automated around Codex, where it li
 | Dashboard data refresh | Manual/script run | Node script / repo workflow needs verification | `andylitvinov-design/brain-management` | `scripts/refresh-management-dashboards.js`, `dashboard-thinking/data/*.json` | refreshed dashboard JSON snapshots | needs verification | Run the script if available; verify generated JSON timestamps |
 | Daily Codex backups | Local scheduled job likely on `air-andrii.lan` | Local cron/launchd/script | `andylitvinov-design/codex-daily-backups` | GitHub repo README; local scripts need verification | backup commits/snapshots | likely scheduled local automation | needs local verification; GitHub repo alone does not show schedule |
 
-## 2. Confirmed dispatch modes
+## 2. Local Codex automations audit on 2026-06-30
+
+Checked fallback base `/Users/andriilitvinov/.codex/automations`; `CODEX_HOME`
+was not set in the shell environment. Only automation names, schedules, memory
+timestamps, and non-secret purpose snippets were inspected.
+
+| Codex automation | Schedule found | Last observed memory timestamp | Purpose summary | Duplicate / token-risk classification | Action |
+|---|---|---:|---|---|---|
+| `codex-delivery-loop` | `FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=8,9,10,11,12;BYMINUTE=0` | 2026-06-30 09:03 CEST | Unfinished delivery work across active local projects | Duplicate of ChatGPT `Codex Delivery Loop`; high-frequency five-runs-per-day risk | Disable/archive or convert to manual; ChatGPT 12:00 scheduler owns this workflow |
+| `codex-delivery-loop-now` | `FREQ=DAILY;COUNT=1;BYHOUR=12;BYMINUTE=0` | 2026-06-30 16:18 CEST | One-count immediate delivery-loop pass | Duplicate of ChatGPT `Codex Delivery Loop`, but memory says it completed on 2026-06-30 | Keep inactive/archived after the one-count run; do not turn it into a recurring loop |
+| `daily-upgrade-review` | Daily 07:00 | 2026-06-24 09:18 CEST | Management morning report and dashboard/report publish | Overlaps ChatGPT `Morning System Upgrade` unless kept as a data-refresh implementation step | Move scheduling to ChatGPT or justify as non-model dashboard publish with owner/stop condition |
+| `daily-thinking-snapshot` | Daily 23:55 | 2026-04-18 14:08 CEST | Dashboard thinking audit snapshot refresh | Possible overlap with Morning System Upgrade memory/workflow mining | Re-justify or move into ChatGPT-owned morning upgrade pipeline |
+| `finance-ezohata-daily-audit` | Daily 09:30, 10:30, 11:30 retry window | 2026-06-24 09:32 CEST | Finance project daily risk/PR/worktree audit | Daily Codex-side audit; potential overlap with PR Merge Sweep and Codex Delivery Loop | Disable or reduce unless explicit owner/frequency/token-risk note is added |
+| `psitherapy-reports-daily-audit` | Daily 09:30, 10:30, 11:30 retry window | 2026-06-24 09:33 CEST | Reports project daily audit | Daily Codex-side audit; potential overlap with PR Merge Sweep and Codex Delivery Loop | Disable or reduce unless explicit owner/frequency/token-risk note is added |
+| `reiki-yggdrasil-daily-audit` | Daily 09:30, 10:30, 11:30 retry window | 2026-06-24 09:32 CEST | Reiki Yggdrasil project daily audit | Daily Codex-side audit; potential overlap with PR Merge Sweep and Codex Delivery Loop | Disable or reduce unless explicit owner/frequency/token-risk note is added |
+| `weblinks-daily-audit` | Monday 09:00 | 2026-05-25 09:02 CEST | Weekly weblinks drift/secrets audit | May overlap Weekly Live Safe Sweep for safety/UX checks, but narrower secrets/docs scope | Keep only if documented as weekly specialized secret-safe audit |
+| `recent-upgrades-backup` | Daily 21:30 | 2026-06-23 21:32 CEST | Backup changed eligible projects | Not a ChatGPT duplicate if it is Git/backup-only | Keep if backup-only and token risk stays low; document owner/stop condition |
+| `weblinks-encrypted-backup` | Daily 09:05 | 2026-05-14 09:41 CEST | Encrypted backup of private weblinks data | Not a ChatGPT duplicate; blocked on missing local secret in memory | Keep disabled/blocked until secret boundary is resolved; do not expose secret values |
+| `skill-progression-map` | Daily 22:00 | 2026-05-15 22:09 CEST | Chooses one branch/project improvement and implements it | High token/code-change risk; duplicates delivery-style work | Disable unless explicitly re-approved with owner, stop condition, and token-risk budget |
+| `critical-ram-guard` | Hourly | 2026-04-18 14:11 CEST | Silent local memory-pressure guard | Hourly loop, but operational safety and normally silent | Keep only with explicit operational-safety justification; otherwise reduce cadence |
+
+## 3. Confirmed dispatch modes
 
 From `codex-links/functions/_lib/dispatch.js`:
 
@@ -44,7 +85,7 @@ Important distinction:
 - Slack-backed Codex Cloud requires Slack env and a valid Codex actor/channel setup.
 - local bridge requires a local runner outside GitHub/Cloudflare.
 
-## 3. What is not confirmed
+## 4. What is not confirmed
 
 - No GitHub-visible cron/schedule was confirmed for `brain-management` mobile-run workflow; it is `workflow_dispatch`.
 - The daily backup schedule is not visible from GitHub. README says the repo is managed automatically from `air-andrii.lan`, but exact cron/launchd/script needs local verification.
@@ -52,7 +93,7 @@ Important distinction:
 - Cloudflare production env completeness needs verification from Cloudflare dashboard or live API behavior.
 - Codex UI/Routines tasks, if any, are not visible from GitHub repository inspection.
 
-## 4. Local verification checklist for `air-andrii.lan`
+## 5. Local verification checklist for `air-andrii.lan`
 
 Run locally on the Mac that manages backups/bridges. Do not paste secret values into reports.
 
@@ -108,7 +149,7 @@ Local Codex automation verification
 - needs verification:
 ```
 
-## 5. Minimal debugging sequence
+## 6. Minimal debugging sequence
 
 When a Codex automation seems stuck:
 
@@ -140,7 +181,7 @@ When a Codex automation seems stuck:
    - dashboard status if visibility gap;
    - runtime patch only when a specific failing path is confirmed.
 
-## 6. Codex prompt for local-only verification
+## 7. Codex prompt for local-only verification
 
 Use this when GitHub/Cloudflare inspection is insufficient:
 
@@ -170,7 +211,7 @@ Final report:
 - needs verification
 ```
 
-## 7. Stop condition
+## 8. Stop condition
 
 This map is good enough when:
 
