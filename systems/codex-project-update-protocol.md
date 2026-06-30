@@ -22,6 +22,31 @@ Use this protocol whenever Codex changes a project listed in
 9. Write `needs verification` for all unknown or unverified
    data.
 
+## Harness Learning / Save Upgrade
+
+When a task involved debugging, production behavior, data flow, deploy, auth,
+provider sync, dashboards, agent workflow, repeated tool loops, or meaningful
+token waste, create or propose a compact `/save` entry using
+`templates/codex-save-entry-template.md` and
+`systems/codex-save-harness-upgrade.md`.
+
+The `/save` entry should capture only reusable operational lessons:
+
+- source of truth used;
+- files that actually mattered;
+- files that were noise;
+- exact failing command or check;
+- repeated loop or wasted step;
+- minimal safe fix;
+- verification performed;
+- memory files updated;
+- proposed rule update;
+- remaining `needs verification`.
+
+Do not store secrets, raw env values, irrelevant chat history, or broad logs.
+Codex may propose a rule update, but must not perform broad self-rewrites.
+Default proposed lessons to `proposal` or `needs verification` until validated.
+
 ## Response Contract
 
 Codex final reports should include:

@@ -229,6 +229,13 @@ Avoid long narratives unless the user asks for analysis.
 - Propose `STATE.md` update.
 - Append or propose `LOG.md` entry.
 - Update project memory files when meaningful implementation facts changed.
+- For meaningful project work, debugging, production behavior, data flow,
+  deploy, auth, provider sync, dashboards, agent workflow, repeated loops, or
+  token-waste lessons, apply `systems/codex-save-harness-upgrade.md` and create
+  or propose a compact `/save` entry from
+  `templates/codex-save-entry-template.md`.
+- `/save` should preserve reusable context-selection and verification lessons,
+  not duplicate the final report.
 - Mark uncertain items as `needs verification`.
 - Ask user to confirm memory update only when changes are significant,
   risky, or cannot be safely committed in the same task.
