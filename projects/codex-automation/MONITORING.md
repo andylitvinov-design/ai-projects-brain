@@ -1,6 +1,6 @@
 # Codex Automation Monitoring
 
-Last updated: 2026-05-06
+Last updated: 2026-06-30
 
 Purpose: turn Codex automation from a list of possible routes into a measurable system: what ran, why it ran, whether it was manual or scheduled, and what it likely cost.
 
@@ -138,6 +138,34 @@ Repository-visible state:
 - `delivery` and `reports` APIs are passive unless called.
 - `codex-daily-backups` is likely scheduled locally, but needs local verification on `air-andrii.lan`.
 - ChatGPT/Codex UI Routines are not visible from GitHub and need UI/provider verification.
+
+Scheduler ownership rule:
+
+- ChatGPT Automations are the default scheduler for Morning System Upgrade, PR
+  Merge Sweep, Codex Delivery Loop, and Weekly Live Safe Sweep.
+- Codex-side automations must not duplicate those four workflows.
+- Any Codex-side automation must record explicit reason, frequency, owner, stop
+  condition, and token-risk note.
+- Hourly Codex-side automation is a high-frequency loop and needs explicit
+  operational-safety justification.
+- Ponytail Gate is a documented rule/gate, not a plugin, dependency, global
+  install, or separate scheduler.
+
+Local audit snapshot from 2026-06-30:
+
+- `codex-delivery-loop` duplicates ChatGPT `Codex Delivery Loop` and is scheduled
+  five times daily; disable/archive or convert to manual.
+- `codex-delivery-loop-now` is a one-count 12:00 delivery-loop duplicate that
+  completed on 2026-06-30; keep inactive/archived after the one-shot run.
+- `daily-upgrade-review` overlaps Morning System Upgrade unless kept only as a
+  non-model data-refresh/publish implementation step.
+- `finance-ezohata-daily-audit`, `psitherapy-reports-daily-audit`, and
+  `reiki-yggdrasil-daily-audit` overlap PR/delivery sweep purposes and need
+  explicit re-justification or disabling/reduction.
+- `skill-progression-map` is a high token/code-change risk and duplicates
+  delivery-style work; disable unless explicitly re-approved.
+- `critical-ram-guard` is hourly; keep only as explicitly justified silent
+  operational safety work, otherwise reduce cadence.
 
 ## 8. Weekly cost calculation algorithm
 
