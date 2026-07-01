@@ -1,6 +1,6 @@
 # Projects
 
-Last inventory update: 2026-04-29.
+Last inventory update: 2026-07-01.
 
 This file mirrors the core records in `projects.json`. It lists public context only. Environment variables are names only, not values.
 
@@ -72,6 +72,42 @@ Canonical field mapping in this database:
 - **risks:** Requesting or storing secrets, trying to bypass Google OAuth, claiming live provider sync when only code paths exist, confusing the production finance repo with old deprecated repos, or mutating data during an audit.
 - **rules for Codex:** Read target project memory before auditing. Compare `DATA_SCHEMA` with the audit snapshot or sanitized user-provided export. Mark unknowns as `needs verification`. Never request or expose secrets. Do not log in to the target site as the audit method.
 - **notes:** Does not store secrets. Does not bypass OAuth. Uses safe audit snapshots and project memory.
+
+## psihotavr
+
+- **project memory:** `projects/psihotavr/PROJECT.md`
+
+- **name:** psihotavr
+- **purpose:** Psihotavr Vite/React site for mandala catalog sales, AI-video hub, admin/content tools, Telegram-first order flow, and future customer cabinet/admin account features.
+- **live URL:** https://psihotavr.vercel.app
+- **repo URL:** https://github.com/andylitvinov-design/psihotavr
+- **hosting:** Vercel project `psihotavr`
+- **current status:** Active public Vite/React catalog/admin/cart site. Keep Google/Supabase cabinet and cart/orders RLS replacement work blocked until backend, auth, migration, and live RLS gates are verified.
+- **important files:** `package.json`, `vercel.json`, `src/App.tsx`, `src/main.tsx`, `src/lib/mandalaServices.ts`, `src/pages/MandalaCatalogPage.tsx`, `src/pages/CartPage.tsx`, `src/pages/AdminMandalasPage.tsx`, `src/pages/AdminVideoFormPage.tsx`, `src/lib/aiVideoGeneration.ts`, `src/server/videoProviders/videoProviderService.ts`, `api/ai-videos/generate.ts`, `api/ai-videos/status.ts`
+- **env variables:** `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_ADMIN_EMAILS`, `FIREBASE_API_KEY`, `FIREBASE_AUTH_DOMAIN`, `FIREBASE_PROJECT_ID`, `GITHUB_TOKEN`, `ADMIN_TOKEN`, `HEYGEN_API_KEY`, `SYNTHESIA_API_KEY`, `D_ID_API_KEY`
+- **known issues:** Supabase free active project limit blocks a dedicated backend for now. Auth experiments can confuse agents; verify the selected backend before editing auth code. Vercel Git auto-deploy/source can drift and needs live verification.
+- **recent tasks:** Restored `/mandalas` grid behavior, added AI-video homepage/admin boundaries, normalized legacy image URLs, synced mini-mandala services/photos, and created blocked replacement auth/cart-orders PRs.
+- **next actions:** Keep as a first-class active project in daily sweeps. Verify Vercel deployment source and browser behavior before live claims. Prefer the no-Supabase Telegram order flow until a backend is available.
+- **risks:** Breaking the live catalog, admin, cart, AI-video hub, Excel-derived mandala services, image mappings, or leaking provider secrets.
+- **rules for Codex:** Treat `main` as canonical unless repo/deploy metadata proves otherwise. Do not carry old branches wholesale. Do not merge auth/orders migrations without proven backend/auth/RLS gates. Do not commit secrets or env values.
+
+## psitherapy
+
+- **project memory:** `projects/psitherapy/PROJECT.md`
+
+- **name:** psitherapy
+- **purpose:** Psitherapy public site and funnel for psychological analysis, psychotherapy, homeopathy-oriented content, and consultation offers.
+- **live URL:** https://psitherapy.vercel.app
+- **repo URL:** needs verification
+- **hosting:** Vercel project `psitherapy`
+- **current status:** Active live Vercel site. Treat as a first-class active project for audits and planning, but keep code changes blocked until repository mapping is verified.
+- **important files:** needs verification
+- **env variables:** needs verification
+- **known issues:** Repository mapping ambiguity can route agents to the wrong repo. Live-only UX checks cannot prove source code or deploy branch. Health, psychotherapy, and homeopathy wording needs careful safety framing.
+- **recent tasks:** Added to `/improve` daily target list as an active Psitherapy/homeopathy UX surface. Repo search did not confirm a canonical repository.
+- **next actions:** Resolve canonical repo mapping through Vercel project metadata, GitHub installed repositories, or explicit user confirmation. Add repo/deploy/env/file details after source mapping is confirmed.
+- **risks:** Editing an unrelated repo, making unsafe medical or homeopathy claims, claiming implementation without source/deploy mapping, or confusing Psitherapy with Reiki Yggdrasil or Psihotavr backend/auth work.
+- **rules for Codex:** Mark repo/deploy/source facts as `needs verification` until proven. Do not edit product code until the canonical repo is confirmed. Use the live URL for public UX audit only.
 
 ## reiki-yggdrasil
 
