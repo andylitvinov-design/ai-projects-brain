@@ -2,7 +2,7 @@
 
 `/upgrade` is the user-facing name for controlled Self-Harness improvement.
 
-It improves the agent harness itself: prompts, command adapters, routing rules, memory schemas, validation gates, installer templates, and tool-use workflows.
+It improves the agent harness itself: prompts, command adapters, routing rules, memory schemas, validation gates, installer templates, tool-use workflows, and project readiness. It may also run a project-level upgrade sweep: find weak points across active projects, apply safe non-product fixes, and create precise handoffs for product-code or risky work.
 
 Canonical related specs:
 
@@ -16,7 +16,7 @@ agent-skills/upgrade-daily-protocol.md
 
 ## Purpose
 
-Use `/upgrade` when the agent system itself needs improvement, not only project code or project memory.
+Use `/upgrade` when the agent system or project operating loop needs improvement.
 
 Examples:
 
@@ -26,116 +26,22 @@ Examples:
 - missing verification gates;
 - bad command behavior;
 - overgrown or contradictory instructions;
-- weak routing between ChatGPT, Codex, Claude Code, and project memory.
+- weak routing between ChatGPT, Codex, Claude Code, and project memory;
+- missing Claude Code or Codex slash-command adapters in active projects;
+- weak orchestration for frontier models such as Fable;
+- active projects accumulating repeated bugs, stale PRs, missing verification docs, unclear repo/live mapping, or missing delivery handoffs.
 
 ---
 
-## Core loop
+## Core Loop
 
 ```txt
-Quality check -> Standards check -> Weakness mining -> Harness proposal -> Validation -> Controlled promotion -> Regression monitoring
+Quality check -> Project upgrade sweep -> Standards check -> Weakness mining -> Safe auto-fix or handoff -> Validation -> Controlled promotion -> Regression monitoring
 ```
 
 ---
 
-## Quality check
-
-Every `/upgrade` run must score current agent-system quality using:
-
-```txt
-agent-skills/upgrade-quality-rubric.md
-```
-
-Score these dimensions from 0 to 3:
-
-```txt
-Memory quality
-Harness quality
-Verification quality
-Self-learning quality
-Harness evolution quality
-Current standards alignment
-```
-
-Also inspect operational indicators:
-
-```txt
-false success count
-ignored memory count
-repeated user correction count
-blocked task patterns
-missing Learning Pass reports
-missing Applied memory reports
-unreviewed candidates count
-rules marked needs_revision
-harness proposals without validation
-```
-
-The goal is to identify what is weak before changing anything.
-
----
-
-## Daily operating protocol
-
-The daily automation must follow:
-
-```txt
-agent-skills/upgrade-daily-protocol.md
-```
-
-Daily `/upgrade` should not only inspect instructions. It should check whether agents actually performed well:
-
-- Did tasks end with real verification?
-- Did agents avoid false success?
-- Did memory get applied?
-- Did new lessons become candidates/metrics?
-- Did repeated failures lead to harness proposals?
-- Did proposals get validated before promotion?
-
----
-
-## Current standards check
-
-When web access is available, compare local practice with current public agent-harness principles.
-
-Use recent public research and best-practice ideas as inspiration, not as automatic authority.
-
-Relevant principle families:
-
-- weakness mining from execution traces;
-- minimal harness proposals tied to observed failures;
-- proposal validation and regression tests;
-- replay/rollout of prior difficult trajectories;
-- candidate memory before active promotion;
-- metrics for applied/failed rules;
-- task-wise routing instead of one giant harness;
-- human decision for high-risk/global changes;
-- verify that agents actually invoke and follow harness artifacts.
-
-If web access is unavailable, use the latest locally stored rubric and say that public standards were not refreshed.
-
----
-
-## What /upgrade may change
-
-Low-risk Markdown harness files only, when safe:
-
-```txt
-agent-skills/*.md
-templates/codex/skills/*/SKILL.md
-templates/claude-code/commands/*.md
-templates/project-boot/*.md
-templates/project-agent-memory/*.md
-tools/install-save-memory.sh
-agent-memory/harness-proposals.md
-agent-memory/harness-regression-tests.md
-```
-
-Project code should not be changed by `/upgrade` unless explicitly requested.
-
----
-
-## Required behavior
+## Required Behavior
 
 1. Read relevant memory:
    - `agent-memory/active.md`
@@ -151,35 +57,204 @@ Project code should not be changed by `/upgrade` unless explicitly requested.
 6. Propose the smallest harness change that would prevent the issue.
 7. Validate the proposal with a smoke test, replay, checklist, or user confirmation.
 8. Apply only low-risk Markdown changes automatically.
-9. For high-risk/global changes, create an issue/PR handoff or prompt instead.
-10. Record the proposal and validation result.
+9. For high-risk/global/product-code changes, create an issue/PR handoff or prompt instead.
+10. Record proposal and validation result.
+11. Verify slash-command rollout for active projects.
+12. When using Fable or another frontier orchestrator, read and update `lessons/fable-agent-lessons.md` with 1-3 short lessons.
+13. Run the Project Upgrade Sweep when the task asks to improve projects broadly or when this is a daily Morning System Upgrade.
 
 ---
 
-## Safe auto-apply policy
+## Project Upgrade Sweep
 
-Can auto-apply when all are true:
+Use this layer to make `/upgrade` a practical quality loop across projects, not only a command-memory cleanup.
 
-- Markdown-only harness change;
-- scoped to one project or one command;
-- tied to a confirmed failure;
-- no product code changes;
-- no auth/payment/data/deploy weakening;
-- no broad vague instruction bloat;
-- has an observable check.
+Project source:
 
-Needs user decision when:
+```txt
+projects.md
+projects.json
+projects/<slug>/PROJECT.md
+projects/<slug>/STATE.md when present
+projects/<slug>/LOG.md when present
+projects/<slug>/SYSTEM_MAP.md when present
+projects/<slug>/CHECKS.md when present
+projects/<slug>/CODEX_BRIEF.md when present
+```
 
-- affects many projects;
-- changes core `/delivery` globally;
-- changes production/deploy/auth/data behavior;
-- increases context load significantly;
-- conflicts with existing instructions;
-- requires code changes or live system changes.
+Check each active confirmed project for:
+
+```txt
+repo/live/source mapping confidence
+missing /upgrade adapters
+missing or stale project memory docs
+open/stale/wrong-base PR patterns
+recent repeated user pain
+missing verification commands
+missing live/deploy proof rules
+UI/default-state regression risks
+finance/data/payment/auth risks
+agent readiness for /delivery, /audit, /safe, /audit-ui, /audit-fin
+```
+
+Score each project 0-3:
+
+```txt
+Live confidence
+Delivery confidence
+Data/payment risk control
+UX regression control
+Agent readiness
+```
+
+Scoring convention:
+
+- `0` = blocked/unknown/high-risk;
+- `1` = partial or stale;
+- `2` = usable but has gaps;
+- `3` = current, verified, and ready.
+
+For each project, choose at most one highest-leverage action.
 
 ---
 
-## Required report
+## Safe Auto-Fix Lane
+
+Allowed safe auto-fixes:
+
+```txt
+AGENTS.md / CLAUDE.md router installation when missing
+.claude/commands/* adapters
+.codex/skills/* adapters
+agent-memory/* templates and missing fields
+lessons/fable-agent-lessons.md
+SAFE.md / SYSTEM_MAP.md / CHECKS.md skeletons when project memory confirms facts
+runbook/report schema fixes
+exact /delivery, /audit-fin, /audit-ui, or /safe prompts
+GitHub issue/PR body drafts for risky changes
+```
+
+Do not auto-fix product code, auth/payment/data logic, migrations, deploy settings, secrets, provider configuration, or production workflow permissions inside `/upgrade`.
+
+---
+
+## Handoff Lane
+
+Use precise handoffs for risky/product work:
+
+- `/delivery` for product code fixes;
+- `/audit-fin` for finance/accounting/data reconciliation;
+- `/audit-ui` for visual UX/navigation/layout regressions;
+- `/safe` for live/security/auth/payment/data-loss risks;
+- Claude Code handoff for local repo diagnosis or command-specific harness checks.
+
+Every handoff must include:
+
+```txt
+project/repo/live
+goal
+evidence
+files/areas to inspect
+non-goals
+safe fix constraints
+required checks
+stop condition
+final report format
+```
+
+---
+
+## Project Rollout Check
+
+Every daily `/upgrade` or Morning System Upgrade must check active projects from `projects.md` / `projects.json`:
+
+```txt
+.claude/commands/upgrade.md
+.codex/skills/upgrade/SKILL.md
+agent-memory/harness-proposals.md
+agent-memory/harness-regression-tests.md
+lessons/fable-agent-lessons.md
+```
+
+If a canonical local checkout is available and safe to touch, run:
+
+```sh
+BRAIN_DIR=/path/to/ai-projects-brain PROJECT_DIR=/path/to/project bash /path/to/ai-projects-brain/tools/install-save-memory.sh
+```
+
+Do not install into temporary worktrees, dirty unrelated checkouts, unknown repo mappings, or projects where the canonical repo is `needs verification`.
+
+---
+
+## Fable Orchestrator Mode
+
+Use this when the strongest available model should coordinate the work instead of editing directly.
+
+Fable's role:
+
+- choose the highest-leverage project/problem;
+- read only the necessary project memory and current evidence;
+- define acceptance criteria and verification gates;
+- delegate mechanical implementation to Codex or Claude Code;
+- require tool-backed proof before status claims;
+- synthesize results into a short next action;
+- write 1-3 lessons to `lessons/fable-agent-lessons.md`.
+
+Default task split:
+
+```txt
+Fable: orchestrate, decide, verify, synthesize.
+Codex: code edits, tests, PRs, deploy checks.
+Claude Code: local repo diagnosis, narrow fixes, command-specific harness checks.
+Sonnet/cheaper model: repetitive summaries, file inventory, mechanical formatting.
+```
+
+Master prompt:
+
+```md
+/upgrade
+
+You are the frontier orchestrator for this project. Find the highest-leverage weakness in the project/agent loop, delegate implementation safely, verify with tool evidence, and leave durable lessons.
+
+Rules:
+- Read project memory first: AGENTS.md, CLAUDE.md, agent-memory/active.md, and only needed topic files.
+- Check `.claude/commands/upgrade.md` and `.codex/skills/upgrade/SKILL.md`; if missing, install or produce an exact handoff.
+- Before reporting status, verify every factual claim against tool output. If not verified, say `needs verification`.
+- Do not change product code during `/upgrade` unless explicitly requested. For product-code fixes, create a `/delivery` handoff.
+- Use Ponytail Gate before proposing new code or rules.
+- Update `lessons/fable-agent-lessons.md` with 1-3 short lessons.
+
+Deliver:
+1. Weakness found
+2. Smallest harness fix or handoff
+3. Verification evidence
+4. Lessons added
+5. Next project/action
+```
+
+Project sweep master prompt:
+
+```md
+/upgrade
+
+Run Project Upgrade Sweep across active projects. Use project memory as source of truth.
+
+Goals:
+- find the top project/harness weaknesses;
+- safely auto-fix only docs, adapters, memory, runbooks, checklists, and missing command wiring;
+- for product-code/risky work, produce exact `/delivery`, `/audit-fin`, `/audit-ui`, `/safe`, or Claude Code handoff prompts;
+- choose one highest-leverage next action per project and one overall next action.
+
+Score each project 0-3: Live confidence, Delivery confidence, Data/payment risk control, UX regression control, Agent readiness.
+
+Before reporting, verify every factual claim with tool output or mark it `needs verification`.
+
+Update `lessons/fable-agent-lessons.md` with 1-3 lessons if a frontier orchestrator is used.
+```
+
+---
+
+## Required Report
 
 ```md
 ## Upgrade
@@ -200,14 +275,12 @@ Operational indicators:
 - unreviewed candidates:
 - unvalidated harness proposals:
 
-Standards checked:
-- ...
-
-Weakness mined:
-- ...
-
-Harness proposal:
-- ...
+Project sweep:
+- projects checked:
+- scores:
+- safe auto-fixes:
+- handoff prompts created:
+- single next action:
 
 Validation:
 - pass / fail / not run
@@ -216,12 +289,6 @@ Applied changes:
 - ...
 
 Could not fix automatically:
-- ...
-
-Improvement ideas:
-- ...
-
-Prompts for next automation/Codex:
 - ...
 
 Regression risk:
@@ -233,7 +300,7 @@ Next check:
 
 ---
 
-## Relationship to other commands
+## Relationship To Other Commands
 
 - `/save` saves user-confirmed lessons.
 - `/learn-pass` turns task experience into candidates and metrics.
