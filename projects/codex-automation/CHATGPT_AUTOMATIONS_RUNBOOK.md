@@ -26,10 +26,11 @@ These are expected active scheduler-owned loops. Re-verify from Automations befo
 
 | Automation | Expected cadence | Expected owner | Notes |
 |---|---|---|---|
-| Morning System Upgrade | daily 08:30 Europe/Kyiv | ChatGPT Automations | system memory/rules/harness improvement, Ponytail audit lens, efficiency signals |
+| Morning System Upgrade | daily 08:30 Europe/Kyiv | ChatGPT Automations | system memory/rules/harness improvement, daily Self-Harness Review, Ponytail audit lens, efficiency signals |
 | PR Merge Sweep | daily 08:30 Europe/Kyiv | ChatGPT Automations | active PR/delivery sweep, safe merge candidates, wrong-base merge detection |
 | Daily Improve Sweep | daily 09:00 Europe/Sarajevo / Europe/Podgorica context | ChatGPT Automations | read-only strategic improvement planning |
 | Codex Delivery Loop | daily 12:00 Europe/Kyiv | ChatGPT Automations | unfinished delivery work, blocked PRs, failed checks, forgotten branches/worktrees |
+| Weekly Agent Harness Review | Sunday 10:00 Europe/Kyiv | ChatGPT Automations | expanded 7-day self-harness review: repeated agent errors, `/save`, instruction cleanup, Ponytail cleanup findings |
 | Weekly Live Safe Sweep | Monday 09:00 Europe/Sarajevo / Europe/Podgorica context | ChatGPT Automations | weekly `/safe` pass for live/public project security and UX |
 
 ## 3. Visibility rule
@@ -54,7 +55,15 @@ Therefore, when Andrey asks "why did it not run?", answer from `last_run_time`, 
 6. If the run is missing but the task is safe and useful, run the work once manually or leave a ready `/delivery` prompt, depending on the task boundary.
 7. Do not create duplicate recurring automations during a scheduled run.
 
-## 5. Codex-side automation boundary
+## 5. Self-harness ownership
+
+Daily self-harness learning belongs inside `Morning System Upgrade`. It should review recent agent errors, missed `/save`, weak prompts, overengineering, and repeated misunderstandings, then save only durable lessons.
+
+The Sunday `Weekly Agent Harness Review` is the expanded version. It should group the previous 7 days of failures into patterns, tighten or link existing instructions, clean duplicate rules, and create focused PRs or `/delivery` prompts for changes that are too broad for the daily run.
+
+Do not create additional self-harness automations unless there is a distinct owner, cadence, stop condition, and non-duplicate reason.
+
+## 6. Codex-side automation boundary
 
 ChatGPT Automations own recurring agent scheduling by default. Codex-side automations are allowed only when all of these are documented:
 
@@ -67,7 +76,7 @@ ChatGPT Automations own recurring agent scheduling by default. Codex-side automa
 
 Do not add or keep hourly Codex loops unless the hourly cadence is explicitly justified as operational safety work.
 
-## 6. Report format for automation-status checks
+## 7. Report format for automation-status checks
 
 Use this compact format:
 
@@ -83,7 +92,7 @@ Action taken:
 Next action:
 ```
 
-## 7. Safety notes
+## 8. Safety notes
 
 - Never expose secret values from env, Cloudflare, Slack, GitHub, or local bridge config.
 - Do not trigger real command/delivery flows just to check whether a scheduled ChatGPT Automation ran.
