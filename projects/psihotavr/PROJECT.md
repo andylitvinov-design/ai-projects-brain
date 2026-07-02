@@ -9,26 +9,31 @@ cabinet/admin account features.
 ## 2. Live URLs
 
 - production: https://psihotavr.vercel.app
-- preview: needs verification
+- preview: needs verification per preview branch/deployment
 - admin: https://psihotavr.vercel.app/admin/mandalas
-- needs verification: preview deployment mappings and any secondary live URLs.
 
 ## 3. Repositories
 
 - canonical repo: https://github.com/andylitvinov-design/psihotavr
+- canonical branch: main
 - deprecated repo: needs verification
 - related repos: needs verification
-- needs verification: old Claude/Codex branches can contain useful hunks but are
-  not canonical production unless merged into `main`.
+- old Claude/Codex branches can contain useful hunks but are not canonical
+  production unless merged into `main`.
 
 ## 4. Hosting / Deploy
 
 - provider: Vercel
 - project name: psihotavr
-- deploy source: needs verification before every production claim
-- branch: main unless repo/deploy metadata proves otherwise
-- deploy rules: verify live deployment source after merges and before claiming
-  production is fixed.
+- project id: prj_s0Ki9R2dHqVaFEjSM6Zzcms6fJ7M
+- production deploy source confirmed 2026-07-02: GitHub repo
+  `andylitvinov-design/psihotavr`, branch `main`, commit
+  `415a2ab636a6123066c1d5b2270e83126d6dbe18`, deployment
+  `dpl_HAJrrmZomBEqZkfee4deorefMeF9`, source `git`, target `production`, state
+  `READY`
+- deploy rules: re-check current Vercel deployment metadata after merges and
+  before claiming production is fixed, because newer deployments can supersede
+  this recorded commit.
 
 ## 5. Current Status
 
@@ -77,10 +82,11 @@ Only names are listed. Values must never be stored here.
 - Google/Firebase/Supabase auth experiments can confuse agents; verify the
   selected backend before editing auth code.
 - Mandala catalog/card/admin work has had live/default-state regressions.
-- Some historical PRs were merged into non-main branches and did not reach
-  production.
+- Some historical PRs were sometimes merged into non-main branches and did not
+  reach production.
 - LocalStorage-only admin content is not persistent across devices.
-- Vercel Git auto-deploy/source can drift and needs live verification.
+- Vercel deployments must be checked before production claims to confirm the
+  current live commit.
 
 ## 9. Recent Tasks
 
@@ -90,12 +96,13 @@ Only names are listed. Values must never be stored here.
 - Added/synced mini-mandala services and photos from catalog data.
 - Created replacement Google auth/cabinet and cart/orders PRs, but left them
   blocked on backend/live verification gates.
+- Confirmed canonical GitHub/Vercel production source on 2026-07-02.
 
 ## 10. Next Actions
 
 - Keep Psihotavr as a first-class active project in daily sweeps.
-- Verify Vercel deployment source and browser behavior before claiming live
-  fixes.
+- Before production claims, verify current Vercel deployment metadata and browser
+  behavior.
 - Prefer the no-Supabase Telegram order flow until a backend is available.
 - Keep auth/orders PRs blocked unless provider, migration, RLS, admin, and user
   live gates are proven.
@@ -113,8 +120,8 @@ Only names are listed. Values must never be stored here.
 
 ## 12. Rules for Codex
 
-- Treat `main` as canonical production branch unless repo/deploy metadata proves
-  otherwise.
+- Treat `main` as canonical production branch.
+- Re-check Vercel deployment metadata before every production claim.
 - Do not carry old Claude/Codex branches wholesale; salvage current hunks only.
 - For `/mandalas`, verify clean session, legacy localStorage, and clicked 4-column
   state when layout/default behavior is touched.
@@ -125,10 +132,11 @@ Only names are listed. Values must never be stored here.
 ## 13. Verification Status
 
 - repo mapping: verified as https://github.com/andylitvinov-design/psihotavr
-- live mapping: production URL known; each deployment source still needs fresh
-  verification before production claims
+- live mapping: production URL verified at https://psihotavr.vercel.app
+- deploy source: verified 2026-07-02 as Vercel project `psihotavr`, GitHub repo
+  `andylitvinov-design/psihotavr`, branch `main`, commit
+  `415a2ab636a6123066c1d5b2270e83126d6dbe18`, production deployment READY
 - env status: names only; values/completeness need verification
-- deploy status: Vercel project known; source commit/branch must be checked per run
 - data flow: Telegram/no-backend flow preferred; Supabase/Firebase flows blocked
   until explicit live gates pass
 - needs verification: preview URLs, authenticated admin/cabinet behavior, and any
