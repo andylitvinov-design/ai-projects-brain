@@ -1,8 +1,12 @@
 # Codex Automation System Map
 
-Last updated: 2026-06-30
+Last updated: 2026-07-02
 
 Purpose: one compact map of what is actually automated around Codex, where it lives, how it is triggered, how to verify it, and what still needs local verification.
+
+For ChatGPT Automation status checks and "did it run?" questions, first use
+`projects/codex-automation/CHATGPT_AUTOMATIONS_RUNBOOK.md` before debugging
+Codex Cloud, Slack, Cloudflare, or local bridge surfaces.
 
 ## 0. Scheduler ownership
 
