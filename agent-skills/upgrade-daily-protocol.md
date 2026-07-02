@@ -1,6 +1,6 @@
 # /upgrade Daily Operating Protocol
 
-This protocol defines how the daily `Memory Upgrade` automation should improve agent quality every day.
+This protocol defines how the daily `Morning System Upgrade` / `/upgrade` automation improves agent quality and project readiness.
 
 It is designed for autonomous operation with safe boundaries.
 
@@ -12,18 +12,17 @@ Every daily run should:
 
 1. Check current agent/system quality.
 2. Compare against current agent-harness principles when web access is available.
-3. Detect errors, repeated weaknesses, and ignored rules.
-4. Apply safe automatic fixes.
-5. Report anything it could not fix.
-6. Provide prompts or issue/PR handoffs for the next improvement step.
+3. Detect errors, repeated weaknesses, ignored rules, and false-success patterns.
+4. Run a compact Project Upgrade Sweep across active projects.
+5. Apply safe automatic fixes only in docs, adapters, memory, runbooks, and checklists.
+6. Report anything it could not fix.
+7. Provide exact prompts or issue/PR handoffs for risky or product-code work.
 
 ---
 
-## Evidence model
+## Evidence Model
 
-`/upgrade` must not rely only on manually saved memory.
-
-It should use four evidence layers:
+`/upgrade` must not rely only on manually saved memory. It should use available evidence layers:
 
 ```txt
 1. Project memory evidence
@@ -32,127 +31,115 @@ It should use four evidence layers:
 4. External standards evidence
 ```
 
-Each daily report should state which layers were available and which were not.
+Each report should state which layers were available and which were not.
 
 ---
 
-## 1. Project memory evidence
+## Project Upgrade Sweep
 
-Read in this order:
+Every daily `/upgrade` run should inspect active projects from `projects.md` / `projects.json` unless the user narrows scope.
 
-```txt
-agent-memory/active.md
-agent-memory/index.md
-agent-memory/candidates.md
-agent-memory/metrics.md
-agent-memory/mistakes.md
-agent-memory/harness-proposals.md
-agent-memory/harness-regression-tests.md
-relevant topic files
-```
-
-Do not load archive unless resolving conflicts.
-
-Use this layer to detect:
+For each confirmed active project, check:
 
 ```txt
-duplicate rules
-ignored rules
-needs_revision rules
-unreviewed candidates
-unvalidated harness proposals
-stale active memory
-missing Apply when / Check / Failure if ignored
+repo/live/source mapping confidence
+missing /upgrade adapters
+missing or stale project memory docs
+recent repeated user pain
+open/stale/wrong-base PR signals when available
+verification command gaps
+live/deploy proof gaps
+UI/default-state regression risks
+finance/data/payment/auth risks
+agent readiness for /delivery, /audit, /safe, /audit-ui, /audit-fin
 ```
+
+Score each project 0-3:
+
+```txt
+Live confidence
+Delivery confidence
+Data/payment risk control
+UX regression control
+Agent readiness
+```
+
+Scoring convention:
+
+- `0` = blocked/unknown/high-risk;
+- `1` = partial or stale;
+- `2` = usable but has gaps;
+- `3` = current, verified, and ready.
+
+For each project, select at most one highest-leverage next action.
 
 ---
 
-## 2. GitHub / workflow evidence
+## Safe Auto-Fix Lane
 
-When GitHub access is available, inspect recent work signals, especially:
+The daily automation may directly apply these safe Markdown-only fixes:
 
-```txt
-recent issues
-recent issue comments
-recent PRs
-recent PR comments / review feedback
-changed files in harness/memory areas
-failed or blocked workflow notes
-mentions of STATUS: BLOCKED / STATUS: SUCCESS
-mentions of Applied memory / Learning Pass
-```
-
-Use this layer to detect:
-
-```txt
-false success patterns
-blocked task patterns
-repeated implementation failures
-missing delivery/audit handoff sections
-harness files changed without validation
-issues that should have created memory updates
-```
-
-If workflow/CI logs are accessible, inspect failing check names and summaries.
-
-If they are not accessible, report `workflow evidence unavailable`.
+- install/update `.claude/commands/*` and `.codex/skills/*` adapters;
+- add missing `agent-memory` templates and lesson files;
+- create or tighten `SAFE.md`, `SYSTEM_MAP.md`, `CHECKS.md`, runbooks, report schemas, and project-memory docs when facts are confirmed;
+- merge duplicate memory rules;
+- add missing `Apply when`, `Check`, `Failure if ignored` fields;
+- move weak active rules to candidates;
+- mark stale rules archived/replaced;
+- tighten overlong instructions;
+- add missing report sections to command docs;
+- add harness proposal and regression test entries;
+- add precise handoff prompts when the fix requires code or high-risk workflow changes.
 
 ---
 
-## 3. Conversation / user-reported evidence
+## Handoff Lane
 
-Use current chat context when the user reports:
+For risky or product-code-facing work, create exact prompts instead of editing directly:
 
-```txt
-this happened again
-agent ignored a rule
-memory did not update
-false success
-post-task error
-missing verification
-```
+- `/delivery` for product code fixes;
+- `/audit-fin` for finance/data reconciliation;
+- `/audit-ui` for UX/layout/navigation regressions;
+- `/safe` for live/security/auth/payment/data-loss risks;
+- Claude Code prompt for local repo diagnosis or command-specific harness checks.
 
-This is a strong signal and should trigger automatic memory update when project repo write access exists.
-
-Use this layer to detect:
+Every handoff must include:
 
 ```txt
-high-confidence user-confirmed lessons
-self-learning failures
-missing auto-memory updates
-rules that should be promoted from candidate to active/topic memory
+project/repo/live
+goal
+evidence
+files/areas to inspect
+non-goals
+safe constraints
+required checks
+stop condition
+final report format
 ```
 
 ---
 
-## 4. External standards evidence
+## Do Not Auto-Apply
 
-When web access is available, compare the local system with current public agent-harness ideas.
-
-Track the comparison as principles, not raw citations inside memory:
+Do not silently change:
 
 ```txt
-Self-Harness: weakness mining -> harness proposal -> proposal validation
-RHO: replay/rollout past trajectories and use self-consistency preference
-Adaptive Auto-Harness: task-wise routing, harness tree, human-steering hooks
-Harness Updating vs Benefit: verify that agents actually invoke and follow the harness
+product code
+auth/payment/data logic
+migrations
+deploy settings
+secrets or env values
+provider configuration
+high-risk global /delivery behavior
+production workflow permissions
+user data handling
 ```
 
-Use these as checks:
-
-- Are weaknesses mined from real failures?
-- Are harness proposals minimal and tied to evidence?
-- Are proposals validated before promotion?
-- Are old failures replayed or smoke-tested?
-- Is there task-wise routing instead of one giant context?
-- Are human decisions requested for risky/global changes?
-- Do agents actually load and follow the changed harness?
-
-If web access is unavailable, report `standards refresh unavailable` and use the local rubric.
+For these, create a patch-ready issue/PR prompt.
 
 ---
 
-## Daily quality checks
+## Daily Quality Checks
 
 Score each 0-3 using `agent-skills/upgrade-quality-rubric.md`:
 
@@ -182,46 +169,10 @@ issues/PRs that should have produced memory updates
 
 ---
 
-## Safe automatic fixes
-
-The daily automation may directly apply these safe Markdown-only fixes:
-
-- merge duplicate memory rules;
-- add missing `Apply when`, `Check`, `Failure if ignored` fields;
-- move weak active rules to candidates;
-- mark stale rules archived/replaced;
-- tighten overlong instructions;
-- add missing report sections to command docs;
-- add missing adapter/router references;
-- add harness proposal entries;
-- add harness regression test entries;
-- update metrics for applied/failed rules;
-- add memory update when a GitHub issue/comment clearly contains a reusable lesson;
-- add an issue/PR handoff prompt when the fix requires code or high-risk workflow changes.
-
----
-
-## Do not auto-apply
-
-Do not silently change:
-
-```txt
-product code
-auth/payment/data logic
-deploy behavior
-high-risk global /delivery behavior
-production workflow permissions
-user data handling
-```
-
-For these, create a patch-ready issue/PR prompt.
-
----
-
-## Daily report format
+## Daily Report Format
 
 ```md
-## Daily Memory Upgrade — YYYY-MM-DD
+## Daily Upgrade — YYYY-MM-DD
 
 ### Evidence sources
 - project memory: available / unavailable
@@ -230,53 +181,44 @@ For these, create a patch-ready issue/PR prompt.
 - conversation/user report: available / unavailable
 - external standards refresh: available / unavailable
 
-### Quality score
-- Memory quality: 0-3
-- Harness quality: 0-3
-- Verification quality: 0-3
-- Self-learning quality: 0-3
-- Harness evolution quality: 0-3
-- Current standards alignment: 0-3
+### /upgrade rollout
+- projects checked:
+- adapters installed/updated:
+- missing or blocked:
 
-### Operational indicators
-- false success count:
-- ignored memory count:
-- repeated correction count:
-- blocked pattern count:
-- unreviewed candidates:
-- unvalidated harness proposals:
-- issue/PR lessons not yet in memory:
+### Project Upgrade Sweep
+- projects checked:
+- scores:
+- safe auto-fixes:
+- top risks:
+- single next action per project:
 
-### Standards checked
+### Handoffs created
+- /delivery:
+- /audit-fin:
+- /audit-ui:
+- /safe:
+- Claude Code:
+
+### Self-Harness Review
+- errors learned:
+- /save updates:
+- instruction changes:
+
+### Checks
+- run:
+- not run:
+
+### Risks / needs verification
 - ...
 
-### Automatic fixes applied
-- ...
-
-### Files changed
-- ...
-
-### Could not fix automatically
-- ...
-
-### Improvement ideas
-- ...
-
-### Prompts for next automation / Codex
-```txt
-...
-```
-
-### Regression risks
-- ...
-
-### Next check
+### Single next action
 - ...
 ```
 
 ---
 
-## Success criteria
+## Success Criteria
 
 The daily automation is working when:
 
@@ -289,4 +231,5 @@ active memory stays compact
 candidates get promoted or archived
 harness proposals get validated
 agents load and follow relevant harness files
+project readiness scores improve over time
 ```

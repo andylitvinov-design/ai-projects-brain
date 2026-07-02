@@ -41,6 +41,7 @@ fi
 
 mkdir -p "$PROJECT_DIR/agent-memory/topics"
 mkdir -p "$PROJECT_DIR/agent-memory/component-notes"
+mkdir -p "$PROJECT_DIR/lessons"
 
 # Project boot/router templates. Do not overwrite existing project-specific instructions.
 copy_if_missing "$BRAIN_DIR/templates/project-boot/AGENTS.md" "$PROJECT_DIR/AGENTS.md"
@@ -71,6 +72,14 @@ for topic in delivery audit mobile ux copy auth; do
   fi
 done
 
+if [ ! -f "$PROJECT_DIR/lessons/fable-agent-lessons.md" ]; then
+  if [ -f "$BRAIN_DIR/templates/project-lessons/fable-agent-lessons.md" ]; then
+    cp "$BRAIN_DIR/templates/project-lessons/fable-agent-lessons.md" "$PROJECT_DIR/lessons/fable-agent-lessons.md"
+  else
+    printf "# Fable Agent Lessons\n\n" > "$PROJECT_DIR/lessons/fable-agent-lessons.md"
+  fi
+fi
+
 # Codex adapters
 copy_if_exists "$BRAIN_DIR/templates/codex/skills/save/SKILL.md" "$PROJECT_DIR/.codex/skills/save/SKILL.md"
 copy_if_exists "$BRAIN_DIR/templates/codex/skills/memory/SKILL.md" "$PROJECT_DIR/.codex/skills/memory/SKILL.md"
@@ -93,6 +102,7 @@ Created/updated:
 - agent-memory/
 - candidates.md and metrics.md for self-learning
 - harness-proposals.md and harness-regression-tests.md for /upgrade
+- lessons/fable-agent-lessons.md for frontier-orchestrated /upgrade runs
 - Codex command adapters when available
 - Claude Code command adapters when available
 
