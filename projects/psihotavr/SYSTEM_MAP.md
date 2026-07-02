@@ -58,16 +58,19 @@ names only and must never be stored in memory.
 
 Vercel serves a Vite/React app. Key routes include public
 catalog pages, cart, `/admin/mandalas`, and video/admin flows.
-Runtime source branch/commit must be checked through Vercel or
-repo/deploy metadata before claiming a live fix.
+Production source was confirmed on 2026-07-02 as GitHub repo
+`andylitvinov-design/psihotavr`, branch `main`, commit
+`415a2ab636a6123066c1d5b2270e83126d6dbe18`, deployment
+`dpl_HAJrrmZomBEqZkfee4deorefMeF9`, source `git`, target
+`production`, state `READY`.
 
 ## 5. Deploy Flow
 
-https://github.com/andylitvinov-design/psihotavr -> Vercel
-project `psihotavr` -> https://psihotavr.vercel.app.
+https://github.com/andylitvinov-design/psihotavr -> branch `main` -> Vercel
+project `psihotavr` (`prj_s0Ki9R2dHqVaFEjSM6Zzcms6fJ7M`) ->
+https://psihotavr.vercel.app.
 
-Canonical branch is `main` unless repo/deploy metadata proves
-otherwise. Historical Claude/Codex branches must not be carried
+Canonical branch is `main`. Historical Claude/Codex branches must not be carried
 wholesale; salvage only current safe hunks onto fresh `main`.
 
 ## 6. Critical Paths
@@ -88,14 +91,14 @@ wholesale; salvage only current safe hunks onto fresh `main`.
   when available.
 - For UI/default-state changes, verify clean session, legacy
   localStorage/sessionStorage, clicked-state, desktop, and mobile.
-- For production claims, verify the live URL and deployment source.
+- For production claims, verify the live URL and current Vercel deployment
+  metadata, because a newer deployment may supersede the confirmed commit.
 - For auth/orders/backend changes, require provider, migration,
   RLS/admin/user, and live gates before merge/deploy.
 
 ## 8. Unknowns
 
-- Exact current Vercel deploy source: needs verification per run.
-- Preview deployment mappings: needs verification.
+- Preview deployment mappings: needs verification per preview.
 - Authenticated admin/cabinet behavior: needs verification.
 - Backend persistence path for catalog/order/admin edits: needs
   verification before production claims.
