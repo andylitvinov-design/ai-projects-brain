@@ -5,8 +5,12 @@
 - repo: https://github.com/andylitvinov-design/psihotavr
 - live URL: https://psihotavr.vercel.app
 - hosting: Vercel project `psihotavr`
-- target branch: `main` unless repo/deploy metadata proves otherwise
-- production source: needs verification before production claims
+- Vercel project id: `prj_s0Ki9R2dHqVaFEjSM6Zzcms6fJ7M`
+- target branch: `main`
+- production source: confirmed 2026-07-02 via Vercel deployment metadata:
+  `andylitvinov-design/psihotavr`, branch `main`, commit
+  `415a2ab636a6123066c1d5b2270e83126d6dbe18`, source `git`, target
+  `production`, state `READY`
 - purpose: Vite/React mandala catalog, admin/content tools, cart/Telegram order
   flow, AI-video hub, and future cabinet/admin account features
 
@@ -72,7 +76,9 @@ Never print or store env values.
 - Minimal safe fix.
 - Study current code first.
 - Do not rewrite architecture for narrow bugs.
-- Treat `main` as canonical unless metadata proves otherwise.
+- Treat `main` as canonical production branch.
+- Re-check Vercel deployment metadata before every production claim, because a
+  newer deployment may supersede the confirmed commit.
 - Do not carry old branches wholesale; salvage only safe current hunks.
 - Mark unknowns as `needs verification`.
 - For product-code/risky changes found during `/upgrade`, create a `/delivery`,
