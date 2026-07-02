@@ -23,10 +23,12 @@ Expected ChatGPT Automation architecture:
 
 | Automation | Schedule | Purpose | Scheduler owner |
 |---|---|---|---|
-| Morning System Upgrade | Daily 08:30 Europe/Sarajevo | Memory Upgrade, Codex efficiency report, Ponytail Gate / Lazy Senior Check, instruction-bloat check, workflow weakness mining | ChatGPT Automations |
-| PR Merge Sweep | Daily 08:30 Europe/Sarajevo | Check open/recently merged PRs, safely merge low-risk ready PRs, detect wrong-base merges, salvage safe hunks onto fresh `main`, verify UI default-state regressions | ChatGPT Automations |
-| Codex Delivery Loop | Daily 12:00 | Find unfinished delivery tasks, branches without PRs, blocked statuses, failed CI, undeployed/unverified changes, forgotten worktrees/branches, and delivery recovery needs | ChatGPT Automations |
-| Weekly Live Safe Sweep | Monday 09:00 Europe/Sarajevo | Weekly `/safe` pass for live/public project security and UX checks, with minimal safe fixes only | ChatGPT Automations |
+| Morning System Upgrade | Daily 08:30 Europe/Kyiv | Memory Upgrade, daily Self-Harness Review, Codex efficiency report, Ponytail Gate / Lazy Senior Check, instruction-bloat check, workflow weakness mining | ChatGPT Automations |
+| PR Merge Sweep | Daily 08:30 Europe/Kyiv | Check open/recently merged PRs, safely merge low-risk ready PRs, detect wrong-base merges, salvage safe hunks onto fresh `main`, verify UI default-state regressions | ChatGPT Automations |
+| Daily Improve Sweep | Daily 09:00 Europe/Podgorica context | Read-only strategic improvement planning for active projects, with delivery-ready plans and Ponytail Gate before proposing implementation | ChatGPT Automations |
+| Codex Delivery Loop | Daily 12:00 Europe/Kyiv | Find unfinished delivery tasks, branches without PRs, blocked statuses, failed CI, undeployed/unverified changes, forgotten worktrees/branches, and delivery recovery needs | ChatGPT Automations |
+| Weekly Agent Harness Review | Sunday 10:00 Europe/Kyiv | Expanded 7-day self-harness learning pass: repeated agent errors, `/save`, instruction cleanup, prompt corrections, and Ponytail cleanup findings | ChatGPT Automations |
+| Weekly Live Safe Sweep | Monday 09:00 Europe/Podgorica context | Weekly `/safe` pass for live/public project security and UX checks, with minimal safe fixes only | ChatGPT Automations |
 
 ## 1. Automation surfaces
 
