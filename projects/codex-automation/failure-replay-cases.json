@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-07-04",
+  "cases": [
+    {
+      "id": "provider-dependent-feature-without-provider-proof",
+      "status": "candidate",
+      "source": "Evening Architecture Review 2026-07-03; Psihotavr issue #168; Finance issue #614",
+      "pattern": "An agent reports SUCCESS because code was merged, while provider/live readiness remains unproven.",
+      "input_signal": "Merged code depends on Supabase, OAuth, Vercel env, Google Sheets, Binance/provider balances, storage, auth, payment, webhook, or production persistence.",
+      "expected_behavior": "Report PARTIAL/BLOCKED/NEEDS_VERIFICATION, separate code path from provider configured/data present/live verified, and create a provider-readiness handoff instead of claiming SUCCESS.",
+      "must_block_success": true,
+      "suggested_route": "/safe, /delivery, /audit-ui, or /audit-fin depending on project layer"
+    },
+    {
+      "id": "improve-upgrade-mode-boundary-drift",
+      "status": "candidate",
+      "source": "Evening Architecture Review 2026-07-03; active skill map",
+      "pattern": "The agent treats /improve and /upgrade as synonyms or lets read-only discovery perform implementation.",
+      "input_signal": "A strategic scan asks for discovery, but output edits product code or claims implementation without handoff.",
+      "expected_behavior": "/improve produces strategy and prompts; /upgrade applies safe harness/docs changes or handoffs only.",
+      "must_block_success": true,
+      "suggested_route": "/upgrade for harness fixes; /delivery for product implementation"
+    },
+    {
+      "id": "save-memory-handoff-confusion",
+      "status": "candidate",
+      "source": "Evening Architecture Review 2026-07-03; active skill map",
+      "pattern": "The agent presents /memory as a primary durable-save command or uses /handoff as long-term memory.",
+      "input_signal": "A user asks to save a reusable lesson, but the agent records only continuation state or read-only memory lookup.",
+      "expected_behavior": "/save stores durable reusable rules; /memory reads existing memory; /handoff transfers operational state.",
+      "must_block_success": false,
+      "suggested_route": "/save for durable lessons; /handoff for continuation"
+    }
+  ]
+}
