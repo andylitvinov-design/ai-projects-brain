@@ -22,9 +22,10 @@ Never count a metric without evidence. Acceptable evidence:
 | --- | ---: | --- | --- |
 | provider/live gate triggered | 2 | Psihotavr issue #168; Finance issue #614 | Both are provider/live proof blockers routed out of upgrade mode. |
 | false-success prevention candidates | 2 | `provider-dependent-feature-without-provider-proof`; Evening Review 2026-07-03 | Candidate until replay/regression is run from checkout. |
+| user corrections converted to harness artifacts | 2 | Delivery ledger 2026-07-04; prompt regression/replay candidates | Daily Improve strategic-portfolio correction and Morning Upgrade applied/no-safe-upgrade correction. |
 | rule lifecycle changes | 3 | 2026-07-04 Morning System Upgrade | Created provider/live gate, lifecycle standard, replay/regression scaffolds. |
-| replay cases defined | 3 | `failure-replay-cases.json` | Defined, not executed in this connector-only run. |
-| prompt regressions defined | 3 | `prompt-regression-tests.json` | Defined, not executed in this connector-only run. |
+| replay cases defined | 5 | `failure-replay-cases.json` | Defined, not executed in this connector-only run. |
+| prompt regressions defined | 4 | `prompt-regression-tests.json` | Defined, not executed in this connector-only run. |
 | validation commands run | 0 | no local checkout access in this run | Must be run by Codex/local checkout. |
 
 ## Metrics to update after each run
@@ -41,6 +42,7 @@ replay_case_passed:
 replay_case_failed:
 prompt_regression_passed:
 prompt_regression_failed:
+user_correction_recorded:
 validation_passed:
 validation_failed:
 ```
