@@ -31,6 +31,26 @@
       "expected_behavior": "/save stores durable reusable rules; /memory reads existing memory; /handoff transfers operational state.",
       "must_block_success": false,
       "suggested_route": "/save for durable lessons; /handoff for continuation"
+    },
+    {
+      "id": "daily-improve-strategic-portfolio-not-only-bugs",
+      "status": "candidate",
+      "source": "User correction 2026-07-04; prompt-regression-tests.json; automation prompt registry update",
+      "pattern": "Daily Improve collapses into bug/risk triage and stops acting as a cross-project strategic vision loop.",
+      "input_signal": "The run checks errors and provider gaps but does not produce portfolio cards, growth theses, and ready prompts per active project.",
+      "expected_behavior": "Keep the run read-only, use errors/trends as signals, produce a cross-project strategic summary, project cards, ranked opportunities, and ready prompts for each project with enough evidence.",
+      "must_block_success": true,
+      "suggested_route": "/improve for read-only strategic planning; /upgrade for harness fixes if the automation contract drifts"
+    },
+    {
+      "id": "morning-upgrade-report-only-without-applied-upgrade",
+      "status": "candidate",
+      "source": "User correction 2026-07-04; prompt-regression-tests.json; upgrade-daily-protocol update",
+      "pattern": "Morning System Upgrade consumes handoffs and writes an analysis report without a material safe harness/docs/schema/regression/registry/handoff change or a proven no-op.",
+      "input_signal": "The run summarizes Daily Improve or Evening Review but does not end with APPLIED_UPGRADE or NO_SAFE_UPGRADE evidence.",
+      "expected_behavior": "Morning System Upgrade must either apply a safe, validated harness/docs/registry/regression/ledger/handoff update or explicitly prove NO_SAFE_UPGRADE and route risky/product/provider work to exact tickets.",
+      "must_block_success": true,
+      "suggested_route": "/upgrade safe harness/docs implementation"
     }
   ]
 }
