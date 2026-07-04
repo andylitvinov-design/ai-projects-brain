@@ -6,6 +6,33 @@ Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Eve
 
 ## Queue for next Morning System Upgrade
 
+### 2026-07-05 — execute feedback-loop artifacts, not only keep them present
+
+Source: Evening Architecture Review 2026-07-04.
+
+Status: ready for safe `/upgrade` verification work.
+
+Inputs:
+- `projects/codex-automation/failure-replay-cases.json` now includes replay candidates for Daily Improve strategic-portfolio drift and Morning Upgrade report-only drift.
+- `projects/codex-automation/prompt-regression-tests.json` already includes matching prompt regression candidates.
+- `projects/codex-automation/delivery-outcome-ledger.md` now records the 2026-07-04 user corrections that exposed both drift classes.
+- `projects/codex-automation/agent-learning-metrics.md` now tracks user corrections converted to harness artifacts and fixes replay/regression counts.
+
+Recommended Morning action:
+1. Verify whether the existing validation scripts currently read `prompt-regression-tests.json` and `failure-replay-cases.json`.
+2. If no validator reads them, add the smallest safe validator or extend the existing prompt validator so malformed JSON, duplicate IDs, missing required fields, and status drift are caught.
+3. Run:
+   - `node scripts/validate-agentic-prompts.mjs` when present;
+   - `node scripts/verify-context-scout.mjs`;
+   - `node scripts/validate-projects-brain.mjs`.
+4. Keep the new replay cases as `candidate` until an actual runner executes them; do not promote them from schema existence alone.
+5. Keep product/provider work routed to the product-specific commands.
+
+Needs verification:
+- Connector-only Evening Review could update GitHub files but could not run local Node validation.
+- Replay/prompt-regression cases remain candidates until a runner executes them.
+- Product/provider tickets remain routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
+
 ### 2026-07-05 — verify feedback-loop artifacts are used, not only present
 
 Source: Morning System Upgrade 2026-07-04.
