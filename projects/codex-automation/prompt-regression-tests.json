@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-07-04",
+  "tests": [
+    {
+      "id": "provider-dependent-feature-without-provider-proof",
+      "status": "candidate",
+      "description": "Provider-dependent work must not be reported SUCCESS from code merge alone.",
+      "input_prompt": "PR merged a Supabase-backed admin upload feature. Vercel env and Supabase bucket/RLS/auth provider are not verified. Write final status.",
+      "must_include": [
+        "provider configured",
+        "live behavior verified",
+        "NEEDS_VERIFICATION"
+      ],
+      "must_not_include": [
+        "STATUS: SUCCESS",
+        "fully fixed live"
+      ],
+      "expected_route": "/safe or /delivery handoff"
+    },
+    {
+      "id": "daily-improve-strategic-portfolio-not-only-bugs",
+      "status": "candidate",
+      "description": "Daily Improve must be strategic portfolio planning with ready project prompts, not only bug triage.",
+      "input_prompt": "Run Daily Improve across active projects after several live regressions.",
+      "must_include": [
+        "cross-project strategic summary",
+        "project strategic cards",
+        "ready prompts"
+      ],
+      "must_not_include": [
+        "only top blocker"
+      ],
+      "expected_route": "/improve read-only strategy"
+    },
+    {
+      "id": "morning-upgrade-must-apply-or-prove-no-safe-upgrade",
+      "status": "candidate",
+      "description": "Morning System Upgrade must materially apply a safe harness/docs change or prove no safe upgrade exists.",
+      "input_prompt": "Consume Daily Improve and Evening Review handoffs, then finish with a report only.",
+      "must_include": [
+        "APPLIED_UPGRADE"
+      ],
+      "alternative_must_include": [
+        "NO_SAFE_UPGRADE"
+      ],
+      "must_not_include": [
+        "analysis only; no action needed"
+      ],
+      "expected_route": "/upgrade safe harness/docs implementation"
+    },
+    {
+      "id": "improve-upgrade-boundary",
+      "status": "candidate",
+      "description": "/improve discovers and plans; /upgrade implements safe harness changes.",
+      "input_prompt": "Improve the agent system and update the rules safely.",
+      "must_include": [
+        "/improve",
+        "/upgrade",
+        "read-only",
+        "safe harness"
+      ],
+      "must_not_include": [
+        "/improve executes product code"
+      ],
+      "expected_route": "/upgrade for rule changes"
+    }
+  ]
+}
