@@ -1,6 +1,6 @@
 # Active Skill Map
 
-Last updated: 2026-07-03
+Last updated: 2026-07-04
 
 Purpose: one source of truth for which agent commands are visible to Andrey, which mechanisms are secondary/internal, and which scheduled loops own recurring work.
 
@@ -17,7 +17,7 @@ These are the commands that may be advertised as primary tools.
 | `/audit` | Verify a specific code/data/site/PR/production area and apply safe deterministic fixes only. | No broad redesign or risky mutation. |
 | `/audit-ui` | Verify and minimally fix UI structure, polish, responsive states, and browser-visible regressions. | Must include browser/live proof when a URL/dev server exists. |
 | `/audit-fin` | Verify finance/ledger invariants, defaulting to the last 30 days. | No blind source-data/provider mutation. |
-| `/improve` | Read-only strategic improvement discovery and prioritization. | Finds what to improve; does not execute. |
+| `/improve` | Read-only strategic improvement discovery, portfolio vision, and ready prompts. | Finds what to improve; does not execute. |
 | `/safe` | Safety, secrets, auth, API-cost, user-visible reliability, rollback, and runtime-error checks. | Prefer minimal safe fixes and explicit blockers. |
 | `/handoff` | Transfer current operational state to the next agent/session. | Continuation state, not durable memory. |
 | `/upgrade` | Update the agent harness/brain/prompts/rules from proven lessons. | System/harness changes only unless routed to `/delivery`. |
@@ -44,18 +44,20 @@ These are not user-facing commands. They are checks that should be embedded into
 
 - false-success detector: do not claim success without matching proof.
 - live-proof gate: production or UI fixes require browser/live/API evidence when the target exists.
+- provider/live readiness gate: provider-dependent work must separate code path, provider configured, data/schema present, deploy source, and live behavior before `SUCCESS`.
 - dodelay recovery: if a task is unfinished, produce exact next action instead of pretending completion.
 - red-capable feedback loop: repeated failures become a root-cause rule, regression test, or ticket.
 - to-delivery ticketing: risky/product/provider/data work becomes an agent-ready issue or handoff.
 - domain vocabulary mode: use the project's exact terms before changing copy/data/taxonomy.
 - suggested-skills contract: propose new skills only after proving repeated cross-project value.
 - prompt regression tests: add compact regressions for repeated prompt/harness failures when available.
+- harness rule lifecycle: promote, revise, deprecate, or reject rules only with evidence.
 
 ## 4. Scheduled loops
 
 | Loop | Role | Must not duplicate |
 | --- | --- | --- |
-| Daily Improve Sweep | Read-only strategic opportunity discovery. | `/delivery`, PR merge, live safe sweep. |
+| Daily Improve Sweep | Read-only strategic opportunity discovery and project prompt generation. | `/delivery`, PR merge, live safe sweep. |
 | Morning System Upgrade | Safe harness/docs/memory/prompt implementation from proven inputs. | Broad discovery, product-code work. |
 | Evening Architecture Review | Problem analysis; choose one structural issue and write tomorrow's handoff. | Daily Improve discovery, Morning implementation, PR merge. |
 | PR Merge Sweep | Merge/recover safe ready PRs. | Product design, broad audits. |
@@ -67,8 +69,8 @@ These are not user-facing commands. They are checks that should be embedded into
 ### `/improve` vs `/upgrade`
 
 ```txt
-/improve = discover and prioritize what should improve.
-/upgrade = update the agent system so future work improves.
+/improve = discover and prioritize what should improve; output strategy and prompts.
+/upgrade = update the agent system so future work improves; output safe harness changes or exact handoffs.
 ```
 
 Keep them separate. `/improve` may produce issues/prompts. `/upgrade` may update brain/docs/harness and convert product/risky work into `/delivery`, `/audit-ui`, `/audit-fin`, or `/safe` tickets.
