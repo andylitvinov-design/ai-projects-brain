@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-07-04",
+  "purpose": "Human-readable source-of-truth mirror for the intent and guardrails of recurring ChatGPT/Codex automations. Live scheduler prompts may be longer; this file records the durable contract.",
+  "automations": [
+    {
+      "title": "Daily Improve Sweep",
+      "status": "active",
+      "role": "read-only strategic vision loop with ready prompts across active projects",
+      "must_do": [
+        "inspect all confirmed active projects unless scope is narrowed",
+        "use errors, trends, provider gaps, and user pain as signals",
+        "produce cross-project strategic summary, project cards, ranked opportunities, and ready prompts",
+        "rank provider/live readiness above softer ideas when auth, persistence, finance, admin, upload, payment, or live data is affected",
+        "write or propose Morning System Upgrade handoff content"
+      ],
+      "must_not_do": [
+        "execute product code",
+        "merge or deploy",
+        "mutate data or provider config",
+        "touch secrets",
+        "duplicate PR Merge Sweep or Codex Delivery Loop"
+      ],
+      "source_files": [
+        "systems/improve-mode.md",
+        "systems/provider-live-readiness-gate.md",
+        "projects/codex-automation/delivery-outcome-ledger.md",
+        "projects/codex-automation/prompt-regression-tests.json"
+      ]
+    },
+    {
+      "title": "Morning System Upgrade",
+      "status": "active",
+      "role": "safe harness/docs/registry/regression implementation from Daily Improve and Evening Review inputs",
+      "must_do": [
+        "read morning-handoff-queue.md first and evening-review-handoff.md second",
+        "operationalize provider/live readiness before softer cleanup",
+        "apply safe markdown/docs/registry/regression/ledger/handoff changes when source of truth is clear",
+        "convert product/provider/data/auth/payment/deploy work into exact tickets",
+        "finish with APPLIED_UPGRADE or NO_SAFE_UPGRADE"
+      ],
+      "must_not_do": [
+        "perform broad discovery already owned by Daily Improve",
+        "touch product code or provider settings",
+        "create new top-level skills when active-skill-map can route the behavior",
+        "claim success without validation or explicit not-run reason"
+      ],
+      "source_files": [
+        "agent-skills/upgrade-daily-protocol.md",
+        "systems/active-skill-map.md",
+        "systems/harness-rule-lifecycle.md",
+        "systems/provider-live-readiness-gate.md"
+      ]
+    },
+    {
+      "title": "Evening Architecture Review",
+      "status": "active",
+      "role": "root-cause analysis of repeated failures and rule lifecycle decisions",
+      "must_do": [
+        "review same-day evidence from ledgers, regressions, replays, metrics, reports, and user corrections",
+        "select one highest-leverage structural issue",
+        "decide rule lifecycle action",
+        "write next morning handoff"
+      ],
+      "must_not_do": [
+        "redo Daily Improve portfolio discovery",
+        "redo Morning System Upgrade implementation",
+        "merge PRs or mutate product/provider state"
+      ],
+      "source_files": [
+        "projects/codex-automation/evening-review-handoff.md",
+        "systems/harness-rule-lifecycle.md",
+        "projects/codex-automation/agent-learning-metrics.md"
+      ]
+    }
+  ]
+}
