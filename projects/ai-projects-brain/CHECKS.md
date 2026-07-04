@@ -17,6 +17,8 @@ Recommended checks:
   changes
 - `node scripts/sync-project-index.mjs` when project inventory changes
 - `git diff --check` if available locally
+- for Codex Cloud setup docs, verify `systems/codex-cloud-repo-mode.md` and the
+  target project `CODE_ACCESS.md` launch contract stay aligned
 
 If scripts are unavailable in the execution environment, report as `needs verification`.
 
