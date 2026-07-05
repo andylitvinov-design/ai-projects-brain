@@ -29,7 +29,10 @@ Read only the minimum relevant context:
 - `STATE.md` or `LOG.md`, if present;
 - target route, page, or component files;
 - existing design tokens, CSS variables, theme files, and shared components;
-- existing data flow only for the affected UI.
+- existing data flow only for the affected UI;
+- admin/content persistence files only when the visible defect depends on saved
+  content, uploaded assets, product classification, categories, video links, or
+  other data-backed UI.
 
 Do not scan the whole repo unless the target file cannot be identified. Reuse
 existing tokens and components before inventing new styles.
@@ -105,7 +108,8 @@ Check:
 - overflow and truncation;
 - sticky elements and footer behavior;
 - keyboard focus and basic accessibility;
-- performance regressions and layout shift.
+- performance regressions and layout shift;
+- default state, persisted state, and clicked/selected state for stateful UI.
 
 ## 6. Polish layer - interface feel
 
@@ -140,7 +144,9 @@ Test or reason through:
 - small mobile width;
 - large desktop width;
 - localization and text expansion;
-- currency or number alignment where relevant.
+- currency or number alignment where relevant;
+- legacy `localStorage` / `sessionStorage` values that may preserve old UI
+  behavior after a requested default changes.
 
 ## 8. Browser verification
 
@@ -160,10 +166,41 @@ Minimum scenarios:
 2. Mobile layout has no horizontal overflow and no hidden primary actions.
 3. One interactive state is checked: hover, focus, open, submit, loading, error,
    or empty.
+4. For stateful UI, clean-session default is checked before clicked-state.
+5. For legacy persisted UI, old storage keys are checked or explicitly marked
+   `needs verification`.
 
 If browser verification cannot run, say exactly why and provide manual
 verification steps. Do not claim live is fixed unless live or preview was
 actually checked.
+
+## 8.1 Stateful and admin-content verification
+
+Use this whenever the UI bug involves saved user/admin state, filters, layout
+switches, uploaded files, product/service/category classification, video links,
+cart state, or generated content.
+
+Required verification bundle:
+
+1. Clean session: no cookies/localStorage/sessionStorage; expected default is
+   visible immediately.
+2. Legacy persisted state: old keys or saved selections do not keep the old
+   unwanted behavior unless the user explicitly chose that behavior again.
+3. Clicked/selected state: verify only after the clean default and legacy state
+   are proven.
+4. Admin/content round trip: when the UI depends on admin data, verify the
+   editing/upload/select/save action, persistence after refresh, and the public
+   card/page that consumes the saved data.
+5. Data source: if admin changes disappear, prove whether the app is reading
+   Supabase, localStorage fallback, static seed data, build-time assets, or a
+   provider/API response before patching.
+6. Screenshot parity: when Andrey supplies screenshots, compare the actual
+   viewport and route to the screenshot symptom; if reproduction is blocked,
+   say what exact route/state/auth/data is missing.
+
+Do not claim a UI/content fix is complete from only a clicked happy path, a
+single admin screen, or a code-path inspection. The user-visible default and the
+saved source of truth must both be accounted for.
 
 ## 9. Minimal safe fix rules
 
@@ -228,7 +265,10 @@ Verification:
 - Desktop:
 - Mobile:
 - Tablet:
-- Interactive states:
+- Clean-session default:
+- Legacy persisted state:
+- Clicked/selected state:
+- Admin/content round trip:
 - Commands:
 
 Risks:
