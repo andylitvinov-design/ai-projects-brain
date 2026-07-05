@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-04",
+  "last_updated": "2026-07-05",
   "tests": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -34,7 +34,7 @@
       "expected_route": "/improve read-only strategy"
     },
     {
-      "id": "morning-upgrade-must-apply-or-prove-no-safe-upgrade",
+      "id": "morning-upgrade-report-only-without-applied-upgrade",
       "status": "candidate",
       "description": "Morning System Upgrade must materially apply a safe harness/docs change or prove no safe upgrade exists.",
       "input_prompt": "Consume Daily Improve and Evening Review handoffs, then finish with a report only.",
