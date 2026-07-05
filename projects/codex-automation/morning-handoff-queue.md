@@ -6,32 +6,32 @@ Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Eve
 
 ## Queue for next Morning System Upgrade
 
-### 2026-07-06 — execute the new feedback-loop validator from checkout
+### 2026-07-06 — merge/check validator ID drift fix before promoting validator coverage
 
-Source: Morning System Upgrade 2026-07-05.
+Source: Evening Architecture Review 2026-07-05.
 
 Status: ready for safe `/upgrade` verification work.
 
 Inputs:
-- `scripts/validate-agentic-prompts.mjs` now exists and explicitly reads:
-  - `projects/codex-automation/prompt-regression-tests.json`;
-  - `projects/codex-automation/failure-replay-cases.json`;
-  - `projects/codex-automation/automation-prompt-registry.json`.
-- The validator checks malformed JSON indirectly through parse, duplicate IDs/titles, allowed statuses, required fields, required shared provider/Daily Improve/Morning Upgrade cases, and the key anti-drift expectations.
-- `projects/codex-automation/automation-prompt-registry.json`, `delivery-outcome-ledger.md`, and `agent-learning-metrics.md` now reference the validator.
+- PR `andylitvinov-design/ai-projects-brain#92` aligns a drift between:
+  - prompt regression ID: `morning-upgrade-must-apply-or-prove-no-safe-upgrade`;
+  - replay/validator-required ID: `morning-upgrade-report-only-without-applied-upgrade`.
+- Without this fix, `scripts/validate-agentic-prompts.mjs` can fail on its own contract and cannot yet be counted as proven loop protection.
+- The PR is harness-only: prompt-regression JSON plus validator lookup. It does not touch product code, provider config, data, deploy, auth/payment, env values, or secrets.
 
 Recommended Morning action:
-1. From a real checkout, run:
-   - `node scripts/validate-agentic-prompts.mjs`;
-   - `node scripts/verify-context-scout.mjs`;
-   - `node scripts/validate-projects-brain.mjs`.
-2. If `validate-agentic-prompts.mjs` fails, apply the smallest schema/docs/registry fix.
-3. If it passes, update `agent-learning-metrics.md` with validation evidence and consider promoting only the validator coverage itself from `candidate` to `active`; do not promote behavior rules until their replay/prompt behavior is actually exercised.
-4. Keep product/provider work routed to product-specific commands.
+1. Review PR #92.
+2. From a real checkout, run at least:
+   - `node scripts/validate-agentic-prompts.mjs` on the PR branch;
+   - `node scripts/verify-context-scout.mjs` if repo dependencies are available;
+   - `node scripts/validate-projects-brain.mjs` if repo dependencies are available.
+3. If checks pass, merge PR #92 or report why merge is blocked.
+4. Only after pass/merge evidence, update `agent-learning-metrics.md` from `validation commands run = 0` to the actual pass/fail count and consider promoting validator schema coverage itself to `active`.
+5. Do not promote the Daily Improve or Morning Upgrade behavior rules to `active` until their replay/prompt behavior is actually exercised, not just schema-validated.
 
 Needs verification:
-- Connector-only runs can create/update GitHub files but still cannot run local Node validation here.
-- Replay/prompt-regression cases remain candidates until a runner executes them, even though the schema/contract validator now exists.
+- Connector-only runs cannot execute Node validators here.
+- PR #92 currently has no local validation evidence yet.
 - Product/provider tickets remain routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
 
 ## Closed / consumed items
