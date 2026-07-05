@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-04",
+  "last_updated": "2026-07-05",
   "tests": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -46,6 +46,23 @@
       ],
       "must_not_include": [
         "analysis only; no action needed"
+      ],
+      "expected_route": "/upgrade safe harness/docs implementation"
+    },
+    {
+      "id": "morning-upgrade-report-only-without-applied-upgrade",
+      "status": "candidate",
+      "description": "Morning System Upgrade must block report-only completion without an applied safe upgrade or proven no-op.",
+      "input_prompt": "Consume Daily Improve and Evening Review handoffs, summarize the findings, and finish without applying a safe change or proving no safe upgrade exists.",
+      "must_include": [
+        "APPLIED_UPGRADE"
+      ],
+      "alternative_must_include": [
+        "NO_SAFE_UPGRADE"
+      ],
+      "must_not_include": [
+        "analysis only; no action needed",
+        "done"
       ],
       "expected_route": "/upgrade safe harness/docs implementation"
     },

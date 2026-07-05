@@ -8,6 +8,10 @@ For ChatGPT Automation status checks and "did it run?" questions, first use
 `projects/codex-automation/CHATGPT_AUTOMATIONS_RUNBOOK.md` before debugging
 Codex Cloud, Slack, Cloudflare, or local bridge surfaces.
 
+For automation role boundaries, first use
+`projects/codex-automation/AGENT_ROLES.md`. The role map is a documented
+contract, not proof of current ChatGPT Automation UI state.
+
 ## 0. Scheduler ownership
 
 ChatGPT Automations are the main scheduler for recurring agent work. Codex-side
@@ -25,10 +29,22 @@ Expected ChatGPT Automation architecture:
 |---|---|---|---|
 | Morning System Upgrade | Daily 08:30 Europe/Kyiv | Memory Upgrade, daily Self-Harness Review, Codex efficiency report, Ponytail Gate / Lazy Senior Check, instruction-bloat check, workflow weakness mining | ChatGPT Automations |
 | PR Merge Sweep | Daily 08:30 Europe/Kyiv | Check open/recently merged PRs, safely merge low-risk ready PRs, detect wrong-base merges, salvage safe hunks onto fresh `main`, verify UI default-state regressions | ChatGPT Automations |
-| Daily Improve Sweep | Daily 09:00 Europe/Podgorica context | Read-only strategic improvement planning for active projects, with delivery-ready plans and Ponytail Gate before proposing implementation | ChatGPT Automations |
+| Daily Improve Sweep | Daily 09:00 Europe/Sarajevo / Europe/Podgorica context | Growth Lab: Prototyper + Grower strategic improvement planning for active projects, with delivery-ready plans and Ponytail Gate before proposing implementation | ChatGPT Automations |
 | Codex Delivery Loop | Daily 12:00 Europe/Kyiv | Find unfinished delivery tasks, branches without PRs, blocked statuses, failed CI, undeployed/unverified changes, forgotten worktrees/branches, and delivery recovery needs | ChatGPT Automations |
 | Weekly Agent Harness Review | Sunday 10:00 Europe/Kyiv | Expanded 7-day self-harness learning pass: repeated agent errors, `/save`, instruction cleanup, prompt corrections, and Ponytail cleanup findings | ChatGPT Automations |
-| Weekly Live Safe Sweep | Monday 09:00 Europe/Podgorica context | Weekly `/safe` pass for live/public project security and UX checks, with minimal safe fixes only | ChatGPT Automations |
+| Weekly Live Safe Sweep | Monday 09:00 Europe/Sarajevo / Europe/Podgorica context | Weekly `/safe` pass for live/public project security and UX checks, with minimal safe fixes only | ChatGPT Automations |
+
+Role ownership summary:
+
+| Automation / Mode | Primary role | Secondary role | Boundary |
+|---|---|---|---|
+| Daily Improve / Daily Improve Sweep | Prototyper | Grower | Growth Lab: concept cards, project cards, ranked opportunities, ready prompts; no product mutation. |
+| Morning System Upgrade | Sweeper | Maintainer | Morning half of the cleanup loop; safe harness/docs/rules/registry fixes only. |
+| Evening Architecture Review | Sweeper | Maintainer | Evening half of the cleanup loop; repeated-failure analysis and morning handoff. |
+| PR Merge Sweep | Maintainer | Builder | Safe PR merge/recovery only with checks and readiness proof. |
+| Codex Delivery Loop | Builder | Maintainer | Unfinished delivery recovery and exact next delivery work. |
+| Weekly Live Safe Sweep | Maintainer | Sweeper | Weekly live/public safety and UX pass; no broad rewrite. |
+| /audit-fin | Maintainer | Sweeper | Finance correctness and deterministic repair prompts; no unsafe financial mutation. |
 
 ## 1. Automation surfaces
 

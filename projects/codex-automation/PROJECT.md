@@ -38,6 +38,12 @@ Confirmed from repository code and project memory:
 
 ## 6. Important Files
 
+- `AGENT_ROLES.md`
+- `automation-prompt-registry.json`
+- `CHATGPT_AUTOMATIONS_RUNBOOK.md`
+- `MONITORING.md`
+- `SYSTEM_MAP.md`
+
 ### codex-links
 
 - `functions/api/commands.js`
@@ -109,12 +115,14 @@ Only names are listed. Values must never be stored here.
 - `codex-daily-backups` automation likely lives outside GitHub on `air-andrii.lan`; GitHub repo inspection alone is insufficient.
 - Direct OpenAI cloud route requires `OPENAI_API_KEY`; ChatGPT subscription/Codex Cloud routing through Slack is a separate path.
 - Live Cloudflare behavior can differ from repo code if deployment/env is stale.
+- Automation role boundaries are documented in `AGENT_ROLES.md`; do not infer actual ChatGPT Automation UI state from docs alone.
 
 ## 9. Next Actions
 
 - Verify local backup automation on `air-andrii.lan` using the script/checklist in `SYSTEM_MAP.md`.
 - Add a small dashboard block in `brain-management` showing automation health: mobile-run, latest GitHub workflow, bridge status, latest backup timestamp.
 - Keep this map updated whenever dispatch modes, workflows, bridge routes, or backup scripts change.
+- Keep `AGENT_ROLES.md`, `SYSTEM_MAP.md`, `CHATGPT_AUTOMATIONS_RUNBOOK.md`, and `automation-prompt-registry.json` aligned when automation role contracts change.
 
 ## 10. Risks
 
@@ -126,7 +134,7 @@ Only names are listed. Values must never be stored here.
 
 ## 11. Rules for Codex
 
-- Read this file and `SYSTEM_MAP.md` before debugging Codex automation.
+- Read this file, `AGENT_ROLES.md`, and `SYSTEM_MAP.md` before debugging Codex automation.
 - Never store secret values.
 - Label unverified local-machine details as `needs verification`.
 - Prefer minimal safe documentation/dashboard changes before runtime rewrites.
