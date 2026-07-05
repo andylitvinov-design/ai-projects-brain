@@ -103,7 +103,7 @@ for (const expected of ['cross-project strategic summary', 'project strategic ca
   assert(dailyImprovePrompt.must_include.includes(expected), `Daily Improve prompt must include ${expected}`);
 }
 
-const morningPrompt = byId(prompts.tests, 'morning-upgrade-must-apply-or-prove-no-safe-upgrade', promptPath);
+const morningPrompt = byId(prompts.tests, 'morning-upgrade-report-only-without-applied-upgrade', promptPath);
 assert(morningPrompt.must_include.includes('APPLIED_UPGRADE'), 'Morning prompt must include APPLIED_UPGRADE');
 assert(morningPrompt.alternative_must_include?.includes('NO_SAFE_UPGRADE'), 'Morning prompt must allow NO_SAFE_UPGRADE');
 
