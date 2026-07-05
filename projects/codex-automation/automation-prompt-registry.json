@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-04",
+  "last_updated": "2026-07-05",
   "purpose": "Human-readable source-of-truth mirror for the intent and guardrails of recurring ChatGPT/Codex automations. Live scheduler prompts may be longer; this file records the durable contract.",
   "automations": [
     {
@@ -25,7 +25,8 @@
         "systems/improve-mode.md",
         "systems/provider-live-readiness-gate.md",
         "projects/codex-automation/delivery-outcome-ledger.md",
-        "projects/codex-automation/prompt-regression-tests.json"
+        "projects/codex-automation/prompt-regression-tests.json",
+        "scripts/validate-agentic-prompts.mjs"
       ]
     },
     {
@@ -37,7 +38,8 @@
         "operationalize provider/live readiness before softer cleanup",
         "apply safe markdown/docs/registry/regression/ledger/handoff changes when source of truth is clear",
         "convert product/provider/data/auth/payment/deploy work into exact tickets",
-        "finish with APPLIED_UPGRADE or NO_SAFE_UPGRADE"
+        "finish with APPLIED_UPGRADE or NO_SAFE_UPGRADE",
+        "run or maintain scripts/validate-agentic-prompts.mjs so prompt regressions, replay cases, and automation registry contracts are not decorative only"
       ],
       "must_not_do": [
         "perform broad discovery already owned by Daily Improve",
@@ -49,7 +51,8 @@
         "agent-skills/upgrade-daily-protocol.md",
         "systems/active-skill-map.md",
         "systems/harness-rule-lifecycle.md",
-        "systems/provider-live-readiness-gate.md"
+        "systems/provider-live-readiness-gate.md",
+        "scripts/validate-agentic-prompts.mjs"
       ]
     },
     {
@@ -60,7 +63,8 @@
         "review same-day evidence from ledgers, regressions, replays, metrics, reports, and user corrections",
         "select one highest-leverage structural issue",
         "decide rule lifecycle action",
-        "write next morning handoff"
+        "write next morning handoff",
+        "check whether scripts/validate-agentic-prompts.mjs actually prevented prompt/regression/replay drift or still needs a runner"
       ],
       "must_not_do": [
         "redo Daily Improve portfolio discovery",
@@ -70,7 +74,8 @@
       "source_files": [
         "projects/codex-automation/evening-review-handoff.md",
         "systems/harness-rule-lifecycle.md",
-        "projects/codex-automation/agent-learning-metrics.md"
+        "projects/codex-automation/agent-learning-metrics.md",
+        "scripts/validate-agentic-prompts.mjs"
       ]
     }
   ]
