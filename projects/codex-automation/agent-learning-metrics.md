@@ -1,6 +1,6 @@
 # Agent Learning Metrics
 
-Last updated: 2026-07-04
+Last updated: 2026-07-05
 
 Purpose: measure whether the agent harness actually improves behavior instead of only adding more rules.
 
@@ -26,6 +26,7 @@ Never count a metric without evidence. Acceptable evidence:
 | rule lifecycle changes | 3 | 2026-07-04 Morning System Upgrade | Created provider/live gate, lifecycle standard, replay/regression scaffolds. |
 | replay cases defined | 5 | `failure-replay-cases.json` | Defined, not executed in this connector-only run. |
 | prompt regressions defined | 4 | `prompt-regression-tests.json` | Defined, not executed in this connector-only run. |
+| feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-05 | Validator now reads prompt regressions, replay cases, and automation registry contracts. |
 | validation commands run | 0 | no local checkout access in this run | Must be run by Codex/local checkout. |
 
 ## Metrics to update after each run
@@ -43,6 +44,7 @@ replay_case_failed:
 prompt_regression_passed:
 prompt_regression_failed:
 user_correction_recorded:
+validator_defined:
 validation_passed:
 validation_failed:
 ```
