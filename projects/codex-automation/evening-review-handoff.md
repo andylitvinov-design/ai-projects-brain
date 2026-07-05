@@ -1,16 +1,15 @@
 # Evening Architecture Review Handoff
 
-Last updated: 2026-07-04
+Last updated: 2026-07-05
 
 ## Evidence reviewed
 
-- `systems/provider-live-readiness-gate.md` defines that code merge is not enough for provider/live work and requires separate proof layers before `SUCCESS`.
-- `systems/harness-rule-lifecycle.md` defines `candidate`, `active`, `needs_revision`, `deprecated`, and `rejected`, and says global rules require evidence before promotion.
-- `projects/codex-automation/delivery-outcome-ledger.md` contains provider/live blocker evidence for Psihotavr and Finance, plus 2026-07-04 harness feedback-loop scaffolding.
-- `projects/codex-automation/prompt-regression-tests.json` already contains candidates for provider/live false success, Daily Improve strategic portfolio output, Morning Upgrade applied/no-safe-upgrade behavior, and `/improve`/`/upgrade` boundary drift.
-- `projects/codex-automation/failure-replay-cases.json` existed but did not yet include replay cases for the two 2026-07-04 user corrections: Daily Improve becoming only bug triage, and Morning Upgrade becoming report-only.
-- `projects/codex-automation/agent-learning-metrics.md` counted 3 prompt regressions even though 4 were already defined.
-- User corrections on 2026-07-04 established two repeated harness risks: Daily Improve must be a strategic vision loop with prompts across projects, and Morning System Upgrade must apply a material safe update or prove `NO_SAFE_UPGRADE`.
+- `projects/codex-automation/automation-prompt-registry.json` defines Evening Review as root-cause/rule-lifecycle work and explicitly requires checking whether `scripts/validate-agentic-prompts.mjs` prevents prompt/regression/replay drift.
+- `scripts/validate-agentic-prompts.mjs` now reads prompt regressions, replay cases, and automation contracts, but the file contained a self-contract mismatch: it required `morning-upgrade-report-only-without-applied-upgrade` to exist in both prompt regressions and replay cases, while the prompt regression used `morning-upgrade-must-apply-or-prove-no-safe-upgrade`.
+- `projects/codex-automation/failure-replay-cases.json` contains replay case `morning-upgrade-report-only-without-applied-upgrade`.
+- `projects/codex-automation/prompt-regression-tests.json` contained the same behavior but under a different ID before this review's PR.
+- `projects/codex-automation/agent-learning-metrics.md` says the validator is defined, but validation commands are still not run from a checkout.
+- `projects/codex-automation/delivery-outcome-ledger.md` records the 2026-07-05 validator addition and now records this validator ID drift as an evidence-backed harness issue.
 
 ## Provider/live readiness gaps found
 
@@ -19,87 +18,105 @@ Still routed out of Evening Review and Morning Upgrade:
 1. Psihotavr provider/live proof: Supabase auth/admin persistence/live production behavior remains product/provider work and must stay under `/delivery`, `/safe`, or `/audit-ui`.
 2. Finance provider-balance proof: strict `verify:finance` remains blocked by provider/manual balance source evidence and must stay under `/audit-fin`.
 
-No product code, provider configuration, production data, deploy setting, or secret-adjacent change was executed from this review.
+No product code, provider configuration, production data, deploy setting, auth/payment, billing, env value, or secret-adjacent change was executed from this review.
 
 ## Repeated patterns found
 
-1. The feedback loop now has artifacts, but several are still candidates and not yet executed by a replay/regression runner.
-2. User corrections exposed role drift at the automation boundary:
-   - Daily Improve can shrink to bug triage instead of strategic portfolio planning.
-   - Morning Upgrade can shrink to analysis/reporting instead of safe implementation.
-3. Metrics can drift from artifacts: prompt regressions were counted as 3 while the file already contained 4.
+1. The harness now creates feedback-loop artifacts quickly, but the validator/registry/replay layer can still drift internally before a local runner catches it.
+2. A previous report risk appeared again in smaller form: a tool claimed validator coverage existed, but connector-only runs still did not execute the validator and the validator would likely fail because of ID drift.
+3. The system needs a distinction between `validator defined`, `validator internally consistent`, and `validator executed/passed`; currently metrics can make this sound more mature than the evidence supports.
 
 ## Selected root structural issue
 
-The system has moved from missing feedback-loop artifacts to unexecuted feedback-loop artifacts. The highest leverage issue is now making replay/regression artifacts verifiable by validators or runners, so rules do not remain decorative candidates.
+The root structural issue is not missing rules anymore; it is evidence maturity drift. The system can define a validator and count it as a feedback-loop improvement before proving the validator itself is internally aligned and executable from checkout.
 
 ## Rule lifecycle action
 
 ```txt
 rule lifecycle actions:
 - candidate:
+  - validator-schema-coverage-defined
   - daily-improve-strategic-portfolio-not-only-bugs
   - morning-upgrade-report-only-without-applied-upgrade
 - promoted to active:
-  - none; no replay/regression runner evidence yet
+  - none; no local validator pass or behavior replay evidence yet
 - needs_revision:
-  - none; existing rules were improved today but not yet proven ineffective after update
+  - validator-defined metric wording / evidence boundary, because it can sound stronger than actual pass evidence
 - deprecated/rejected:
   - none
 - evidence:
-  - user corrections 2026-07-04
-  - prompt-regression-tests.json candidates
-  - delivery-outcome-ledger.md entries
+  - `scripts/validate-agentic-prompts.mjs` ID lookup mismatch
+  - `prompt-regression-tests.json` / `failure-replay-cases.json` ID drift
+  - `agent-learning-metrics.md` validation commands still at 0
 ```
 
 ## Replay coverage and result
 
-Safe update applied: added replay candidates for:
-
-1. `daily-improve-strategic-portfolio-not-only-bugs`
-2. `morning-upgrade-report-only-without-applied-upgrade`
+Replay coverage exists for the provider/live false-success case, Daily Improve strategic-portfolio drift, Morning Upgrade report-only drift, improve/upgrade boundary drift, and save/memory/handoff confusion.
 
 Replay result: not executed in this connector-only run. Status remains `candidate`.
 
+Schema/contract check result: not executed, but static inspection found that `validate-agentic-prompts.mjs` would likely fail because the Morning Upgrade prompt regression ID did not match the replay/validator-required ID.
+
 ## Learning metrics
 
-Safe update applied:
+No pass/fail metrics were incremented because no local Node command was executed.
 
-- Corrected `prompt regressions defined` from 3 to 4.
-- Corrected `replay cases defined` from 3 to 5.
-- Added `user corrections converted to harness artifacts = 2`.
+Evidence-backed update proposed/applied through PR #92 and ledger:
 
-Metrics were not marked as passed/failed because no local runner or validator was executed.
+- keep `feedback-loop validators defined = 1` as defined only, not passed;
+- keep `validation commands run = 0` until checkout execution;
+- record the new signal as validator ID drift, not as validation failure, because the validator was not actually run here.
 
-## Safe docs changes applied
+## Safe docs/harness changes made
 
-- Updated `projects/codex-automation/failure-replay-cases.json`.
-- Updated `projects/codex-automation/delivery-outcome-ledger.md`.
-- Updated `projects/codex-automation/agent-learning-metrics.md`.
-- Updated `projects/codex-automation/morning-handoff-queue.md` with the next safe `/upgrade` action.
-- Updated this handoff.
+Opened PR `andylitvinov-design/ai-projects-brain#92` with safe harness-only changes:
+
+- aligned `projects/codex-automation/prompt-regression-tests.json` to use canonical ID `morning-upgrade-report-only-without-applied-upgrade`;
+- updated `scripts/validate-agentic-prompts.mjs` to validate the canonical Morning Upgrade ID consistently;
+- recorded the finding in `projects/codex-automation/delivery-outcome-ledger.md`;
+- updated `projects/codex-automation/morning-handoff-queue.md` with the exact next Morning action;
+- updated this handoff.
 
 ## Prompt regression tests
 
-No new prompt-regression entry was needed: matching candidates already exist in `prompt-regression-tests.json`.
+Updated/proposed in PR #92:
 
-Next required safe improvement: verify that a validation script reads both prompt regressions and replay cases, or add the smallest validator that catches malformed JSON, duplicate IDs, missing required fields, and candidate/status drift.
+- `morning-upgrade-must-apply-or-prove-no-safe-upgrade` becomes `morning-upgrade-report-only-without-applied-upgrade` to match the replay case and required validator ID.
+
+No new behavior class was needed; the existing behavior class was correct, but its ID drifted.
 
 ## Agent-ready tickets
 
-No new product/provider ticket created from this run. Existing product/provider work remains:
+No new product/provider ticket was created from this review.
 
-- Psihotavr provider/live proof: continue with `/delivery`, `/safe`, or `/audit-ui` against the product issue.
-- Finance provider-balance proof: continue with `/audit-fin` against the finance issue.
+Existing product/provider work remains routed out:
+
+- Psihotavr provider/live proof: continue with `/delivery`, `/safe`, or `/audit-ui` against product/provider issue `andylitvinov-design/psihotavr#168`.
+- Finance provider-balance proof: continue with `/audit-fin` against finance issue `andylitvinov-design/finance#614`.
+
+Safe harness ticket for Morning Upgrade:
+
+```txt
+/delivery or /upgrade
+Goal: review and merge/check `andylitvinov-design/ai-projects-brain#92`, then run the feedback-loop validators from a real checkout.
+Source of truth: PR #92 plus `projects/codex-automation/morning-handoff-queue.md`.
+Constraints: harness-only; do not touch product code, providers, data, auth/payment, deploy settings, env values, or secrets.
+Required checks:
+- node scripts/validate-agentic-prompts.mjs
+- node scripts/verify-context-scout.mjs
+- node scripts/validate-projects-brain.mjs
+Final evidence: pass/fail output, merge/block status, and updated `agent-learning-metrics.md` only when evidence exists.
+```
 
 ## Suggested skills
 
 ```txt
 suggested skills:
 - existing route used: /upgrade
+- acceptable execution route: /delivery only if PR mechanics are required
 - new skill proposed: no
-- reason: this is harness/docs validation work and fits the existing upgrade route
-- source-of-truth update needed: validators or replay runner integration
+- reason: this is harness/schema/validator alignment work inside existing upgrade/delivery routes
 ```
 
 ## Validation
@@ -112,12 +129,15 @@ node scripts/verify-context-scout.mjs
 node scripts/validate-projects-brain.mjs
 ```
 
+Static inspection result: PR #92 should remove the known ID drift, but that is not a substitute for executing the commands above.
+
 ## Needs verification
 
-- Whether current validation scripts load `prompt-regression-tests.json` and `failure-replay-cases.json`.
-- Whether the two new replay cases should gain a more formal schema field after the runner exists.
-- Whether Daily Improve's live automation prompt and registry mirror stay synchronized over the next run.
+- PR #92 mergeability/check status after GitHub finishes computing it.
+- Actual Node validation output from a real checkout.
+- Whether `agent-learning-metrics.md` should add a separate row for `feedback-loop validators passed` after validation runs.
+- Whether Daily Improve's next real run produces project strategic cards and ready prompts, not only blockers.
 
 ## Single next action
 
-Morning System Upgrade should implement or verify the smallest replay/regression validator integration for `prompt-regression-tests.json` and `failure-replay-cases.json`, then run the three project-brain validation commands from a real checkout.
+Morning System Upgrade should review PR #92, run `node scripts/validate-agentic-prompts.mjs` from a real checkout, and only then update learning metrics or promote validator schema coverage.
