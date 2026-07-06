@@ -14,6 +14,9 @@
 - commits: needs verification
 - deployments: needs verification
 - dashboards: https://ezohata-incoming-ledger.vercel.app
+- Codex Cloud environment: should be configured as `finance` for
+  `andylitvinov-design/finance` on base branch `main`; current ChatGPT account
+  visibility needs verification in Codex Cloud settings.
 
 ## 3. Important Files
 
@@ -42,3 +45,12 @@
 ChatGPT may not have direct access to private repos. For
 analysis, share a PR, diff, changed files, safe error logs,
 and screenshots. Do not share secrets.
+
+## 6. Codex Cloud Launch Contract
+
+- Repository: `andylitvinov-design/finance`
+- Base branch: `main`
+- Working branch: `codex/<task-name>`
+- Mode: Codex Cloud Repo Mode
+- Local Mac required: no
+- Output target: PR in this repository
