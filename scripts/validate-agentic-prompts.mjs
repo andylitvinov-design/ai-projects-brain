@@ -8,8 +8,12 @@ function fail(message) {
   throw new Error(message);
 }
 
+function readText(relativePath) {
+  return fs.readFileSync(path.join(ROOT, relativePath), 'utf8');
+}
+
 function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(path.join(ROOT, relativePath), 'utf8'));
+  return JSON.parse(readText(relativePath));
 }
 
 function assert(condition, message) {
@@ -40,9 +44,35 @@ function byId(items, id, message) {
   return found;
 }
 
+function metricCount(metricsText, metricName) {
+  for (const line of metricsText.split(/\r?\n/)) {
+    if (!line.trim().startsWith('|')) continue;
+    const cells = line
+      .split('|')
+      .slice(1, -1)
+      .map((cell) => cell.trim());
+    if (cells[0] !== metricName) continue;
+    const count = Number.parseInt(cells[1], 10);
+    assert(Number.isFinite(count), `metric ${metricName} count must be numeric`);
+    return count;
+  }
+  fail(`metric missing: ${metricName}`);
+}
+
+function assertMetricEquals(metricsText, metricName, expected) {
+  const actual = metricCount(metricsText, metricName);
+  assert(actual === expected, `metric ${metricName} expected ${expected}, found ${actual}`);
+}
+
+function assertMetricAtLeast(metricsText, metricName, minimum) {
+  const actual = metricCount(metricsText, metricName);
+  assert(actual >= minimum, `metric ${metricName} expected at least ${minimum}, found ${actual}`);
+}
+
 const promptPath = 'projects/codex-automation/prompt-regression-tests.json';
 const replayPath = 'projects/codex-automation/failure-replay-cases.json';
 const registryPath = 'projects/codex-automation/automation-prompt-registry.json';
+const metricsPath = 'projects/codex-automation/agent-learning-metrics.md';
 
 const prompts = readJson(promptPath);
 assert(prompts.schema_version === 1, `${promptPath} schema_version must be 1`);
@@ -98,6 +128,9 @@ assert(providerPrompt.must_include.includes('NEEDS_VERIFICATION'), 'provider pro
 assert(providerPrompt.must_not_include.includes('STATUS: SUCCESS'), 'provider prompt must block false success wording');
 assert(byId(replays.cases, 'provider-dependent-feature-without-provider-proof', replayPath).must_block_success === true, 'provider replay must block success');
 
+const mustBlockReplayCount = replays.cases.filter((item) => item.must_block_success).length;
+assert(mustBlockReplayCount >= 3, 'expected at least 3 must-block-success replay cases');
+
 const dailyImprovePrompt = byId(prompts.tests, 'daily-improve-strategic-portfolio-not-only-bugs', promptPath);
 for (const expected of ['cross-project strategic summary', 'project strategic cards', 'ready prompts']) {
   assert(dailyImprovePrompt.must_include.includes(expected), `Daily Improve prompt must include ${expected}`);
@@ -120,5 +153,15 @@ assert(daily.must_do.some((item) => /cross-project|project cards|ready prompts/i
 const morning = registry.automations.find((item) => item.title === 'Morning System Upgrade');
 assert(morning, 'registry must include Morning System Upgrade');
 assert(morning.must_do.some((item) => /APPLIED_UPGRADE|NO_SAFE_UPGRADE/.test(item)), 'Morning Upgrade must require APPLIED_UPGRADE or NO_SAFE_UPGRADE');
+assert(morning.must_do.some((item) => /validate-agentic-prompts/.test(item)), 'Morning Upgrade must keep validator maintenance in contract');
 
-console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${registry.automations.length} automation contracts`);
+const metricsText = readText(metricsPath);
+assertMetricEquals(metricsText, 'replay cases defined', replays.cases.length);
+assertMetricEquals(metricsText, 'prompt regressions defined', prompts.tests.length);
+assertMetricAtLeast(metricsText, 'feedback-loop validators defined', 1);
+metricCount(metricsText, 'validation commands run');
+for (const requiredTemplateMetric of ['validation_passed:', 'validation_failed:', 'replay_case_passed:', 'prompt_regression_passed:']) {
+  assert(metricsText.includes(requiredTemplateMetric), `${metricsPath} template missing ${requiredTemplateMetric}`);
+}
+
+console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${registry.automations.length} automation contracts, metrics aligned`);
