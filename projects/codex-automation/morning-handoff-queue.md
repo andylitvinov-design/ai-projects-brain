@@ -6,34 +6,51 @@ Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Eve
 
 ## Queue for next Morning System Upgrade
 
-### 2026-07-07 — run upgraded validator and decide next replay layer
+### 2026-07-07 — close validation-evidence propagation loop
 
-Source: Morning System Upgrade 2026-07-06.
+Source: Evening Architecture Review 2026-07-06.
 
 Status: ready for safe `/upgrade` verification work.
 
 Inputs:
-- `scripts/validate-agentic-prompts.mjs` now checks prompt regressions, replay cases, automation registry contracts, and `agent-learning-metrics.md` artifact-count drift.
-- `projects/codex-automation/agent-learning-metrics.md` now documents the validator coverage note.
-- `projects/codex-automation/delivery-outcome-ledger.md` records the metrics-drift guard as an applied safe harness change.
+- PR #95 (`Document Codex automation role model`) was merged on 2026-07-06 and its verification section reports these commands ran:
+  - `node scripts/validate-agentic-prompts.mjs`;
+  - `node scripts/validate-projects-brain.mjs`;
+  - `node scripts/verify-context-scout.mjs`.
+- Main now contains the role model, registry role fields, and the validator contract updates from PR #95.
+- `agent-learning-metrics.md` and older handoff wording still needed evidence-state cleanup after PR #95: previous text treated validation as not run at all.
+- PR #92 (`Fix agentic prompt validator ID drift`) is still open, non-mergeable, and likely stale/superseded by the merged validator/registry changes in PR #95.
 - Product/provider work remains routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
 
 Recommended Morning action:
-1. From a real checkout, run:
+1. Review the safe docs PR created by Evening Architecture Review for this handoff/metrics/ledger cleanup.
+2. From a real checkout, rerun:
    - `node scripts/validate-agentic-prompts.mjs`;
    - `node scripts/verify-context-scout.mjs`;
    - `node scripts/validate-projects-brain.mjs`.
-2. If `validate-agentic-prompts.mjs` fails, apply the smallest schema/docs/registry/metrics fix.
-3. If it passes, update `agent-learning-metrics.md` with validation evidence and consider promoting only the structural validator coverage from `candidate` to `active`.
-4. Do not promote behavior rules such as provider/live false-success blocking, Daily Improve strategic portfolio, or Morning APPLIED_UPGRADE until a behavior replay runner or real prevention evidence exists.
-5. Evening Architecture Review should decide whether the next layer should be a minimal behavioral replay runner or enough structural validation for now.
+3. If checks pass, merge the docs cleanup and update metrics from `PR-reported run` to raw validation evidence only if command output is captured.
+4. Reconcile PR #92:
+   - if its validator ID drift fix is already fully covered by main/PR #95, close it as superseded or mark blocked/stale;
+   - if it contains still-needed hunks, salvage only those hunks onto fresh `main` via a new PR.
+5. Decide the next harness layer:
+   - structural validation is now present;
+   - behavior replay still is not present;
+   - add a minimal behavior replay runner only if it can test outputs without product/provider mutation.
+6. Do not promote behavior rules such as provider/live false-success blocking, Daily Improve strategic portfolio, or Morning `APPLIED_UPGRADE` until a behavior replay runner or real prevention evidence exists.
 
 Needs verification:
-- Connector-only runs can update GitHub files but still cannot execute Node scripts in a real checkout.
+- Connector-only Evening Review can update docs and PRs, but cannot provide local Node output.
+- PR #95 verification is PR-reported evidence, not raw command output in this review.
 - Replay/prompt-regression cases remain candidates until a runner executes them or an automation report shows the gate changed behavior.
 - No provider config, secrets, product code, auth/payment, deploy, or finance data should be touched from Morning Upgrade.
 
 ## Closed / consumed items
+
+### 2026-07-07 — run upgraded validator and decide next replay layer
+
+Superseded by the queue item above.
+
+Reason: PR #95 reports the validator commands ran after this handoff was written, so the next structural task is evidence propagation and stale PR reconciliation, not simply repeating the older `not run` handoff wording.
 
 ### 2026-07-06 — execute the new feedback-loop validator from checkout
 
@@ -48,8 +65,8 @@ Safe updates applied:
 - updated `projects/codex-automation/delivery-outcome-ledger.md` with a 2026-07-06 evidence row;
 - created the next checkout validation handoff above.
 
-Still not counted as passed validation:
-- Node commands were not executed from a checkout in this connector-only run.
+Still not counted as raw validation output:
+- Connector-only runs can report PR-level verification, but raw command output still requires checkout/CI evidence.
 
 ### 2026-07-05 — execute feedback-loop artifacts, not only keep them present
 
