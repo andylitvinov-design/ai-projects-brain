@@ -8,35 +8,45 @@ homeopathy-oriented content, and consultation offers.
 ## 2. Live URLs
 
 - production: https://psitherapy.vercel.app
+- latest Vercel deployment URL observed: `psitherapy-favekmf51-super10.vercel.app`
 - preview: needs verification
 - admin: needs verification
 - needs verification: secondary URLs and any admin/cabinet routes.
 
 ## 3. Repositories
 
-- canonical repo: needs verification
-- deprecated repo: needs verification
-- related repos: needs verification
-- needs verification: no canonical GitHub repository has been confirmed yet.
+- canonical repo: https://github.com/andylitvinov-design/report
+- repo name: `report` (singular), not `reports`
+- repo visibility: public
+- default branch: `main`
+- related Vercel project name `reports` exists separately, but it is not the canonical repo for `psitherapy.vercel.app` unless future deploy-source metadata proves otherwise.
 
 ## 4. Hosting / Deploy
 
 - provider: Vercel
-- project name: psitherapy
-- deploy source: needs verification
-- branch: needs verification
-- deploy rules: do not edit code or claim source-level fixes until the canonical
-  repo and deploy source are confirmed.
+- project name: `psitherapy`
+- domains observed on Vercel project: `psitherapy.vercel.app`, `alchemy-drab-eight.vercel.app`, `psitherapy-super10.vercel.app`, `psitherapy-andylitvinov-1440-super10.vercel.app`
+- framework: Vite
+- branch: `main` unless Vercel deploy-source metadata proves otherwise
+- deploy source: needs verification from Vercel Git integration/deployment metadata; repo mapping is confirmed from user correction plus GitHub repo existence.
+- deploy rules: verify Vercel deploy source branch/commit before claiming a live code change.
 
 ## 5. Current Status
 
-Active live Vercel site. Treat as a first-class active project for audits and
-planning, but keep code changes blocked until repository mapping is verified.
-Live public UX can be audited from the production URL.
+Active live Vercel site. Treat as a first-class active project for audits,
+planning, PR sweeps, and safe code work in `andylitvinov-design/report` when
+the change is low-risk and current-main based.
+
+Provider/live readiness still applies: do not claim live source, deployment,
+auth, forms, persistence, analytics, or provider behavior as fixed without
+browser/deploy proof.
 
 ## 6. Important Files
 
-- needs verification
+- repo-local `README.md`
+- repo-local `AGENTS.md`, `STATE.md`, `LOG.md`, `CODEX_BRIEF.md` when present
+- Vite app files: needs verification in repo
+- health/content copy files: needs verification in repo
 
 ## 7. Environment Variable Names
 
@@ -46,45 +56,45 @@ Only names are listed. Values must never be stored here.
 
 ## 8. Known Issues
 
-- Repository mapping ambiguity can route agents to the wrong repo.
+- Previous project memory incorrectly marked the canonical repo as `needs verification`.
+- Vercel has both `psitherapy` and `reports` projects; do not confuse Vercel project `reports` with GitHub repo `report`.
 - Live-only UX checks cannot prove source code or deploy branch.
 - Health, psychotherapy, and homeopathy wording needs careful safety framing.
 
 ## 9. Recent Tasks
 
-- Added to `/improve` daily target list as an active Psitherapy/homeopathy UX
-  surface.
-- Repo search did not confirm a canonical repository.
+- 2026-07-06: Corrected canonical repo mapping to `andylitvinov-design/report` and added Psitherapy to daily strategic analysis with repo mapping.
+- Added to `/improve` daily target list as an active Psitherapy/homeopathy UX surface.
 
 ## 10. Next Actions
 
-- Resolve canonical repo mapping through Vercel project metadata, GitHub installed
-  repositories, or explicit user confirmation.
-- Until source mapping is proven, limit work to live UX audits, planning, and
-  clearly marked `needs verification` reports.
-- Add repo/deploy/env/file details after source mapping is confirmed.
+- Verify Vercel deploy source branch/commit for project `psitherapy`.
+- Inspect `andylitvinov-design/report` README, package scripts, app structure, and repo-local instructions before code work.
+- Add exact important files/env names after repo inspection.
+- Include Psitherapy in PR Merge Sweep and Daily Improve as an active project.
 
 ## 11. Risks
 
-- Editing an unrelated repo.
+- Editing the Vercel `reports` project or assuming it powers `psitherapy.vercel.app` without deploy-source proof.
 - Making unsafe medical or homeopathy claims.
-- Claiming implementation without source/deploy mapping.
-- Confusing Psitherapy with Reiki Yggdrasil or Psihotavr backend/auth work.
+- Claiming implementation/live success without source/deploy/browser mapping.
+- Confusing Psitherapy with Reiki Yggdrasil, Psihotavr, or generic report-template work.
 
 ## 12. Rules for Codex
 
+- Use `andylitvinov-design/report` as the canonical repo for Psitherapy unless Vercel deploy-source metadata proves otherwise.
+- Treat `main` as canonical production branch unless repo/deploy metadata proves otherwise.
+- Verify Vercel deploy source and live browser behavior before claiming live completion.
 - Do not make medical promises or unsafe health claims.
-- Mark repo/deploy/source facts as `needs verification` until proven.
-- Do not edit product code until the canonical repo is confirmed.
-- Use the live URL for public UX audit only.
-- Keep health-related copy careful, non-diagnostic, and framed as educational or
-  consultative unless user-provided source text says otherwise.
+- Keep health-related copy careful, non-diagnostic, and framed as educational or consultative unless user-provided source text says otherwise.
+- Use env names only; never print secrets.
 
 ## 13. Verification Status
 
-- repo mapping: needs verification
-- live mapping: production URL known; source/deploy mapping needs verification
-- env status: needs verification
-- deploy status: Vercel project known from prior sweep; source needs verification
-- data flow: needs verification
-- needs verification: repo, admin, env, deploy, and persistence details.
+- repo mapping: corrected to `andylitvinov-design/report` from user correction and GitHub repo existence.
+- live mapping: Vercel project `psitherapy` and production URL known.
+- deploy source branch/commit: needs verification.
+- env status: needs verification.
+- deploy status: latest Vercel deployment observed as READY, but target/deploy-source proof still needs verification.
+- data flow: needs verification.
+- needs verification: admin, env, deploy source, persistence, and exact app file map.
