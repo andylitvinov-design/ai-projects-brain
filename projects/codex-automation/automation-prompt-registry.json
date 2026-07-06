@@ -6,10 +6,15 @@
     {
       "title": "Daily Improve Sweep",
       "status": "active",
+      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "primary_role": "Prototyper",
+      "secondary_role": "Grower",
       "role": "read-only strategic vision loop with ready prompts across active projects",
       "must_do": [
         "inspect all confirmed active projects unless scope is narrowed",
         "use errors, trends, provider gaps, and user pain as signals",
+        "produce concept cards and quick hypotheses for new product or operations opportunities",
+        "produce project cards and ranked opportunities for ideas worth developing",
         "produce cross-project strategic summary, project cards, ranked opportunities, and ready prompts",
         "rank provider/live readiness above softer ideas when auth, persistence, finance, admin, upload, payment, or live data is affected",
         "write or propose Morning System Upgrade handoff content"
@@ -22,6 +27,7 @@
         "duplicate PR Merge Sweep or Codex Delivery Loop"
       ],
       "source_files": [
+        "projects/codex-automation/AGENT_ROLES.md",
         "systems/improve-mode.md",
         "systems/provider-live-readiness-gate.md",
         "projects/codex-automation/delivery-outcome-ledger.md",
@@ -32,9 +38,13 @@
     {
       "title": "Morning System Upgrade",
       "status": "active",
+      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "primary_role": "Sweeper",
+      "secondary_role": "Maintainer",
       "role": "safe harness/docs/registry/regression implementation from Daily Improve and Evening Review inputs",
       "must_do": [
         "read morning-handoff-queue.md first and evening-review-handoff.md second",
+        "act as the morning half of the Sweeper cleanup loop",
         "operationalize provider/live readiness before softer cleanup",
         "apply safe markdown/docs/registry/regression/ledger/handoff changes when source of truth is clear",
         "convert product/provider/data/auth/payment/deploy work into exact tickets",
@@ -48,6 +58,7 @@
         "claim success without validation or explicit not-run reason"
       ],
       "source_files": [
+        "projects/codex-automation/AGENT_ROLES.md",
         "agent-skills/upgrade-daily-protocol.md",
         "systems/active-skill-map.md",
         "systems/harness-rule-lifecycle.md",
@@ -59,9 +70,13 @@
     {
       "title": "Evening Architecture Review",
       "status": "active",
+      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "primary_role": "Sweeper",
+      "secondary_role": "Maintainer",
       "role": "root-cause analysis of repeated failures and rule lifecycle decisions",
       "must_do": [
         "review same-day evidence from ledgers, regressions, replays, metrics, reports, and user corrections",
+        "act as the evening half of the Sweeper cleanup loop",
         "select one highest-leverage structural issue",
         "decide rule lifecycle action",
         "write next morning handoff",
@@ -73,10 +88,115 @@
         "merge PRs or mutate product/provider state"
       ],
       "source_files": [
+        "projects/codex-automation/AGENT_ROLES.md",
         "projects/codex-automation/evening-review-handoff.md",
         "systems/harness-rule-lifecycle.md",
         "projects/codex-automation/agent-learning-metrics.md",
         "scripts/validate-agentic-prompts.mjs"
+      ]
+    },
+    {
+      "title": "PR Merge Sweep",
+      "status": "documented_expected",
+      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "primary_role": "Maintainer",
+      "secondary_role": "Builder",
+      "role": "safe PR merge and recovery sweep with checks, readiness proof, and blocked-work handoff",
+      "must_do": [
+        "check open and recently merged PRs for safe merge or recovery paths",
+        "block merge when required checks, provider readiness, or live proof are missing",
+        "salvage safe hunks onto fresh main only when merge/recovery is low risk",
+        "create exact repair prompts for blocked PRs"
+      ],
+      "must_not_do": [
+        "merge without checks and readiness proof",
+        "bypass branch protection or CI",
+        "change provider, env, or secret configuration",
+        "turn PR safety work into broad product redesign"
+      ],
+      "source_files": [
+        "projects/codex-automation/AGENT_ROLES.md",
+        "projects/codex-automation/CHATGPT_AUTOMATIONS_RUNBOOK.md",
+        "projects/codex-automation/SYSTEM_MAP.md",
+        "systems/provider-live-readiness-gate.md"
+      ]
+    },
+    {
+      "title": "Codex Delivery Loop",
+      "status": "documented_expected",
+      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "primary_role": "Builder",
+      "secondary_role": "Maintainer",
+      "role": "unfinished delivery recovery loop for concrete tasks, blocked branches, failed checks, and exact next prompts",
+      "must_do": [
+        "find unfinished delivery tasks, blocked PRs, failed checks, and forgotten branches or worktrees",
+        "execute minimal safe fixes for concrete approved tasks",
+        "create recovery prompts when direct execution is blocked",
+        "separate code/check evidence from provider/live readiness evidence"
+      ],
+      "must_not_do": [
+        "act as the strategic vision layer",
+        "start product code without a concrete issue or prompt",
+        "perform broad rewrites",
+        "bypass CI, branch protection, provider readiness, or live proof"
+      ],
+      "source_files": [
+        "projects/codex-automation/AGENT_ROLES.md",
+        "projects/codex-automation/CHATGPT_AUTOMATIONS_RUNBOOK.md",
+        "projects/codex-automation/SYSTEM_MAP.md",
+        "systems/delivery-loop-standard.md",
+        "systems/provider-live-readiness-gate.md"
+      ]
+    },
+    {
+      "title": "Weekly Live Safe Sweep",
+      "status": "documented_expected",
+      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "primary_role": "Maintainer",
+      "secondary_role": "Sweeper",
+      "role": "weekly live and public safety pass for production regressions, UX risks, and exact repair prompts",
+      "must_do": [
+        "check live/public safety, security, and UX risks",
+        "classify risky work before mutation",
+        "apply only minimal safe fixes when evidence supports them",
+        "hand off product/provider work to exact repair prompts"
+      ],
+      "must_not_do": [
+        "claim live success without live proof",
+        "change provider, env, or secret configuration",
+        "perform broad product rewrites",
+        "mutate production data unsafely"
+      ],
+      "source_files": [
+        "projects/codex-automation/AGENT_ROLES.md",
+        "projects/codex-automation/CHATGPT_AUTOMATIONS_RUNBOOK.md",
+        "projects/codex-automation/SYSTEM_MAP.md",
+        "systems/provider-live-readiness-gate.md"
+      ]
+    },
+    {
+      "title": "/audit-fin",
+      "status": "documented_mode",
+      "scheduler_state": "not a scheduler claim; mode contract only",
+      "primary_role": "Maintainer",
+      "secondary_role": "Sweeper",
+      "role": "finance correctness audit mode with deterministic repair prompts and strict source-record boundaries",
+      "must_do": [
+        "check finance invariants and source-record consistency",
+        "default to the last 30 days unless the user specifies another period",
+        "separate audit evidence from repair execution",
+        "create deterministic repair prompts for risky finance/provider issues"
+      ],
+      "must_not_do": [
+        "make unsafe financial mutations",
+        "change provider, env, or secret configuration",
+        "assert provider/live correctness without proof",
+        "turn finance audit into a product rewrite"
+      ],
+      "source_files": [
+        "projects/codex-automation/AGENT_ROLES.md",
+        "systems/audit-fin-mode.md",
+        "systems/provider-live-readiness-gate.md"
       ]
     }
   ]
