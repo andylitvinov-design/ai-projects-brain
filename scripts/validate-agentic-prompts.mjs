@@ -133,6 +133,7 @@ for (const [index, fixture] of behavior.fixtures.entries()) {
   assert(allowedStatuses.has(fixture.status), `${prefix}.status invalid`);
   assertText(fixture.source, `${prefix}.source required`);
   assertText(fixture.input_signal, `${prefix}.input_signal required`);
+  byId(prompts.tests, fixture.id, `${behaviorPath} fixture must map to prompt regression test`);
   byId(replays.cases, fixture.id, `${behaviorPath} fixture must map to replay case`);
   assert(Array.isArray(fixture.sample_outputs) && fixture.sample_outputs.length >= 2, `${prefix}.sample_outputs needs at least two samples`);
   assert(fixture.sample_outputs.some((sample) => sample.should_pass === true), `${prefix}.sample_outputs needs a passing sample`);
