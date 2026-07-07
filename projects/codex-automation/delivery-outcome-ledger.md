@@ -1,6 +1,6 @@
 # Delivery Outcome Ledger
 
-Last updated: 2026-07-06
+Last updated: 2026-07-07
 
 Purpose: compact evidence ledger for repeated agent outcomes, false success prevention, provider/live blockers, and lessons that should influence Daily Improve, Morning System Upgrade, and Evening Architecture Review.
 
@@ -15,7 +15,8 @@ Purpose: compact evidence ledger for repeated agent outcomes, false success prev
 | 2026-07-04 | Agent harness | Morning System Upgrade could finish as smart report without material safe upgrade | `APPLIED_UPGRADE` / `NO_SAFE_UPGRADE` gate added to upgrade protocol and registry | User correction 2026-07-04; `agent-skills/upgrade-daily-protocol.md`; `projects/codex-automation/automation-prompt-registry.json` | Morning run must prove applied safe change or explicit no-safe-upgrade |
 | 2026-07-05 | Agent harness | replay/regression artifacts existed but were not read by an explicit validator | Created `scripts/validate-agentic-prompts.mjs` and registered it in automation contracts | Morning System Upgrade 2026-07-05; commit `c61568f`; `projects/codex-automation/automation-prompt-registry.json` | Run Node validation from a real checkout; keep cases candidate until execution evidence exists |
 | 2026-07-06 | Agent harness | metrics drift was a known failure mode: counts can disagree with prompt/replay artifacts | Strengthened `scripts/validate-agentic-prompts.mjs` to read `agent-learning-metrics.md` and fail when replay/prompt counts drift from JSON artifacts | Morning System Upgrade 2026-07-06; commits `01a0803`, `736d032`, `7cd219f` | Run all Node validation commands from a checkout and only then count validation passed/failed |
-| 2026-07-06 | Agent harness | validation evidence propagation drift: PR #95 reports the three validation commands ran, while metrics/handoff still described validation as not run and PR #92 remained open/stale | Evening Architecture Review opened a safe docs/handoff PR to separate `not run`, `PR-reported run`, raw validation output, and behavior replay evidence | `andylitvinov-design/ai-projects-brain#95`; Evening Architecture Review 2026-07-06; open stale PR `#92` | Morning System Upgrade should reconcile PR #92, preserve PR #95 validation evidence, and decide whether to add a behavior replay runner next |
+| 2026-07-06 | Agent harness | validation evidence propagation drift: PR #95 reports the three validation commands ran, while metrics/handoff still described validation as not run and PR #92 remained stale | PR #96 separated `not run`, `PR-reported run`, raw validation output, and behavior replay evidence; PR #92 was closed unmerged as stale/superseded | `andylitvinov-design/ai-projects-brain#95`; `#96`; closed unmerged `#92` | Do not promote behavior rules until behavior replay or real prevention evidence exists |
+| 2026-07-07 | Agent harness | structural validation existed, but behavior replay remained missing/decorative | Added deterministic behavior replay fixtures and runner; validator now checks fixture coverage and metrics alignment | Morning System Upgrade 2026-07-07; `projects/codex-automation/behavior-replay-fixtures.json`; `scripts/run-behavior-replay-fixtures.mjs`; `scripts/validate-agentic-prompts.mjs` | Run `node scripts/run-behavior-replay-fixtures.mjs` and the three validators from checkout; keep behavior rules candidate until output evidence exists |
 
 ## What to record
 
