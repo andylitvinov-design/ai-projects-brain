@@ -24,6 +24,10 @@ function assertText(value, message) {
   assert(typeof value === 'string' && value.trim(), message);
 }
 
+function assertBoolean(value, message) {
+  assert(typeof value === 'boolean', message);
+}
+
 function assertTextArray(value, message, allowEmpty = false) {
   assert(Array.isArray(value), message);
   assert(allowEmpty || value.length > 0, `${message} must not be empty`);
@@ -71,6 +75,7 @@ function assertMetricAtLeast(metricsText, metricName, minimum) {
 
 const promptPath = 'projects/codex-automation/prompt-regression-tests.json';
 const replayPath = 'projects/codex-automation/failure-replay-cases.json';
+const behaviorPath = 'projects/codex-automation/behavior-replay-fixtures.json';
 const registryPath = 'projects/codex-automation/automation-prompt-registry.json';
 const metricsPath = 'projects/codex-automation/agent-learning-metrics.md';
 
@@ -110,8 +115,35 @@ for (const [index, item] of replays.cases.entries()) {
   assertText(item.pattern, `${prefix}.pattern required`);
   assertText(item.input_signal, `${prefix}.input_signal required`);
   assertText(item.expected_behavior, `${prefix}.expected_behavior required`);
-  assert(typeof item.must_block_success === 'boolean', `${prefix}.must_block_success required`);
+  assertBoolean(item.must_block_success, `${prefix}.must_block_success required`);
   assertText(item.suggested_route, `${prefix}.suggested_route required`);
+}
+
+const behavior = readJson(behaviorPath);
+assert(behavior.schema_version === 1, `${behaviorPath} schema_version must be 1`);
+assertText(behavior.last_updated, `${behaviorPath} needs last_updated`);
+assert(behavior.runner === 'scripts/run-behavior-replay-fixtures.mjs', `${behaviorPath} runner must point to scripts/run-behavior-replay-fixtures.mjs`);
+assert(Array.isArray(behavior.fixtures) && behavior.fixtures.length > 0, `${behaviorPath} needs fixtures`);
+assertUnique(behavior.fixtures.map((fixture) => fixture.id), `${behaviorPath} fixtures`);
+
+for (const [index, fixture] of behavior.fixtures.entries()) {
+  const prefix = `${behaviorPath}.fixtures[${index}]`;
+  assertText(fixture.id, `${prefix}.id required`);
+  assert(/^[a-z0-9][a-z0-9-]*$/.test(fixture.id), `${prefix}.id must be kebab-case`);
+  assert(allowedStatuses.has(fixture.status), `${prefix}.status invalid`);
+  assertText(fixture.source, `${prefix}.source required`);
+  assertText(fixture.input_signal, `${prefix}.input_signal required`);
+  byId(replays.cases, fixture.id, `${behaviorPath} fixture must map to replay case`);
+  assert(Array.isArray(fixture.sample_outputs) && fixture.sample_outputs.length >= 2, `${prefix}.sample_outputs needs at least two samples`);
+  assert(fixture.sample_outputs.some((sample) => sample.should_pass === true), `${prefix}.sample_outputs needs a passing sample`);
+  assert(fixture.sample_outputs.some((sample) => sample.should_pass === false), `${prefix}.sample_outputs needs a failing sample`);
+  for (const [sampleIndex, sample] of fixture.sample_outputs.entries()) {
+    const samplePrefix = `${prefix}.sample_outputs[${sampleIndex}]`;
+    assertText(sample.label, `${samplePrefix}.label required`);
+    assertText(sample.output, `${samplePrefix}.output required`);
+    assertBoolean(sample.should_pass, `${samplePrefix}.should_pass must be boolean`);
+    assertText(sample.reason, `${samplePrefix}.reason required`);
+  }
 }
 
 for (const id of [
@@ -121,6 +153,7 @@ for (const id of [
 ]) {
   byId(prompts.tests, id, promptPath);
   byId(replays.cases, id, replayPath);
+  byId(behavior.fixtures, id, behaviorPath);
 }
 
 const providerPrompt = byId(prompts.tests, 'provider-dependent-feature-without-provider-proof', promptPath);
@@ -154,14 +187,17 @@ const morning = registry.automations.find((item) => item.title === 'Morning Syst
 assert(morning, 'registry must include Morning System Upgrade');
 assert(morning.must_do.some((item) => /APPLIED_UPGRADE|NO_SAFE_UPGRADE/.test(item)), 'Morning Upgrade must require APPLIED_UPGRADE or NO_SAFE_UPGRADE');
 assert(morning.must_do.some((item) => /validate-agentic-prompts/.test(item)), 'Morning Upgrade must keep validator maintenance in contract');
+assert(morning.must_do.some((item) => /behavior replay/i.test(item)), 'Morning Upgrade must keep behavior replay fixture maintenance in contract');
 
 const metricsText = readText(metricsPath);
 assertMetricEquals(metricsText, 'replay cases defined', replays.cases.length);
 assertMetricEquals(metricsText, 'prompt regressions defined', prompts.tests.length);
+assertMetricEquals(metricsText, 'behavior replay fixtures defined', behavior.fixtures.length);
 assertMetricAtLeast(metricsText, 'feedback-loop validators defined', 1);
+assertMetricAtLeast(metricsText, 'behavior replay runners defined', 1);
 metricCount(metricsText, 'validation commands run');
 for (const requiredTemplateMetric of ['validation_passed:', 'validation_failed:', 'replay_case_passed:', 'prompt_regression_passed:']) {
   assert(metricsText.includes(requiredTemplateMetric), `${metricsPath} template missing ${requiredTemplateMetric}`);
 }
 
-console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${registry.automations.length} automation contracts, metrics aligned`);
+console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned`);
