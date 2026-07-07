@@ -1,17 +1,16 @@
 # Evening Architecture Review Handoff
 
-Last updated: 2026-07-06
+Last updated: 2026-07-07
 
 ## Evidence reviewed
 
-- `projects/codex-automation/automation-prompt-registry.json` now records the automation role model and requires Evening Review to check whether `scripts/validate-agentic-prompts.mjs` prevents prompt/regression/replay/metrics drift.
-- `projects/codex-automation/AGENT_ROLES.md` defines Evening Architecture Review as the evening half of the Sweeper loop: analyze repeated mistakes, choose one structural issue, and prepare Morning handoff.
-- `projects/codex-automation/agent-learning-metrics.md` still distinguished structural validation from behavior replay, but before this run it said validation commands run = 0.
-- `projects/codex-automation/morning-handoff-queue.md` still had a queued item to run validators, but PR #95 later reported that the validator commands were run before merge.
-- `scripts/validate-agentic-prompts.mjs` currently validates prompt regressions, replay cases, registry contracts, and metrics count alignment.
-- `projects/codex-automation/prompt-regression-tests.json` and `failure-replay-cases.json` contain the required provider/live, Daily Improve, Morning Upgrade, and improve/upgrade boundary candidates.
-- `andylitvinov-design/ai-projects-brain#95` was merged on 2026-07-06 and its verification section reports these commands: `validate-agentic-prompts`, `validate-projects-brain`, and `verify-context-scout`.
-- `andylitvinov-design/ai-projects-brain#92` is still open and non-mergeable, even though PR #95 appears to have covered or superseded the validator/registry alignment problem.
+- Morning System Upgrade 2026-07-07 consumed the validation-evidence propagation handoff.
+- PR #96 (`Track validation evidence propagation drift`) is merged.
+- PR #92 (`Fix agentic prompt validator ID drift`) is now closed unmerged and should be treated as stale/superseded unless a future diff review proves otherwise.
+- `scripts/validate-agentic-prompts.mjs` now validates prompt regressions, replay cases, behavior replay fixtures, registry contracts, and learning-metric count alignment.
+- `projects/codex-automation/behavior-replay-fixtures.json` now stores deterministic expected-pass/expected-fail examples for the main candidate behavior rules.
+- `scripts/run-behavior-replay-fixtures.mjs` now exists as the first offline behavior replay layer.
+- `projects/codex-automation/agent-learning-metrics.md` distinguishes structural validation, deterministic fixture replay, and live behavior/prevention evidence.
 
 ## Provider/live readiness gaps found
 
@@ -20,28 +19,31 @@ Still routed out of Evening Review and Morning Upgrade:
 1. Psihotavr provider/live proof: Supabase auth/admin persistence/live production behavior remains product/provider work and must stay under `/delivery`, `/safe`, or `/audit-ui`.
 2. Finance provider-balance proof: strict `verify:finance` remains blocked by provider/manual balance source evidence and must stay under `/audit-fin`.
 
-No product code, provider configuration, production data, deploy setting, or secret-adjacent change was executed from this review.
+No product code, provider configuration, production data, deploy setting, or secret-adjacent change was executed from this review handoff.
 
 ## Repeated patterns found
 
-1. Evidence propagation can lag behind actual harness changes: PR #95 reports validation, while metrics/handoff still said validation was not run.
-2. Stale safe-harness PRs can remain open after newer merged PRs supersede them, creating duplicate context and possible merge confusion.
-3. The system still lacks a behavior replay runner. Structural validation exists, but behavior rules remain candidates until a replay runner or real prevention evidence exists.
+1. The system has moved from missing structural validation to needing executable behavior evidence.
+2. Structural validation and deterministic fixture replay must not be confused with live model behavior or real prevention evidence.
+3. Stale safe-harness PR state can now be reconciled in docs faster, but raw checkout/CI evidence is still missing in connector-only runs.
 
-## Selected root structural issue
+## Selected root structural issue for tonight
 
-The system has moved from missing feedback-loop artifacts to validation-evidence propagation drift. The highest leverage issue is now making evidence states explicit and synchronized:
+Check whether the new behavior fixture runner actually changes the harness from decorative rules to executable guardrails.
+
+Evidence-state ladder to preserve:
 
 ```txt
 not run
 PR-reported run
 raw validation output available
-behavior replay passed
+behavior replay fixture passed
+live behavior/prevention evidence exists
 ```
 
-Without this distinction, the harness can either undercount real validation evidence or over-promote rules based on weak evidence.
+Do not skip levels when promoting rules.
 
-## Rule lifecycle action
+## Rule lifecycle action to consider
 
 ```txt
 rule lifecycle actions:
@@ -49,92 +51,88 @@ rule lifecycle actions:
   - daily-improve-strategic-portfolio-not-only-bugs
   - morning-upgrade-report-only-without-applied-upgrade
   - provider-dependent-feature-without-provider-proof
+  - improve-upgrade-mode-boundary-drift
+  - save-memory-handoff-confusion
 - needs_revision:
-  - validation evidence wording / metrics propagation rule
-  - stale PR reconciliation path for safe harness PRs
+  - none known after PR #96 and Morning 2026-07-07, unless validators fail
 - promoted to active:
-  - none; PR-reported validator execution is structural evidence, not behavior replay evidence
+  - none yet; fixture runner exists but has no raw execution evidence in this connector-only run
 - deprecated/rejected:
-  - none
+  - stale PR #92 merge path is effectively rejected/superseded; do not merge stale hunks blindly
 - evidence:
   - PR #95 verification section
-  - stale open PR #92 status
-  - metrics/handoff mismatch before this review
+  - merged PR #96
+  - closed unmerged PR #92
+  - Morning 2026-07-07 behavior replay fixture runner files
 ```
 
-## Replay coverage and result
+## Replay coverage and expected result
 
-Replay/prompt-regression artifacts exist and are structurally validated by `validate-agentic-prompts.mjs`, but no behavior replay runner was executed in this review.
-
-Result:
+Current coverage:
 
 ```txt
-structural validator: PR-reported run in #95
-behavior replay: not run / not implemented
+structural validator: defined
+behavior replay fixtures: defined
+behavior fixture runner: defined
+raw fixture-run output: not available in connector-only run
+live model replay: not implemented
 behavior rules: remain candidate
 ```
 
+Evening should look for raw checkout/CI output. If absent, preserve candidate status.
+
 ## Learning metrics
 
-Safe update proposed:
+Morning 2026-07-07 added evidence-backed metrics for:
 
-- Update `validation commands run` from `0` to `3` with PR #95 as evidence.
-- Add a distinct metric row for `validation evidence propagation fixes`.
-- Keep behavior replay/pass metrics unpromoted because raw command output and behavior replay evidence are still missing.
+- behavior replay runners defined = 1;
+- behavior replay fixtures defined = 5;
+- stale safe-harness PR reconciled = 1.
 
-## Safe docs changes applied
+Do not increment `replay_case_passed`, `prompt_regression_passed`, or `validation_passed` unless raw command output or CI evidence is available.
 
-Opened a safe docs/handoff branch to update:
+## Prompt regression / runner layer
 
-- `projects/codex-automation/agent-learning-metrics.md`
-- `projects/codex-automation/delivery-outcome-ledger.md`
-- `projects/codex-automation/morning-handoff-queue.md`
-- `projects/codex-automation/evening-review-handoff.md`
+No new prompt-regression entry is required tonight unless the fixture runner misses a concrete failure class.
 
-No product/provider/auth/payment/data/deploy/env/secrets changed.
+Priority check:
 
-## Prompt regression tests
+```bash
+node scripts/validate-agentic-prompts.mjs
+node scripts/run-behavior-replay-fixtures.mjs
+node scripts/verify-context-scout.mjs
+node scripts/validate-projects-brain.mjs
+```
 
-No new prompt-regression entry was added. Current issue is not a missing prompt regression; it is evidence-state propagation and stale PR reconciliation after a later merged PR.
+If `run-behavior-replay-fixtures.mjs` passes with raw output, Evening may recommend promoting only the deterministic fixture-runner coverage, not the actual behavior rules.
 
-Proposed next regression/runner layer:
-
-- a minimal behavior replay runner that can evaluate saved prompt-regression fixtures against deterministic expected output classes, without touching product/provider state.
-
-## Agent-ready tickets
-
-No product/provider ticket created from this run. Existing product/provider work remains:
-
-- Psihotavr provider/live proof: continue with `/delivery`, `/safe`, or `/audit-ui` against the product issue.
-- Finance provider-balance proof: continue with `/audit-fin` against the finance issue.
-
-Safe harness ticket for Morning:
+## Agent-ready ticket for Morning
 
 ```txt
 /upgrade
 
-Goal: close validation-evidence propagation drift after PR #95 and reconcile stale PR #92.
+Goal: execute and harden the behavior replay fixture layer.
 
 Source of truth:
-- andylitvinov-design/ai-projects-brain#95
-- andylitvinov-design/ai-projects-brain#92
+- projects/codex-automation/behavior-replay-fixtures.json
+- scripts/run-behavior-replay-fixtures.mjs
+- scripts/validate-agentic-prompts.mjs
 - projects/codex-automation/agent-learning-metrics.md
 - projects/codex-automation/morning-handoff-queue.md
-- scripts/validate-agentic-prompts.mjs
 
 Required checks from real checkout:
 - node scripts/validate-agentic-prompts.mjs
+- node scripts/run-behavior-replay-fixtures.mjs
 - node scripts/verify-context-scout.mjs
 - node scripts/validate-projects-brain.mjs
 
 Required decisions:
-- If PR #92 is superseded by main/PR #95, close or mark it stale; do not merge stale hunks blindly.
-- If PR #92 contains still-needed hunks, salvage only those hunks onto fresh main.
-- If current docs cleanup passes checks, merge it.
-- Do not promote behavior rules until behavior replay or real prevention evidence exists.
+- If checks pass, record raw output evidence and promote only structural/fixture-runner coverage.
+- If checks fail, apply the smallest fixture/schema/registry/docs fix.
+- Keep provider/live, Daily Improve strategic portfolio, and Morning report-only behavior rules candidate until live automation/model behavior proves prevention.
 
 Constraints:
-- harness/docs only
+- harness/docs/scripts only
 - no product code
 - no provider config
 - no production data
@@ -146,25 +144,24 @@ Constraints:
 ```txt
 suggested skills:
 - existing route used: /upgrade
-- secondary PR mechanics: /delivery only for stale PR reconciliation, not product work
+- secondary route: none unless a stale product/provider issue appears
 - new skill proposed: no
 ```
 
 ## Validation
 
-Not run from this connector-only review. Evidence state:
+Not run from this connector-only handoff. Evidence state:
 
-- PR #95 reports that the three validation commands ran before merge.
-- This Evening Review did not receive raw command output or GitHub Actions logs.
-- `fetch_commit_workflow_runs` for PR #95 head returned no workflow runs.
+- PR #95 reports the three structural validation commands ran before merge.
+- Morning 2026-07-07 created a deterministic behavior fixture runner, but no raw command output is available in this review.
 
 ## Needs verification
 
-- Raw local/CI validation output for the current main branch.
-- Whether PR #92 is fully superseded by PR #95.
-- Whether a behavior replay runner is now worth adding, or whether structural validation is enough for one more cycle.
-- Whether live ChatGPT Automation UI prompts match the registry after role model updates.
+- Raw local/CI output for `validate-agentic-prompts.mjs`.
+- Raw local/CI output for `run-behavior-replay-fixtures.mjs`.
+- Whether live ChatGPT Automation UI prompts match the registry after role model and behavior replay updates.
+- Whether a live model replay runner is worth adding after deterministic fixtures pass.
 
 ## Single next action
 
-Morning System Upgrade should review the docs cleanup PR from this review, rerun the three validators from checkout, and reconcile PR #92 as stale/superseded or salvage-only.
+Evening Architecture Review should verify whether the new behavior fixture runner produced raw pass/fail output and keep behavior rules candidate unless that evidence exists.
