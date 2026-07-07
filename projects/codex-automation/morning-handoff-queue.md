@@ -8,7 +8,7 @@ Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Eve
 
 ### 2026-07-08 — execute behavior replay fixture runner and validators
 
-Source: Morning System Upgrade 2026-07-07.
+Source: Morning System Upgrade 2026-07-07 and Evening Architecture Review 2026-07-07.
 
 Status: ready for safe `/upgrade` verification work from a real checkout.
 
@@ -20,20 +20,25 @@ Inputs:
   - Morning Upgrade report-only completion;
   - `/improve` vs `/upgrade` boundary drift;
   - `/save` vs `/memory` vs `/handoff` confusion.
-- `scripts/validate-agentic-prompts.mjs` now validates behavior fixture schema, fixture-to-replay mapping, and learning-metric count alignment.
+- Evening Architecture Review 2026-07-07 found an additional artifact-drift risk: behavior fixtures were mapped to replay cases, but not all fixture IDs were guaranteed to map to prompt-regression IDs.
+- Safe fix prepared:
+  - `prompt-regression-tests.json` now includes matching prompt regressions for every behavior fixture ID;
+  - `scripts/validate-agentic-prompts.mjs` now fails if any behavior fixture lacks a matching prompt-regression test or replay case;
+  - `agent-learning-metrics.md` and `delivery-outcome-ledger.md` record the prompt-to-behavior fixture coverage fix.
 - PR #92 is no longer open: it was closed unmerged as stale/superseded after PR #95/PR #96. Do not merge its stale hunks blindly.
 - Product/provider work remains routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
 
 Recommended Morning action:
-1. From a real checkout, rerun:
+1. Review the Evening Architecture PR for fixture-to-prompt coverage drift.
+2. From a real checkout, rerun:
    - `node scripts/validate-agentic-prompts.mjs`;
    - `node scripts/run-behavior-replay-fixtures.mjs`;
    - `node scripts/verify-context-scout.mjs`;
    - `node scripts/validate-projects-brain.mjs`.
-2. If checks pass, record raw validation output evidence in `agent-learning-metrics.md` and `delivery-outcome-ledger.md`.
-3. Promote only structural/fixture-runner coverage if raw output exists. Do not promote live behavior rules until a real automation report or live model replay proves prevention.
-4. If checks fail, fix the smallest schema/docs/fixture/registry issue and keep all behavior rules candidate.
-5. Check whether live ChatGPT Automations UI prompts still match the registry contracts for Daily Improve, Morning Upgrade, and Evening Review; if not, update the existing automation prompt only, not a new automation.
+3. If checks pass, record raw validation output evidence in `agent-learning-metrics.md` and `delivery-outcome-ledger.md`, then merge the safe harness PR.
+4. Promote only structural/fixture-runner coverage if raw output exists. Do not promote live behavior rules until a real automation report or live model replay proves prevention.
+5. If checks fail, fix the smallest schema/docs/fixture/registry issue and keep all behavior rules candidate.
+6. Check whether live ChatGPT Automations UI prompts still match the registry contracts for Daily Improve, Morning Upgrade, and Evening Review; if not, update the existing automation prompt only, not a new automation.
 
 Needs verification:
 - Connector-only runs can write safe docs/scripts but cannot produce local Node output.
