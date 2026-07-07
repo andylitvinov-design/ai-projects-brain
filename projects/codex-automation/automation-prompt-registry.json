@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-06",
+  "last_updated": "2026-07-07",
   "purpose": "Human-readable source-of-truth mirror for the intent and guardrails of recurring ChatGPT/Codex automations. Live scheduler prompts may be longer; this file records the durable contract.",
   "automations": [
     {
@@ -49,7 +49,8 @@
         "apply safe markdown/docs/registry/regression/ledger/handoff changes when source of truth is clear",
         "convert product/provider/data/auth/payment/deploy work into exact tickets",
         "finish with APPLIED_UPGRADE or NO_SAFE_UPGRADE",
-        "run or maintain scripts/validate-agentic-prompts.mjs so prompt regressions, replay cases, automation registry contracts, and learning-metric counts are not decorative only"
+        "run or maintain scripts/validate-agentic-prompts.mjs so prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, and learning-metric counts are not decorative only",
+        "run or maintain scripts/run-behavior-replay-fixtures.mjs so stored expected-pass/expected-fail examples test the guardrail behavior without touching product/provider state"
       ],
       "must_not_do": [
         "perform broad discovery already owned by Daily Improve",
@@ -64,7 +65,9 @@
         "systems/harness-rule-lifecycle.md",
         "systems/provider-live-readiness-gate.md",
         "projects/codex-automation/agent-learning-metrics.md",
-        "scripts/validate-agentic-prompts.mjs"
+        "projects/codex-automation/behavior-replay-fixtures.json",
+        "scripts/validate-agentic-prompts.mjs",
+        "scripts/run-behavior-replay-fixtures.mjs"
       ]
     },
     {
@@ -80,7 +83,8 @@
         "select one highest-leverage structural issue",
         "decide rule lifecycle action",
         "write next morning handoff",
-        "check whether scripts/validate-agentic-prompts.mjs actually prevented prompt/regression/replay/metrics drift or still needs a runner"
+        "check whether scripts/validate-agentic-prompts.mjs actually prevented prompt/regression/replay/metrics drift or still needs a runner",
+        "check whether scripts/run-behavior-replay-fixtures.mjs has produced executable fixture evidence before promoting behavior rules"
       ],
       "must_not_do": [
         "redo Daily Improve portfolio discovery",
@@ -92,7 +96,9 @@
         "projects/codex-automation/evening-review-handoff.md",
         "systems/harness-rule-lifecycle.md",
         "projects/codex-automation/agent-learning-metrics.md",
-        "scripts/validate-agentic-prompts.mjs"
+        "projects/codex-automation/behavior-replay-fixtures.json",
+        "scripts/validate-agentic-prompts.mjs",
+        "scripts/run-behavior-replay-fixtures.mjs"
       ]
     },
     {
