@@ -25,13 +25,14 @@ Never count a metric without evidence. Acceptable evidence:
 | user corrections converted to harness artifacts | 2 | Delivery ledger 2026-07-04; prompt regression/replay candidates | Daily Improve strategic-portfolio correction and Morning Upgrade applied/no-safe-upgrade correction. |
 | rule lifecycle changes | 3 | 2026-07-04 Morning System Upgrade | Created provider/live gate, lifecycle standard, replay/regression scaffolds. |
 | replay cases defined | 5 | `failure-replay-cases.json` | Defined, not behavior-executed. |
-| prompt regressions defined | 5 | `prompt-regression-tests.json` | Defined, not behavior-executed. |
-| feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-05 through 2026-07-07 | Validator now reads prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, and learning-metric counts to catch artifact/metrics drift. |
+| prompt regressions defined | 6 | `prompt-regression-tests.json` | Defined, not behavior-executed. Each behavior replay fixture now has a matching prompt-regression ID. |
+| feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-05 through Evening Architecture Review 2026-07-07 | Validator now reads prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, learning-metric counts, and fixture-to-prompt/replay ID coverage to catch artifact/metrics drift. |
 | behavior replay runners defined | 1 | `scripts/run-behavior-replay-fixtures.mjs`; Morning System Upgrade 2026-07-07 | Deterministic offline runner for saved output fixtures. This is not a live model replay and does not touch product/provider state. |
 | behavior replay fixtures defined | 5 | `projects/codex-automation/behavior-replay-fixtures.json`; Morning System Upgrade 2026-07-07 | Fixtures cover provider/live false success, Daily Improve portfolio strategy, Morning report-only completion, improve/upgrade boundary drift, and save/memory/handoff confusion. |
 | validation commands run | 3 | ai-projects-brain PR #95 verification section | PR #95 reports `validate-agentic-prompts`, `validate-projects-brain`, and `verify-context-scout` were run before merge. Raw command output / Actions logs are not available in this connector review, so behavior rules remain candidates. |
 | validation evidence propagation fixes | 1 | Evening Architecture Review 2026-07-06; PR #96 | Metrics and handoff wording were revised after PR #95 changed the evidence state from no validation to PR-reported validation. |
 | stale safe-harness PR reconciled | 1 | PR #92 closed unmerged; PR #95 and PR #96 merged | The old validator ID-drift PR no longer remains open/non-mergeable; do not merge stale hunks blindly. |
+| prompt-to-behavior fixture coverage fixes | 1 | Evening Architecture Review 2026-07-07 | Added missing prompt-regression coverage for every behavior replay fixture and made the validator fail if fixture IDs drift away from prompt regressions. |
 
 ## Metrics to update after each run
 
@@ -64,7 +65,7 @@ If metrics are not updated, the report must state why. Lack of local checkout, u
 As of 2026-07-07, `scripts/validate-agentic-prompts.mjs` checks that:
 
 - prompt regression and replay JSON files are parseable and schema-shaped;
-- behavior replay fixture JSON is parseable, maps to replay cases, and contains both expected-pass and expected-fail samples;
+- behavior replay fixture JSON is parseable, maps to replay cases, maps to prompt regressions, and contains both expected-pass and expected-fail samples;
 - required anti-drift cases exist;
 - provider-dependent false success is blocked by the regression/replay/fixture contract;
 - Daily Improve keeps strategic portfolio output requirements;
