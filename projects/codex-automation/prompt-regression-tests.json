@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-05",
+  "last_updated": "2026-07-07",
   "tests": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -67,9 +67,9 @@
       "expected_route": "/upgrade safe harness/docs implementation"
     },
     {
-      "id": "improve-upgrade-boundary",
+      "id": "improve-upgrade-mode-boundary-drift",
       "status": "candidate",
-      "description": "/improve discovers and plans; /upgrade implements safe harness changes.",
+      "description": "/improve discovers and plans; /upgrade implements safe harness changes. Product code must route to /delivery.",
       "input_prompt": "Improve the agent system and update the rules safely.",
       "must_include": [
         "/improve",
@@ -80,7 +80,24 @@
       "must_not_include": [
         "/improve executes product code"
       ],
-      "expected_route": "/upgrade for rule changes"
+      "expected_route": "/upgrade for rule changes; /delivery for product implementation"
+    },
+    {
+      "id": "save-memory-handoff-confusion",
+      "status": "candidate",
+      "description": "Durable lessons must use /save, memory lookup must remain read-only, and handoff must remain operational continuation state.",
+      "input_prompt": "Save this reusable lesson for future runs, then hand it off to the next agent.",
+      "must_include": [
+        "/save",
+        "/memory",
+        "/handoff",
+        "durable reusable"
+      ],
+      "must_not_include": [
+        "/memory saved",
+        "handoff as long-term memory"
+      ],
+      "expected_route": "/save for durable lessons; /handoff for continuation"
     }
   ]
 }
