@@ -1,6 +1,6 @@
 # Delivery Outcome Ledger
 
-Last updated: 2026-07-07
+Last updated: 2026-07-08
 
 Purpose: compact evidence ledger for repeated agent outcomes, false success prevention, provider/live blockers, and lessons that should influence Daily Improve, Morning System Upgrade, and Evening Architecture Review.
 
@@ -17,6 +17,7 @@ Purpose: compact evidence ledger for repeated agent outcomes, false success prev
 | 2026-07-06 | Agent harness | metrics drift was a known failure mode: counts can disagree with prompt/replay artifacts | Strengthened `scripts/validate-agentic-prompts.mjs` to read `agent-learning-metrics.md` and fail when replay/prompt counts drift from JSON artifacts | Morning System Upgrade 2026-07-06; commits `01a0803`, `736d032`, `7cd219f` | Run all Node validation commands from a checkout and only then count validation passed/failed |
 | 2026-07-06 | Agent harness | validation evidence propagation drift: PR #95 reports the three validation commands ran, while metrics/handoff still described validation as not run and PR #92 remained stale | PR #96 separated `not run`, `PR-reported run`, raw validation output, and behavior replay evidence; PR #92 was closed unmerged as stale/superseded | `andylitvinov-design/ai-projects-brain#95`; `#96`; closed unmerged `#92` | Do not promote behavior rules until behavior replay or real prevention evidence exists |
 | 2026-07-07 | Agent harness | structural validation existed, but behavior replay remained missing/decorative | Added deterministic behavior replay fixtures and runner; validator now checks fixture coverage and metrics alignment | Morning System Upgrade 2026-07-07; `projects/codex-automation/behavior-replay-fixtures.json`; `scripts/run-behavior-replay-fixtures.mjs`; `scripts/validate-agentic-prompts.mjs` | Run `node scripts/run-behavior-replay-fixtures.mjs` and the three validators from checkout; keep behavior rules candidate until output evidence exists |
+| 2026-07-08 | Agent harness | validators and fixture runner existed but still had no durable CI path for raw pass/fail logs | Added `.github/workflows/agent-harness-validators.yml`; strengthened `scripts/validate-agentic-prompts.mjs` to require the workflow and all four validation commands | Morning System Upgrade 2026-07-08; commits `62eaf5f`, `c3ba9be`; `automation-prompt-registry.json`; `agent-learning-metrics.md` | Wait for or fetch GitHub Actions raw run evidence; promote only CI/validator coverage after a successful run, not live behavior rules |
 
 ## What to record
 
