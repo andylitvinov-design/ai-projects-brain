@@ -33,6 +33,7 @@ Never count a metric without evidence. Acceptable evidence:
 | validation commands run | 3 | ai-projects-brain PR #95 verification section | PR #95 reports `validate-agentic-prompts`, `validate-projects-brain`, and `verify-context-scout` were run before merge. Raw command output / Actions logs are not available in this connector review, so behavior rules remain candidates. |
 | validation evidence propagation fixes | 1 | Evening Architecture Review 2026-07-06; PR #96 | Metrics and handoff wording were revised after PR #95 changed the evidence state from no validation to PR-reported validation. |
 | stale safe-harness PR reconciled | 1 | PR #92 closed unmerged; PR #95 and PR #96 merged | The old validator ID-drift PR no longer remains open/non-mergeable; do not merge stale hunks blindly. |
+| unvalidated safe-harness PRs requiring reconciliation | 1 | PR #97; Evening Architecture Review 2026-07-08; delivery ledger 2026-07-08 | PR #97 covers fixture-to-prompt coverage but is open, not mergeable, and has no recorded workflow run evidence. It should be rebased/validated/superseded before merge or promotion. |
 
 ## Metrics to update after each run
 
@@ -55,6 +56,7 @@ validator_defined:
 validation_ci_workflow_defined:
 validation_passed:
 validation_failed:
+unvalidated_harness_pr_requiring_reconciliation:
 ```
 
 ## Reporting rule
