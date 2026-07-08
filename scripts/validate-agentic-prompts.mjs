@@ -78,6 +78,7 @@ const replayPath = 'projects/codex-automation/failure-replay-cases.json';
 const behaviorPath = 'projects/codex-automation/behavior-replay-fixtures.json';
 const registryPath = 'projects/codex-automation/automation-prompt-registry.json';
 const metricsPath = 'projects/codex-automation/agent-learning-metrics.md';
+const workflowPath = '.github/workflows/agent-harness-validators.yml';
 
 const prompts = readJson(promptPath);
 assert(prompts.schema_version === 1, `${promptPath} schema_version must be 1`);
@@ -189,15 +190,29 @@ assert(morning.must_do.some((item) => /APPLIED_UPGRADE|NO_SAFE_UPGRADE/.test(ite
 assert(morning.must_do.some((item) => /validate-agentic-prompts/.test(item)), 'Morning Upgrade must keep validator maintenance in contract');
 assert(morning.must_do.some((item) => /behavior replay/i.test(item)), 'Morning Upgrade must keep behavior replay fixture maintenance in contract');
 
+const workflowText = readText(workflowPath);
+for (const expected of [
+  'pull_request:',
+  'push:',
+  'workflow_dispatch:',
+  'node scripts/validate-agentic-prompts.mjs',
+  'node scripts/run-behavior-replay-fixtures.mjs',
+  'node scripts/verify-context-scout.mjs',
+  'node scripts/validate-projects-brain.mjs',
+]) {
+  assert(workflowText.includes(expected), `${workflowPath} must include ${expected}`);
+}
+
 const metricsText = readText(metricsPath);
 assertMetricEquals(metricsText, 'replay cases defined', replays.cases.length);
 assertMetricEquals(metricsText, 'prompt regressions defined', prompts.tests.length);
 assertMetricEquals(metricsText, 'behavior replay fixtures defined', behavior.fixtures.length);
 assertMetricAtLeast(metricsText, 'feedback-loop validators defined', 1);
 assertMetricAtLeast(metricsText, 'behavior replay runners defined', 1);
+assertMetricAtLeast(metricsText, 'validation CI workflows defined', 1);
 metricCount(metricsText, 'validation commands run');
 for (const requiredTemplateMetric of ['validation_passed:', 'validation_failed:', 'replay_case_passed:', 'prompt_regression_passed:']) {
   assert(metricsText.includes(requiredTemplateMetric), `${metricsPath} template missing ${requiredTemplateMetric}`);
 }
 
-console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned`);
+console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned, CI workflow defined`);
