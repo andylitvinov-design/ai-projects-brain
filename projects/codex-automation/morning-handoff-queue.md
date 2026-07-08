@@ -6,35 +6,58 @@ Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Eve
 
 ## Queue for next Morning System Upgrade
 
-### 2026-07-09 — verify CI validator evidence and promote only proven coverage
+### 2026-07-09 — reconcile PR #97 and raw CI validator evidence
 
-Source: Morning System Upgrade 2026-07-08.
+Source: Morning System Upgrade 2026-07-08 and Evening Architecture Review 2026-07-08.
 
 Status: ready for safe `/upgrade` verification work.
 
 Inputs:
-- `.github/workflows/agent-harness-validators.yml` now exists and runs the four harness validators on PR, push to `main`, and manual dispatch.
-- `scripts/validate-agentic-prompts.mjs` now fails if the workflow is missing or does not include:
-  - `node scripts/validate-agentic-prompts.mjs`;
-  - `node scripts/run-behavior-replay-fixtures.mjs`;
-  - `node scripts/verify-context-scout.mjs`;
-  - `node scripts/validate-projects-brain.mjs`.
-- `agent-learning-metrics.md`, `delivery-outcome-ledger.md`, and `automation-prompt-registry.json` now distinguish `CI workflow defined` from `raw validation output available`.
+- `.github/workflows/agent-harness-validators.yml` exists on main and defines the four expected harness checks.
+- `scripts/validate-agentic-prompts.mjs` requires the workflow contract and the four expected Node commands.
+- PR #97 (`Cover behavior fixtures with prompt regressions`) proposes fixture-to-prompt-regression coverage, but it is open, not mergeable, and has no recorded workflow run evidence for head `456ef0c3a2029e27cac3567d6b8f7ed8c97c6a61`.
+- `agent-learning-metrics.md` now records `unvalidated safe-harness PRs requiring reconciliation = 1`.
+- `delivery-outcome-ledger.md` now records the PR #97 validation/evidence gap.
 - Product/provider work remains routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
 
 Recommended Morning action:
-1. Check GitHub Actions for the latest `Agent Harness Validators` run on `andylitvinov-design/ai-projects-brain`.
-2. If the workflow produced raw successful logs, record exact pass evidence in `agent-learning-metrics.md` and `delivery-outcome-ledger.md`.
-3. Promote only `validation CI workflow coverage` or `structural validator coverage` when raw output exists. Do not promote provider/live, Daily Improve strategic portfolio, Morning report-only, improve/upgrade boundary, or save/memory/handoff behavior rules until behavior fixture output or live prevention evidence exists.
-4. If the workflow failed, fix the smallest script/docs/schema/workflow issue and keep behavior rules candidate.
-5. If no Actions output is available, keep status at `CI workflow defined` and write the exact manual/CI verification handoff.
+1. Check PR #97 against latest `main`.
+2. If the PR is still relevant, rebase it or recreate the smallest equivalent safe harness PR from fresh `main`.
+3. From checkout or CI, run/fetch raw output for:
+   - `node scripts/validate-agentic-prompts.mjs`;
+   - `node scripts/run-behavior-replay-fixtures.mjs`;
+   - `node scripts/verify-context-scout.mjs`;
+   - `node scripts/validate-projects-brain.mjs`.
+4. If all checks pass, record exact raw validation evidence in `agent-learning-metrics.md` and `delivery-outcome-ledger.md`, then merge the refreshed safe harness PR.
+5. If checks fail, fix the smallest schema/docs/fixture/registry/workflow issue and keep behavior rules candidate.
+6. If no raw output exists, keep status at `CI workflow defined` + `unvalidated safe-harness PR requiring reconciliation`; do not count validation passed.
 
 Needs verification:
-- Whether GitHub Actions started from the workflow commit.
-- Raw logs for `validate-agentic-prompts.mjs` and `run-behavior-replay-fixtures.mjs`.
+- Whether GitHub Actions started from the workflow commit or from a refreshed PR.
+- Raw logs for all four validator commands.
+- Whether PR #97 should be rebased, recreated, or closed as superseded.
 - Live ChatGPT Automation UI prompts still need occasional comparison against registry contracts, but do not create duplicate automations.
 
 ## Closed / consumed items
+
+### 2026-07-08 — verify CI validator evidence and promote only proven coverage
+
+Consumed by Evening Architecture Review 2026-07-08.
+
+Outcome: `PARTIAL / NEEDS_VERIFICATION`.
+
+Evidence found:
+- CI workflow exists on main.
+- PR #97 exists as a safe harness coverage PR but is not mergeable and has no recorded workflow run evidence.
+- Provider/live tickets #168 and #614 remain open.
+
+Safe updates applied:
+- updated `delivery-outcome-ledger.md` with the PR #97 validation/evidence gap;
+- updated `agent-learning-metrics.md` with `unvalidated safe-harness PRs requiring reconciliation = 1`;
+- updated this queue with the next exact `/upgrade` action.
+
+Still not counted as raw validation output:
+- no raw Actions/checkout logs were available for the four validator commands.
 
 ### 2026-07-08 — execute behavior replay fixture runner and validators
 
