@@ -1,46 +1,57 @@
 # Morning Handoff Queue
 
-Last updated: 2026-07-07
+Last updated: 2026-07-08
 
 Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Evening Architecture Review write safe, deduplicated inputs here.
 
 ## Queue for next Morning System Upgrade
 
-### 2026-07-08 — execute behavior replay fixture runner and validators
+### 2026-07-09 — verify CI validator evidence and promote only proven coverage
 
-Source: Morning System Upgrade 2026-07-07.
+Source: Morning System Upgrade 2026-07-08.
 
-Status: ready for safe `/upgrade` verification work from a real checkout.
+Status: ready for safe `/upgrade` verification work.
 
 Inputs:
-- `scripts/run-behavior-replay-fixtures.mjs` now exists and checks deterministic expected-pass/expected-fail output fixtures.
-- `projects/codex-automation/behavior-replay-fixtures.json` now covers five candidate behavior patterns:
-  - provider/live false success;
-  - Daily Improve portfolio strategy not only bugs;
-  - Morning Upgrade report-only completion;
-  - `/improve` vs `/upgrade` boundary drift;
-  - `/save` vs `/memory` vs `/handoff` confusion.
-- `scripts/validate-agentic-prompts.mjs` now validates behavior fixture schema, fixture-to-replay mapping, and learning-metric count alignment.
-- PR #92 is no longer open: it was closed unmerged as stale/superseded after PR #95/PR #96. Do not merge its stale hunks blindly.
+- `.github/workflows/agent-harness-validators.yml` now exists and runs the four harness validators on PR, push to `main`, and manual dispatch.
+- `scripts/validate-agentic-prompts.mjs` now fails if the workflow is missing or does not include:
+  - `node scripts/validate-agentic-prompts.mjs`;
+  - `node scripts/run-behavior-replay-fixtures.mjs`;
+  - `node scripts/verify-context-scout.mjs`;
+  - `node scripts/validate-projects-brain.mjs`.
+- `agent-learning-metrics.md`, `delivery-outcome-ledger.md`, and `automation-prompt-registry.json` now distinguish `CI workflow defined` from `raw validation output available`.
 - Product/provider work remains routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
 
 Recommended Morning action:
-1. From a real checkout, rerun:
-   - `node scripts/validate-agentic-prompts.mjs`;
-   - `node scripts/run-behavior-replay-fixtures.mjs`;
-   - `node scripts/verify-context-scout.mjs`;
-   - `node scripts/validate-projects-brain.mjs`.
-2. If checks pass, record raw validation output evidence in `agent-learning-metrics.md` and `delivery-outcome-ledger.md`.
-3. Promote only structural/fixture-runner coverage if raw output exists. Do not promote live behavior rules until a real automation report or live model replay proves prevention.
-4. If checks fail, fix the smallest schema/docs/fixture/registry issue and keep all behavior rules candidate.
-5. Check whether live ChatGPT Automations UI prompts still match the registry contracts for Daily Improve, Morning Upgrade, and Evening Review; if not, update the existing automation prompt only, not a new automation.
+1. Check GitHub Actions for the latest `Agent Harness Validators` run on `andylitvinov-design/ai-projects-brain`.
+2. If the workflow produced raw successful logs, record exact pass evidence in `agent-learning-metrics.md` and `delivery-outcome-ledger.md`.
+3. Promote only `validation CI workflow coverage` or `structural validator coverage` when raw output exists. Do not promote provider/live, Daily Improve strategic portfolio, Morning report-only, improve/upgrade boundary, or save/memory/handoff behavior rules until behavior fixture output or live prevention evidence exists.
+4. If the workflow failed, fix the smallest script/docs/schema/workflow issue and keep behavior rules candidate.
+5. If no Actions output is available, keep status at `CI workflow defined` and write the exact manual/CI verification handoff.
 
 Needs verification:
-- Connector-only runs can write safe docs/scripts but cannot produce local Node output.
-- Fixture runner validates saved examples, not live model behavior.
-- No provider config, secrets, product code, auth/payment, deploy, or finance data should be touched from Morning Upgrade.
+- Whether GitHub Actions started from the workflow commit.
+- Raw logs for `validate-agentic-prompts.mjs` and `run-behavior-replay-fixtures.mjs`.
+- Live ChatGPT Automation UI prompts still need occasional comparison against registry contracts, but do not create duplicate automations.
 
 ## Closed / consumed items
+
+### 2026-07-08 — execute behavior replay fixture runner and validators
+
+Consumed by Morning System Upgrade 2026-07-08.
+
+Outcome: `APPLIED_UPGRADE`.
+
+Safe updates applied:
+- created `.github/workflows/agent-harness-validators.yml` so the validators have a PR/push/manual CI path to raw logs;
+- strengthened `scripts/validate-agentic-prompts.mjs` to validate the workflow contract;
+- updated `agent-learning-metrics.md` with `validation CI workflows defined = 1` and explicit evidence ladder wording;
+- updated `automation-prompt-registry.json` so Morning and Evening contracts include the CI workflow layer;
+- updated `delivery-outcome-ledger.md` with the 2026-07-08 evidence row;
+- created the next CI-evidence verification handoff above.
+
+Still not counted as raw validation output:
+- the workflow was defined in this run, but raw Actions pass/fail output was not fetched yet.
 
 ### 2026-07-07 — close validation-evidence propagation loop
 
