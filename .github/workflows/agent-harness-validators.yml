@@ -1,0 +1,52 @@
+name: Agent Harness Validators
+
+on:
+  pull_request:
+    paths:
+      - 'projects/codex-automation/**'
+      - 'systems/**'
+      - 'agent-skills/**'
+      - 'scripts/**'
+      - 'projects.json'
+      - 'data/project-index.json'
+      - '.github/workflows/agent-harness-validators.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'projects/codex-automation/**'
+      - 'systems/**'
+      - 'agent-skills/**'
+      - 'scripts/**'
+      - 'projects.json'
+      - 'data/project-index.json'
+      - '.github/workflows/agent-harness-validators.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate agent harness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate agentic prompts and feedback-loop artifacts
+        run: node scripts/validate-agentic-prompts.mjs
+
+      - name: Run deterministic behavior replay fixtures
+        run: node scripts/run-behavior-replay-fixtures.mjs
+
+      - name: Verify context-scout wiring
+        run: node scripts/verify-context-scout.mjs
+
+      - name: Validate projects brain and secret scan
+        run: node scripts/validate-projects-brain.mjs
