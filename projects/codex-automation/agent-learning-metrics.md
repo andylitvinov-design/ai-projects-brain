@@ -1,6 +1,6 @@
 # Agent Learning Metrics
 
-Last updated: 2026-07-09
+Last updated: 2026-07-09 Evening Architecture Review
 
 Purpose: measure whether the agent harness actually improves behavior instead of only adding more rules.
 
@@ -30,6 +30,7 @@ Never count a metric without evidence. Acceptable evidence:
 | rule lifecycle changes | 3 | 2026-07-04 Morning System Upgrade | Created provider/live gate, lifecycle standard, replay/regression scaffolds. |
 | upgrade cycle metrics contracts defined | 1 | `systems/upgrade-cycle-metrics.md`; automation prompt registry 2026-07-09 | Defines Evening health scoring and Morning applied-upgrade metrics so the loop measures health before changing rules. |
 | health delta reporting contracts defined | 1 | `systems/upgrade-cycle-metrics.md`; ChatGPT Automations update 2026-07-09 | Morning must report before/after/delta/confidence/evidence after applied upgrades. |
+| evening health delta verifications completed | 1 | Evening Architecture Review 2026-07-09; `system-health-dashboard.md`; `delivery-outcome-ledger.md` | Evening accepted structural Morning improvements, corrected full validation-evidence confidence down to low, and wrote a ranked Morning handoff. |
 | metric model trend-review contracts defined | 1 | `systems/upgrade-cycle-metrics.md`; ChatGPT Automations update 2026-07-09 | Evening may update metric candidates based on current reliability/guardrail/DORA/SPACE trends, with evidence and lifecycle control. |
 | live automation prompts updated for metrics split | 2 | ChatGPT Automations tool update 2026-07-09 | Morning System Upgrade and Evening Architecture Review live prompts were updated to use the score/implementation split and then updated again for health delta + trend-review behavior. |
 | replay cases defined | 5 | `failure-replay-cases.json` | Defined, not live behavior-executed. |
@@ -39,6 +40,7 @@ Never count a metric without evidence. Acceptable evidence:
 | behavior replay fixtures defined | 5 | `projects/codex-automation/behavior-replay-fixtures.json`; Morning System Upgrade 2026-07-07 | Fixtures cover provider/live false success, Daily Improve portfolio strategy, Morning report-only completion, improve/upgrade boundary drift, and save/memory/handoff confusion. |
 | validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml`; Morning System Upgrade 2026-07-08 and 2026-07-09 | Workflow runs the four harness validators on PR, push to main, and manual dispatch; as of 2026-07-09 it also writes each validator's raw console output to `agent-harness-validation-evidence` and uploads it as an artifact. |
 | CI raw evidence artifact capture defined | 1 | `.github/workflows/agent-harness-validators.yml`; `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-09 | The workflow now captures `validate-agentic-prompts.log`, `run-behavior-replay-fixtures.log`, `verify-context-scout.log`, and `validate-projects-brain.log`; the validator now fails if the artifact contract is removed. This is CI-observability setup, not a passed CI run. |
+| raw CI workflow runs fetched | 0 | Evening Architecture Review 2026-07-09 | Connector lookup returned no workflow runs for checked recent harness refs; direct full checkout was unavailable due DNS. Do not count full CI validation passed. |
 | validation commands run | 3 | ai-projects-brain PR #95 verification section | PR #95 reports `validate-agentic-prompts`, `validate-projects-brain`, and `verify-context-scout` were run before merge. Raw command output / Actions logs are not available in that connector review, so behavior rules remain candidates. |
 | validation evidence propagation fixes | 1 | Evening Architecture Review 2026-07-06; PR #96 | Metrics and handoff wording were revised after PR #95 changed the evidence state from no validation to PR-reported validation. |
 | stale safe-harness PR reconciled | 2 | PR #92 closed unmerged; PR #97 superseded by direct fresh-main safe harness commits on 2026-07-09 | Do not merge stale/unmergeable safe-harness branches blindly; apply or recreate smallest fresh-main equivalent instead. |
@@ -66,6 +68,7 @@ behavior_replay_fixture_failed:
 user_correction_recorded:
 upgrade_cycle_metrics_contract_defined:
 health_delta_reporting_contract_defined:
+evening_health_delta_verification_completed:
 metric_model_trend_review_contract_defined:
 live_automation_prompt_updated:
 validator_defined:
@@ -74,6 +77,7 @@ validation_passed:
 validation_failed:
 unvalidated_harness_pr_requiring_reconciliation:
 ci_raw_evidence_artifact_capture_defined:
+raw_ci_workflow_run_fetched:
 ```
 
 ## Reporting rule
