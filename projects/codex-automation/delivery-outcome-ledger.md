@@ -1,6 +1,6 @@
 # Delivery Outcome Ledger
 
-Last updated: 2026-07-08
+Last updated: 2026-07-09
 
 Purpose: compact evidence ledger for repeated agent outcomes, false success prevention, provider/live blockers, and lessons that should influence Daily Improve, Morning System Upgrade, and Evening Architecture Review.
 
@@ -19,6 +19,7 @@ Purpose: compact evidence ledger for repeated agent outcomes, false success prev
 | 2026-07-07 | Agent harness | structural validation existed, but behavior replay remained missing/decorative | Added deterministic behavior replay fixtures and runner; validator now checks fixture coverage and metrics alignment | Morning System Upgrade 2026-07-07; `projects/codex-automation/behavior-replay-fixtures.json`; `scripts/run-behavior-replay-fixtures.mjs`; `scripts/validate-agentic-prompts.mjs` | Run `node scripts/run-behavior-replay-fixtures.mjs` and the three validators from checkout; keep behavior rules candidate until output evidence exists |
 | 2026-07-08 | Agent harness | validators and fixture runner existed but still had no durable CI path for raw pass/fail logs | Added `.github/workflows/agent-harness-validators.yml`; strengthened `scripts/validate-agentic-prompts.mjs` to require the workflow and all four validation commands | Morning System Upgrade 2026-07-08; commits `62eaf5f`, `c3ba9be`; `automation-prompt-registry.json`; `agent-learning-metrics.md` | Wait for or fetch GitHub Actions raw run evidence; promote only CI/validator coverage after a successful run, not live behavior rules |
 | 2026-07-08 | Agent harness | CI workflow and fixture runner are defined, but open safe-harness PR #97 is still unmerged, not mergeable, and has no recorded workflow run evidence | Keep behavior rules candidate; route tomorrow morning to rebase/validate/supersede PR #97 before merging or promoting coverage | `andylitvinov-design/ai-projects-brain#97`; PR head `456ef0c3a2029e27cac3567d6b8f7ed8c97c6a61`; `fetch_commit_workflow_runs` returned no runs | Run all four validators from checkout/CI, then either merge a validated refreshed PR or record exact blocker |
+| 2026-07-09 | Agent harness | PR #97 was open, unmergeable, and proposed a real guardrail: behavior fixtures must map to prompt regressions, not only replay cases | Recreated the smallest safe equivalent on fresh `main`: added missing prompt regression IDs, made `validate-agentic-prompts.mjs` require fixture-to-prompt and fixture-to-replay coverage, recorded local deterministic fixture output, and closed PR #97 as superseded | Main commits `3617073`, `25232e5`, `1274d87`; local reconstructed output: `agentic prompt validation ok... fixture-to-prompt coverage checked`; `behavior replay fixtures ok: 5 fixtures, 11 samples (6 expected pass, 5 expected fail)` | Fetch/confirm GitHub Actions raw logs for the full workflow before counting full CI validation passed; keep live behavior rules candidate |
 
 ## What to record
 
@@ -29,6 +30,7 @@ Record only evidence-backed outcomes:
 - product/risky work converted to ticket;
 - prompt regression added or run;
 - replay case added or run;
+- behavior fixture added or run;
 - rule promoted, revised, deprecated, or rejected;
 - validation passed/failed;
 - user correction that exposes repeated agent failure.
