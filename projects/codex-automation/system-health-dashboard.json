@@ -1,141 +1,45 @@
 {
   "schema_version": 1,
   "last_updated": "2026-07-09",
-  "status": "active_dashboard",
-  "purpose": "Daily dashboard for Andrey's agent/Codex operating-system health. Morning and Evening cycles update or reference this dashboard.",
+  "status": "active_dashboard_with_live_surface",
+  "purpose": "Daily dashboard for Andrey's agent/Codex operating-system health. Morning and Evening cycles update or reference this dashboard and link the live brain-management surface.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
   "github_url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/projects/codex-automation/system-health-dashboard.md",
+  "live_url": "https://brain-management.pages.dev/system-health-dashboard/",
+  "brain_management_data_path": "system-health-dashboard/data/current-system-health-dashboard.json",
   "update_rules": {
-    "evening": "diagnose, score current health, compare to yesterday, set tomorrow action",
-    "morning": "apply safe upgrade, update today score/delta/confidence, set evening verification question",
+    "evening": "diagnose, score current health, compare to yesterday, set tomorrow action, update/link live dashboard",
+    "morning": "apply safe upgrade, update today score/delta/confidence, set evening verification question, update/link live dashboard",
     "no_guessing": "Use unknown when evidence is missing. Do not invent numeric scores.",
     "provider_live_rule": "Provider/live readiness improves only from provider/live proof, not docs-only changes."
   },
-  "columns": [
-    "metric",
-    "today",
-    "yesterday",
-    "change",
-    "confidence",
-    "done_today",
-    "tomorrow_action"
-  ],
+  "columns": ["metric", "today", "yesterday", "change", "confidence", "done_today", "tomorrow_action"],
   "metrics": [
-    {
-      "id": "provider_live_readiness",
-      "metric": "Provider/live readiness",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created; provider/live score must be filled only from provider/live proof.",
-      "tomorrow_action": "Evening: identify exact provider/live blockers and avoid score inflation from docs-only work."
-    },
-    {
-      "id": "false_success_protection",
-      "metric": "False success protection",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created; Morning/Evening now must show before/after health changes.",
-      "tomorrow_action": "Morning: connect latest provider/live false-success evidence to a score and handoff."
-    },
-    {
-      "id": "delivery_completion_quality",
-      "metric": "Delivery completion quality",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created; no delivery evidence scored in this initial baseline.",
-      "tomorrow_action": "Evening: compare completed work versus code-only/report-only completion."
-    },
-    {
-      "id": "user_pain_repetition",
-      "metric": "User pain repetition",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "User requested dashboard-style metrics; request converted into durable dashboard contract.",
-      "tomorrow_action": "Evening: score whether reports answer Andrey's repeated request for real changes and numbers."
-    },
-    {
-      "id": "loop_closure",
-      "metric": "Loop closure",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created to close Morning ↔ Evening feedback loop.",
-      "tomorrow_action": "Morning: update dashboard after applied upgrades; Evening: verify claimed deltas."
-    },
-    {
-      "id": "validation_evidence",
-      "metric": "Validation evidence",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created; validation score must use raw local/CI/check evidence when available.",
-      "tomorrow_action": "Morning: run or hand off validator evidence and record score impact."
-    },
-    {
-      "id": "regression_replay_coverage",
-      "metric": "Regression/replay coverage",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created; no new replay coverage scored here.",
-      "tomorrow_action": "Evening: check whether today's failure classes have prompt/replay/fixture coverage."
-    },
-    {
-      "id": "rule_lifecycle_health",
-      "metric": "Rule lifecycle health",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created; lifecycle status should now include dashboard adoption.",
-      "tomorrow_action": "Morning: mark rules candidate/active/revised/deprecated only with evidence."
-    },
-    {
-      "id": "automation_noise_duplication",
-      "metric": "Automation noise / duplication",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created; no duplicate automation changes scored here.",
-      "tomorrow_action": "Evening: check whether dashboard replaces repetitive report sections rather than adding noise."
-    },
-    {
-      "id": "active_project_momentum",
-      "metric": "Active project momentum",
-      "today": null,
-      "yesterday": null,
-      "change": null,
-      "confidence": "unknown",
-      "done_today": "Dashboard created as cross-cycle management surface.",
-      "tomorrow_action": "Daily Improve/Evening: ensure active projects have clear next routes and no stalled blockers."
-    }
+    {"id":"provider_live_readiness","metric":"Provider/live readiness","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; provider/live score must be filled only from provider/live proof.","tomorrow_action":"Evening: identify exact provider/live blockers and avoid score inflation from docs-only work."},
+    {"id":"false_success_protection","metric":"False success protection","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; Morning/Evening now must show before/after health changes.","tomorrow_action":"Morning: connect latest provider/live false-success evidence to a score and handoff."},
+    {"id":"delivery_completion_quality","metric":"Delivery completion quality","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; no delivery evidence scored in this initial baseline.","tomorrow_action":"Evening: compare completed work versus code-only/report-only completion."},
+    {"id":"user_pain_repetition","metric":"User pain repetition","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"User requested a live dashboard rather than GitHub markdown; live route was added to brain-management.","tomorrow_action":"Evening: score whether reports include live dashboard link and real metric table."},
+    {"id":"loop_closure","metric":"Loop closure","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created to close Morning ↔ Evening feedback loop.","tomorrow_action":"Morning: update dashboard after applied upgrades; Evening: verify claimed deltas."},
+    {"id":"validation_evidence","metric":"Validation evidence","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; validation score must use raw local/CI/check evidence when available.","tomorrow_action":"Morning: run or hand off validator evidence and record score impact."},
+    {"id":"regression_replay_coverage","metric":"Regression/replay coverage","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; no new replay coverage scored here.","tomorrow_action":"Evening: check whether today's failure classes have prompt/replay/fixture coverage."},
+    {"id":"rule_lifecycle_health","metric":"Rule lifecycle health","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; lifecycle status should now include dashboard adoption.","tomorrow_action":"Morning: mark rules candidate/active/revised/deprecated only with evidence."},
+    {"id":"automation_noise_duplication","metric":"Automation noise / duplication","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; no duplicate automation changes scored here.","tomorrow_action":"Evening: check whether dashboard replaces repetitive report sections rather than adding noise."},
+    {"id":"active_project_momentum","metric":"Active project momentum","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created as cross-cycle management surface.","tomorrow_action":"Daily Improve/Evening: ensure active projects have clear next routes and no stalled blockers."}
   ],
   "overall": {
     "score_now": null,
     "scored_metrics_coverage": "0/10",
     "strongest_metric": null,
     "weakest_metric": null,
-    "biggest_improvement_today": "Dashboard contract created; numeric baseline pending evidence.",
+    "biggest_improvement_today": "Live dashboard route created; numeric baseline pending evidence.",
     "main_blocker": "No prior scored baseline yet. Next Evening Review should establish the first evidence-backed baseline."
   },
   "activity_log": [
     {
       "date": "2026-07-09",
       "cycle": "manual_upgrade",
-      "summary": "Created dashboard contract after Andrey requested a dashboard with today/yesterday/change/done/tomorrow columns.",
-      "dashboard_impact": "Dashboard initialized; Morning/Evening must update/link it going forward."
+      "summary": "Created live dashboard route in brain-management after Andrey requested that dashboard be a live link, not only GitHub markdown.",
+      "dashboard_impact": "Morning/Evening must now update/link https://brain-management.pages.dev/system-health-dashboard/."
     }
   ]
 }
