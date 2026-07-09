@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-08",
+  "last_updated": "2026-07-09",
   "purpose": "Human-readable source-of-truth mirror for the intent and guardrails of recurring ChatGPT/Codex automations. Live scheduler prompts may be longer; this file records the durable contract.",
   "automations": [
     {
@@ -30,6 +30,7 @@
         "projects/codex-automation/AGENT_ROLES.md",
         "systems/improve-mode.md",
         "systems/provider-live-readiness-gate.md",
+        "systems/upgrade-cycle-metrics.md",
         "projects/codex-automation/delivery-outcome-ledger.md",
         "projects/codex-automation/prompt-regression-tests.json",
         "scripts/validate-agentic-prompts.mjs"
@@ -38,15 +39,17 @@
     {
       "title": "Morning System Upgrade",
       "status": "active",
-      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "scheduler_state": "verified in ChatGPT Automations UI on 2026-07-09",
       "primary_role": "Sweeper",
       "secondary_role": "Maintainer",
-      "role": "safe harness/docs/registry/regression implementation from Daily Improve and Evening Review inputs",
+      "role": "applied safe implementation loop that consumes Daily Improve opportunities and Evening health metrics, then changes harness/docs/registry/tests/scripts or creates exact risky-work handoffs",
       "must_do": [
         "read morning-handoff-queue.md first and evening-review-handoff.md second",
-        "act as the morning half of the Sweeper cleanup loop",
-        "operationalize provider/live readiness before softer cleanup",
+        "use Evening health metrics as the decision frame and prioritize the lowest or most dangerous metrics",
+        "operationalize provider/live readiness and false-success protection before softer cleanup",
+        "prefer 1-3 high-leverage applied upgrades over scattered cleanup",
         "apply safe markdown/docs/registry/regression/ledger/handoff/script/CI workflow changes when source of truth is clear",
+        "for every applied upgrade record metric/problem used, safe change, validation evidence, expected metric improvement, and evening verification question",
         "convert product/provider/data/auth/payment/deploy work into exact tickets",
         "finish with APPLIED_UPGRADE or NO_SAFE_UPGRADE",
         "run or maintain scripts/validate-agentic-prompts.mjs so prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, learning-metric counts, and CI workflow contracts are not decorative only",
@@ -57,11 +60,13 @@
         "perform broad discovery already owned by Daily Improve",
         "touch product code or provider settings",
         "create new top-level skills when active-skill-map can route the behavior",
-        "claim success without validation or explicit not-run reason"
+        "claim success without validation or explicit not-run reason",
+        "end as a passive report when a safe applied upgrade or exact blocked handoff is possible"
       ],
       "source_files": [
         "projects/codex-automation/AGENT_ROLES.md",
         "agent-skills/upgrade-daily-protocol.md",
+        "systems/upgrade-cycle-metrics.md",
         "systems/active-skill-map.md",
         "systems/harness-rule-lifecycle.md",
         "systems/provider-live-readiness-gate.md",
@@ -75,16 +80,18 @@
     {
       "title": "Evening Architecture Review",
       "status": "active",
-      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "scheduler_state": "verified in ChatGPT Automations UI on 2026-07-09",
       "primary_role": "Sweeper",
       "secondary_role": "Maintainer",
-      "role": "root-cause analysis of repeated failures and rule lifecycle decisions",
+      "role": "diagnostic architecture review and system health scoring loop that writes a ranked Morning Upgrade handoff",
       "must_do": [
         "review same-day evidence from ledgers, regressions, replays, metrics, reports, and user corrections",
-        "act as the evening half of the Sweeper cleanup loop",
-        "select one highest-leverage structural issue",
-        "decide rule lifecycle action",
-        "write next morning handoff",
+        "score the 10 health metrics from systems/upgrade-cycle-metrics.md with score, delta, evidence, root cause, morning action, and risk if ignored",
+        "prioritize provider/live readiness and false-success gaps before softer prompt or vocabulary cleanup",
+        "group evidence into repeated patterns rather than isolated incidents",
+        "select one highest-leverage structural issue and up to two secondary safe opportunities",
+        "decide rule lifecycle action using candidate, active, needs_revision, deprecated, or rejected",
+        "write next morning handoff with exact safe change, expected metric improvement, validation, and evening verification question",
         "check whether scripts/validate-agentic-prompts.mjs actually prevented prompt/regression/replay/metrics/CI workflow drift or still needs a runner",
         "check whether scripts/run-behavior-replay-fixtures.mjs has produced executable fixture evidence before promoting behavior rules",
         "check whether .github/workflows/agent-harness-validators.yml produced raw pass/fail logs before promoting structural/fixture-runner coverage"
@@ -92,11 +99,13 @@
       "must_not_do": [
         "redo Daily Improve portfolio discovery",
         "redo Morning System Upgrade implementation",
-        "merge PRs or mutate product/provider state"
+        "merge PRs or mutate product/provider state",
+        "produce only abstract advice without a ranked Morning action or handoff"
       ],
       "source_files": [
         "projects/codex-automation/AGENT_ROLES.md",
         "projects/codex-automation/evening-review-handoff.md",
+        "systems/upgrade-cycle-metrics.md",
         "systems/harness-rule-lifecycle.md",
         "projects/codex-automation/agent-learning-metrics.md",
         "projects/codex-automation/behavior-replay-fixtures.json",
