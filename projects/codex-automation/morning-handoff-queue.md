@@ -6,43 +6,60 @@ Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Eve
 
 ## Queue for next Morning System Upgrade
 
-### 2026-07-10 — verify full CI evidence and close the evidence ladder
+### 2026-07-10 — fetch raw CI artifact evidence and close the evidence ladder
 
 Source: Morning System Upgrade 2026-07-09.
 
 Status: ready for safe `/upgrade` verification work.
 
 Inputs:
-- PR #97 was open, unmergeable, and had no recorded workflow evidence for head `456ef0c3a2029e27cac3567d6b8f7ed8c97c6a61`.
-- Its core safe harness idea was still valid: every behavior replay fixture must map to both a replay case and a prompt-regression test.
-- The equivalent minimal fresh-main fix has been applied directly to `main`:
-  - `prompt-regression-tests.json` now has 6 prompt regressions, including `improve-upgrade-mode-boundary-drift` and `save-memory-handoff-confusion`.
-  - `scripts/validate-agentic-prompts.mjs` now fails if any behavior fixture lacks matching prompt-regression or replay coverage.
-  - `agent-learning-metrics.md` and `delivery-outcome-ledger.md` record the fixture-to-prompt coverage fix and local deterministic fixture output.
+- The 2026-07-09 Morning Upgrade implemented the safe part of the previous handoff: `.github/workflows/agent-harness-validators.yml` now tees each validator command to log files under `agent-harness-validation-evidence/` and uploads that directory with `actions/upload-artifact@v4`.
+- `scripts/validate-agentic-prompts.mjs` now fails if the workflow stops including the expected raw-evidence artifact contract:
+  - `agent-harness-validation-evidence`;
+  - `validate-agentic-prompts.log`;
+  - `run-behavior-replay-fixtures.log`;
+  - `verify-context-scout.log`;
+  - `validate-projects-brain.log`.
+- `agent-learning-metrics.md`, `system-health-dashboard.md`, `system-health-dashboard.json`, and the live brain-management dashboard data mirror were updated.
 - Local reconstructed harness checks from this run produced:
   - `agentic prompt validation ok: 6 prompt regressions, 5 replay cases, 5 behavior fixtures, 2 automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined`;
   - `behavior replay fixtures ok: 5 fixtures, 11 samples (6 expected pass, 5 expected fail)`.
-- Full repository checkout/CI evidence is still needed for the complete workflow because connector runtime did not provide raw Actions logs for the four-command workflow.
+- Full GitHub Actions raw logs are still not counted as passed until the artifact or job logs are fetched from a real workflow run after the latest commits.
 - Product/provider work remains routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
 
 Recommended Morning action:
-1. Fetch GitHub Actions/check evidence for the latest `main` commits that touched the harness.
-2. If raw workflow logs are available, confirm all four commands:
+1. Fetch GitHub Actions/check evidence for latest `main` commits that touched the harness after `e2edb2b6`, `2f6fcef8`, `556c288`, `e11f305`, and `4d99cae`.
+2. If a workflow run exists, fetch the `agent-harness-validation-evidence` artifact or job logs.
+3. Confirm all four commands from raw logs:
    - `node scripts/validate-agentic-prompts.mjs`;
    - `node scripts/run-behavior-replay-fixtures.mjs`;
    - `node scripts/verify-context-scout.mjs`;
    - `node scripts/validate-projects-brain.mjs`.
-3. If the workflow passed, record full CI validation evidence in `agent-learning-metrics.md` and `delivery-outcome-ledger.md`.
-4. Promote only validated structural/fixture-runner coverage. Do not promote live behavior rules until real automation/model behavior proves prevention.
-5. If no raw CI output exists, keep the state as `local reconstructed fixture output available` + `full CI evidence pending`.
-6. Keep PR #97 closed/superseded; do not revive the stale branch unless a fresh diff proves it has unique value.
+4. If all pass, record full CI/raw validation evidence in `agent-learning-metrics.md`, `delivery-outcome-ledger.md`, and the dashboard.
+5. Promote only validated structural/fixture-runner coverage. Do not promote provider/live or live behavior rules until real provider/live or automation prevention evidence exists.
+6. If no raw CI output exists, keep the state as `CI raw evidence artifact capture defined` + `full CI evidence pending`.
 
 Needs verification:
-- Raw GitHub Actions logs for all four commands.
-- Whether GitHub connector can fetch push-triggered workflow runs, or only PR-triggered runs.
+- Raw GitHub Actions logs or artifact for all four commands.
+- Whether the GitHub connector can fetch push-triggered workflow runs or only PR-triggered runs.
 - Live ChatGPT Automation UI prompts still need occasional comparison against registry contracts, but do not create duplicate automations.
 
 ## Closed / consumed items
+
+### 2026-07-09 — define raw validator evidence artifact capture
+
+Consumed by Morning System Upgrade 2026-07-09.
+
+Outcome: `APPLIED_UPGRADE`.
+
+Safe updates applied:
+- `.github/workflows/agent-harness-validators.yml` now tees every validator command into durable log files and uploads them as `agent-harness-validation-evidence`;
+- `scripts/validate-agentic-prompts.mjs` now validates the raw-evidence artifact contract so this CI observability layer cannot silently disappear;
+- `agent-learning-metrics.md` records `CI raw evidence artifact capture defined` as a distinct state from `raw validation output available`;
+- `system-health-dashboard.md`, `system-health-dashboard.json`, and the live dashboard data mirror were updated with estimated, confidence-labelled health changes.
+
+Still not counted as full CI validation passed:
+- raw GitHub Actions logs for a workflow run after the latest commits have not been fetched.
 
 ### 2026-07-09 — reconcile PR #97 and raw CI validator evidence
 
@@ -58,7 +75,7 @@ Safe updates applied:
 - closed PR #97 as superseded after applying the equivalent safe change on main.
 
 Still not counted as full CI validation passed:
-- raw GitHub Actions logs for the four-command workflow were not available in this run.
+- raw GitHub Actions logs for the four-command workflow were not available in that run.
 
 ### Earlier closed items
 
