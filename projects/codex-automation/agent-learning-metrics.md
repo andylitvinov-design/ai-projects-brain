@@ -34,10 +34,11 @@ Never count a metric without evidence. Acceptable evidence:
 | live automation prompts updated for metrics split | 2 | ChatGPT Automations tool update 2026-07-09 | Morning System Upgrade and Evening Architecture Review live prompts were updated to use the score/implementation split and then updated again for health delta + trend-review behavior. |
 | replay cases defined | 5 | `failure-replay-cases.json` | Defined, not live behavior-executed. |
 | prompt regressions defined | 6 | `prompt-regression-tests.json`; Morning System Upgrade 2026-07-09 | Every behavior replay fixture ID now has matching prompt-regression coverage. |
-| feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-05 through 2026-07-09 | Validator reads prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, learning-metric counts, CI workflow contract, and fixture-to-prompt/replay ID coverage. |
+| feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-05 through 2026-07-09 | Validator reads prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, learning-metric counts, CI workflow contract, fixture-to-prompt/replay ID coverage, and CI raw-evidence artifact contract. |
 | behavior replay runners defined | 1 | `scripts/run-behavior-replay-fixtures.mjs`; Morning System Upgrade 2026-07-07 | Deterministic offline runner for saved output fixtures. This is not a live model replay and does not touch product/provider state. |
 | behavior replay fixtures defined | 5 | `projects/codex-automation/behavior-replay-fixtures.json`; Morning System Upgrade 2026-07-07 | Fixtures cover provider/live false success, Daily Improve portfolio strategy, Morning report-only completion, improve/upgrade boundary drift, and save/memory/handoff confusion. |
-| validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml`; Morning System Upgrade 2026-07-08 | Workflow runs the four harness validators on PR, push to main, and manual dispatch. This creates a path to raw validation logs, but does not itself count as a passed validation until a workflow/check run output exists. |
+| validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml`; Morning System Upgrade 2026-07-08 and 2026-07-09 | Workflow runs the four harness validators on PR, push to main, and manual dispatch; as of 2026-07-09 it also writes each validator's raw console output to `agent-harness-validation-evidence` and uploads it as an artifact. |
+| CI raw evidence artifact capture defined | 1 | `.github/workflows/agent-harness-validators.yml`; `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-09 | The workflow now captures `validate-agentic-prompts.log`, `run-behavior-replay-fixtures.log`, `verify-context-scout.log`, and `validate-projects-brain.log`; the validator now fails if the artifact contract is removed. This is CI-observability setup, not a passed CI run. |
 | validation commands run | 3 | ai-projects-brain PR #95 verification section | PR #95 reports `validate-agentic-prompts`, `validate-projects-brain`, and `verify-context-scout` were run before merge. Raw command output / Actions logs are not available in that connector review, so behavior rules remain candidates. |
 | validation evidence propagation fixes | 1 | Evening Architecture Review 2026-07-06; PR #96 | Metrics and handoff wording were revised after PR #95 changed the evidence state from no validation to PR-reported validation. |
 | stale safe-harness PR reconciled | 2 | PR #92 closed unmerged; PR #97 superseded by direct fresh-main safe harness commits on 2026-07-09 | Do not merge stale/unmergeable safe-harness branches blindly; apply or recreate smallest fresh-main equivalent instead. |
@@ -72,6 +73,7 @@ validation_ci_workflow_defined:
 validation_passed:
 validation_failed:
 unvalidated_harness_pr_requiring_reconciliation:
+ci_raw_evidence_artifact_capture_defined:
 ```
 
 ## Reporting rule
@@ -89,7 +91,8 @@ As of 2026-07-09, `scripts/validate-agentic-prompts.mjs` checks that:
 - Daily Improve keeps strategic portfolio output requirements;
 - Morning System Upgrade keeps `APPLIED_UPGRADE / NO_SAFE_UPGRADE` requirements;
 - this metrics table stays aligned with the actual number of prompt regressions, replay cases, and behavior replay fixtures;
-- `.github/workflows/agent-harness-validators.yml` exists and runs the four expected Node validation commands.
+- `.github/workflows/agent-harness-validators.yml` exists and runs the four expected Node validation commands;
+- the workflow captures raw validator logs as the `agent-harness-validation-evidence` artifact so future reviews can fetch exact command output instead of relying on PR prose.
 
 `run-behavior-replay-fixtures.mjs` is the first deterministic behavior replay layer. It validates saved example outputs against fixed guardrail evaluators. It is stronger than schema validation, but it is still not live model output. Do not promote behavior rules from `candidate` to `active` until a checkout/CI run produces output or a real automation report proves the gate prevented a bad completion.
 
@@ -100,6 +103,7 @@ Do not leave stale metric wording after a later PR or automation report changes 
 1. `not run` — no checkout/CI/PR evidence exists;
 2. `PR-reported run` — a PR verification section says commands ran, but raw output is unavailable;
 3. `CI workflow defined` — GitHub Actions or another runner is wired to produce raw logs, but has not yet produced a pass/fail output;
-4. `raw validation output available` — command logs or CI output are available and can support promotion of structural rules;
-5. `behavior replay fixture passed` — deterministic saved-output fixtures passed locally/CI, but live model behavior is still not proven;
-6. `behavior replay passed` — a replay runner, live automation evidence, or real prevention evidence supports promoting behavior rules.
+4. `CI raw evidence artifact capture defined` — the workflow is wired to save validator command output as downloadable logs, but a passing run has not yet been fetched;
+5. `raw validation output available` — command logs or CI output are available and can support promotion of structural rules;
+6. `behavior replay fixture passed` — deterministic saved-output fixtures passed locally/CI, but live model behavior is still not proven;
+7. `behavior replay passed` — a replay runner, live automation evidence, or real prevention evidence supports promoting behavior rules.
