@@ -1,6 +1,6 @@
 # Agent Learning Metrics
 
-Last updated: 2026-07-08
+Last updated: 2026-07-09
 
 Purpose: measure whether the agent harness actually improves behavior instead of only adding more rules.
 
@@ -14,7 +14,9 @@ Never count a metric without evidence. Acceptable evidence:
 - user correction;
 - prompt regression test;
 - replay case;
-- validation output.
+- behavior fixture output;
+- validation output;
+- GitHub Actions/check log.
 
 ## Current baseline
 
@@ -24,16 +26,19 @@ Never count a metric without evidence. Acceptable evidence:
 | false-success prevention candidates | 2 | `provider-dependent-feature-without-provider-proof`; Evening Review 2026-07-03 | Candidate until replay/regression is run from checkout. |
 | user corrections converted to harness artifacts | 2 | Delivery ledger 2026-07-04; prompt regression/replay candidates | Daily Improve strategic-portfolio correction and Morning Upgrade applied/no-safe-upgrade correction. |
 | rule lifecycle changes | 3 | 2026-07-04 Morning System Upgrade | Created provider/live gate, lifecycle standard, replay/regression scaffolds. |
-| replay cases defined | 5 | `failure-replay-cases.json` | Defined, not behavior-executed. |
-| prompt regressions defined | 5 | `prompt-regression-tests.json` | Defined, not behavior-executed. |
-| feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-05 through 2026-07-08 | Validator now reads prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, learning-metric counts, and the CI workflow contract to catch artifact/metrics/runner drift. |
+| replay cases defined | 5 | `failure-replay-cases.json` | Defined, not live behavior-executed. |
+| prompt regressions defined | 6 | `prompt-regression-tests.json`; Morning System Upgrade 2026-07-09 | Every behavior replay fixture ID now has matching prompt-regression coverage. |
+| feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-05 through 2026-07-09 | Validator reads prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, learning-metric counts, CI workflow contract, and fixture-to-prompt/replay ID coverage. |
 | behavior replay runners defined | 1 | `scripts/run-behavior-replay-fixtures.mjs`; Morning System Upgrade 2026-07-07 | Deterministic offline runner for saved output fixtures. This is not a live model replay and does not touch product/provider state. |
 | behavior replay fixtures defined | 5 | `projects/codex-automation/behavior-replay-fixtures.json`; Morning System Upgrade 2026-07-07 | Fixtures cover provider/live false success, Daily Improve portfolio strategy, Morning report-only completion, improve/upgrade boundary drift, and save/memory/handoff confusion. |
 | validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml`; Morning System Upgrade 2026-07-08 | Workflow runs the four harness validators on PR, push to main, and manual dispatch. This creates a path to raw validation logs, but does not itself count as a passed validation until a workflow/check run output exists. |
-| validation commands run | 3 | ai-projects-brain PR #95 verification section | PR #95 reports `validate-agentic-prompts`, `validate-projects-brain`, and `verify-context-scout` were run before merge. Raw command output / Actions logs are not available in this connector review, so behavior rules remain candidates. |
+| validation commands run | 3 | ai-projects-brain PR #95 verification section | PR #95 reports `validate-agentic-prompts`, `validate-projects-brain`, and `verify-context-scout` were run before merge. Raw command output / Actions logs are not available in that connector review, so behavior rules remain candidates. |
 | validation evidence propagation fixes | 1 | Evening Architecture Review 2026-07-06; PR #96 | Metrics and handoff wording were revised after PR #95 changed the evidence state from no validation to PR-reported validation. |
-| stale safe-harness PR reconciled | 1 | PR #92 closed unmerged; PR #95 and PR #96 merged | The old validator ID-drift PR no longer remains open/non-mergeable; do not merge stale hunks blindly. |
-| unvalidated safe-harness PRs requiring reconciliation | 1 | PR #97; Evening Architecture Review 2026-07-08; delivery ledger 2026-07-08 | PR #97 covers fixture-to-prompt coverage but is open, not mergeable, and has no recorded workflow run evidence. It should be rebased/validated/superseded before merge or promotion. |
+| stale safe-harness PR reconciled | 2 | PR #92 closed unmerged; PR #97 superseded by direct fresh-main safe harness commits on 2026-07-09 | Do not merge stale/unmergeable safe-harness branches blindly; apply or recreate smallest fresh-main equivalent instead. |
+| unvalidated safe-harness PRs requiring reconciliation | 0 | Morning System Upgrade 2026-07-09 | PR #97's intended fixture-to-prompt coverage was applied directly on fresh main and the stale PR is closed/superseded. |
+| prompt-to-behavior fixture coverage fixes | 1 | Morning System Upgrade 2026-07-09; `prompt-regression-tests.json`; `scripts/validate-agentic-prompts.mjs` | Added missing prompt-regression coverage and made the validator fail if any behavior fixture lacks matching prompt-regression and replay coverage. |
+| behavior replay fixture local samples passed | 11 | Morning System Upgrade 2026-07-09 reconstructed local fixture run | `node scripts/run-behavior-replay-fixtures.mjs` passed on the fetched/updated harness fixture set: 5 fixtures, 11 samples, 6 expected pass, 5 expected fail. This is deterministic saved-output evidence, not live model behavior. |
+| agentic prompt validator local run passed | 1 | Morning System Upgrade 2026-07-09 reconstructed local validator run | `node scripts/validate-agentic-prompts.mjs` passed on the fetched/updated prompt/replay/behavior/registry/metrics/workflow contract set. Full repository CI/check logs still need verification. |
 
 ## Metrics to update after each run
 
@@ -65,10 +70,10 @@ If metrics are not updated, the report must state why. Lack of local checkout, u
 
 ## Validator coverage note
 
-As of 2026-07-08, `scripts/validate-agentic-prompts.mjs` checks that:
+As of 2026-07-09, `scripts/validate-agentic-prompts.mjs` checks that:
 
 - prompt regression and replay JSON files are parseable and schema-shaped;
-- behavior replay fixture JSON is parseable, maps to replay cases, and contains both expected-pass and expected-fail samples;
+- behavior replay fixture JSON is parseable, maps to replay cases, maps to prompt regressions, and contains both expected-pass and expected-fail samples;
 - required anti-drift cases exist;
 - provider-dependent false success is blocked by the regression/replay/fixture contract;
 - Daily Improve keeps strategic portfolio output requirements;
