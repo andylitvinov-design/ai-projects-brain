@@ -1,16 +1,22 @@
 # Morning Handoff Queue
 
-Last updated: 2026-07-09
+Last updated: 2026-07-09 Evening Architecture Review
 
 Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Evening Architecture Review write safe, deduplicated inputs here.
 
 ## Queue for next Morning System Upgrade
 
-### 2026-07-10 — fetch raw CI artifact evidence and close the evidence ladder
+### 2026-07-10 — unify local and CI raw validator evidence
 
-Source: Morning System Upgrade 2026-07-09.
+Source: Evening Architecture Review 2026-07-09.
 
-Status: ready for safe `/upgrade` verification work.
+Status: ready for safe `/upgrade` harness/script/CI work.
+
+Top blocker:
+
+```txt
+The system now has CI raw evidence artifact capture defined, but still does not have raw validation output available from a fetched GitHub Actions artifact/job log or a full local checkout run.
+```
 
 Inputs:
 - The 2026-07-09 Morning Upgrade implemented the safe part of the previous handoff: `.github/workflows/agent-harness-validators.yml` now tees each validator command to log files under `agent-harness-validation-evidence/` and uploads that directory with `actions/upload-artifact@v4`.
@@ -20,31 +26,67 @@ Inputs:
   - `run-behavior-replay-fixtures.log`;
   - `verify-context-scout.log`;
   - `validate-projects-brain.log`.
-- `agent-learning-metrics.md`, `system-health-dashboard.md`, `system-health-dashboard.json`, and the live brain-management dashboard data mirror were updated.
-- Local reconstructed harness checks from this run produced:
-  - `agentic prompt validation ok: 6 prompt regressions, 5 replay cases, 5 behavior fixtures, 2 automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined`;
-  - `behavior replay fixtures ok: 5 fixtures, 11 samples (6 expected pass, 5 expected fail)`.
-- Full GitHub Actions raw logs are still not counted as passed until the artifact or job logs are fetched from a real workflow run after the latest commits.
+- Evening accepted the structural artifact-capture and loop-closure improvements, but corrected `Validation evidence` from `60/100 estimated, medium confidence` to `55/100 estimated, low confidence` because raw CI/job/artifact logs were still unavailable.
+- GitHub connector lookup for known recent harness commit refs returned no workflow runs.
+- Local full-checkout validation could not be run in the Evening environment because direct `git clone` failed with DNS resolution error.
 - Product/provider work remains routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
 
 Recommended Morning action:
-1. Fetch GitHub Actions/check evidence for latest `main` commits that touched the harness after `e2edb2b6`, `2f6fcef8`, `556c288`, `e11f305`, and `4d99cae`.
-2. If a workflow run exists, fetch the `agent-harness-validation-evidence` artifact or job logs.
-3. Confirm all four commands from raw logs:
-   - `node scripts/validate-agentic-prompts.mjs`;
-   - `node scripts/run-behavior-replay-fixtures.mjs`;
-   - `node scripts/verify-context-scout.mjs`;
-   - `node scripts/validate-projects-brain.mjs`.
-4. If all pass, record full CI/raw validation evidence in `agent-learning-metrics.md`, `delivery-outcome-ledger.md`, and the dashboard.
-5. Promote only validated structural/fixture-runner coverage. Do not promote provider/live or live behavior rules until real provider/live or automation prevention evidence exists.
-6. If no raw CI output exists, keep the state as `CI raw evidence artifact capture defined` + `full CI evidence pending`.
+1. Add a single evidence runner:
+   - `scripts/run-agent-harness-validation-evidence.mjs`.
+2. The script should create/clean `agent-harness-validation-evidence/`, run the four validator commands, write raw output to the four expected `.log` files, and exit non-zero if any validator fails.
+3. Update `.github/workflows/agent-harness-validators.yml` to call the single evidence runner and upload the same artifact.
+4. Update `scripts/validate-agentic-prompts.mjs` so it verifies the evidence runner exists, includes all four validator commands, and writes all four expected log paths.
+5. Run the evidence runner from a checkout when possible:
+   - `node scripts/run-agent-harness-validation-evidence.mjs`.
+6. If raw logs are produced, update:
+   - `agent-learning-metrics.md`;
+   - `delivery-outcome-ledger.md`;
+   - `system-health-dashboard.md`;
+   - `system-health-dashboard.json`;
+   - brain-management live dashboard data mirror.
+7. If checkout/CI remains blocked, report the exact blocker and keep `Validation evidence` low-confidence.
+
+Expected metric improvement if validated:
+
+```txt
+Validation evidence: 55 -> 65+ if local raw logs are produced; 70+ if CI artifact/job logs are fetched.
+False success protection: 55 -> 60 if validator protects the unified evidence-runner contract.
+Delivery completion quality: 55 -> 60 if raw logs are attached to the Morning report.
+```
 
 Needs verification:
-- Raw GitHub Actions logs or artifact for all four commands.
-- Whether the GitHub connector can fetch push-triggered workflow runs or only PR-triggered runs.
+- Raw logs for all four commands:
+  - `node scripts/validate-agentic-prompts.mjs`;
+  - `node scripts/run-behavior-replay-fixtures.mjs`;
+  - `node scripts/verify-context-scout.mjs`;
+  - `node scripts/validate-projects-brain.mjs`.
+- Whether GitHub Actions artifacts can be fetched for push-triggered runs; if not, use local evidence-runner output as the next best raw evidence.
 - Live ChatGPT Automation UI prompts still need occasional comparison against registry contracts, but do not create duplicate automations.
 
+Boundaries:
+- harness/docs/scripts/CI workflow only;
+- no product code;
+- no provider config;
+- no production data;
+- no auth/payment/deploy/env/secrets.
+
 ## Closed / consumed items
+
+### 2026-07-09 — fetch raw CI artifact evidence and close the evidence ladder
+
+Reviewed by Evening Architecture Review 2026-07-09.
+
+Outcome: `PARTIAL / INSUFFICIENT RAW EVIDENCE`.
+
+Safe updates already present:
+- `.github/workflows/agent-harness-validators.yml` tees every validator command into durable log files and uploads them as `agent-harness-validation-evidence`;
+- `scripts/validate-agentic-prompts.mjs` validates the raw-evidence artifact contract;
+- `agent-learning-metrics.md` records `CI raw evidence artifact capture defined` as a distinct state from `raw validation output available`;
+- dashboard and live mirror were updated.
+
+Still not counted as full CI validation passed:
+- raw GitHub Actions logs or artifact for a passing workflow run after the latest main commits have not been fetched.
 
 ### 2026-07-09 — define raw validator evidence artifact capture
 
