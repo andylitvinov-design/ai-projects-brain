@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-09",
+  "last_updated": "2026-07-09T09:00:00+02:00",
   "status": "active_dashboard_with_live_surface",
   "purpose": "Daily dashboard for Andrey's agent/Codex operating-system health. Morning and Evening cycles update or reference this dashboard and link the live brain-management surface.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
@@ -15,26 +15,32 @@
   },
   "columns": ["metric", "today", "yesterday", "change", "confidence", "done_today", "tomorrow_action"],
   "metrics": [
-    {"id":"provider_live_readiness","metric":"Provider/live readiness","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; provider/live score must be filled only from provider/live proof.","tomorrow_action":"Evening: identify exact provider/live blockers and avoid score inflation from docs-only work."},
-    {"id":"false_success_protection","metric":"False success protection","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; Morning/Evening now must show before/after health changes.","tomorrow_action":"Morning: connect latest provider/live false-success evidence to a score and handoff."},
-    {"id":"delivery_completion_quality","metric":"Delivery completion quality","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; no delivery evidence scored in this initial baseline.","tomorrow_action":"Evening: compare completed work versus code-only/report-only completion."},
-    {"id":"user_pain_repetition","metric":"User pain repetition","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"User requested a live dashboard rather than GitHub markdown; live route was added to brain-management.","tomorrow_action":"Evening: score whether reports include live dashboard link and real metric table."},
-    {"id":"loop_closure","metric":"Loop closure","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created to close Morning ↔ Evening feedback loop.","tomorrow_action":"Morning: update dashboard after applied upgrades; Evening: verify claimed deltas."},
-    {"id":"validation_evidence","metric":"Validation evidence","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; validation score must use raw local/CI/check evidence when available.","tomorrow_action":"Morning: run or hand off validator evidence and record score impact."},
-    {"id":"regression_replay_coverage","metric":"Regression/replay coverage","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; no new replay coverage scored here.","tomorrow_action":"Evening: check whether today's failure classes have prompt/replay/fixture coverage."},
-    {"id":"rule_lifecycle_health","metric":"Rule lifecycle health","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; lifecycle status should now include dashboard adoption.","tomorrow_action":"Morning: mark rules candidate/active/revised/deprecated only with evidence."},
-    {"id":"automation_noise_duplication","metric":"Automation noise / duplication","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created; no duplicate automation changes scored here.","tomorrow_action":"Evening: check whether dashboard replaces repetitive report sections rather than adding noise."},
-    {"id":"active_project_momentum","metric":"Active project momentum","today":null,"yesterday":null,"change":null,"confidence":"unknown","done_today":"Live dashboard route created as cross-cycle management surface.","tomorrow_action":"Daily Improve/Evening: ensure active projects have clear next routes and no stalled blockers."}
+    {"id":"provider_live_readiness","metric":"Provider/live readiness","today":"unknown","yesterday":"unknown","change":"unknown","confidence":"unknown","done_today":"No provider/product/live mutation was made; provider blockers remain routed to psihotavr#168 and finance#614.","tomorrow_action":"Evening: keep provider/live readiness blocked until provider/live proof exists; do not score from docs or CI workflow changes."},
+    {"id":"false_success_protection","metric":"False success protection","today":"55/100 estimated","yesterday":"unknown","change":"unknown","confidence":"low","done_today":"Validator now fails if the CI workflow stops capturing raw validator evidence artifacts; this reduces PR-prose-only false success risk.","tomorrow_action":"Evening: verify whether reports now separate CI workflow defined, artifact capture defined, raw CI logs fetched, and live behavior proven."},
+    {"id":"delivery_completion_quality","metric":"Delivery completion quality","today":"55/100 estimated","yesterday":"unknown","change":"unknown","confidence":"low","done_today":"Morning applied real harness/CI/validator/metrics/dashboard changes instead of report-only output.","tomorrow_action":"Evening: verify the next workflow run actually produces the expected artifact and does not leave the task at code-only completion."},
+    {"id":"user_pain_repetition","metric":"User pain repetition","today":"55/100 estimated","yesterday":"unknown","change":"unknown","confidence":"low","done_today":"Continued the live-dashboard response path and added raw-evidence capture so reports can show actual changed files and evidence state.","tomorrow_action":"Evening: check whether the report answered what actually changed with concrete commits, dashboard update, and validation evidence."},
+    {"id":"loop_closure","metric":"Loop closure","today":"65/100 estimated","yesterday":"unknown","change":"unknown","confidence":"low","done_today":"Consumed the prior handoff's top action and converted it into a CI evidence artifact contract plus dashboard update.","tomorrow_action":"Evening: accept/correct the estimate after checking the latest workflow run and artifact availability."},
+    {"id":"validation_evidence","metric":"Validation evidence","today":"60/100 estimated","yesterday":"unknown","change":"unknown","confidence":"medium","done_today":"CI workflow now tees all four validator commands into log files and uploads agent-harness-validation-evidence; the prompt validator checks this contract. Local reconstructed validate-agentic-prompts and behavior fixture runner passed.","tomorrow_action":"Evening: fetch GitHub Actions job/artifact logs for the latest main run; promote only if raw logs show all four validators passed."},
+    {"id":"regression_replay_coverage","metric":"Regression/replay coverage","today":"65/100 estimated","yesterday":"unknown","change":"unknown","confidence":"medium","done_today":"Existing 6 prompt regressions, 5 replay cases, and 5 behavior fixtures remain covered; no new failure class required today.","tomorrow_action":"Evening: keep behavior rules candidate until raw CI or live automation prevention evidence exists."},
+    {"id":"rule_lifecycle_health","metric":"Rule lifecycle health","today":"55/100 estimated","yesterday":"unknown","change":"unknown","confidence":"low","done_today":"No behavior rule was promoted from candidate; the structural CI-evidence artifact contract is now enforced by validator.","tomorrow_action":"Evening: decide whether the artifact-capture guard can be considered structurally active only after a passing raw workflow log exists."},
+    {"id":"automation_noise_duplication","metric":"Automation noise / duplication","today":"unknown","yesterday":"unknown","change":"unknown","confidence":"unknown","done_today":"No new automation was created; existing Morning/Evening loop was reused.","tomorrow_action":"Evening: continue checking live ChatGPT Automation prompt drift without creating duplicate scheduler loops."},
+    {"id":"active_project_momentum","metric":"Active project momentum","today":"unknown","yesterday":"unknown","change":"unknown","confidence":"unknown","done_today":"Product/provider work remains in exact tickets instead of unsafe Morning mutation.","tomorrow_action":"Daily Improve/Evening: keep active projects moving through /delivery, /safe, /audit-ui, or /audit-fin tickets with provider proof."}
   ],
   "overall": {
-    "score_now": null,
-    "scored_metrics_coverage": "0/10",
-    "strongest_metric": null,
-    "weakest_metric": null,
-    "biggest_improvement_today": "Live dashboard route created; numeric baseline pending evidence.",
-    "main_blocker": "No prior scored baseline yet. Next Evening Review should establish the first evidence-backed baseline."
+    "score_now": "58/100 estimated across scored metrics",
+    "scored_metrics_coverage": "6/10",
+    "strongest_metric": "Loop closure",
+    "weakest_metric": "Provider/live readiness remains unknown/blocked",
+    "biggest_improvement_today": "Raw validation evidence observability: CI now writes validator command output to artifact logs and the prompt validator protects that contract.",
+    "main_blocker": "Full GitHub Actions/raw checkout logs are still not fetched and provider/live blockers remain open."
   },
   "activity_log": [
+    {
+      "date": "2026-07-09",
+      "cycle": "morning_system_upgrade",
+      "summary": "Added CI raw-evidence artifact capture to .github/workflows/agent-harness-validators.yml, tightened scripts/validate-agentic-prompts.mjs to require that artifact contract, updated learning metrics, and updated the dashboard.",
+      "dashboard_impact": "Validation evidence moved from workflow-defined only toward artifact-capture-defined; full raw CI pass remains pending Evening verification."
+    },
     {
       "date": "2026-07-09",
       "cycle": "manual_upgrade",
