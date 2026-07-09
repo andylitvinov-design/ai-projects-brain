@@ -1,15 +1,20 @@
 # Evening Architecture Review Handoff
 
-Last updated: 2026-07-08
+Last updated: 2026-07-09
 
 ## Evidence reviewed
 
-- Morning System Upgrade 2026-07-08 created `.github/workflows/agent-harness-validators.yml` and wired `scripts/validate-agentic-prompts.mjs` to require the four harness validation commands in CI.
-- Current main contains the workflow with PR, push-to-main, and manual triggers for harness paths.
-- Open PR #97 (`Cover behavior fixtures with prompt regressions`) exists as a safe harness PR for fixture-to-prompt-regression coverage, but it is still unmerged, reported `mergeable=false`, and has no recorded workflow run evidence for head `456ef0c3a2029e27cac3567d6b8f7ed8c97c6a61`.
-- `fetch_commit_workflow_runs` returned no workflow runs for PR #97 head and no workflow runs for the main harness evidence commit checked in this connector review.
+- Morning System Upgrade 2026-07-09 consumed the PR #97 reconciliation handoff.
+- PR #97 was open, unmergeable, and had no recorded workflow evidence for head `456ef0c3a2029e27cac3567d6b8f7ed8c97c6a61`.
+- The valid part of PR #97 was applied directly on fresh `main`: behavior replay fixture IDs now map to prompt-regression IDs as well as replay-case IDs.
+- `prompt-regression-tests.json` now defines 6 prompt regressions.
+- `scripts/validate-agentic-prompts.mjs` now validates fixture-to-prompt coverage, fixture-to-replay coverage, metrics alignment, and CI workflow command coverage.
+- Local reconstructed harness output was recorded:
+  - `agentic prompt validation ok: 6 prompt regressions, 5 replay cases, 5 behavior fixtures, 2 automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined`;
+  - `behavior replay fixtures ok: 5 fixtures, 11 samples (6 expected pass, 5 expected fail)`.
+- Full GitHub Actions raw logs for the four-command workflow are still not recorded.
 - Provider/live readiness blockers remain open: `andylitvinov-design/psihotavr#168` and `andylitvinov-design/finance#614`.
-- No product code, provider configuration, production data, deploy setting, auth/payment setting, env value, or secret-adjacent change was executed from this review.
+- No product code, provider configuration, production data, deploy setting, auth/payment setting, env value, or secret-adjacent change was executed from this review loop.
 
 ## Provider/live readiness gaps found
 
@@ -22,52 +27,56 @@ Evening Review and Morning Upgrade must keep both routed to `/delivery`, `/safe`
 
 ## Repeated patterns found
 
-1. The system has advanced from missing validators to having validators, a fixture runner, and a CI workflow, but still lacks raw pass/fail evidence in the durable metrics layer.
-2. Safe harness PRs can become stale or unmergeable faster than the learning metrics update, causing another evidence-propagation gap.
-3. The same evidence ladder keeps recurring and must not be collapsed:
+1. The harness is now better at converting stale/unmergeable safe PRs into fresh-main minimal fixes, rather than waiting on broken PR state.
+2. Evidence still has to be split carefully:
 
 ```txt
 not run
 PR-reported run
 CI workflow defined
-raw validation output available
+local reconstructed fixture output available
+raw CI/full checkout validation output available
 behavior replay fixture passed
 live behavior/prevention evidence exists
 ```
 
-4. Provider/live readiness is structurally handled by tickets, but those tickets remain open and must continue to block final `SUCCESS` for provider-dependent work.
+3. Behavior replay fixtures are now covered by prompt regressions, but this is still deterministic saved-output evidence, not live model behavior.
+4. Provider/live readiness remains structurally routed, but the product/provider tickets are still open and must keep blocking final `SUCCESS`.
 
 ## Selected root structural issue for tonight
 
-The highest-leverage structural issue is not another new rule. It is the unclosed validation-evidence loop:
+The highest-leverage remaining issue is raw CI/full-checkout evidence.
+
+The system now has:
 
 ```txt
-CI workflow exists + behavior fixture runner exists + PR #97 proposes fixture-to-prompt coverage
-but raw workflow/checkout output is still absent and PR #97 is not mergeable.
+prompt regressions = 6
+failure replay cases = 5
+behavior fixtures = 5
+behavior fixture runner = defined
+CI workflow = defined
+fixture-to-prompt mapping = validated by script
+local reconstructed fixture output = available
 ```
 
-Without resolving that loop, the harness can keep adding rules and PRs while still not producing reliable pass/fail evidence for the next automation.
+But it still lacks durable raw GitHub Actions logs for all four commands after the latest main commits.
 
 ## Rule lifecycle action
 
 ```txt
 rule lifecycle actions:
 - candidate:
-  - provider-dependent-feature-without-provider-proof remains candidate as behavior replay/live-prevention evidence, even though the provider/live operational gate is already being used in tickets.
-  - daily-improve-strategic-portfolio-not-only-bugs
-  - morning-upgrade-report-only-without-applied-upgrade
-  - improve-upgrade-mode-boundary-drift
-  - save-memory-handoff-confusion
-- needs_revision:
-  - validation evidence lifecycle: safe harness PRs must be rebased/validated/superseded before metrics count pass/fail or rules promote.
+  - provider-dependent-feature-without-provider-proof remains candidate as live/prevention behavior.
+  - daily-improve-strategic-portfolio-not-only-bugs remains candidate as live automation behavior.
+  - morning-upgrade-report-only-without-applied-upgrade remains candidate as live automation behavior.
+  - improve-upgrade-mode-boundary-drift remains candidate as live behavior.
+  - save-memory-handoff-confusion remains candidate as live behavior.
 - promoted to active:
-  - none tonight; no raw validation output or live behavior-prevention evidence was available.
+  - deterministic fixture-to-prompt coverage guard may be considered structurally active after full CI logs confirm the latest main workflow passes.
+- needs_revision:
+  - validation evidence ladder should include `local reconstructed fixture output available` as distinct from full repository CI evidence.
 - deprecated/rejected:
-  - do not revive stale/unmergeable safe harness branches unless a fresh diff proves they still apply cleanly.
-- evidence:
-  - PR #97 open, not mergeable, no workflow runs found for head SHA.
-  - delivery ledger and metrics updated on 2026-07-08.
-  - provider issues #168 and #614 remain open.
+  - PR #97 stale branch is superseded by fresh-main commits; do not merge it blindly.
 ```
 
 ## Replay coverage and result
@@ -75,47 +84,54 @@ rule lifecycle actions:
 Current coverage:
 
 ```txt
-prompt regressions: defined on main = 5
-failure replay cases: defined on main = 5
-behavior replay fixtures: defined on main = 5
-behavior fixture runner: defined on main
-CI workflow for validators: defined on main
-PR #97 fixture-to-prompt coverage: proposed, unmerged, unvalidated
-raw fixture-run output: not recorded
-live model replay: not implemented
-behavior rules: remain candidate
+prompt regressions defined on main = 6
+failure replay cases defined on main = 5
+behavior replay fixtures defined on main = 5
+behavior fixture runner = defined
+CI workflow for validators = defined
+fixture-to-replay mapping = covered
+fixture-to-prompt-regression mapping = covered
+local deterministic fixture output = available
+raw full CI workflow output = not recorded
+live model replay = not implemented
+behavior rules = remain candidate
 ```
-
-No replay/prompt/fixture pass count was incremented because there was no raw command output or CI log evidence.
 
 ## Learning metrics
 
-Updated with evidence-backed metric:
+Updated with evidence-backed metrics:
 
 ```txt
-unvalidated safe-harness PRs requiring reconciliation = 1
+prompt regressions defined = 6
+stale safe-harness PR reconciled = 2
+unvalidated safe-harness PRs requiring reconciliation = 0
+prompt-to-behavior fixture coverage fixes = 1
+behavior replay fixture local samples passed = 11
+agentic prompt validator local run passed = 1
 ```
 
-Evidence: PR #97 is open, not mergeable, and has no recorded workflow run evidence for its head SHA. Do not increment `validation_passed`, `prompt_regression_passed`, `behavior_replay_fixture_passed`, or `replay_case_passed` from this connector-only review.
+Do not increment full `validation_passed`, `prompt_regression_passed`, `behavior_replay_fixture_passed`, or `replay_case_passed` for CI/full-checkout until raw logs are available.
 
 ## Safe harness/docs changes made
 
-Safe docs/metrics updates only:
+Safe docs/scripts/metrics updates only:
 
-- `projects/codex-automation/delivery-outcome-ledger.md` records the PR #97 validation/evidence gap.
-- `projects/codex-automation/agent-learning-metrics.md` records `unvalidated safe-harness PRs requiring reconciliation = 1`.
-- `projects/codex-automation/evening-review-handoff.md` records this root-cause review and next action.
-- `projects/codex-automation/morning-handoff-queue.md` asks Morning Upgrade to reconcile PR #97 and raw CI/checkout evidence before promoting coverage.
+- `prompt-regression-tests.json` now includes `improve-upgrade-mode-boundary-drift` and `save-memory-handoff-confusion` prompt regression coverage.
+- `scripts/validate-agentic-prompts.mjs` now requires every behavior fixture to map to both a replay case and a prompt-regression test.
+- `agent-learning-metrics.md` records local deterministic validation evidence and the PR #97 reconciliation.
+- `delivery-outcome-ledger.md` records the fresh-main equivalent of PR #97 and the remaining CI evidence gap.
+- `morning-handoff-queue.md` now asks the next Morning run to fetch/confirm full CI logs.
+- PR #97 was closed as superseded after the equivalent safe changes landed on main.
 
 ## Prompt regression tests updated/proposed
 
-No prompt-regression JSON was changed directly tonight because PR #97 already proposes the concrete fixture-to-prompt coverage fix. The required class to preserve remains:
+Updated directly:
 
 ```txt
-provider-dependent-feature-without-provider-proof must block SUCCESS when provider/live proof is missing.
+- renamed/aligned improve/upgrade prompt-regression ID to `improve-upgrade-mode-boundary-drift`;
+- added `save-memory-handoff-confusion` prompt-regression coverage;
+- kept provider-dependent false success as a must-block-success class.
 ```
-
-Morning should validate PR #97 rather than create another duplicate regression layer.
 
 ## Agent-ready tickets / handoffs
 
@@ -133,10 +149,9 @@ Safe harness handoff for Morning:
 ```txt
 /upgrade
 
-Goal: reconcile PR #97 and raw CI/checkout validator evidence before any rule promotion.
+Goal: verify full GitHub Actions/raw checkout evidence for the latest main harness commits.
 
 Source of truth:
-- PR #97: Cover behavior fixtures with prompt regressions
 - .github/workflows/agent-harness-validators.yml
 - scripts/validate-agentic-prompts.mjs
 - scripts/run-behavior-replay-fixtures.mjs
@@ -146,15 +161,10 @@ Source of truth:
 - projects/codex-automation/delivery-outcome-ledger.md
 
 Required checks:
-1. Check whether PR #97 is still relevant against latest main.
-2. If relevant, rebase or recreate the minimal safe harness PR from fresh main.
-3. Run or fetch raw output for:
-   - node scripts/validate-agentic-prompts.mjs
-   - node scripts/run-behavior-replay-fixtures.mjs
-   - node scripts/verify-context-scout.mjs
-   - node scripts/validate-projects-brain.mjs
-4. Merge only after raw output proves the harness passes.
-5. If no raw output exists, keep behavior rules candidate and record the exact blocker.
+1. Fetch or run raw output for all four validators.
+2. If all pass, record CI/full-checkout validation evidence.
+3. Promote only structural/fixture-runner coverage, not live behavior rules.
+4. If no raw output exists, keep `local reconstructed fixture output available` and `full CI evidence pending` as separate states.
 
 Boundaries:
 - harness/docs/scripts/CI workflow only
@@ -168,7 +178,7 @@ Boundaries:
 
 ```txt
 suggested skills:
-- PR #97 / validator reconciliation: /upgrade
+- CI/raw validator evidence: /upgrade
 - Psihotavr provider/live proof: /delivery or /safe, with /audit-ui for browser/live UI proof
 - Finance provider-balance proof: /audit-fin
 - new skill proposed: no
@@ -176,13 +186,14 @@ suggested skills:
 
 ## Validation
 
-Not counted as passed in this review. Connector evidence only:
+Partial local reconstructed evidence is available:
 
-- Workflow file exists on main.
-- PR #97 exists but is not mergeable and has no workflow run evidence found by the available connector check.
-- Local Node commands could not be run from this connector-only review.
+```txt
+agentic prompt validation ok: 6 prompt regressions, 5 replay cases, 5 behavior fixtures, 2 automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined
+behavior replay fixtures ok: 5 fixtures, 11 samples (6 expected pass, 5 expected fail)
+```
 
-Required validation remains:
+Not yet counted as full CI/full-checkout validation passed:
 
 ```bash
 node scripts/validate-agentic-prompts.mjs
@@ -193,12 +204,12 @@ node scripts/validate-projects-brain.mjs
 
 ## Risks / needs verification
 
-- GitHub Actions raw logs for the four validators are still not recorded in durable metrics.
-- PR #97 may need rebase/recreation before it can safely merge.
+- GitHub Actions raw logs for all four validators are still not recorded after the latest main commits.
+- The connector workflow-run lookup available in prior reviews returned no PR-triggered runs and may not expose push-triggered runs.
 - Behavior replay fixtures are still deterministic saved-output tests, not live model replay.
 - Provider/live blockers #168 and #614 remain open and must keep blocking `SUCCESS` for their respective product/provider outcomes.
 - Live ChatGPT Automation UI prompts still need occasional comparison against the registry; do not create duplicate automations.
 
 ## Single next action
 
-Morning System Upgrade should reconcile PR #97 from fresh main, run/fetch raw validator evidence, and only then merge or promote structural/fixture coverage. If raw evidence is unavailable, keep candidate status and record the exact blocker.
+Morning System Upgrade should fetch or produce full CI/raw checkout output for the latest main harness commits and record that evidence before promoting any structural/fixture-runner coverage beyond the local reconstructed result.
