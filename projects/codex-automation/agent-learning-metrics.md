@@ -17,7 +17,8 @@ Never count a metric without evidence. Acceptable evidence:
 - behavior fixture output;
 - validation output;
 - GitHub Actions/check log;
-- live ChatGPT Automation prompt update confirmed by the Automations tool.
+- live ChatGPT Automation prompt update confirmed by the Automations tool;
+- cited public trend research used only for metric-model review.
 
 ## Current baseline
 
@@ -25,10 +26,12 @@ Never count a metric without evidence. Acceptable evidence:
 | --- | ---: | --- | --- |
 | provider/live gate triggered | 2 | Psihotavr issue #168; Finance issue #614 | Both are provider/live proof blockers routed out of upgrade mode. |
 | false-success prevention candidates | 2 | `provider-dependent-feature-without-provider-proof`; Evening Review 2026-07-03 | Candidate until replay/regression is run from checkout. |
-| user corrections converted to harness artifacts | 3 | Delivery ledger 2026-07-04; prompt regression/replay candidates; upgrade-cycle metrics contract 2026-07-09 | Daily Improve strategic-portfolio correction, Morning Upgrade applied/no-safe-upgrade correction, and Andrey's morning/evening metrics split are now durable harness artifacts. |
+| user corrections converted to harness artifacts | 4 | Delivery ledger 2026-07-04; prompt regression/replay candidates; upgrade-cycle metrics contract 2026-07-09 | Daily Improve strategic-portfolio correction, Morning Upgrade applied/no-safe-upgrade correction, morning/evening metrics split, and Health Delta Table requirement are now durable harness artifacts. |
 | rule lifecycle changes | 3 | 2026-07-04 Morning System Upgrade | Created provider/live gate, lifecycle standard, replay/regression scaffolds. |
 | upgrade cycle metrics contracts defined | 1 | `systems/upgrade-cycle-metrics.md`; automation prompt registry 2026-07-09 | Defines Evening health scoring and Morning applied-upgrade metrics so the loop measures health before changing rules. |
-| live automation prompts updated for metrics split | 2 | ChatGPT Automations tool update 2026-07-09 | Morning System Upgrade and Evening Architecture Review live prompts were updated to use the new score/implementation split. |
+| health delta reporting contracts defined | 1 | `systems/upgrade-cycle-metrics.md`; ChatGPT Automations update 2026-07-09 | Morning must report before/after/delta/confidence/evidence after applied upgrades. |
+| metric model trend-review contracts defined | 1 | `systems/upgrade-cycle-metrics.md`; ChatGPT Automations update 2026-07-09 | Evening may update metric candidates based on current reliability/guardrail/DORA/SPACE trends, with evidence and lifecycle control. |
+| live automation prompts updated for metrics split | 2 | ChatGPT Automations tool update 2026-07-09 | Morning System Upgrade and Evening Architecture Review live prompts were updated to use the score/implementation split and then updated again for health delta + trend-review behavior. |
 | replay cases defined | 5 | `failure-replay-cases.json` | Defined, not live behavior-executed. |
 | prompt regressions defined | 6 | `prompt-regression-tests.json`; Morning System Upgrade 2026-07-09 | Every behavior replay fixture ID now has matching prompt-regression coverage. |
 | feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-05 through 2026-07-09 | Validator reads prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, learning-metric counts, CI workflow contract, and fixture-to-prompt/replay ID coverage. |
@@ -61,6 +64,8 @@ behavior_replay_fixture_passed:
 behavior_replay_fixture_failed:
 user_correction_recorded:
 upgrade_cycle_metrics_contract_defined:
+health_delta_reporting_contract_defined:
+metric_model_trend_review_contract_defined:
 live_automation_prompt_updated:
 validator_defined:
 validation_ci_workflow_defined:
