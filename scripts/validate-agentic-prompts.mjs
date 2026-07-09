@@ -171,6 +171,7 @@ assert(morning.must_do.some((item) => /behavior replay/i.test(item)), 'Morning U
 
 const workflowText = readText(workflowPath);
 for (const expected of ['pull_request:', 'push:', 'workflow_dispatch:', 'node scripts/validate-agentic-prompts.mjs', 'node scripts/run-behavior-replay-fixtures.mjs', 'node scripts/verify-context-scout.mjs', 'node scripts/validate-projects-brain.mjs']) assert(workflowText.includes(expected), `${workflowPath} must include ${expected}`);
+for (const expected of ['agent-harness-validation-evidence', 'actions/upload-artifact@v4', 'validate-agentic-prompts.log', 'run-behavior-replay-fixtures.log', 'verify-context-scout.log', 'validate-projects-brain.log']) assert(workflowText.includes(expected), `${workflowPath} must capture raw validator evidence artifact: ${expected}`);
 
 const metricsText = readText(metricsPath);
 assertMetricEquals(metricsText, 'replay cases defined', replays.cases.length);
@@ -182,4 +183,4 @@ assertMetricAtLeast(metricsText, 'validation CI workflows defined', 1);
 metricCount(metricsText, 'validation commands run');
 for (const requiredTemplateMetric of ['validation_passed:', 'validation_failed:', 'replay_case_passed:', 'prompt_regression_passed:', 'behavior_replay_fixture_passed:', 'behavior_replay_fixture_failed:']) assert(metricsText.includes(requiredTemplateMetric), `${metricsPath} template missing ${requiredTemplateMetric}`);
 
-console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined`);
+console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined, raw evidence artifact contract checked`);
