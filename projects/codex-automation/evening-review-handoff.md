@@ -1,6 +1,24 @@
 # Evening Architecture Review Handoff
 
-Last updated: 2026-07-09 Evening Architecture Review
+Last updated: 2026-07-10 Morning System Upgrade
+
+## 2026-07-10 Morning implementation response
+
+Status: `APPLIED_UPGRADE`.
+
+The exact single-runner handoff below was implemented and validated:
+- PR #98 added `scripts/run-agent-harness-validation-evidence.mjs`, updated the workflow, and protected the runner contract;
+- Agent Harness Validators run #40 completed successfully;
+- raw job log proves all four validators exited 0;
+- artifact `agent-harness-validation-evidence` contains four logs;
+- PR #98 merged as `d55949911efb34eb3828a9c2857a4913de9be2e7`.
+
+Evening verification questions:
+1. Does the post-merge main workflow also produce a successful four-file artifact?
+2. Are the dashboard deltas (Validation 55→72; False success 55→60; Delivery 55→60; Loop closure 65→70; Regression/replay 65→68; Rule lifecycle 55→60) supported or should any be corrected?
+3. Should `validation-evidence-reproducibility-local-plus-ci` remain active while behavior/provider rules stay candidate?
+
+Provider/live gaps remain unchanged: Psihotavr #168 and Finance #614.
 
 ## Evidence reviewed
 

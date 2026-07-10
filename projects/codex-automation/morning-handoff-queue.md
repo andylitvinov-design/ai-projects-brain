@@ -1,77 +1,39 @@
 # Morning Handoff Queue
 
-Last updated: 2026-07-09 Evening Architecture Review
+Last updated: 2026-07-10 Morning System Upgrade
 
 Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Evening Architecture Review write safe, deduplicated inputs here.
 
 ## Queue for next Morning System Upgrade
 
-### 2026-07-10 — unify local and CI raw validator evidence
+No unconsumed safe upgrade is preselected. Evening Architecture Review should first verify the post-merge main workflow for PR #98 and then rank the next highest-leverage safe system issue.
 
-Source: Evening Architecture Review 2026-07-09.
-
-Status: ready for safe `/upgrade` harness/script/CI work.
-
-Top blocker:
-
-```txt
-The system now has CI raw evidence artifact capture defined, but still does not have raw validation output available from a fetched GitHub Actions artifact/job log or a full local checkout run.
-```
-
-Inputs:
-- The 2026-07-09 Morning Upgrade implemented the safe part of the previous handoff: `.github/workflows/agent-harness-validators.yml` now tees each validator command to log files under `agent-harness-validation-evidence/` and uploads that directory with `actions/upload-artifact@v4`.
-- `scripts/validate-agentic-prompts.mjs` now fails if the workflow stops including the expected raw-evidence artifact contract:
-  - `agent-harness-validation-evidence`;
-  - `validate-agentic-prompts.log`;
-  - `run-behavior-replay-fixtures.log`;
-  - `verify-context-scout.log`;
-  - `validate-projects-brain.log`.
-- Evening accepted the structural artifact-capture and loop-closure improvements, but corrected `Validation evidence` from `60/100 estimated, medium confidence` to `55/100 estimated, low confidence` because raw CI/job/artifact logs were still unavailable.
-- GitHub connector lookup for known recent harness commit refs returned no workflow runs.
-- Local full-checkout validation could not be run in the Evening environment because direct `git clone` failed with DNS resolution error.
-- Product/provider work remains routed out of Morning Upgrade: Psihotavr provider/live proof and Finance provider-balance blocker.
-
-Recommended Morning action:
-1. Add a single evidence runner:
-   - `scripts/run-agent-harness-validation-evidence.mjs`.
-2. The script should create/clean `agent-harness-validation-evidence/`, run the four validator commands, write raw output to the four expected `.log` files, and exit non-zero if any validator fails.
-3. Update `.github/workflows/agent-harness-validators.yml` to call the single evidence runner and upload the same artifact.
-4. Update `scripts/validate-agentic-prompts.mjs` so it verifies the evidence runner exists, includes all four validator commands, and writes all four expected log paths.
-5. Run the evidence runner from a checkout when possible:
-   - `node scripts/run-agent-harness-validation-evidence.mjs`.
-6. If raw logs are produced, update:
-   - `agent-learning-metrics.md`;
-   - `delivery-outcome-ledger.md`;
-   - `system-health-dashboard.md`;
-   - `system-health-dashboard.json`;
-   - brain-management live dashboard data mirror.
-7. If checkout/CI remains blocked, report the exact blocker and keep `Validation evidence` low-confidence.
-
-Expected metric improvement if validated:
-
-```txt
-Validation evidence: 55 -> 65+ if local raw logs are produced; 70+ if CI artifact/job logs are fetched.
-False success protection: 55 -> 60 if validator protects the unified evidence-runner contract.
-Delivery completion quality: 55 -> 60 if raw logs are attached to the Morning report.
-```
-
-Needs verification:
-- Raw logs for all four commands:
-  - `node scripts/validate-agentic-prompts.mjs`;
-  - `node scripts/run-behavior-replay-fixtures.mjs`;
-  - `node scripts/verify-context-scout.mjs`;
-  - `node scripts/validate-projects-brain.mjs`.
-- Whether GitHub Actions artifacts can be fetched for push-triggered runs; if not, use local evidence-runner output as the next best raw evidence.
-- Live ChatGPT Automation UI prompts still need occasional comparison against registry contracts, but do not create duplicate automations.
-
-Boundaries:
-- harness/docs/scripts/CI workflow only;
-- no product code;
-- no provider config;
-- no production data;
-- no auth/payment/deploy/env/secrets.
+Still routed outside Morning Upgrade:
+- Psihotavr provider/live auth and persistence proof: `andylitvinov-design/psihotavr#168` via `/delivery` + `/safe` or `/audit-ui`.
+- Finance provider-balance blocker: `andylitvinov-design/finance#614` via `/audit-fin`.
 
 ## Closed / consumed items
+
+### 2026-07-10 — unify local and CI raw validator evidence
+
+Consumed by Morning System Upgrade 2026-07-10.
+
+Outcome: `APPLIED_UPGRADE`.
+
+Applied and proven:
+- added `scripts/run-agent-harness-validation-evidence.mjs`;
+- runner creates/cleans the evidence directory, runs all four validators, writes four raw logs, and fails non-zero if any validator fails;
+- `.github/workflows/agent-harness-validators.yml` now uses that single runner and treats missing artifact files as an error;
+- `scripts/validate-agentic-prompts.mjs` protects the runner and workflow contract;
+- PR #98 passed Agent Harness Validators run #40 and was merged as `d559499`;
+- fetched raw job log proves all four commands exited 0;
+- artifact `8220506285` contains four log files.
+
+Evening verification:
+- fetch/check the post-merge main workflow and artifact;
+- accept or correct the evidence-backed dashboard deltas;
+- keep provider/live and live behavior rules candidate until separate proof exists.
+
 
 ### 2026-07-09 — fetch raw CI artifact evidence and close the evidence ladder
 

@@ -1,6 +1,6 @@
 # Agent Learning Metrics
 
-Last updated: 2026-07-09 Evening Architecture Review
+Last updated: 2026-07-10 Morning System Upgrade
 
 Purpose: measure whether the agent harness actually improves behavior instead of only adding more rules.
 
@@ -40,14 +40,16 @@ Never count a metric without evidence. Acceptable evidence:
 | behavior replay fixtures defined | 5 | `projects/codex-automation/behavior-replay-fixtures.json`; Morning System Upgrade 2026-07-07 | Fixtures cover provider/live false success, Daily Improve portfolio strategy, Morning report-only completion, improve/upgrade boundary drift, and save/memory/handoff confusion. |
 | validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml`; Morning System Upgrade 2026-07-08 and 2026-07-09 | Workflow runs the four harness validators on PR, push to main, and manual dispatch; as of 2026-07-09 it also writes each validator's raw console output to `agent-harness-validation-evidence` and uploads it as an artifact. |
 | CI raw evidence artifact capture defined | 1 | `.github/workflows/agent-harness-validators.yml`; `scripts/validate-agentic-prompts.mjs`; Morning System Upgrade 2026-07-09 | The workflow now captures `validate-agentic-prompts.log`, `run-behavior-replay-fixtures.log`, `verify-context-scout.log`, and `validate-projects-brain.log`; the validator now fails if the artifact contract is removed. This is CI-observability setup, not a passed CI run. |
-| raw CI workflow runs fetched | 0 | Evening Architecture Review 2026-07-09 | Connector lookup returned no workflow runs for checked recent harness refs; direct full checkout was unavailable due DNS. Do not count full CI validation passed. |
-| validation commands run | 3 | ai-projects-brain PR #95 verification section | PR #95 reports `validate-agentic-prompts`, `validate-projects-brain`, and `verify-context-scout` were run before merge. Raw command output / Actions logs are not available in that connector review, so behavior rules remain candidates. |
+| unified harness evidence runners defined | 1 | PR #98; `scripts/run-agent-harness-validation-evidence.mjs`; CI run #40 | One script now creates/cleans the evidence directory, runs all four validators, writes four logs, and exits non-zero if any validator fails. The prompt validator protects this contract. |
+| raw CI workflow runs fetched | 1 | PR #98; Agent Harness Validators run #40; job 86305828251 | Raw job logs were fetched. All four validator commands exited 0 and the workflow concluded success. |
+| validation commands run | 7 | PR #95 reported 3 commands; PR #98 CI run #40 provides raw output for 4 commands | The four fresh CI commands all exited 0: prompt validator, behavior fixtures, context-scout, and projects-brain validation. |
 | validation evidence propagation fixes | 1 | Evening Architecture Review 2026-07-06; PR #96 | Metrics and handoff wording were revised after PR #95 changed the evidence state from no validation to PR-reported validation. |
 | stale safe-harness PR reconciled | 2 | PR #92 closed unmerged; PR #97 superseded by direct fresh-main safe harness commits on 2026-07-09 | Do not merge stale/unmergeable safe-harness branches blindly; apply or recreate smallest fresh-main equivalent instead. |
 | unvalidated safe-harness PRs requiring reconciliation | 0 | Morning System Upgrade 2026-07-09 | PR #97's intended fixture-to-prompt coverage was applied directly on fresh main and the stale PR is closed/superseded. |
 | prompt-to-behavior fixture coverage fixes | 1 | Morning System Upgrade 2026-07-09; `prompt-regression-tests.json`; `scripts/validate-agentic-prompts.mjs` | Added missing prompt-regression coverage and made the validator fail if any behavior fixture lacks matching prompt-regression and replay coverage. |
-| behavior replay fixture local samples passed | 11 | Morning System Upgrade 2026-07-09 reconstructed local fixture run | `node scripts/run-behavior-replay-fixtures.mjs` passed on the fetched/updated harness fixture set: 5 fixtures, 11 samples, 6 expected pass, 5 expected fail. This is deterministic saved-output evidence, not live model behavior. |
-| agentic prompt validator local run passed | 1 | Morning System Upgrade 2026-07-09 reconstructed local validator run | `node scripts/validate-agentic-prompts.mjs` passed on the fetched/updated prompt/replay/behavior/registry/metrics/workflow contract set. Full repository CI/check logs still need verification. |
+| behavior replay fixture local samples passed | 11 | Morning System Upgrade 2026-07-09 reconstructed local run; PR #98 CI run #40 raw output | CI independently confirmed 5 fixtures and 11 samples passed (6 expected pass, 5 expected fail). This is deterministic saved-output evidence, not live model behavior. |
+| agentic prompt validator local run passed | 1 | Morning System Upgrade 2026-07-09 reconstructed local validator run | Local reconstructed validation passed on the prompt/replay/behavior/registry/metrics/workflow contract set. |
+| agentic prompt validator CI runs passed | 1 | PR #98; Agent Harness Validators run #40 raw job log | Fresh CI raw output confirms 6 prompt regressions, 5 replay cases, 5 behavior fixtures, 7 automation contracts, metrics alignment, mapping coverage, workflow contract, and unified runner contract. |
 
 ## Metrics to update after each run
 
@@ -78,6 +80,8 @@ validation_failed:
 unvalidated_harness_pr_requiring_reconciliation:
 ci_raw_evidence_artifact_capture_defined:
 raw_ci_workflow_run_fetched:
+unified_harness_evidence_runner_defined:
+agentic_prompt_validator_ci_run_passed:
 ```
 
 ## Reporting rule
@@ -95,8 +99,9 @@ As of 2026-07-09, `scripts/validate-agentic-prompts.mjs` checks that:
 - Daily Improve keeps strategic portfolio output requirements;
 - Morning System Upgrade keeps `APPLIED_UPGRADE / NO_SAFE_UPGRADE` requirements;
 - this metrics table stays aligned with the actual number of prompt regressions, replay cases, and behavior replay fixtures;
-- `.github/workflows/agent-harness-validators.yml` exists and runs the four expected Node validation commands;
-- the workflow captures raw validator logs as the `agent-harness-validation-evidence` artifact so future reviews can fetch exact command output instead of relying on PR prose.
+- `scripts/run-agent-harness-validation-evidence.mjs` runs all four validators, writes four raw logs, and fails non-zero if any validator fails;
+- `.github/workflows/agent-harness-validators.yml` calls that single runner and uploads `agent-harness-validation-evidence`;
+- PR #98 CI run #40 produced and exposed raw output for all four validators plus the four-file artifact.
 
 `run-behavior-replay-fixtures.mjs` is the first deterministic behavior replay layer. It validates saved example outputs against fixed guardrail evaluators. It is stronger than schema validation, but it is still not live model output. Do not promote behavior rules from `candidate` to `active` until a checkout/CI run produces output or a real automation report proves the gate prevented a bad completion.
 
