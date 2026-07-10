@@ -1,264 +1,160 @@
 # Evening Architecture Review Handoff
 
-Last updated: 2026-07-10 Morning System Upgrade
+Last updated: 2026-07-10 Evening Architecture Review
 
-## 2026-07-10 Morning implementation response
+## Evening result
 
-Status: `APPLIED_UPGRADE`.
+Status: `DIAGNOSED_AND_HANDOFF_READY`.
 
-The exact single-runner handoff below was implemented and validated:
-- PR #98 added `scripts/run-agent-harness-validation-evidence.mjs`, updated the workflow, and protected the runner contract;
-- Agent Harness Validators run #40 completed successfully;
-- raw job log proves all four validators exited 0;
-- artifact `agent-harness-validation-evidence` contains four logs;
-- PR #98 merged as `d55949911efb34eb3828a9c2857a4913de9be2e7`.
+Morning's unified evidence-runner upgrade is real and supported. Raw GitHub Actions evidence now exists for two PR runs:
 
-Evening verification questions:
-1. Does the post-merge main workflow also produce a successful four-file artifact?
-2. Are the dashboard deltas (Validation 55→72; False success 55→60; Delivery 55→60; Loop closure 65→70; Regression/replay 65→68; Rule lifecycle 55→60) supported or should any be corrected?
-3. Should `validation-evidence-reproducibility-local-plus-ci` remain active while behavior/provider rules stay candidate?
+- run #40 for the runner/workflow upgrade;
+- run #42 for the dashboard, metrics, ledger, and handoff update;
+- both jobs completed successfully and uploaded `agent-harness-validation-evidence` with four log files.
 
-Provider/live gaps remain unchanged: Psihotavr #168 and Finance #614.
+The post-merge `main` push-run remains `NEEDS_VERIFICATION`: the available commit-workflow lookup returned no run for merge SHAs, and the connector path is documented as pull-request-run oriented. Do not infer a post-merge run from a PR run.
 
-## Evidence reviewed
+## New structural issue found
 
-- Morning System Upgrade 2026-07-09 consumed the prior raw-CI-evidence handoff and applied a safe harness/CI observability upgrade.
-- `.github/workflows/agent-harness-validators.yml` now writes raw validator console output to `agent-harness-validation-evidence/` and uploads it with `actions/upload-artifact@v4`.
-- The artifact is expected to contain:
-  - `validate-agentic-prompts.log`;
-  - `run-behavior-replay-fixtures.log`;
-  - `verify-context-scout.log`;
-  - `validate-projects-brain.log`.
-- `scripts/validate-agentic-prompts.mjs` now validates that the workflow keeps this raw-evidence artifact contract.
-- `agent-learning-metrics.md` records `CI raw evidence artifact capture defined` as separate from `raw validation output available`.
-- `system-health-dashboard.md`, `system-health-dashboard.json`, and the live brain-management dashboard data mirror were updated with confidence-labelled estimated health values.
-- Evening verified repository file evidence for the workflow and dashboard updates, but did not obtain raw GitHub Actions job logs or downloadable artifacts for a passing run after the latest main commits.
-- GitHub connector lookup for known recent harness commit refs returned no workflow runs.
-- Local full-checkout validation could not be run in this environment because direct `git clone` failed with DNS resolution error; this run therefore does not count full checkout validation as passed.
-- Provider/live readiness blockers remain open: `andylitvinov-design/psihotavr#168` and `andylitvinov-design/finance#614`.
-- No product code, provider configuration, production data, deploy setting, auth/payment setting, env value, or secret-adjacent change was executed from this review loop.
+The repository registry said Morning System Upgrade was active, but the live ChatGPT Automation was disabled after today's successful run.
+
+Evening repaired the narrow live-state drift by re-enabling the existing daily Morning System Upgrade schedule. No duplicate automation was created.
+
+This exposed a missing evidence layer:
+
+```txt
+registry contract defined
+live scheduler enabled
+expected run observed
+run produced report/evidence
+```
+
+The system currently checks the first and fourth layers better than the middle two.
 
 ## Morning Health Delta Verification
 
-| Morning claim | Evening decision | Current evening score | Reason |
+| Morning claim | Evening decision | Current evening score | Evidence / correction |
 | --- | --- | ---: | --- |
-| Provider/live readiness stays unknown/blocked | accepted | unknown | No provider/live proof was produced and no provider state was mutated. |
-| False success protection 55/100 estimated, low confidence | accepted | 55/100 estimated | Structural artifact-capture contract reduces prose-only success risk, but no raw CI/log prevention proof yet. |
-| Delivery completion quality 55/100 estimated, low confidence | accepted | 55/100 estimated | Morning made real harness/dashboard changes, but completion remains CI-evidence-pending. |
-| User pain repetition 55/100 estimated, low confidence | accepted | 55/100 estimated | Live dashboard + concrete changed-file reporting addresses the repeated pain, but needs continued evidence discipline. |
-| Loop closure 65/100 estimated, low confidence | accepted | 65/100 estimated | Prior evening handoff was consumed and implemented as a safe harness/CI observability change. |
-| Validation evidence 60/100 estimated, medium confidence | corrected | 55/100 estimated, low confidence | Artifact capture is defined, but raw GitHub Actions artifact/job logs were not fetched and full checkout validation was not run. |
-| Regression/replay coverage 65/100 estimated, medium confidence | accepted | 65/100 estimated | 6 prompt regressions, 5 replay cases, and 5 behavior fixtures are defined and mapped; no new failure class today. |
-| Rule lifecycle health 55/100 estimated, low confidence | accepted | 55/100 estimated | No premature promotion; behavior rules remain candidate until raw/live prevention evidence exists. |
-| Automation noise unknown | corrected to baseline estimate | 50/100 estimated, low confidence | No new automation was created, but registry still records scheduler states that need live verification. |
-| Active project momentum unknown | corrected to baseline estimate | 50/100 estimated, low confidence | Tickets exist, but provider/live project progress remains unproven. |
+| Provider/live readiness stays unknown | accepted | unknown | Psihotavr #168 and Finance #614 remain open without new provider/live proof. |
+| False success protection 55→60 | accepted | 60 | Unified runner contract and raw CI output support the increase. |
+| Delivery completion quality 55→60 | accepted, then +1 | 61 | A second PR run/artifact validates the dashboard/metrics update; post-merge-main run remains unverified. |
+| User pain repetition 55→55 | accepted | 55 | No new durable correction artifact was recorded. |
+| Loop closure 65→70 | accepted with repair | 70 | Prior handoff was consumed, but the next Morning schedule had become disabled and was restored tonight. |
+| Validation evidence 55→72 | accepted, then +2 | 74 | Run #42 independently repeated the unified four-validator evidence path. |
+| Regression/replay coverage 65→68 | accepted | 68 | Existing mapped fixtures passed; scheduler-liveness drift is not yet covered. |
+| Rule lifecycle health 55→60 | accepted | 60 | Structural reproducibility is proven; behavior/provider rules remain candidate. |
+| Automation noise 50→50 | corrected upward | 62 | Live schedules were checked, no duplicate core loops were found, and the disabled Morning loop was restored. |
+| Active project momentum 50→50 | accepted | 50 | Existing exact tickets remain open without new live proof. |
 
-## Provider/live readiness gaps found
+## Selected root issue
 
-These remain higher priority than softer mode-vocabulary cleanup:
+**Required-loop scheduler liveness is not part of the evidence model.**
 
-1. Psihotavr provider/live proof remains open in `andylitvinov-design/psihotavr#168`: Supabase auth/admin persistence and live Google/cabinet/admin/public-card behavior must be proven separately from code paths.
-2. Finance provider-balance proof remains open in `andylitvinov-design/finance#614`: strict live `verify:finance` still depends on resolving the provider/manual balance source gap without unsafe finance mutation.
+Why it outranks softer cleanup:
 
-Evening Review and Morning Upgrade must keep both routed to `/delivery`, `/safe`, `/audit-ui`, or `/audit-fin`; do not claim `SUCCESS` from code merge alone.
+1. A disabled Morning loop can silently stop the closed-loop system even while registry files, dashboards, and CI remain green.
+2. The mismatch was real, current, and directly observed in the live Automations state.
+3. It can be addressed safely in harness tests/docs without touching product code or providers.
+4. It is non-overlapping with the existing raw-validator evidence work.
 
-## Repeated patterns found
-
-1. The system improved from `CI workflow defined` to `CI raw evidence artifact capture defined`, but still risks treating artifact contract as if it were raw validation output.
-2. Evidence states must remain separated:
-
-```txt
-not run
-PR-reported run
-CI workflow defined
-CI raw evidence artifact capture defined
-raw validation output available
-behavior replay fixture passed
-live behavior/prevention evidence exists
-```
-
-3. Behavior replay fixtures are covered by prompt regressions and deterministic local fixture expectations, but this is still not live model behavior.
-4. Provider/live readiness remains structurally routed, but the product/provider tickets are still open and must keep blocking final `SUCCESS`.
-5. The latest evidence-capture logic is duplicated between workflow YAML and conceptual handoff instructions; next Morning should unify local+CI evidence capture into one script so the same raw evidence can be generated locally and uploaded in CI.
-
-## Selected root structural issue for tonight
-
-The highest-leverage remaining issue is raw evidence reproducibility.
-
-The system now has:
+## Rule lifecycle actions
 
 ```txt
-prompt regressions = 6
-failure replay cases = 5
-behavior fixtures = 5
-behavior fixture runner = defined
-CI workflow = defined
-CI raw evidence artifact capture = defined
-fixture-to-replay mapping = covered
-fixture-to-prompt-regression mapping = covered
-local reconstructed fixture output = available from Morning report
+candidate:
+- recurring-automation-disabled-after-successful-run
+- automation-registry-live-state-drift
+- retryable-provider-error-versus-terminal-blocker (awaiting one durable captured example)
+
+active:
+- validation-evidence-reproducibility-local-plus-ci remains active
+
+needs_revision:
+- automation health must not rely on registry status alone
+
+deprecated/rejected:
+- none
 ```
 
-But it still lacks a fetched passing GitHub Actions artifact or job log proving all four validators passed after the latest workflow/validator/dashboard commits. The next safe upgrade should reduce this weakness by creating one local+CI evidence runner that writes the same `agent-harness-validation-evidence/*.log` files in both environments.
+## Replay / regression coverage
 
-## Metric model trend review
-
-Sources used in final report: current public research on abstention-aware agent evaluation, guardrail recall/true-negative evaluation, DORA/rework and SPACE/developer-productivity lenses.
-
-Trend observed: the dashboard should not add a new top-level metric today. The current 10 metrics already cover the issue if we sharpen subdimensions:
-
-- `False success protection`: add/track abstention and uncertainty quality as a subdimension.
-- `Validation evidence`: add reproducibility/consistency as a subdimension; same command set should produce the same evidence locally and in CI.
-- `Delivery completion quality`: keep rework/unplanned repair rate as a subdimension.
-- `Automation noise / duplication`: keep hidden cost/context growth/retry cost as a subdimension.
-
-Lifecycle status: candidate subdimension refinement only; no metric-set change.
-
-## Rule lifecycle action
-
-```txt
-rule lifecycle actions:
-- candidate:
-  - provider-dependent-feature-without-provider-proof remains candidate as live/prevention behavior.
-  - daily-improve-strategic-portfolio-not-only-bugs remains candidate as live automation behavior.
-  - morning-upgrade-report-only-without-applied-upgrade remains candidate as live automation behavior.
-  - improve-upgrade-mode-boundary-drift remains candidate as live behavior.
-  - save-memory-handoff-confusion remains candidate as live behavior.
-  - validation-evidence-reproducibility-local-plus-ci starts as candidate subdimension under Validation evidence.
-- promoted to active:
-  - none today; artifact capture is structurally enforced, but raw logs are not available.
-- needs_revision:
-  - validation evidence ladder must keep `CI raw evidence artifact capture defined` distinct from `raw validation output available`.
-- deprecated/rejected:
-  - none today.
-```
-
-## Replay coverage and result
-
-Current coverage:
-
-```txt
-prompt regressions defined on main = 6
-failure replay cases defined on main = 5
-behavior replay fixtures defined on main = 5
-behavior fixture runner = defined
-CI workflow for validators = defined
-CI raw evidence artifact capture = defined
-fixture-to-replay mapping = covered
-fixture-to-prompt-regression mapping = covered
-local deterministic fixture output = available from Morning report
-raw full CI workflow output = not recorded
-live model replay = not implemented
-behavior rules = remain candidate
-```
-
-## Learning metrics
-
-Updated with evidence-backed metrics:
+Current proven coverage:
 
 ```txt
 prompt regressions defined = 6
-stale safe-harness PR reconciled = 2
-unvalidated safe-harness PRs requiring reconciliation = 0
-prompt-to-behavior fixture coverage fixes = 1
-behavior replay fixture local samples passed = 11
-agentic prompt validator local run passed = 1
-CI raw evidence artifact capture defined = 1
-evening health delta verifications completed = 1
-raw CI workflow runs fetched = 0
+failure replay cases defined = 5
+behavior replay fixtures defined = 5
+behavior samples = 11
+raw CI runs fetched = 2
+four-validator artifacts fetched = 2
+live model prevention evidence = not yet available
 ```
 
-Do not increment full `validation_passed`, `prompt_regression_passed`, `behavior_replay_fixture_passed`, or `replay_case_passed` for CI/full-checkout until raw logs are available.
-
-## Safe harness/docs changes made by Evening
-
-Safe docs/dashboard/ledger updates only:
-
-- `system-health-dashboard.md` and `system-health-dashboard.json` updated with Evening score verification and corrected validation-evidence confidence.
-- brain-management live dashboard data mirror updated to the same Evening values.
-- `morning-handoff-queue.md` updated with one ranked next Morning action.
-- `delivery-outcome-ledger.md` updated with the Evening verification outcome.
-- `agent-learning-metrics.md` updated with the Evening verification metric.
-
-## Prompt regression tests updated/proposed
-
-No new prompt regression is required tonight. The gap is not a new behavior class; it is evidence reproducibility for an existing validation layer.
-
-Proposed safe harness script for Morning:
+Missing coverage:
 
 ```txt
-scripts/run-agent-harness-validation-evidence.mjs
+recurring-automation-disabled-after-successful-run
 ```
 
-Responsibilities:
+## Provider/live gaps
 
-1. create/clean `agent-harness-validation-evidence/`;
-2. run all four validators;
-3. write each command's raw output to the expected `.log` file;
-4. exit non-zero if any validator fails;
-5. be called by `.github/workflows/agent-harness-validators.yml` so local and CI evidence match;
-6. be checked by `scripts/validate-agentic-prompts.mjs` so the runner cannot silently drop a validator or log file.
+1. [Psihotavr #168](https://github.com/andylitvinov-design/psihotavr/issues/168)
+   - Missing: production source mapping, env-name presence, Supabase schema/storage/policy proof, live Google auth, live admin persistence/public rendering.
+   - Status: `BLOCKED / NEEDS_VERIFICATION`.
+   - Route: `/delivery` + `/safe` or `/audit-ui`.
 
-## Agent-ready tickets / handoffs
+2. [Finance #614](https://github.com/andylitvinov-design/finance/issues/614)
+   - Missing: strict live `verify:finance` proof and exact resolution of the Binance save/USDC provider-balance source gap.
+   - Status: `BLOCKED / NEEDS_VERIFICATION`.
+   - Route: `/audit-fin`.
 
-Provider/product work remains in existing agent-ready tickets:
-
-1. `andylitvinov-design/psihotavr#168`
-   - Suggested command: `/delivery` or `/safe` / `/audit-ui` for Supabase auth/admin persistence/live proof.
-   - Status: open; provider/live proof missing.
-2. `andylitvinov-design/finance#614`
-   - Suggested command: `/audit-fin` for strict live `verify:finance` provider-balance gap.
-   - Status: open; provider/manual balance source evidence missing.
-
-Safe harness handoff for next Morning:
+## Morning System Upgrade handoff
 
 ```txt
 /upgrade
 
-Goal: create one local+CI raw evidence runner for the agent harness validators and use it to close the artifact-capture versus raw-output gap.
+Goal: make required recurring automation liveness evidence-backed so a core loop cannot silently become disabled while the registry still says active.
 
-Source of truth:
-- .github/workflows/agent-harness-validators.yml
-- scripts/validate-agentic-prompts.mjs
-- scripts/run-behavior-replay-fixtures.mjs
-- scripts/verify-context-scout.mjs
-- scripts/validate-projects-brain.mjs
-- projects/codex-automation/prompt-regression-tests.json
-- projects/codex-automation/behavior-replay-fixtures.json
-- projects/codex-automation/agent-learning-metrics.md
-- projects/codex-automation/delivery-outcome-ledger.md
-- projects/codex-automation/system-health-dashboard.md
-- projects/codex-automation/system-health-dashboard.json
+Top blocker:
+The live Morning System Upgrade automation was disabled even though automation-prompt-registry.json said it was active/verified. Evening restored the existing schedule, but the harness has no regression, replay fixture, or evidence ladder for this drift.
 
 Required safe change:
-1. Add `scripts/run-agent-harness-validation-evidence.mjs`.
-2. The script must run the four commands:
-   - `node scripts/validate-agentic-prompts.mjs`;
-   - `node scripts/run-behavior-replay-fixtures.mjs`;
-   - `node scripts/verify-context-scout.mjs`;
-   - `node scripts/validate-projects-brain.mjs`.
-3. The script must write these logs:
-   - `agent-harness-validation-evidence/validate-agentic-prompts.log`;
-   - `agent-harness-validation-evidence/run-behavior-replay-fixtures.log`;
-   - `agent-harness-validation-evidence/verify-context-scout.log`;
-   - `agent-harness-validation-evidence/validate-projects-brain.log`.
-4. Update `.github/workflows/agent-harness-validators.yml` to call the single script and upload the same artifact.
-5. Update `scripts/validate-agentic-prompts.mjs` to verify the evidence runner exists, calls all four validators, and writes all four log files.
-6. Run the evidence runner from checkout when possible. If checkout/CI is blocked, state the exact blocker and keep confidence low.
-7. Update dashboard and learning metrics only from actual output.
+1. Add prompt regression ID `recurring-automation-disabled-after-successful-run`.
+2. Add the matching failure replay case and deterministic behavior fixture.
+3. Expected good behavior:
+   - distinguish normal recurring schedules from one-time/conditional tasks;
+   - do not disable a normal recurring automation merely because one run succeeded;
+   - compare required live enabled state with registry intent before calling loop health good;
+   - re-enable only an existing clearly intended schedule, never create a duplicate;
+   - report missing Automations access as `NEEDS_VERIFICATION`.
+4. Update `scripts/validate-agentic-prompts.mjs` through existing fixture-to-prompt/replay mapping; avoid a new validator unless necessary.
+5. Update `automation-prompt-registry.json` with a scheduler-liveness evidence ladder:
+   - intended/registry state;
+   - live enabled state;
+   - expected run observed;
+   - latest run outcome.
+6. Keep provider/product work outside `/upgrade`.
+
+Validation:
+- node scripts/run-agent-harness-validation-evidence.mjs
+- live Automations list: required core loops enabled, no duplicate active schedules
 
 Expected metric improvement if validated:
-- Validation evidence: 55 -> 65+ if local raw logs are produced; 70+ if CI artifact/job logs are fetched.
-- False success protection: 55 -> 60 if validator protects the unified runner contract.
-- Delivery completion quality: 55 -> 60 if raw logs are attached to the report.
-
-Boundaries:
-- harness/docs/scripts/CI workflow only;
-- no product code;
-- no provider config;
-- no production data;
-- no auth/payment/deploy/env/secrets.
+- Automation noise / duplication: 62 -> 68+
+- Loop closure: 70 -> 74+
+- False success protection: 60 -> 63+
+- Regression/replay coverage: 68 -> 71+
 
 Evening verification question:
-Can Evening read raw logs for all four commands from either local evidence output or GitHub Actions artifact, and do those logs prove pass/fail instead of relying on prose?
+Does the new regression fail a sample that disables a normal recurring loop after success, pass a sample that preserves the existing schedule, and does the live list show one enabled Morning System Upgrade with no duplicate?
+
+Boundaries:
+- harness/docs/registry/regression/replay/fixture only;
+- no product code;
+- no provider config or production data;
+- no auth/payment/deploy/env/secrets;
+- do not create a new automation.
 ```
+
+## Single next action
+
+Tomorrow morning: implement and validate `recurring-automation-disabled-after-successful-run`, then prove the existing Morning schedule remains enabled and unique.
