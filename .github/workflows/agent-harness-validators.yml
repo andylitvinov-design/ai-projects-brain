@@ -39,32 +39,8 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Prepare validator evidence directory
-        run: mkdir -p agent-harness-validation-evidence
-
-      - name: Validate agentic prompts and feedback-loop artifacts
-        if: always()
-        run: |
-          set -o pipefail
-          node scripts/validate-agentic-prompts.mjs 2>&1 | tee agent-harness-validation-evidence/validate-agentic-prompts.log
-
-      - name: Run deterministic behavior replay fixtures
-        if: always()
-        run: |
-          set -o pipefail
-          node scripts/run-behavior-replay-fixtures.mjs 2>&1 | tee agent-harness-validation-evidence/run-behavior-replay-fixtures.log
-
-      - name: Verify context-scout wiring
-        if: always()
-        run: |
-          set -o pipefail
-          node scripts/verify-context-scout.mjs 2>&1 | tee agent-harness-validation-evidence/verify-context-scout.log
-
-      - name: Validate projects brain and secret scan
-        if: always()
-        run: |
-          set -o pipefail
-          node scripts/validate-projects-brain.mjs 2>&1 | tee agent-harness-validation-evidence/validate-projects-brain.log
+      - name: Run harness validators and capture raw evidence
+        run: node scripts/run-agent-harness-validation-evidence.mjs
 
       - name: Upload validator evidence artifact
         if: always()
@@ -72,4 +48,4 @@ jobs:
         with:
           name: agent-harness-validation-evidence
           path: agent-harness-validation-evidence/
-          if-no-files-found: warn
+          if-no-files-found: error

@@ -9,6 +9,7 @@ const behaviorPath = 'projects/codex-automation/behavior-replay-fixtures.json';
 const registryPath = 'projects/codex-automation/automation-prompt-registry.json';
 const metricsPath = 'projects/codex-automation/agent-learning-metrics.md';
 const workflowPath = '.github/workflows/agent-harness-validators.yml';
+const evidenceRunnerPath = 'scripts/run-agent-harness-validation-evidence.mjs';
 
 function fail(message) {
   throw new Error(message);
@@ -169,9 +170,22 @@ assert(morning.must_do.some((item) => /APPLIED_UPGRADE|NO_SAFE_UPGRADE/.test(ite
 assert(morning.must_do.some((item) => /validate-agentic-prompts/.test(item)), 'Morning Upgrade must keep validator maintenance in contract');
 assert(morning.must_do.some((item) => /behavior replay/i.test(item)), 'Morning Upgrade must keep behavior replay fixture maintenance in contract');
 
+const evidenceRunnerText = readText(evidenceRunnerPath);
+for (const expected of [
+  'scripts/validate-agentic-prompts.mjs',
+  'scripts/run-behavior-replay-fixtures.mjs',
+  'scripts/verify-context-scout.mjs',
+  'scripts/validate-projects-brain.mjs',
+  'validate-agentic-prompts.log',
+  'run-behavior-replay-fixtures.log',
+  'verify-context-scout.log',
+  'validate-projects-brain.log',
+]) assert(evidenceRunnerText.includes(expected), `${evidenceRunnerPath} must run and log ${expected}`);
+for (const expected of ['rmSync', 'agent-harness-validation-evidence', 'process.exitCode = 1']) assert(evidenceRunnerText.includes(expected), `${evidenceRunnerPath} must enforce evidence lifecycle: ${expected}`);
+
 const workflowText = readText(workflowPath);
-for (const expected of ['pull_request:', 'push:', 'workflow_dispatch:', 'node scripts/validate-agentic-prompts.mjs', 'node scripts/run-behavior-replay-fixtures.mjs', 'node scripts/verify-context-scout.mjs', 'node scripts/validate-projects-brain.mjs']) assert(workflowText.includes(expected), `${workflowPath} must include ${expected}`);
-for (const expected of ['agent-harness-validation-evidence', 'actions/upload-artifact@v4', 'validate-agentic-prompts.log', 'run-behavior-replay-fixtures.log', 'verify-context-scout.log', 'validate-projects-brain.log']) assert(workflowText.includes(expected), `${workflowPath} must capture raw validator evidence artifact: ${expected}`);
+for (const expected of ['pull_request:', 'push:', 'workflow_dispatch:', 'node scripts/run-agent-harness-validation-evidence.mjs']) assert(workflowText.includes(expected), `${workflowPath} must include ${expected}`);
+for (const expected of ['agent-harness-validation-evidence', 'actions/upload-artifact@v4']) assert(workflowText.includes(expected), `${workflowPath} must upload raw validator evidence artifact: ${expected}`);
 
 const metricsText = readText(metricsPath);
 assertMetricEquals(metricsText, 'replay cases defined', replays.cases.length);
@@ -183,4 +197,4 @@ assertMetricAtLeast(metricsText, 'validation CI workflows defined', 1);
 metricCount(metricsText, 'validation commands run');
 for (const requiredTemplateMetric of ['validation_passed:', 'validation_failed:', 'replay_case_passed:', 'prompt_regression_passed:', 'behavior_replay_fixture_passed:', 'behavior_replay_fixture_failed:']) assert(metricsText.includes(requiredTemplateMetric), `${metricsPath} template missing ${requiredTemplateMetric}`);
 
-console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined, raw evidence artifact contract checked`);
+console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined, unified raw evidence runner contract checked`);
