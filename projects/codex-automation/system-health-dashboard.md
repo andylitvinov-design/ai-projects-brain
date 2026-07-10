@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 Status: active dashboard with live public surface.
-Last updated: 2026-07-10 Morning System Upgrade.
+Last updated: 2026-07-10 Evening Architecture Review.
 Update owners: Evening Architecture Review and Morning System Upgrade.
 
 Live dashboard:
@@ -24,39 +24,55 @@ This dashboard tracks the daily health of Andrey's agent/Codex operating system.
 
 | Metric / parameter | Today | Yesterday | Change | Confidence | What was done today | What to do tomorrow |
 | --- | ---: | ---: | ---: | --- | --- | --- |
-| Provider/live readiness | unknown | unknown | unknown | unknown | No provider/product/live mutation or proof; `psihotavr#168` and `finance#614` remain blockers. | Keep blocked until provider/env/data/deploy/live behavior proof exists. |
-| False success protection | 60/100 estimated | 55/100 estimated | +5 | high | Unified runner contract is protected by `validate-agentic-prompts.mjs`; raw CI job log and artifact prove the guard executed. | Evening: confirm the post-merge main run preserves the same contract. |
-| Delivery completion quality | 60/100 estimated | 55/100 estimated | +5 | high | [PR #98](https://github.com/andylitvinov-design/ai-projects-brain/pull/98) was validated, artifact-backed, and merged as `d559499`. | Keep exact changed files, raw validation, and blockers in every completion report. |
-| User pain repetition | 55/100 estimated | 55/100 estimated | 0 | low | Report and dashboard remain concrete; no new user-correction evidence was observed. | Continue linking live dashboard, changed files, validation, and exact blockers. |
-| Loop closure | 70/100 estimated | 65/100 estimated | +5 | high | Evening's single-runner handoff was consumed, implemented, CI-validated, and merged. | Evening: verify today's delta and rank the next safe system issue. |
-| Validation evidence | 72/100 estimated | 55/100 estimated | +17 | high | [CI run #40](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075418092) passed all four validators; raw job logs were fetched and artifact `agent-harness-validation-evidence` contains four log files. | Fetch/check the post-merge main artifact; keep raw-output and live-proof states separate. |
-| Regression/replay coverage | 68/100 estimated | 65/100 estimated | +3 | high | CI raw output proves 6 prompt regressions, 5 replay cases, and 5 behavior fixtures / 11 samples passed deterministic checks. | Keep behavior rules candidate until live model/automation prevention evidence exists. |
-| Rule lifecycle health | 60/100 estimated | 55/100 estimated | +5 | high | Promoted only the structural sub-rule `validation-evidence-reproducibility-local-plus-ci`; behavior rules remain candidate. | Evening: verify promotion from raw logs; do not promote provider/live behavior rules. |
-| Automation noise / duplication | 50/100 estimated | 50/100 estimated | 0 | low | No automation was created or duplicated. | Compare live prompts with registry when available; avoid duplicate schedulers. |
-| Active project momentum | 50/100 estimated | 50/100 estimated | 0 | low | Provider/product tickets remain exact but no live progress was proven. | Route Psihotavr through `/delivery` + `/safe`/`/audit-ui`; Finance through `/audit-fin`. |
+| Provider/live readiness | unknown | unknown | unknown | unknown | No new provider/live proof. [Psihotavr #168](https://github.com/andylitvinov-design/psihotavr/issues/168) and [Finance #614](https://github.com/andylitvinov-design/finance/issues/614) remain open. | Keep status blocked until provider/config/data/deploy/live behavior proof exists. |
+| False success protection | 60/100 estimated | 60/100 estimated | 0 | high | Morning's evidence-runner claim is supported by raw CI logs. Evening also caught a registry/live scheduler mismatch instead of treating the loop as healthy from docs alone. | Add a regression that blocks “automation active” claims when the required live schedule is disabled or unverified. |
+| Delivery completion quality | 61/100 estimated | 60/100 estimated | +1 | high | PR #98 and the dashboard/ledger update in PR #99 both received successful raw CI runs and artifacts. Post-merge push-run evidence is still not retrievable. | Preserve PR/CI/artifact evidence and distinguish PR validation from post-merge-main validation. |
+| User pain repetition | 55/100 estimated | 55/100 estimated | 0 | low | Reports remain concrete and linked; no new durable user-correction artifact was added tonight. | Add a narrow status rule for retryable provider/network errors versus terminal blockers when the next confirmed example is captured. |
+| Loop closure | 70/100 estimated | 70/100 estimated | 0 | high | Morning consumed the prior handoff. Evening found the Morning scheduler disabled and restored the existing daily schedule without creating a duplicate. | Make required-loop liveness a checked part of Morning/Evening completion. |
+| Validation evidence | 74/100 estimated | 72/100 estimated | +2 | high | [Run #42](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075603213) also passed the unified runner and uploaded a four-file artifact after the dashboard/metrics changes. | Add a retrievable post-merge-main run check or explicitly record connector limitation; never infer it from a PR run. |
+| Regression/replay coverage | 68/100 estimated | 68/100 estimated | 0 | high | Six prompt regressions, five replay cases, five behavior fixtures and eleven deterministic samples remain mapped and CI-passing. | Add scheduler-liveness drift as a new candidate regression/replay/fixture class. |
+| Rule lifecycle health | 60/100 estimated | 60/100 estimated | 0 | high | `validation-evidence-reproducibility-local-plus-ci` remains supported by raw evidence. Scheduler-liveness protection starts as candidate only. | Promote scheduler-liveness protection only after the new regression/fixture passes and a later run proves it detects drift. |
+| Automation noise / duplication | 62/100 estimated | 50/100 estimated | +12 | high | Live automations were checked: no duplicate active core loops were found; the disabled Morning System Upgrade was re-enabled on its existing schedule. | Add registry/live state and missed-run evidence so a required automation cannot silently stop while docs still say active. |
+| Active project momentum | 50/100 estimated | 50/100 estimated | 0 | low | Provider tickets remain exact, but neither open blocker gained live proof today. | Route Psihotavr through `/delivery` + `/safe` or `/audit-ui`; route Finance through `/audit-fin`. |
 
 ## Overall health
 
 | Field | Value |
 | --- | --- |
-| Overall score now | 60/100 estimated across 9/10 scored metrics |
-| Yesterday | 56/100 estimated |
-| Change | +4 estimated |
-| Strongest metric | Validation evidence: four raw CI validator outputs and the artifact are now available. |
-| Weakest metric | Provider/live readiness remains unknown/blocked. |
-| Biggest improvement today | Validation evidence: 55 → 72 estimated, high confidence. |
-| Main blocker | Provider/live proof for Psihotavr #168 and Finance #614 remains missing. |
+| Overall score now | 62/100 estimated across 9/10 scored metrics |
+| Yesterday | 60/100 estimated |
+| Change | +2 estimated |
+| Strongest metric | Validation evidence: two successful raw CI runs and downloadable four-file artifacts support the unified runner. |
+| Weakest metric | Provider/live readiness remains unknown; active project momentum remains 50/100. |
+| Biggest improvement today | Automation noise / duplication and liveness: 50 → 62 after live-state verification and scheduler repair. |
+| Main blocker | Required automation liveness was not represented in the registry evidence model, while Psihotavr and Finance still lack provider/live proof. |
+
+## Morning Health Delta Verification
+
+| Morning claim | Evening decision | Current evening score | Reason |
+| --- | --- | ---: | --- |
+| Provider/live readiness stays unknown | accepted | unknown | No provider/live evidence appeared. |
+| False success protection 55 → 60 | accepted | 60 | Unified runner contract and raw CI output support the change. |
+| Delivery completion quality 55 → 60 | accepted, then +1 | 61 | PR #99 also passed the same raw evidence path; post-merge push proof remains unavailable. |
+| User pain repetition 55 → 55 | accepted | 55 | No new durable correction artifact was recorded. |
+| Loop closure 65 → 70 | accepted with repair | 70 | Prior handoff was consumed, but the next Morning schedule had become disabled and was restored tonight. |
+| Validation evidence 55 → 72 | accepted, then +2 | 74 | Run #42 and its artifact independently repeated the four-validator evidence path. |
+| Regression/replay coverage 65 → 68 | accepted | 68 | Existing mapped fixtures passed; no new failure class was added. |
+| Rule lifecycle health 55 → 60 | accepted | 60 | Only the structural reproducibility rule is active; behavior/provider rules remain candidate. |
+| Automation noise 50 → 50 | corrected upward | 62 | Live state was checked, no duplicate core loops were found, and the disabled Morning schedule was restored. |
+| Active project momentum 50 → 50 | accepted | 50 | Provider issues remain open without new proof. |
 
 ## Latest activity log
 
 | Date | Cycle | Summary | Dashboard impact |
 | --- | --- | --- | --- |
-| 2026-07-10 | Morning System Upgrade | Added one local+CI evidence runner, protected its contract, updated the workflow, fetched successful raw job logs and artifact, and merged PR #98. | Validation evidence 55→72; false-success protection 55→60; delivery 55→60; loop closure 65→70; regression/replay 65→68; rule lifecycle 55→60. |
-| 2026-07-09 | Evening Architecture Review | Corrected validation confidence to low because artifact capture existed but raw output was unavailable. | Produced the exact single-runner handoff consumed today. |
-| 2026-07-09 | Morning System Upgrade | Added CI raw-evidence artifact capture and validator protection. | Moved evidence from workflow-defined to artifact-capture-defined. |
+| 2026-07-10 | Evening Architecture Review | Verified Morning deltas, fetched a second successful raw CI job/artifact, discovered registry/live scheduler drift, and re-enabled the existing Morning System Upgrade schedule. | Validation 72→74; automation noise/liveness 50→62; overall 60→62. |
+| 2026-07-10 | Morning System Upgrade | Added one local+CI evidence runner, protected its contract, updated the workflow, fetched successful raw job logs and artifact, and merged PR #98. | Validation 55→72; false-success protection 55→60; delivery 55→60; loop closure 65→70; regression/replay 65→68; rule lifecycle 55→60. |
+| 2026-07-09 | Evening Architecture Review | Corrected validation confidence to low because artifact capture existed but raw output was unavailable. | Produced the exact single-runner handoff consumed on 2026-07-10. |
 
 ## Evidence
 
-- Applied upgrade: [PR #98](https://github.com/andylitvinov-design/ai-projects-brain/pull/98)
-- Raw CI run: [Agent Harness Validators #40](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075418092)
-- Artifact: [agent-harness-validation-evidence](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075418092/artifacts/8220506285)
+- Applied runner upgrade: [PR #98](https://github.com/andylitvinov-design/ai-projects-brain/pull/98)
+- First raw CI evidence: [run #40](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075418092)
+- Dashboard/metrics validation: [run #42](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075603213)
+- Run #42 artifact: [agent-harness-validation-evidence](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075603213/artifacts/8220573543)
