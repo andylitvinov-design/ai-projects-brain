@@ -1,25 +1,45 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-11T09:35:00+02:00",
-  "status": "active_dashboard_with_live_surface",
-  "purpose": "Daily dashboard for Andrey's agent/Codex operating-system health. Morning and Evening update the canonical source and live mirror from evidence.",
+  "last_updated": "2026-07-11T21:00:00+02:00",
+  "status": "active_canonical_dashboard_production_publication_verified",
+  "purpose": "Daily dashboard for Andrey's agent/Codex operating-system health. Morning and Evening update the canonical source from evidence; production publication is tracked separately from canonical freshness.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
   "github_url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/projects/codex-automation/system-health-dashboard.md",
-  "live_url": "https://brain-management.pages.dev/system-health-dashboard/",
+  "live_url": "https://brain-management.netlify.app/system-health-dashboard/",
+  "legacy_live_url": "https://brain-management.pages.dev/system-health-dashboard/",
   "brain_management_data_path": "system-health-dashboard/data/current-system-health-dashboard.json",
+  "publication_state": {
+    "canonical_source_updated": true,
+    "mirror_repository_last_verified": "2026-07-11 Morning System Upgrade snapshot",
+    "production_provider": "Netlify",
+    "production_deploy_id": "6a5207d064f1feba62676b5e",
+    "production_site_id": "98712296-45be-4c0d-af99-d4ed19507e0e",
+    "production_deploy_state": "ready",
+    "production_source_commit_reported": "2fe343d592386c2e33fe34ffe5a7de9beb08bb9d",
+    "automatic_git_to_netlify_publication": "needs verification",
+    "evening_snapshot_published_live": false,
+    "evening_snapshot_publication_status": "NEEDS_VERIFICATION",
+    "direct_http_recheck_from_evening_runtime": "unavailable because the current execution environment could not resolve the production hostname; provider and recorded browser evidence were used without inferring a fresh live fetch"
+  },
   "evidence": {
-    "applied_upgrade_pr": "https://github.com/andylitvinov-design/ai-projects-brain/pull/101",
-    "failed_diagnostic_run": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29144392885",
-    "passing_ci_run": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29144466323",
-    "passing_ci_artifact": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29144466323/artifacts/8246272809",
-    "live_automation_state_check": "Exactly one enabled Morning System Upgrade was found on 2026-07-11; no duplicate active Morning schedule exists."
+    "morning_applied_upgrade_pr": "https://github.com/andylitvinov-design/ai-projects-brain/pull/101",
+    "morning_merge_sha": "570f1c155e579aa3843e3b3d5668e0c3e175b153",
+    "morning_final_pr_ci_run": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29144851120",
+    "morning_final_pr_ci_result": "success",
+    "brain_management_delivery_issue": "https://github.com/andylitvinov-design/brain-management/issues/28",
+    "brain_management_documentation_pr": "https://github.com/andylitvinov-design/brain-management/pull/29",
+    "netlify_deploy_id": "6a5207d064f1feba62676b5e",
+    "netlify_deploy_state": "ready",
+    "recorded_live_checks": "Homepage, dashboard, two JSON routes, mobile 390x844, and browser console were recorded as passing in issue #28.",
+    "live_automation_state_check": "Exactly one enabled Morning System Upgrade was found after the successful run; no duplicate active Morning schedule exists."
   },
   "update_rules": {
     "evening": "diagnose, verify Morning deltas, score current health, and set the next safe action",
     "morning": "apply a safe upgrade, publish evidence-backed deltas, and set the Evening verification question",
     "no_guessing": "Use unknown when evidence is missing. Do not invent numeric scores.",
     "provider_live_rule": "Provider/live readiness improves only from provider/live proof, not docs, code merge, or CI alone.",
-    "automation_liveness_rule": "Registry intent is not scheduler proof. A normal recurring loop remains enabled after success; repair only an existing clearly intended schedule; never create a duplicate; use NEEDS_VERIFICATION without live access."
+    "automation_liveness_rule": "Registry intent is not scheduler proof. A normal recurring loop remains enabled after success; repair only an existing clearly intended schedule; never create a duplicate; use NEEDS_VERIFICATION without live access.",
+    "dashboard_publication_rule_candidate": "Canonical source, mirror data, deploy identity, and live freshness are separate evidence states. Do not call the dashboard live-updated unless all required states are proven."
   },
   "columns": [
     "metric",
@@ -36,139 +56,223 @@
     {
       "id": "provider_live_readiness",
       "metric": "Provider/live readiness",
-      "today": "unknown",
+      "today": "unknown; 1 production surface verified, 2 known blockers remain",
       "yesterday": "unknown",
-      "change": "unknown",
-      "confidence": "unknown",
-      "evidence": "Psihotavr #168 and Finance #614 remain open; no new provider/config/data/deploy/live proof was produced.",
-      "root_cause": "Provider-backed outcomes remain outside the safe harness upgrade and require separate live verification.",
-      "done_today": "No provider state was mutated and no harness evidence was counted as provider progress.",
-      "tomorrow_action": "Keep blocked until provider/env/data/deploy/live behavior proof exists."
+      "change": "evidence improved",
+      "confidence": "medium",
+      "evidence": "Netlify deploy 6a5207d064f1feba62676b5e is ready and brain-management issue #28 was closed with recorded route/browser proof. Psihotavr #168 and Finance #614 remain open.",
+      "root_cause": "The portfolio has no stable denominator for provider-ready projects, and two provider-backed outcomes remain unproven.",
+      "done_today": "Recognized the verified brain-management production release without converting the whole portfolio metric into an invented number.",
+      "tomorrow_action": "Define a provider-readiness denominator before numeric scoring; verify automatic GitHub-to-Netlify publication and keep Psihotavr/Finance blocked until live proof."
     },
     {
       "id": "false_success_protection",
       "metric": "False success protection",
-      "today": "63/100 estimated",
-      "yesterday": "60/100 estimated",
+      "today": "66/100 estimated",
+      "yesterday": "63/100 estimated",
       "change": "+3",
       "confidence": "high",
-      "evidence": "Run #47 validates a regression that rejects registry-only scheduler health, recurring-loop disable after success, and duplicate replacement.",
-      "root_cause": "Static registry text previously allowed live loop health to be overstated.",
-      "done_today": "Added prompt/replay/fixture protection and validator checks for the scheduler-liveness evidence ladder.",
-      "tomorrow_action": "Evening verifies whether the candidate should remain unpromoted until a later real prevention case."
+      "evidence": "Post-run Automations state still shows one enabled Morning loop and no duplicate. The stale Cloudflare/silent-skip production class was exposed and replaced by a verified Netlify release.",
+      "root_cause": "Static registry state and repository freshness can both look healthy while scheduler or production state is stale.",
+      "done_today": "Accepted the scheduler guardrail evidence and separated canonical dashboard freshness from production publication proof.",
+      "tomorrow_action": "Add a candidate publication evidence ladder that blocks live-update claims unless canonical, mirror, deploy, and live freshness all agree."
     },
     {
       "id": "delivery_completion_quality",
       "metric": "Delivery completion quality",
-      "today": "62/100 estimated",
-      "yesterday": "61/100 estimated",
-      "change": "+1",
+      "today": "67/100 estimated",
+      "yesterday": "62/100 estimated",
+      "change": "+5",
       "confidence": "high",
-      "evidence": "PR #101 has a complete failure-to-recovery chain: run #46 failed with raw artifact evidence, the evaluator was fixed narrowly, and run #47 passed.",
-      "root_cause": "The first evaluator treated a negated good phrase as a violation.",
-      "done_today": "Diagnosed raw output, repaired only the matcher, and reran the full unified evidence path.",
-      "tomorrow_action": "Preserve PR validation versus post-merge-main validation as separate evidence states."
+      "evidence": "PR #101 merged with final green run #53. Brain-management reached a ready Netlify deploy with deploy ID, issue closure, four route checks, mobile QA, and documentation.",
+      "root_cause": "Earlier work stopped at code/config readiness or a provider upload blocker instead of a verified user-visible outcome.",
+      "done_today": "Preserved the full failure-to-recovery chain and counted the later verified production delivery as real completion.",
+      "tomorrow_action": "Keep manual upload success separate from automatic deployment readiness and create an exact /delivery /safe ticket for GitHub-to-Netlify integration."
     },
     {
       "id": "user_pain_repetition",
       "metric": "User pain repetition",
-      "today": "55/100 estimated",
+      "today": "52/100 estimated",
       "yesterday": "55/100 estimated",
-      "change": "0",
-      "confidence": "low",
-      "evidence": "The exact Evening handoff was implemented; no new durable user-correction signal was observed.",
-      "root_cause": "No new repeated pain class was evidenced today.",
-      "done_today": "Reported concrete changes, validation, live scheduler state, and unchanged blockers.",
-      "tomorrow_action": "Continue concrete changed-file and live-evidence reporting."
+      "change": "-3",
+      "confidence": "medium",
+      "evidence": "The production result was eventually delivered, but the user again had to ask whether the work would be done directly or handed to Codex.",
+      "root_cause": "The first response foregrounded the blocker and prompt instead of exhausting the available direct safe delivery path.",
+      "done_today": "Recorded the correction rather than treating eventual delivery as proof that the interaction had no repeated pain.",
+      "tomorrow_action": "Make direct safe execution the default and use a Codex prompt only for the exact remaining blocker."
     },
     {
       "id": "loop_closure",
       "metric": "Loop closure",
-      "today": "74/100 estimated",
-      "yesterday": "70/100 estimated",
-      "change": "+4",
+      "today": "79/100 estimated",
+      "yesterday": "74/100 estimated",
+      "change": "+5",
       "confidence": "high",
-      "evidence": "The Evening scheduler-liveness handoff was consumed, implemented, raw-CI validated, and the expected Morning run was observed with exactly one enabled schedule.",
-      "root_cause": "Loop closure previously measured reports and files better than continued scheduler liveness.",
-      "done_today": "Closed the requested prompt/replay/fixture/registry gap and verified live uniqueness.",
-      "tomorrow_action": "Evening verifies the schedule remains enabled after successful completion."
+      "evidence": "The scheduler-liveness handoff was consumed, implemented, merged, CI-validated, and verified after completion with the existing schedule still enabled. The dashboard deployment blocker also reached a proven live outcome.",
+      "root_cause": "Previous closure evidence stopped before continued scheduler liveness or production publication.",
+      "done_today": "Verified post-run schedule state and incorporated the completed Netlify delivery into the health model.",
+      "tomorrow_action": "Close the remaining publication loop by making canonical update, mirror sync, deploy, and live freshness explicit non-interchangeable states."
     },
     {
       "id": "validation_evidence",
       "metric": "Validation evidence",
-      "today": "75/100 estimated",
-      "yesterday": "74/100 estimated",
-      "change": "+1",
+      "today": "78/100 estimated",
+      "yesterday": "75/100 estimated",
+      "change": "+3",
       "confidence": "high",
-      "evidence": "Run #47 passed the unified four-validator runner and artifact 8246272809 contains four raw logs, all with exit code 0.",
-      "root_cause": "Post-merge push-run retrieval remains a separate connector limitation.",
-      "done_today": "Fetched job status, raw logs, and artifact metadata for the first passing scheduler-liveness CI run.",
-      "tomorrow_action": "Verify final PR/head CI and record post-merge-main state without inference."
+      "evidence": "Final PR run #53 completed successfully. Netlify reports the production deploy ready, and issue #28 records four route checks, JSON MIME/parsing, mobile QA, and no console errors.",
+      "root_cause": "Validation was strong for the harness and one production release, but the evening canonical snapshot was not automatically republished.",
+      "done_today": "Verified final PR CI, provider deploy state, and recorded browser/live evidence while marking the unavailable direct HTTP recheck honestly.",
+      "tomorrow_action": "Add publication trace fields to the dashboard contract and keep direct live recheck as NEEDS_VERIFICATION when the runtime cannot reach the host."
     },
     {
       "id": "regression_replay_coverage",
       "metric": "Regression/replay coverage",
       "today": "72/100 estimated",
-      "yesterday": "68/100 estimated",
-      "change": "+4",
+      "yesterday": "72/100 estimated",
+      "change": "0",
       "confidence": "high",
-      "evidence": "Coverage is now seven prompt regressions, six replay cases, six behavior fixtures, and fourteen deterministic samples; run #47 passed all mappings and samples.",
-      "root_cause": "The observed recurring-loop disable class previously had no dedicated coverage.",
-      "done_today": "Added one mapped scheduler-liveness class with unsafe, safe-repair, and abstention samples.",
-      "tomorrow_action": "Keep behavior status candidate until later operational prevention evidence exists."
+      "evidence": "Scheduler-liveness coverage remains green: seven prompt regressions, six replay cases, six behavior fixtures, and fourteen deterministic samples.",
+      "root_cause": "The newly observed dashboard publication drift class is not yet represented in prompt/replay/behavior coverage.",
+      "done_today": "Rechecked the existing mapped coverage and did not inflate the score for an unimplemented candidate.",
+      "tomorrow_action": "Add one candidate failure class for canonical dashboard updated while production remains stale or points at the wrong provider."
     },
     {
       "id": "rule_lifecycle_health",
       "metric": "Rule lifecycle health",
-      "today": "62/100 estimated",
-      "yesterday": "60/100 estimated",
+      "today": "64/100 estimated",
+      "yesterday": "62/100 estimated",
       "change": "+2",
-      "confidence": "high",
-      "evidence": "The new rule has regression/replay/fixture and raw CI evidence, but no repeated real prevention case yet.",
-      "root_cause": "One live drift signal justifies testing, not immediate global promotion.",
-      "done_today": "Added a narrow internal guardrail and kept it candidate rather than active.",
-      "tomorrow_action": "Evening accepts or corrects candidate status; promotion requires repeated or real prevention evidence."
+      "confidence": "medium",
+      "evidence": "The scheduler-liveness candidate gained a later post-run live-state observation, but there is no causal proof yet that the rule prevented disablement.",
+      "root_cause": "One real drift plus deterministic coverage supports continued candidacy, not automatic global promotion.",
+      "done_today": "Kept the scheduler rule candidate and introduced dashboard publication freshness only as a candidate subdimension/failure class.",
+      "tomorrow_action": "Promote scheduler liveness only after another prevention/detection or explicit repair event; validate publication drift before promotion."
     },
     {
       "id": "automation_noise_duplication",
       "metric": "Automation noise / duplication",
-      "today": "68/100 estimated",
-      "yesterday": "62/100 estimated",
-      "change": "+6",
+      "today": "72/100 estimated",
+      "yesterday": "68/100 estimated",
+      "change": "+4",
       "confidence": "high",
-      "evidence": "Registry now separates intended state, live enabled state, expected run observed, and latest outcome; live list shows one enabled Morning schedule and no duplicate.",
-      "root_cause": "Registry previously tracked intent without a complete operational liveness ladder.",
-      "done_today": "Added the four-level ladder, duplicate-safe repair rule, and live uniqueness verification.",
-      "tomorrow_action": "Recheck enabled and unique state after completion; never create a replacement automation."
+      "evidence": "Live scheduler check found exactly one enabled Morning System Upgrade, no replacement schedule, and the recurring loop remains active after success.",
+      "root_cause": "The earlier registry/live mismatch made duplication-safe repair and post-run verification necessary.",
+      "done_today": "Verified enabled and unique state after the successful Morning run without creating a new automation.",
+      "tomorrow_action": "Recheck tomorrow and update registry latest-outcome text only from live scheduler evidence."
     },
     {
       "id": "active_project_momentum",
       "metric": "Active project momentum",
-      "today": "50/100 estimated",
+      "today": "56/100 estimated",
       "yesterday": "50/100 estimated",
-      "change": "0",
-      "confidence": "low",
-      "evidence": "Psihotavr #168 and Finance #614 remain open without new live proof.",
-      "root_cause": "Provider/live work remains routed but uncompleted.",
-      "done_today": "Kept exact project routes and avoided false project progress from harness work.",
-      "tomorrow_action": "Route Psihotavr through /delivery + /safe or /audit-ui; route Finance through /audit-fin."
+      "change": "+6",
+      "confidence": "medium",
+      "evidence": "Brain-management production delivery completed and issue #28 closed. Psihotavr #168 and Finance #614 remain blocked without new provider proof.",
+      "root_cause": "One project moved to a verified production outcome while two long-lived provider blockers remain untouched.",
+      "done_today": "Counted only the completed brain-management production release as momentum, not tickets or harness work.",
+      "tomorrow_action": "Route one provider blocker to execution: Psihotavr via /delivery /safe or Finance via /audit-fin; do not count routing alone as progress."
     }
   ],
   "overall": {
-    "score_now": "65/100 estimated across scored metrics",
-    "yesterday": "62/100 estimated",
+    "score_now": "68/100 estimated across scored metrics",
+    "yesterday": "65/100 estimated",
     "change": "+3 estimated",
     "scored_metrics_coverage": "9/10",
-    "strongest_metric": "Validation evidence at 75/100: four raw validator logs prove the scheduler-liveness contract and fixture pass.",
-    "weakest_metric": "Provider/live readiness remains unknown; active project momentum remains 50/100.",
-    "biggest_improvement_today": "Automation noise / duplication: 62 -> 68 after evidence-ladder protection and live uniqueness verification.",
-    "main_blocker": "Scheduler liveness still needs later real prevention evidence; Psihotavr and Finance remain provider/live blocked."
+    "strongest_metric": "Loop closure at 79/100: the Morning handoff, CI, post-run scheduler state, and dashboard deployment each reached an evidence-backed outcome.",
+    "weakest_metric": "Provider/live readiness remains unknown at portfolio level; user pain repetition is 52/100.",
+    "biggest_improvement_today": "Active project momentum and delivery completion improved after the verified Netlify production release.",
+    "main_blocker": "Dashboard publication can still drift because automatic GitHub-to-Netlify integration is unverified and canonical/live freshness is not yet a protected evidence ladder."
+  },
+  "morning_delta_verification": [
+    {
+      "metric": "Provider/live readiness",
+      "morning_claim": "unknown -> unknown",
+      "decision": "accepted; evidence improved without numeric scoring",
+      "evening_score": "unknown; 1 verified production surface, 2 known blockers"
+    },
+    {
+      "metric": "False success protection",
+      "morning_claim": "60 -> 63",
+      "decision": "accepted",
+      "evening_score": "66/100 estimated"
+    },
+    {
+      "metric": "Delivery completion quality",
+      "morning_claim": "61 -> 62",
+      "decision": "accepted",
+      "evening_score": "67/100 estimated"
+    },
+    {
+      "metric": "User pain repetition",
+      "morning_claim": "55 -> 55",
+      "decision": "corrected after repeated direct-execution correction",
+      "evening_score": "52/100 estimated"
+    },
+    {
+      "metric": "Loop closure",
+      "morning_claim": "70 -> 74",
+      "decision": "accepted",
+      "evening_score": "79/100 estimated"
+    },
+    {
+      "metric": "Validation evidence",
+      "morning_claim": "74 -> 75",
+      "decision": "accepted",
+      "evening_score": "78/100 estimated"
+    },
+    {
+      "metric": "Regression/replay coverage",
+      "morning_claim": "68 -> 72",
+      "decision": "accepted",
+      "evening_score": "72/100 estimated"
+    },
+    {
+      "metric": "Rule lifecycle health",
+      "morning_claim": "60 -> 62",
+      "decision": "accepted; candidate retained",
+      "evening_score": "64/100 estimated"
+    },
+    {
+      "metric": "Automation noise / duplication",
+      "morning_claim": "62 -> 68",
+      "decision": "accepted",
+      "evening_score": "72/100 estimated"
+    },
+    {
+      "metric": "Active project momentum",
+      "morning_claim": "50 -> 50",
+      "decision": "accepted for Morning; later production evidence increased Evening score",
+      "evening_score": "56/100 estimated"
+    }
+  ],
+  "metric_model_trend_review": {
+    "decision": "no new top-level metric",
+    "candidate_subdimensions": [
+      "Validation evidence: publication trace completeness and reproducibility",
+      "Delivery completion quality: rework and recovery count"
+    ],
+    "rationale": "Agent reliability research favors multi-dimensional consistency and bounded failure analysis, while reproducible agent evaluation requires inspectable trajectories and evidence. The current dashboard should strengthen trace completeness rather than add overlapping metrics.",
+    "lifecycle_status": "candidate"
+  },
+  "morning_handoff": {
+    "top_blocker": "Canonical dashboard state, mirror state, deploy identity, and live freshness can diverge without a protected publication evidence ladder.",
+    "exact_safe_change": "Add candidate dashboard-canonical-live-freshness-drift prompt regression, replay case, behavior fixture, and validator checks. Require four evidence states: canonical updated, mirror synced, deploy source/ID known, live timestamp/content verified. Require NEEDS_VERIFICATION when any state is missing.",
+    "expected_metric_improvement": "False success protection +2 to +4; validation evidence +2; loop closure +2; regression/replay coverage +2 to +3.",
+    "validation": "Run the unified four-validator evidence runner and obtain raw CI artifact. Do not mutate provider or deploy state.",
+    "evening_verification_question": "Does the new contract reject a canonical-only update and accept only a fully traceable published snapshot or an explicit NEEDS_VERIFICATION outcome?"
   },
   "activity_log": [
     {
       "date": "2026-07-11",
+      "cycle": "evening_architecture_review",
+      "summary": "Accepted Morning's scheduler-liveness deltas, verified recurring post-run liveness, recognized the verified Netlify production release, corrected repeated user-pain scoring, and selected dashboard publication freshness as the next structural issue.",
+      "dashboard_impact": "False success 63->66; delivery 62->67; user pain 55->52; loop closure 74->79; validation 75->78; rule lifecycle 62->64; automation noise 68->72; momentum 50->56; overall 65->68."
+    },
+    {
+      "date": "2026-07-11",
       "cycle": "morning_system_upgrade",
-      "summary": "Implemented recurring scheduler-liveness regression/replay/fixture coverage, registry evidence ladder, validator protection, and live uniqueness verification; recovered run #46 to passing run #47.",
+      "summary": "Implemented recurring scheduler-liveness regression/replay/fixture coverage, registry evidence ladder, validator protection, live uniqueness verification, CI recovery, final green validation, and merged PR #101.",
       "dashboard_impact": "False success 60->63; delivery 61->62; loop closure 70->74; validation 74->75; regression/replay 68->72; rule lifecycle 60->62; automation noise/liveness 62->68; overall 62->65."
     },
     {
@@ -176,12 +280,6 @@
       "cycle": "evening_architecture_review",
       "summary": "Verified Morning deltas, fetched repeat raw CI evidence, discovered registry/live scheduler drift, and re-enabled the existing Morning schedule.",
       "dashboard_impact": "Validation evidence 72->74; automation noise/liveness 50->62; overall 60->62."
-    },
-    {
-      "date": "2026-07-10",
-      "cycle": "morning_system_upgrade",
-      "summary": "Added one local+CI evidence runner, protected its contract, updated the workflow, fetched raw logs/artifact, and merged PR #98.",
-      "dashboard_impact": "Validation 55->72; false success 55->60; delivery 55->60; loop closure 65->70; regression/replay 65->68; rule lifecycle 55->60."
     }
   ]
 }
