@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 Status: active canonical dashboard; production publication verified on Netlify.
-Last updated: 2026-07-11 Evening Architecture Review.
+Last updated: 2026-07-11 Evening Architecture Review; arithmetic correction verified after the review.
 Update owners: Evening Architecture Review and Morning System Upgrade.
 
 Production dashboard:
@@ -41,9 +41,10 @@ This dashboard tracks the daily health of Andrey's agent/Codex operating system.
 
 | Field | Value |
 | --- | --- |
-| Overall score now | 68/100 estimated across 9/10 scored metrics |
+| Overall score now | 67/100 estimated across 9/10 scored metrics |
 | Yesterday | 65/100 estimated |
-| Change | +3 estimated |
+| Change | +2 estimated |
+| Calculation | `(66 + 67 + 52 + 79 + 78 + 72 + 64 + 72 + 56) / 9 = 67.3`, rounded to `67`. |
 | Strongest metric | Loop closure at 79/100: the Morning handoff, CI, post-run scheduler state, and dashboard deployment each reached an evidence-backed outcome. |
 | Weakest metric | Provider/live readiness remains unknown at portfolio level; user pain repetition fell to 52/100. |
 | Biggest improvement today | Active project momentum and delivery completion improved after the verified Netlify production release. |
@@ -51,7 +52,7 @@ This dashboard tracks the daily health of Andrey's agent/Codex operating system.
 
 ## Evening verification of Morning deltas
 
-Morning's scheduler-liveness deltas were accepted for false success, delivery, loop closure, validation, regression/replay, rule lifecycle, and automation duplication. User pain was corrected from `55` to `52` after a repeated “do it directly or give Codex a prompt” correction. Active project momentum was raised from `50` to `56` only after provider/live evidence for brain-management appeared.
+Morning's scheduler-liveness deltas were accepted for false success, delivery, loop closure, validation, regression/replay, rule lifecycle, and automation duplication. User pain was corrected from `55` to `52` after a repeated “do it directly or give Codex a prompt” correction. Active project momentum was raised from `50` to `56` only after provider/live evidence for brain-management appeared. The displayed overall score was corrected from `68` to `67` because the arithmetic mean of the nine displayed numeric metrics is `67.3`.
 
 ## Applied evidence
 
@@ -61,11 +62,12 @@ Morning's scheduler-liveness deltas were accepted for false success, delivery, l
 - [Brain-management PR #29 — document Netlify production](https://github.com/andylitvinov-design/brain-management/pull/29)
 - Netlify deploy `6a5207d064f1feba62676b5e`, state `ready`, site `98712296-45be-4c0d-af99-d4ed19507e0e`.
 - Live Automations check: exactly one enabled Morning System Upgrade; no duplicate active Morning schedule.
+- Current direct HTTP recheck remained unavailable because this execution environment could not resolve `brain-management.netlify.app`; this is recorded as an evidence-access limitation, not a production failure.
 
 ## Latest activity log
 
 | Date | Cycle | Summary | Dashboard impact |
 | --- | --- | --- | --- |
-| 2026-07-11 | Evening Architecture Review | Accepted Morning's evidence-backed scheduler deltas, verified the recurring schedule remains enabled after completion, recognized the verified Netlify production release, corrected repeated user-pain scoring, and selected dashboard publication freshness as the next structural issue. | False success 63→66; delivery 62→67; user pain 55→52; loop closure 74→79; validation 75→78; rule lifecycle 62→64; automation noise 68→72; momentum 50→56; overall 65→68. |
+| 2026-07-11 | Evening Architecture Review | Accepted Morning's evidence-backed scheduler deltas, verified the recurring schedule remains enabled after completion, recognized the verified Netlify production release, corrected repeated user-pain scoring, corrected the displayed aggregate arithmetic, and selected dashboard publication freshness as the next structural issue. | False success 63→66; delivery 62→67; user pain 55→52; loop closure 74→79; validation 75→78; rule lifecycle 62→64; automation noise 68→72; momentum 50→56; overall 65→67. |
 | 2026-07-11 | Morning System Upgrade | Implemented scheduler-liveness regression/replay/fixture coverage, registry evidence ladder, validator protection, live uniqueness verification, CI recovery, final green validation, and merged PR #101. | False success 60→63; delivery 61→62; loop closure 70→74; validation 74→75; regression/replay 68→72; rule lifecycle 60→62; automation noise/liveness 62→68; overall 62→65. |
 | 2026-07-10 | Evening Architecture Review | Verified Morning deltas, fetched repeat raw CI evidence, discovered registry/live scheduler drift, and re-enabled the existing Morning schedule. | Validation evidence 72→74; automation noise/liveness 50→62; overall 60→62. |
