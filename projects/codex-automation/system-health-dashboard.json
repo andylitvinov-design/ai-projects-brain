@@ -1,29 +1,12 @@
 {
-  "schema_version": 1,
-  "last_updated": "2026-07-11T21:25:00+02:00",
-  "status": "active_canonical_dashboard_production_publication_verified",
+  "schema_version": 2,
+  "last_updated": "2026-07-12T00:00:00+02:00",
+  "status": "canonical_dashboard_publication_stale",
   "purpose": "Daily dashboard for Andrey's agent/Codex operating-system health. Morning and Evening update the canonical source from evidence; production publication is tracked separately from canonical freshness.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
   "github_url": "https://github.com/andylitvinov-design/ai-projects-brain/blob/main/projects/codex-automation/system-health-dashboard.md",
   "live_url": "https://brain-management.netlify.app/system-health-dashboard/",
-  "legacy_live_url": "https://brain-management.pages.dev/system-health-dashboard/",
   "brain_management_data_path": "system-health-dashboard/data/current-system-health-dashboard.json",
-  "publication_state": {
-    "canonical_source_updated": true,
-    "mirror_repository_last_verified": "2026-07-11 Morning System Upgrade snapshot",
-    "mirror_repository_blob_sha": "a4dbfdfca2e8d0c549ccbc69e9255fd6553d5c25",
-    "mirror_repository_last_updated": "2026-07-11T09:35:00+02:00",
-    "production_provider": "Netlify",
-    "production_deploy_id": "6a5207d064f1feba62676b5e",
-    "production_site_id": "98712296-45be-4c0d-af99-d4ed19507e0e",
-    "production_deploy_state": "ready",
-    "production_source_commit_reported": "2fe343d592386c2e33fe34ffe5a7de9beb08bb9d",
-    "production_deploy_source": "api upload; commit_ref and branch absent",
-    "automatic_git_to_netlify_publication": "needs verification",
-    "evening_snapshot_published_live": false,
-    "evening_snapshot_publication_status": "NEEDS_VERIFICATION",
-    "direct_http_recheck_from_evening_runtime": "unavailable because the current execution environment could not resolve the production hostname; provider and recorded browser evidence were used without inferring a fresh live fetch"
-  },
   "evidence": {
     "morning_applied_upgrade_pr": "https://github.com/andylitvinov-design/ai-projects-brain/pull/101",
     "morning_merge_sha": "570f1c155e579aa3843e3b3d5668e0c3e175b153",
@@ -180,7 +163,7 @@
     }
   ],
   "overall": {
-    "score_now": "67/100 estimated across scored metrics",
+    "score_now": "67/100 estimated across 9/10 scored metrics",
     "yesterday": "65/100 estimated",
     "change": "+2 estimated",
     "scored_metrics_coverage": "9/10",
@@ -291,5 +274,77 @@
       "summary": "Verified Morning deltas, fetched repeat raw CI evidence, discovered registry/live scheduler drift, and re-enabled the existing Morning schedule.",
       "dashboard_impact": "Validation evidence 72->74; automation noise/liveness 50->62; overall 60->62."
     }
-  ]
+  ],
+  "aggregate": {
+    "aggregate_method": "arithmetic_mean_of_numeric_metrics",
+    "unknown_metric_policy": "exclude_from_numeric_mean_and_report_in_coverage",
+    "score_sum": 606,
+    "numeric_metric_count": 9,
+    "metric_count_total": 10,
+    "coverage": "9/10",
+    "raw_score": 67.33333333333333,
+    "rounded_score": 67,
+    "reported_score": 67,
+    "yesterday_score": 65,
+    "delta": 2
+  },
+  "publication_evidence": {
+    "publication_status": "STALE",
+    "success_allowed": false,
+    "canonical_path": "projects/codex-automation/system-health-dashboard.json",
+    "canonical_snapshot_timestamp": "2026-07-12T00:00:00+02:00",
+    "stages": {
+      "canonical_updated": {
+        "status": "verified",
+        "timestamp": "2026-07-12T00:00:00+02:00",
+        "source_commit_sha": "2f24e54d04df0c8f514ea285134db1f8af3b1345",
+        "checked_url_or_path": "projects/codex-automation/system-health-dashboard.json",
+        "evidence_type": "canonical_repository_snapshot",
+        "evidence_reference": "Canonical GitHub snapshot",
+        "confidence": "high",
+        "failure_reason": null
+      },
+      "mirror_synced": {
+        "status": "stale",
+        "timestamp": "2026-07-11T09:35:00+02:00",
+        "source_commit_sha": null,
+        "deploy_id": null,
+        "checked_url_or_path": "andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
+        "evidence_type": "mirror_repository_snapshot",
+        "evidence_reference": "Mirror is the prior Morning snapshot",
+        "confidence": "high",
+        "failure_reason": "Mirror timestamp and provider/link fields predate canonical contract."
+      },
+      "deploy_identified": {
+        "status": "verified",
+        "timestamp": "2026-07-11T09:35:00+02:00",
+        "source_commit_sha": null,
+        "deploy_id": "6a5207d064f1feba62676b5e",
+        "checked_url_or_path": "https://brain-management.netlify.app/system-health-dashboard/",
+        "evidence_type": "provider_deploy_metadata",
+        "evidence_reference": "Netlify ready deploy recorded as api upload",
+        "confidence": "medium",
+        "failure_reason": "Automatic Git deployment is unproven: no source commit or branch."
+      },
+      "live_verified": {
+        "status": "stale",
+        "timestamp": "2026-07-11T09:35:00+02:00",
+        "source_commit_sha": null,
+        "deploy_id": "6a5207d064f1feba62676b5e",
+        "checked_url_or_path": "https://brain-management.netlify.app/system-health-dashboard/",
+        "evidence_type": "recorded_browser_and_http_evidence",
+        "evidence_reference": "Recorded proof applies only to older live snapshot",
+        "confidence": "medium",
+        "failure_reason": "Current canonical timestamp has not been observed on production."
+      }
+    },
+    "rules": [
+      "canonical_updated does not imply mirror_synced",
+      "mirror_synced does not imply deploy_identified",
+      "deploy_identified does not imply live_verified",
+      "SUCCESS requires every stage verified",
+      "automatic Git deploy requires source commit SHA",
+      "older live timestamp is stale"
+    ]
+  }
 }
