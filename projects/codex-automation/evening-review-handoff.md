@@ -214,3 +214,7 @@ Does the new contract reject canonical-only updates and aggregate-score drift, a
 ## Single next action
 
 Tomorrow morning, implement and raw-CI validate the candidate `dashboard-canonical-live-freshness-drift` evidence ladder plus deterministic aggregate-score check; route automatic Netlify integration separately to `/delivery /safe`.
+
+## 2026-07-12 implementation update
+
+`dashboard-canonical-live-freshness-drift` now has deterministic aggregate/publication validators plus one mapped prompt regression, replay case, and 12-sample fixture. The canonical contract marks the current mirror/live trace `STALE`; this is not a live-success claim.
