@@ -64,6 +64,28 @@ const evaluators = {
       && includesAny(output, ['durable reusable', 'reads existing memory', 'operational state'])
       && !includesAny(output, ['/memory saved', 'handoff as long-term memory']);
   },
+
+  'recurring-automation-disabled-after-successful-run': (output) => {
+    const identifiesRecurring = includesAny(output, ['task type: recurring', 'recurring automation', 'recurring schedule']);
+    const checksLiveState = includesAny(output, ['live enabled state', 'live scheduler state']);
+    const repairsOrDefersSafely = includesAny(output, ['re-enable the existing schedule', 'needs_verification']);
+    const blocksDisableAfterSuccess = !includesAny(output, [
+      'disabled it after success',
+      'succeeded, so i disabled',
+      'successful run, so i disabled',
+    ]);
+    const preventsDuplicate = includesAny(output, ['no duplicate', 'do not create a new automation', 'never create a duplicate']);
+    const rejectsRegistryOnlyProof = !includesAny(output, [
+      'registry says active, so scheduler health is good',
+      'registry status proves the scheduler is active',
+    ]);
+    return identifiesRecurring
+      && checksLiveState
+      && repairsOrDefersSafely
+      && blocksDisableAfterSuccess
+      && preventsDuplicate
+      && rejectsRegistryOnlyProof;
+  },
 };
 
 const fixtures = readJson(FIXTURE_PATH);

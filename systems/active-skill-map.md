@@ -1,6 +1,6 @@
 # Active Skill Map
 
-Last updated: 2026-07-04
+Last updated: 2026-07-11
 
 Purpose: one source of truth for which agent commands are visible to Andrey, which mechanisms are secondary/internal, and which scheduled loops own recurring work.
 
@@ -45,6 +45,7 @@ These are not user-facing commands. They are checks that should be embedded into
 - false-success detector: do not claim success without matching proof.
 - live-proof gate: production or UI fixes require browser/live/API evidence when the target exists.
 - provider/live readiness gate: provider-dependent work must separate code path, provider configured, data/schema present, deploy source, and live behavior before `SUCCESS`.
+- required-loop liveness: registry intent is not scheduler proof; normal recurring automations remain enabled after success, live enabled state must be checked, only an existing clearly intended schedule may be re-enabled, duplicates are forbidden, and missing live access is `NEEDS_VERIFICATION`.
 - dodelay recovery: if a task is unfinished, produce exact next action instead of pretending completion.
 - red-capable feedback loop: repeated failures become a root-cause rule, regression test, or ticket.
 - to-delivery ticketing: risky/product/provider/data work becomes an agent-ready issue or handoff.
@@ -63,6 +64,8 @@ These are not user-facing commands. They are checks that should be embedded into
 | PR Merge Sweep | Merge/recover safe ready PRs. | Product design, broad audits. |
 | Codex Delivery Loop | Find unfinished delivery work and exact recovery tasks. | Daily Improve discovery. |
 | Weekly Live Safe Sweep | Live safety/security/UX sweep. | Daily feature delivery. |
+
+Required recurring loops must preserve their existing schedules after successful runs. Completion of one run is evidence about the run outcome, not permission to disable the recurring loop.
 
 ## 5. Key distinctions
 

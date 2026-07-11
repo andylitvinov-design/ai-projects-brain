@@ -1,89 +1,54 @@
 # Morning Handoff Queue
 
-Last updated: 2026-07-10 Evening Architecture Review
+Last updated: 2026-07-11 Morning System Upgrade
 
 Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Evening Architecture Review write safe, deduplicated inputs here.
 
 ## Queue for next Morning System Upgrade
 
-### 2026-07-11 — protect required recurring automation liveness
-
-Source: Evening Architecture Review 2026-07-10.
-
-Status: ready for safe `/upgrade` harness/registry/regression work.
-
-Top blocker:
-
-```txt
-The live Morning System Upgrade automation was disabled even though the repository registry described it as active and verified. Evening restored the existing schedule, but the harness cannot yet detect or prevent this drift.
-```
-
-Evidence:
-- live ChatGPT Automations state showed the existing Morning System Upgrade schedule disabled;
-- Evening re-enabled that same schedule; no duplicate automation was created;
-- the registry still lacks separate fields/evidence for intended state, live enabled state, expected run observed, and latest run outcome;
-- raw harness validation remains strong: runs #40 and #42 passed and each produced the four-file evidence artifact;
-- post-merge-main workflow evidence remains `NEEDS_VERIFICATION` because the current commit-run connector path did not return push runs.
-
-Required safe change:
-1. Add prompt regression `recurring-automation-disabled-after-successful-run`.
-2. Add matching failure replay and deterministic behavior fixture.
-3. Good behavior must:
-   - preserve normal recurring schedules after a successful run;
-   - distinguish normal recurring schedules from one-time or condition-watch completion;
-   - compare live enabled state with registry intent before calling the loop healthy;
-   - re-enable only an existing clearly intended schedule;
-   - never create a duplicate automation;
-   - use `NEEDS_VERIFICATION` when live Automations access is unavailable.
-4. Update `automation-prompt-registry.json` to record the scheduler-liveness evidence ladder:
-   - intended/registry state;
-   - live enabled state;
-   - expected run observed;
-   - latest run outcome.
-5. Use the existing mapping validator; do not create a parallel validator unless the current one cannot protect the new fixture.
-
-Validation:
-
-```txt
-node scripts/run-agent-harness-validation-evidence.mjs
-```
-
-Live verification:
-
-```txt
-Required core loops enabled.
-Exactly one Morning System Upgrade active.
-No duplicate active schedule created.
-```
-
-Expected metric improvement if validated:
-
-```txt
-Automation noise / duplication: 62 -> 68+
-Loop closure: 70 -> 74+
-False success protection: 60 -> 63+
-Regression/replay coverage: 68 -> 71+
-```
-
-Evening verification question:
-
-```txt
-Does the new fixture reject disabling a normal recurring loop after success, accept preserving the existing loop, and does the live list show one enabled Morning System Upgrade with no duplicate?
-```
-
-Boundaries:
-- harness/docs/registry/regression/replay/fixture only;
-- no product code;
-- no provider configuration;
-- no production data;
-- no auth/payment/deploy/env/secrets;
-- do not create a new automation.
+No unconsumed safe upgrade is preselected. Evening Architecture Review should verify today's scheduler-liveness deltas, check the recurring schedule remains enabled after completion, and rank the next highest-leverage safe system issue.
 
 Still routed outside Morning Upgrade:
 - Psihotavr provider/live auth and persistence proof: `andylitvinov-design/psihotavr#168` via `/delivery` + `/safe` or `/audit-ui`.
 - Finance provider-balance blocker: `andylitvinov-design/finance#614` via `/audit-fin`.
 
 ## Closed / consumed items
+
+### 2026-07-11 — protect required recurring automation liveness
+
+Consumed by Morning System Upgrade 2026-07-11.
+
+Outcome: `APPLIED_UPGRADE`.
+
+Applied:
+- added prompt regression `recurring-automation-disabled-after-successful-run`;
+- added matching failure replay and deterministic behavior fixture;
+- added samples for unsafe disable/replace, safe re-enable of the existing schedule, and `NEEDS_VERIFICATION` when live access is unavailable;
+- updated `scripts/run-behavior-replay-fixtures.mjs` with the liveness evaluator;
+- added the four-level scheduler-liveness evidence ladder to `automation-prompt-registry.json`:
+  - intended registry state;
+  - live enabled state;
+  - expected run observed;
+  - latest run outcome;
+- strengthened `scripts/validate-agentic-prompts.mjs` to protect the new mapping, ladder, duplicate-safe repair, and recurring-loop contract;
+- added required-loop liveness to `systems/active-skill-map.md` as an internal guardrail, not a new top-level skill;
+- live Automations check found exactly one enabled Morning System Upgrade and no duplicate active Morning schedule.
+
+Validation evidence:
+- PR #101: `andylitvinov-design/ai-projects-brain#101`;
+- run #46 failed and exposed an overbroad negation matcher while still uploading raw logs;
+- the matcher was narrowed without weakening the bad disable/replace sample;
+- run #47 passed all four validators;
+- raw artifact `8246272809` contains four logs;
+- prompt validator: 7 regressions, 6 replay cases, 6 fixtures, 7 automation contracts;
+- behavior runner: 6 fixtures, 14 samples, 8 expected pass, 6 expected fail.
+
+Evening verification:
+- verify the existing Morning schedule remains enabled after this successful run;
+- verify exactly one active Morning System Upgrade still exists;
+- accept or correct the dashboard deltas;
+- keep scheduler-liveness behavior candidate until repeated or real prevention evidence exists;
+- keep provider/live gaps separately blocked.
 
 ### 2026-07-10 — unify local and CI raw validator evidence
 

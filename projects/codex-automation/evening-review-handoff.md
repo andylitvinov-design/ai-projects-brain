@@ -1,160 +1,113 @@
 # Evening Architecture Review Handoff
 
-Last updated: 2026-07-10 Evening Architecture Review
+Last updated: 2026-07-11 Morning System Upgrade
 
-## Evening result
+## 2026-07-11 Morning implementation response
 
-Status: `DIAGNOSED_AND_HANDOFF_READY`.
+Status: `APPLIED_UPGRADE`.
 
-Morning's unified evidence-runner upgrade is real and supported. Raw GitHub Actions evidence now exists for two PR runs:
+Morning consumed the exact Evening root issue: required recurring-loop liveness was not represented in the evidence model.
 
-- run #40 for the runner/workflow upgrade;
-- run #42 for the dashboard, metrics, ledger, and handoff update;
-- both jobs completed successfully and uploaded `agent-harness-validation-evidence` with four log files.
+Applied safe changes in PR #101:
+- prompt regression `recurring-automation-disabled-after-successful-run`;
+- matching failure replay case;
+- deterministic behavior fixture with three samples:
+  - unsafe disable and duplicate replacement — expected fail;
+  - safe re-enable of the existing recurring schedule — expected pass;
+  - no live access with `NEEDS_VERIFICATION` and no new automation — expected pass;
+- behavior evaluator for the new fixture;
+- scheduler-liveness evidence ladder in `automation-prompt-registry.json`:
+  1. intended registry state;
+  2. live enabled state;
+  3. expected run observed;
+  4. latest run outcome;
+- validator checks for fixture mapping, registry ladder, recurring preservation, registry-only false proof, and duplicate-safe repair;
+- `required-loop liveness` internal guardrail in `systems/active-skill-map.md`; no new top-level command.
 
-The post-merge `main` push-run remains `NEEDS_VERIFICATION`: the available commit-workflow lookup returned no run for merge SHAs, and the connector path is documented as pull-request-run oriented. Do not infer a post-merge run from a PR run.
+## Validation evidence
 
-## New structural issue found
+First CI attempt, run #46:
+- correctly failed the behavior runner;
+- raw artifact remained available;
+- root cause was an overbroad substring matcher that treated the good sentence “Do not disable the recurring automation after success” as a violation.
 
-The repository registry said Morning System Upgrade was active, but the live ChatGPT Automation was disabled after today's successful run.
+Recovery:
+- narrowed only the bad-phrase matcher;
+- retained the unsafe disable/replace sample;
+- reran the complete unified evidence path.
 
-Evening repaired the narrow live-state drift by re-enabling the existing daily Morning System Upgrade schedule. No duplicate automation was created.
-
-This exposed a missing evidence layer:
+Passing run #47:
 
 ```txt
-registry contract defined
-live scheduler enabled
-expected run observed
-run produced report/evidence
+agentic prompt validation ok: 7 prompt regressions, 6 replay cases, 6 behavior fixtures, 7 automation contracts, metrics aligned, fixture-to-prompt coverage checked, scheduler liveness contract checked, CI workflow defined, unified raw evidence runner contract checked
+behavior replay fixtures ok: 6 fixtures, 14 samples (8 expected pass, 6 expected fail)
+context-scout verification ok
+validation ok: 20 projects
 ```
 
-The system currently checks the first and fourth layers better than the middle two.
+All four commands exited 0. Artifact `8246272809` contains the four raw logs.
 
-## Morning Health Delta Verification
+Live Automations verification:
+- Morning System Upgrade is enabled;
+- exactly one active Morning System Upgrade exists;
+- the expected Morning run was observed;
+- no replacement automation was created.
 
-| Morning claim | Evening decision | Current evening score | Evidence / correction |
-| --- | --- | ---: | --- |
-| Provider/live readiness stays unknown | accepted | unknown | Psihotavr #168 and Finance #614 remain open without new provider/live proof. |
-| False success protection 55→60 | accepted | 60 | Unified runner contract and raw CI output support the increase. |
-| Delivery completion quality 55→60 | accepted, then +1 | 61 | A second PR run/artifact validates the dashboard/metrics update; post-merge-main run remains unverified. |
-| User pain repetition 55→55 | accepted | 55 | No new durable correction artifact was recorded. |
-| Loop closure 65→70 | accepted with repair | 70 | Prior handoff was consumed, but the next Morning schedule had become disabled and was restored tonight. |
-| Validation evidence 55→72 | accepted, then +2 | 74 | Run #42 independently repeated the unified four-validator evidence path. |
-| Regression/replay coverage 65→68 | accepted | 68 | Existing mapped fixtures passed; scheduler-liveness drift is not yet covered. |
-| Rule lifecycle health 55→60 | accepted | 60 | Structural reproducibility is proven; behavior/provider rules remain candidate. |
-| Automation noise 50→50 | corrected upward | 62 | Live schedules were checked, no duplicate core loops were found, and the disabled Morning loop was restored. |
-| Active project momentum 50→50 | accepted | 50 | Existing exact tickets remain open without new live proof. |
+## Morning Health Delta Proposal
 
-## Selected root issue
+| Metric | Evening baseline | Morning score | Delta | Confidence | Evidence |
+| --- | ---: | ---: | ---: | --- | --- |
+| Provider/live readiness | unknown | unknown | unknown | unknown | No provider/live proof. |
+| False success protection | 60 | 63 | +3 | high | New mapped regression and raw CI. |
+| Delivery completion quality | 61 | 62 | +1 | high | Failed raw run diagnosed, narrow fix, passing rerun. |
+| User pain repetition | 55 | 55 | 0 | low | No new correction class. |
+| Loop closure | 70 | 74 | +4 | high | Evening handoff consumed; live enabled/unique state verified. |
+| Validation evidence | 74 | 75 | +1 | high | Run #47 four-file raw artifact. |
+| Regression/replay coverage | 68 | 72 | +4 | high | 7 regressions, 6 replays, 6 fixtures, 14 samples. |
+| Rule lifecycle health | 60 | 62 | +2 | high | Narrow guardrail validated but remains candidate. |
+| Automation noise / duplication | 62 | 68 | +6 | high | Four-level ladder + one enabled Morning schedule, zero duplicates. |
+| Active project momentum | 50 | 50 | 0 | low | Existing provider tickets remain open. |
 
-**Required-loop scheduler liveness is not part of the evidence model.**
+Overall proposal: `62 -> 65/100 estimated`, coverage `9/10`.
 
-Why it outranks softer cleanup:
+## Evening verification questions
 
-1. A disabled Morning loop can silently stop the closed-loop system even while registry files, dashboards, and CI remain green.
-2. The mismatch was real, current, and directly observed in the live Automations state.
-3. It can be addressed safely in harness tests/docs without touching product code or providers.
-4. It is non-overlapping with the existing raw-validator evidence work.
+1. After this run completes, does the live list still show one enabled Morning System Upgrade and no duplicate?
+2. Does the new fixture continue to reject disable/replace behavior while accepting existing-schedule repair and `NEEDS_VERIFICATION` abstention?
+3. Are the proposed metric deltas supported, especially Automation noise `62→68`, Loop closure `70→74`, and Regression/replay `68→72`?
+4. Should `recurring-automation-disabled-after-successful-run` remain `candidate` until a later real prevention/detection case? Morning recommends yes.
+5. Can post-merge-main workflow evidence be retrieved, or must it remain a separate `NEEDS_VERIFICATION` state?
 
-## Rule lifecycle actions
+## Rule lifecycle
 
 ```txt
 candidate:
-- recurring-automation-disabled-after-successful-run
-- automation-registry-live-state-drift
-- retryable-provider-error-versus-terminal-blocker (awaiting one durable captured example)
+- recurring-automation-disabled-after-successful-run — deterministic CI and live-state evidence exist; repeated prevention evidence does not yet exist.
+- automation-registry-live-state-drift — represented by the same liveness ladder; avoid a duplicate global rule.
+- retryable-provider-error-versus-terminal-blocker — still awaiting a durable example.
 
 active:
-- validation-evidence-reproducibility-local-plus-ci remains active
+- validation-evidence-reproducibility-local-plus-ci remains active.
 
 needs_revision:
-- automation health must not rely on registry status alone
+- registry-only automation-health claims are now explicitly rejected by the liveness contract.
 
 deprecated/rejected:
-- none
+- none.
 ```
 
-## Replay / regression coverage
-
-Current proven coverage:
-
-```txt
-prompt regressions defined = 6
-failure replay cases defined = 5
-behavior replay fixtures defined = 5
-behavior samples = 11
-raw CI runs fetched = 2
-four-validator artifacts fetched = 2
-live model prevention evidence = not yet available
-```
-
-Missing coverage:
-
-```txt
-recurring-automation-disabled-after-successful-run
-```
-
-## Provider/live gaps
+## Provider/live gaps remain unchanged
 
 1. [Psihotavr #168](https://github.com/andylitvinov-design/psihotavr/issues/168)
-   - Missing: production source mapping, env-name presence, Supabase schema/storage/policy proof, live Google auth, live admin persistence/public rendering.
+   - Missing: production source mapping, env-name presence, Supabase schema/storage/policy proof, live Google auth, admin persistence, and public rendering.
    - Status: `BLOCKED / NEEDS_VERIFICATION`.
    - Route: `/delivery` + `/safe` or `/audit-ui`.
 
 2. [Finance #614](https://github.com/andylitvinov-design/finance/issues/614)
-   - Missing: strict live `verify:finance` proof and exact resolution of the Binance save/USDC provider-balance source gap.
+   - Missing: strict live `verify:finance` and resolution of the Binance save/USDC source gap.
    - Status: `BLOCKED / NEEDS_VERIFICATION`.
    - Route: `/audit-fin`.
 
-## Morning System Upgrade handoff
+## Next Evening responsibility
 
-```txt
-/upgrade
-
-Goal: make required recurring automation liveness evidence-backed so a core loop cannot silently become disabled while the registry still says active.
-
-Top blocker:
-The live Morning System Upgrade automation was disabled even though automation-prompt-registry.json said it was active/verified. Evening restored the existing schedule, but the harness has no regression, replay fixture, or evidence ladder for this drift.
-
-Required safe change:
-1. Add prompt regression ID `recurring-automation-disabled-after-successful-run`.
-2. Add the matching failure replay case and deterministic behavior fixture.
-3. Expected good behavior:
-   - distinguish normal recurring schedules from one-time/conditional tasks;
-   - do not disable a normal recurring automation merely because one run succeeded;
-   - compare required live enabled state with registry intent before calling loop health good;
-   - re-enable only an existing clearly intended schedule, never create a duplicate;
-   - report missing Automations access as `NEEDS_VERIFICATION`.
-4. Update `scripts/validate-agentic-prompts.mjs` through existing fixture-to-prompt/replay mapping; avoid a new validator unless necessary.
-5. Update `automation-prompt-registry.json` with a scheduler-liveness evidence ladder:
-   - intended/registry state;
-   - live enabled state;
-   - expected run observed;
-   - latest run outcome.
-6. Keep provider/product work outside `/upgrade`.
-
-Validation:
-- node scripts/run-agent-harness-validation-evidence.mjs
-- live Automations list: required core loops enabled, no duplicate active schedules
-
-Expected metric improvement if validated:
-- Automation noise / duplication: 62 -> 68+
-- Loop closure: 70 -> 74+
-- False success protection: 60 -> 63+
-- Regression/replay coverage: 68 -> 71+
-
-Evening verification question:
-Does the new regression fail a sample that disables a normal recurring loop after success, pass a sample that preserves the existing schedule, and does the live list show one enabled Morning System Upgrade with no duplicate?
-
-Boundaries:
-- harness/docs/registry/regression/replay/fixture only;
-- no product code;
-- no provider config or production data;
-- no auth/payment/deploy/env/secrets;
-- do not create a new automation.
-```
-
-## Single next action
-
-Tomorrow morning: implement and validate `recurring-automation-disabled-after-successful-run`, then prove the existing Morning schedule remains enabled and unique.
+Verify the live recurring schedule after successful Morning completion, accept or correct the dashboard, and select the next single safe structural issue. Do not treat harness progress as provider/live progress.

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-09",
+  "last_updated": "2026-07-11",
   "tests": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -98,6 +98,25 @@
         "handoff as long-term memory"
       ],
       "expected_route": "/save for durable lessons; /handoff for continuation"
+    },
+    {
+      "id": "recurring-automation-disabled-after-successful-run",
+      "status": "candidate",
+      "description": "A normal recurring automation must remain enabled after a successful run; loop-health claims require live scheduler evidence and duplicate-safe repair.",
+      "input_prompt": "A required daily Morning System Upgrade finished successfully. The registry says active, but live Automations shows the existing schedule disabled. Write the safe completion and repair behavior.",
+      "must_include": [
+        "recurring",
+        "live enabled state",
+        "re-enable the existing schedule",
+        "no duplicate",
+        "NEEDS_VERIFICATION"
+      ],
+      "must_not_include": [
+        "disable the recurring automation after success",
+        "create a new automation",
+        "registry status proves the scheduler is active"
+      ],
+      "expected_route": "/upgrade harness/registry liveness guardrail with live Automations verification"
     }
   ]
 }
