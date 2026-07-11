@@ -1,6 +1,6 @@
 # Delivery Outcome Ledger
 
-Last updated: 2026-07-11 Morning System Upgrade
+Last updated: 2026-07-11 Evening Architecture Review
 
 Purpose: compact evidence ledger for repeated agent outcomes, false success prevention, provider/live blockers, and lessons that should influence Daily Improve, Morning System Upgrade, and Evening Architecture Review.
 
@@ -23,8 +23,11 @@ Purpose: compact evidence ledger for repeated agent outcomes, false success prev
 | 2026-07-09 | Agent harness | Artifact capture was defined but raw CI output remained unavailable | Evening corrected validation confidence and handed off one local+CI runner | Evening Review 2026-07-09 | Add unified runner and fetch raw output |
 | 2026-07-10 | Agent harness | Local and CI evidence paths were duplicated and raw passing output had not been fetched | Added one evidence runner, protected it, reused it in CI, fetched successful job/artifact, and merged PR #98 | PR #98; merge `d559499`; run #40; artifact `8220506285` | Evening verifies repeatability and keeps behavior rules candidate |
 | 2026-07-10 | Agent harness / automations | Registry described Morning Upgrade as active, but the live recurring schedule was disabled after a successful run | Evening detected the live-state drift, re-enabled the existing schedule without duplication, fetched repeat CI run #42/artifact, and queued a scheduler-liveness regression | Live Automations state; run #42; artifact `8220573543`; Evening Review 2026-07-10 | Morning adds `recurring-automation-disabled-after-successful-run` prompt/replay/fixture coverage and scheduler-liveness evidence ladder |
-| 2026-07-11 | Agent harness / automations | Required recurring-loop liveness had no regression, replay fixture, registry evidence ladder, or duplicate-safe repair contract | Added the mapped scheduler-liveness class, a four-level registry ladder, validator protection, and required-loop internal guardrail; live check proved one enabled Morning schedule and no duplicate | PR #101; live Automations check; run #47; artifact `8246272809`; 7 prompt regressions, 6 replay cases, 6 fixtures, 14 samples | Evening verifies the schedule remains enabled after success; keep the behavior rule candidate until repeated or real prevention evidence |
-| 2026-07-11 | Agent harness validation | First liveness fixture evaluator rejected a good negated instruction because substring matching was overbroad | Raw failure artifact was inspected; only the matcher was narrowed; the full unified runner then passed | run #46 failed with artifact `8246247986`; fix commit `626f058`; run #47 passed | Preserve failure→root cause→narrow fix→green evidence instead of hiding the failed run |
+| 2026-07-11 | Agent harness / automations | Required recurring-loop liveness had no regression, replay fixture, registry evidence ladder, or duplicate-safe repair contract | Added the mapped scheduler-liveness class, a four-level registry ladder, validator protection, and required-loop internal guardrail; live check proved one enabled Morning schedule and no duplicate | PR #101; live Automations check; runs #47 and #53; 7 prompt regressions, 6 replay cases, 6 fixtures, 14 samples | Evening verifies the schedule remains enabled after success; keep the behavior rule candidate until repeated or real prevention evidence |
+| 2026-07-11 | Agent harness validation | First liveness fixture evaluator rejected a good negated instruction because substring matching was overbroad | Raw failure artifact was inspected; only the matcher was narrowed; the full unified runner then passed | run #46 failed with artifact `8246247986`; fix commit `626f058`; runs #47 and #53 passed | Preserve failure→root cause→narrow fix→green evidence instead of hiding the failed run |
+| 2026-07-11 | brain-management / production | Canonical July dashboard existed while Cloudflare production remained stale; the earlier workflow could make missing provider credentials look like a healthy skip | Existing Netlify site was used for a verified production release; issue #28 closed and PR #29 documented Netlify as production, Cloudflare as legacy | Netlify deploy `6a5207d064f1feba62676b5e`; site `98712296-45be-4c0d-af99-d4ed19507e0e`; issue #28; PR #29 | Verify automatic GitHub `main` → existing Netlify site publication through `/delivery /safe`; do not create another site |
+| 2026-07-11 | Agent harness / dashboard | Canonical dashboard, mirror JSON, provider deploy, and live freshness can diverge while each layer appears individually healthy | Evening proposed candidate `dashboard-canonical-live-freshness-drift` and a four-level publication evidence ladder; no provider mutation performed | Evening dashboard update; Netlify production evidence; legacy URL found in canonical/mirror sources | Morning adds prompt/replay/fixture/validator coverage; provider integration routes to `/delivery /safe` |
+| 2026-07-11 | Agent interaction | User again asked whether the assistant would complete the task directly or only provide a Codex prompt | Direct provider delivery was eventually completed, but the correction was recorded as repeated pain rather than erased by the later success | User correction 2026-07-11; completed Netlify outcome | Prefer direct safe execution first; provide a prompt only for the exact remaining blocker |
 
 ## What to record
 
@@ -37,6 +40,7 @@ Record only evidence-backed outcomes:
 - replay case added or run;
 - behavior fixture added or run;
 - automation registry/live-state drift detected or repaired;
+- dashboard canonical/mirror/deploy/live freshness drift detected or prevented;
 - rule promoted, revised, deprecated, or rejected;
 - validation passed/failed and recovery evidence;
 - user correction that exposes repeated agent failure.
