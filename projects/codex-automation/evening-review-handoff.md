@@ -1,6 +1,6 @@
 # Evening Architecture Review Handoff
 
-Last updated: 2026-07-11 Evening Architecture Review
+Last updated: 2026-07-11 Evening Architecture Review; aggregate arithmetic corrected after verification.
 
 ## 2026-07-11 Evening verification
 
@@ -11,6 +11,8 @@ The Morning scheduler-liveness upgrade is structurally sound and remained operat
 A second real outcome appeared later today: brain-management production was moved from the stale Cloudflare surface to a verified Netlify deploy. Issue #28 was closed with deploy, route, JSON, mobile, and console evidence; PR #29 documents Netlify as production and Cloudflare as legacy.
 
 The main remaining structural risk is now dashboard publication drift: the canonical dashboard, mirror JSON, deploy identity, and live freshness can disagree while each individual layer looks healthy.
+
+A final arithmetic verification corrected the displayed overall score from `68` to `67`: the nine displayed numeric metric scores total `606`, and `606 / 9 = 67.3`.
 
 ## Morning Health Delta Verification
 
@@ -27,7 +29,7 @@ The main remaining structural risk is now dashboard publication drift: the canon
 | Automation noise / duplication | 62 → 68 | Accepted | 72 | Exactly one enabled Morning schedule remains after success; no replacement was created. |
 | Active project momentum | 50 → 50 | Accepted for Morning; raised on later evidence | 56 | Brain-management production moved live; two provider blockers remain open. |
 
-Overall Evening score: `68/100 estimated`, coverage `9/10`, versus Morning `65/100 estimated`.
+Overall Evening score: `67/100 estimated`, coverage `9/10`, versus Morning `65/100 estimated`.
 
 ## Provider / live readiness
 
@@ -39,7 +41,7 @@ Overall Evening score: `68/100 estimated`, coverage `9/10`, versus Morning `65/1
    - Deploy ID: `6a5207d064f1feba62676b5e`
    - Provider state: `ready`
    - Recorded proof: homepage, dashboard, both JSON routes, mobile 390x844, browser console.
-   - Remaining gap: automatic GitHub-to-Netlify publication is `NEEDS_VERIFICATION`; the verified release used the authenticated upload path.
+   - Remaining gap: automatic GitHub-to-Netlify publication is `NEEDS_VERIFICATION`; the verified release used the authenticated upload path and Netlify reports no branch or commit reference for that deploy.
 
 ### Still blocked
 
@@ -58,6 +60,7 @@ Overall Evening score: `68/100 estimated`, coverage `9/10`, versus Morning `65/1
 1. Static intent or repository freshness is repeatedly confused with operational state: registry versus live scheduler, and canonical dashboard versus published site.
 2. Delivery often reaches code/PR readiness before provider/live proof; the user must then ask for direct completion.
 3. Strong evidence exists, but it is distributed across PRs, CI artifacts, provider deploys, issue comments, and live checks rather than one protected trace.
+4. Aggregate health can look authoritative while its arithmetic is not machine-checked; displayed metric values and the overall score briefly diverged by one point.
 
 ## Selected root structural issue
 
@@ -72,16 +75,19 @@ Why it outranks other safe issues:
 
 The safe harness fix is to define and validate a publication evidence ladder. Provider integration itself remains outside Morning Upgrade.
 
+The aggregate arithmetic mismatch was corrected immediately and does not outrank publication drift, but the dashboard contract now explicitly requires a visible arithmetic calculation unless a weighting is documented.
+
 ## Metric model trend review
 
 Sources reviewed:
-- *Towards a Science of AI Agent Reliability* (2026): reliability should not be reduced to one success rate; consistency, robustness, predictability, safety, and bounded failure severity matter.
-- *Reproducible, Explainable, and Effective Evaluations of Agentic AI for Software Engineering* (2026): reproducibility benefits from preserving inspectable interaction/evidence trajectories.
+- [Towards a Science of AI Agent Reliability](https://arxiv.org/abs/2602.16666) (2026): reliability should not be reduced to one success rate; consistency, robustness, predictability, safety, and bounded failure severity matter.
+- [Reproducible, Explainable, and Effective Evaluations of Agentic AI for Software Engineering](https://arxiv.org/abs/2604.01437) (2026): reproducibility benefits from preserving inspectable interaction/evidence trajectories.
 
 Decision:
 - No new top-level health metric.
 - Candidate subdimension under `Validation evidence`: publication trace completeness and reproducibility.
 - Candidate subdimension under `Delivery completion quality`: rework/recovery count.
+- Dashboard calculation contract tightened: displayed aggregate must be reproducible from displayed metric values or an explicit weighting.
 - Lifecycle: `candidate` until the publication-drift fixture changes a real Morning/Evening decision.
 
 ## Rule lifecycle actions
@@ -120,7 +126,8 @@ Missing coverage:
 - canonical dashboard updated while mirror/live remains stale;
 - provider changed from Cloudflare to Netlify while the canonical link remains old;
 - canonical and mirror timestamps differ and live publication cannot be proven;
-- safe `NEEDS_VERIFICATION` output when direct HTTP/provider evidence is unavailable.
+- safe `NEEDS_VERIFICATION` output when direct HTTP/provider evidence is unavailable;
+- aggregate score differs from the arithmetic mean of displayed numeric metrics without an explicit weighting.
 
 ## Learning metrics
 
@@ -130,6 +137,8 @@ Updated in this Evening review:
 - provider/live release verified: +1;
 - repeated user correction recorded: +1;
 - dashboard publication drift candidate: +1.
+
+The arithmetic correction was recorded in the canonical dashboard and handoff, but no new learning-count row was added because it is a bookkeeping correction, not a new behavior fixture or distinct operational prevention event.
 
 Counts tied to validator artifacts should remain distinct from unique test/sample counts; rerunning the same fixture set does not create new fixtures.
 
@@ -164,8 +173,9 @@ Suggested skills: `/audit-fin`, provider-live readiness gate.
 - `node scripts/validate-projects-brain.mjs`: passed in final PR CI run #53.
 - Raw artifact upload step: passed.
 - Post-merge-main workflow retrieval: no run returned; remains separate `NEEDS_VERIFICATION` rather than inferred from PR CI.
-- Netlify deploy lookup: `ready`.
+- Netlify deploy lookup: `ready`; deployment source is API upload, with no branch or commit ref on the provider record.
 - Direct HTTP recheck from this Evening runtime: not run successfully because the runtime could not resolve the production hostname. This is an evidence-access limitation, not a claimed production failure.
+- Dashboard arithmetic recheck: passed after correction; nine numeric scores total `606`, average `67.3`, displayed overall `67`.
 
 ## Morning System Upgrade handoff
 
@@ -184,7 +194,8 @@ Exact safe change:
    - deploy source and ID known;
    - live timestamp/content verified.
 5. Extend `validate-agentic-prompts.mjs` to protect the mapping and reject canonical-only live claims.
-6. Do not deploy, change Netlify configuration, or mutate provider state from Morning Upgrade.
+6. Add a deterministic aggregate-score check: reject a displayed overall score that does not match the arithmetic mean of displayed numeric metrics unless an explicit weighting is present.
+7. Do not deploy, change Netlify configuration, or mutate provider state from Morning Upgrade.
 
 Expected metric improvement:
 - False success protection: +2 to +4.
@@ -198,8 +209,8 @@ Validation:
 - no provider mutation.
 
 Evening verification question:
-Does the new contract reject canonical-only updates and accept only a fully traceable published snapshot or an explicit `NEEDS_VERIFICATION` outcome?
+Does the new contract reject canonical-only updates and aggregate-score drift, and accept only a fully traceable published snapshot or an explicit `NEEDS_VERIFICATION` outcome?
 
 ## Single next action
 
-Tomorrow morning, implement and raw-CI validate the candidate `dashboard-canonical-live-freshness-drift` evidence ladder; route automatic Netlify integration separately to `/delivery /safe`.
+Tomorrow morning, implement and raw-CI validate the candidate `dashboard-canonical-live-freshness-drift` evidence ladder plus deterministic aggregate-score check; route automatic Netlify integration separately to `/delivery /safe`.
