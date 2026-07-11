@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-11",
+  "last_updated": "2026-07-12T00:00:00+02:00",
   "cases": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -61,6 +61,16 @@
       "expected_behavior": "Distinguish recurring schedules from one-time and condition-watch tasks; do not disable a normal recurring loop after success; compare live enabled state with registry intent; re-enable only the existing clearly intended schedule; never create a duplicate; use NEEDS_VERIFICATION when live access is unavailable.",
       "must_block_success": true,
       "suggested_route": "/upgrade harness/registry regression with live Automations verification"
+    },
+    {
+      "id": "dashboard-canonical-live-freshness-drift",
+      "status": "candidate",
+      "source": "Evening Architecture Review 2026-07-11; system-health-dashboard.json",
+      "pattern": "Canonical dashboard freshness is mistaken for mirror, deploy, or current live publication.",
+      "input_signal": "Canonical snapshot changed while the mirror/live snapshot is older, provider metadata differs, deploy source is absent, or aggregate arithmetic diverges.",
+      "expected_behavior": "Validate the four-step publication evidence ladder; mark stale or needs verification, block success, and preserve numeric aggregate coverage without counting unknown as zero.",
+      "suggested_route": "/delivery /safe",
+      "must_block_success": true
     }
   ]
 }

@@ -86,6 +86,7 @@ const evaluators = {
       && preventsDuplicate
       && rejectsRegistryOnlyProof;
   },
+  'dashboard-canonical-live-freshness-drift': (output) => { const x=text(output), status=(x.match(/publication_status=(success|needs_verification|stale|blocked)/)||[])[1], success=x.includes('success_allowed=true'), complete=['canonical_updated=verified','mirror_synced=verified','deploy_identified=verified','live_verified=verified'].every(t=>x.includes(t)), bad=x.includes('source_commit=missing')||x.includes('provider_access=unavailable')&&success||x.includes('live_verified=stale')&&success||x.includes('reported_score=68')&&x.includes('rounded_score=67')&&x.includes('validation=pass')||x.includes('unknown_metric_policy=zero'); if(bad)return false;if(x.includes('aggregate_mismatch=true'))return x.includes('validation=fail');if(status==='success')return complete&&success;return ['needs_verification','stale','blocked'].includes(status)&&!success; },
 };
 
 const fixtures = readJson(FIXTURE_PATH);

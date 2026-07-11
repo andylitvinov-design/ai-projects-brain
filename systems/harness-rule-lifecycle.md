@@ -55,3 +55,9 @@ rule lifecycle actions:
 ```
 
 If no lifecycle action is justified, say `no rule lifecycle change; evidence insufficient`.
+
+## Candidate: dashboard-canonical-live-freshness-drift
+
+Trigger: canonical snapshot, mirror, deploy identity, or live timestamp disagree. Risk: repository truth is mislabeled live truth. Detection: aggregate/publication validators plus mapped regression, replay, and fixture. Prevention: require canonical_updated, mirror_synced, deploy_identified, and live_verified before SUCCESS. Validation: run the two dashboard validators and fixture runner. Promotion requires two independent operational prevention/detection/repair cases and a current live trace. Revise if a current mirror/live trace is falsely classified.
+
+`recurring-automation-disabled-after-successful-run` remains `candidate`; it needs a second independent operational case before promotion.

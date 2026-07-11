@@ -100,3 +100,7 @@ Evidence:
 - 2026-07-06: metrics drift validation and evidence-state separation added.
 - 2026-07-05: explicit prompt/replay/registry validator created.
 - 2026-07-04: provider/live gate, lifecycle standard, strategic Daily Improve contract, and Morning applied/no-safe-upgrade contract created.
+
+## Dashboard publication next action
+
+Prove existing Netlify site Git integration for `andylitvinov-design/brain-management` branch `main`, publish directory `.`, deploy ID and source commit; then independently observe the current canonical timestamp at production JSON. Until then retain `STALE` or `NEEDS_VERIFICATION`.

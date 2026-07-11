@@ -143,6 +143,7 @@ for (const id of [
   'daily-improve-strategic-portfolio-not-only-bugs',
   'morning-upgrade-report-only-without-applied-upgrade',
   'recurring-automation-disabled-after-successful-run',
+  'dashboard-canonical-live-freshness-drift',
 ]) {
   byId(prompts.tests, id, promptPath);
   byId(replays.cases, id, replayPath);
@@ -165,6 +166,10 @@ const schedulerPrompt = byId(prompts.tests, 'recurring-automation-disabled-after
 for (const expected of ['recurring', 'live enabled state', 're-enable the existing schedule', 'no duplicate', 'NEEDS_VERIFICATION']) assert(schedulerPrompt.must_include.includes(expected), `scheduler liveness prompt must include ${expected}`);
 assert(schedulerPrompt.must_not_include.includes('create a new automation'), 'scheduler liveness prompt must block replacement automation creation');
 assert(byId(replays.cases, 'recurring-automation-disabled-after-successful-run', replayPath).must_block_success === true, 'scheduler liveness replay must block false healthy-loop success');
+
+const publicationPrompt = byId(prompts.tests, 'dashboard-canonical-live-freshness-drift', promptPath);
+assert(byId(replays.cases, 'dashboard-canonical-live-freshness-drift', replayPath).must_block_success === true, 'publication replay must block false success');
+assert(publicationPrompt.must_include.includes('live_verified'), 'publication prompt must require live evidence');
 
 const registry = readJson(registryPath);
 assert(registry.schema_version === 1, `${registryPath} schema_version must be 1`);
@@ -203,10 +208,14 @@ for (const expected of [
   'scripts/run-behavior-replay-fixtures.mjs',
   'scripts/verify-context-scout.mjs',
   'scripts/validate-projects-brain.mjs',
+  'scripts/validate-system-health-dashboard.mjs',
+  'scripts/validate-dashboard-publication-contract.mjs',
   'validate-agentic-prompts.log',
   'run-behavior-replay-fixtures.log',
   'verify-context-scout.log',
   'validate-projects-brain.log',
+  'validate-system-health-dashboard.log',
+  'validate-dashboard-publication-contract.log',
 ]) assert(evidenceRunnerText.includes(expected), `${evidenceRunnerPath} must run and log ${expected}`);
 for (const expected of ['rmSync', 'agent-harness-validation-evidence', 'process.exitCode = 1']) assert(evidenceRunnerText.includes(expected), `${evidenceRunnerPath} must enforce evidence lifecycle: ${expected}`);
 

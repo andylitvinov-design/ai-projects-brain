@@ -99,3 +99,7 @@ Before adding any new top-level command, answer:
 5. Does adding it reduce confusion rather than create another synonym?
 
 If answers are weak, update an existing command or guardrail instead of creating a new skill.
+
+## Dashboard publication drift
+
+Route `dashboard-canonical-live-freshness-drift` through `/delivery /safe`: validate aggregate math and the publication ladder, retain `STALE`/`NEEDS_VERIFICATION` without current deploy/live proof, and do not alter provider settings or create duplicate automation.

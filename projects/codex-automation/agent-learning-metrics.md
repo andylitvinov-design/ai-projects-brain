@@ -36,11 +36,11 @@ Never count a metric without evidence. Acceptable evidence:
 | evening health delta verifications completed | 3 | Evening Reviews 2026-07-09, 2026-07-10, and 2026-07-11 | Latest Evening accepted evidence-backed deltas, corrected user-pain scoring, and incorporated the verified production release. |
 | metric model trend-review contracts defined | 1 | `systems/upgrade-cycle-metrics.md` | Publication trace completeness is a candidate subdimension, not a new top-level metric. |
 | live automation prompts updated for metrics split | 2 | ChatGPT Automations update 2026-07-09 | Morning and Evening prompts retain the health-delta split. |
-| replay cases defined | 6 | `failure-replay-cases.json` | The publication-drift case is queued but not counted before implementation. |
-| prompt regressions defined | 7 | `prompt-regression-tests.json` | Every current behavior fixture ID has matching prompt-regression coverage. |
+| replay cases defined | 7 | `failure-replay-cases.json` | The publication-drift case is queued but not counted before implementation. |
+| prompt regressions defined | 8 | `prompt-regression-tests.json` | Every current behavior fixture ID has matching prompt-regression coverage. |
 | feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs` | Reads prompt/replay/fixture/registry/metrics/workflow, liveness ladder, and unified-runner contracts. |
 | behavior replay runners defined | 1 | `scripts/run-behavior-replay-fixtures.mjs` | Deterministic saved-output runner, not live model replay. |
-| behavior replay fixtures defined | 6 | `behavior-replay-fixtures.json` | Includes liveness samples for unsafe disable/replace, safe existing-schedule repair, and no-live-access abstention. |
+| behavior replay fixtures defined | 7 | `behavior-replay-fixtures.json` | Includes liveness samples for unsafe disable/replace, safe existing-schedule repair, and no-live-access abstention. |
 | validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml` | Runs the unified evidence runner on PR, main push, and manual dispatch. |
 | CI raw evidence artifact capture defined | 1 | workflow + prompt validator | Captures the four expected logs and fails if the contract disappears. |
 | unified harness evidence runners defined | 1 | PR #98; `run-agent-harness-validation-evidence.mjs` | One script runs all four validators locally and in CI. |
@@ -154,3 +154,10 @@ Distinguish:
 14. `live behavior/prevention evidence exists`.
 
 Do not treat static registry state as live scheduler proof, deterministic fixtures as live model behavior, or canonical dashboard commits as proof that the production surface is fresh.
+
+## 2026-07-12 publication prevention
+
+- Regression/replay/behavior IDs added: `dashboard-canonical-live-freshness-drift` (1/1/1).
+- New deterministic samples: 12; total fixture samples: 26.
+- Prevention implemented: deterministic aggregate-score and publication-drift validators, not documentation alone.
+- Raw validation result: pending PR CI artifact; no PR or manual deploy is counted as live success.

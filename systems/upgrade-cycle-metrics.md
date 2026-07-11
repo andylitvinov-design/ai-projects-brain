@@ -322,3 +322,7 @@ Do not promote behavior rules to `active` using only file existence or a good-lo
 Provider-dependent work is not complete until provider/live readiness is proven. Code merge alone is not success.
 
 Use `BLOCKED`, `PARTIAL`, or `NEEDS_VERIFICATION` until the proof exists. Never print secret values; use env names only.
+
+## Dashboard aggregate and publication rule
+
+Use `arithmetic_mean_of_numeric_metrics`. Unknown, blocked, partial, needs-verification, and null values are excluded from the numeric mean and shown through coverage. Repository truth, deployment truth, and live truth must be reported separately; a code merge or manual deploy is not live success.

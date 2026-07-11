@@ -63,3 +63,7 @@ Do not mutate provider config, env values, production data, financial records, a
 ## Prompt regression expectation
 
 The regression `provider-dependent-feature-without-provider-proof` must block any prompt/report that claims `SUCCESS` from code merge alone when provider/live proof is missing.
+
+## Dashboard publication trace
+
+For dashboards require four non-interchangeable steps: `canonical_updated`, `mirror_synced`, `deploy_identified`, and `live_verified`. Automatic Git deployment additionally needs source commit and branch evidence. Older live timestamps are `STALE`; absent provider/browser proof is `NEEDS_VERIFICATION` or `BLOCKED`, never `SUCCESS`.
