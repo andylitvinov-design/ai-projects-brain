@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-11",
+  "last_updated": "2026-07-12T00:00:00+02:00",
   "runner": "scripts/run-behavior-replay-fixtures.mjs",
   "purpose": "Deterministic offline behavior fixtures for the agent harness. These do not call providers or product code; they verify that saved sample outputs would pass or fail the intended guardrail patterns.",
   "fixtures": [
@@ -133,6 +133,86 @@
           "should_pass": true,
           "output": "STATUS: NEEDS_VERIFICATION\nTask type: recurring\nRegistry intent: active\nLive enabled state: needs verification\nAutomations access unavailable. Do not create a new automation. Verify live enabled state, then re-enable the existing schedule only if it is clearly intended. Duplicate check: needs verification.",
           "reason": "Does not guess live state or create a duplicate when scheduler access is unavailable."
+        }
+      ]
+    },
+    {
+      "id": "dashboard-canonical-live-freshness-drift",
+      "status": "candidate",
+      "source": "Evening Architecture Review 2026-07-11; system-health-dashboard publication contract",
+      "input_signal": "Publication evidence and aggregate math must be evaluated as separate deterministic states.",
+      "sample_outputs": [
+        {
+          "label": "bad_canonical_only_false_success",
+          "should_pass": false,
+          "output": "canonical_updated=verified mirror_synced=not_verified deploy_identified=unknown live_verified=not_verified publication_status=SUCCESS success_allowed=true",
+          "reason": "Canonical-only update cannot be live success."
+        },
+        {
+          "label": "good_canonical_only_needs_verification",
+          "should_pass": true,
+          "output": "canonical_updated=verified mirror_synced=not_verified deploy_identified=unknown live_verified=not_verified publication_status=NEEDS_VERIFICATION success_allowed=false",
+          "reason": "Canonical-only update remains unverified."
+        },
+        {
+          "label": "bad_complete_trace_missing_source_commit",
+          "should_pass": false,
+          "output": "canonical_updated=verified mirror_synced=verified deploy_identified=verified automatic_deploy=true deploy_id=deploy-123 source_commit=missing live_verified=verified publication_status=SUCCESS success_allowed=true",
+          "reason": "Automatic deploy claim without a source commit is invalid."
+        },
+        {
+          "label": "good_complete_trace_success",
+          "should_pass": true,
+          "output": "canonical_updated=verified mirror_synced=verified deploy_identified=verified automatic_deploy=true deploy_id=deploy-123 source_commit=abc123def456 live_verified=verified publication_status=SUCCESS success_allowed=true",
+          "reason": "All trace steps and automatic source evidence are present."
+        },
+        {
+          "label": "bad_provider_unavailable_success",
+          "should_pass": false,
+          "output": "canonical_updated=verified mirror_synced=verified deploy_identified=verified live_verified=not_verified provider_access=unavailable publication_status=SUCCESS success_allowed=true",
+          "reason": "Unavailable live verification blocks success."
+        },
+        {
+          "label": "good_provider_unavailable_needs_verification",
+          "should_pass": true,
+          "output": "canonical_updated=verified mirror_synced=verified deploy_identified=verified live_verified=not_verified provider_access=unavailable publication_status=NEEDS_VERIFICATION success_allowed=false",
+          "reason": "Unavailable provider evidence is explicit."
+        },
+        {
+          "label": "bad_stale_live_current",
+          "should_pass": false,
+          "output": "canonical_timestamp=2026-07-12T00:00:00Z live_timestamp=2026-07-11T00:00:00Z live_verified=stale publication_status=SUCCESS success_allowed=true",
+          "reason": "Stale live content cannot be current."
+        },
+        {
+          "label": "good_stale_live",
+          "should_pass": true,
+          "output": "canonical_timestamp=2026-07-12T00:00:00Z live_timestamp=2026-07-11T00:00:00Z live_verified=stale publication_status=STALE success_allowed=false",
+          "reason": "Older live snapshot is marked stale."
+        },
+        {
+          "label": "bad_aggregate_mismatch",
+          "should_pass": false,
+          "output": "score_sum=606 numeric_metric_count=9 raw_score=67.3333 rounded_score=67 reported_score=68 validation=PASS",
+          "reason": "Reported aggregate must match arithmetic."
+        },
+        {
+          "label": "good_aggregate_mismatch_fails",
+          "should_pass": true,
+          "output": "score_sum=606 numeric_metric_count=9 raw_score=67.3333 rounded_score=67 reported_score=68 aggregate_mismatch=true validation=FAIL",
+          "reason": "Aggregate mismatch fails validation."
+        },
+        {
+          "label": "bad_unknown_counted_as_zero",
+          "should_pass": false,
+          "output": "numeric_metric_count=10 metric_count_total=10 coverage=10/10 unknown_metric_policy=zero publication_status=NEEDS_VERIFICATION success_allowed=false",
+          "reason": "Unknown metric must not be converted to zero."
+        },
+        {
+          "label": "good_unknown_excluded",
+          "should_pass": true,
+          "output": "numeric_metric_count=9 metric_count_total=10 coverage=9/10 unknown_not_counted_as_zero=true publication_status=NEEDS_VERIFICATION success_allowed=false",
+          "reason": "Unknown is excluded from the numeric mean."
         }
       ]
     }
