@@ -21,6 +21,8 @@ const validators = [
     script: 'scripts/validate-projects-brain.mjs',
     log: 'validate-projects-brain.log',
   },
+  { script: 'scripts/validate-system-health-dashboard.mjs', log: 'validate-system-health-dashboard.log' },
+  { script: 'scripts/validate-dashboard-publication-contract.mjs', log: 'validate-dashboard-publication-contract.log' },
 ];
 
 fs.rmSync(evidenceDirectory, { recursive: true, force: true });
@@ -58,5 +60,5 @@ if (failed) {
   console.error('agent harness validation evidence: one or more validators failed');
   process.exitCode = 1;
 } else {
-  console.log('agent harness validation evidence: all 4 validators passed');
+  console.log('agent harness validation evidence: all 6 validators passed');
 }
