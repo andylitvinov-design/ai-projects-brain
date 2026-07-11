@@ -37,24 +37,26 @@ Never count a metric without evidence. Acceptable evidence:
 | prompt regressions defined | 7 | `prompt-regression-tests.json` | Every behavior fixture ID has matching prompt-regression coverage. |
 | feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs` | Reads prompt/replay/fixture/registry/metrics/workflow, liveness ladder, and unified-runner contracts. |
 | behavior replay runners defined | 1 | `scripts/run-behavior-replay-fixtures.mjs` | Deterministic saved-output runner, not live model replay. |
-| behavior replay fixtures defined | 6 | `behavior-replay-fixtures.json` | Added one liveness fixture with failing, repair, and no-live-access samples. |
+| behavior replay fixtures defined | 6 | `behavior-replay-fixtures.json` | Includes liveness samples for unsafe disable/replace, safe existing-schedule repair, and no-live-access abstention. |
 | validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml` | Runs the unified evidence runner on PR, main push, and manual dispatch. |
 | CI raw evidence artifact capture defined | 1 | workflow + prompt validator | Captures the four expected logs and fails if the contract disappears. |
 | unified harness evidence runners defined | 1 | PR #98; `run-agent-harness-validation-evidence.mjs` | One script runs all four validators locally and in CI. |
-| raw CI workflow runs fetched | 2 | runs #40 and #42 | Existing raw evidence predates today's new liveness fixture; current branch CI is pending. |
-| validation commands run | 11 | PR #95 reported 3; runs #40 and #42 provide 4 each | Today's new four-command run is not counted until raw CI output is fetched. |
+| raw CI workflow runs fetched | 3 | runs #40, #42, and #47 | Run #47 is the first passing raw CI evidence for scheduler-liveness coverage. Post-merge push-run lookup remains separately unverified. |
+| validation commands run | 15 | PR #95 reported 3; runs #40, #42, and #47 provide 4 each | Run #47 raw artifact confirms all four commands exited 0. |
 | validation evidence propagation fixes | 1 | PR #96 | Evidence states remain separated. |
+| validation recovery fixes | 1 | PR #101 runs #46 and #47 | Run #46 exposed an overbroad negation matcher; the evaluator was narrowed and run #47 passed. |
 | stale safe-harness PR reconciled | 2 | PR #92 closed; PR #97 superseded | No stale safe-harness PR remains queued. |
 | unvalidated safe-harness PRs requiring reconciliation | 0 | Morning System Upgrade 2026-07-09 | Current harness changes use fresh branches and CI. |
-| prompt-to-behavior fixture coverage fixes | 2 | Morning Upgrades 2026-07-09 and 2026-07-11 | New scheduler fixture maps to both prompt regression and replay case. |
-| behavior replay fixture local samples passed | 11 | reconstructed local run and raw CI runs #40/#42 | The three new liveness samples are defined but not counted as passed before current CI evidence. |
+| prompt-to-behavior fixture coverage fixes | 2 | Morning Upgrades 2026-07-09 and 2026-07-11 | Scheduler fixture maps to both prompt regression and replay case. |
+| behavior replay fixture samples passed | 14 | run #47 raw artifact | Six fixtures / fourteen samples passed: eight expected pass and six expected fail. This is deterministic saved-output evidence, not live model behavior. |
 | agentic prompt validator local run passed | 1 | Morning System Upgrade 2026-07-09 | Reconstructed local validation passed. |
-| agentic prompt validator CI runs passed | 2 | runs #40 and #42 | Current scheduler-liveness branch CI is pending. |
-| live automation state checks completed | 2 | Evening 2026-07-10; Morning 2026-07-11 Automations list | Morning verified exactly one enabled Morning System Upgrade and no duplicate active core schedule. |
+| agentic prompt validator CI runs passed | 3 | runs #40, #42, and #47 | Run #47 confirms seven prompt regressions, six replay cases, six behavior fixtures, seven automation contracts, metrics alignment, and scheduler-liveness protection. |
+| live automation state checks completed | 2 | Evening 2026-07-10; Morning 2026-07-11 Automations list | Morning verified exactly one enabled Morning System Upgrade and no duplicate active Morning schedule. |
 | required recurring automations re-enabled after drift | 1 | Evening Architecture Review 2026-07-10 | Existing Morning schedule was restored; no duplicate was created. |
 | active duplicate core automations found | 0 | Live Automations lists 2026-07-10 and 2026-07-11 | No duplicate active Morning System Upgrade exists. |
-| scheduler-liveness regression candidates | 1 | Evening 2026-07-10; Morning 2026-07-11 | Candidate remains unpromoted until deterministic CI and later real prevention evidence. |
-| scheduler-liveness regression contracts defined | 1 | prompt regression + failure replay + behavior fixture + registry ladder | Structural coverage is implemented; pass/fail evidence is pending CI. |
+| scheduler-liveness regression candidates | 1 | Evening 2026-07-10; Morning 2026-07-11 | Candidate remains unpromoted until a later real prevention/detection case confirms operational value. |
+| scheduler-liveness regression contracts defined | 1 | prompt regression + failure replay + behavior fixture + registry ladder | Structural coverage is implemented and raw-CI validated. |
+| scheduler-liveness deterministic fixture runs passed | 1 | run #47 raw artifact | Bad disable/replace fails; existing-schedule repair and no-live-access `NEEDS_VERIFICATION` samples pass. |
 
 ## Metrics to update after each run
 
@@ -102,7 +104,7 @@ If metrics are not updated, the report must state why. Missing live access, unav
 
 As of 2026-07-11, `scripts/validate-agentic-prompts.mjs` checks that:
 
-- seven prompt regressions, six replay cases, and six behavior fixtures are parseable, unique, and metrics-aligned;
+- seven prompt regressions, six replay cases, and six behavior fixtures are parseable, unique, mapped, and metrics-aligned;
 - every behavior fixture maps to both a replay case and prompt regression and includes expected-pass and expected-fail samples;
 - provider false-success, Daily Improve portfolio, Morning applied/no-op, and recurring scheduler-liveness cases remain present;
 - `recurring-automation-disabled-after-successful-run` blocks duplicate replacement, requires live enabled-state evidence, safe existing-schedule repair, and `NEEDS_VERIFICATION` without live access;
@@ -110,6 +112,15 @@ As of 2026-07-11, `scripts/validate-agentic-prompts.mjs` checks that:
 - Morning's registry contract preserves recurring schedules and rejects registry-only proof;
 - the unified evidence runner calls all four validators, writes four logs, and fails non-zero on failure;
 - the workflow calls the runner and uploads `agent-harness-validation-evidence`.
+
+Run #47 raw output:
+
+```txt
+agentic prompt validation ok: 7 prompt regressions, 6 replay cases, 6 behavior fixtures, 7 automation contracts, metrics aligned, fixture-to-prompt coverage checked, scheduler liveness contract checked, CI workflow defined, unified raw evidence runner contract checked
+behavior replay fixtures ok: 6 fixtures, 14 samples (8 expected pass, 6 expected fail)
+context-scout verification ok
+validation ok: 20 projects
+```
 
 The validator does not have live ChatGPT Automations access. Scheduler liveness therefore combines deterministic prompt/replay/fixture evidence with a separate live Automations check. CI cannot prove live enabled state by itself.
 
