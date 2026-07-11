@@ -1,6 +1,6 @@
 # Morning Handoff Queue
 
-Last updated: 2026-07-11 Evening Architecture Review
+Last updated: 2026-07-11 Evening Architecture Review; aggregate arithmetic correction added.
 
 Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Evening Architecture Review write safe, deduplicated inputs here.
 
@@ -12,6 +12,8 @@ ID: `dashboard-canonical-live-freshness-drift`
 
 Problem:
 The canonical health dashboard, brain-management mirror JSON, provider deploy identity, and live freshness can diverge. Today the canonical source still referenced the legacy Cloudflare surface after production moved to Netlify, and the verified Netlify release used an authenticated upload path while automatic GitHub-to-Netlify publication remains unverified.
+
+A second integrity gap was found during Evening verification: the displayed numeric metrics averaged `67.3`, but the aggregate was reported as `68`. The canonical dashboard has been corrected to `67`, and Morning should make this class deterministic rather than relying on manual arithmetic.
 
 Exact safe Morning change:
 1. Add prompt regression `dashboard-canonical-live-freshness-drift`.
@@ -26,8 +28,9 @@ Exact safe Morning change:
    - deploy source and deploy ID known;
    - live timestamp/content verified.
 5. Extend `scripts/validate-agentic-prompts.mjs` to protect the prompt/replay/fixture mapping, require the ladder, and reject canonical-only claims that the dashboard is live-updated.
-6. Update learning metrics and delivery ledger only from actual artifacts.
-7. Do not deploy, change Netlify configuration, or mutate provider state.
+6. Add a deterministic aggregate-score validator: calculate the arithmetic mean of displayed numeric metric values, respect `unknown` metrics and coverage, and fail when the displayed aggregate differs unless an explicit weighting is documented.
+7. Update learning metrics and delivery ledger only from actual artifacts.
+8. Do not deploy, change Netlify configuration, or mutate provider state.
 
 Expected health effect:
 - false success protection: +2 to +4;
@@ -38,12 +41,14 @@ Expected health effect:
 Required validation:
 - `node scripts/run-agent-harness-validation-evidence.mjs`;
 - raw CI artifact with all four logs;
-- candidate remains unpromoted until a real publication drift/prevention decision is observed.
+- candidate remains unpromoted until a real publication drift/prevention decision is observed;
+- aggregate-score sample proves `606 / 9 = 67.3` is displayed as `67`, not `68`, under the current rounding rule.
 
 Evening verification:
 - Does the fixture reject a canonical-only update?
 - Does it accept a complete canonical→mirror→deploy→live trace?
 - Does it require `NEEDS_VERIFICATION` when live proof is unavailable?
+- Does the aggregate validator reject arithmetic drift without explicit weighting?
 - Was provider state left untouched?
 
 ## Routed outside Morning Upgrade
@@ -51,6 +56,7 @@ Evening verification:
 1. brain-management automatic GitHub→Netlify publication
    - Existing site ID: `98712296-45be-4c0d-af99-d4ed19507e0e`.
    - Missing proof: an automatic `main`-triggered deployment with source commit, deploy ID, and live JSON freshness.
+   - Provider evidence: the current verified deploy is an API upload and has no branch or commit reference.
    - Route: `/delivery /safe`.
    - Do not create another Netlify site.
 
