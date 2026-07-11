@@ -1,12 +1,18 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-09",
+  "last_updated": "2026-07-11",
   "purpose": "Human-readable source-of-truth mirror for the intent and guardrails of recurring ChatGPT/Codex automations. Live scheduler prompts may be longer; this file records the durable contract.",
+  "scheduler_liveness_evidence_ladder": [
+    "intended_registry_state",
+    "live_enabled_state",
+    "expected_run_observed",
+    "latest_run_outcome"
+  ],
   "automations": [
     {
       "title": "Daily Improve Sweep",
       "status": "active",
-      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "scheduler_state": "verified enabled in ChatGPT Automations on 2026-07-11",
       "primary_role": "Prototyper",
       "secondary_role": "Grower",
       "role": "read-only strategic vision loop with ready prompts across active projects",
@@ -39,7 +45,13 @@
     {
       "title": "Morning System Upgrade",
       "status": "active",
-      "scheduler_state": "verified in ChatGPT Automations UI on 2026-07-09",
+      "scheduler_state": "verified enabled and unique in ChatGPT Automations on 2026-07-11",
+      "scheduler_liveness_evidence": {
+        "intended_registry_state": "active recurring daily loop",
+        "live_enabled_state": "verified enabled; exactly one active Morning System Upgrade",
+        "expected_run_observed": "2026-07-11 scheduled run observed",
+        "latest_run_outcome": "must be recorded separately from enabled state; never inferred from registry intent alone"
+      },
       "primary_role": "Sweeper",
       "secondary_role": "Maintainer",
       "role": "applied safe implementation loop that consumes Daily Improve opportunities and Evening health metrics, then changes harness/docs/registry/tests/scripts or creates exact risky-work handoffs",
@@ -54,14 +66,18 @@
         "finish with APPLIED_UPGRADE or NO_SAFE_UPGRADE",
         "run or maintain scripts/validate-agentic-prompts.mjs so prompt regressions, replay cases, behavior replay fixtures, automation registry contracts, learning-metric counts, and CI workflow contracts are not decorative only",
         "run or maintain scripts/run-behavior-replay-fixtures.mjs so stored expected-pass/expected-fail examples test the guardrail behavior without touching product/provider state",
-        "maintain .github/workflows/agent-harness-validators.yml so the four harness validators have a PR/push/manual CI path to raw pass/fail logs"
+        "maintain .github/workflows/agent-harness-validators.yml so the four harness validators have a PR/push/manual CI path to raw pass/fail logs",
+        "verify scheduler liveness through intended registry state, live enabled state, expected run observed, and latest run outcome before calling the loop healthy",
+        "preserve normal recurring schedules after successful runs; re-enable only an existing clearly intended loop, never create a duplicate, and use NEEDS_VERIFICATION when live Automations access is unavailable"
       ],
       "must_not_do": [
         "perform broad discovery already owned by Daily Improve",
         "touch product code or provider settings",
         "create new top-level skills when active-skill-map can route the behavior",
         "claim success without validation or explicit not-run reason",
-        "end as a passive report when a safe applied upgrade or exact blocked handoff is possible"
+        "end as a passive report when a safe applied upgrade or exact blocked handoff is possible",
+        "disable a normal recurring core loop merely because one run succeeded",
+        "treat registry status as proof that the live scheduler is enabled"
       ],
       "source_files": [
         "projects/codex-automation/AGENT_ROLES.md",
@@ -80,7 +96,7 @@
     {
       "title": "Evening Architecture Review",
       "status": "active",
-      "scheduler_state": "verified in ChatGPT Automations UI on 2026-07-09",
+      "scheduler_state": "verified enabled in ChatGPT Automations on 2026-07-11",
       "primary_role": "Sweeper",
       "secondary_role": "Maintainer",
       "role": "diagnostic architecture review and system health scoring loop that writes a ranked Morning Upgrade handoff",
@@ -94,7 +110,8 @@
         "write next morning handoff with exact safe change, expected metric improvement, validation, and evening verification question",
         "check whether scripts/validate-agentic-prompts.mjs actually prevented prompt/regression/replay/metrics/CI workflow drift or still needs a runner",
         "check whether scripts/run-behavior-replay-fixtures.mjs has produced executable fixture evidence before promoting behavior rules",
-        "check whether .github/workflows/agent-harness-validators.yml produced raw pass/fail logs before promoting structural/fixture-runner coverage"
+        "check whether .github/workflows/agent-harness-validators.yml produced raw pass/fail logs before promoting structural/fixture-runner coverage",
+        "verify that required recurring loops remain enabled and unique instead of trusting registry status alone"
       ],
       "must_not_do": [
         "redo Daily Improve portfolio discovery",
@@ -117,7 +134,7 @@
     {
       "title": "PR Merge Sweep",
       "status": "documented_expected",
-      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "scheduler_state": "verified enabled in ChatGPT Automations on 2026-07-11",
       "primary_role": "Maintainer",
       "secondary_role": "Builder",
       "role": "safe PR merge and recovery sweep with checks, readiness proof, and blocked-work handoff",
@@ -143,7 +160,7 @@
     {
       "title": "Codex Delivery Loop",
       "status": "documented_expected",
-      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "scheduler_state": "verified enabled in ChatGPT Automations on 2026-07-11",
       "primary_role": "Builder",
       "secondary_role": "Maintainer",
       "role": "unfinished delivery recovery loop for concrete tasks, blocked branches, failed checks, and exact next prompts",
@@ -170,7 +187,7 @@
     {
       "title": "Weekly Live Safe Sweep",
       "status": "documented_expected",
-      "scheduler_state": "needs verification in ChatGPT Automations UI",
+      "scheduler_state": "verified enabled in ChatGPT Automations on 2026-07-11",
       "primary_role": "Maintainer",
       "secondary_role": "Sweeper",
       "role": "weekly live and public safety pass for production regressions, UX risks, and exact repair prompts",
