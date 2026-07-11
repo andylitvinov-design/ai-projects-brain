@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-04",
+  "last_updated": "2026-07-11",
   "cases": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -51,6 +51,16 @@
       "expected_behavior": "Morning System Upgrade must either apply a safe, validated harness/docs/registry/regression/ledger/handoff update or explicitly prove NO_SAFE_UPGRADE and route risky/product/provider work to exact tickets.",
       "must_block_success": true,
       "suggested_route": "/upgrade safe harness/docs implementation"
+    },
+    {
+      "id": "recurring-automation-disabled-after-successful-run",
+      "status": "candidate",
+      "source": "Evening Architecture Review 2026-07-10; live ChatGPT Automations state; morning-handoff-queue.md",
+      "pattern": "A required recurring core loop is disabled after one successful run, or the agent trusts static registry status without checking live scheduler state.",
+      "input_signal": "A recurring automation completed successfully while the registry says active, but the live scheduler may be disabled, duplicated, or unavailable for verification.",
+      "expected_behavior": "Keep normal recurring schedules enabled after success; distinguish recurring loops from one-time or condition-watch completion; compare registry intent with live enabled state; re-enable only the existing clearly intended schedule; never create a duplicate; use NEEDS_VERIFICATION when live Automations access is unavailable.",
+      "must_block_success": true,
+      "suggested_route": "/upgrade harness/registry regression plus a live Automations state check"
     }
   ]
 }
