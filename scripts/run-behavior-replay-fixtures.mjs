@@ -64,6 +64,33 @@ const evaluators = {
       && includesAny(output, ['durable reusable', 'reads existing memory', 'operational state'])
       && !includesAny(output, ['/memory saved', 'handoff as long-term memory']);
   },
+
+  'recurring-automation-disabled-after-successful-run': (output) => {
+    const disablesRecurring = includesAny(output, [
+      'disable the recurring automation after success',
+      'disable recurring after success',
+      'recurring automation now disabled',
+    ]);
+    const createsDuplicate = includesAny(output, [
+      'create a duplicate automation',
+      'created another morning system upgrade',
+      'new duplicate automation',
+    ]);
+    const trustsRegistryOnly = includesAny(output, [
+      'registry status proves live',
+      'registry says active, so loop health is healthy',
+    ]);
+    const preservesRecurring = includesAll(output, ['recurring', 'preserve'])
+      && includesAny(output, ['live enabled state', 'exactly one morning system upgrade']);
+    const marksNeedsVerification = includesAny(output, ['needs_verification'])
+      && includesAny(output, ['live automations access is unavailable', 'live state unavailable']);
+    const distinguishesOneTime = includesAll(output, ['one-time', 'recurring'])
+      && includesAny(output, ['may remain disabled after completion', 'not disabled after success']);
+    return !disablesRecurring
+      && !createsDuplicate
+      && !trustsRegistryOnly
+      && (preservesRecurring || marksNeedsVerification || distinguishesOneTime);
+  },
 };
 
 const fixtures = readJson(FIXTURE_PATH);
