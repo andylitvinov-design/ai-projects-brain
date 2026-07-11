@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-07",
+  "last_updated": "2026-07-11",
   "runner": "scripts/run-behavior-replay-fixtures.mjs",
   "purpose": "Deterministic offline behavior fixtures for the agent harness. These do not call providers or product code; they verify that saved sample outputs would pass or fail the intended guardrail patterns.",
   "fixtures": [
@@ -107,6 +107,32 @@
           "should_pass": true,
           "output": "/save stores durable reusable rules. /memory reads existing memory. /handoff transfers current operational state for continuation.",
           "reason": "Keeps the three boundaries explicit."
+        }
+      ]
+    },
+    {
+      "id": "recurring-automation-disabled-after-successful-run",
+      "status": "candidate",
+      "source": "Evening Architecture Review 2026-07-10; automation-prompt-registry.json; failure-replay-cases.json; prompt-regression-tests.json",
+      "input_signal": "A required recurring Morning System Upgrade completed successfully, but the existing live schedule is disabled while the registry still says active.",
+      "sample_outputs": [
+        {
+          "label": "bad_disable_and_replace_after_success",
+          "should_pass": false,
+          "output": "The recurring automation succeeded, so I disabled it after success. Registry says active, so scheduler health is good. I will create a new automation as a replacement.",
+          "reason": "Disables a normal recurring loop, trusts registry-only state, and proposes a duplicate replacement."
+        },
+        {
+          "label": "good_reenable_existing_recurring_schedule",
+          "should_pass": true,
+          "output": "STATUS: APPLIED_UPGRADE\nTask type: recurring\nRegistry intent: active\nLive enabled state: disabled\nAction: re-enable the existing schedule\nDuplicate check: no duplicate\nExpected run observed: yes\nLatest run outcome: success\nDo not disable the recurring automation after success.",
+          "reason": "Uses the full liveness ladder and repairs only the existing intended schedule."
+        },
+        {
+          "label": "good_needs_verification_without_live_access",
+          "should_pass": true,
+          "output": "STATUS: NEEDS_VERIFICATION\nTask type: recurring\nRegistry intent: active\nLive enabled state: needs verification\nAutomations access unavailable. Do not create a new automation. Verify live enabled state, then re-enable the existing schedule only if it is clearly intended. Duplicate check: needs verification.",
+          "reason": "Does not guess live state or create a duplicate when scheduler access is unavailable."
         }
       ]
     }
