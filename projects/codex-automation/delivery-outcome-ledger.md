@@ -46,3 +46,5 @@ Record only evidence-backed outcomes:
 - user correction that exposes repeated agent failure.
 
 Do not record guesses, raw secrets, or private provider values.
+
+| 2026-07-12 | Agent harness / dashboard | Canonical, mirror, deploy and live evidence could drift; score calculation was not machine-enforced | Added deterministic aggregate and four-stage publication-contract validators with one mapped regression, replay and 12-sample behavior fixture; current publication remains `STALE` | PR #103; raw CI pending | Prove existing Netlify Git connection, source commit, and fresh live timestamp before changing status |
