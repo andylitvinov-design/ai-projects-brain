@@ -1,69 +1,89 @@
 # Morning Handoff Queue
 
-Last updated: 2026-07-11 Morning System Upgrade
+Last updated: 2026-07-11 Evening Architecture Review
 
 Purpose: compact queue consumed by Morning System Upgrade. Daily Improve and Evening Architecture Review write safe, deduplicated inputs here.
 
 ## Queue for next Morning System Upgrade
 
-No unconsumed safe upgrade is preselected. Evening Architecture Review should verify today's scheduler-liveness deltas, check the recurring schedule remains enabled after completion, and rank the next highest-leverage safe system issue.
+### Priority 1 — protect dashboard publication truth
 
-Still routed outside Morning Upgrade:
-- Psihotavr provider/live auth and persistence proof: `andylitvinov-design/psihotavr#168` via `/delivery` + `/safe` or `/audit-ui`.
-- Finance provider-balance blocker: `andylitvinov-design/finance#614` via `/audit-fin`.
+ID: `dashboard-canonical-live-freshness-drift`
+
+Problem:
+The canonical health dashboard, brain-management mirror JSON, provider deploy identity, and live freshness can diverge. Today the canonical source still referenced the legacy Cloudflare surface after production moved to Netlify, and the verified Netlify release used an authenticated upload path while automatic GitHub-to-Netlify publication remains unverified.
+
+Exact safe Morning change:
+1. Add prompt regression `dashboard-canonical-live-freshness-drift`.
+2. Add a matching failure replay case.
+3. Add a deterministic behavior fixture with at least these samples:
+   - canonical updated, mirror/live stale, output claims SUCCESS — expected fail;
+   - canonical + mirror + deploy source/ID + live timestamp/content proven — expected pass;
+   - live/provider access unavailable, output uses `NEEDS_VERIFICATION` and does not mutate provider state — expected pass.
+4. Add a candidate publication evidence ladder to the dashboard/automation contract:
+   - canonical source updated;
+   - mirror data synced;
+   - deploy source and deploy ID known;
+   - live timestamp/content verified.
+5. Extend `scripts/validate-agentic-prompts.mjs` to protect the prompt/replay/fixture mapping, require the ladder, and reject canonical-only claims that the dashboard is live-updated.
+6. Update learning metrics and delivery ledger only from actual artifacts.
+7. Do not deploy, change Netlify configuration, or mutate provider state.
+
+Expected health effect:
+- false success protection: +2 to +4;
+- validation evidence: +2;
+- loop closure: +2;
+- regression/replay coverage: +2 to +3.
+
+Required validation:
+- `node scripts/run-agent-harness-validation-evidence.mjs`;
+- raw CI artifact with all four logs;
+- candidate remains unpromoted until a real publication drift/prevention decision is observed.
+
+Evening verification:
+- Does the fixture reject a canonical-only update?
+- Does it accept a complete canonical→mirror→deploy→live trace?
+- Does it require `NEEDS_VERIFICATION` when live proof is unavailable?
+- Was provider state left untouched?
+
+## Routed outside Morning Upgrade
+
+1. brain-management automatic GitHub→Netlify publication
+   - Existing site ID: `98712296-45be-4c0d-af99-d4ed19507e0e`.
+   - Missing proof: an automatic `main`-triggered deployment with source commit, deploy ID, and live JSON freshness.
+   - Route: `/delivery /safe`.
+   - Do not create another Netlify site.
+
+2. Psihotavr provider/live auth and persistence proof
+   - Issue: `andylitvinov-design/psihotavr#168`.
+   - Route: `/delivery /safe` or `/audit-ui`.
+
+3. Finance provider-balance blocker
+   - Issue: `andylitvinov-design/finance#614`.
+   - Route: `/audit-fin`.
 
 ## Closed / consumed items
 
 ### 2026-07-11 — protect required recurring automation liveness
 
-Consumed by Morning System Upgrade 2026-07-11.
+Outcome: `APPLIED_UPGRADE` through PR #101.
 
-Outcome: `APPLIED_UPGRADE`.
-
-Applied:
-- added prompt regression `recurring-automation-disabled-after-successful-run`;
-- added matching failure replay and deterministic behavior fixture;
-- added samples for unsafe disable/replace, safe re-enable of the existing schedule, and `NEEDS_VERIFICATION` when live access is unavailable;
-- updated `scripts/run-behavior-replay-fixtures.mjs` with the liveness evaluator;
-- added the four-level scheduler-liveness evidence ladder to `automation-prompt-registry.json`:
-  - intended registry state;
-  - live enabled state;
-  - expected run observed;
-  - latest run outcome;
-- strengthened `scripts/validate-agentic-prompts.mjs` to protect the new mapping, ladder, duplicate-safe repair, and recurring-loop contract;
-- added required-loop liveness to `systems/active-skill-map.md` as an internal guardrail, not a new top-level skill;
-- live Automations check found exactly one enabled Morning System Upgrade and no duplicate active Morning schedule.
-
-Validation evidence:
-- PR #101: `andylitvinov-design/ai-projects-brain#101`;
-- run #46 failed and exposed an overbroad negation matcher while still uploading raw logs;
-- the matcher was narrowed without weakening the bad disable/replace sample;
-- run #47 passed all four validators;
-- raw artifact `8246272809` contains four logs;
-- prompt validator: 7 regressions, 6 replay cases, 6 fixtures, 7 automation contracts;
-- behavior runner: 6 fixtures, 14 samples, 8 expected pass, 6 expected fail.
-
-Evening verification:
-- verify the existing Morning schedule remains enabled after this successful run;
-- verify exactly one active Morning System Upgrade still exists;
-- accept or correct the dashboard deltas;
-- keep scheduler-liveness behavior candidate until repeated or real prevention evidence exists;
-- keep provider/live gaps separately blocked.
+Evidence:
+- mapped scheduler-liveness prompt regression, replay case, and behavior fixture;
+- four-level scheduler liveness evidence ladder;
+- final PR workflow run #53 passed;
+- live post-run check found exactly one enabled Morning System Upgrade and no duplicate;
+- rule remains candidate pending another real prevention/detection or repair event.
 
 ### 2026-07-10 — unify local and CI raw validator evidence
 
-Consumed by Morning System Upgrade 2026-07-10.
+Outcome: `APPLIED_UPGRADE` through PR #98.
 
-Outcome: `APPLIED_UPGRADE`.
-
-Applied and proven:
-- added `scripts/run-agent-harness-validation-evidence.mjs`;
-- runner creates/cleans the evidence directory, runs all four validators, writes four raw logs, and fails non-zero if any validator fails;
-- `.github/workflows/agent-harness-validators.yml` uses the single runner and treats missing artifact files as an error;
-- `scripts/validate-agentic-prompts.mjs` protects the runner and workflow contract;
-- PR #98 passed run #40 and was merged;
-- PR #99 passed run #42 with the same artifact path;
-- raw PR workflow evidence is available; post-merge push-run evidence remains separately unverified.
+Evidence:
+- one evidence runner executes all four validators;
+- CI uploads four raw logs;
+- raw passing runs #40 and #42 were retrieved;
+- later runs #47 and #53 preserved the contract.
 
 ### Earlier closed items
 
