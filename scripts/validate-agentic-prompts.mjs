@@ -138,7 +138,12 @@ for (const [index, fixture] of behavior.fixtures.entries()) {
   }
 }
 
-for (const id of ['provider-dependent-feature-without-provider-proof', 'daily-improve-strategic-portfolio-not-only-bugs', 'morning-upgrade-report-only-without-applied-upgrade']) {
+for (const id of [
+  'provider-dependent-feature-without-provider-proof',
+  'daily-improve-strategic-portfolio-not-only-bugs',
+  'morning-upgrade-report-only-without-applied-upgrade',
+  'recurring-automation-disabled-after-successful-run',
+]) {
   byId(prompts.tests, id, promptPath);
   byId(replays.cases, id, replayPath);
   byId(behavior.fixtures, id, behaviorPath);
@@ -148,7 +153,7 @@ const providerPrompt = byId(prompts.tests, 'provider-dependent-feature-without-p
 assert(providerPrompt.must_include.includes('NEEDS_VERIFICATION'), 'provider prompt must require NEEDS_VERIFICATION');
 assert(providerPrompt.must_not_include.includes('STATUS: SUCCESS'), 'provider prompt must block false success wording');
 assert(byId(replays.cases, 'provider-dependent-feature-without-provider-proof', replayPath).must_block_success === true, 'provider replay must block success');
-assert(replays.cases.filter((item) => item.must_block_success).length >= 3, 'expected at least 3 must-block-success replay cases');
+assert(replays.cases.filter((item) => item.must_block_success).length >= 4, 'expected at least 4 must-block-success replay cases');
 
 const dailyImprovePrompt = byId(prompts.tests, 'daily-improve-strategic-portfolio-not-only-bugs', promptPath);
 for (const expected of ['cross-project strategic summary', 'project strategic cards', 'ready prompts']) assert(dailyImprovePrompt.must_include.includes(expected), `Daily Improve prompt must include ${expected}`);
@@ -156,10 +161,26 @@ const morningPrompt = byId(prompts.tests, 'morning-upgrade-must-apply-or-prove-n
 assert(morningPrompt.must_include.includes('APPLIED_UPGRADE'), 'Morning prompt must include APPLIED_UPGRADE');
 assert(morningPrompt.alternative_must_include?.includes('NO_SAFE_UPGRADE'), 'Morning prompt must allow NO_SAFE_UPGRADE');
 
+const schedulerPrompt = byId(prompts.tests, 'recurring-automation-disabled-after-successful-run', promptPath);
+for (const expected of ['recurring', 'live enabled state', 're-enable the existing schedule', 'no duplicate', 'NEEDS_VERIFICATION']) assert(schedulerPrompt.must_include.includes(expected), `scheduler liveness prompt must include ${expected}`);
+assert(schedulerPrompt.must_not_include.includes('create a new automation'), 'scheduler liveness prompt must block replacement automation creation');
+assert(byId(replays.cases, 'recurring-automation-disabled-after-successful-run', replayPath).must_block_success === true, 'scheduler liveness replay must block false healthy-loop success');
+
 const registry = readJson(registryPath);
 assert(registry.schema_version === 1, `${registryPath} schema_version must be 1`);
 assert(Array.isArray(registry.automations) && registry.automations.length > 0, `${registryPath} needs automations`);
 assertUnique(registry.automations.map((item) => item.title), `${registryPath} automations`);
+
+const livenessLadder = registry.scheduler_liveness_evidence_ladder;
+assert(livenessLadder && typeof livenessLadder === 'object', `${registryPath} needs scheduler_liveness_evidence_ladder`);
+assertText(livenessLadder.status, `${registryPath}.scheduler_liveness_evidence_ladder.status required`);
+assertTextArray(livenessLadder.levels, `${registryPath}.scheduler_liveness_evidence_ladder.levels`);
+for (const expected of ['intended_registry_state', 'live_enabled_state', 'expected_run_observed', 'latest_run_outcome']) assert(livenessLadder.levels.includes(expected), `scheduler liveness ladder missing ${expected}`);
+assertTextArray(livenessLadder.rules, `${registryPath}.scheduler_liveness_evidence_ladder.rules`);
+assert(livenessLadder.rules.some((item) => /registry status.*live scheduler proof/i.test(item)), 'scheduler liveness ladder must reject registry-only proof');
+assert(livenessLadder.rules.some((item) => /never create a duplicate/i.test(item)), 'scheduler liveness ladder must forbid duplicate automation creation');
+assert(livenessLadder.rules.some((item) => /NEEDS_VERIFICATION/.test(item)), 'scheduler liveness ladder must require NEEDS_VERIFICATION without live access');
+
 const daily = registry.automations.find((item) => item.title === 'Daily Improve Sweep');
 assert(daily, 'registry must include Daily Improve Sweep');
 assert(/strategic|portfolio|vision/i.test(daily.role), 'Daily Improve must keep strategic role');
@@ -169,6 +190,12 @@ assert(morning, 'registry must include Morning System Upgrade');
 assert(morning.must_do.some((item) => /APPLIED_UPGRADE|NO_SAFE_UPGRADE/.test(item)), 'Morning Upgrade must require APPLIED_UPGRADE or NO_SAFE_UPGRADE');
 assert(morning.must_do.some((item) => /validate-agentic-prompts/.test(item)), 'Morning Upgrade must keep validator maintenance in contract');
 assert(morning.must_do.some((item) => /behavior replay/i.test(item)), 'Morning Upgrade must keep behavior replay fixture maintenance in contract');
+assert(morning.must_do.some((item) => /live scheduler enabled state/i.test(item)), 'Morning Upgrade must verify live scheduler enabled state');
+assert(morning.must_do.some((item) => /never create a duplicate/i.test(item)), 'Morning Upgrade must forbid duplicate scheduler repair');
+assert(morning.must_not_do.some((item) => /disable a normal recurring automation/i.test(item)), 'Morning Upgrade must not disable recurring loops after success');
+assert(morning.must_not_do.some((item) => /static registry status/i.test(item)), 'Morning Upgrade must not treat registry status as live proof');
+assert(morning.liveness_evidence && typeof morning.liveness_evidence === 'object', 'Morning Upgrade must record liveness_evidence');
+for (const expected of ['intended_registry_state', 'live_enabled_state', 'expected_run_observed', 'latest_run_outcome']) assertText(morning.liveness_evidence[expected], `Morning Upgrade liveness_evidence.${expected} required`);
 
 const evidenceRunnerText = readText(evidenceRunnerPath);
 for (const expected of [
@@ -194,7 +221,8 @@ assertMetricEquals(metricsText, 'behavior replay fixtures defined', behavior.fix
 assertMetricAtLeast(metricsText, 'feedback-loop validators defined', 1);
 assertMetricAtLeast(metricsText, 'behavior replay runners defined', 1);
 assertMetricAtLeast(metricsText, 'validation CI workflows defined', 1);
+assertMetricAtLeast(metricsText, 'scheduler-liveness regression contracts defined', 1);
 metricCount(metricsText, 'validation commands run');
-for (const requiredTemplateMetric of ['validation_passed:', 'validation_failed:', 'replay_case_passed:', 'prompt_regression_passed:', 'behavior_replay_fixture_passed:', 'behavior_replay_fixture_failed:']) assert(metricsText.includes(requiredTemplateMetric), `${metricsPath} template missing ${requiredTemplateMetric}`);
+for (const requiredTemplateMetric of ['validation_passed:', 'validation_failed:', 'replay_case_passed:', 'prompt_regression_passed:', 'behavior_replay_fixture_passed:', 'behavior_replay_fixture_failed:', 'scheduler_liveness_regression_passed:']) assert(metricsText.includes(requiredTemplateMetric), `${metricsPath} template missing ${requiredTemplateMetric}`);
 
-console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned, fixture-to-prompt coverage checked, CI workflow defined, unified raw evidence runner contract checked`);
+console.log(`agentic prompt validation ok: ${prompts.tests.length} prompt regressions, ${replays.cases.length} replay cases, ${behavior.fixtures.length} behavior fixtures, ${registry.automations.length} automation contracts, metrics aligned, fixture-to-prompt coverage checked, scheduler liveness contract checked, CI workflow defined, unified raw evidence runner contract checked`);
