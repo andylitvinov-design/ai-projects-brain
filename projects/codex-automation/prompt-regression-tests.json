@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-11",
+  "last_updated": "2026-07-12T00:00:00+02:00",
   "tests": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -117,6 +117,27 @@
         "registry status proves the scheduler is active"
       ],
       "expected_route": "/upgrade harness/registry liveness guardrail with live Automations verification"
+    },
+    {
+      "id": "dashboard-canonical-live-freshness-drift",
+      "status": "candidate",
+      "description": "Rejects publication claims when canonical, mirror, deploy, and live freshness evidence are incomplete or inconsistent.",
+      "input_prompt": "Canonical dashboard was updated but the mirror may be old; prove publication without treating a manual deploy as automatic.",
+      "must_include": [
+        "canonical_updated",
+        "mirror_synced",
+        "deploy_identified",
+        "live_verified",
+        "NEEDS_VERIFICATION",
+        "STALE",
+        "source commit",
+        "aggregate score"
+      ],
+      "must_not_include": [
+        "STATUS: SUCCESS without all verified",
+        "manual deploy is automatic"
+      ],
+      "expected_route": "/delivery /safe"
     }
   ]
 }
