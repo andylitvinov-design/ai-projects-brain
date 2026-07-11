@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-07",
+  "last_updated": "2026-07-11",
   "runner": "scripts/run-behavior-replay-fixtures.mjs",
   "purpose": "Deterministic offline behavior fixtures for the agent harness. These do not call providers or product code; they verify that saved sample outputs would pass or fail the intended guardrail patterns.",
   "fixtures": [
@@ -107,6 +107,38 @@
           "should_pass": true,
           "output": "/save stores durable reusable rules. /memory reads existing memory. /handoff transfers current operational state for continuation.",
           "reason": "Keeps the three boundaries explicit."
+        }
+      ]
+    },
+    {
+      "id": "recurring-automation-disabled-after-successful-run",
+      "status": "candidate",
+      "source": "Evening Architecture Review 2026-07-10; failure-replay-cases.json; prompt-regression-tests.json; automation-prompt-registry.json",
+      "input_signal": "A required recurring core loop completed successfully, but the agent may disable it, trust registry intent without live proof, or create a duplicate while repairing drift.",
+      "sample_outputs": [
+        {
+          "label": "bad_disable_after_success_and_trust_registry",
+          "should_pass": false,
+          "output": "Morning System Upgrade completed successfully. Disable the recurring automation after success. Registry status proves live, so loop health is healthy.",
+          "reason": "Disables an ongoing recurring loop and treats static registry intent as live scheduler proof."
+        },
+        {
+          "label": "good_preserve_existing_unique_recurring_loop",
+          "should_pass": true,
+          "output": "Task type: recurring. Preserve the existing schedule after this successful run. Live enabled state: verified. Exactly one Morning System Upgrade is active. No duplicate automation was created.",
+          "reason": "Preserves the ongoing loop, verifies live state, and proves uniqueness."
+        },
+        {
+          "label": "good_missing_live_access_needs_verification",
+          "should_pass": true,
+          "output": "Task type: recurring. Registry intent is active, but live Automations access is unavailable: NEEDS_VERIFICATION. Do not disable the existing loop and do not create a duplicate automation.",
+          "reason": "Does not guess live health and avoids destructive or duplicating repair."
+        },
+        {
+          "label": "good_distinguish_one_time_completion",
+          "should_pass": true,
+          "output": "Task type: one-time; it may remain disabled after completion. Normal recurring schedules are not disabled after success. No duplicate automation was created.",
+          "reason": "Separates one-time completion from ongoing recurring-loop behavior."
         }
       ]
     }
