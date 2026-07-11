@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-11T21:00:00+02:00",
+  "last_updated": "2026-07-11T21:25:00+02:00",
   "status": "active_canonical_dashboard_production_publication_verified",
   "purpose": "Daily dashboard for Andrey's agent/Codex operating-system health. Morning and Evening update the canonical source from evidence; production publication is tracked separately from canonical freshness.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
@@ -11,11 +11,14 @@
   "publication_state": {
     "canonical_source_updated": true,
     "mirror_repository_last_verified": "2026-07-11 Morning System Upgrade snapshot",
+    "mirror_repository_blob_sha": "a4dbfdfca2e8d0c549ccbc69e9255fd6553d5c25",
+    "mirror_repository_last_updated": "2026-07-11T09:35:00+02:00",
     "production_provider": "Netlify",
     "production_deploy_id": "6a5207d064f1feba62676b5e",
     "production_site_id": "98712296-45be-4c0d-af99-d4ed19507e0e",
     "production_deploy_state": "ready",
     "production_source_commit_reported": "2fe343d592386c2e33fe34ffe5a7de9beb08bb9d",
+    "production_deploy_source": "api upload; commit_ref and branch absent",
     "automatic_git_to_netlify_publication": "needs verification",
     "evening_snapshot_published_live": false,
     "evening_snapshot_publication_status": "NEEDS_VERIFICATION",
@@ -31,7 +34,8 @@
     "netlify_deploy_id": "6a5207d064f1feba62676b5e",
     "netlify_deploy_state": "ready",
     "recorded_live_checks": "Homepage, dashboard, two JSON routes, mobile 390x844, and browser console were recorded as passing in issue #28.",
-    "live_automation_state_check": "Exactly one enabled Morning System Upgrade was found after the successful run; no duplicate active Morning schedule exists."
+    "live_automation_state_check": "Exactly one enabled Morning System Upgrade was found after the successful run; no duplicate active Morning schedule exists.",
+    "aggregate_score_check": "The nine displayed numeric metric scores sum to 606; 606/9 = 67.3, so the overall score is 67/100 estimated, not 68."
   },
   "update_rules": {
     "evening": "diagnose, verify Morning deltas, score current health, and set the next safe action",
@@ -39,7 +43,8 @@
     "no_guessing": "Use unknown when evidence is missing. Do not invent numeric scores.",
     "provider_live_rule": "Provider/live readiness improves only from provider/live proof, not docs, code merge, or CI alone.",
     "automation_liveness_rule": "Registry intent is not scheduler proof. A normal recurring loop remains enabled after success; repair only an existing clearly intended schedule; never create a duplicate; use NEEDS_VERIFICATION without live access.",
-    "dashboard_publication_rule_candidate": "Canonical source, mirror data, deploy identity, and live freshness are separate evidence states. Do not call the dashboard live-updated unless all required states are proven."
+    "dashboard_publication_rule_candidate": "Canonical source, mirror data, deploy identity, and live freshness are separate evidence states. Do not call the dashboard live-updated unless all required states are proven.",
+    "aggregate_score_rule": "Overall score is the arithmetic mean of the displayed numeric metric scores unless an explicit weighting is documented. Report the calculation and coverage."
   },
   "columns": [
     "metric",
@@ -175,10 +180,11 @@
     }
   ],
   "overall": {
-    "score_now": "68/100 estimated across scored metrics",
+    "score_now": "67/100 estimated across scored metrics",
     "yesterday": "65/100 estimated",
-    "change": "+3 estimated",
+    "change": "+2 estimated",
     "scored_metrics_coverage": "9/10",
+    "calculation": "(66 + 67 + 52 + 79 + 78 + 72 + 64 + 72 + 56) / 9 = 67.3, rounded to 67",
     "strongest_metric": "Loop closure at 79/100: the Morning handoff, CI, post-run scheduler state, and dashboard deployment each reached an evidence-backed outcome.",
     "weakest_metric": "Provider/live readiness remains unknown at portfolio level; user pain repetition is 52/100.",
     "biggest_improvement_today": "Active project momentum and delivery completion improved after the verified Netlify production release.",
@@ -253,6 +259,10 @@
       "Delivery completion quality: rework and recovery count"
     ],
     "rationale": "Agent reliability research favors multi-dimensional consistency and bounded failure analysis, while reproducible agent evaluation requires inspectable trajectories and evidence. The current dashboard should strengthen trace completeness rather than add overlapping metrics.",
+    "sources": [
+      "https://arxiv.org/abs/2602.16666",
+      "https://arxiv.org/abs/2604.01437"
+    ],
     "lifecycle_status": "candidate"
   },
   "morning_handoff": {
@@ -266,8 +276,8 @@
     {
       "date": "2026-07-11",
       "cycle": "evening_architecture_review",
-      "summary": "Accepted Morning's scheduler-liveness deltas, verified recurring post-run liveness, recognized the verified Netlify production release, corrected repeated user-pain scoring, and selected dashboard publication freshness as the next structural issue.",
-      "dashboard_impact": "False success 63->66; delivery 62->67; user pain 55->52; loop closure 74->79; validation 75->78; rule lifecycle 62->64; automation noise 68->72; momentum 50->56; overall 65->68."
+      "summary": "Accepted Morning's scheduler-liveness deltas, verified recurring post-run liveness, recognized the verified Netlify production release, corrected repeated user-pain scoring, corrected the aggregate arithmetic, and selected dashboard publication freshness as the next structural issue.",
+      "dashboard_impact": "False success 63->66; delivery 62->67; user pain 55->52; loop closure 74->79; validation 75->78; rule lifecycle 62->64; automation noise 68->72; momentum 50->56; overall 65->67."
     },
     {
       "date": "2026-07-11",
