@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-10T21:15:00+02:00",
+  "last_updated": "2026-07-11T09:35:00+02:00",
   "status": "active_dashboard_with_live_surface",
   "purpose": "Daily dashboard for Andrey's agent/Codex operating-system health. Morning and Evening update the canonical source and live mirror from evidence.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
@@ -8,20 +8,18 @@
   "live_url": "https://brain-management.pages.dev/system-health-dashboard/",
   "brain_management_data_path": "system-health-dashboard/data/current-system-health-dashboard.json",
   "evidence": {
-    "applied_upgrade_pr": "https://github.com/andylitvinov-design/ai-projects-brain/pull/98",
-    "first_ci_run": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075418092",
-    "second_ci_run": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075603213",
-    "second_ci_artifact": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29075603213/artifacts/8220573543",
-    "runner_merge_sha": "d55949911efb34eb3828a9c2857a4913de9be2e7",
-    "dashboard_merge_sha": "0d169c29fe067507319e283c05a80640d0aa0305",
-    "automation_state_check": "Live ChatGPT Automations state checked 2026-07-10; existing Morning System Upgrade schedule was disabled and was re-enabled without creating a duplicate."
+    "applied_upgrade_pr": "https://github.com/andylitvinov-design/ai-projects-brain/pull/101",
+    "failed_diagnostic_run": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29144392885",
+    "passing_ci_run": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29144466323",
+    "passing_ci_artifact": "https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29144466323/artifacts/8246272809",
+    "live_automation_state_check": "Exactly one enabled Morning System Upgrade was found on 2026-07-11; no duplicate active Morning schedule exists."
   },
   "update_rules": {
-    "evening": "diagnose, verify Morning deltas, score current health, repair only narrow clearly intended loop-state drift, and set the next safe action",
+    "evening": "diagnose, verify Morning deltas, score current health, and set the next safe action",
     "morning": "apply a safe upgrade, publish evidence-backed deltas, and set the Evening verification question",
     "no_guessing": "Use unknown when evidence is missing. Do not invent numeric scores.",
     "provider_live_rule": "Provider/live readiness improves only from provider/live proof, not docs, code merge, or CI alone.",
-    "automation_liveness_rule": "Registry status is not live scheduler proof. Required recurring loops need current enabled-state and missed-run evidence."
+    "automation_liveness_rule": "Registry intent is not scheduler proof. A normal recurring loop remains enabled after success; repair only an existing clearly intended schedule; never create a duplicate; use NEEDS_VERIFICATION without live access."
   },
   "columns": [
     "metric",
@@ -29,6 +27,8 @@
     "yesterday",
     "change",
     "confidence",
+    "evidence",
+    "root_cause",
     "done_today",
     "tomorrow_action"
   ],
@@ -40,34 +40,34 @@
       "yesterday": "unknown",
       "change": "unknown",
       "confidence": "unknown",
-      "evidence": "Psihotavr #168 and Finance #614 remain open; no new provider/config/data/deploy/live proof was found.",
-      "root_cause": "Provider-backed outcomes are still separated from code/CI evidence and have not received live verification.",
-      "done_today": "Verified that no provider/live claim should be promoted from the harness CI work.",
+      "evidence": "Psihotavr #168 and Finance #614 remain open; no new provider/config/data/deploy/live proof was produced.",
+      "root_cause": "Provider-backed outcomes remain outside the safe harness upgrade and require separate live verification.",
+      "done_today": "No provider state was mutated and no harness evidence was counted as provider progress.",
       "tomorrow_action": "Keep blocked until provider/env/data/deploy/live behavior proof exists."
     },
     {
       "id": "false_success_protection",
       "metric": "False success protection",
-      "today": "60/100 estimated",
+      "today": "63/100 estimated",
       "yesterday": "60/100 estimated",
-      "change": "0",
+      "change": "+3",
       "confidence": "high",
-      "evidence": "Raw CI evidence supports the unified runner; Evening caught a registry/live scheduler mismatch instead of trusting docs alone.",
-      "root_cause": "Static registry state can overstate operational health when live scheduler state is not checked.",
-      "done_today": "Preserved Morning's score and recorded scheduler-state mismatch as a new candidate failure class.",
-      "tomorrow_action": "Add a regression that blocks active-loop claims when required live schedules are disabled or unverified."
+      "evidence": "Run #47 validates a regression that rejects registry-only scheduler health, recurring-loop disable after success, and duplicate replacement.",
+      "root_cause": "Static registry text previously allowed live loop health to be overstated.",
+      "done_today": "Added prompt/replay/fixture protection and validator checks for the scheduler-liveness evidence ladder.",
+      "tomorrow_action": "Evening verifies whether the candidate should remain unpromoted until a later real prevention case."
     },
     {
       "id": "delivery_completion_quality",
       "metric": "Delivery completion quality",
-      "today": "61/100 estimated",
-      "yesterday": "60/100 estimated",
+      "today": "62/100 estimated",
+      "yesterday": "61/100 estimated",
       "change": "+1",
       "confidence": "high",
-      "evidence": "PR #98 and PR #99 both received successful raw CI runs and artifacts; post-merge push-run evidence is not retrievable through the current connector path.",
-      "root_cause": "PR validation and post-merge-main validation are still different evidence states.",
-      "done_today": "Fetched run #42 job and artifact evidence and kept the post-merge-main limitation explicit.",
-      "tomorrow_action": "Preserve PR/CI/artifact evidence and add an exact post-merge-main check or limitation state."
+      "evidence": "PR #101 has a complete failure-to-recovery chain: run #46 failed with raw artifact evidence, the evaluator was fixed narrowly, and run #47 passed.",
+      "root_cause": "The first evaluator treated a negated good phrase as a violation.",
+      "done_today": "Diagnosed raw output, repaired only the matcher, and reran the full unified evidence path.",
+      "tomorrow_action": "Preserve PR validation versus post-merge-main validation as separate evidence states."
     },
     {
       "id": "user_pain_repetition",
@@ -76,70 +76,70 @@
       "yesterday": "55/100 estimated",
       "change": "0",
       "confidence": "low",
-      "evidence": "Reports remain concrete and linked; no new durable user-correction artifact was added to the ledger tonight.",
-      "root_cause": "Status language for retryable provider/network errors versus terminal blockers remains only informally handled.",
-      "done_today": "Kept the existing score and proposed a narrow future status-classification rule rather than inventing evidence.",
-      "tomorrow_action": "Capture the next confirmed retryable-versus-terminal blocker example as a regression candidate."
+      "evidence": "The exact Evening handoff was implemented; no new durable user-correction signal was observed.",
+      "root_cause": "No new repeated pain class was evidenced today.",
+      "done_today": "Reported concrete changes, validation, live scheduler state, and unchanged blockers.",
+      "tomorrow_action": "Continue concrete changed-file and live-evidence reporting."
     },
     {
       "id": "loop_closure",
       "metric": "Loop closure",
-      "today": "70/100 estimated",
+      "today": "74/100 estimated",
       "yesterday": "70/100 estimated",
-      "change": "0",
+      "change": "+4",
       "confidence": "high",
-      "evidence": "Morning consumed the prior handoff; Evening found the next Morning schedule disabled and restored the existing schedule.",
-      "root_cause": "Loop completion was measured from files and reports, not from continued scheduler liveness.",
-      "done_today": "Re-enabled the existing Morning System Upgrade schedule without creating a duplicate.",
-      "tomorrow_action": "Make required-loop liveness a checked part of Morning/Evening completion."
+      "evidence": "The Evening scheduler-liveness handoff was consumed, implemented, raw-CI validated, and the expected Morning run was observed with exactly one enabled schedule.",
+      "root_cause": "Loop closure previously measured reports and files better than continued scheduler liveness.",
+      "done_today": "Closed the requested prompt/replay/fixture/registry gap and verified live uniqueness.",
+      "tomorrow_action": "Evening verifies the schedule remains enabled after successful completion."
     },
     {
       "id": "validation_evidence",
       "metric": "Validation evidence",
-      "today": "74/100 estimated",
-      "yesterday": "72/100 estimated",
-      "change": "+2",
+      "today": "75/100 estimated",
+      "yesterday": "74/100 estimated",
+      "change": "+1",
       "confidence": "high",
-      "evidence": "Run #42 passed the unified runner and uploaded artifact 8220573543 after dashboard/metrics changes; run #40 remains the original runner proof.",
-      "root_cause": "Post-merge push-run lookup is still unavailable through the current commit workflow wrapper.",
-      "done_today": "Fetched the second successful job summary, raw log resource and four-file artifact metadata.",
-      "tomorrow_action": "Add a retrievable post-merge-main evidence path or record the connector limitation explicitly."
+      "evidence": "Run #47 passed the unified four-validator runner and artifact 8246272809 contains four raw logs, all with exit code 0.",
+      "root_cause": "Post-merge push-run retrieval remains a separate connector limitation.",
+      "done_today": "Fetched job status, raw logs, and artifact metadata for the first passing scheduler-liveness CI run.",
+      "tomorrow_action": "Verify final PR/head CI and record post-merge-main state without inference."
     },
     {
       "id": "regression_replay_coverage",
       "metric": "Regression/replay coverage",
-      "today": "68/100 estimated",
+      "today": "72/100 estimated",
       "yesterday": "68/100 estimated",
-      "change": "0",
+      "change": "+4",
       "confidence": "high",
-      "evidence": "Six prompt regressions, five replay cases, five behavior fixtures and eleven deterministic samples remain mapped and CI-passing.",
-      "root_cause": "The newly observed scheduler-liveness drift has no dedicated regression/replay/fixture yet.",
-      "done_today": "Verified existing coverage and identified one new non-overlapping candidate failure class.",
-      "tomorrow_action": "Add recurring-automation-disabled-after-successful-run across prompt regression, replay and behavior fixtures."
+      "evidence": "Coverage is now seven prompt regressions, six replay cases, six behavior fixtures, and fourteen deterministic samples; run #47 passed all mappings and samples.",
+      "root_cause": "The observed recurring-loop disable class previously had no dedicated coverage.",
+      "done_today": "Added one mapped scheduler-liveness class with unsafe, safe-repair, and abstention samples.",
+      "tomorrow_action": "Keep behavior status candidate until later operational prevention evidence exists."
     },
     {
       "id": "rule_lifecycle_health",
       "metric": "Rule lifecycle health",
-      "today": "60/100 estimated",
+      "today": "62/100 estimated",
       "yesterday": "60/100 estimated",
-      "change": "0",
+      "change": "+2",
       "confidence": "high",
-      "evidence": "Raw CI continues to support validation-evidence-reproducibility-local-plus-ci; no live behavior/provider rule gained proof.",
-      "root_cause": "Scheduler-liveness protection is newly observed and not yet tested.",
-      "done_today": "Kept the structural reproducibility rule active and created a scheduler-liveness candidate only.",
-      "tomorrow_action": "Promote scheduler-liveness protection only after regression/fixture evidence and a later detection case."
+      "evidence": "The new rule has regression/replay/fixture and raw CI evidence, but no repeated real prevention case yet.",
+      "root_cause": "One live drift signal justifies testing, not immediate global promotion.",
+      "done_today": "Added a narrow internal guardrail and kept it candidate rather than active.",
+      "tomorrow_action": "Evening accepts or corrects candidate status; promotion requires repeated or real prevention evidence."
     },
     {
       "id": "automation_noise_duplication",
       "metric": "Automation noise / duplication",
-      "today": "62/100 estimated",
-      "yesterday": "50/100 estimated",
-      "change": "+12",
+      "today": "68/100 estimated",
+      "yesterday": "62/100 estimated",
+      "change": "+6",
       "confidence": "high",
-      "evidence": "Live automations were listed; no duplicate active core loops were found; the existing disabled Morning System Upgrade was re-enabled on the intended schedule.",
-      "root_cause": "The registry tracked intended state but not current enabled state or missed-run liveness.",
-      "done_today": "Verified active schedules and repaired one disabled required loop without creating a new automation.",
-      "tomorrow_action": "Add registry/live-state and missed-run evidence to the harness contract."
+      "evidence": "Registry now separates intended state, live enabled state, expected run observed, and latest outcome; live list shows one enabled Morning schedule and no duplicate.",
+      "root_cause": "Registry previously tracked intent without a complete operational liveness ladder.",
+      "done_today": "Added the four-level ladder, duplicate-safe repair rule, and live uniqueness verification.",
+      "tomorrow_action": "Recheck enabled and unique state after completion; never create a replacement automation."
     },
     {
       "id": "active_project_momentum",
@@ -148,52 +148,40 @@
       "yesterday": "50/100 estimated",
       "change": "0",
       "confidence": "low",
-      "evidence": "Psihotavr #168 and Finance #614 remain open with no new comments or closure proof.",
-      "root_cause": "Provider/live work remains routed but not completed.",
-      "done_today": "Kept exact project routes and avoided false progress from harness changes.",
+      "evidence": "Psihotavr #168 and Finance #614 remain open without new live proof.",
+      "root_cause": "Provider/live work remains routed but uncompleted.",
+      "done_today": "Kept exact project routes and avoided false project progress from harness work.",
       "tomorrow_action": "Route Psihotavr through /delivery + /safe or /audit-ui; route Finance through /audit-fin."
     }
   ],
   "overall": {
-    "score_now": "62/100 estimated across scored metrics",
-    "yesterday": "60/100 estimated",
-    "change": "+2 estimated",
+    "score_now": "65/100 estimated across scored metrics",
+    "yesterday": "62/100 estimated",
+    "change": "+3 estimated",
     "scored_metrics_coverage": "9/10",
-    "strongest_metric": "Validation evidence: two successful raw CI runs and downloadable four-file artifacts support the unified runner.",
+    "strongest_metric": "Validation evidence at 75/100: four raw validator logs prove the scheduler-liveness contract and fixture pass.",
     "weakest_metric": "Provider/live readiness remains unknown; active project momentum remains 50/100.",
-    "biggest_improvement_today": "Automation noise / duplication and liveness: 50 -> 62 after live-state verification and scheduler repair.",
-    "main_blocker": "Required automation liveness was not represented in the registry evidence model, while Psihotavr and Finance still lack provider/live proof."
+    "biggest_improvement_today": "Automation noise / duplication: 62 -> 68 after evidence-ladder protection and live uniqueness verification.",
+    "main_blocker": "Scheduler liveness still needs later real prevention evidence; Psihotavr and Finance remain provider/live blocked."
   },
-  "morning_delta_verification": [
-    {"metric":"Provider/live readiness","morning_claim":"unknown -> unknown","decision":"accepted","evening_score":"unknown"},
-    {"metric":"False success protection","morning_claim":"55 -> 60","decision":"accepted","evening_score":"60"},
-    {"metric":"Delivery completion quality","morning_claim":"55 -> 60","decision":"accepted_then_incremented","evening_score":"61"},
-    {"metric":"User pain repetition","morning_claim":"55 -> 55","decision":"accepted","evening_score":"55"},
-    {"metric":"Loop closure","morning_claim":"65 -> 70","decision":"accepted_with_scheduler_repair","evening_score":"70"},
-    {"metric":"Validation evidence","morning_claim":"55 -> 72","decision":"accepted_then_incremented","evening_score":"74"},
-    {"metric":"Regression/replay coverage","morning_claim":"65 -> 68","decision":"accepted","evening_score":"68"},
-    {"metric":"Rule lifecycle health","morning_claim":"55 -> 60","decision":"accepted","evening_score":"60"},
-    {"metric":"Automation noise / duplication","morning_claim":"50 -> 50","decision":"corrected_up_after_live_check","evening_score":"62"},
-    {"metric":"Active project momentum","morning_claim":"50 -> 50","decision":"accepted","evening_score":"50"}
-  ],
   "activity_log": [
+    {
+      "date": "2026-07-11",
+      "cycle": "morning_system_upgrade",
+      "summary": "Implemented recurring scheduler-liveness regression/replay/fixture coverage, registry evidence ladder, validator protection, and live uniqueness verification; recovered run #46 to passing run #47.",
+      "dashboard_impact": "False success 60->63; delivery 61->62; loop closure 70->74; validation 74->75; regression/replay 68->72; rule lifecycle 60->62; automation noise/liveness 62->68; overall 62->65."
+    },
     {
       "date": "2026-07-10",
       "cycle": "evening_architecture_review",
-      "summary": "Verified Morning deltas, fetched a second successful raw CI job/artifact, discovered registry/live scheduler drift, and re-enabled the existing Morning System Upgrade schedule.",
+      "summary": "Verified Morning deltas, fetched repeat raw CI evidence, discovered registry/live scheduler drift, and re-enabled the existing Morning schedule.",
       "dashboard_impact": "Validation evidence 72->74; automation noise/liveness 50->62; overall 60->62."
     },
     {
       "date": "2026-07-10",
       "cycle": "morning_system_upgrade",
-      "summary": "Added one local+CI evidence runner, protected its contract, updated the workflow, fetched successful raw job logs and artifact, and merged PR #98.",
-      "dashboard_impact": "Validation evidence 55->72; false-success protection 55->60; delivery 55->60; loop closure 65->70; regression/replay 65->68; rule lifecycle 55->60."
-    },
-    {
-      "date": "2026-07-09",
-      "cycle": "evening_architecture_review",
-      "summary": "Corrected validation confidence to low because artifact capture existed but raw output was unavailable.",
-      "dashboard_impact": "Produced the exact single-runner handoff consumed on 2026-07-10."
+      "summary": "Added one local+CI evidence runner, protected its contract, updated the workflow, fetched raw logs/artifact, and merged PR #98.",
+      "dashboard_impact": "Validation 55->72; false success 55->60; delivery 55->60; loop closure 65->70; regression/replay 65->68; rule lifecycle 55->60."
     }
   ]
 }
