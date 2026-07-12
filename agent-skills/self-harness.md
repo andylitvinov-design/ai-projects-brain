@@ -113,6 +113,23 @@ Validate using at least one of:
 
 High-risk harness changes require an issue/PR and explicit review.
 
+### Fresh-main and duplicate-work gate
+
+Before opening or promoting a harness PR:
+
+1. Re-fetch current `main`, the target file, and the latest relevant handoff or issue.
+2. Search open and recently closed PRs for the same failure ID, handoff, issue, or target files.
+3. If `main` already contains the intended behavior, do not open another PR; record `SUPERSEDED_BY_MAIN`.
+4. If an equivalent PR exists, reuse or update it instead of opening a parallel PR. Follow the existing-PR recovery rules in `systems/codex-project-workflow.md`.
+5. If only part of the proposal is still missing, salvage the smallest needed hunk onto fresh `main` and close stale work as superseded.
+6. Repeat this gate immediately before PR creation or merge because another automation may finish the same handoff concurrently.
+
+Validation evidence:
+
+- no second active PR exists for the same failure or handoff;
+- the branch is based on fresh `main`, or stale state is explicitly reported;
+- reused, salvaged, or superseded work is named in the final report.
+
 ---
 
 ## 4. Controlled promotion
@@ -187,6 +204,9 @@ Harness proposal:
 
 Validation:
 - pass / fail / not run
+
+Freshness / duplicate-work gate:
+- fresh / reused existing PR / salvaged / superseded / not run
 
 Applied changes:
 - ...
