@@ -1,6 +1,6 @@
 # ChatGPT Automations Runbook
 
-Last updated: 2026-07-02.
+Last updated: 2026-07-12.
 
 Purpose: reduce false alarms and repeated debugging loops around ChatGPT Automations, especially when a run happened but the result is not visible in the current chat.
 
@@ -31,7 +31,7 @@ These are expected active scheduler-owned loops. Re-verify from Automations befo
 | Daily Improve Sweep | daily 09:00 Europe/Sarajevo / Europe/Podgorica context | ChatGPT Automations | read-only strategic improvement planning |
 | Codex Delivery Loop | daily 12:00 Europe/Kyiv | ChatGPT Automations | unfinished delivery work, blocked PRs, failed checks, forgotten branches/worktrees |
 | Weekly Agent Harness Review | Sunday 10:00 Europe/Kyiv | ChatGPT Automations | expanded 7-day self-harness review: repeated agent errors, `/save`, instruction cleanup, Ponytail cleanup findings |
-| Weekly Live Safe Sweep | Monday 09:00 Europe/Sarajevo / Europe/Podgorica context | ChatGPT Automations | weekly `/safe` pass for live/public project security and UX |
+| Weekly Live Safe Sweep | Monday 09:00 Europe/Sarajevo / Europe/Podgorica context | ChatGPT Automations | weekly `/safe` pass for live/public project security and UX |\n| UI Design Intelligence | Monday and Thursday 07:00 Europe/Podgorica | ChatGPT Automations | research and update the evidence-backed `/audit-ui` scorecard; docs-only PR, no product mutation |
 
 ## 3. Visibility rule
 
