@@ -35,6 +35,7 @@ Confirmed from repository code and project memory:
 - `brain-management` contains the mobile-run API and GitHub workflow dispatch integration.
 - `brain-management` contains a GitHub Actions workflow that runs `openai/codex-action@v1` and creates a draft PR.
 - `codex-daily-backups` is described as automatically managed from `air-andrii.lan`; exact local cron/launchd/script is not visible from GitHub and needs verification.
+- `/audit-ui` now has a versioned design-marker scorecard; its scheduled trend loop is docs-only and must not mutate product code.
 
 ## 6. Important Files
 
@@ -43,6 +44,8 @@ Confirmed from repository code and project memory:
 - `CHATGPT_AUTOMATIONS_RUNBOOK.md`
 - `MONITORING.md`
 - `SYSTEM_MAP.md`
+- `../../systems/audit-ui.md`
+- `../../systems/audit-ui-markers.md`
 
 ### codex-links
 
