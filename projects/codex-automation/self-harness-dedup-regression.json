@@ -29,7 +29,7 @@
     {
       "label": "good_superseded_by_main",
       "should_pass": true,
-      "output": "Freshness / duplicate-work gate: re-fetched current main and target file; searched open and recently closed PRs for the same failure ID, handoff, issue, and target files; main already contains the intended behavior; status=SUPERSEDED_BY_MAIN; no PR opened.",
+      "output": "Freshness / duplicate-work gate: re-fetched current main and target file; searched open and recently closed PRs for the same failure ID, handoff, issue, and target files; main already contains the intended behavior; status=SUPERSEDED_BY_MAIN; no PR opened; gate repeated before PR creation.",
       "reason": "Stops duplicate PR creation when main already contains the behavior."
     },
     {
