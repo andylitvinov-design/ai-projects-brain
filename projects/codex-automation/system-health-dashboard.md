@@ -90,7 +90,7 @@ System Improvement no longer compensates for missing Product Delivery or Busines
 | Stage | Status | Evidence |
 | --- | --- | --- |
 | canonical_updated | verified | schema v5 snapshot at `2026-07-12T23:20:00+03:00` |
-| mirror_synced | pending sync | brain-management mirror must receive schema v5 |
+| mirror_synced | verified | brain-management mirror contains the identical schema v5 snapshot and timestamp |
 | deploy_identified | verified | existing Netlify deploy `6a5207d064f1feba62676b5e`; API source; branch/commit absent |
 | live_verified | needs verification | public timestamp/source-mapped deploy not proven |
 
