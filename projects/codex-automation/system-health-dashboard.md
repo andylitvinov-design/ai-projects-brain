@@ -45,7 +45,7 @@ These indicators do not inflate the core score until a stable numeric denominato
 | Dashboard freshness | **STALE** | LIVE within the same Morning/Evening run | Sync mirror, deploy, verify public timestamp |
 | Publication trace completeness | **2/4 stages verified** | 4/4 | Verify canonical, mirror, deploy and live stages |
 | Scheduler liveness | 1 enabled Morning schedule; no duplicate | exactly 1 enabled | Check live scheduler at end of every run |
-| Validation reproducibility | 6 raw validator classes | all required validators with raw evidence | Keep logs and artifact references current |
+| Validation reproducibility | 7 raw validator classes | all required validators with raw evidence | Keep logs and artifact references current |
 | Rework / recovery rate | unknown | measured daily | Count reopened tasks, repeated fixes and failed attempts |
 | Automation hidden cost | unknown | measured daily | Count retries, duplicate scans and avoidable reruns |
 | Rollback / blast-radius readiness | unknown | proved for live changes | Record rollback evidence for provider/live delivery |
@@ -53,12 +53,15 @@ These indicators do not inflate the core score until a stable numeric denominato
 ## Deterministic aggregate
 
 ```txt
-aggregate_method: arithmetic_mean_of_numeric_core_metrics
+canonical_snapshot_timestamp: 2026-07-12T10:05:00+02:00
+aggregate_method: arithmetic_mean_of_numeric_metrics
 unknown_metric_policy: exclude_from_numeric_mean_and_report_in_coverage
 score_sum: 621
 numeric_metric_count: 9
 metric_count_total: 10
 coverage: 9/10
+raw_score: 69
+rounded_score: 69
 reported_score: 69
 yesterday_score: 67
 delta: +2
@@ -71,7 +74,7 @@ A dashboard-changing run is not publication-complete until the public snapshot t
 | Stage | Status | Current evidence |
 | --- | --- | --- |
 | canonical_updated | verified | Canonical JSON and Markdown updated on 2026-07-12 |
-| mirror_synced | pending sync | brain-management mirror must receive the same snapshot |
+| mirror_synced | stale | brain-management mirror must receive the same snapshot |
 | deploy_identified | verified | Existing Netlify deploy identified; automatic Git source commit remains unproven |
 | live_verified | stale | Last verified public snapshot predates canonical |
 
