@@ -249,6 +249,35 @@
         "systems/audit-fin-mode.md",
         "systems/provider-live-readiness-gate.md"
       ]
+    },
+    {
+      "title": "UI Design Intelligence",
+      "status": "active",
+      "scheduler_state": "live enabled in ChatGPT Automations on 2026-07-12; Monday/Thursday 07:00 Europe/Podgorica",
+      "primary_role": "Design Analyst",
+      "secondary_role": "Design Editor",
+      "role": "twice-weekly evidence-backed research and maintenance loop for /audit-ui markers; docs-only unless a separate task explicitly authorizes product work",
+      "must_do": [
+        "read systems/audit-ui.md and systems/audit-ui-markers.md before research",
+        "separate durable accessibility/performance constraints from optional trend candidates",
+        "use at least three credible current sources, including standards/platform guidance and design evidence",
+        "apply at most three evidence-backed marker changes per run or explicitly record NO_MARKER_CHANGE",
+        "update the marker changelog and create or refresh a docs-only PR in ai-projects-brain",
+        "run available marker/prompt validation and report exact commands or not-run reasons"
+      ],
+      "must_not_do": [
+        "change product code, themes, dependencies, provider config, secrets, or production data",
+        "turn a trend into a mandatory style",
+        "reduce accessibility, responsiveness, performance, or clarity for visual novelty",
+        "claim a live site was audited without a supplied URL/screenshot and stated evidence"
+      ],
+      "source_files": [
+        "systems/audit-ui.md",
+        "systems/audit-ui-markers.md",
+        "projects/codex-automation/CHATGPT_AUTOMATIONS_RUNBOOK.md",
+        "projects/codex-automation/automation-prompt-registry.json",
+        "scripts/validate-agentic-prompts.mjs"
+      ]
     }
   ]
 }
