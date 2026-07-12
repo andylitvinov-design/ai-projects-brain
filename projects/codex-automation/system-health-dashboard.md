@@ -2,7 +2,7 @@
 
 **Status:** active canonical dashboard. Public publication state: `NEEDS_VERIFICATION` until the public JSON timestamp matches canonical.
 
-**Last updated:** 2026-07-12 21:00 Europe/Podgorica.
+**Last updated:** 2026-07-12 22:55 Europe/Kyiv.
 
 - **Canonical metrics:** [GitHub dashboard](https://github.com/andylitvinov-design/ai-projects-brain/blob/main/projects/codex-automation/system-health-dashboard.md)
 - **Public dashboard:** [brain-management system health](https://brain-management.netlify.app/system-health-dashboard/)
@@ -35,35 +35,41 @@
 | Regression/replay coverage | 75 | 72 | **+3** | high | 8 regressions, 7 replays, 7 fixtures, 26 samples recorded | Accepted Morning delta | Add coverage only for a new failure class |
 | Rule lifecycle health | 66 | 64 | +2 | medium | Publication rule has tests/validators and one operational case | Retained candidate status | Promote after a second independent case |
 | Automation noise / duplication | 72 | 72 | 0 | high | Exactly one enabled Morning and one enabled Evening; no duplicates | Verified live scheduler state | Recheck after next Morning run |
-| Active project momentum | 56 | 56 | 0 | medium | No new provider proof, publication PR or source-mapped deploy | Did not count issue/docs as production progress | Land publication PR or close one provider-backed outcome |
+| Active project momentum | 56 | 56 | 0 | medium | Composite of Product Delivery 45, System Improvement 88, Business Growth 35 | Split the metric into visible dimensions | Raise delivery with a live outcome and growth with a shipped business improvement |
 
-## Morning delta verification
+## Momentum breakdown
 
-**Accepted:** false success protection, delivery completion quality, loop closure, validation evidence, regression/replay coverage, and rule lifecycle health.
+The previous single momentum score hid an important imbalance. It is now an equal-weight composite:
 
-**Corrected:**
-- User pain repetition: `52 → 50` because one repeated completion request was observed.
-- Publication trace: `2/4 → 3/4` because the mirror timestamp matches canonical.
-- Public status: `NEEDS_VERIFICATION`, because current public JSON and a newer source-mapped deploy were not proven.
+```txt
+Active project momentum = (Product Delivery + System Improvement + Business Growth) / 3
+(45 + 88 + 35) / 3 = 56
+```
 
-**Insufficient evidence:** provider/live readiness, numeric rework rate, numeric hidden cost, and full rollback readiness.
+| Dimension | Today | Yesterday | Change | Confidence | What it means | What raises it |
+| --- | ---: | ---: | ---: | --- | --- | --- |
+| Product Delivery | **45** | 45 | 0 | medium | Real user-visible work, provider proof, merged-and-live outcomes | Close issue #33, ship a verified product change, or close a provider-backed blocker |
+| System Improvement | **88** | 84 | **+4** | high | Harness, automation, validation, replay, dashboard and rule-system quality | Continue evidence-backed system upgrades without replacing product delivery |
+| Business Growth | **35** | 39 | **-4** | low | Offers, funnels, content distribution, conversion, retention and revenue outcomes | Ship and measure one concrete growth improvement |
+
+**Interpretation:** the agent operating system is improving quickly, but product delivery and business growth are not keeping pace. The composite remains 56, but the dashboard now shows where the imbalance actually is.
 
 ## Operational indicators
 
 | Indicator | Current | Target | Evidence / next action |
 | --- | --- | --- | --- |
-| Dashboard freshness | **NEEDS_VERIFICATION** | LIVE within same run | Canonical and mirror share the evening snapshot; deploy and current public JSON still need proof |
+| Dashboard freshness | **NEEDS_VERIFICATION** | LIVE within same run | Canonical and mirror require redeploy/current public JSON proof |
 | Publication trace completeness | **3/4** | 4/4 | canonical_updated, mirror_synced, deploy_identified verified; live_verified missing |
 | Scheduler liveness | 1 Morning + 1 Evening; no duplicates | exactly one of each | Live registry checked; repeat after Morning |
-| Validation reproducibility | 7 validator classes recorded; CI #70 passed | all required raw evidence | Local rerun unavailable in connector-only review; rerun in issue #33 branch |
+| Validation reproducibility | 7 validator classes recorded; CI #70 passed | all required raw evidence | Rerun in issue #33 branch |
 | Rework / recovery rate | unknown; 1 repeated request observed | measured daily | Add attempts/reopens/repeated-corrections denominator |
 | Automation hidden cost | unknown; verification path fragmented | measured daily | Add non-sensitive retry/duplicate-scan counters |
-| Rollback / blast-radius readiness | partial | proved for live changes | Deploy ID/permalink known; source commit/branch rollback proof absent |
+| Rollback / blast-radius readiness | partial | proved for live changes | Deploy ID known; source commit/branch rollback proof absent |
 
 ## Deterministic aggregate
 
 ```txt
-canonical_snapshot_timestamp: 2026-07-12T21:00:45+02:00
+canonical_snapshot_timestamp: 2026-07-12T22:55:00+03:00
 aggregate_method: arithmetic_mean_of_numeric_metrics
 unknown_metric_policy: exclude_from_numeric_mean_and_report_in_coverage
 score_sum: 619
@@ -81,34 +87,29 @@ delta: +2
 
 | Stage | Status | Current evidence |
 | --- | --- | --- |
-| canonical_updated | verified | Canonical JSON and Markdown refreshed at `2026-07-12T21:00:45+02:00` |
-| mirror_synced | verified | brain-management mirror receives the same complete snapshot and timestamp |
+| canonical_updated | verified | Canonical JSON and Markdown refreshed at `2026-07-12T22:55:00+03:00` |
+| mirror_synced | pending_sync | Mirror must receive the same schema-v4 snapshot |
 | deploy_identified | verified | Existing Netlify deploy `6a5207d064f1feba62676b5e`; deploy source `api`; branch/source commit absent |
-| live_verified | needs_verification | Last recorded public timestamp predates canonical; current public JSON was not retrievable |
+| live_verified | needs_verification | Current public timestamp and source-mapped deploy remain unproven |
 
-`SUCCESS` requires all four stages to be verified. A code commit, mirror update, issue, or API/manual deploy alone is not live success.
+`SUCCESS` requires all four stages to be verified.
 
 ## Ranked Morning handoff
 
-### 1. Close automatic canonical → mirror → existing Netlify publication
+### 1. Raise Product Delivery and complete publication
 
-- **Top structural blocker:** issue [brain-management #33](https://github.com/andylitvinov-design/brain-management/issues/33) remains open with no PR.
-- **Exact safe change:** on a fresh `brain-management` branch, add deterministic canonical sync/validation and Git-based deployment for existing site `98712296-45be-4c0d-af99-d4ed19507e0e`. Never create a new site.
-- **Expected impact:** false success `+1`, delivery completion `+2`, loop closure `+2`, active momentum `+2`; publication `3/4 → 4/4` only if live proof succeeds.
-- **Validation:** canonical/mirror equality; required metric/indicator validator; build/lint/tests; production branch/source commit/deploy ID; public JSON timestamp equals canonical; clean desktop/mobile smoke.
-- **Evening question:** Does public JSON exactly match canonical with all four stages verified and a source commit recorded?
+- Execute [brain-management #33](https://github.com/andylitvinov-design/brain-management/issues/33).
+- Required result: PR → merge → existing Netlify deploy → public timestamp equals canonical.
+- Expected effect: Product Delivery `45 → 50+`, publication `3/4 → 4/4`, only after live proof.
 
-### 2. Add denominators for rework and hidden cost
+### 2. Raise Business Growth with one shipped outcome
 
-- **Exact safe change:** docs/schema-only counters for attempts, reopened tasks, repeated corrections, verification retries and duplicate scans. Historical unavailable values stay `unknown`.
-- **Validation:** schema rejects missing denominator fields and never converts unknown to zero.
-- **Evening question:** Were counters populated only from observed events?
+- Select one active project and ship one measurable offer, funnel, content-distribution, conversion, retention, or revenue improvement.
+- Do not count planning, prompts, issues, or docs as Business Growth.
 
-### 3. Define provider/live readiness denominator
+### 3. Preserve strong System Improvement without letting it hide delivery gaps
 
-- **Exact safe change:** docs/schema inventory of provider-dependent production surfaces and their proof states; no provider configuration changes.
-- **Validation:** every surface has repo/live/provider, required proof, state and evidence timestamp.
-- **Evening question:** Is the denominator stable without counting harness evidence as provider proof?
+- Continue safe harness upgrades, but always report the three momentum dimensions separately.
 
 ## Current blockers
 
