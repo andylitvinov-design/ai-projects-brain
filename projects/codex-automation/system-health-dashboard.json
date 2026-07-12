@@ -100,7 +100,7 @@
       "yesterday": "78/100 estimated",
       "change": "+3",
       "confidence": "high",
-      "evidence": "Raw validator logs exist for prompt, behavior, context, projects, aggregate and publication checks.",
+      "evidence": "Raw validator logs exist for prompt, behavior, context, projects, aggregate, publication and self-harness dedup checks.",
       "root_cause": "Evidence was previously left at PR-reported or workflow-defined level.",
       "done_today": "Recorded exact raw evidence state.",
       "tomorrow_action": "Keep PR CI and post-merge-main CI separate."
@@ -112,7 +112,7 @@
       "yesterday": "72/100 estimated",
       "change": "+3",
       "confidence": "high",
-      "evidence": "8 prompt regressions, 7 replay cases, 7 behavior fixtures and 26 deterministic samples are mapped.",
+      "evidence": "8 prompt regressions, 7 replay cases, 7 behavior fixtures and 26 deterministic samples are mapped; one separate self-harness dedup fixture has 4 samples.",
       "root_cause": "Publication drift and aggregate arithmetic previously lacked executable coverage.",
       "done_today": "Verified mapped expected-pass and expected-fail behavior.",
       "tomorrow_action": "Add coverage only for a genuinely new failure class."
@@ -182,9 +182,9 @@
     {
       "id": "reproducibility",
       "metric": "Validation reproducibility",
-      "value": "6 raw validator classes",
+      "value": "7 raw validator classes",
       "target": "all required validators with raw evidence",
-      "evidence": "Prompt, behavior, context, projects, aggregate and publication validators are represented.",
+      "evidence": "Prompt, behavior, context, projects, aggregate, publication and self-harness dedup validators are represented.",
       "next_action": "Keep raw logs/artifact references current."
     },
     {
@@ -223,12 +223,14 @@
     "main_blocker": "Public dashboard freshness is stale and two provider-backed project outcomes remain unproven."
   },
   "aggregate": {
-    "aggregate_method": "arithmetic_mean_of_numeric_core_metrics",
+    "aggregate_method": "arithmetic_mean_of_numeric_metrics",
     "unknown_metric_policy": "exclude_from_numeric_mean_and_report_in_coverage",
     "score_sum": 621,
     "numeric_metric_count": 9,
     "metric_count_total": 10,
     "coverage": "9/10",
+    "raw_score": 69,
+    "rounded_score": 69,
     "reported_score": 69,
     "yesterday_score": 67,
     "delta": 2
@@ -240,20 +242,39 @@
     "stages": {
       "canonical_updated": {
         "status": "verified",
-        "timestamp": "2026-07-12T10:05:00+02:00"
+        "timestamp": "2026-07-12T10:05:00+02:00",
+        "checked_url_or_path": "projects/codex-automation/system-health-dashboard.json",
+        "evidence_type": "github_canonical_file",
+        "evidence_reference": "Canonical JSON and Markdown updated in ai-projects-brain.",
+        "confidence": "high"
       },
       "mirror_synced": {
-        "status": "pending_sync",
-        "timestamp": null
+        "status": "stale",
+        "timestamp": "2026-07-11T09:35:00+02:00",
+        "checked_url_or_path": "brain-management mirror system-health-dashboard snapshot",
+        "evidence_type": "mirror_snapshot_timestamp",
+        "evidence_reference": "Mirror/public snapshot predates the canonical snapshot.",
+        "confidence": "medium",
+        "failure_reason": "Mirror has not yet been proven synced to the canonical 2026-07-12T10:05:00+02:00 snapshot."
       },
       "deploy_identified": {
         "status": "verified",
+        "timestamp": "2026-07-11T09:35:00+02:00",
+        "checked_url_or_path": "Netlify deploy 6a5207d064f1feba62676b5e",
+        "evidence_type": "deploy_metadata",
+        "evidence_reference": "Existing Netlify deploy identified; automatic Git publication source commit remains unproven.",
+        "confidence": "medium",
         "deploy_id": "6a5207d064f1feba62676b5e",
         "source_commit_sha": null
       },
       "live_verified": {
         "status": "stale",
-        "timestamp": "2026-07-11T09:35:00+02:00"
+        "timestamp": "2026-07-11T09:35:00+02:00",
+        "checked_url_or_path": "https://brain-management.netlify.app/system-health-dashboard/",
+        "evidence_type": "public_snapshot_timestamp",
+        "evidence_reference": "Last verified public snapshot predates canonical.",
+        "confidence": "high",
+        "failure_reason": "Public snapshot timestamp is older than canonical_snapshot_timestamp."
       }
     },
     "rules": [

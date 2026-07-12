@@ -5,7 +5,8 @@ Andrey's projects. Use it for visual/product UI work without turning a narrow
 fix into a redesign.
 
 It starts with `/context-scout` from `systems/context-scout-mode.md`, then reads
-only the smallest useful UI context.
+only the smallest useful UI context. `/context-scout` preflight runs first before
+any UI critique, plan, edit, or auto-fix.
 
 It uses the durable scorecard in `systems/audit-ui-markers.md`. That scorecard
 makes `/audit-ui` act in three roles at once: **consultant** (fit to product and
