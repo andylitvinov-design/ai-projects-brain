@@ -28,4 +28,4 @@ jobs:
           SHA: ${{ github.sha }}
         run: |
           test -n "$TOKEN" || { echo "BRAIN_MANAGEMENT_SYNC_TOKEN is required for automatic publication."; exit 1; }
-          curl --fail-with-body --request POST +            --url https://api.github.com/repos/andylitvinov-design/brain-management/dispatches +            --header "Accept: application/vnd.github+json" +            --header "Authorization: Bearer $TOKEN" +            --data "{\"event_type\":\"system-health-dashboard-updated\",\"client_payload\":{\"canonical_sha\":\"$SHA\"}}"
+          curl --fail-with-body --request POST "https://api.github.com/repos/andylitvinov-design/brain-management/dispatches" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $TOKEN" --data "{\"event_type\":\"system-health-dashboard-updated\",\"client_payload\":{\"canonical_sha\":\"$SHA\"}}"
