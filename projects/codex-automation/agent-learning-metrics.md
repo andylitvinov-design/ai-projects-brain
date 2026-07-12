@@ -1,65 +1,53 @@
 # Agent Learning Metrics
 
-Last updated: 2026-07-11 Evening Architecture Review
+Last updated: 2026-07-12 Morning System Upgrade
 
 Purpose: measure whether the agent harness actually improves behavior instead of only adding more rules.
 
 ## Evidence rule
 
-Never count a metric without evidence. Acceptable evidence:
-
-- delivery outcome ledger entry;
-- automation report or live Automations state;
-- GitHub issue or PR;
-- user correction;
-- prompt regression test;
-- replay case;
-- behavior fixture output;
-- validation output;
-- GitHub Actions/check log and artifact;
-- live ChatGPT Automation prompt/state update confirmed by the Automations tool;
-- provider deploy state plus recorded live/browser verification;
-- cited public trend research used only for metric-model review.
+Never count a metric without evidence. Acceptable evidence includes delivery ledgers, automation/live scheduler state, GitHub PRs/issues, user corrections, mapped prompt regressions and replay cases, behavior fixture output, validator output, raw GitHub Actions artifacts, and provider deploy plus live/browser proof. Do not count a provider release from code or CI alone.
 
 ## Current baseline
 
 | Metric | Count | Evidence | Notes |
 | --- | ---: | --- | --- |
-| provider/live gate triggered | 3 | Psihotavr issue #168; Finance issue #614; brain-management issue #28 | Brain-management reached a verified Netlify release; the two earlier provider blockers remain open. |
-| provider/live releases verified | 1 | brain-management issue #28; Netlify deploy `6a5207d064f1feba62676b5e`; PR #29 | Counts a provider-ready user-visible release, not code merge alone. |
-| false-success prevention candidates | 3 | provider proof; report-only Morning; recurring scheduler liveness | Scheduler-liveness false health remains a saved candidate failure class. |
-| dashboard publication drift candidates | 1 | Evening Review 2026-07-11; canonical/mirror legacy URL; verified Netlify production | Candidate is queued for Morning prompt/replay/fixture coverage. |
-| user corrections converted to harness artifacts | 5 | Delivery ledger 2026-07-04 and 2026-07-11; upgrade-cycle metrics contract | Today's direct-execution-versus-prompt correction was recorded in the ledger and dashboard. |
-| rule lifecycle changes | 3 | 2026-07-04 Morning System Upgrade | Created provider/live gate, lifecycle standard, and replay/regression scaffolds. |
-| upgrade cycle metrics contracts defined | 1 | `systems/upgrade-cycle-metrics.md`; automation prompt registry | Defines Evening scoring and Morning applied-upgrade metrics. |
-| health delta reporting contracts defined | 1 | `systems/upgrade-cycle-metrics.md`; live automation prompts | Morning must report before/after/delta/confidence/evidence. |
-| evening health delta verifications completed | 3 | Evening Reviews 2026-07-09, 2026-07-10, and 2026-07-11 | Latest Evening accepted evidence-backed deltas, corrected user-pain scoring, and incorporated the verified production release. |
-| metric model trend-review contracts defined | 1 | `systems/upgrade-cycle-metrics.md` | Publication trace completeness is a candidate subdimension, not a new top-level metric. |
-| live automation prompts updated for metrics split | 2 | ChatGPT Automations update 2026-07-09 | Morning and Evening prompts retain the health-delta split. |
-| replay cases defined | 7 | `failure-replay-cases.json` | The publication-drift case is queued but not counted before implementation. |
-| prompt regressions defined | 8 | `prompt-regression-tests.json` | Every current behavior fixture ID has matching prompt-regression coverage. |
-| feedback-loop validators defined | 1 | `scripts/validate-agentic-prompts.mjs` | Reads prompt/replay/fixture/registry/metrics/workflow, liveness ladder, and unified-runner contracts. |
-| behavior replay runners defined | 1 | `scripts/run-behavior-replay-fixtures.mjs` | Deterministic saved-output runner, not live model replay. |
-| behavior replay fixtures defined | 7 | `behavior-replay-fixtures.json` | Includes liveness samples for unsafe disable/replace, safe existing-schedule repair, and no-live-access abstention. |
-| validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml` | Runs the unified evidence runner on PR, main push, and manual dispatch. |
-| CI raw evidence artifact capture defined | 1 | workflow + prompt validator | Captures the four expected logs and fails if the contract disappears. |
-| unified harness evidence runners defined | 1 | PR #98; `run-agent-harness-validation-evidence.mjs` | One script runs all four validators locally and in CI. |
-| raw CI workflow runs fetched | 4 | runs #40, #42, #47, and #53 | Run #53 is the final passing PR validation for scheduler-liveness coverage. Post-merge push-run lookup remains separately unverified. |
-| validation commands run | 19 | PR #95 reported 3; runs #40, #42, #47, and #53 provide 4 each | Unique command executions are counted; run #53's four job steps passed. |
-| validation evidence propagation fixes | 1 | PR #96 | Evidence states remain separated. |
-| validation recovery fixes | 1 | PR #101 runs #46, #47, and #53 | Run #46 exposed an overbroad negation matcher; the evaluator was narrowed and later runs passed. |
-| stale safe-harness PR reconciled | 2 | PR #92 closed; PR #97 superseded | No stale safe-harness PR remains queued. |
-| unvalidated safe-harness PRs requiring reconciliation | 0 | Morning System Upgrade 2026-07-09 | Current harness changes use fresh branches and CI. |
-| prompt-to-behavior fixture coverage fixes | 2 | Morning Upgrades 2026-07-09 and 2026-07-11 | Scheduler fixture maps to both prompt regression and replay case. |
-| behavior replay fixture samples passed | 14 | runs #47 and #53 raw evidence | Six fixtures / fourteen samples passed. Rerunning the same set does not create new samples. |
-| agentic prompt validator local run passed | 1 | Morning System Upgrade 2026-07-09 | Reconstructed local validation passed. |
-| agentic prompt validator CI runs passed | 4 | runs #40, #42, #47, and #53 | Run #53 confirms the final PR state passed the protected contract. |
-| live automation state checks completed | 3 | Evening 2026-07-10; Morning 2026-07-11; Evening 2026-07-11 | Latest check confirms one enabled Morning schedule after successful completion. |
-| required recurring automations re-enabled after drift | 1 | Evening Architecture Review 2026-07-10 | Existing Morning schedule was restored; no duplicate was created. |
-| active duplicate core automations found | 0 | Live Automations checks 2026-07-10 and 2026-07-11 | No duplicate active Morning System Upgrade exists. |
-| scheduler-liveness regression candidates | 1 | Evening 2026-07-10; Morning and Evening 2026-07-11 | Candidate remains unpromoted until another real prevention/detection or repair case confirms operational value. |
-| scheduler-liveness regression contracts defined | 1 | prompt regression + failure replay + behavior fixture + registry ladder | Structural coverage is implemented and raw-CI validated. |
-| scheduler-liveness deterministic fixture runs passed | 2 | runs #47 and #53 | Both CI runs passed the same saved fixture set; this is repeatability evidence, not two distinct fixtures. |
+| provider/live gate triggered | 3 | Psihotavr #168; Finance #614; brain-management #28 | Brain-management reached one verified Netlify release; two provider blockers remain open. |
+| provider/live releases verified | 1 | brain-management #28; deploy `6a5207d064f1feba62676b5e`; PR #29 | Automatic GitHub→Netlify publication remains unverified. |
+| false-success prevention candidates | 4 | provider proof; report-only Morning; scheduler liveness; dashboard publication drift | Publication drift is now structurally validated but remains candidate. |
+| dashboard publication drift candidates | 1 | Evening 2026-07-11; PR #103; run #70 | Four-stage publication ladder and aggregate guard implemented. |
+| user corrections converted to harness artifacts | 5 | delivery ledger; dashboard; upgrade-cycle contract | No new correction counted in this Morning run. |
+| rule lifecycle changes | 3 | 2026-07-04 Morning System Upgrade | No promotion today; publication and scheduler rules remain candidate. |
+| upgrade cycle metrics contracts defined | 1 | `systems/upgrade-cycle-metrics.md` | Morning/Evening responsibilities remain stable. |
+| health delta reporting contracts defined | 1 | upgrade-cycle contract; dashboard | Includes before/after/delta/confidence/evidence. |
+| evening health delta verifications completed | 3 | Evening Reviews 2026-07-09, 10, 11 | Today’s Morning deltas await Evening verification. |
+| metric model trend-review contracts defined | 1 | `systems/upgrade-cycle-metrics.md` | Publication trace completeness stays a subdimension. |
+| live automation prompts updated for metrics split | 2 | ChatGPT Automations 2026-07-09 | No new prompt mutation today. |
+| replay cases defined | 7 | `failure-replay-cases.json` | Includes `dashboard-canonical-live-freshness-drift`. |
+| prompt regressions defined | 8 | `prompt-regression-tests.json` | Every behavior fixture has matching prompt coverage. |
+| feedback-loop validators defined | 3 | prompt validator plus two dashboard validators | Aggregate and publication truth are deterministic. |
+| behavior replay runners defined | 1 | `scripts/run-behavior-replay-fixtures.mjs` | Offline deterministic saved-output runner. |
+| behavior replay fixtures defined | 7 | `behavior-replay-fixtures.json` | Publication fixture adds 12 samples. |
+| validation CI workflows defined | 1 | `.github/workflows/agent-harness-validators.yml` | Runs unified six-log evidence runner on PR/push/manual dispatch. |
+| CI raw evidence artifact capture defined | 1 | workflow + evidence runner | Artifact includes six raw logs. |
+| unified harness evidence runners defined | 1 | PR #98, extended by PR #103 | Same runner now includes the two dashboard validators. |
+| raw CI workflow runs fetched | 5 | runs #40, #42, #47, #53, #70 | Run #70 is the final passing PR #103 validation. |
+| validation commands run | 25 | PR #95 reported 3; runs #40/#42/#47/#53 had 4 each; run #70 had 6 | Counts command executions, not unique rules. |
+| validation evidence propagation fixes | 2 | PR #96; Morning follow-up after PR #103 | Raw run #70 evidence was propagated into dashboard, metrics, registry, and queue. |
+| validation recovery fixes | 1 | PR #101 | No new recovery was needed in run #70. |
+| stale safe-harness PR reconciled | 2 | PR #92; PR #97 | No stale safe-harness PR is active. |
+| unvalidated safe-harness PRs requiring reconciliation | 0 | PR #103 run #70 | Current selected harness change has raw CI evidence. |
+| prompt-to-behavior fixture coverage fixes | 3 | Morning 2026-07-09, 2026-07-11, PR #103 | Publication fixture maps to prompt and replay. |
+| behavior replay fixture samples passed | 26 | run #70 artifact | Seven fixtures, 26 saved samples; reruns do not create new samples. |
+| agentic prompt validator local run passed | 1 | Morning 2026-07-09 | No additional local checkout was available today. |
+| agentic prompt validator CI runs passed | 5 | runs #40, #42, #47, #53, #70 | Run #70 reports 8/7/7 mapped contracts. |
+| live automation state checks completed | 4 | Evening 2026-07-10; Morning/Evening 2026-07-11; Morning 2026-07-12 | Exactly one enabled Morning schedule exists today. |
+| required recurring automations re-enabled after drift | 1 | Evening 2026-07-10 | No repair was required today. |
+| active duplicate core automations found | 0 | live checks through 2026-07-12 | No duplicate Morning System Upgrade. |
+| scheduler-liveness regression candidates | 1 | Evening 2026-07-10 onward | Still needs a second independent operational case. |
+| scheduler-liveness regression contracts defined | 1 | prompt + replay + fixture + registry ladder | Structurally raw-CI validated. |
+| scheduler-liveness deterministic fixture runs passed | 3 | runs #47, #53, #70 | Repeatability evidence, not three distinct fixtures. |
+| dashboard publication deterministic fixture runs passed | 1 | run #70 artifact | Twelve publication/aggregate samples passed. |
 
 ## Metrics to update after each run
 
@@ -101,63 +89,23 @@ scheduler_liveness_regression_passed:
 dashboard_publication_drift_candidate:
 ```
 
-## Reporting rule
+## Current raw evidence
 
-If metrics are not updated, the report must state why. Missing live access, unavailable raw output, or absent replay evidence is a valid reason; guessing is not.
-
-Count distinct artifacts separately from repeated executions:
-- a repeated CI run may increase `raw CI workflow runs fetched` and `validation commands run`;
-- it does not increase the number of prompt regressions, replay cases, fixtures, or saved samples unless new artifacts were added;
-- a provider release counts only when deploy identity and user-visible proof exist.
-
-## Validator coverage note
-
-As of 2026-07-11, `scripts/validate-agentic-prompts.mjs` checks that:
-
-- seven prompt regressions, six replay cases, and six behavior fixtures are parseable, unique, mapped, and metrics-aligned;
-- every behavior fixture maps to both a replay case and prompt regression and includes expected-pass and expected-fail samples;
-- provider false-success, Daily Improve portfolio, Morning applied/no-op, and recurring scheduler-liveness cases remain present;
-- `recurring-automation-disabled-after-successful-run` blocks duplicate replacement, requires live enabled-state evidence, safe existing-schedule repair, and `NEEDS_VERIFICATION` without live access;
-- `automation-prompt-registry.json` contains the four-level scheduler-liveness evidence ladder;
-- Morning's registry contract preserves recurring schedules and rejects registry-only proof;
-- the unified evidence runner calls all four validators, writes four logs, and fails non-zero on failure;
-- the workflow calls the runner and uploads `agent-harness-validation-evidence`.
-
-Final PR run #53 completed successfully and all validation/artifact-upload steps passed. The saved output set remains:
+PR #103 merged at `779c7f74f1889e163c43ea1f5c8ac129b586166e`. [Run #70](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/29170610859) completed successfully and artifact `8253415825` contains:
 
 ```txt
-agentic prompt validation ok: 7 prompt regressions, 6 replay cases, 6 behavior fixtures, 7 automation contracts, metrics aligned, fixture-to-prompt coverage checked, scheduler liveness contract checked, CI workflow defined, unified raw evidence runner contract checked
-behavior replay fixtures ok: 6 fixtures, 14 samples (8 expected pass, 6 expected fail)
+agentic prompt validation ok: 8 prompt regressions, 7 replay cases, 7 behavior fixtures, 7 automation contracts, metrics aligned, fixture-to-prompt coverage checked, scheduler liveness contract checked, CI workflow defined, unified raw evidence runner contract checked
+behavior replay fixtures ok: 7 fixtures, 26 samples (14 expected pass, 12 expected fail)
 context-scout verification ok
 validation ok: 20 projects
+numeric_metrics=9; score_sum=606; raw_average=67.3333; reported_score=67; status=PASS
+publication_status=STALE; success_allowed=false; canonical_updated=verified; mirror_synced=stale; deploy_identified=verified; live_verified=stale; status=PASS
 ```
 
-The validator does not have live ChatGPT Automations or provider access. Scheduler liveness therefore combines deterministic prompt/replay/fixture evidence with a separate live Automations check. Dashboard publication truth must similarly separate canonical, mirror, deploy, and live evidence.
+The artifact digest is `sha256:5c74abfff6e85425a300587ea9adbc2e4d5ea87e5abe56eb52372b3c46a3e3ea`.
 
-## Evidence propagation note
+## Reporting and lifecycle rule
 
-Distinguish:
+Distinct artifacts are counted separately from repeated executions. Re-running an unchanged fixture set may increase workflow-run or command counts, but does not increase regression, replay, fixture, or sample counts. Provider/live readiness changes only from provider/live proof.
 
-1. `intended registry state defined`;
-2. `live scheduler enabled state verified`;
-3. `expected run observed`;
-4. `latest run outcome recorded`;
-5. `canonical dashboard source updated`;
-6. `mirror dashboard data synced`;
-7. `provider deploy source and ID known`;
-8. `live dashboard timestamp/content verified`;
-9. `PR-reported run`;
-10. `CI workflow defined`;
-11. `CI raw evidence artifact capture defined`;
-12. `raw validation output available`;
-13. `behavior replay fixture passed`;
-14. `live behavior/prevention evidence exists`.
-
-Do not treat static registry state as live scheduler proof, deterministic fixtures as live model behavior, or canonical dashboard commits as proof that the production surface is fresh.
-
-## 2026-07-12 publication prevention
-
-- Regression/replay/behavior IDs added: `dashboard-canonical-live-freshness-drift` (1/1/1).
-- New deterministic samples: 12; total fixture samples: 26.
-- Prevention implemented: deterministic aggregate-score and publication-drift validators, not documentation alone.
-- Raw validation result: pending PR CI artifact; no PR or manual deploy is counted as live success.
+`dashboard-canonical-live-freshness-drift` remains `candidate`: structural coverage and raw CI are strong, but promotion requires a second independent operational prevention/detection/repair case and a current live trace. `recurring-automation-disabled-after-successful-run` also remains `candidate` for the same two-case threshold.
