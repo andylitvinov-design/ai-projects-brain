@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-07-12T00:00:00+02:00",
+  "id": "duplicate-harness-pr-after-concurrent-main-update",
+  "purpose": "Deterministic offline fixture for the weekly Self-Harness failure where a second agent opens or promotes a harness PR after the same rule was already merged to main or covered by an equivalent PR.",
+  "required_contract": [
+    "fresh main re-fetch before PR creation",
+    "open and recently closed PR duplicate search",
+    "same failure ID, handoff, issue, or target-file comparison",
+    "SUPERSEDED_BY_MAIN status when main already contains the intended behavior",
+    "reuse or update the existing equivalent PR",
+    "minimal salvage onto fresh main",
+    "repeat the gate immediately before merge",
+    "final report includes Freshness / duplicate-work gate"
+  ],
+  "sample_outputs": [
+    {
+      "label": "bad_parallel_harness_pr_without_freshness_gate",
+      "should_pass": false,
+      "output": "I restored the old handoff, opened a new harness PR, and will merge it. I did not re-check current main or recent PRs because the change is docs-only.",
+      "reason": "Creates/promotes parallel harness work from stale state without proving fresh main or duplicate-work status."
+    },
+    {
+      "label": "bad_equivalent_pr_ignored",
+      "should_pass": false,
+      "output": "A similar PR may exist, but I created another PR with the same target files. Mergeability is enough for this docs-only rule.",
+      "reason": "Treats mergeability as sufficient and ignores equivalent PR reuse."
+    },
+    {
+      "label": "good_superseded_by_main",
+      "should_pass": true,
+      "output": "Freshness / duplicate-work gate: re-fetched current main and target file; searched open and recently closed PRs for the same failure ID, handoff, issue, and target files; main already contains the intended behavior; status=SUPERSEDED_BY_MAIN; no PR opened.",
+      "reason": "Stops duplicate PR creation when main already contains the behavior."
+    },
+    {
+      "label": "good_reuse_existing_pr",
+      "should_pass": true,
+      "output": "Freshness / duplicate-work gate: fresh main checked; open/recent PR search found an equivalent PR for the same handoff and target file; action=reuse existing PR; only missing hunk salvaged onto fresh main; gate repeated immediately before merge.",
+      "reason": "Reuses existing PR and salvages only missing work."
+    }
+  ]
+}
