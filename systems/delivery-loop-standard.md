@@ -2,7 +2,7 @@
 
 Status: central standard document
 Applies to: all active Andrey software projects
-Version: 2026-06-13
+Version: 2026-07-12
 
 ---
 
@@ -26,6 +26,24 @@ task → acceptance criteria → implementation → result quality gate
 ```
 
 No extra delegation language is required. `/delivery` alone is sufficient.
+
+### Approval and file-edit contract
+
+Starting `/delivery` is explicit user approval for routine repository work needed to complete the stated task. The agent must not ask for an additional conversational confirmation before:
+
+- creating or updating ordinary project files;
+- applying a minimal patch;
+- formatting or regenerating derived files;
+- running normal local checks;
+- creating a branch or worktree;
+- committing and pushing a working branch;
+- opening or updating a pull request.
+
+A file-edit confirmation prompt is a harness failure when the edit is inside the stated task and does not cross a risky boundary. Continue autonomously instead.
+
+Pause only for a genuinely new or risky action outside the approved task, including secrets or environment-value changes, destructive production-data operations, billing or account changes, auth/payment mutations, irreversible actions, or a materially broader rewrite.
+
+Runtime boundary: repository instructions can control the agent's behavior, but they cannot suppress a mandatory approval dialog enforced by the Codex host, workspace policy, sandbox, or organization settings. When the host itself requires approval, classify it as `HOST_APPROVAL_REQUIRED`, name the exact runtime boundary, and do not falsely present it as a `/delivery` requirement. Do not ask a second conversational confirmation in addition to the host dialog.
 
 Every `/delivery` run starts with `/context-scout` preflight from
 `systems/context-scout-mode.md`. Inspect first, produce the compact
