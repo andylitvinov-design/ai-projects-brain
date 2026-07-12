@@ -1,5 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import { validateDashboard } from '../scripts/validate-system-health-dashboard.mjs';
 
 function dashboard(overrides = {}) {
@@ -77,3 +80,8 @@ test('rejects issue, prompt, plan, or docs credited as product or business progr
   assert.match(errors, /business_growth credits non-outcome work: docs/);
 });
 
+test('CLI validates the canonical dashboard when invoked without arguments', () => {
+  const script = fileURLToPath(new URL('../scripts/validate-system-health-dashboard.mjs', import.meta.url));
+  const result = spawnSync(process.execPath, [script], { cwd: path.dirname(path.dirname(script)), encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+});

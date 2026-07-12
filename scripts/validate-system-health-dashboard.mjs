@@ -113,9 +113,10 @@ async function readJson(file) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const file = args.includes('--file') ? args[args.indexOf('--file') + 1] : null;
+  const file = args.includes('--file')
+    ? args[args.indexOf('--file') + 1]
+    : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../projects/codex-automation/system-health-dashboard.json');
   const mirrorFile = args.includes('--mirror') ? args[args.indexOf('--mirror') + 1] : null;
-  if (!file) throw new Error('usage: validate-system-health-dashboard.mjs --file <dashboard.json> [--mirror <mirror.json>]');
   const [data, mirror] = await Promise.all([readJson(file), mirrorFile ? readJson(mirrorFile) : Promise.resolve(null)]);
   const errors = validateDashboard(data, { mirror });
   if (errors.length) throw new Error(errors.join('\n'));
