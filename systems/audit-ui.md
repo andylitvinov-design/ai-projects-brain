@@ -7,6 +7,11 @@ fix into a redesign.
 It starts with `/context-scout` from `systems/context-scout-mode.md`, then reads
 only the smallest useful UI context.
 
+It uses the durable scorecard in `systems/audit-ui-markers.md`. That scorecard
+makes `/audit-ui` act in three roles at once: **consultant** (fit to product and
+user goal), **analyst** (evidence and reproducible defects), and **editor**
+(concrete, coherent improvements and a delivery-ready prompt).
+
 ## 0. Mode selection
 
 Before changing code, classify the task:
@@ -19,6 +24,23 @@ Before changing code, classify the task:
 
 Default to Minimal fix when the user asks to fix UI. Default to Audit only when
 the user asks to inspect, review, or audit. Never silently escalate to redesign.
+
+## 0.1 Evidence and input protocol
+
+Accept a live URL, a screenshot, or both. Do not pretend a screenshot proves
+interactive, persisted, auth, or data-backed behavior.
+
+Before critique, record:
+
+- target route/screen and viewport;
+- supplied evidence: URL, screenshot(s), or both;
+- user moment, page goal, and primary action;
+- whether the requested outcome is audit, polish, fix, or redesign;
+- missing evidence that prevents a reliable judgment.
+
+Use the marker statuses and priorities from `systems/audit-ui-markers.md`.
+A screenshot-only audit may give visual direction and a ready prompt, but it
+must mark behavioral claims `NOT_TESTED`.
 
 ## 1. Context read - token-efficient
 
@@ -63,6 +85,24 @@ Existing components/tokens:
 ```
 
 Do not impose generic SaaS aesthetics on every project.
+
+## 2.1 Design-editor deliverable
+
+Every audit must translate judgment into an executable direction:
+
+1. **Diagnosis:** the three highest-impact marker failures with evidence and
+   user impact.
+2. **Recommended direction:** one named visual/editorial direction that fits
+   this specific project; explain what to preserve and what to remove.
+3. **Options:** two compact alternatives only when they represent a real
+   product or brand trade-off. Do not create decorative variants.
+4. **Delivery prompt:** a ready, bounded prompt with target route, evidence,
+   likely files or a search plan, do-not-touch rules, acceptance criteria,
+   three relevant test cases, commands, and STATE/LOG check.
+
+For audit-only work, do not edit code; still provide the delivery prompt. For
+a fix/polish request, apply only the approved minimal safe scope after the
+diagnosis.
 
 ## 3. Critique layer - visual taste
 
@@ -236,6 +276,13 @@ npm run typecheck
 Also run a search confirming this brain standard exists after updating
 `ai-projects-brain`. If commands do not exist, report them as `not present`.
 
+## 10.1 Trend use
+
+Treat current design trends as candidate ideas, not universal requirements.
+Use the gate and expiry rules in `systems/audit-ui-markers.md`. A trend may
+influence the recommended direction only when it improves this page's goal
+without reducing clarity, accessibility, performance, or brand specificity.
+
 ## 11. Final report format
 
 Every `/audit-ui` run must end with:
@@ -252,11 +299,34 @@ Context read:
 Target UI:
 - route/page/component
 
+Marker scoreboard:
+- PASS:
+- WATCH:
+- FAIL (P0/P1/P2):
+- NOT_TESTED:
+
+Evidence:
+- URL / screenshot / viewport:
+- Missing evidence:
+
 UI defects found:
-- Taste:
-- Structure:
-- Polish:
-- Hardening:
+- Consultant diagnosis:
+- Analyst evidence:
+- Editor direction:
+
+Recommended direction:
+- Preserve:
+- Change:
+- Why it fits:
+
+Ideas / alternatives:
+- A (recommended):
+- B (only if materially different):
+
+Ready /delivery prompt:
+```text
+...
+```
 
 Changed files:
 - ...
