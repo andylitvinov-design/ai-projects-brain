@@ -1,0 +1,31 @@
+name: Publish System Health Dashboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'projects/codex-automation/system-health-dashboard.json'
+      - 'scripts/validate-system-health-dashboard.mjs'
+      - '.github/workflows/publish-system-health-dashboard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate canonical schema v4
+        run: node scripts/validate-system-health-dashboard.mjs --file projects/codex-automation/system-health-dashboard.json
+      - name: Dispatch brain-management mirror sync
+        env:
+          TOKEN: ${{ secrets.BRAIN_MANAGEMENT_SYNC_TOKEN }}
+          SHA: ${{ github.sha }}
+        run: |
+          test -n "$TOKEN" || { echo "BRAIN_MANAGEMENT_SYNC_TOKEN is required for automatic publication."; exit 1; }
+          curl --fail-with-body --request POST +            --url https://api.github.com/repos/andylitvinov-design/brain-management/dispatches +            --header "Accept: application/vnd.github+json" +            --header "Authorization: Bearer $TOKEN" +            --data "{\"event_type\":\"system-health-dashboard-updated\",\"client_payload\":{\"canonical_sha\":\"$SHA\"}}"
