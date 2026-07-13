@@ -1,6 +1,6 @@
 # Active Skill Map
 
-Last updated: 2026-07-11
+Last updated: 2026-07-13
 
 Purpose: one source of truth for which agent commands are visible to Andrey, which mechanisms are secondary/internal, and which scheduled loops own recurring work.
 
@@ -16,7 +16,7 @@ These are the commands that may be advertised as primary tools.
 | `/delivery` | Execute a scoped implementation task with context, checks, PR/merge/deploy/live proof when allowed. | Product changes require source-of-truth and verification. |
 | `/audit` | Verify a specific code/data/site/PR/production area and apply safe deterministic fixes only. | No broad redesign or risky mutation. |
 | `/audit-ui` | Verify and minimally fix UI structure, polish, responsive states, and browser-visible regressions. | Must include browser/live proof when a URL/dev server exists. |
-| `/audit-sale` | Audit a public page's audience-message fit, offer, proof, objections, CTA path, friction, and measurement readiness. | Use verified facts only; no dark patterns, invented proof, or promised uplift. |
+| `/audit-sales` | Audit a public page's audience-message fit, offer, proof, objections, CTA path, friction, and measurement readiness. | Use verified facts only; no dark patterns, invented proof, or promised uplift. `/audit-sale` is compatibility alias only. |
 | `/audit-fin` | Verify finance/ledger invariants, defaulting to the last 30 days. | No blind source-data/provider mutation. |
 | `/improve` | Read-only strategic improvement discovery, portfolio vision, and ready prompts. | Finds what to improve; does not execute. |
 | `/safe` | Safety, secrets, auth, API-cost, user-visible reliability, rollback, and runtime-error checks. | Prefer minimal safe fixes and explicit blockers. |
@@ -65,6 +65,8 @@ These are not user-facing commands. They are checks that should be embedded into
 | PR Merge Sweep | Merge/recover safe ready PRs. | Product design, broad audits. |
 | Codex Delivery Loop | Find unfinished delivery work and exact recovery tasks. | Daily Improve discovery. |
 | Weekly Live Safe Sweep | Live safety/security/UX sweep. | Daily feature delivery. |
+| Sales Audit Intelligence | Upgrade the `/audit-sales` scorecard and evidence rules. | Product-site audit or implementation. |
+| Portfolio Sales Audit | Audit all active public sites and produce one Codex prompt per site. | Product code, deploy, provider changes. |
 
 Required recurring loops must preserve their existing schedules after successful runs. Completion of one run is evidence about the run outcome, not permission to disable the recurring loop.
 
@@ -79,13 +81,15 @@ Required recurring loops must preserve their existing schedules after successful
 
 Keep them separate. `/improve` may produce issues/prompts. `/upgrade` may update brain/docs/harness and convert product/risky work into `/delivery`, `/audit-ui`, `/audit-fin`, or `/safe` tickets.
 
-### `/audit-ui` vs `/audit-sale` vs `/improve`
+### `/audit-ui` vs `/audit-sales` vs `/improve`
 
 ```txt
-/audit-ui   = visual hierarchy, responsiveness, polish, accessibility, and browser-visible defects.
-/audit-sale = audience-message fit, offer, proof, objections, CTA path, friction, and measurement readiness.
-/improve    = broad read-only strategic discovery that may produce later delivery work.
+/audit-ui    = visual hierarchy, responsiveness, polish, accessibility, and browser-visible defects.
+/audit-sales = audience-message fit, offer, proof, objections, CTA path, friction, and measurement readiness.
+/improve     = broad read-only strategic discovery that may produce later delivery work.
 ```
+
+`/audit-sale` is accepted only as a compatibility alias for `/audit-sales`; never maintain it as a separate mode.
 
 ### `/save` vs `/memory` vs `/handoff`
 
