@@ -15,9 +15,13 @@ Run `/context-scout` before:
 - `/planner`
 - `/delivery`
 - `/audit`
+- `/audit-ui`
+- `/audit-sales`
 - `/audit-fin`
 - `/critic`
 - `/improve`
+
+The legacy `/audit-sale` trigger routes to `/audit-sales` and uses the same single preflight.
 
 The workflow that follows may plan, edit, create issues, open PRs, or run
 checks according to its own rules. `/context-scout` itself must never mutate
@@ -91,6 +95,10 @@ CONTEXT BUNDLE:
 - `/planner`: use the bundle before asking questions or writing a prompt.
 - `/delivery`: use the bundle before implementation planning or edits.
 - `/audit`: use the bundle to build the explicit verification checklist.
+- `/audit-ui`: use the bundle once to identify the page, visual/default states, target viewports, and browser evidence.
+- `/audit-sales`: use the bundle once to identify the public page, audience,
+  offer, primary conversion action, supplied URL/screenshots, and missing
+  evidence before scoring or proposing a bounded delivery prompt.
 - `/audit-fin`: use the bundle to identify period, data sources, and finance
   invariants before any analysis.
 - `/critic`: use the bundle to critique assumptions, budget, checks, and the

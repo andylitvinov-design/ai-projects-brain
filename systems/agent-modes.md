@@ -28,17 +28,22 @@ Use it together with `systems/agent-rules.md` and `systems/active-skill-map.md`.
 - `/safe` project template: `systems/safe-project-template.md`
 - `/safe` daily report schema: `systems/safe-report-schema.md`
 - `/audit-ui` reusable UI audit standard: `systems/audit-ui.md`
+- `/audit-sales` reusable sales and conversion audit standard: `systems/audit-sales.md`
+- `/audit-sales` scorecard: `systems/audit-sales-markers.md`
 - `/improve` strategic planning mode: `systems/improve-mode.md`
+
+The old `/audit-sale` trigger is a compatibility alias only and routes to `/audit-sales`.
 
 ## Available modes
 
 | Mode | Trigger examples | Use when | Source file |
 | --- | --- | --- | --- |
-| Context Scout | `/context-scout`, implicit preflight before `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`, `/critic`, `/improve` | Read-only project-aware context bundle before planning, execution, audit, UI audit, finance audit, critique, or improvement discovery. | `systems/context-scout-mode.md` |
+| Context Scout | `/context-scout`, implicit preflight before `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-sales`, `/audit-fin`, `/critic`, `/improve` | Read-only project-aware context bundle before planning, execution, audit, UI audit, sales audit, finance audit, critique, or improvement discovery. | `systems/context-scout-mode.md` |
 | Planner | `/planner`, `сформулируй задачу`, `помоги сделать точный prompt для delivery` | ChatGPT must formulate an abstract/risky/unclear task before writing a `/delivery` prompt for Andrey. | `systems/planner-mode.md` |
 | Delivery | `/delivery`, `/delivery /goal`, `выполни delivery` | Codex executes a scoped task through context, implementation, checks, PR/merge/deploy proof, and final report. | `systems/delivery-loop-standard.md` |
 | Audit | `/audit`, `проверь`, `сделай аудит` | Inspect existing code, data, PRs, sites, calculations, or production behavior with a verification checklist and safe deterministic fixes only. | `systems/audit-mode.md` |
 | UI Audit | `/audit-ui`, `UI audit`, `audit ui`, `проверь интерфейс` | Audit or minimally fix UI taste, structure, responsive states, polish, hardening, and browser verification without a redesign unless explicitly requested. | `systems/audit-ui.md` |
+| Sales Audit | `/audit-sales`, `/audit-sale`, `sales audit`, `conversion audit`, `аудит продаж`, `проверь конверсию` | Audit a public page's audience-message fit, offer clarity, trust, objections, CTA path, friction, and measurement readiness without invented proof, promised uplift, dark patterns, or a redesign. | `systems/audit-sales.md` |
 | Finance Audit | `/audit-fin`, `финансовый аудит`, `проверь финансы` | Audit finance/ledger data for a period, defaulting to the last 30 days, with strict balance and source-record boundaries. | `systems/audit-fin-mode.md` |
 | Critic | `/critic`, `раскритикуй задачу`, `проверь prompt перед запуском` | Critique a proposed goal, task, loop, prompt, or workflow before execution and return an improved execution prompt. | `systems/critic-mode.md` |
 | Improve | `/improve`, `/improve page`, `/improve branch`, `/improve quick`, `/improve reconcile` | Run read-only strategic improvement discovery and produce delivery-ready plans or GitHub issues for later execution. | `systems/improve-mode.md` |
@@ -53,22 +58,14 @@ Use it together with `systems/agent-rules.md` and `systems/active-skill-map.md`.
 ## Default behavior without an explicit mode
 
 - For normal project work, use `systems/agent-rules.md` and `systems/autonomous-project-executor.md`.
-- `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`, `/critic`,
-  and `/improve` start with `/context-scout` preflight from
-  `systems/context-scout-mode.md`.
-- For abstract, risky, or unclear tasks that need an execution prompt, use
-  `/planner` before writing the final `/delivery` prompt.
-- For clear tasks, write the technical `/delivery` prompt directly using
-  `systems/chatgpt-delivery-prompt-standard.md`.
-- For broad improvement discovery or issue reconciliation, use `/improve`
-  before writing delivery-ready follow-up tasks.
-- For system/harness/rules improvements, use `/upgrade`; do not mix it with
-  product implementation unless routed into `/delivery`, `/audit-ui`,
-  `/audit-fin`, or `/safe`.
-- Do not create `/prompt-audit`; prompt strength is part of the default
-  ChatGPT delivery prompt standard.
-- For UI audit or polish work, use `systems/audit-ui.md` and include browser
-  verification in the plan when a dev server, preview, or live URL is available.
+- `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-sales`, `/audit-fin`, `/critic`, and `/improve` start with `/context-scout` preflight from `systems/context-scout-mode.md`.
+- `/audit-sale` is accepted only as a compatibility alias and must immediately route to `/audit-sales`.
+- For abstract, risky, or unclear tasks that need an execution prompt, use `/planner` before writing the final `/delivery` prompt.
+- For clear tasks, write the technical `/delivery` prompt directly using `systems/chatgpt-delivery-prompt-standard.md`.
+- For broad improvement discovery or issue reconciliation, use `/improve` before writing delivery-ready follow-up tasks.
+- For system/harness/rules improvements, use `/upgrade`; do not mix it with product implementation unless routed into `/delivery`, `/audit-ui`, `/audit-fin`, or `/safe`.
+- Do not create `/prompt-audit`; prompt strength is part of the default ChatGPT delivery prompt standard.
+- For UI audit or polish work, use `systems/audit-ui.md` and include browser verification in the plan when a dev server, preview, or live URL is available.
 - For long or multi-session tasks, produce a handoff summary at the end.
 
 ## Obsidian note
