@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-12T00:00:00+02:00",
+  "last_updated": "2026-07-13T10:06:11+03:00",
   "cases": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -70,6 +70,16 @@
       "input_signal": "Canonical snapshot changed while the mirror/live snapshot is older, provider metadata differs, deploy source is absent, or aggregate arithmetic diverges.",
       "expected_behavior": "Validate the four-step publication evidence ladder; mark stale or needs verification, block success, and preserve numeric aggregate coverage without counting unknown as zero.",
       "suggested_route": "/delivery /safe",
+      "must_block_success": true
+    },
+    {
+      "id": "dashboard-observable-metrics-no-invented-denominator",
+      "status": "candidate",
+      "source": "Morning System Upgrade 2026-07-13; upgrade-cycle-metrics.md observable_outcomes_v2",
+      "pattern": "A dashboard converts missing denominators or evidence into zero, estimates a 0-100 score, or averages Product Delivery, System Improvement and Business Growth into one decision score.",
+      "input_signal": "A recurring health report has incomplete outcome evidence, but still emits numeric rates, zeros, legacy scores, or a composite momentum decision.",
+      "expected_behavior": "Use explicit unknown/not_instrumented/not_applicable states, require numerator, denominator, period, unit and source for numeric metrics, keep three momentum lanes independent, and let critical SLOs override navigation summaries.",
+      "suggested_route": "/upgrade dashboard schema/validator",
       "must_block_success": true
     }
   ]
