@@ -18,6 +18,7 @@ This repo now has a lightweight dispatcher layer so agents can quickly identify 
 - Claude Code prompt standard: [systems/claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
 - Codex goal prompt standard: [systems/codex-goal-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-goal-prompt-standard.md)
 - UI audit standard: [systems/audit-ui.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-ui.md)
+- Sales audit standard: [systems/audit-sale.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-sale.md)
 
 ### Agent workflow
 
@@ -139,7 +140,7 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
    [raw projects.json](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/projects.json)
 6. Apply the shared agent rules before changing production systems:
    [raw agent-rules.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md)
-7. Before `/planner`, `/delivery`, `/audit`, `/audit-fin`, or `/critic`, run the
+7. Before `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-sale`, `/audit-fin`, or `/critic`, run the
    read-only context scout:
    [raw context-scout-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/context-scout-mode.md)
 8. For Claude Code prompts, apply the prompt standard:
@@ -165,6 +166,8 @@ Level 2 `STATE.md` and `LOG.md` files may still exist for older project memory a
 - [planner-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/planner-mode.md)
 - [audit-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-mode.md)
 - [audit-ui.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-ui.md)
+- [audit-sale.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-sale.md)
+- [audit-sale-markers.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-sale-markers.md)
 - [audit-fin-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-fin-mode.md)
 - [critic-mode.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/critic-mode.md)
 - [production-debug-protocol.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/production-debug-protocol.md)

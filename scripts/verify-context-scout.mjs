@@ -31,12 +31,22 @@ if (!fs.existsSync(path.join(ROOT, contextScoutFile))) {
 }
 
 for (const file of [
+  'systems/audit-sale.md',
+  'systems/audit-sale-markers.md',
+]) {
+  if (!fs.existsSync(path.join(ROOT, file))) {
+    fail(`Missing ${file}`);
+  }
+}
+
+for (const file of [
   'systems/agent-modes.md',
   'systems/agent-rules.md',
   'systems/planner-mode.md',
   'systems/delivery-loop-standard.md',
   'systems/audit-mode.md',
   'systems/audit-ui.md',
+  'systems/audit-sale.md',
   'systems/audit-fin-mode.md',
   'systems/critic-mode.md',
 ]) {
@@ -110,6 +120,54 @@ for (const invariant of [
   'balance invariants',
 ]) {
   assertIncludes('systems/audit-fin-mode.md', invariant);
+}
+
+for (const file of [
+  'systems/active-skill-map.md',
+  'systems/agent-modes.md',
+  'systems/context-scout-mode.md',
+]) {
+  assertIncludes(file, '/audit-sale');
+}
+
+assertIncludes('systems/audit-sale.md', 'systems/audit-sale-markers.md');
+assertMatches(
+  'systems/audit-sale.md',
+  /Do not promise\s+conversion uplift without analytics or an experiment\./,
+  'the no-fake-uplift rule',
+);
+assertMatches(
+  'systems/audit-sale.md',
+  /Do not invent testimonials, results,\s+statistics, qualifications, prices, guarantees, or urgency\./,
+  'the no-invented-proof rule',
+);
+
+for (const scorecardGroup of [
+  'A. Message and audience fit',
+  'B. Offer clarity and value',
+  'C. Trust and proof',
+  'D. CTA and conversion path',
+  'E. Objections and decision support',
+  'F. Friction and usability',
+  'G. Measurement readiness',
+]) {
+  assertIncludes('systems/audit-sale-markers.md', scorecardGroup);
+}
+
+for (const status of ['PASS', 'WATCH', 'FAIL', 'NOT_TESTED']) {
+  assertIncludes('systems/audit-sale-markers.md', status);
+}
+
+for (const priority of ['P0', 'P1', 'P2']) {
+  assertIncludes('systems/audit-sale-markers.md', priority);
+}
+
+const auditSaleDefinitions = fs
+  .readdirSync(path.join(ROOT, 'systems'))
+  .filter((file) => file.endsWith('.md'))
+  .filter((file) => read(path.join('systems', file)).includes('# /audit-sale standard'));
+if (auditSaleDefinitions.length !== 1) {
+  fail(`Expected one /audit-sale standard definition, found ${auditSaleDefinitions.length}`);
 }
 
 assertIncludes('systems/critic-mode.md', 'Critique before execution');

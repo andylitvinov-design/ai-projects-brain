@@ -16,6 +16,7 @@ These are the commands that may be advertised as primary tools.
 | `/delivery` | Execute a scoped implementation task with context, checks, PR/merge/deploy/live proof when allowed. | Product changes require source-of-truth and verification. |
 | `/audit` | Verify a specific code/data/site/PR/production area and apply safe deterministic fixes only. | No broad redesign or risky mutation. |
 | `/audit-ui` | Verify and minimally fix UI structure, polish, responsive states, and browser-visible regressions. | Must include browser/live proof when a URL/dev server exists. |
+| `/audit-sale` | Audit a public page's audience-message fit, offer, proof, objections, CTA path, friction, and measurement readiness. | Use verified facts only; no dark patterns, invented proof, or promised uplift. |
 | `/audit-fin` | Verify finance/ledger invariants, defaulting to the last 30 days. | No blind source-data/provider mutation. |
 | `/improve` | Read-only strategic improvement discovery, portfolio vision, and ready prompts. | Finds what to improve; does not execute. |
 | `/safe` | Safety, secrets, auth, API-cost, user-visible reliability, rollback, and runtime-error checks. | Prefer minimal safe fixes and explicit blockers. |
@@ -77,6 +78,14 @@ Required recurring loops must preserve their existing schedules after successful
 ```
 
 Keep them separate. `/improve` may produce issues/prompts. `/upgrade` may update brain/docs/harness and convert product/risky work into `/delivery`, `/audit-ui`, `/audit-fin`, or `/safe` tickets.
+
+### `/audit-ui` vs `/audit-sale` vs `/improve`
+
+```txt
+/audit-ui   = visual hierarchy, responsiveness, polish, accessibility, and browser-visible defects.
+/audit-sale = audience-message fit, offer, proof, objections, CTA path, friction, and measurement readiness.
+/improve    = broad read-only strategic discovery that may produce later delivery work.
+```
 
 ### `/save` vs `/memory` vs `/handoff`
 

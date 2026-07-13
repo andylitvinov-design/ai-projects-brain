@@ -15,6 +15,7 @@ Run `/context-scout` before:
 - `/planner`
 - `/delivery`
 - `/audit`
+- `/audit-sale`
 - `/audit-fin`
 - `/critic`
 - `/improve`
@@ -91,6 +92,9 @@ CONTEXT BUNDLE:
 - `/planner`: use the bundle before asking questions or writing a prompt.
 - `/delivery`: use the bundle before implementation planning or edits.
 - `/audit`: use the bundle to build the explicit verification checklist.
+- `/audit-sale`: use the bundle once to identify the public page, audience,
+  offer, primary conversion action, supplied URL/screenshots, and missing
+  evidence before scoring or proposing a bounded delivery prompt.
 - `/audit-fin`: use the bundle to identify period, data sources, and finance
   invariants before any analysis.
 - `/critic`: use the bundle to critique assumptions, budget, checks, and the
