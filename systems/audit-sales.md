@@ -2,7 +2,7 @@
 
 `/audit-sales` is the single canonical sales and conversion audit mode for Andrey's projects. The old singular command `/audit-sale` is accepted only as a compatibility alias and must route here; it is not a separate standard.
 
-Run `/context-scout` exactly once before the audit. Use `systems/audit-sales-markers.md` as the durable 100-point scorecard.
+Run `/context-scout` from `systems/context-scout-mode.md` exactly once before the audit. Use `systems/audit-sales-markers.md` as the durable 100-point scorecard.
 
 ## Scope
 
