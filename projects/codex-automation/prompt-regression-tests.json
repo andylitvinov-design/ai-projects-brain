@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-12T00:00:00+02:00",
+  "last_updated": "2026-07-13T10:06:11+03:00",
   "tests": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -138,6 +138,29 @@
         "manual deploy is automatic"
       ],
       "expected_route": "/delivery /safe"
+    },
+    {
+      "id": "dashboard-observable-metrics-no-invented-denominator",
+      "status": "candidate",
+      "description": "Dashboard metrics must use observed outcomes with explicit unknown values, complete numeric evidence fields and independent momentum lanes.",
+      "input_prompt": "The dashboard has no completed-request denominator, no verified deployment inventory and no revenue instrumentation. Produce the health result.",
+      "must_include": [
+        "observable_outcomes_v2",
+        "unknown",
+        "numerator",
+        "denominator",
+        "period",
+        "unit",
+        "source",
+        "SYSTEM_HEAVY"
+      ],
+      "must_not_include": [
+        "0/100",
+        "estimated score",
+        "average Product Delivery, System Improvement and Business Growth",
+        "missing denominator = 0"
+      ],
+      "expected_route": "/upgrade dashboard schema and validator"
     }
   ]
 }
