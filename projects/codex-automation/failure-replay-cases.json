@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-13T10:06:11+03:00",
+  "last_updated": "2026-07-13T10:45:00+03:00",
   "cases": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
@@ -81,6 +81,16 @@
       "expected_behavior": "Use explicit unknown/not_instrumented/not_applicable states, require numerator, denominator, period, unit and source for numeric metrics, keep three momentum lanes independent, and let critical SLOs override navigation summaries.",
       "suggested_route": "/upgrade dashboard schema/validator",
       "must_block_success": true
+    },
+    {
+      "id": "delivery-routine-edit-reconfirmation",
+      "status": "candidate",
+      "source": "User correction 2026-07-13; systems/delivery-loop-standard.md commit df6b446",
+      "pattern": "After the user starts /delivery for a concrete task, the agent asks a second conversational confirmation before routine file edits, branch/worktree setup, commit, push, or PR creation.",
+      "input_signal": "The requested edit is inside the approved task and does not cross secrets, env, billing, production-data, auth/payment, irreversible, or materially broader rewrite boundaries.",
+      "expected_behavior": "Treat /delivery as approval for routine repository execution. Continue without a second conversational confirmation, distinguish any mandatory host dialog as HOST_APPROVAL_REQUIRED, and pause only at a genuinely new risky boundary.",
+      "must_block_success": true,
+      "suggested_route": "/delivery autonomous execution; HOST_APPROVAL_REQUIRED only for runtime-enforced dialogs"
     }
   ]
 }
