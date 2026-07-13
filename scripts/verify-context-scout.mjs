@@ -31,8 +31,11 @@ if (!fs.existsSync(path.join(ROOT, contextScoutFile))) {
 }
 
 for (const file of [
+  'systems/audit-sales.md',
+  'systems/audit-sales-markers.md',
   'systems/audit-sale.md',
   'systems/audit-sale-markers.md',
+  'projects/codex-automation/audit-sales-memory.md',
 ]) {
   if (!fs.existsSync(path.join(ROOT, file))) {
     fail(`Missing ${file}`);
@@ -46,7 +49,7 @@ for (const file of [
   'systems/delivery-loop-standard.md',
   'systems/audit-mode.md',
   'systems/audit-ui.md',
-  'systems/audit-sale.md',
+  'systems/audit-sales.md',
   'systems/audit-fin-mode.md',
   'systems/critic-mode.md',
 ]) {
@@ -127,18 +130,19 @@ for (const file of [
   'systems/agent-modes.md',
   'systems/context-scout-mode.md',
 ]) {
-  assertIncludes(file, '/audit-sale');
+  assertIncludes(file, '/audit-sales');
 }
 
-assertIncludes('systems/audit-sale.md', 'systems/audit-sale-markers.md');
+assertIncludes('systems/audit-sales.md', 'systems/audit-sales-markers.md');
+assertIncludes('systems/audit-sales.md', 'projects/codex-automation/audit-sales-memory.md');
 assertMatches(
-  'systems/audit-sale.md',
-  /Do not promise\s+conversion uplift without analytics or an experiment\./,
+  'systems/audit-sales.md',
+  /Do not promise conversion uplift without analytics or an experiment\./,
   'the no-fake-uplift rule',
 );
 assertMatches(
-  'systems/audit-sale.md',
-  /Do not invent testimonials, results,\s+statistics, qualifications, prices, guarantees, or urgency\./,
+  'systems/audit-sales.md',
+  /Do not invent testimonials, results, statistics, qualifications, prices, guarantees, scarcity, urgency, or conversion rates\./,
   'the no-invented-proof rule',
 );
 
@@ -151,24 +155,30 @@ for (const scorecardGroup of [
   'F. Friction and usability',
   'G. Measurement readiness',
 ]) {
-  assertIncludes('systems/audit-sale-markers.md', scorecardGroup);
+  assertIncludes('systems/audit-sales-markers.md', scorecardGroup);
 }
 
 for (const status of ['PASS', 'WATCH', 'FAIL', 'NOT_TESTED']) {
-  assertIncludes('systems/audit-sale-markers.md', status);
+  assertIncludes('systems/audit-sales-markers.md', status);
 }
 
 for (const priority of ['P0', 'P1', 'P2']) {
-  assertIncludes('systems/audit-sale-markers.md', priority);
+  assertIncludes('systems/audit-sales-markers.md', priority);
 }
 
-const auditSaleDefinitions = fs
+const canonicalDefinitions = fs
   .readdirSync(path.join(ROOT, 'systems'))
   .filter((file) => file.endsWith('.md'))
-  .filter((file) => read(path.join('systems', file)).includes('# /audit-sale standard'));
-if (auditSaleDefinitions.length !== 1) {
-  fail(`Expected one /audit-sale standard definition, found ${auditSaleDefinitions.length}`);
+  .filter((file) => read(path.join('systems', file)).includes('# /audit-sales standard'));
+if (canonicalDefinitions.length !== 1) {
+  fail(`Expected one /audit-sales standard definition, found ${canonicalDefinitions.length}`);
 }
+
+assertIncludes('systems/audit-sale.md', 'compatibility alias');
+assertIncludes('systems/audit-sale.md', 'systems/audit-sales.md');
+assertIncludes('systems/audit-sale-markers.md', 'systems/audit-sales-markers.md');
+assertIncludes('systems/active-skill-map.md', '/audit-sale` is compatibility alias only');
+assertIncludes('systems/agent-modes.md', 'compatibility alias only');
 
 assertIncludes('systems/critic-mode.md', 'Critique before execution');
 assertIncludes('systems/critic-mode.md', 'improved execution prompt');
