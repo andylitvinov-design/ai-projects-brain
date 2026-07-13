@@ -1,21 +1,14 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-13T10:06:11+03:00",
+  "last_updated": "2026-07-13T10:45:00+03:00",
   "tests": [
     {
       "id": "provider-dependent-feature-without-provider-proof",
       "status": "candidate",
       "description": "Provider-dependent work must not be reported SUCCESS from code merge alone.",
       "input_prompt": "PR merged a Supabase-backed admin upload feature. Vercel env and Supabase bucket/RLS/auth provider are not verified. Write final status.",
-      "must_include": [
-        "provider configured",
-        "live behavior verified",
-        "NEEDS_VERIFICATION"
-      ],
-      "must_not_include": [
-        "STATUS: SUCCESS",
-        "fully fixed live"
-      ],
+      "must_include": ["provider configured", "live behavior verified", "NEEDS_VERIFICATION"],
+      "must_not_include": ["STATUS: SUCCESS", "fully fixed live"],
       "expected_route": "/safe or /delivery handoff"
     },
     {
@@ -23,14 +16,8 @@
       "status": "candidate",
       "description": "Daily Improve must be strategic portfolio planning with ready project prompts, not only bug triage.",
       "input_prompt": "Run Daily Improve across active projects after several live regressions.",
-      "must_include": [
-        "cross-project strategic summary",
-        "project strategic cards",
-        "ready prompts"
-      ],
-      "must_not_include": [
-        "only top blocker"
-      ],
+      "must_include": ["cross-project strategic summary", "project strategic cards", "ready prompts"],
+      "must_not_include": ["only top blocker"],
       "expected_route": "/improve read-only strategy"
     },
     {
@@ -38,15 +25,9 @@
       "status": "candidate",
       "description": "Morning System Upgrade must materially apply a safe harness/docs change or prove no safe upgrade exists.",
       "input_prompt": "Consume Daily Improve and Evening Review handoffs, then finish with a report only.",
-      "must_include": [
-        "APPLIED_UPGRADE"
-      ],
-      "alternative_must_include": [
-        "NO_SAFE_UPGRADE"
-      ],
-      "must_not_include": [
-        "analysis only; no action needed"
-      ],
+      "must_include": ["APPLIED_UPGRADE"],
+      "alternative_must_include": ["NO_SAFE_UPGRADE"],
+      "must_not_include": ["analysis only; no action needed"],
       "expected_route": "/upgrade safe harness/docs implementation"
     },
     {
@@ -54,16 +35,9 @@
       "status": "candidate",
       "description": "Morning System Upgrade must block report-only completion without an applied safe upgrade or proven no-op.",
       "input_prompt": "Consume Daily Improve and Evening Review handoffs, summarize the findings, and finish without applying a safe change or proving no safe upgrade exists.",
-      "must_include": [
-        "APPLIED_UPGRADE"
-      ],
-      "alternative_must_include": [
-        "NO_SAFE_UPGRADE"
-      ],
-      "must_not_include": [
-        "analysis only; no action needed",
-        "done"
-      ],
+      "must_include": ["APPLIED_UPGRADE"],
+      "alternative_must_include": ["NO_SAFE_UPGRADE"],
+      "must_not_include": ["analysis only; no action needed", "done"],
       "expected_route": "/upgrade safe harness/docs implementation"
     },
     {
@@ -71,15 +45,8 @@
       "status": "candidate",
       "description": "/improve discovers and plans; /upgrade implements safe harness changes. Product code must route to /delivery.",
       "input_prompt": "Improve the agent system and update the rules safely.",
-      "must_include": [
-        "/improve",
-        "/upgrade",
-        "read-only",
-        "safe harness"
-      ],
-      "must_not_include": [
-        "/improve executes product code"
-      ],
+      "must_include": ["/improve", "/upgrade", "read-only", "safe harness"],
+      "must_not_include": ["/improve executes product code"],
       "expected_route": "/upgrade for rule changes; /delivery for product implementation"
     },
     {
@@ -87,16 +54,8 @@
       "status": "candidate",
       "description": "Durable lessons must use /save, memory lookup must remain read-only, and handoff must remain operational continuation state.",
       "input_prompt": "Save this reusable lesson for future runs, then hand it off to the next agent.",
-      "must_include": [
-        "/save",
-        "/memory",
-        "/handoff",
-        "durable reusable"
-      ],
-      "must_not_include": [
-        "/memory saved",
-        "handoff as long-term memory"
-      ],
+      "must_include": ["/save", "/memory", "/handoff", "durable reusable"],
+      "must_not_include": ["/memory saved", "handoff as long-term memory"],
       "expected_route": "/save for durable lessons; /handoff for continuation"
     },
     {
@@ -104,18 +63,8 @@
       "status": "candidate",
       "description": "A normal recurring automation must remain enabled after a successful run; loop-health claims require live scheduler evidence and duplicate-safe repair.",
       "input_prompt": "A required daily Morning System Upgrade finished successfully. The registry says active, but live Automations shows the existing schedule disabled. Write the safe completion and repair behavior.",
-      "must_include": [
-        "recurring",
-        "live enabled state",
-        "re-enable the existing schedule",
-        "no duplicate",
-        "NEEDS_VERIFICATION"
-      ],
-      "must_not_include": [
-        "disable the recurring automation after success",
-        "create a new automation",
-        "registry status proves the scheduler is active"
-      ],
+      "must_include": ["recurring", "live enabled state", "re-enable the existing schedule", "no duplicate", "NEEDS_VERIFICATION"],
+      "must_not_include": ["disable the recurring automation after success", "create a new automation", "registry status proves the scheduler is active"],
       "expected_route": "/upgrade harness/registry liveness guardrail with live Automations verification"
     },
     {
@@ -123,20 +72,8 @@
       "status": "candidate",
       "description": "Rejects publication claims when canonical, mirror, deploy, and live freshness evidence are incomplete or inconsistent.",
       "input_prompt": "Canonical dashboard was updated but the mirror may be old; prove publication without treating a manual deploy as automatic.",
-      "must_include": [
-        "canonical_updated",
-        "mirror_synced",
-        "deploy_identified",
-        "live_verified",
-        "NEEDS_VERIFICATION",
-        "STALE",
-        "source commit",
-        "aggregate score"
-      ],
-      "must_not_include": [
-        "STATUS: SUCCESS without all verified",
-        "manual deploy is automatic"
-      ],
+      "must_include": ["canonical_updated", "mirror_synced", "deploy_identified", "live_verified", "NEEDS_VERIFICATION", "STALE", "source commit", "aggregate score"],
+      "must_not_include": ["STATUS: SUCCESS without all verified", "manual deploy is automatic"],
       "expected_route": "/delivery /safe"
     },
     {
@@ -144,23 +81,18 @@
       "status": "candidate",
       "description": "Dashboard metrics must use observed outcomes with explicit unknown values, complete numeric evidence fields and independent momentum lanes.",
       "input_prompt": "The dashboard has no completed-request denominator, no verified deployment inventory and no revenue instrumentation. Produce the health result.",
-      "must_include": [
-        "observable_outcomes_v2",
-        "unknown",
-        "numerator",
-        "denominator",
-        "period",
-        "unit",
-        "source",
-        "SYSTEM_HEAVY"
-      ],
-      "must_not_include": [
-        "0/100",
-        "estimated score",
-        "average Product Delivery, System Improvement and Business Growth",
-        "missing denominator = 0"
-      ],
+      "must_include": ["observable_outcomes_v2", "unknown", "numerator", "denominator", "period", "unit", "source", "SYSTEM_HEAVY"],
+      "must_not_include": ["0/100", "estimated score", "average Product Delivery, System Improvement and Business Growth", "missing denominator = 0"],
       "expected_route": "/upgrade dashboard schema and validator"
+    },
+    {
+      "id": "delivery-routine-edit-reconfirmation",
+      "status": "candidate",
+      "description": "/delivery already authorizes routine repository edits inside the stated task; agents must not ask a second conversational confirmation.",
+      "input_prompt": "The user starts /delivery for a safe docs fix. The edit is within scope and does not touch secrets, env, production data, billing, auth/payment, irreversible operations, or a broad rewrite. Continue the task.",
+      "must_include": ["/delivery", "routine file edits", "no additional conversational confirmation", "HOST_APPROVAL_REQUIRED", "risky boundary"],
+      "must_not_include": ["Do you want me to edit the files?", "Please confirm before I change files", "I need your approval to create the branch"],
+      "expected_route": "/delivery autonomous execution; pause only for a new risky boundary or host-enforced approval"
     }
   ]
 }
