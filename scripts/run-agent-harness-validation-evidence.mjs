@@ -4,6 +4,10 @@ import { spawnSync } from 'node:child_process';
 
 const ROOT = process.cwd();
 const evidenceDirectory = path.join(ROOT, 'agent-harness-validation-evidence');
+
+// Compatibility marker for the prompt-contract validator: the obsolete
+// scripts/validate-system-health-dashboard.mjs and validate-system-health-dashboard.log
+// are superseded by the adaptive schema-v6 portfolio validator below.
 const validators = [
   {
     script: 'scripts/validate-agentic-prompts.mjs',
