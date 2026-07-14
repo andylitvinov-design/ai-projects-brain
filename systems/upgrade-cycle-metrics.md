@@ -1,367 +1,251 @@
 # Upgrade Cycle Metrics Contract
 
-Status: active metric model v2 for ChatGPT/Codex recurring automations.
-Last updated: 2026-07-12.
+Status: active adaptive metric model for Andrey's Agent/Codex OS.
+Last updated: 2026-07-14.
 
 ## Purpose
 
-Measure whether Andrey's agent/Codex system produces reliable live outcomes with low rework, not whether reports look comprehensive.
+Measure whether the system:
 
-The model is informed by:
+1. executes Andrey's tasks correctly, completely, quickly and autonomously;
+2. improves business and product implementation across active projects;
+3. learns from real failures and becomes more capable every day.
 
-- DORA software-delivery metrics: lead time, deployment frequency, change fail rate, recovery time, rework;
-- SPACE: performance, activity, satisfaction, collaboration, efficiency and flow must not collapse into one number;
-- Google SRE: observable SLI/SLO, freshness, error budget and rollback evidence;
-- AI evaluation practice: task-success rate, eval pass rate, false-success rate, failure severity and reproducibility;
-- NIST AI RMF: continuous measurement, evidence, risk ownership and post-deployment monitoring.
+The dashboard is a pyramid, not a flat scorecard:
 
-## Core principles
-
-1. Prefer observed counts, ratios, durations and states over estimated `0-100` scores.
-2. Every numeric metric requires a numerator, denominator, measurement period and evidence source.
-3. Missing evidence is `unknown`, never `0`.
-4. A merged PR is not a live result.
-5. A single overall score is navigation only and must never hide a failed critical SLO.
-6. System Improvement must not compensate for missing Product Delivery or Business Growth.
-7. Compare a project with itself over time; do not use DORA metrics to rank unlike projects.
-8. Keep the smallest metric set that changes decisions.
-
-## Metric hierarchy
-
-### A. Product and business outcomes
-
-#### Product Delivery Rate
-
-```txt
-numerator: user-visible tasks merged and live-verified in the period
-denominator: user-visible tasks selected for delivery in the period
-unit: percent and count
-period: rolling 7 days
+```text
+Portfolio Health
+  -> Project Health matrix
+    -> Goal
+      -> Sector
+        -> Metric
+          -> Evidence
 ```
 
-Only counts when the expected user flow is verified in production. Issues, prompts, docs, branches and PR creation alone do not count.
+There is no decision-making overall score. Critical guardrails override summaries.
 
-#### Business Growth Outcomes
+## Measurement rules
 
-Track observed outcomes separately rather than inventing one score:
+1. Prefer observed counts, ratios, durations, currency and states.
+2. Every numeric metric requires numerator, denominator, period, unit and source.
+3. Missing evidence or denominator is `unknown`, never zero.
+4. `NOT_APPLICABLE` is different from zero and from unknown.
+5. A PR, merge, issue, prompt or deploy-ready state is not a live result.
+6. Compare projects with themselves over time; do not rank unlike projects with one score.
+7. A metric must belong to exactly one goal and one sector in the system pyramid.
+8. Project metrics may vary by project profile. Global metrics must remain few.
+9. Audit agents provide evidence and readiness assessments; they do not invent revenue or conversion outcomes.
+10. Metrics have lifecycle: `candidate`, `active`, `watch`, `needs_revision`, `superseded`, `retired`.
 
-```txt
-offers shipped
-funnels or campaigns launched
-qualified leads
-orders or paid conversions
-conversion rate
-revenue or confirmed payments
-retention/repeat use when available
+## Layer 1: Portfolio Health
+
+Portfolio Health answers: **How healthy is Andrey's business implementation across all active projects?**
+
+Display:
+
+- number of active projects;
+- projects with observed metrics;
+- projects blocked by critical guardrails;
+- strongest positive change;
+- largest portfolio risk;
+- project matrix by sectors.
+
+Portfolio status is a state only:
+
+`STRONG / IMPROVING / PARTIALLY_INSTRUMENTED / NEEDS_ATTENTION / BLOCKED / INSUFFICIENT_DATA`.
+
+Do not average project scores.
+
+## Layer 2: Project Health
+
+Each project has six common sectors. A sector may be `NOT_APPLICABLE` for a project.
+
+### 1. Execution
+
+Can the project changes be completed correctly and verified?
+
+Possible metrics:
+
+- task success / first-pass acceptance;
+- live completion;
+- lead time to verified result;
+- rework;
+- false-success events.
+
+### 2. Product Value
+
+Does the project solve a real user problem?
+
+Possible metrics:
+
+- product delivery;
+- user pain recurrence;
+- journey completion;
+- usability/conversion barriers from `/audit-ui`;
+- verified user outcome.
+
+### 3. Business Growth
+
+Does the project create measurable economic or operational value?
+
+Project-specific outcomes:
+
+- qualified leads;
+- orders;
+- confirmed revenue;
+- conversion;
+- attendance and repeat attendance;
+- cost or manual time reduction;
+- finance accuracy and exceptions prevented.
+
+`/audit-sales` may assess funnel and sales readiness, but only observed leads/orders/revenue confirm growth.
+
+### 4. Standards
+
+Does the implementation meet applicable professional standards?
+
+Evidence may come from:
+
+- `/audit-ui`: accessibility, responsive quality, clarity, trust, UX and conversion readiness;
+- `/audit-sales`: audience, offer, trust, CTA, objections, friction and measurement readiness;
+- `/audit-fin`: reconciliation, integrity, audit trail and exception handling;
+- engineering/security/live validators.
+
+Use:
+
+`passed applicable checks / all applicable checks`.
+
+Never create a subjective “world-class score”.
+
+### 5. Reliability
+
+Can users depend on the live implementation?
+
+Metrics:
+
+- provider/live readiness;
+- publication freshness;
+- change fail rate;
+- recovery time;
+- rollback readiness;
+- auth/payment/storage/data integrity when applicable.
+
+### 6. Learning
+
+Does the project improve after audits, failures and user corrections?
+
+Metrics:
+
+- accepted findings implemented;
+- verified impact of implemented findings;
+- recurrence prevention;
+- learning reuse;
+- replay/validator protection.
+
+## Layer 3: Agent/Codex OS goal pyramid
+
+The existing global metric set remains the continuity source. Every metric is assigned exactly once.
+
+### Goal 1: Efficiency and System Intelligence
+
+#### Execution quality and completion
+
+- Task Success Rate
+- Live Completion Rate
+- False Success Rate / critical count
+- Correct Abstention Rate
+
+#### Speed and delivery flow
+
+- Lead Time to Live
+- Deployment Frequency
+- Rework Rate
+
+#### Autonomy and resource use
+
+- Avoidable Handoff Rate
+- Verification Retry Rate
+- Duplicate Scan Rate
+- Context/Retry Cost
+
+### Goal 2: Business Growth and Professional Value
+
+#### Product and user value
+
+- Product Delivery Rate
+- User Pain Recurrence Rate
+
+#### Commercial outcomes
+
+- Business Growth Outcomes, split into project-specific counts when evidence exists
+
+#### Professional delivery and live reliability
+
+- Change Fail Rate
+- Failed Deployment Recovery Time
+- Provider/Live Readiness Ratio
+- Publication Freshness
+- Rollback Readiness Ratio
+
+### Goal 3: Continuous Self-Development
+
+#### Validation and accumulated knowledge
+
+- Eval Pass Rate
+- Evidence Completeness
+- Failure-Class Coverage
+
+#### Rule and automation lifecycle
+
+- Rule Lifecycle
+- Scheduler Health
+
+## Audit-agent evidence contract
+
+Every `/audit-ui`, `/audit-sales`, `/audit-fin` or other structured assessment intended for Project Health must publish:
+
+```text
+project_id
+agent
+sector
+observed_at
+status: PASS | WATCH | FAIL | BLOCKED | NOT_TESTED
+applicable_checks
+passed_checks
+finding_count
+critical_finding_count
+evidence_refs
+summary
+recommended_action
+confidence
 ```
 
-If the project has no instrumented business KPI, report `not instrumented` and create one exact instrumentation action.
+Rules:
 
-#### User Pain Recurrence Rate
+- audit assessment is evidence, not direct business outcome;
+- heuristic historical scores may be shown as navigation only;
+- inaccessible behavior is `NOT_TESTED`;
+- no invented conversion, revenue, testimonial, credential or impact;
+- implementation impact requires after-change verification.
 
-```txt
-numerator: repeated user corrections for an already-addressed failure class
-denominator: completed user requests in the period
-unit: percent and count
-period: rolling 7 days
-```
+## Project metric record
 
-Examples: still not live, design still poor, why did you not do it yourself, only checked but did not change anything.
+Project-specific metrics use:
 
-### B. Software delivery flow
-
-Use DORA-compatible observed measures:
-
-#### Lead Time to Live
-
-```txt
-start: accepted implementation task or first delivery commit
-end: production verification timestamp
-unit: median hours/days
-period: rolling 7 and 30 days
-```
-
-#### Deployment Frequency
-
-```txt
-count: verified production deployments
-unit: deployments per 7 days
-```
-
-#### Change Fail Rate
-
-```txt
-numerator: production changes requiring rollback, hotfix or user-visible repair
-denominator: verified production changes
-unit: percent
-```
-
-#### Failed Deployment Recovery Time
-
-```txt
-start: failure detected
-end: production restored and verified
-unit: median duration
-```
-
-#### Rework Rate
-
-```txt
-numerator: reopened tasks, repeated fixes or unplanned repair attempts
-denominator: delivery attempts
-unit: percent and count
-```
-
-### C. Live reliability and provider readiness
-
-#### Provider/Live Readiness Ratio
-
-Maintain a stable inventory of provider-dependent production surfaces.
-
-```txt
-numerator: surfaces with all required provider/live proofs current
-denominator: active provider-dependent production surfaces
-unit: percent and count
-```
-
-A surface is ready only when applicable evidence exists for:
-
-- repo and production branch;
-- source commit and deploy ID;
-- current live route;
-- auth/OAuth/provider availability;
-- storage/database persistence and RLS/policy proof;
-- payment/webhook/provider proof;
-- rollback target;
-- evidence timestamp within its freshness window.
-
-#### Publication Freshness
-
-```txt
-state: LIVE / STALE / BLOCKED / NEEDS_VERIFICATION
-freshness lag: public snapshot timestamp - canonical snapshot timestamp
-SLO: public equals canonical in the same Morning/Evening run
-```
-
-#### Rollback Readiness Ratio
-
-```txt
-numerator: live changes with source commit, prior stable target and rollback instructions
-denominator: live changes in the period
-unit: percent
-```
-
-### D. Agent quality and safety
-
-#### Task Success Rate
-
-```txt
-numerator: tasks completed to the requested outcome without repeated user correction
-denominator: attempted user tasks
-unit: percent and count
-```
-
-Report separately:
-
-- first-pass success;
-- success after recovery;
-- blocked with correct abstention;
-- incomplete/false done.
-
-#### Live Completion Rate
-
-```txt
-numerator: tasks requiring live proof that obtained live proof
-denominator: tasks requiring live proof
-unit: percent
-```
-
-#### False Success Rate
-
-```txt
-numerator: SUCCESS/DONE claims later shown to lack required evidence
-denominator: SUCCESS/DONE claims
-unit: percent and count
-SLO: 0 critical false-success claims
-```
-
-#### Eval Pass Rate
-
-```txt
-numerator: passing deterministic prompt/replay/behavior samples
-denominator: executed samples
-unit: percent and count
-```
-
-Also record failure severity: critical, high, medium, low.
-
-#### Correct Abstention Rate
-
-```txt
-numerator: evidence-missing cases correctly reported as unknown/blocked/needs-verification
-denominator: cases where required evidence was missing
-unit: percent
-```
-
-### E. Efficiency and flow
-
-#### Verification Retry Rate
-
-```txt
-numerator: avoidable repeated verification attempts
-denominator: verification sequences
-unit: percent and count
-```
-
-#### Duplicate Scan Rate
-
-```txt
-numerator: repeated broad scans that produced no new evidence
-denominator: scans
-unit: percent and count
-```
-
-#### Handoff Rate
-
-```txt
-numerator: tasks transferred to another agent/run after safe direct execution was available
-denominator: tasks where direct safe execution was available
-unit: percent
-```
-
-#### Context/Cost
-
-Record when available:
-
-```txt
-model/tool retries
-avoidable reruns
-context growth or token/cost estimate
-provider/API cost caused by retries
-```
-
-Do not invent missing cost data.
-
-### F. Governance and learning
-
-#### Evidence Completeness Ratio
-
-```txt
-numerator: required evidence fields present
-denominator: required evidence fields
-unit: percent
-```
-
-#### Failure-Class Coverage
-
-```txt
-numerator: active recurring failure classes covered by regression/replay/behavior fixtures
-denominator: active recurring failure classes
-unit: percent and count
-```
-
-Fixture count alone is not quality. Also show eval pass rate and last execution timestamp.
-
-#### Rule Lifecycle Ratio
-
-```txt
-candidate rules
-active rules with repeated evidence
-rules needing revision
-superseded/deprecated rules
-```
-
-A rule is promoted only after repeated operational evidence or a documented high-severity prevention case.
-
-#### Scheduler Health
-
-```txt
-intended recurring schedules enabled / intended recurring schedules
-active duplicate schedules
-missed expected runs
-```
-
-SLO: exactly one enabled instance of every intended recurring automation and zero duplicates.
-
-## Momentum model
-
-Do not average Product Delivery, System Improvement and Business Growth into a decision-making score.
-
-Show them as three independent outcome lanes:
-
-1. Product Delivery: Product Delivery Rate, Live Completion Rate, lead time and verified deployments.
-2. System Improvement: applied harness upgrades, eval coverage/pass rate, evidence completeness and reliability improvements.
-3. Business Growth: observed offers, campaigns, leads, conversions, revenue and retention.
-
-A compact `momentum_status` may be:
-
-```txt
-BALANCED
-SYSTEM_HEAVY
-DELIVERY_HEAVY
-GROWTH_HEAVY
-STALLED
-INSUFFICIENT_DATA
-```
-
-Current status is `SYSTEM_HEAVY` when System Improvement is strong but Product Delivery and Business Growth lack comparable observed outcomes.
-
-## Overall health presentation
-
-The dashboard must show:
-
-1. Critical SLO violations first.
-2. Six domain summaries.
-3. Raw metrics with numerator, denominator, unit, period and source.
-4. Unknown/not-instrumented fields.
-5. Optional legacy navigation score, clearly labelled `legacy_estimate`, until enough observed data exists.
-
-Do not average unknown values. Do not let an overall score override:
-
-- a critical false-success event;
-- failed live/provider readiness;
-- stale publication;
-- a broken finance/auth/payment flow;
-- missing rollback proof for a risky production change.
-
-## Morning responsibilities
-
-Morning System Upgrade must:
-
-1. Apply 1-3 safe high-leverage system changes.
-2. Refresh observed metrics from available evidence.
-3. Never fabricate a denominator.
-4. Record which metric was affected and why.
-5. Convert missing instrumentation into one exact handoff.
-6. Update canonical dashboard JSON/Markdown and mirror.
-7. Verify scheduler liveness and publication stages.
-
-## Evening responsibilities
-
-Evening Architecture Review must:
-
-1. Verify Morning claims.
-2. Refresh observed counts, ratios, durations and SLO states.
-3. Correct unsupported estimates.
-4. Identify the largest critical SLO gap or bottleneck.
-5. Produce one ranked Morning handoff.
-6. Preserve historical unknown values rather than backfilling guesses.
-
-## Required dashboard fields
-
-Every measurable metric record must include:
-
-```txt
+```text
+project_id
+sector
 id
-domain
 name
-type: count | ratio | duration | state | currency
+purpose
+type
 value
 numerator
 denominator
 unit
 period
 source
+owner
 confidence
 status
 previous_value
@@ -369,14 +253,65 @@ change
 target_or_slo
 interpretation
 next_action
+lifecycle
 ```
 
-Fields not applicable may be `null`; evidence-missing values must be `unknown`, not zero.
+## Critical guardrails
+
+These are trust constraints, not progress metrics:
+
+- zero critical false-success claims;
+- publication canonical/mirror/deploy/live ladder is 4/4 in the same run;
+- provider/live-dependent work stays blocked without current proof;
+- exactly one enabled Morning System Upgrade and one enabled Evening Architecture Upgrade, zero duplicates;
+- risky production/auth/payment/billing/data/secret work uses an explicit safe route;
+- project metrics cannot claim observed health from an audit score alone.
+
+## Morning System Upgrade responsibilities
+
+Morning must:
+
+1. read this contract before updating metrics;
+2. refresh Portfolio Health and Project Health from current evidence;
+3. update the three-goal system pyramid;
+4. apply 1-3 safe real upgrades;
+5. attribute each upgrade to one goal, one sector and affected projects;
+6. ingest current audit-agent evidence when available;
+7. preserve unknown and not-applicable states;
+8. update canonical Markdown/JSON and identical mirror;
+9. verify publication ladder;
+10. finish `APPLIED_UPGRADE` or `NO_SAFE_UPGRADE`, never only audited.
+
+## Evening Architecture Upgrade responsibilities
+
+Evening must:
+
+1. verify Morning claims and public evidence;
+2. compare portfolio, project, goal and sector changes since the prior snapshot;
+3. identify the highest-leverage structural weakness;
+4. apply 1-3 safe harness/schema/validator/test/automation upgrades;
+5. update project-health and agent-assessment evidence;
+6. detect metrics needing revision, superseding or retirement;
+7. preserve history and continuity mappings;
+8. produce a ranked Morning handoff tied to project, goal, sector and expected metric effect.
+
+## Dashboard presentation
+
+The public dashboard must provide:
+
+1. `Portfolio Health` default tab;
+2. project matrix with sectors: Execution, Product Value, Business Growth, Standards, Reliability, Learning;
+3. selectable project drilldown with metrics and audit evidence;
+4. `System Health` tab with three goals, sectors and all global metrics assigned exactly once;
+5. critical guardrails;
+6. Daily Intelligence and historical deltas;
+7. metric notes explaining purpose, definition and evidence;
+8. no overall decision score.
 
 ## References
 
-- DORA metrics: https://dora.dev/guides/dora-metrics-four-keys/
-- SPACE framework: https://queue.acm.org/detail.cfm?id=3454124
-- Google SRE SLOs: https://sre.google/sre-book/service-level-objectives/
-- OpenAI evaluation guidance: https://platform.openai.com/docs/guides/evals
-- NIST AI Risk Management Framework: https://www.nist.gov/itl/ai-risk-management-framework
+- DORA: https://dora.dev/guides/dora-metrics-four-keys/
+- SPACE: https://queue.acm.org/detail.cfm?id=3454124
+- Google SRE: https://sre.google/sre-book/service-level-objectives/
+- OpenAI evals: https://platform.openai.com/docs/guides/evals
+- NIST AI RMF: https://www.nist.gov/itl/ai-risk-management-framework
