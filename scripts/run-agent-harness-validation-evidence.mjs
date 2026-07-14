@@ -23,6 +23,7 @@ const validators = [
   },
   { script: 'scripts/validate-system-health-dashboard.mjs', log: 'validate-system-health-dashboard.log' },
   { script: 'scripts/validate-dashboard-publication-contract.mjs', log: 'validate-dashboard-publication-contract.log' },
+  { script: 'tests/dashboard-publication-contract.test.mjs', log: 'dashboard-publication-contract-tests.log' },
   { script: 'scripts/validate-self-harness-dedup-contract.mjs', log: 'validate-self-harness-dedup-contract.log' },
 ];
 
