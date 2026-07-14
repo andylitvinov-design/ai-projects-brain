@@ -22,9 +22,9 @@ The previous dashboard counted an API-upload Netlify deployment from **2026-07-1
 
 | Upgrade | Applied change | Validation |
 | --- | --- | --- |
-| Publication trace validator | Requires one `publication_attempt_id`, canonical/mirror commit and blob SHAs, deploy identity, source branch/commit and public timestamp proof. | Deterministic contract validation. |
-| Regression suite | Added six tests for stale deploys, missing attempt IDs, missing source mapping, timestamp mismatch and valid LIVE evidence. | 6/6 local tests passed. |
-| CI coverage | Added publication tests to the harness evidence runner and made `tests/**` trigger the validator workflow. | GitHub PR CI required before merge. |
+| Publication trace validator | Requires one `publication_attempt_id`, canonical/mirror commit and blob SHAs, deploy identity, source branch/commit and public timestamp proof. | Deterministic contract validation passed. |
+| Regression suite | Added six tests for stale deploys, missing attempt IDs, missing source mapping, timestamp mismatch and valid LIVE evidence. | 6/6 tests passed. |
+| CI and registry repair | Added publication tests to the harness evidence runner, made `tests/**` trigger CI, and restored five required Psihotavr memory files exposed by CI. | Agent Harness Validators run #147 passed before merge. |
 
 ## Metric impact after upgrade
 
@@ -34,6 +34,7 @@ The previous dashboard counted an API-upload Netlify deployment from **2026-07-1
 | Eval Pass Rate | 5/5 | **8/8** | +3 bounded checks | Dashboard schema, publication contract and six regression tests. | High |
 | Avoidable Handoff Rate | 0/1 | **0/3** | +2 safe tasks executed directly | Validator, tests and CI wiring completed in this run. | High |
 | Scheduler Health | Stale Evening title in evidence | **Current title verified** | Evidence corrected | One Morning System Upgrade and one Evening Architecture Upgrade; zero duplicates. | High |
+| Project registry validation | FAIL | **PASS** | CI blocker repaired | Five required Psihotavr memory files restored; full harness CI passed. | High |
 
 ## System Intelligence Gain
 
@@ -49,7 +50,8 @@ Observed changes only; no maturity score was invented.
 | Duplicate instructions removed | 0 |
 | Publication evidence fields added | 7 |
 | Automation contracts improved | 0 |
-| Dashboard/registry/schema improvements | 1 |
+| Dashboard/registry/schema improvements | 2 |
+| Required project-memory files restored | 5 |
 
 ## Critical SLOs
 
@@ -64,7 +66,7 @@ Observed changes only; no maturity score was invented.
 
 | Stage | Status | Evidence |
 | --- | --- | --- |
-| `canonical_updated` | **verified** | Canonical JSON blob `9ee384a3886fd4fdda259682ae2b2599b79e3279`; commit `34c60bbd652dd50d9cd2d77b4864134acfe2e810`. |
+| `canonical_updated` | **verified** | Canonical JSON blob `9ee384a3886fd4fdda259682ae2b2599b79e3279`; merged main commit `fc9e4db31d84f91cac0ece7ddb9fe74add0d937a`. |
 | `mirror_synced` | **verified** | Identical mirror blob `9ee384a3886fd4fdda259682ae2b2599b79e3279`; commit `fde7b0b0ffa211d6ae6373c5dddd02cfc6a84981`. |
 | `deploy_identified` | **stale** | Netlify deploy `6a5207d064f1feba62676b5e`, published `2026-07-11T09:07:37.194Z`, API upload, no branch/source commit. |
 | `live_verified` | **needs verification** | Current public `last_updated` was not proven equal to canonical. |
@@ -76,7 +78,7 @@ Observed changes only; no maturity score was invented.
 | Lane | State | Observed | Next action |
 | --- | --- | --- | --- |
 | Product Delivery | **INSUFFICIENT_DATA** | unknown | Instrument selected task → deploy → production-proof pairs. |
-| System Improvement | **ACTIVE** | 3 safe upgrades | Require green PR CI and retain publication trace. |
+| System Improvement | **ACTIVE** | 3 primary upgrades plus one CI-driven registry repair | Preserve green validation and close the live-publication gap. |
 | Business Growth | **NOT_INSTRUMENTED** | unknown | Register one KPI source, owner and cadence. |
 
 ## Six-domain refresh
@@ -116,6 +118,7 @@ Lead Time to Live, Deployment Frequency, Change Fail Rate, Recovery Time and Rew
 - Failure-Class Coverage: **9/9** recurring classes structurally covered.
 - Rule Lifecycle: `candidate=9; active=0`; promotion evidence remains incomplete.
 - Scheduler Health: **2/2**, zero Morning/Evening duplicates.
+- Project registry validation: **PASS** after restoring the active Psihotavr memory contract.
 
 ## Exact risky-work handoff
 
@@ -126,8 +129,10 @@ Lead Time to Live, Deployment Frequency, Change Fail Rate, Recovery Time and Rew
 - Dashboard JSON parse and schema-v5 requirements: **PASS**.
 - 24 metrics × 17 required fields: **408/408 PASS**.
 - Canonical/mirror blob identity: **PASS**.
-- Publication contract regression tests: **6/6 PASS locally**.
-- GitHub Actions on the focused PR: **pending at snapshot time**.
+- Publication contract regression tests: **6/6 PASS**.
+- Behavior fixtures: **9 fixtures / 30 samples PASS**.
+- Agent Harness Validators PR run #147: **PASS**.
+- PR #114 merged to `main`: **PASS**.
 
 ## What did not improve and why
 
@@ -138,7 +143,7 @@ Lead Time to Live, Deployment Frequency, Change Fail Rate, Recovery Time and Rew
 
 ## Evening verification questions
 
-1. Did final PR CI pass on the exact merged commit?
-2. Does the publication trace retain reachable canonical and mirror commit SHAs?
-3. Was a new source-mapped production deployment created?
-4. Does public `last_updated` exactly equal `2026-07-14T07:30:00+02:00`?
+1. Does the final `main` validation remain green after the trace/Markdown evidence correction?
+2. Was a new source-mapped production deployment created?
+3. Does public `last_updated` exactly equal `2026-07-14T07:30:00+02:00`?
+4. Can the provider-surface inventory denominator be instrumented without touching provider configuration?
