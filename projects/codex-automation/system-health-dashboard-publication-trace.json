@@ -10,10 +10,10 @@
       "status": "verified",
       "timestamp": "2026-07-14T07:30:00+02:00",
       "checked_url_or_path": "andylitvinov-design/ai-projects-brain/projects/codex-automation/system-health-dashboard.json",
-      "evidence_type": "github_snapshot",
-      "evidence_reference": "Canonical snapshot written on focused Morning branch.",
+      "evidence_type": "github_main_snapshot",
+      "evidence_reference": "Canonical dashboard snapshot is present in merged main PR #114.",
       "confidence": "high",
-      "commit_sha": "34c60bbd652dd50d9cd2d77b4864134acfe2e810",
+      "commit_sha": "fc9e4db31d84f91cac0ece7ddb9fe74add0d937a",
       "blob_sha": "9ee384a3886fd4fdda259682ae2b2599b79e3279"
     },
     "mirror_synced": {
