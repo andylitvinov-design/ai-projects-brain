@@ -5,7 +5,11 @@ on:
     branches: [main]
     paths:
       - 'projects/codex-automation/system-health-dashboard.json'
-      - 'scripts/validate-system-health-dashboard.mjs'
+      - 'projects/codex-automation/system-health-dashboard.md'
+      - 'projects/codex-automation/system-health-dashboard-publication-trace.json'
+      - 'projects/portfolio-registry.json'
+      - 'scripts/validate-portfolio-dashboard.mjs'
+      - 'tests/portfolio-dashboard-validator.test.mjs'
       - '.github/workflows/publish-system-health-dashboard.yml'
   workflow_dispatch:
 
@@ -20,12 +24,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate canonical schema v5 observable_outcomes_v2
-        run: node scripts/validate-system-health-dashboard.mjs --file projects/codex-automation/system-health-dashboard.json
+      - name: Validate adaptive portfolio dashboard schema v6
+        run: |
+          node scripts/validate-portfolio-dashboard.mjs \
+            projects/codex-automation/system-health-dashboard.json \
+            projects/portfolio-registry.json \
+            projects/codex-automation/system-health-dashboard.md
+          node --test tests/portfolio-dashboard-validator.test.mjs
       - name: Dispatch brain-management mirror sync
         env:
           TOKEN: ${{ secrets.BRAIN_MANAGEMENT_SYNC_TOKEN }}
           SHA: ${{ github.sha }}
         run: |
           test -n "$TOKEN" || { echo "BRAIN_MANAGEMENT_SYNC_TOKEN is required for automatic publication."; exit 1; }
-          curl --fail-with-body --request POST "https://api.github.com/repos/andylitvinov-design/brain-management/dispatches" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $TOKEN" --data "{\"event_type\":\"system-health-dashboard-updated\",\"client_payload\":{\"canonical_sha\":\"$SHA\",\"schema_version\":5,\"metric_model\":\"observable_outcomes_v2\"}}"
+          curl --fail-with-body --request POST \
+            "https://api.github.com/repos/andylitvinov-design/brain-management/dispatches" \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer $TOKEN" \
+            --data "{\"event_type\":\"system-health-dashboard-updated\",\"client_payload\":{\"canonical_sha\":\"$SHA\",\"schema_version\":6,\"metric_model\":\"adaptive_portfolio_project_goal_v1\"}}"

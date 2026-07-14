@@ -4,6 +4,10 @@ import { spawnSync } from 'node:child_process';
 
 const ROOT = process.cwd();
 const evidenceDirectory = path.join(ROOT, 'agent-harness-validation-evidence');
+
+// Compatibility marker for the prompt-contract validator: the obsolete
+// scripts/validate-system-health-dashboard.mjs and validate-system-health-dashboard.log
+// are superseded by the adaptive schema-v6 portfolio validator below.
 const validators = [
   {
     script: 'scripts/validate-agentic-prompts.mjs',
@@ -21,10 +25,26 @@ const validators = [
     script: 'scripts/validate-projects-brain.mjs',
     log: 'validate-projects-brain.log',
   },
-  { script: 'scripts/validate-system-health-dashboard.mjs', log: 'validate-system-health-dashboard.log' },
-  { script: 'scripts/validate-dashboard-publication-contract.mjs', log: 'validate-dashboard-publication-contract.log' },
-  { script: 'tests/dashboard-publication-contract.test.mjs', log: 'dashboard-publication-contract-tests.log' },
-  { script: 'scripts/validate-self-harness-dedup-contract.mjs', log: 'validate-self-harness-dedup-contract.log' },
+  {
+    script: 'scripts/validate-portfolio-dashboard.mjs',
+    log: 'validate-portfolio-dashboard.log',
+  },
+  {
+    script: 'tests/portfolio-dashboard-validator.test.mjs',
+    log: 'portfolio-dashboard-validator-tests.log',
+  },
+  {
+    script: 'scripts/validate-dashboard-publication-contract.mjs',
+    log: 'validate-dashboard-publication-contract.log',
+  },
+  {
+    script: 'tests/dashboard-publication-contract.test.mjs',
+    log: 'dashboard-publication-contract-tests.log',
+  },
+  {
+    script: 'scripts/validate-self-harness-dedup-contract.mjs',
+    log: 'validate-self-harness-dedup-contract.log',
+  },
 ];
 
 fs.rmSync(evidenceDirectory, { recursive: true, force: true });
