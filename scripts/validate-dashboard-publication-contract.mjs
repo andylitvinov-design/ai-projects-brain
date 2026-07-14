@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url';
 
 const STAGES = ['canonical_updated', 'mirror_synced', 'deploy_identified', 'live_verified'];
 const STATUSES = new Set(['verified', 'needs_verification', 'blocked', 'unknown', 'stale']);
+const TRACE_SCHEMA_VERSIONS = new Set([1, 2]);
+const DEFAULT_TRACE_PATH = 'projects/codex-automation/system-health-dashboard-publication-trace.json';
 const SHA40 = /^[0-9a-f]{40}$/i;
 
 function nonEmpty(value) {
@@ -37,7 +39,9 @@ export function validatePublicationContract(dashboard, trace) {
   if (!dashboard || typeof dashboard !== 'object' || Array.isArray(dashboard)) return ['dashboard must be an object'];
   if (!trace || typeof trace !== 'object' || Array.isArray(trace)) return ['publication trace must be an object'];
 
-  if (trace.schema_version !== 1) errors.push(`trace.schema_version must be 1, received ${trace.schema_version ?? 'missing'}`);
+  if (!TRACE_SCHEMA_VERSIONS.has(trace.schema_version)) {
+    errors.push(`trace.schema_version must be 1 or 2, received ${trace.schema_version ?? 'missing'}`);
+  }
   if (!nonEmpty(trace.publication_attempt_id)) errors.push('trace.publication_attempt_id is required');
   if (trace.publication_attempt_id !== dashboard.publication_evidence?.publication_attempt_id) {
     errors.push('trace publication_attempt_id must match dashboard publication_evidence');
@@ -46,7 +50,8 @@ export function validatePublicationContract(dashboard, trace) {
   if (trace.canonical_snapshot_timestamp !== dashboard.last_updated) {
     errors.push('trace canonical_snapshot_timestamp must equal dashboard last_updated');
   }
-  if (dashboard.publication_evidence?.trace_path !== trace.trace_path) {
+  const dashboardTracePath = dashboard.publication_evidence?.trace_path ?? DEFAULT_TRACE_PATH;
+  if (dashboardTracePath !== trace.trace_path) {
     errors.push('dashboard publication trace_path must match trace.trace_path');
   }
 
@@ -128,7 +133,7 @@ async function main() {
   const dashboard = await readJson(dashboardFile);
   const traceFile = args.includes('--trace')
     ? path.resolve(args[args.indexOf('--trace') + 1])
-    : path.join(root, dashboard.publication_evidence?.trace_path ?? 'projects/codex-automation/system-health-dashboard-publication-trace.json');
+    : path.join(root, dashboard.publication_evidence?.trace_path ?? DEFAULT_TRACE_PATH);
   const trace = await readJson(traceFile);
   const errors = validatePublicationContract(dashboard, trace);
   if (errors.length) throw new Error(errors.join('\n'));
