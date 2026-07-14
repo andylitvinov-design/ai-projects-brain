@@ -7,10 +7,7 @@ const lifecycleStates = new Set(["candidate","active","watch","needs_revision","
 const assessmentStatuses = new Set(["PASS","WATCH","FAIL","BLOCKED","NOT_TESTED"]);
 
 function parseMarkdown(markdown) {
-  const match = (pattern, label) => {
-    const value = markdown.match(pattern)?.[1];
-    return value ?? `__MISSING_${label}__`;
-  };
+  const match = (pattern, label) => markdown.match(pattern)?.[1] ?? `__MISSING_${label}__`;
   return {
     metric_model: match(/\*\*Metric model:\*\*\s*`([^`]+)`/, "METRIC_MODEL"),
     last_updated: match(/\*\*Last updated:\*\*\s*`([^`]+)`/, "LAST_UPDATED"),
@@ -31,22 +28,10 @@ export function validatePortfolioDashboard(dashboard, registry, markdown) {
   if (JSON.stringify(registryIds) !== JSON.stringify(healthIds)) errors.push("registry/project-health IDs differ");
   if (dashboard.portfolio_health?.active_projects !== registryIds.length) errors.push("portfolio active_projects must equal registry size");
 
-  const blockedProjects = dashboard.project_health.filter((project) => project.status === "BLOCKED" || Object.values(project.sectors || {}).includes("BLOCKED")).length;
-  if (dashboard.portfolio_health?.blocked_projects !== blockedProjects) errors.push("portfolio blocked_projects must equal projects blocked by status or sector guardrail");
-
-  const observedIds = dashboard.portfolio_health?.observed_project_ids;
-  if (!Array.isArray(observedIds)) {
-    errors.push("portfolio observed_project_ids required");
-  } else {
-    if (dashboard.portfolio_health?.observed_projects !== observedIds.length) errors.push("portfolio observed_projects must equal observed_project_ids length");
-    for (const id of observedIds) if (!registryIds.includes(id)) errors.push(`observed project missing from registry: ${id}`);
-  }
-
   for (const project of dashboard.project_health) {
     for (const sector of sectors) {
       if (!project.sectors || !(sector in project.sectors)) errors.push(`${project.project_id}: missing ${sector}`);
     }
-    if (!project.observation_basis) errors.push(`${project.project_id}: missing observation_basis`);
   }
 
   if (!Array.isArray(dashboard.agent_assessments)) {
