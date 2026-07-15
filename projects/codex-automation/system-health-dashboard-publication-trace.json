@@ -1,1 +1,54 @@
-{"schema_version":2,"trace_path":"projects/codex-automation/system-health-dashboard-publication-trace.json","publication_attempt_id":"morning-2026-07-15T07-51-30plus02-00","canonical_snapshot_timestamp":"2026-07-15T07:51:30+02:00","publication_status":"STALE","success_allowed":false,"stages":{"canonical_updated":{"checked_url_or_path":"andylitvinov-design/ai-projects-brain/projects/codex-automation/system-health-dashboard.json","evidence_type":"github_main_snapshot","evidence_reference":"Validated Morning snapshot.","confidence":"high","status":"verified","timestamp":"2026-07-15T07:51:30+02:00","commit_sha":"60f2fe89b8790a786b4e4af954f6062356c34981","blob_sha":"5db35e4758710ae8dc7f2877be1920e64bd060ba"},"mirror_synced":{"checked_url_or_path":"andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json","evidence_type":"github_mirror_snapshot","evidence_reference":"Blob equals canonical.","confidence":"high","status":"verified","timestamp":"2026-07-15T07:51:30+02:00","commit_sha":"b6f3b58e1810f3cd32243a5001822cd516138529","blob_sha":"5db35e4758710ae8dc7f2877be1920e64bd060ba"},"deploy_identified":{"checked_url_or_path":"Netlify deploy 6a5207d064f1feba62676b5e","evidence_type":"netlify_deploy_metadata","evidence_reference":"Old source-unmapped deploy.","confidence":"high","status":"stale","timestamp":"2026-07-11T09:07:37.194Z","failure_reason":"Deploy predates snapshot.","deploy_id":"6a5207d064f1feba62676b5e","source_commit_sha":null,"branch":null},"live_verified":{"checked_url_or_path":"https://brain-management.netlify.app/system-health-dashboard/","evidence_type":"public_snapshot_and_ui","evidence_reference":"LIVE withheld.","confidence":"high","status":"needs_verification","timestamp":null,"failure_reason":"No current source-mapped deploy.","public_last_updated":null,"live_verified_at":null}}}
+{
+  "schema_version": 2,
+  "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
+  "publication_attempt_id": "evening-2026-07-15T20-00-21plus02-00",
+  "canonical_snapshot_timestamp": "2026-07-15T20:00:21+02:00",
+  "publication_status": "STALE",
+  "success_allowed": false,
+  "stages": {
+    "canonical_updated": {
+      "checked_url_or_path": "andylitvinov-design/ai-projects-brain/projects/codex-automation/system-health-dashboard.json",
+      "evidence_type": "github_main_snapshot",
+      "evidence_reference": "Exact committed snapshot; publisher did not regenerate business fields.",
+      "confidence": "high",
+      "status": "verified",
+      "timestamp": "2026-07-15T20:00:21+02:00",
+      "commit_sha": "0166fbbe4bd65b2221f1c046b0a01442a7095a5a",
+      "blob_sha": "7274f07d659cc9b2e8a0411427d38cf651097f7f"
+    },
+    "mirror_synced": {
+      "checked_url_or_path": "andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
+      "evidence_type": "github_mirror_snapshot",
+      "evidence_reference": "Mirror blob equals canonical blob.",
+      "confidence": "high",
+      "status": "verified",
+      "timestamp": "2026-07-15T20:00:21+02:00",
+      "commit_sha": "06d9f5f5059c2b699b04a331273d7ad38d756b24",
+      "blob_sha": "7274f07d659cc9b2e8a0411427d38cf651097f7f"
+    },
+    "deploy_identified": {
+      "checked_url_or_path": "Netlify deploy 6a573e142b93890e6f8d61a9",
+      "evidence_type": "netlify_deploy_metadata",
+      "evidence_reference": "Most recent verified production deploy predates the new evening snapshot.",
+      "confidence": "high",
+      "status": "stale",
+      "timestamp": "2026-07-15T08:00:21.606Z",
+      "deploy_id": "6a573e142b93890e6f8d61a9",
+      "source_commit_sha": "5d682d1629ac6783e87d1357fa47b4f5d4195d26",
+      "branch": "main",
+      "failure_reason": "Verified deploy predates the new evening snapshot."
+    },
+    "live_verified": {
+      "checked_url_or_path": "https://brain-management.netlify.app/system-health-dashboard/",
+      "evidence_type": "public_snapshot_and_ui",
+      "evidence_reference": "LIVE withheld until the new timestamp and required UI are verified.",
+      "confidence": "high",
+      "status": "needs_verification",
+      "timestamp": null,
+      "url": "https://brain-management.netlify.app/system-health-dashboard/",
+      "public_last_updated": null,
+      "live_verified_at": null,
+      "failure_reason": "Public timestamp and UI must be rechecked after this snapshot is deployed."
+    }
+  }
+}
