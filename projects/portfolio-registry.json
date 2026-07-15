@@ -1,1 +1,225 @@
-{"schema_version":1,"last_updated":"2026-07-14T20:00:00+02:00","status":"canonical_active_portfolio_overlay","purpose":"Current routing and Project Health scope. Legacy projects.md/projects.json remain historical until reconciled.","source_priority":["projects/portfolio-registry.json","project capsule","current provider/live evidence","projects.md/projects.json"],"projects":[{"project_id":"ezohata","name":"Ezohata","repo":"andylitvinov-design/ezohata","live_url":"https://ezohata.vercel.app","status":"BLOCKED","evidence_refs":["projects/ezohata/PROJECT.md","projects/codex-automation/daily-improve-memory.md"],"sectors":{"execution":"WATCH","product_value":"WATCH","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"BLOCKED","learning":"WATCH"},"blocker":"Google auth, owner login, uploads/storage and provider persistence require live proof."},{"project_id":"ezohata-finance","name":"EzoHata Finance","repo":"andylitvinov-design/ezohata-finance","live_url":"https://ezohata-finance.vercel.app","status":"BLOCKED","evidence_refs":["projects/codex-automation/daily-improve-memory.md"],"sectors":{"execution":"WATCH","product_value":"WATCH","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"BLOCKED","learning":"WATCH"},"blocker":"Authorized Google origin, session secret, migration application and current provider balances require proof."},{"project_id":"legacy-finance","name":"Legacy Finance / Incoming Ledger","repo":"andylitvinov-design/finance","live_url":"https://ezohata-incoming-ledger.vercel.app","status":"WATCH","evidence_refs":["projects/index.md","projects/codex-automation/daily-improve-memory.md"],"sectors":{"execution":"WATCH","product_value":"WATCH","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"WATCH","learning":"WATCH"},"blocker":null},{"project_id":"psitherapy","name":"Psitherapy","repo":"andylitvinov-design/report","live_url":"https://psitherapy.vercel.app","status":"BLOCKED","evidence_refs":["projects/codex-automation/daily-improve-memory.md","projects/codex-automation/audit-sales-memory.md"],"sectors":{"execution":"WATCH","product_value":"UNKNOWN","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"BLOCKED","learning":"WATCH"},"blocker":"Firebase project/provider/domain/env/live-login proof is missing for cutover."},{"project_id":"reiki-yggdrasil","name":"Reiki Yggdrasil","repo":"andylitvinov-design/reiki-yggdrasil","live_url":"https://reiki-yggdrasil.vercel.app","status":"WATCH","evidence_refs":["projects/index.md","projects/codex-automation/audit-sales-memory.md"],"sectors":{"execution":"WATCH","product_value":"UNKNOWN","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"WATCH","learning":"UNKNOWN"},"blocker":null},{"project_id":"codex-links","name":"Codex Links","repo":"andylitvinov-design/codex-links","live_url":"https://codex-links.pages.dev","status":"WATCH","evidence_refs":["projects/index.md","projects/codex-automation/delivery-outcome-ledger.md"],"sectors":{"execution":"WATCH","product_value":"WATCH","business_growth":"NOT_APPLICABLE","standards":"WATCH","reliability":"WATCH","learning":"WATCH"},"blocker":null},{"project_id":"brain-management","name":"Brain Management","repo":"andylitvinov-design/brain-management","live_url":"https://brain-management.netlify.app","status":"BLOCKED","evidence_refs":["projects/codex-automation/system-health-dashboard-publication-trace.json","Netlify project 98712296-45be-4c0d-af99-d4ed19507e0e"],"sectors":{"execution":"WATCH","product_value":"WATCH","business_growth":"NOT_APPLICABLE","standards":"WATCH","reliability":"BLOCKED","learning":"PASS"},"blocker":"Current Netlify deploy 6a5207... predates this snapshot and has no source mapping."},{"project_id":"torontotantra","name":"Toronto Tantra","repo":"andylitvinov-design/torontotantra","live_url":"https://torontotantra.vercel.app","status":"WATCH","evidence_refs":["projects/codex-automation/audit-sales-memory.md"],"sectors":{"execution":"WATCH","product_value":"WATCH","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"WATCH","learning":"WATCH"},"blocker":null},{"project_id":"ai-projects-brain","name":"AI Projects Brain","repo":"andylitvinov-design/ai-projects-brain","live_url":null,"status":"IMPROVING","evidence_refs":["systems/upgrade-cycle-metrics.md","projects/codex-automation/system-health-dashboard.json"],"sectors":{"execution":"PASS","product_value":"WATCH","business_growth":"NOT_APPLICABLE","standards":"PASS","reliability":"WATCH","learning":"PASS"},"blocker":null},{"project_id":"psihotavr","name":"Psihotavr","repo":"andylitvinov-design/psihotavr","live_url":"https://psihotavr.vercel.app","status":"NEEDS_VERIFICATION","evidence_refs":["projects/codex-automation/daily-improve-memory.md","projects/codex-automation/audit-sales-memory.md"],"sectors":{"execution":"UNKNOWN","product_value":"WATCH","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"BLOCKED","learning":"WATCH"},"blocker":"Canonical repo/live-retirement/source state requires explicit proof."}],"legacy_registry_state":{"status":"NEEDS_REVISION","reason":"Legacy maps omit active projects and contain stale repo/live mappings.","continuity":["projects/index.md","projects.md","projects.json"]}}
+{
+  "schema_version": 1,
+  "last_updated": "2026-07-15T20:00:21+02:00",
+  "status": "canonical_active_portfolio_overlay",
+  "purpose": "Current routing and Project Health scope. Legacy projects.md/projects.json remain historical until reconciled.",
+  "source_priority": [
+    "projects/portfolio-registry.json",
+    "project capsule",
+    "current provider/live evidence",
+    "projects.md/projects.json"
+  ],
+  "projects": [
+    {
+      "project_id": "ezohata",
+      "name": "Ezohata",
+      "repo": "andylitvinov-design/ezohata",
+      "live_url": "https://ezohata.vercel.app",
+      "status": "BLOCKED",
+      "evidence_refs": [
+        "projects/ezohata/PROJECT.md",
+        "projects/codex-automation/daily-improve-memory.md"
+      ],
+      "sectors": {
+        "execution": "WATCH",
+        "product_value": "WATCH",
+        "business_growth": "UNKNOWN",
+        "standards": "NOT_TESTED",
+        "reliability": "BLOCKED",
+        "learning": "WATCH"
+      },
+      "blocker": "Google auth, owner login, uploads/storage and provider persistence require live proof."
+    },
+    {
+      "project_id": "ezohata-finance",
+      "name": "EzoHata Finance",
+      "repo": "andylitvinov-design/ezohata-finance",
+      "live_url": "https://ezohata-finance.vercel.app",
+      "status": "BLOCKED",
+      "evidence_refs": [
+        "projects/codex-automation/daily-improve-memory.md"
+      ],
+      "sectors": {
+        "execution": "WATCH",
+        "product_value": "WATCH",
+        "business_growth": "UNKNOWN",
+        "standards": "NOT_TESTED",
+        "reliability": "BLOCKED",
+        "learning": "WATCH"
+      },
+      "blocker": "Authorized Google origin, session secret, migration application and current provider balances require proof."
+    },
+    {
+      "project_id": "legacy-finance",
+      "name": "Legacy Finance / Incoming Ledger",
+      "repo": "andylitvinov-design/finance",
+      "live_url": "https://ezohata-incoming-ledger.vercel.app",
+      "status": "WATCH",
+      "evidence_refs": [
+        "projects/index.md",
+        "projects/codex-automation/daily-improve-memory.md"
+      ],
+      "sectors": {
+        "execution": "WATCH",
+        "product_value": "WATCH",
+        "business_growth": "UNKNOWN",
+        "standards": "NOT_TESTED",
+        "reliability": "WATCH",
+        "learning": "WATCH"
+      },
+      "blocker": null
+    },
+    {
+      "project_id": "psitherapy",
+      "name": "Psitherapy",
+      "repo": "andylitvinov-design/report",
+      "live_url": "https://psitherapy.vercel.app",
+      "status": "BLOCKED",
+      "evidence_refs": [
+        "projects/codex-automation/daily-improve-memory.md",
+        "projects/codex-automation/audit-sales-memory.md"
+      ],
+      "sectors": {
+        "execution": "WATCH",
+        "product_value": "UNKNOWN",
+        "business_growth": "UNKNOWN",
+        "standards": "NOT_TESTED",
+        "reliability": "BLOCKED",
+        "learning": "WATCH"
+      },
+      "blocker": "Firebase project/provider/domain/env/live-login proof is missing for cutover."
+    },
+    {
+      "project_id": "reiki-yggdrasil",
+      "name": "Reiki Yggdrasil",
+      "repo": "andylitvinov-design/reiki-yggdrasil",
+      "live_url": "https://reiki-yggdrasil.vercel.app",
+      "status": "WATCH",
+      "evidence_refs": [
+        "projects/index.md",
+        "projects/codex-automation/audit-sales-memory.md"
+      ],
+      "sectors": {
+        "execution": "WATCH",
+        "product_value": "UNKNOWN",
+        "business_growth": "UNKNOWN",
+        "standards": "NOT_TESTED",
+        "reliability": "WATCH",
+        "learning": "UNKNOWN"
+      },
+      "blocker": null
+    },
+    {
+      "project_id": "codex-links",
+      "name": "Codex Links",
+      "repo": "andylitvinov-design/codex-links",
+      "live_url": "https://codex-links.pages.dev",
+      "status": "WATCH",
+      "evidence_refs": [
+        "projects/index.md",
+        "projects/codex-automation/delivery-outcome-ledger.md"
+      ],
+      "sectors": {
+        "execution": "WATCH",
+        "product_value": "WATCH",
+        "business_growth": "NOT_APPLICABLE",
+        "standards": "WATCH",
+        "reliability": "WATCH",
+        "learning": "WATCH"
+      },
+      "blocker": null
+    },
+    {
+      "project_id": "brain-management",
+      "name": "Brain Management",
+      "repo": "andylitvinov-design/brain-management",
+      "live_url": "https://brain-management.netlify.app",
+      "status": "IMPROVING",
+      "evidence_refs": [
+        "projects/codex-automation/system-health-dashboard-publication-trace.json",
+        "Netlify project 98712296-45be-4c0d-af99-d4ed19507e0e",
+        "andylitvinov-design/brain-management/.github/workflows/publish-system-health-dashboard.yml",
+        "brain-management workflow run #28",
+        "Netlify deploy 6a573e142b93890e6f8d61a9",
+        "brain-management commit 5d682d1629ac6783e87d1357fa47b4f5d4195d26"
+      ],
+      "sectors": {
+        "execution": "PASS",
+        "product_value": "WATCH",
+        "business_growth": "NOT_APPLICABLE",
+        "standards": "WATCH",
+        "reliability": "PASS",
+        "learning": "PASS"
+      },
+      "blocker": null
+    },
+    {
+      "project_id": "torontotantra",
+      "name": "Toronto Tantra",
+      "repo": "andylitvinov-design/torontotantra",
+      "live_url": "https://torontotantra.vercel.app",
+      "status": "WATCH",
+      "evidence_refs": [
+        "projects/codex-automation/audit-sales-memory.md"
+      ],
+      "sectors": {
+        "execution": "WATCH",
+        "product_value": "WATCH",
+        "business_growth": "UNKNOWN",
+        "standards": "NOT_TESTED",
+        "reliability": "WATCH",
+        "learning": "WATCH"
+      },
+      "blocker": null
+    },
+    {
+      "project_id": "ai-projects-brain",
+      "name": "AI Projects Brain",
+      "repo": "andylitvinov-design/ai-projects-brain",
+      "live_url": null,
+      "status": "IMPROVING",
+      "evidence_refs": [
+        "systems/upgrade-cycle-metrics.md",
+        "projects/codex-automation/system-health-dashboard.json"
+      ],
+      "sectors": {
+        "execution": "PASS",
+        "product_value": "WATCH",
+        "business_growth": "NOT_APPLICABLE",
+        "standards": "PASS",
+        "reliability": "WATCH",
+        "learning": "PASS"
+      },
+      "blocker": null
+    },
+    {
+      "project_id": "psihotavr",
+      "name": "Psihotavr",
+      "repo": "andylitvinov-design/psihotavr",
+      "live_url": "https://psihotavr.vercel.app",
+      "status": "NEEDS_VERIFICATION",
+      "evidence_refs": [
+        "projects/codex-automation/daily-improve-memory.md",
+        "projects/codex-automation/audit-sales-memory.md"
+      ],
+      "sectors": {
+        "execution": "UNKNOWN",
+        "product_value": "WATCH",
+        "business_growth": "UNKNOWN",
+        "standards": "NOT_TESTED",
+        "reliability": "BLOCKED",
+        "learning": "WATCH"
+      },
+      "blocker": "Canonical repo/live-retirement/source state requires explicit proof."
+    }
+  ],
+  "legacy_registry_state": {
+    "status": "NEEDS_REVISION",
+    "reason": "Legacy maps omit active projects and contain stale repo/live mappings.",
+    "continuity": [
+      "projects/index.md",
+      "projects.md",
+      "projects.json"
+    ]
+  }
+}

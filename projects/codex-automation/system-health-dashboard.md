@@ -1,32 +1,33 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-15T07:51:30+02:00`  
-**Morning result:** `APPLIED_UPGRADE`  
+**Last updated:** `2026-07-15T20:00:21+02:00`  
+**Evening result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
 ## Status
 
 **APPLIED_UPGRADE**
 
-## Main upgrade applied this morning
+## Main upgrade applied this evening
 
-**`daily_intelligence_publication_pipeline`** — Integrated Daily Intelligence into canonical Markdown/JSON, exact mirror sync and publication-trace validation.
+**`exact_snapshot_publisher_ownership`** — Separated dashboard snapshot generation from publication so CI cannot overwrite Evening evidence with a hard-coded Morning snapshot.
 
-The writer was merged and CI-proven, but the first canonical/mirror snapshot still had no safe automated publication path.
+The publisher called the Morning generator on every relevant push and embedded a fixed obsolete Netlify deploy. That could erase a newer Evening result, create write races, and keep Publication Freshness permanently STALE even after a verified production recovery.
 
 ## Changed files / prompts / automations
 
-- `scripts/publish-morning-dashboard-snapshot.mjs` — snapshot, Markdown and trace orchestration.
-- `tests/morning-dashboard-publication.test.mjs` — five deterministic tests.
-- `scripts/run-agent-harness-validation-evidence.mjs` — active harness integration.
-- `.github/workflows/publish-system-health-dashboard.yml` — validate, mirror, hash-check, commit and dispatch.
-
+- `scripts/apply-dashboard-upgrade-record.mjs`
+- `.github/workflows/publish-system-health-dashboard.yml`
+- `tests/dashboard-upgrade-record.test.mjs`
+- `tests/dashboard-publisher-exact-snapshot.test.mjs`
+- `systems/evening-upgrade-runtime-contract.md`
+- `projects/codex-automation/pending-dashboard-upgrade.json`
 ## Portfolio Health change
 
-State **NEEDS_ATTENTION**; active 10; observed 4; blocked 5.
-Strongest change: Daily Intelligence now has a deterministic canonical publication path.
-Largest risk: Public Netlify deploy remains old and source-unmapped.
+State **NEEDS_ATTENTION**; active 10; observed 4; blocked 3.
+Strongest change: Brain Management publication recovered: the production workflow is green, the current Netlify deploy is READY, and public timestamp/UI checks passed.
+Largest risk: Provider/live evidence and observed business KPI sources remain missing across several active projects.
 
 ## Project Health matrix change
 
@@ -38,7 +39,7 @@ Largest risk: Public Netlify deploy remains old and source-unmapped.
 | Psitherapy | WATCH | UNKNOWN | UNKNOWN | NOT_TESTED | BLOCKED | WATCH | BLOCKED |
 | Reiki Yggdrasil | WATCH | UNKNOWN | UNKNOWN | NOT_TESTED | WATCH | UNKNOWN | WATCH |
 | Codex Links | WATCH | WATCH | NOT_APPLICABLE | WATCH | WATCH | WATCH | WATCH |
-| Brain Management | WATCH | WATCH | NOT_APPLICABLE | WATCH | BLOCKED | PASS | BLOCKED |
+| Brain Management | PASS | WATCH | NOT_APPLICABLE | WATCH | PASS | PASS | IMPROVING |
 | Toronto Tantra | WATCH | WATCH | UNKNOWN | NOT_TESTED | WATCH | WATCH | WATCH |
 | AI Projects Brain | PASS | WATCH | NOT_APPLICABLE | PASS | WATCH | PASS | IMPROVING |
 | Psihotavr | UNKNOWN | WATCH | UNKNOWN | NOT_TESTED | BLOCKED | WATCH | NEEDS_VERIFICATION |
@@ -46,7 +47,7 @@ Largest risk: Public Netlify deploy remains old and source-unmapped.
 ### Selected project drilldowns
 
 - **AI Projects Brain:** IMPROVING; reliability WATCH; learning PASS.
-- **Brain Management:** BLOCKED; reliability BLOCKED; learning PASS.
+- **Brain Management:** IMPROVING; reliability PASS; learning PASS.
 - **EzoHata Finance:** BLOCKED; reliability BLOCKED; learning WATCH.
 
 ## Goal-pyramid change
@@ -151,3 +152,28 @@ Indicators 24; history 1/30; score unknown.
 - Did all 22 checks pass on final main?
 - Was a source-mapped Netlify deploy created?
 - Does public timestamp equal canonical and show Portfolio Health, project selection and goal pyramid?
+
+
+<!-- EVENING_UPGRADE:evening-architecture-2026-07-15-exact-snapshot-publisher -->
+## Evening Architecture Upgrade — 2026-07-15
+
+### Validation
+
+- **24/24 deterministic checks expected and required before merge/publication.**
+- Exact-snapshot publisher topology is enforced.
+- Canonical/mirror publication remains snapshot-specific; this new snapshot is **STALE 2/4** until deployment and public verification.
+
+### Metric impact
+
+| Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
+|---|---|---|---|---|---|---|---|---|
+| Exact Snapshot Publisher Contract | AI Projects Brain | Continuous Self-Development | Rule and automation lifecycle | publisher regenerated Morning snapshot | 1/1 controlled exact-snapshot path | ownership_separated | workflow topology regression + upgrade-record applier | high |
+| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | old deploy 6a5207; 2/4 STALE | previous snapshot recovered; new snapshot 2/4 pending | production_recovered_snapshot_specific_gate_preserved | workflow #28 + READY deploy 6a573e142b93890e6f8d61a9 | high |
+| Eval Pass Rate | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | 22/22 | 24/24 | denominator+2 | upgrade-record and exact-snapshot workflow regressions | high |
+| Scheduler Health | AI Projects Brain | Continuous Self-Development | Rule and automation lifecycle | 2/2; duplicates=0 | 2/2; duplicates=0 | verified_again | live automation registry | high |
+
+### Ranked Morning handoff
+
+1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify the Evening snapshot publication ladder and record the new deploy/public timestamp proof without regenerating canonical business fields. Expected metric effect: Publication Freshness STALE 2/4 -> LIVE 4/4 when independently proven.
+2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority active commercial project. Expected metric effect: Business Growth Outcomes not_instrumented -> observed or explicitly blocked.
+3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Add stable non-secret counters for context/retry cost only if a trustworthy source exists. Expected metric effect: Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence.
