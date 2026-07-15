@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-15T20:00:21+02:00",
+  "last_updated": "2026-07-15T20:23:05+02:00",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current routing and Project Health scope. Legacy projects.md/projects.json remain historical until reconciled.",
   "source_priority": [
@@ -141,7 +141,12 @@
         "andylitvinov-design/brain-management/.github/workflows/publish-system-health-dashboard.yml",
         "brain-management workflow run #28",
         "Netlify deploy 6a573e142b93890e6f8d61a9",
-        "brain-management commit 5d682d1629ac6783e87d1357fa47b4f5d4195d26"
+        "brain-management commit 5d682d1629ac6783e87d1357fa47b4f5d4195d26",
+        "brain-management workflow run 29439792641",
+        "brain-management sync run 29439796379",
+        "scripts/validate-portfolio-dashboard.mjs",
+        "scripts/normalize-dashboard-not-applicable.mjs",
+        "scripts/validate-system-health-dashboard.mjs"
       ],
       "sectors": {
         "execution": "PASS",

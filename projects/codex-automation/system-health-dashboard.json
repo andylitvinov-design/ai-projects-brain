@@ -1,7 +1,7 @@
 {
   "schema_version": 6,
   "metric_model": "adaptive_portfolio_project_goal_v1",
-  "last_updated": "2026-07-15T20:00:21+02:00",
+  "last_updated": "2026-07-15T20:23:05+02:00",
   "status": "evening_upgrade_publication_stale",
   "purpose": "Observed outcomes only; missing evidence is unknown and non-applicable is NOT_APPLICABLE.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
@@ -15,7 +15,7 @@
     "blocked_projects": 3,
     "strongest_positive_change": {
       "project_id": "ai-projects-brain",
-      "change": "Brain Management publication recovered: the production workflow is green, the current Netlify deploy is READY, and public timestamp/UI checks passed."
+      "change": "Dashboard publication now has one consistent NOT_APPLICABLE evidence contract across canonical and public repositories."
     },
     "largest_risk": {
       "project_id": "portfolio",
@@ -296,10 +296,11 @@
       "finding_count": 1,
       "critical_finding_count": 0,
       "evidence_refs": [
-        "andylitvinov-design/brain-management/.github/workflows/publish-system-health-dashboard.yml",
-        "brain-management workflow run #28",
-        "Netlify deploy 6a573e142b93890e6f8d61a9",
-        "brain-management commit 5d682d1629ac6783e87d1357fa47b4f5d4195d26"
+        "brain-management workflow run 29439792641",
+        "brain-management sync run 29439796379",
+        "scripts/validate-portfolio-dashboard.mjs",
+        "scripts/normalize-dashboard-not-applicable.mjs",
+        "scripts/validate-system-health-dashboard.mjs"
       ],
       "summary": "The previous canonical snapshot reached a READY Netlify production deploy; public timestamp, dashboard shell, project-health hooks and required assets were verified by the production workflow.",
       "recommended_action": "Treat this as reliability evidence only; the new evening snapshot must complete its own publication ladder.",
@@ -309,18 +310,17 @@
       "project_id": "ai-projects-brain",
       "agent": "/upgrade-publication-ownership",
       "sector": "learning",
-      "observed_at": "2026-07-15T20:00:21+02:00",
+      "observed_at": "2026-07-15T20:23:05+02:00",
       "status": "PASS",
       "applicable_checks": 2,
       "passed_checks": 2,
       "finding_count": 1,
       "critical_finding_count": 0,
       "evidence_refs": [
-        "scripts/apply-dashboard-upgrade-record.mjs",
+        "scripts/normalize-dashboard-not-applicable.mjs",
+        "scripts/validate-portfolio-dashboard.mjs",
+        "tests/not-applicable-metric-semantics.test.mjs",
         ".github/workflows/publish-system-health-dashboard.yml",
-        "tests/dashboard-upgrade-record.test.mjs",
-        "tests/dashboard-publisher-exact-snapshot.test.mjs",
-        "systems/evening-upgrade-runtime-contract.md",
         "projects/codex-automation/pending-dashboard-upgrade.json"
       ],
       "summary": "Snapshot generation ownership is separated from publication: the publisher no longer regenerates a Morning snapshot or overwrites Evening evidence.",
@@ -666,7 +666,7 @@
       null,
       "state",
       "run",
-      "Previous production deploy 6a573e142b93890e6f8d61a9 is READY and verified; the new evening snapshot 2026-07-15T20:00:21+02:00 is not deployed yet.",
+      "Previous production deploy 6a573e142b93890e6f8d61a9 is READY and verified; the new evening snapshot 2026-07-15T20:23:05+02:00 is not deployed yet.",
       "high",
       "CRITICAL_SLO_NOT_MET",
       "STALE",
@@ -683,8 +683,8 @@
       "Rollback Readiness Ratio",
       "ratio",
       "not_applicable",
-      0,
-      0,
+      null,
+      null,
       "%/count",
       "run",
       "no live change",
@@ -693,7 +693,7 @@
       "not_applicable",
       "same",
       "ready/live changes",
-      "No applicable sample.",
+      "No applicable sample exists; this metric is not zero and is excluded from numeric interpretation.",
       "Record rollback on next live dep",
       "business_growth_professional_value",
       "professional_delivery_live_reliability",
@@ -746,17 +746,17 @@
       "False Success Rate",
       "ratio",
       "not_applicable",
-      0,
-      0,
+      null,
+      null,
       "%/count",
       "run",
       "status gate",
       "high",
-      "PASS",
+      "NOT_APPLICABLE",
       "not_applicable",
       "same",
       "0 critical claims",
-      "Current gate passed.",
+      "No applicable sample exists; this metric is not zero and is excluded from numeric interpretation.",
       "Keep gates.",
       "efficiency_system_intelligence",
       "execution_quality_completion",
@@ -974,39 +974,39 @@
     ]
   ],
   "main_upgrade": {
-    "id": "exact_snapshot_publisher_ownership",
+    "id": "not_applicable_numeric_semantics_alignment",
     "status": "APPLIED_UPGRADE",
-    "summary": "Separated dashboard snapshot generation from publication so CI cannot overwrite Evening evidence with a hard-coded Morning snapshot.",
-    "why": "The publisher called the Morning generator on every relevant push and embedded a fixed obsolete Netlify deploy. That could erase a newer Evening result, create write races, and keep Publication Freshness permanently STALE even after a verified production recovery."
+    "summary": "Aligned canonical and public validators so numeric NOT_APPLICABLE metrics use null evidence fields instead of misleading zeroes.",
+    "why": "End-to-end publication exposed a contract contradiction: the canonical validator required numerator/denominator for every numeric metric, while the public validator correctly rejected zero evidence for NOT_APPLICABLE. The conflict blocked sync, build and Netlify publication."
   },
   "system_intelligence_gain": {
     "rules_improved": 1,
     "validators_added_or_tightened": 2,
-    "deterministic_checks_added": 2,
+    "deterministic_checks_added": 1,
     "replay_cases_added_or_improved": 1,
     "behavior_fixtures_added_or_improved": 1,
-    "duplicate_instructions_removed": 1,
-    "evidence_fields_added": 4,
+    "duplicate_instructions_removed": 0,
+    "evidence_fields_added": 0,
     "automation_contracts_improved": 1,
     "dashboard_registry_schema_improvements": 1,
     "project_records_instrumented": 2
   },
   "publication_evidence": {
-    "publication_attempt_id": "evening-2026-07-15T20-00-21plus02-00",
+    "publication_attempt_id": "evening-2026-07-15T20-23-05plus02-00",
     "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
     "publication_status": "STALE",
     "success_allowed": false,
-    "canonical_snapshot_timestamp": "2026-07-15T20:00:21+02:00",
+    "canonical_snapshot_timestamp": "2026-07-15T20:23:05+02:00",
     "stages": {
       "canonical_updated": {
         "status": "verified",
-        "timestamp": "2026-07-15T20:00:21+02:00",
+        "timestamp": "2026-07-15T20:23:05+02:00",
         "path": "projects/codex-automation/system-health-dashboard.json",
         "confidence": "high"
       },
       "mirror_synced": {
         "status": "verified",
-        "timestamp": "2026-07-15T20:00:21+02:00",
+        "timestamp": "2026-07-15T20:23:05+02:00",
         "path": "brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
         "confidence": "high"
       },
@@ -1060,7 +1060,7 @@
       "date": "2026-07-15",
       "cycle": "Evening Architecture Upgrade",
       "result": "APPLIED_UPGRADE",
-      "summary": "Separated dashboard snapshot generation from publication so CI cannot overwrite Evening evidence with a hard-coded Morning snapshot.",
+      "summary": "Aligned canonical and public validators so numeric NOT_APPLICABLE metrics use null evidence fields instead of misleading zeroes.",
       "publication_status": "STALE"
     }
   ],
@@ -1645,7 +1645,7 @@
       "numerator": 1,
       "denominator": 1,
       "unit": "%/run",
-      "period": "2026-07-15T20:00:21+02:00",
+      "period": "2026-07-15T20:23:05+02:00",
       "source": "workflow topology test and controlled upgrade-record applier",
       "owner": "Evening Architecture Upgrade",
       "confidence": "high",
@@ -1702,14 +1702,14 @@
   ],
   "metric_impact": [
     {
-      "metric": "Exact Snapshot Publisher Contract",
-      "project": "AI Projects Brain",
+      "metric": "NOT_APPLICABLE Numeric Evidence Contract",
+      "project": "AI Projects Brain / Brain Management",
       "goal": "Continuous Self-Development",
-      "sector": "Rule and automation lifecycle",
-      "before": "publisher regenerated Morning snapshot",
-      "after": "1/1 controlled exact-snapshot path",
-      "change": "ownership_separated",
-      "evidence": "workflow topology regression + upgrade-record applier",
+      "sector": "Validation and accumulated knowledge",
+      "before": "canonical required 0/0; public rejected 0/0",
+      "after": "null/null contract with deterministic normalization",
+      "change": "cross_repo_contract_aligned",
+      "evidence": "validator pair + three semantic regression cases",
       "confidence": "high"
     },
     {
@@ -1717,21 +1717,10 @@
       "project": "Brain Management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "before": "old deploy 6a5207; 2/4 STALE",
-      "after": "previous snapshot recovered; new snapshot 2/4 pending",
-      "change": "production_recovered_snapshot_specific_gate_preserved",
-      "evidence": "workflow #28 + READY deploy 6a573e142b93890e6f8d61a9",
-      "confidence": "high"
-    },
-    {
-      "metric": "Eval Pass Rate",
-      "project": "AI Projects Brain",
-      "goal": "Continuous Self-Development",
-      "sector": "Validation and accumulated knowledge",
-      "before": "22/22",
-      "after": "24/24",
-      "change": "denominator+2",
-      "evidence": "upgrade-record and exact-snapshot workflow regressions",
+      "before": "new Evening mirror blocked before deploy",
+      "after": "publication path unblocked; new snapshot still requires 4/4 proof",
+      "change": "validation_blocker_removed",
+      "evidence": "failed runs 29439792641 and 29439796379 reconciled into validator fix",
       "confidence": "high"
     },
     {
@@ -1750,8 +1739,8 @@
     {
       "route": "/safe",
       "project_id": "brain-management",
-      "target": "Evening snapshot publication",
-      "blocker": "The new timestamp must complete deploy and visible public verification; previous snapshot proof cannot be reused as LIVE proof.",
+      "target": "Normalized Evening snapshot publication",
+      "blocker": "The corrected snapshot must complete deploy and visible public verification; validator success alone is not LIVE proof.",
       "required_evidence": "new deploy ID, source commit, public timestamp equality and visible Portfolio/Project/Goal UI"
     },
     {
@@ -1770,13 +1759,13 @@
     }
   ],
   "evening_verification_questions": [
-    "Did the exact committed Evening snapshot reach brain-management without the publisher regenerating Morning content?",
-    "Did canonical and mirror blobs remain identical?",
-    "Did the new Netlify production workflow verify the Evening timestamp and required UI hooks?",
-    "Did the publication watchdog report LIVE or an exact recoverable blocker?"
+    "Did the normalized Evening snapshot pass both canonical and public validators?",
+    "Did canonical and mirror blobs remain identical after null/null normalization?",
+    "Did a new Netlify deploy publish the 20:23:05 snapshot?",
+    "Did the public workflow verify timestamp equality and required UI hooks?"
   ],
   "unknown_blocked": [
-    "The new Evening snapshot is STALE 2/4 until its own deployment and public verification complete.",
+    "The new Evening snapshot remains STALE until its own deploy and public UI verification complete.",
     "Product Delivery Rate remains unknown because selected/live pairs are missing.",
     "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
     "Provider readiness numerator remains unknown for several active projects.",
@@ -1790,7 +1779,7 @@
       "project_id": "brain-management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "action": "Verify the Evening snapshot publication ladder and record the new deploy/public timestamp proof without regenerating canonical business fields.",
+      "action": "Verify the normalized Evening snapshot publication ladder and record the new deploy/public timestamp proof without changing canonical business evidence.",
       "expected_metric_effect": "Publication Freshness STALE 2/4 -> LIVE 4/4 when independently proven."
     },
     {

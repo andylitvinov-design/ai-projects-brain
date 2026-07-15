@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-15T20:00:21+02:00`  
+**Last updated:** `2026-07-15T20:23:05+02:00`  
 **Evening result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
@@ -11,22 +11,21 @@
 
 ## Main upgrade applied this evening
 
-**`exact_snapshot_publisher_ownership`** — Separated dashboard snapshot generation from publication so CI cannot overwrite Evening evidence with a hard-coded Morning snapshot.
+**`not_applicable_numeric_semantics_alignment`** — Aligned canonical and public validators so numeric NOT_APPLICABLE metrics use null evidence fields instead of misleading zeroes.
 
-The publisher called the Morning generator on every relevant push and embedded a fixed obsolete Netlify deploy. That could erase a newer Evening result, create write races, and keep Publication Freshness permanently STALE even after a verified production recovery.
+End-to-end publication exposed a contract contradiction: the canonical validator required numerator/denominator for every numeric metric, while the public validator correctly rejected zero evidence for NOT_APPLICABLE. The conflict blocked sync, build and Netlify publication.
 
 ## Changed files / prompts / automations
 
-- `scripts/apply-dashboard-upgrade-record.mjs`
+- `scripts/normalize-dashboard-not-applicable.mjs`
+- `scripts/validate-portfolio-dashboard.mjs`
+- `tests/not-applicable-metric-semantics.test.mjs`
 - `.github/workflows/publish-system-health-dashboard.yml`
-- `tests/dashboard-upgrade-record.test.mjs`
-- `tests/dashboard-publisher-exact-snapshot.test.mjs`
-- `systems/evening-upgrade-runtime-contract.md`
 - `projects/codex-automation/pending-dashboard-upgrade.json`
 ## Portfolio Health change
 
 State **NEEDS_ATTENTION**; active 10; observed 4; blocked 3.
-Strongest change: Brain Management publication recovered: the production workflow is green, the current Netlify deploy is READY, and public timestamp/UI checks passed.
+Strongest change: Dashboard publication now has one consistent NOT_APPLICABLE evidence contract across canonical and public repositories.
 Largest risk: Provider/live evidence and observed business KPI sources remain missing across several active projects.
 
 ## Project Health matrix change
@@ -175,5 +174,29 @@ Indicators 24; history 1/30; score unknown.
 ### Ranked Morning handoff
 
 1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify the Evening snapshot publication ladder and record the new deploy/public timestamp proof without regenerating canonical business fields. Expected metric effect: Publication Freshness STALE 2/4 -> LIVE 4/4 when independently proven.
+2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority active commercial project. Expected metric effect: Business Growth Outcomes not_instrumented -> observed or explicitly blocked.
+3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Add stable non-secret counters for context/retry cost only if a trustworthy source exists. Expected metric effect: Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence.
+
+
+<!-- EVENING_UPGRADE:evening-architecture-2026-07-15-not-applicable-semantics -->
+## Evening Architecture Upgrade — 2026-07-15
+
+### Validation
+
+- **24/24 deterministic checks expected and required before merge/publication.**
+- Exact-snapshot publisher topology is enforced.
+- Canonical/mirror publication remains snapshot-specific; this new snapshot is **STALE 2/4** until deployment and public verification.
+
+### Metric impact
+
+| Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
+|---|---|---|---|---|---|---|---|---|
+| NOT_APPLICABLE Numeric Evidence Contract | AI Projects Brain / Brain Management | Continuous Self-Development | Validation and accumulated knowledge | canonical required 0/0; public rejected 0/0 | null/null contract with deterministic normalization | cross_repo_contract_aligned | validator pair + three semantic regression cases | high |
+| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | new Evening mirror blocked before deploy | publication path unblocked; new snapshot still requires 4/4 proof | validation_blocker_removed | failed runs 29439792641 and 29439796379 reconciled into validator fix | high |
+| Scheduler Health | AI Projects Brain | Continuous Self-Development | Rule and automation lifecycle | 2/2; duplicates=0 | 2/2; duplicates=0 | verified_again | live automation registry | high |
+
+### Ranked Morning handoff
+
+1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify the normalized Evening snapshot publication ladder and record the new deploy/public timestamp proof without changing canonical business evidence. Expected metric effect: Publication Freshness STALE 2/4 -> LIVE 4/4 when independently proven.
 2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority active commercial project. Expected metric effect: Business Growth Outcomes not_instrumented -> observed or explicitly blocked.
 3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Add stable non-secret counters for context/retry cost only if a trustworthy source exists. Expected metric effect: Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence.
