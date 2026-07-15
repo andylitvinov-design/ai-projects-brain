@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "run_id": "evening-architecture-2026-07-15-not-applicable-semantics",
+  "observed_at": "2026-07-15T20:23:05+02:00",
+  "result": "APPLIED_UPGRADE",
+  "main_upgrade": {
+    "id": "not_applicable_numeric_semantics_alignment",
+    "summary": "Aligned canonical and public validators so numeric NOT_APPLICABLE metrics use null evidence fields instead of misleading zeroes.",
+    "why": "End-to-end publication exposed a contract contradiction: the canonical validator required numerator/denominator for every numeric metric, while the public validator correctly rejected zero evidence for NOT_APPLICABLE. The conflict blocked sync, build and Netlify publication."
+  },
+  "portfolio": {
+    "strongest_positive_change": "Dashboard publication now has one consistent NOT_APPLICABLE evidence contract across canonical and public repositories.",
+    "largest_risk_project_id": "portfolio",
+    "largest_risk": "Provider/live evidence and observed business KPI sources remain missing across several active projects."
+  },
+  "publication": {
+    "verified_at": "2026-07-15T10:00:31+02:00",
+    "previous_verified_deploy": {
+      "deploy_id": "6a573e142b93890e6f8d61a9",
+      "published_at": "2026-07-15T08:00:21.606Z",
+      "source_commit_sha": "5d682d1629ac6783e87d1357fa47b4f5d4195d26",
+      "branch": "main"
+    },
+    "evidence_refs": [
+      "brain-management workflow run 29439792641",
+      "brain-management sync run 29439796379",
+      "scripts/validate-portfolio-dashboard.mjs",
+      "scripts/normalize-dashboard-not-applicable.mjs",
+      "scripts/validate-system-health-dashboard.mjs"
+    ]
+  },
+  "changed_files": [
+    "scripts/normalize-dashboard-not-applicable.mjs",
+    "scripts/validate-portfolio-dashboard.mjs",
+    "tests/not-applicable-metric-semantics.test.mjs",
+    ".github/workflows/publish-system-health-dashboard.yml",
+    "projects/codex-automation/pending-dashboard-upgrade.json"
+  ],
+  "metric_impact": [
+    {
+      "metric": "NOT_APPLICABLE Numeric Evidence Contract",
+      "project": "AI Projects Brain / Brain Management",
+      "goal": "Continuous Self-Development",
+      "sector": "Validation and accumulated knowledge",
+      "before": "canonical required 0/0; public rejected 0/0",
+      "after": "null/null contract with deterministic normalization",
+      "change": "cross_repo_contract_aligned",
+      "evidence": "validator pair + three semantic regression cases",
+      "confidence": "high"
+    },
+    {
+      "metric": "Publication Freshness",
+      "project": "Brain Management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "before": "new Evening mirror blocked before deploy",
+      "after": "publication path unblocked; new snapshot still requires 4/4 proof",
+      "change": "validation_blocker_removed",
+      "evidence": "failed runs 29439792641 and 29439796379 reconciled into validator fix",
+      "confidence": "high"
+    },
+    {
+      "metric": "Scheduler Health",
+      "project": "AI Projects Brain",
+      "goal": "Continuous Self-Development",
+      "sector": "Rule and automation lifecycle",
+      "before": "2/2; duplicates=0",
+      "after": "2/2; duplicates=0",
+      "change": "verified_again",
+      "evidence": "live automation registry",
+      "confidence": "high"
+    }
+  ],
+  "system_intelligence_gain": {
+    "rules_improved": 1,
+    "validators_added_or_tightened": 2,
+    "deterministic_checks_added": 1,
+    "replay_cases_added_or_improved": 1,
+    "behavior_fixtures_added_or_improved": 1,
+    "duplicate_instructions_removed": 0,
+    "evidence_fields_added": 0,
+    "automation_contracts_improved": 1,
+    "dashboard_registry_schema_improvements": 1,
+    "project_records_instrumented": 2
+  },
+  "evening_verification_questions": [
+    "Did the normalized Evening snapshot pass both canonical and public validators?",
+    "Did canonical and mirror blobs remain identical after null/null normalization?",
+    "Did a new Netlify deploy publish the 20:23:05 snapshot?",
+    "Did the public workflow verify timestamp equality and required UI hooks?"
+  ],
+  "unknown_blocked": [
+    "The new Evening snapshot remains STALE until its own deploy and public UI verification complete.",
+    "Product Delivery Rate remains unknown because selected/live pairs are missing.",
+    "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
+    "Provider readiness numerator remains unknown for several active projects.",
+    "Context/Retry Cost remains unknown because stable counters are unavailable.",
+    "Current /audit-ui and /audit-fin evidence remains NOT_TESTED in the dashboard.",
+    "Psihotavr canonical source/retirement state remains NEEDS_VERIFICATION."
+  ],
+  "risky_work_handoffs": [
+    {
+      "route": "/safe",
+      "project_id": "brain-management",
+      "target": "Normalized Evening snapshot publication",
+      "blocker": "The corrected snapshot must complete deploy and visible public verification; validator success alone is not LIVE proof.",
+      "required_evidence": "new deploy ID, source commit, public timestamp equality and visible Portfolio/Project/Goal UI"
+    },
+    {
+      "route": "/safe",
+      "project_id": "ezohata",
+      "target": "auth/upload/storage proof",
+      "blocker": "Provider-dependent persistence remains unverified.",
+      "required_evidence": "owner session and live persistence proof"
+    },
+    {
+      "route": "/audit-fin",
+      "project_id": "ezohata-finance",
+      "target": "finance/provider verification",
+      "blocker": "Origin, signed session, migration parity and balances remain unproven.",
+      "required_evidence": "non-secret reconciled evidence"
+    }
+  ],
+  "morning_handoff": [
+    {
+      "rank": 1,
+      "project_id": "brain-management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "action": "Verify the normalized Evening snapshot publication ladder and record the new deploy/public timestamp proof without changing canonical business evidence.",
+      "expected_metric_effect": "Publication Freshness STALE 2/4 -> LIVE 4/4 when independently proven."
+    },
+    {
+      "rank": 2,
+      "project_id": "portfolio",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Commercial outcomes",
+      "action": "Register one observed KPI source, owner and cadence for the highest-priority active commercial project.",
+      "expected_metric_effect": "Business Growth Outcomes not_instrumented -> observed or explicitly blocked."
+    },
+    {
+      "rank": 3,
+      "project_id": "ai-projects-brain",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Autonomy and resource use",
+      "action": "Add stable non-secret counters for context/retry cost only if a trustworthy source exists.",
+      "expected_metric_effect": "Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence."
+    }
+  ]
+}
