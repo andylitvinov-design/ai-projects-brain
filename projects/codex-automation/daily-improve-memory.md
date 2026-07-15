@@ -20,11 +20,11 @@ Each Daily Improve run must read this file before forming conclusions and update
 
 | Priority | Finding | Delta | Evidence state | Evidence / consequence | Next route |
 |---:|---|---|---|---|---|
-| 1 | Daily Intelligence now has a merged public UI and an automation contract, but the canonical snapshot still has no top-level `daily_intelligence` object. | `NEW` | `BLOCKED` | Brain Management PR #38 added the tab and fallback renderer. The current canonical and mirror blobs remain schema v6 without explicit Daily Intelligence history. This run could read the full snapshot only through truncated connector responses; the contents API requires a full-file replacement, so a safe unrelated-field-preserving write could not be proven. | `/upgrade` |
-| 2 | The active portfolio routing problem is substantially resolved by a canonical overlay and routing index. | `RESOLVED` | `PROVEN` | `projects/portfolio-registry.json` now carries 10 active projects and `projects/index.md` routes agents to it first. The previous claim that the canonical registry omitted Ezohata, EzoHata Finance, Toronto Tantra and Psitherapy/report is superseded. Legacy `projects.md` and `projects.json` remain continuity sources marked `needs_revision`, not the active router. | `/upgrade` only for bounded legacy reconciliation |
-| 3 | The adaptive dashboard validation path moved from local-only evidence to green CI, while public publication remains stale. | `CHANGED` | `PROVEN` | PR #115 merged the schema-v6 consistency gate; Agent Harness Validators run #161 passed. Canonical Markdown and JSON agree, and canonical/mirror blobs match. Netlify still lacks a current source-mapped deploy and public timestamp equality, so Publication Freshness remains `STALE 2/4`. | `/delivery /safe` |
-| 4 | Toronto Tantra gained substantial product/content and deployment preparation, but live delivery is not yet proven. | `CHANGED` | `NEEDS_VERIFICATION` | PRs #15-#17 restored stronger copy/program sections, compacted mobile layouts and added the existing-project deployment runbook. The workflow still requires authorized `VERCEL_TOKEN` execution and current production verification; merged code is not counted as a live outcome. | `/delivery /safe`, then `/audit-sales` |
-| 5 | Provider/live blockers and missing outcome instrumentation remain the main portfolio-wide constraint. | `UNCHANGED` | `BLOCKED` | Ezohata still lacks complete owner-auth/upload/storage/live persistence proof; EzoHata Finance lacks signed live session, authorized origin, migration/provider/balance proof; Psitherapy draft PR #122 lacks Firebase/provider/domain/env/live-login proof; Psihotavr repo/source/retirement truth remains inaccessible; Business Growth Outcomes still has no observed KPI source. | `/safe`, `/audit-fin`, `/planner` as routed |
+| 1 | The missing deterministic Daily Intelligence persistence layer is implemented and CI-proven. | `RESOLVED` | `PROVEN` | PR #116 added `scripts/update-daily-intelligence.mjs`, five regression tests and the test entry in Agent Harness Validators. Run #165 passed and the PR was squash-merged as `98a844940001111fc2c94cf6980a3f28b4f00697`. The writer preserves unrelated fields, keeps publication evidence separate, derives all five delta labels and trims history to 30 days. | `/upgrade` only to bootstrap the first canonical/mirror snapshot |
+| 2 | The active portfolio routing problem is substantially resolved by a canonical overlay and routing index. | `RESOLVED` | `PROVEN` | `projects/portfolio-registry.json` carries 10 active projects and `projects/index.md` routes agents to it first. Legacy `projects.md` and `projects.json` remain continuity sources marked `needs_revision`, not the active router. | `/upgrade` only for bounded legacy reconciliation |
+| 3 | The adaptive dashboard validation path has green CI, while public publication remains stale. | `UNCHANGED` | `PROVEN` | PR #115 closed schema-v6 consistency drift and PR #116 added Daily Intelligence tests. Netlify still lacks a current source-mapped deploy and public timestamp equality, so Publication Freshness remains separate from merge status. | `/delivery /safe` |
+| 4 | Toronto Tantra gained substantial product/content and deployment preparation, but live delivery is not yet proven. | `UNCHANGED` | `NEEDS_VERIFICATION` | PRs #15-#17 restored stronger copy/program sections, compacted mobile layouts and added the existing-project deployment runbook. Current production verification is still required. | `/delivery /safe`, then `/audit-sales` |
+| 5 | Provider/live blockers and missing outcome instrumentation remain the main portfolio-wide constraint. | `UNCHANGED` | `BLOCKED` | Ezohata, EzoHata Finance, Psitherapy and Psihotavr still require their previously recorded provider/live evidence. Business Growth Outcomes still has no observed KPI source. | `/safe`, `/audit-fin`, `/planner` as routed |
 
 ## Current strategic decisions
 
@@ -36,10 +36,11 @@ Each Daily Improve run must read this file before forming conclusions and update
 - Do not infer that Psihotavr live is retired solely because its repository is inaccessible to the current connector. Require explicit repository/live-retirement evidence.
 - Do not call provider-dependent work successful from merged code, a READY preview, or the newest deployment alone.
 - Do not use `/audit-sales` baseline records as conversion or business-impact evidence until the scheduled audit produces observed checks.
+- Daily Intelligence snapshots must be produced through `scripts/update-daily-intelligence.mjs`; manual full-file reconstruction of the dashboard JSON is superseded.
 
 ## Active blockers
 
-- Daily Intelligence: no persisted top-level snapshot/history in the canonical dashboard JSON; this run could not safely replace the minified full file through the available connector without risking unrelated-field loss.
+- Daily Intelligence bootstrap: the writer is merged and proven, but the first top-level `daily_intelligence` snapshot must still be generated in a full repository checkout and mirrored to Brain Management.
 - Brain Management: same-attempt publication trace with canonical commit, mirror commit, deploy ID/source commit/branch and equal public timestamp.
 - Ezohata: Google auth provider/live owner login, server-side admin allowlist, upload/storage persistence, and refreshed public/admin visibility.
 - EzoHata Finance: authorized Google origin, `FINANCE_SESSION_SECRET` presence proof by name only, signed live session, migration parity/application evidence, and current finance/provider verification.
@@ -49,26 +50,31 @@ Each Daily Improve run must read this file before forming conclusions and update
 
 ## Current single next improvement
 
-`/upgrade` implement a deterministic Daily Intelligence snapshot writer for `projects/codex-automation/system-health-dashboard.json`. Outcome: every Daily Improve run can preserve the previous snapshot, derive observed yesterday→today rows from the existing metric schema and current decision map, append one compact dated history entry (latest 30 only), validate required fields and sync the identical JSON to `andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json`. Source of truth: `daily-improve-memory.md`, the current canonical dashboard JSON, `metric_schema`, `projects/portfolio-registry.json`, publication evidence and observed GitHub/provider evidence. Constraints: harness/schema/script/tests only; preserve all unrelated dashboard fields byte-for-byte where possible; no product code, merge, deploy, provider/data/auth/payment/env/billing/secrets mutation; missing evidence stays `unknown`; no invented 0-100 score. Verification: tests for first snapshot, next-day rollover, NEW/CHANGED/UNCHANGED/RESOLVED/SUPERSEDED labels, non-numeric deltas, 30-day trimming, unrelated-field preservation, canonical/mirror identity and LIVE guard. Final evidence: changed files, before/after top-level keys, test output, canonical and mirror blob SHAs, history length, and publication status kept separate from merge status.
+`/upgrade` bootstrap and sync the first persisted Daily Intelligence snapshot using the merged writer. In a fresh `andylitvinov-design/ai-projects-brain` checkout at current `main`, run `node scripts/update-daily-intelligence.mjs --input projects/codex-automation/system-health-dashboard.json --observed-at 2026-07-15`, validate with `node scripts/validate-portfolio-dashboard.mjs` and `node tests/daily-intelligence-writer.test.mjs`, commit the canonical snapshot, then copy the exact resulting JSON to `andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json` on a fresh branch and prove canonical/mirror semantic identity. Do not change publication status or call the dashboard LIVE without current Netlify source/deploy/timestamp proof. Final evidence: both commit SHAs, both blob SHAs, history length, indicator count, validation outputs and publication status.
 
 ## History
 
-### 2026-07-15
+### 2026-07-15 — applied upgrade
+
+- Implemented deterministic Daily Intelligence writer in PR #116.
+- Added tests for first snapshot, rollover, all required labels, 30-day trimming, unrelated-field preservation and invalid explicit labels.
+- Added the new test suite to Agent Harness Validators; run #165 passed.
+- Squash-merged PR #116 as `98a844940001111fc2c94cf6980a3f28b4f00697`.
+- Marked the previous writer blocker `RESOLVED`; narrowed the remaining work to one controlled first-snapshot bootstrap and mirror sync.
+
+### 2026-07-15 — analysis
 
 - Marked the canonical active portfolio overlay and routing index `RESOLVED`; legacy maps remain bounded continuity cleanup rather than the primary routing emergency.
-- Confirmed schema-v6 dashboard consistency and CI closure through PR #115 / run #161, while preserving truthful `STALE 2/4` public publication status.
+- Confirmed schema-v6 dashboard consistency and CI closure through PR #115 / run #161, while preserving truthful stale public publication status.
 - Recorded Toronto Tantra's merged content/mobile/deployment preparation as `CHANGED` but not live-proven.
 - Preserved all provider/auth/data blockers as `UNCHANGED` where no new live evidence exists.
-- Recorded `DAILY_INTELLIGENCE_UPDATE_BLOCKED`: memory was updated, but the available contents connector could not safely patch the large minified canonical/mirror JSON without full unrelated-field-preserving replacement.
-- Narrowed the next improvement to a deterministic Daily Intelligence writer and validator so future runs can persist snapshots safely.
+- Recorded the missing writer as the next structural upgrade.
 
 ### 2026-07-14
 
 - First full delta-based run consumed the persistent memory and updated it instead of rediscovering the previous findings.
 - Proved central registry drift across new projects, production URLs, Psitherapy mapping, and Psihotavr retirement handling.
 - Marked the persistent-analysis contract `RESOLVED`; narrowed the next improvement to portfolio registry reconciliation.
-- Shifted Ezohata from parity/UI recovery to provider/live persistence proof.
-- Preserved the existing dashboard publication handoff without creating duplicate work.
 
 ### 2026-07-13
 
