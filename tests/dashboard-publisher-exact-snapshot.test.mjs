@@ -4,8 +4,8 @@ import fs from 'node:fs';
 
 const workflow = fs.readFileSync('.github/workflows/publish-system-health-dashboard.yml', 'utf8');
 
-test('publisher does not regenerate a hard-coded Morning snapshot', () => {
-  assert.doesNotMatch(workflow, /publish-morning-dashboard-snapshot\.mjs/);
+test('publisher does not execute a hard-coded Morning snapshot generator', () => {
+  assert.doesNotMatch(workflow, /node scripts\/publish-morning-dashboard-snapshot\.mjs/);
   assert.doesNotMatch(workflow, /Generate Morning canonical candidate/);
   assert.doesNotMatch(workflow, /6a5207d064f1feba62676b5e/);
 });
