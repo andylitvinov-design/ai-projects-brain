@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const sectors = ["execution","product_value","business_growth","standards","reliability","learning"];
 const lifecycleStates = new Set(["candidate","active","watch","needs_revision","superseded","retired"]);
 const assessmentStatuses = new Set(["PASS","WATCH","FAIL","BLOCKED","NOT_TESTED"]);
+const numericTypes = new Set(["count","ratio","duration","currency"]);
 
 function parseMarkdown(markdown) {
   const match = (pattern, label) => markdown.match(pattern)?.[1] ?? `__MISSING_${label}__`;
@@ -14,6 +15,11 @@ function parseMarkdown(markdown) {
     result: match(/\*\*(?:Morning|Evening) result:\*\*\s*`([^`]+)`/, "RESULT"),
     public_state: match(/\*\*Public publication state:\*\*\s*`([^`]+)`/, "PUBLIC_STATE")
   };
+}
+
+function isNotApplicable(metric) {
+  return String(metric.status ?? "").toUpperCase() === "NOT_APPLICABLE"
+    || String(metric.value ?? "").toLowerCase() === "not_applicable";
 }
 
 export function validatePortfolioDashboard(dashboard, registry, markdown) {
@@ -69,8 +75,14 @@ export function validatePortfolioDashboard(dashboard, registry, markdown) {
   for (const metric of metrics) {
     if (!lifecycleStates.has(metric.lifecycle)) errors.push(`${metric.id}: invalid lifecycle`);
     if (!metric.goal || !metric.sector || !metric.source || !metric.period || !metric.unit) errors.push(`${metric.id}: incomplete evidence contract`);
-    if (["count","ratio","duration","currency"].includes(metric.type)) {
-      if (metric.numerator === null || metric.denominator === null) errors.push(`${metric.id}: numeric metric missing numerator/denominator`);
+    if (numericTypes.has(metric.type)) {
+      if (isNotApplicable(metric)) {
+        if (metric.value !== "not_applicable") errors.push(`${metric.id}: NOT_APPLICABLE metric must use value=not_applicable`);
+        if (metric.status !== "NOT_APPLICABLE") errors.push(`${metric.id}: not_applicable value requires NOT_APPLICABLE status`);
+        if (metric.numerator !== null || metric.denominator !== null) errors.push(`${metric.id}: NOT_APPLICABLE numeric metric must use null numerator/denominator`);
+      } else if (metric.numerator === null || metric.denominator === null) {
+        errors.push(`${metric.id}: numeric metric missing numerator/denominator`);
+      }
     }
   }
 
@@ -112,7 +124,7 @@ function main() {
     goals:dashboard.goal_pyramid.length,
     metrics:dashboard.metrics.length,
     agent_assessments:dashboard.agent_assessments.length,
-    snapshot_consistency_checks:4
+    snapshot_consistency_checks:5
   }));
 }
 
