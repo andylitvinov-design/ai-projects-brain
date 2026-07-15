@@ -34,6 +34,10 @@ const validators = [
     log: 'portfolio-dashboard-validator-tests.log',
   },
   {
+    script: 'tests/daily-intelligence-writer.test.mjs',
+    log: 'daily-intelligence-writer-tests.log',
+  },
+  {
     script: 'scripts/validate-dashboard-publication-contract.mjs',
     log: 'validate-dashboard-publication-contract.log',
   },
