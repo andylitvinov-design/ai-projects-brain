@@ -20,36 +20,47 @@ Each Daily Improve run must read this file before forming conclusions and update
 
 | Priority | Finding | Delta | Evidence state | Evidence / consequence | Next route |
 |---:|---|---|---|---|---|
-| 1 | The canonical portfolio registry is materially behind current project truth. | `CHANGED` | `PROVEN` | `projects/index.md`, `projects.md`, and `projects.json` conflict with current repo evidence: Ezohata, EzoHata Finance, and Toronto Tantra are absent; Brain Management still points to legacy Cloudflare in the index; Psitherapy is misclassified; Psihotavr was removed without live-retirement proof. Wrong routing now threatens every scheduled loop. | `/upgrade` |
-| 2 | Ezohata has moved from catalog-parity recovery to provider activation and end-to-end persistence proof. | `CHANGED` | `BLOCKED` | Static catalog parity reached 500/500 and 17 owner decisions were resolved, but Google provider activation, real owner login, admin allowlist, uploads, storage, and refreshed production persistence are not all proven. Open PR #41 explicitly retains the external gate. | `/safe` |
-| 3 | New and legacy Finance remain separate systems, but the new production target is missing from the central registry. | `CHANGED` | `NEEDS_VERIFICATION` | `ezohata-finance` documents the new clean-room Vercel/Supabase system; `finance` remains the legacy Incoming Ledger. Live GIS session, `FINANCE_SESSION_SECRET`, authorized origin, migration parity/application, and current provider/balance evidence must be proven separately. | `/upgrade`, then `/safe` or `/audit-fin` |
-| 4 | Psitherapy repository mapping uncertainty is resolved; auth cutover readiness is not. | `RESOLVED` | `PROVEN` | `andylitvinov-design/report` README identifies it as the implementation repo for `psitherapy.vercel.app`, and the shared `/audit-sales` adapter was merged there. The old registry statement `repo needs verification` is superseded. Draft Firebase migration PR #122 remains blocked on provider/project/domain/env/live-login proof. | `/upgrade`, then `/safe` |
-| 5 | Dashboard publication trace remains incomplete and already has a deduplicated Morning handoff. | `UNCHANGED` | `NEEDS_VERIFICATION` | Publication is still 3/4: canonical, mirror, and deploy are identified, but one attempt cannot yet tie source commit/branch and public timestamp together. Do not create a second discovery task. | `/upgrade`; provider closure via `/delivery /safe` |
+| 1 | Daily Intelligence now has a merged public UI and an automation contract, but the canonical snapshot still has no top-level `daily_intelligence` object. | `NEW` | `BLOCKED` | Brain Management PR #38 added the tab and fallback renderer. The current canonical and mirror blobs remain schema v6 without explicit Daily Intelligence history. This run could read the full snapshot only through truncated connector responses; the contents API requires a full-file replacement, so a safe unrelated-field-preserving write could not be proven. | `/upgrade` |
+| 2 | The active portfolio routing problem is substantially resolved by a canonical overlay and routing index. | `RESOLVED` | `PROVEN` | `projects/portfolio-registry.json` now carries 10 active projects and `projects/index.md` routes agents to it first. The previous claim that the canonical registry omitted Ezohata, EzoHata Finance, Toronto Tantra and Psitherapy/report is superseded. Legacy `projects.md` and `projects.json` remain continuity sources marked `needs_revision`, not the active router. | `/upgrade` only for bounded legacy reconciliation |
+| 3 | The adaptive dashboard validation path moved from local-only evidence to green CI, while public publication remains stale. | `CHANGED` | `PROVEN` | PR #115 merged the schema-v6 consistency gate; Agent Harness Validators run #161 passed. Canonical Markdown and JSON agree, and canonical/mirror blobs match. Netlify still lacks a current source-mapped deploy and public timestamp equality, so Publication Freshness remains `STALE 2/4`. | `/delivery /safe` |
+| 4 | Toronto Tantra gained substantial product/content and deployment preparation, but live delivery is not yet proven. | `CHANGED` | `NEEDS_VERIFICATION` | PRs #15-#17 restored stronger copy/program sections, compacted mobile layouts and added the existing-project deployment runbook. The workflow still requires authorized `VERCEL_TOKEN` execution and current production verification; merged code is not counted as a live outcome. | `/delivery /safe`, then `/audit-sales` |
+| 5 | Provider/live blockers and missing outcome instrumentation remain the main portfolio-wide constraint. | `UNCHANGED` | `BLOCKED` | Ezohata still lacks complete owner-auth/upload/storage/live persistence proof; EzoHata Finance lacks signed live session, authorized origin, migration/provider/balance proof; Psitherapy draft PR #122 lacks Firebase/provider/domain/env/live-login proof; Psihotavr repo/source/retirement truth remains inaccessible; Business Growth Outcomes still has no observed KPI source. | `/safe`, `/audit-fin`, `/planner` as routed |
 
 ## Current strategic decisions
 
+- `projects/portfolio-registry.json` is the canonical active-project router. `projects.md` and `projects.json` are historical continuity sources until bounded reconciliation is complete.
 - Treat `andylitvinov-design/ezohata-finance` as the new finance production project and `andylitvinov-design/finance` as a separate live legacy/reference system until a formal transition plan says otherwise.
 - Treat `andylitvinov-design/report` as the canonical Psitherapy implementation repo.
 - Treat `https://brain-management.netlify.app` as the current Brain Management production surface; Cloudflare is legacy unless current provider evidence changes this.
-- Treat `andylitvinov-design/ezohata` and Toronto Tantra as active portfolio projects even though the central project index has not caught up.
-- Do not infer that Psihotavr live is retired solely because its GitHub repo is no longer discoverable and its project capsule was deleted. Require explicit live/repository retirement evidence.
+- Treat Toronto Tantra's 2026-07-14 merged landing changes as implementation evidence only until a current Vercel production deployment and visible behavior are verified.
+- Do not infer that Psihotavr live is retired solely because its repository is inaccessible to the current connector. Require explicit repository/live-retirement evidence.
 - Do not call provider-dependent work successful from merged code, a READY preview, or the newest deployment alone.
-- The persistent Daily Improve delta contract is now operational; the earlier broad memory-contract task is `RESOLVED`. The remaining system gap is canonical portfolio registry reconciliation.
+- Do not use `/audit-sales` baseline records as conversion or business-impact evidence until the scheduled audit produces observed checks.
 
 ## Active blockers
 
+- Daily Intelligence: no persisted top-level snapshot/history in the canonical dashboard JSON; this run could not safely replace the minified full file through the available connector without risking unrelated-field loss.
+- Brain Management: same-attempt publication trace with canonical commit, mirror commit, deploy ID/source commit/branch and equal public timestamp.
 - Ezohata: Google auth provider/live owner login, server-side admin allowlist, upload/storage persistence, and refreshed public/admin visibility.
-- EzoHata Finance: authorized Google origin, `FINANCE_SESSION_SECRET`, signed live session, migration parity/application evidence, and current finance/provider verification.
+- EzoHata Finance: authorized Google origin, `FINANCE_SESSION_SECRET` presence proof by name only, signed live session, migration parity/application evidence, and current finance/provider verification.
 - Psitherapy: Firebase access/project/provider/domain/env/live-login proof before draft PR #122 can become a cutover.
-- Brain Management: same-attempt publication trace with source commit, branch, deploy, and public timestamp.
-- Psihotavr: canonical repo/retirement state and current live source are unknown after the 2026-07-13 memory deletion.
-- Portfolio growth: `/audit-sales` adapters exist, but current conversion analytics and completed portfolio sales-audit outcomes are not yet evidenced.
+- Psihotavr: canonical repo/retirement state and current live source remain unknown to the current connector.
+- Portfolio growth: observed KPI source, owner, cadence and outcome records are missing; `/audit-sales` baselines remain `NOT_TESTED`.
 
 ## Current single next improvement
 
-`/upgrade` reconcile the canonical active-project registry across `projects/index.md`, `projects.md`, `projects.json`, and project capsules. Outcome: one deduplicated map that includes Ezohata, EzoHata Finance, legacy Finance, Psitherapy/report, Reiki Yggdrasil, Codex Links, Brain Management, Toronto Tantra, AI Projects Brain, and an explicit Psihotavr retirement/live-unknown state. Source of truth: current repo READMEs/STATE files, merged/open PR evidence, active-skill map, provider-live readiness gate, and existing production decisions in this memory. Constraints: harness/docs/memory only; do not edit product code, merge product PRs, deploy, mutate providers/data, create automations, or store secret values. Verification: cross-file repo/live/hosting/status equality, no duplicate aliases, no legacy URL marked production, every provider-dependent project has five-layer readiness fields, and validators pass. Final evidence: changed-file list, exact mapping table, validator outputs, commit/PR/CI evidence, and unresolved mappings labeled `NEEDS_VERIFICATION` rather than guessed.
+`/upgrade` implement a deterministic Daily Intelligence snapshot writer for `projects/codex-automation/system-health-dashboard.json`. Outcome: every Daily Improve run can preserve the previous snapshot, derive observed yesterday→today rows from the existing metric schema and current decision map, append one compact dated history entry (latest 30 only), validate required fields and sync the identical JSON to `andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json`. Source of truth: `daily-improve-memory.md`, the current canonical dashboard JSON, `metric_schema`, `projects/portfolio-registry.json`, publication evidence and observed GitHub/provider evidence. Constraints: harness/schema/script/tests only; preserve all unrelated dashboard fields byte-for-byte where possible; no product code, merge, deploy, provider/data/auth/payment/env/billing/secrets mutation; missing evidence stays `unknown`; no invented 0-100 score. Verification: tests for first snapshot, next-day rollover, NEW/CHANGED/UNCHANGED/RESOLVED/SUPERSEDED labels, non-numeric deltas, 30-day trimming, unrelated-field preservation, canonical/mirror identity and LIVE guard. Final evidence: changed files, before/after top-level keys, test output, canonical and mirror blob SHAs, history length, and publication status kept separate from merge status.
 
 ## History
+
+### 2026-07-15
+
+- Marked the canonical active portfolio overlay and routing index `RESOLVED`; legacy maps remain bounded continuity cleanup rather than the primary routing emergency.
+- Confirmed schema-v6 dashboard consistency and CI closure through PR #115 / run #161, while preserving truthful `STALE 2/4` public publication status.
+- Recorded Toronto Tantra's merged content/mobile/deployment preparation as `CHANGED` but not live-proven.
+- Preserved all provider/auth/data blockers as `UNCHANGED` where no new live evidence exists.
+- Recorded `DAILY_INTELLIGENCE_UPDATE_BLOCKED`: memory was updated, but the available contents connector could not safely patch the large minified canonical/mirror JSON without full unrelated-field-preserving replacement.
+- Narrowed the next improvement to a deterministic Daily Intelligence writer and validator so future runs can persist snapshots safely.
 
 ### 2026-07-14
 
