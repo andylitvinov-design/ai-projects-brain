@@ -1,54 +1,54 @@
 {
   "schema_version": 2,
   "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
-  "publication_attempt_id": "strategic-2026-07-16T06-58-20plus02-00",
-  "canonical_snapshot_timestamp": "2026-07-16T06:58:20+02:00",
+  "publication_attempt_id": "evening-2026-07-16T20-12-00plus02-00",
+  "canonical_snapshot_timestamp": "2026-07-16T20:12:00+02:00",
   "publication_status": "STALE",
   "success_allowed": false,
   "stages": {
     "canonical_updated": {
       "checked_url_or_path": "andylitvinov-design/ai-projects-brain/projects/codex-automation/system-health-dashboard.json",
       "evidence_type": "github_main_snapshot",
-      "evidence_reference": "Exact committed strategic snapshot after idempotent gain accounting repair.",
+      "evidence_reference": "Exact committed snapshot; publisher did not regenerate business fields.",
       "confidence": "high",
       "status": "verified",
-      "timestamp": "2026-07-16T06:58:20+02:00",
-      "commit_sha": "d948df64ef567a60a1d4b4ebb1c75557b4867b02",
-      "blob_sha": "867246a2756c266f8ee2882ec43cfd16bf127577"
+      "timestamp": "2026-07-16T20:12:00+02:00",
+      "commit_sha": "67a96946404a6b4da62e43340872af419fdc743e",
+      "blob_sha": "76052a966ea9a7b090884c4ffdb646d2c93395c1"
     },
     "mirror_synced": {
       "checked_url_or_path": "andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
       "evidence_type": "github_mirror_snapshot",
-      "evidence_reference": "Mirror blob equals the exact repaired canonical strategic snapshot blob.",
+      "evidence_reference": "Mirror blob equals canonical blob.",
       "confidence": "high",
       "status": "verified",
-      "timestamp": "2026-07-16T06:58:20+02:00",
-      "commit_sha": "13f943373da2cea22f093f5f2c863b3e9b6cce7f",
-      "blob_sha": "867246a2756c266f8ee2882ec43cfd16bf127577"
+      "timestamp": "2026-07-16T20:12:00+02:00",
+      "commit_sha": "e691da7e5c61db8c69ab11fdd23c42b0a4bc601c",
+      "blob_sha": "76052a966ea9a7b090884c4ffdb646d2c93395c1"
     },
     "deploy_identified": {
       "checked_url_or_path": "Netlify deploy 6a573e142b93890e6f8d61a9",
       "evidence_type": "netlify_deploy_metadata",
-      "evidence_reference": "Most recent verified production deploy predates the strategic snapshot.",
+      "evidence_reference": "Most recent verified production deploy predates the new evening snapshot.",
       "confidence": "high",
       "status": "stale",
       "timestamp": "2026-07-15T08:00:21.606Z",
       "deploy_id": "6a573e142b93890e6f8d61a9",
       "source_commit_sha": "5d682d1629ac6783e87d1357fa47b4f5d4195d26",
       "branch": "main",
-      "failure_reason": "Verified deploy predates the 2026-07-16 strategic snapshot."
+      "failure_reason": "Verified deploy predates the new evening snapshot."
     },
     "live_verified": {
       "checked_url_or_path": "https://brain-management.netlify.app/system-health-dashboard/",
       "evidence_type": "public_snapshot_and_ui",
-      "evidence_reference": "LIVE is withheld until the strategic timestamp and scoreboards are observed on the public UI from a source-mapped deploy.",
+      "evidence_reference": "LIVE withheld until the new timestamp and required UI are verified.",
       "confidence": "high",
       "status": "needs_verification",
       "timestamp": null,
       "url": "https://brain-management.netlify.app/system-health-dashboard/",
       "public_last_updated": null,
       "live_verified_at": null,
-      "failure_reason": "Public timestamp, visible strategic scoreboards, deploy ID, source commit and branch still need same-attempt verification."
+      "failure_reason": "Public timestamp and UI must be rechecked after this snapshot is deployed."
     }
   }
 }
