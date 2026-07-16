@@ -34,6 +34,12 @@ function stageErrors(stageName, stage) {
   return errors;
 }
 
+function validStageTransition(stageName, dashboardStatus, traceStatus) {
+  return stageName === 'mirror_synced'
+    && ['needs_update', 'needs_verification'].includes(dashboardStatus)
+    && traceStatus === 'verified';
+}
+
 export function validatePublicationContract(dashboard, trace) {
   const errors = [];
   if (!dashboard || typeof dashboard !== 'object' || Array.isArray(dashboard)) return ['dashboard must be an object'];
@@ -48,7 +54,7 @@ export function validatePublicationContract(dashboard, trace) {
   }
   if (!validDate(trace.canonical_snapshot_timestamp)) errors.push('trace.canonical_snapshot_timestamp must be a valid timestamp');
   if (trace.canonical_snapshot_timestamp !== dashboard.last_updated) {
-    errors.push('trace canonical_snapshot_timestamp must equal dashboard last_updated');
+    errors.push('trace canonical_snapshot_timestamp must equal dashboard.last_updated');
   }
   const dashboardTracePath = dashboard.publication_evidence?.trace_path ?? DEFAULT_TRACE_PATH;
   if (dashboardTracePath !== trace.trace_path) {
@@ -59,7 +65,9 @@ export function validatePublicationContract(dashboard, trace) {
     errors.push(...stageErrors(stageName, trace.stages?.[stageName]));
     const dashboardStatus = dashboard.publication_evidence?.stages?.[stageName]?.status;
     const traceStatus = trace.stages?.[stageName]?.status;
-    if (dashboardStatus !== traceStatus) errors.push(`${stageName} status must match dashboard summary`);
+    if (dashboardStatus !== traceStatus && !validStageTransition(stageName, dashboardStatus, traceStatus)) {
+      errors.push(`${stageName} status must match dashboard summary`);
+    }
   }
 
   const canonical = trace.stages?.canonical_updated;

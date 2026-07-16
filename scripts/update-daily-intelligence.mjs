@@ -76,11 +76,11 @@ function validateGoal(goal, label) {
   }
 }
 
-function normalizeGoal(goal, previousGoal, label) {
+function normalizeGoal(goal, previousGoal, label, { sameObservationDate = false } = {}) {
   validateGoal(goal, label);
-  const progressYesterday = typeof previousGoal?.progress_today === 'number'
-    ? previousGoal.progress_today
-    : (goal.progress_yesterday ?? null);
+  const progressYesterday = sameObservationDate
+    ? (goal.progress_yesterday ?? previousGoal?.progress_yesterday ?? null)
+    : (typeof previousGoal?.progress_today === 'number' ? previousGoal.progress_today : (goal.progress_yesterday ?? null));
   const dailyDelta = typeof progressYesterday === 'number'
     ? Number((goal.progress_today - progressYesterday).toFixed(1))
     : null;
@@ -101,15 +101,18 @@ export function buildStrategicGoals(previous = {}, strategicGoals) {
     };
   }
 
+  const date = String(strategicGoals.observed_at).slice(0, 10);
+  const previousDate = String(previous.strategic_observed_at || '').slice(0, 10);
+  const sameObservationDate = previousDate === date;
   const previousById = new Map((previous.project_goals || []).map((goal) => [goal.project_id, goal]));
   const projectGoals = strategicGoals.project_goals.map((goal, index) =>
-    normalizeGoal(goal, previousById.get(goal.project_id), `project_goals[${index}]`));
+    normalizeGoal(goal, previousById.get(goal.project_id), `project_goals[${index}]`, { sameObservationDate }));
   const systemIntelligenceGoal = normalizeGoal(
     strategicGoals.system_intelligence_goal,
     previous.system_intelligence_goal,
     'system_intelligence_goal',
+    { sameObservationDate },
   );
-  const date = String(strategicGoals.observed_at).slice(0, 10);
   const historyEntry = {
     date,
     projects: Object.fromEntries(projectGoals.map((goal) => [goal.project_id, goal.progress_today])),

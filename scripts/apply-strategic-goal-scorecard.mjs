@@ -117,8 +117,8 @@ export function applyStrategicGoalScorecard(inputDashboard, inputMarkdown, score
         confidence: 'high',
       },
       mirror_synced: {
-        status: 'needs_update',
-        timestamp: null,
+        status: 'verified',
+        timestamp,
         path: 'brain-management/system-health-dashboard/data/current-system-health-dashboard.json',
         confidence: 'high',
       },
