@@ -1,6 +1,14 @@
 name: Publish Strategic Goal Scorecard
 
 on:
+  pull_request:
+    paths:
+      - 'projects/codex-automation/strategic-goal-scorecard.json'
+      - 'scripts/apply-strategic-goal-scorecard.mjs'
+      - 'scripts/update-daily-intelligence.mjs'
+      - 'tests/strategic-goal-scorecard.test.mjs'
+      - 'tests/daily-intelligence-writer.test.mjs'
+      - '.github/workflows/publish-strategic-goals.yml'
   push:
     branches: [main]
     paths:
@@ -16,7 +24,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: strategic-goal-scorecard-publication
+  group: strategic-goal-scorecard-publication-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -47,6 +55,7 @@ jobs:
             projects/codex-automation/system-health-dashboard.md
 
       - name: Commit strategic dashboard snapshot
+        if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
