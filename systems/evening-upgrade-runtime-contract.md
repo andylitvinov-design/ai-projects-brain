@@ -13,7 +13,8 @@ Read, in order:
 3. `projects/codex-automation/system-health-dashboard.md`.
 4. `projects/portfolio-registry.json`.
 5. the latest Morning result and Daily Strategic Improve result when available.
-6. current agent-assessment memories only when changed since the previous snapshot.
+6. the current public publication receipt at `https://brain-management.netlify.app/system-health-dashboard/data/current-publication-receipt.json` when available.
+7. current agent-assessment memories only when changed since the previous snapshot.
 
 Do not reread unchanged large project files unless a project is selected for the applied upgrade.
 
@@ -34,6 +35,22 @@ Do not reread unchanged large project files unless a project is selected for the
 5. The publisher may add commit/blob evidence to the external publication trace, but it must not replace project evidence, metric history, unknown states, `NOT_APPLICABLE` states or the current run identity.
 6. A fixed deploy ID, fixed timestamp or fixed provider result in a reusable writer/publisher is forbidden. Provider evidence must come from the current run or remain stale/unknown.
 7. Morning and Evening may run close together, but the canonical writer must reread current `main`, preserve unrelated fields and use a fresh-main/dedup gate before writing.
+
+## Immutable publication receipt boundary
+
+1. The canonical dashboard JSON is a business and metric snapshot. Do not mutate its project evidence, metric history or `last_updated` solely to record a later deploy result.
+2. A production workflow may publish a separate receipt only after all of these pass for the same snapshot timestamp:
+   - public JSON timestamp equals canonical/mirror `last_updated`;
+   - Netlify deploy metadata is current and READY;
+   - Portfolio Health is visible;
+   - project matrix and selectable project detail are visible;
+   - the three-goal metric pyramid and required JS modules are present.
+3. A receipt is valid only when its `snapshot_timestamp` and `public_last_updated` both equal the current dashboard `last_updated`, its deploy timestamp is not earlier in absolute time, its source commit is a 40-character SHA, and every required UI check is true.
+4. Compare timestamps with parsed instants, never lexical text or displayed local clock values.
+5. The public UI may overlay `LIVE`, publication `4/4` and Publication Freshness `PASS` from a valid receipt without rewriting the immutable business snapshot.
+6. A missing, stale, mismatched or incomplete receipt must be ignored; canonical `STALE`/`NEEDS_VERIFICATION` remains authoritative.
+7. A new canonical timestamp automatically invalidates every older receipt. Never carry LIVE proof forward across snapshot timestamps.
+8. Reconcile receipt evidence before selecting the evening upgrade. Treat READY deploy metadata without the matching public timestamp and UI receipt as `NEEDS_VERIFICATION`, not PASS.
 
 ## Recovery states
 
@@ -56,13 +73,14 @@ Never return only a generic scheduled-task error when a partial result can be pe
 ## Dashboard write order
 
 1. Reread the current canonical snapshot and preserve prior values/history.
-2. Apply the explicit Morning/Evening snapshot or validated pending upgrade record.
-3. Update canonical JSON.
-4. Update canonical Markdown from the same snapshot.
-5. Validate the goal pyramid, project-health model and exact-snapshot publisher topology.
-6. Sync identical JSON to `brain-management`.
-7. Record canonical/mirror commit and blob evidence in the publication trace.
-8. Verify deploy and visible live UI separately.
+2. Reconcile a matching external publication receipt as live evidence without changing the canonical business timestamp.
+3. Apply the explicit Morning/Evening snapshot or validated pending upgrade record.
+4. Update canonical JSON.
+5. Update canonical Markdown from the same snapshot.
+6. Validate the goal pyramid, project-health model and exact-snapshot publisher topology.
+7. Sync identical JSON to `brain-management`.
+8. Record canonical/mirror commit and blob evidence in the publication trace.
+9. Verify deploy and visible live UI separately through the matching receipt.
 
 When a full JSON rewrite cannot be performed safely, do not overwrite a partial snapshot. Persist the applied harness change and Morning handoff, then mark `DASHBOARD_UPDATE_BLOCKED` with the exact reason.
 
@@ -74,6 +92,7 @@ When a full JSON rewrite cannot be performed safely, do not overwrite a partial 
 - A merge or deploy-ready state is not live.
 - A previous snapshot's LIVE proof cannot be reused for a newer canonical timestamp.
 - Public state is `LIVE` only after timestamp equality and visible Portfolio Health, project selection and goal-pyramid verification.
+- A receipt is presentation/live evidence only; it cannot change portfolio, project, commercial or audit outcomes.
 
 ## Compact final report
 
@@ -84,5 +103,6 @@ When a full JSON rewrite cannot be performed safely, do not overwrite a partial 
 5. Validation.
 6. Portfolio/project/goal impact.
 7. Guardrails and publication ladder.
-8. Morning handoff.
-9. Unknown or blocked work.
+8. Receipt status and timestamp match.
+9. Morning handoff.
+10. Unknown or blocked work.
