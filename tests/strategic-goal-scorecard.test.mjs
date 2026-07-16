@@ -98,7 +98,8 @@ test('applies project and system scoreboards without inventing LIVE state', () =
   assert.equal(result.dashboard.daily_intelligence.strategic_history.length, 2);
   assert.equal(result.dashboard.publication_evidence.publication_status, 'STALE');
   assert.equal(result.dashboard.publication_evidence.success_allowed, false);
-  assert.equal(result.dashboard.publication_evidence.stages.mirror_synced.status, 'needs_update');
+  assert.equal(result.dashboard.publication_evidence.stages.mirror_synced.status, 'needs_verification');
+  assert.match(result.dashboard.publication_evidence.stages.mirror_synced.failure_reason, /mirror publication/);
   assert.match(result.markdown, /Portfolio Strategic Scoreboard/);
   assert.match(result.markdown, /Alpha/);
   assert.match(result.markdown, new RegExp(timestamp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
