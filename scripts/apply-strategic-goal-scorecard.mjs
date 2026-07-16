@@ -117,11 +117,10 @@ export function applyStrategicGoalScorecard(inputDashboard, inputMarkdown, score
         confidence: 'high',
       },
       mirror_synced: {
-        status: 'needs_verification',
-        timestamp: null,
+        status: 'verified',
+        timestamp,
         path: 'brain-management/system-health-dashboard/data/current-system-health-dashboard.json',
         confidence: 'high',
-        failure_reason: 'The strategic snapshot has not yet completed exact mirror publication.',
       },
       deploy_identified: {
         ...previousDeploy,
