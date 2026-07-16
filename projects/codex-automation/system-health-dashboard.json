@@ -980,15 +980,15 @@
     "why": "The portfolio previously tracked health states but did not preserve a comparable definition of maximum quality or progress toward it."
   },
   "system_intelligence_gain": {
-    "rules_improved": 3,
-    "validators_added_or_tightened": 4,
-    "deterministic_checks_added": 7,
+    "rules_improved": 2,
+    "validators_added_or_tightened": 3,
+    "deterministic_checks_added": 4,
     "replay_cases_added_or_improved": 1,
     "behavior_fixtures_added_or_improved": 1,
     "duplicate_instructions_removed": 0,
-    "evidence_fields_added": 16,
-    "automation_contracts_improved": 3,
-    "dashboard_registry_schema_improvements": 3,
+    "evidence_fields_added": 8,
+    "automation_contracts_improved": 2,
+    "dashboard_registry_schema_improvements": 2,
     "project_records_instrumented": 10
   },
   "publication_evidence": {
@@ -2257,7 +2257,19 @@
         "system_intelligence": 75.3
       }
     ],
-    "strategic_observed_at": "2026-07-16T06:58:20+02:00"
+    "strategic_observed_at": "2026-07-16T06:58:20+02:00",
+    "strategic_application": {
+      "observed_at": "2026-07-16T06:58:20+02:00",
+      "gain_delta": {
+        "rules_improved": 1,
+        "validators_added_or_tightened": 1,
+        "deterministic_checks_added": 3,
+        "evidence_fields_added": 8,
+        "automation_contracts_improved": 1,
+        "dashboard_registry_schema_improvements": 1
+      },
+      "accounting": "legacy_duplicate_repaired"
+    }
   },
   "project_metrics": [
     {
