@@ -27,7 +27,7 @@ function scorecard() {
   };
 }
 
-function dashboard() {
+function dashboard(overrides = {}) {
   return {
     schema_version: 6,
     metric_model: 'adaptive_portfolio_project_goal_v1',
@@ -54,7 +54,16 @@ function dashboard() {
         },
       },
     },
-    activity_log: [], system_intelligence_gain: {},
+    activity_log: [],
+    system_intelligence_gain: {
+      rules_improved: 1,
+      validators_added_or_tightened: 2,
+      deterministic_checks_added: 1,
+      evidence_fields_added: 0,
+      automation_contracts_improved: 1,
+      dashboard_registry_schema_improvements: 1,
+    },
+    ...overrides,
   };
 }
 
@@ -73,6 +82,11 @@ test('applies project and system scoreboards without inventing LIVE state', () =
   assert.equal(result.dashboard.daily_intelligence.project_goals[0].progress_today, 60);
   assert.equal(result.dashboard.daily_intelligence.system_intelligence_goal.progress_today, 60);
   assert.equal(result.dashboard.daily_intelligence.strategic_history.length, 2);
+  assert.equal(result.dashboard.daily_intelligence.strategic_application.accounting, 'counted_once');
+  assert.equal(result.dashboard.system_intelligence_gain.rules_improved, 2);
+  assert.equal(result.dashboard.system_intelligence_gain.validators_added_or_tightened, 3);
+  assert.equal(result.dashboard.system_intelligence_gain.deterministic_checks_added, 4);
+  assert.equal(result.dashboard.system_intelligence_gain.evidence_fields_added, 8);
   assert.equal(result.dashboard.publication_evidence.publication_status, 'STALE');
   assert.equal(result.dashboard.publication_evidence.success_allowed, false);
   assert.equal(result.dashboard.publication_evidence.stages.mirror_synced.status, 'verified');
@@ -82,11 +96,50 @@ test('applies project and system scoreboards without inventing LIVE state', () =
   assert.match(result.markdown, new RegExp(timestamp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
 });
 
-test('replaces the strategic section idempotently', () => {
+test('same scorecard rerun preserves history, rendering and gain counters', () => {
   const first = applyStrategicGoalScorecard(dashboard(), markdown, scorecard());
   const second = applyStrategicGoalScorecard(first.dashboard, first.markdown, scorecard());
   assert.equal((second.markdown.match(/STRATEGIC_GOAL_SCOREBOARD:1/g) || []).length, 1);
   assert.equal(second.dashboard.daily_intelligence.strategic_history.length, 2);
+  assert.equal(second.dashboard.daily_intelligence.strategic_application.accounting, 'already_counted');
+  assert.deepEqual(second.dashboard.system_intelligence_gain, first.dashboard.system_intelligence_gain);
+});
+
+test('repairs the known duplicate strategic gain signature once', () => {
+  const inflated = dashboard({
+    last_updated: timestamp,
+    main_upgrade: {
+      id: 'portfolio_strategic_goal_scoreboard', status: 'APPLIED_UPGRADE', summary: 'old', why: 'old',
+    },
+    daily_intelligence: {
+      indicators: [], history: [], strategic_observed_at: timestamp,
+      project_goals: [], system_intelligence_goal: null,
+      strategic_history: [{ date: '2026-07-16', projects: { alpha: 60 }, system_intelligence: 60 }],
+    },
+    system_intelligence_gain: {
+      rules_improved: 3,
+      validators_added_or_tightened: 4,
+      deterministic_checks_added: 7,
+      replay_cases_added_or_improved: 1,
+      behavior_fixtures_added_or_improved: 1,
+      duplicate_instructions_removed: 0,
+      evidence_fields_added: 16,
+      automation_contracts_improved: 3,
+      dashboard_registry_schema_improvements: 3,
+      project_records_instrumented: 1,
+    },
+  });
+  const repaired = applyStrategicGoalScorecard(inflated, markdown, scorecard());
+  assert.equal(repaired.dashboard.daily_intelligence.strategic_application.accounting, 'legacy_duplicate_repaired');
+  assert.equal(repaired.dashboard.system_intelligence_gain.rules_improved, 2);
+  assert.equal(repaired.dashboard.system_intelligence_gain.validators_added_or_tightened, 3);
+  assert.equal(repaired.dashboard.system_intelligence_gain.deterministic_checks_added, 4);
+  assert.equal(repaired.dashboard.system_intelligence_gain.evidence_fields_added, 8);
+  assert.equal(repaired.dashboard.system_intelligence_gain.automation_contracts_improved, 2);
+  assert.equal(repaired.dashboard.system_intelligence_gain.dashboard_registry_schema_improvements, 2);
+
+  const rerun = applyStrategicGoalScorecard(repaired.dashboard, repaired.markdown, scorecard());
+  assert.deepEqual(rerun.dashboard.system_intelligence_gain, repaired.dashboard.system_intelligence_gain);
 });
 
 test('rejects an invalid scorecard', () => {

@@ -6,6 +6,25 @@ import { buildStrategicGoals } from './update-daily-intelligence.mjs';
 const DEFAULT_DASHBOARD = 'projects/codex-automation/system-health-dashboard.json';
 const DEFAULT_MARKDOWN = 'projects/codex-automation/system-health-dashboard.md';
 const DEFAULT_SCORECARD = 'projects/codex-automation/strategic-goal-scorecard.json';
+const STRATEGIC_GAIN_DELTA = Object.freeze({
+  rules_improved: 1,
+  validators_added_or_tightened: 1,
+  deterministic_checks_added: 3,
+  evidence_fields_added: 8,
+  automation_contracts_improved: 1,
+  dashboard_registry_schema_improvements: 1,
+});
+const LEGACY_DUPLICATE_SIGNATURE = Object.freeze({
+  observed_at: '2026-07-16T06:58:20+02:00',
+  counters: {
+    rules_improved: 3,
+    validators_added_or_tightened: 4,
+    deterministic_checks_added: 7,
+    evidence_fields_added: 16,
+    automation_contracts_improved: 3,
+    dashboard_registry_schema_improvements: 3,
+  },
+});
 
 function argValue(args, name, fallback) {
   const index = args.indexOf(name);
@@ -47,6 +66,38 @@ function renderScoreboard(scorecard) {
   ].join('\n');
 }
 
+function hasLegacyDuplicateSignature(gain, timestamp) {
+  return timestamp === LEGACY_DUPLICATE_SIGNATURE.observed_at
+    && Object.entries(LEGACY_DUPLICATE_SIGNATURE.counters)
+      .every(([key, value]) => gain?.[key] === value);
+}
+
+function applyStrategicGain(inputGain, priorApplication, timestamp, projectCount) {
+  const gain = { ...(inputGain || {}) };
+  const sameApplication = priorApplication?.observed_at === timestamp;
+  const legacyDuplicate = !priorApplication && hasLegacyDuplicateSignature(gain, timestamp);
+
+  if (legacyDuplicate) {
+    for (const [key, value] of Object.entries(STRATEGIC_GAIN_DELTA)) {
+      gain[key] = Math.max(0, (gain[key] || 0) - value);
+    }
+  } else if (!sameApplication) {
+    for (const [key, value] of Object.entries(STRATEGIC_GAIN_DELTA)) {
+      gain[key] = (gain[key] || 0) + value;
+    }
+  }
+
+  gain.project_records_instrumented = projectCount;
+  return {
+    gain,
+    application: {
+      observed_at: timestamp,
+      gain_delta: { ...STRATEGIC_GAIN_DELTA },
+      accounting: legacyDuplicate ? 'legacy_duplicate_repaired' : (sameApplication ? 'already_counted' : 'counted_once'),
+    },
+  };
+}
+
 export function applyStrategicGoalScorecard(inputDashboard, inputMarkdown, scorecard) {
   if (scorecard?.schema_version !== 1) throw new Error('scorecard.schema_version must be 1');
   if (!Array.isArray(scorecard.project_goals) || scorecard.project_goals.length === 0) {
@@ -65,10 +116,18 @@ export function applyStrategicGoalScorecard(inputDashboard, inputMarkdown, score
     why: 'The portfolio previously tracked health states but did not preserve a comparable definition of maximum quality or progress toward it.',
   };
 
+  const priorApplication = dashboard.daily_intelligence?.strategic_application;
   const strategic = buildStrategicGoals(dashboard.daily_intelligence || {}, scorecard);
+  const strategicGain = applyStrategicGain(
+    dashboard.system_intelligence_gain,
+    priorApplication,
+    timestamp,
+    scorecard.project_goals.length,
+  );
   dashboard.daily_intelligence = {
     ...(dashboard.daily_intelligence || {}),
     ...strategic,
+    strategic_application: strategicGain.application,
   };
   dashboard.portfolio_health = {
     ...dashboard.portfolio_health,
@@ -81,16 +140,7 @@ export function applyStrategicGoalScorecard(inputDashboard, inputMarkdown, score
       risk: 'Provider/live proof and observed business KPI sources remain the largest constraints on progress.',
     },
   };
-  dashboard.system_intelligence_gain = {
-    ...(dashboard.system_intelligence_gain || {}),
-    rules_improved: (dashboard.system_intelligence_gain?.rules_improved || 0) + 1,
-    validators_added_or_tightened: (dashboard.system_intelligence_gain?.validators_added_or_tightened || 0) + 1,
-    deterministic_checks_added: (dashboard.system_intelligence_gain?.deterministic_checks_added || 0) + 3,
-    evidence_fields_added: (dashboard.system_intelligence_gain?.evidence_fields_added || 0) + 8,
-    automation_contracts_improved: (dashboard.system_intelligence_gain?.automation_contracts_improved || 0) + 1,
-    dashboard_registry_schema_improvements: (dashboard.system_intelligence_gain?.dashboard_registry_schema_improvements || 0) + 1,
-    project_records_instrumented: scorecard.project_goals.length,
-  };
+  dashboard.system_intelligence_gain = strategicGain.gain;
   dashboard.activity_log = [
     ...(dashboard.activity_log || []).filter((entry) => !(entry.date === timestamp.slice(0, 10) && entry.cycle === 'Daily Strategic Improve')),
     {
