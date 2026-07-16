@@ -1,7 +1,7 @@
 # /audit-ui design markers
 
-Version: 1.0  
-Last reviewed: 2026-07-12  
+Version: 1.1  
+Last reviewed: 2026-07-16  
 Owner: `/audit-ui` shared standard
 
 ## Purpose
@@ -39,7 +39,7 @@ scoreboard plus the three highest-impact defects is more useful.
 | Surface discipline | Cards, borders, shadows, radii, effects | Surfaces show hierarchy rather than card-inside-card, arbitrary glow, or competing decoration. |
 | Image and media direction | Crop, aspect ratio, loading state, relation to copy | Media is purposeful, consistently framed, and does not obscure text or distort the promise. |
 | Primary journey and CTA | Navigation, CTA placement, form/cart/checkout path | The main action is visible, understandable, reachable, and does not compete with equal-weight actions. |
-| Responsive composition | 390px, desktop, tablet when layout changes | No horizontal overflow, clipped text, hidden primary action, or desktop-only decision. |
+| Responsive composition and reflow | 390px mobile, desktop, tablet when layout changes, and a 320 CSS px equivalent / zoomed viewport | Non-exempt content reflows without two-dimensional page scrolling, clipped text, hidden primary actions, or a source-order mismatch; text enlargement remains usable. |
 | States and feedback | Default, hover/focus, selected, loading, empty, error, success | States are distinct, recoverable, and the clean-session default is verified before clicked state. |
 | Accessibility and input | Contrast, focus, target size, keyboard, motion | Controls retain visible focus and usable contrast; interaction does not depend on hover, drag, or motion alone. |
 | Performance and stability | Image/font reservation, layout shift, interaction cost | The visual solution avoids avoidable CLS, heavy decorative JS, and delayed primary interaction. |
@@ -81,8 +81,12 @@ change a core marker solely because a trend report says it is fashionable.
 
 - **Expressive editorial typography** — use only when it strengthens the
   page's story and keeps mobile wrapping, contrast, and readability intact.
-- **Intentional texture/materiality** — use as a restrained brand cue, not
-  decorative noise or an excuse for low contrast.
+- **Controlled translucency and material depth** — use glass, blur, or
+  transparent surfaces only for clear layer/navigation hierarchy. Test the
+  worst-case underlying image or color: text and controls retain contrast,
+  key media keeps its intended saturation, and an opaque/reduced-transparency
+  presentation remains usable. Do not wash a whole content area or product
+  image in a pale overlay merely to imitate a platform style.
 - **Purposeful motion** — use only to explain state or continuity, must respect
   `prefers-reduced-motion`, and must not delay the main task.
 
@@ -90,12 +94,19 @@ change a core marker solely because a trend report says it is fashionable.
 
 The durable constraints are WCAG 2.2 and Web Vitals guidance, not trend
 articles: [WCAG 2.2](https://www.w3.org/TR/WCAG22/),
-[W3C quick reference](https://www.w3.org/WAI/WCAG22/quickref/), and
-[Web Vitals](https://web.dev/articles/vitals). The initial editorial signal was
-reviewed against [Figma's 2026 web-design trends](https://www.figma.com/resource-library/web-design-trends/).
+[W3C Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html),
+[W3C Contrast](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html),
+[accessible responsive design](https://web.dev/articles/accessible-responsive-design),
+and [Web Vitals](https://web.dev/articles/vitals).
+
+Current design signals are reviewed as optional evidence. The 2026 baseline now
+includes [Figma's web-design trends](https://www.figma.com/resource-library/web-design-trends/),
+[Adobe's 2026 design trends](https://www.adobe.com/express/learn/blog/design-trends-2026),
+and Apple's [Materials guidance](https://developer.apple.com/design/human-interface-guidelines/materials)
+and [Liquid Glass accessibility behavior](https://developer.apple.com/videos/play/wwdc2025/219/).
 
 ## Change log
 
 | Date | Change | Reason |
 |---|---|---|
-| 2026-07-12 | Created v1.0 core scorecard and three trend candidates. | Separates durable UX quality from fashion-driven suggestions. |
+| 2026-07-16 | v1.1: strengthened responsive composition with 320 CSS px reflow/zoom proof; replaced vague texture candidate with testable controlled translucency/material depth. | W3C and web.dev establish reflow/source-order requirements; Apple, Figma, and Adobe show material/translucency and expressive visual systems are current signals, while contrast and opaque fallbacks remain safety gates. |\n| 2026-07-12 | Created v1.0 core scorecard and three trend candidates. | Separates durable UX quality from fashion-driven suggestions. |
