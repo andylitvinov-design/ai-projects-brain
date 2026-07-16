@@ -14,6 +14,7 @@ Each run must preserve the large goals and quality trajectory of the active port
 - Use `PROVEN`, `NEEDS_VERIFICATION`, `BLOCKED`, `RESOLVED`, `SUPERSEDED`.
 - Record only merged, verified or explicitly blocked evidence. Draft work does not increase progress.
 - Keep provider/live proof separate from implementation and CI proof.
+- Count each strategic system-intelligence gain exactly once per observation timestamp.
 - Never store secrets, provider payloads, financial records or personal data.
 
 ## Strategic portfolio baseline — 2026-07-16
@@ -50,7 +51,7 @@ The scorecard model is `weighted_confirmed_progress_lower_bound`. This is the fi
 |---:|---|---|---|---|---|
 | 1 | The portfolio now has a canonical Big Goal and weighted quality rubric for all 10 active projects plus the operating system. | `CHANGED` | `PROVEN` | `strategic-goal-scorecard.json` preserves goal, rubric, yesterday/today progress, delta, missing conditions and next threshold. | `/upgrade` maintain compatibility and evidence ingestion |
 | 2 | Daily Intelligence now preserves strategic project/system goals and a bounded 30-day strategic history. | `CHANGED` | `PROVEN` | The writer rejects invalid weights/scores, rolls prior progress forward and does not erase strategy during metric-only snapshots. | `/upgrade` keep regressions active |
-| 3 | Strategic scorecards have a deterministic and idempotent dashboard publication path rather than remaining report-only prose. | `CHANGED` | `PROVEN` | PRs #122 and #123 added the applier, same-day rerun protection, explicit exact-snapshot dispatch and green validation. The current canonical and Brain Management mirror blobs are identical. Publication remains `STALE` until deploy and public timestamp proof complete. | `/safe` verify source-mapped deploy and visible public timestamp |
+| 3 | Strategic scorecards have a deterministic, idempotent and truth-preserving dashboard publication path. | `CHANGED` | `PROVEN` | PRs #122–#124 added the applier, same-day delta protection, exact-snapshot dispatch, fresh candidate validation and exactly-once gain accounting. Canonical and mirror blobs are identical. Publication remains `STALE` until deploy and public timestamp proof complete. | `/safe` verify source-mapped deploy and visible public timestamp |
 | 4 | The active portfolio routing overlay remains canonical and complete at 10 projects. | `UNCHANGED` | `PROVEN` | `projects/portfolio-registry.json` remains the active router; legacy maps are continuity sources only. | `/upgrade` bounded legacy reconciliation only |
 | 5 | Provider/live proof and missing observed KPI sources remain the dominant portfolio constraints. | `UNCHANGED` | `BLOCKED` | Ezohata, EzoHata Finance, Psitherapy and Psihotavr retain provider/source blockers; growth projects lack observed outcome sources. | `/safe`, `/audit-fin`, `/audit-sales` |
 
@@ -61,6 +62,7 @@ The scorecard model is `weighted_confirmed_progress_lower_bound`. This is the fi
 - Do not award progress for drafts, previews, READY deployments or code-only provider scaffolds.
 - A percentage may change only when a persisted compatible rubric has new evidence.
 - Rubric changes require `SUPERSEDED`; incompatible percentages must not be compared directly.
+- Reapplying one scorecard may refresh evidence but must not increase strategic gain counters again.
 - Keep `andylitvinov-design/ezohata-finance` as the new finance product and `andylitvinov-design/finance` as separate legacy/reference until a formal transition decision.
 - Keep `andylitvinov-design/report` as canonical Psitherapy implementation.
 - Keep Brain Management publication status snapshot-specific; schema, CI and mirror identity alone are not LIVE proof.
@@ -91,8 +93,9 @@ The scorecard model is `weighted_confirmed_progress_lower_bound`. This is the fi
 - Added regression coverage for valid weights, prior-day rollover, idempotent rendering and no false LIVE state.
 - Added PR validation and main-branch publication workflow.
 - Merged PR #123 to preserve the original same-day delta during reruns and explicitly dispatch exact-snapshot publication.
-- Verified Agent Harness Validators, Strategic Goal Scorecard and System Health Dashboard workflows green on the final PR head.
-- Verified the current canonical and Brain Management mirror JSON share blob SHA `3a8eee6e876585a7c26bb747550ef8fc87a8fa64`.
+- Merged PR #124 to count system-intelligence gains exactly once and repair the duplicate counter signature.
+- Verified strategic scorecard and Agent Harness workflows green after the exactly-once repair.
+- Verified the repaired canonical and Brain Management mirror JSON share blob SHA `867246a2756c266f8ee2882ec43cfd16bf127577`.
 - Counted AI Projects Brain `69.4% → 81.3%` and System Intelligence `65.7% → 75.3%`; all other projects remain unchanged because no new qualifying live or business evidence crossed the prior boundary.
 
 ### 2026-07-15 — publication and persistence upgrades
