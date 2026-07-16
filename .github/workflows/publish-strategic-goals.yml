@@ -22,6 +22,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: strategic-goal-scorecard-publication-${{ github.ref }}
@@ -65,8 +66,16 @@ jobs:
             projects/codex-automation/system-health-dashboard.md
           if git diff --cached --quiet; then
             echo 'Strategic scorecard already applied.'
-            exit 0
+          else
+            git commit -m 'Publish strategic project goal scoreboard'
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
-          git commit -m 'Publish strategic project goal scoreboard'
-          git pull --rebase origin main
-          git push origin HEAD:main
+
+      - name: Dispatch exact snapshot publisher
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh workflow run publish-system-health-dashboard.yml --ref main
