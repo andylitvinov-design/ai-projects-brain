@@ -28,7 +28,7 @@ The scorecard model is `weighted_confirmed_progress_lower_bound`. This is the fi
 | Psitherapy | Polished therapeutic self-analysis product with secure identity, durable progress, coherent workbook and clear support pathways. | 53.5% | 53.5% | 0.0 pp | BLOCKED | Complete a reversible Firebase preview cutover and prove the authenticated intake journey. |
 | Reiki Yggdrasil | Trustworthy Reiki training/practitioner platform with excellent journeys, safe administration and measured inquiries/bookings. | 43.5% | 43.5% | 0.0 pp | NEEDS_VERIFICATION | Run a full product/live/conversion audit and establish the first KPI source. |
 | Codex Links | Safe multi-project approval and command bridge with correct routing, complete delivery evidence and low retry cost. | 56.2% | 56.2% | 0.0 pp | NEEDS_VERIFICATION | Rebase the stacked approval chain, obtain a green suite and prove one end-to-end approved delivery. |
-| Brain Management | Live trustworthy command and observability surface with strategic progress, Daily Intelligence and exact publication evidence. | 81.2% | 81.2% | 0.0 pp | NEEDS_VERIFICATION | Publish this strategic snapshot and prove mirror identity, source-mapped deploy, timestamp and visible scoreboards. |
+| Brain Management | Live trustworthy command and observability surface with strategic progress, Daily Intelligence and exact publication evidence. | 81.2% | 81.2% | 0.0 pp | NEEDS_VERIFICATION | Prove a source-mapped deploy, equal public timestamp and visible strategic scoreboards for this snapshot. |
 | Toronto Tantra | Premium concise event-program ecosystem with excellent mobile UX, reliable publishing and measured Toronto registration outcomes. | 65.2% | 65.2% | 0.0 pp | NEEDS_VERIFICATION | Instrument qualified interest → conversation → confirmed registration. |
 | AI Projects Brain | Self-improving portfolio operating system that preserves goals, selects leverage, validates delivery and learns truthfully. | 69.4% | 81.3% | +11.9 pp | PROVEN | Automate strategic score evidence ingestion from provider/live/product/business sources. |
 | Psihotavr | Clearly governed legacy platform with proven source/live/data/auth state and explicit coexist, migrate or retire role. | 50.8% | 50.8% | 0.0 pp | BLOCKED | Prove canonical source and choose coexistence, migration or retirement with rollback. |
@@ -50,7 +50,7 @@ The scorecard model is `weighted_confirmed_progress_lower_bound`. This is the fi
 |---:|---|---|---|---|---|
 | 1 | The portfolio now has a canonical Big Goal and weighted quality rubric for all 10 active projects plus the operating system. | `CHANGED` | `PROVEN` | `strategic-goal-scorecard.json` preserves goal, rubric, yesterday/today progress, delta, missing conditions and next threshold. | `/upgrade` maintain compatibility and evidence ingestion |
 | 2 | Daily Intelligence now preserves strategic project/system goals and a bounded 30-day strategic history. | `CHANGED` | `PROVEN` | The writer rejects invalid weights/scores, rolls prior progress forward and does not erase strategy during metric-only snapshots. | `/upgrade` keep regressions active |
-| 3 | Strategic scorecards have a deterministic dashboard publication path rather than remaining report-only prose. | `CHANGED` | `PROVEN` | The applier updates canonical JSON/Markdown while explicitly keeping publication `STALE`; the dedicated workflow validates PRs and commits on main. | `/safe` verify exact mirror/deploy/public timestamp after merge |
+| 3 | Strategic scorecards have a deterministic and idempotent dashboard publication path rather than remaining report-only prose. | `CHANGED` | `PROVEN` | PRs #122 and #123 added the applier, same-day rerun protection, explicit exact-snapshot dispatch and green validation. The current canonical and Brain Management mirror blobs are identical. Publication remains `STALE` until deploy and public timestamp proof complete. | `/safe` verify source-mapped deploy and visible public timestamp |
 | 4 | The active portfolio routing overlay remains canonical and complete at 10 projects. | `UNCHANGED` | `PROVEN` | `projects/portfolio-registry.json` remains the active router; legacy maps are continuity sources only. | `/upgrade` bounded legacy reconciliation only |
 | 5 | Provider/live proof and missing observed KPI sources remain the dominant portfolio constraints. | `UNCHANGED` | `BLOCKED` | Ezohata, EzoHata Finance, Psitherapy and Psihotavr retain provider/source blockers; growth projects lack observed outcome sources. | `/safe`, `/audit-fin`, `/audit-sales` |
 
@@ -63,12 +63,12 @@ The scorecard model is `weighted_confirmed_progress_lower_bound`. This is the fi
 - Rubric changes require `SUPERSEDED`; incompatible percentages must not be compared directly.
 - Keep `andylitvinov-design/ezohata-finance` as the new finance product and `andylitvinov-design/finance` as separate legacy/reference until a formal transition decision.
 - Keep `andylitvinov-design/report` as canonical Psitherapy implementation.
-- Keep Brain Management publication status snapshot-specific; schema or CI success alone is not LIVE proof.
+- Keep Brain Management publication status snapshot-specific; schema, CI and mirror identity alone are not LIVE proof.
 - Do not infer that Psihotavr is retired without explicit source/live and owner decision evidence.
 
 ## Active blockers
 
-- Brain Management: strategic snapshot requires exact canonical/mirror identity, source commit, deploy ID/branch and equal public timestamp with visible scoreboards.
+- Brain Management: canonical/mirror identity is proven for the strategic snapshot; a source-mapped deploy, equal public timestamp and visible strategic scoreboards are still required.
 - Ezohata: authorized Google owner login, server-side allowlist, upload/storage persistence and observed order outcome.
 - EzoHata Finance: authorized origin, session-secret presence proof by name only, signed production session, migration application parity and current provider balances.
 - Psitherapy: Firebase project/provider/domain/env access and preview/live login proof before cutover.
@@ -90,7 +90,10 @@ The scorecard model is `weighted_confirmed_progress_lower_bound`. This is the fi
 - Added deterministic scorecard application to dashboard JSON/Markdown while preserving truthful `STALE` publication state.
 - Added regression coverage for valid weights, prior-day rollover, idempotent rendering and no false LIVE state.
 - Added PR validation and main-branch publication workflow.
-- Counted AI Projects Brain `69.4% → 81.3%` and System Intelligence `65.7% → 75.3%`; all other projects remain unchanged because no new qualifying evidence crossed the prior boundary.
+- Merged PR #123 to preserve the original same-day delta during reruns and explicitly dispatch exact-snapshot publication.
+- Verified Agent Harness Validators, Strategic Goal Scorecard and System Health Dashboard workflows green on the final PR head.
+- Verified the current canonical and Brain Management mirror JSON share blob SHA `3a8eee6e876585a7c26bb747550ef8fc87a8fa64`.
+- Counted AI Projects Brain `69.4% → 81.3%` and System Intelligence `65.7% → 75.3%`; all other projects remain unchanged because no new qualifying live or business evidence crossed the prior boundary.
 
 ### 2026-07-15 — publication and persistence upgrades
 
