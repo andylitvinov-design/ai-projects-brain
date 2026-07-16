@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildDailyIntelligence, updateDashboardObject } from '../scripts/update-daily-intelligence.mjs';
+import { buildDailyIntelligence, buildStrategicGoals, updateDashboardObject } from '../scripts/update-daily-intelligence.mjs';
 
 function dashboard(overrides = {}) {
   return {
@@ -16,6 +16,40 @@ function dashboard(overrides = {}) {
     publication_evidence: { publication_status: 'STALE', success_allowed: false },
     unrelated: { keep: true },
     ...overrides,
+  };
+}
+
+function strategicGoals(progress = 60) {
+  const rubric = [
+    { id: 'a', name: 'A', weight: 25, yesterday_score: 40, today_score: progress },
+    { id: 'b', name: 'B', weight: 25, yesterday_score: 40, today_score: progress },
+    { id: 'c', name: 'C', weight: 25, yesterday_score: 40, today_score: progress },
+    { id: 'd', name: 'D', weight: 25, yesterday_score: 40, today_score: progress },
+  ];
+  return {
+    observed_at: '2026-07-16T07:00:00+02:00',
+    project_goals: [{
+      project_id: 'alpha',
+      big_goal: 'Maximum-quality Alpha.',
+      rubric,
+      progress_yesterday: 40,
+      progress_today: progress,
+      daily_delta: progress - 40,
+      evidence_state: 'PROVEN',
+      missing_conditions: [],
+      next_quality_threshold: 'Next threshold.',
+    }],
+    system_intelligence_goal: {
+      goal_id: 'system',
+      big_goal: 'Maximum-quality system.',
+      rubric,
+      progress_yesterday: 40,
+      progress_today: progress,
+      daily_delta: progress - 40,
+      evidence_state: 'PROVEN',
+      missing_conditions: [],
+      next_quality_threshold: 'Next threshold.',
+    },
   };
 }
 
@@ -72,4 +106,47 @@ test('accepts explicit material changes but rejects invalid labels', () => {
   });
   assert.ok(result.changes.some((item) => item.id === 'auth'));
   assert.ok(!result.changes.some((item) => item.id === 'bad'));
+});
+
+test('persists project and system Big Goals with bounded strategic history', () => {
+  const first = updateDashboardObject(dashboard(), {
+    observedAt: '2026-07-16',
+    strategicGoals: strategicGoals(60),
+  });
+  assert.equal(first.daily_intelligence.project_goals[0].progress_today, 60);
+  assert.equal(first.daily_intelligence.system_intelligence_goal.progress_today, 60);
+  assert.equal(first.daily_intelligence.strategic_history.length, 1);
+
+  const secondGoals = strategicGoals(70);
+  secondGoals.observed_at = '2026-07-17T07:00:00+02:00';
+  const second = updateDashboardObject(dashboard({ daily_intelligence: first.daily_intelligence }), {
+    observedAt: '2026-07-17',
+    strategicGoals: secondGoals,
+  });
+  assert.equal(second.daily_intelligence.project_goals[0].progress_yesterday, 60);
+  assert.equal(second.daily_intelligence.project_goals[0].daily_delta, 10);
+  assert.equal(second.daily_intelligence.system_intelligence_goal.progress_yesterday, 60);
+  assert.equal(second.daily_intelligence.strategic_history.length, 2);
+});
+
+test('preserves strategic goals when a metric-only snapshot is generated', () => {
+  const strategic = buildStrategicGoals({}, strategicGoals(60));
+  const result = buildDailyIntelligence(dashboard({
+    daily_intelligence: {
+      indicators: [],
+      history: [],
+      ...strategic,
+    },
+  }), { observedAt: '2026-07-17' });
+  assert.equal(result.project_goals[0].project_id, 'alpha');
+  assert.equal(result.system_intelligence_goal.goal_id, 'system');
+});
+
+test('rejects strategic rubrics whose weights do not sum to 100', () => {
+  const input = strategicGoals(60);
+  input.project_goals[0].rubric[0].weight = 20;
+  assert.throws(
+    () => buildStrategicGoals({}, input),
+    /weights must sum to 100/,
+  );
 });

@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-07-16T06:58:20+02:00",
+  "status": "canonical_strategic_goal_scorecard",
+  "scoring_policy": {
+    "method": "weighted_confirmed_progress_lower_bound",
+    "weights": "Every project rubric sums to 100.",
+    "scale": {
+      "0": "No usable proof or a critical prerequisite is absent.",
+      "25": "Scaffold exists but the outcome is not operational.",
+      "50": "Implemented and locally or CI verified; end-to-end proof is incomplete.",
+      "75": "Operational core is proven; important quality or outcome gaps remain.",
+      "100": "Maximum-quality target is proven end-to-end and instrumented."
+    },
+    "missing_evidence_policy": "Missing evidence never counts as success.",
+    "comparison_rule": "Only compatible persisted rubrics are compared day to day."
+  },
+  "project_goals": [
+    {
+      "project_id": "ezohata",
+      "project_name": "Ezohata",
+      "big_goal": "A trusted bilingual esoteric-commerce platform with complete catalog parity, excellent mobile discovery, secure owner administration, durable orders and uploads, and measured conversion.",
+      "rubric": [
+        {"id":"product","name":"Product and catalog completeness","weight":25,"yesterday_score":80,"today_score":80,"evidence_state":"PROVEN","evidence":"Static parity and owner decisions are implemented."},
+        {"id":"live_data","name":"Live, auth and storage persistence","weight":25,"yesterday_score":40,"today_score":40,"evidence_state":"BLOCKED","evidence":"Owner login, allowlist and upload persistence need current production proof."},
+        {"id":"ux","name":"Mobile UX and customer journey","weight":25,"yesterday_score":55,"today_score":55,"evidence_state":"NEEDS_VERIFICATION","evidence":"Major UX work exists; the complete live journey is not re-proven."},
+        {"id":"outcomes","name":"Conversion, reliability and maintainability","weight":25,"yesterday_score":57,"today_score":57,"evidence_state":"NEEDS_VERIFICATION","evidence":"Deterministic audits exist; observed funnel outcomes do not."}
+      ],
+      "progress_yesterday": 58.0,
+      "progress_today": 58.0,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "No new merged and live-proven evidence crossed the previous strategic boundary.",
+      "next_quality_threshold": "Prove one production owner journey: Google login to admin change or upload to public visibility to order handoff.",
+      "missing_conditions": ["Google provider and origin proof","Owner allowlist and session proof","Upload and storage persistence","Observed order or conversion KPI"],
+      "evidence_state": "BLOCKED"
+    },
+    {
+      "project_id": "ezohata-finance",
+      "project_name": "EzoHata Finance",
+      "big_goal": "A trustworthy owner-only financial control system with reconciled history, current provider balances, explainable movements, secure sessions, and zero synthetic accounting.",
+      "rubric": [
+        {"id":"product","name":"Ledger and decision-support completeness","weight":25,"yesterday_score":80,"today_score":80,"evidence_state":"PROVEN","evidence":"Ledger, confirmations and reporting are implemented."},
+        {"id":"live_auth","name":"Production identity and provider readiness","weight":25,"yesterday_score":40,"today_score":40,"evidence_state":"BLOCKED","evidence":"Authorized origin, secret presence and signed live session remain unproven."},
+        {"id":"data","name":"Data integrity and reconciliation","weight":25,"yesterday_score":70,"today_score":70,"evidence_state":"PROVEN","evidence":"Immutable imports and mismatch preservation are documented."},
+        {"id":"current_outcome","name":"Current balances, UX and operating reliability","weight":25,"yesterday_score":48,"today_score":48,"evidence_state":"BLOCKED","evidence":"Current provider balance and end-to-end owner proof are absent."}
+      ],
+      "progress_yesterday": 59.5,
+      "progress_today": 59.5,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "No new merged and live-proven evidence crossed the previous strategic boundary.",
+      "next_quality_threshold": "Prove a production owner session and reconcile imported totals plus current provider balances in one evidence run.",
+      "missing_conditions": ["Authorized Google origin","FINANCE_SESSION_SECRET presence by name only","Signed production session","Migration application parity","Current provider balance evidence"],
+      "evidence_state": "BLOCKED"
+    },
+    {
+      "project_id": "legacy-finance",
+      "project_name": "Legacy Finance / Incoming Ledger",
+      "big_goal": "A stable and clearly bounded legacy ledger that remains reliable during transition and has an explicit migration, archival, or retirement decision.",
+      "rubric": [
+        {"id":"product","name":"Legacy workflow completeness","weight":25,"yesterday_score":70,"today_score":70,"evidence_state":"PROVEN","evidence":"The incoming-ledger workflow remains mapped and usable."},
+        {"id":"live_data","name":"Live reliability and data integrity","weight":25,"yesterday_score":60,"today_score":60,"evidence_state":"NEEDS_VERIFICATION","evidence":"A same-day smoke and fresh parity check are absent."},
+        {"id":"ux","name":"Operational UX","weight":25,"yesterday_score":55,"today_score":55,"evidence_state":"NEEDS_VERIFICATION","evidence":"No current structured UX evidence is recorded."},
+        {"id":"transition","name":"Transition clarity and maintainability","weight":25,"yesterday_score":41,"today_score":41,"evidence_state":"NEEDS_VERIFICATION","evidence":"Its permanent role relative to the new finance system is not decided."}
+      ],
+      "progress_yesterday": 56.5,
+      "progress_today": 56.5,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "No new merged and live-proven evidence crossed the previous strategic boundary.",
+      "next_quality_threshold": "Choose and document retained reference, migration source, or retired archive, with parity and rollback evidence.",
+      "missing_conditions": ["Formal transition decision","Current live smoke","Parity boundary with EzoHata Finance","Maintenance or retirement runbook"],
+      "evidence_state": "NEEDS_VERIFICATION"
+    },
+    {
+      "project_id": "psitherapy",
+      "project_name": "Psitherapy",
+      "big_goal": "A polished therapeutic self-analysis product with a coherent workbook, secure production identity, durable progress, safe boundaries, and clear paid-support pathways.",
+      "rubric": [
+        {"id":"product","name":"Therapeutic product completeness","weight":25,"yesterday_score":75,"today_score":75,"evidence_state":"PROVEN","evidence":"Intake, tests, workbook and packages are substantially implemented."},
+        {"id":"identity","name":"Production identity and persistence","weight":25,"yesterday_score":25,"today_score":25,"evidence_state":"BLOCKED","evidence":"Firebase project, provider, domain, env and live-login proof are missing."},
+        {"id":"ux","name":"Workbook and mobile UX","weight":25,"yesterday_score":60,"today_score":60,"evidence_state":"NEEDS_VERIFICATION","evidence":"The current workbook refinement is still a draft and local-only."},
+        {"id":"value","name":"Trust, monetization and reliability","weight":25,"yesterday_score":54,"today_score":54,"evidence_state":"NEEDS_VERIFICATION","evidence":"Offers exist; live conversion and authenticated journey proof are incomplete."}
+      ],
+      "progress_yesterday": 53.5,
+      "progress_today": 53.5,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "Draft PR work was not counted as completed progress.",
+      "next_quality_threshold": "Complete a reversible Firebase preview cutover proving login, saved progress and the core intake journey before production.",
+      "missing_conditions": ["Firebase project access","Google provider and authorized domain","Vercel env names configured","Preview and production login proof","Durable progress proof"],
+      "evidence_state": "BLOCKED"
+    },
+    {
+      "project_id": "reiki-yggdrasil",
+      "project_name": "Reiki Yggdrasil",
+      "big_goal": "A coherent and trustworthy Reiki training and practitioner platform with excellent live journeys, safe administration, and measured inquiries or bookings.",
+      "rubric": [
+        {"id":"product","name":"Program and product completeness","weight":25,"yesterday_score":60,"today_score":60,"evidence_state":"NEEDS_VERIFICATION","evidence":"The platform is active but current product proof is incomplete."},
+        {"id":"live","name":"Live reliability and persistence","weight":25,"yesterday_score":45,"today_score":45,"evidence_state":"NEEDS_VERIFICATION","evidence":"No same-day end-to-end live evidence was found."},
+        {"id":"ux","name":"UX, trust and customer journey","weight":25,"yesterday_score":40,"today_score":40,"evidence_state":"NEEDS_VERIFICATION","evidence":"No current audit baseline is available."},
+        {"id":"outcomes","name":"Inquiry, booking and learning loop","weight":25,"yesterday_score":29,"today_score":29,"evidence_state":"NEEDS_VERIFICATION","evidence":"No observed KPI source or feedback cadence is registered."}
+      ],
+      "progress_yesterday": 43.5,
+      "progress_today": 43.5,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "No new merged and live-proven evidence crossed the previous strategic boundary.",
+      "next_quality_threshold": "Run one full product, live and conversion audit and establish the first observed inquiry or booking KPI.",
+      "missing_conditions": ["Current route and journey proof","Admin and persistence evidence","Structured UX and trust audit","Observed inquiry or booking source"],
+      "evidence_state": "NEEDS_VERIFICATION"
+    },
+    {
+      "project_id": "codex-links",
+      "project_name": "Codex Links",
+      "big_goal": "A safe multi-project command and approval bridge with explicit human approval, correct routing, complete delivery evidence, and low retry cost.",
+      "rubric": [
+        {"id":"routing","name":"Project routing and command model","weight":25,"yesterday_score":70,"today_score":70,"evidence_state":"PROVEN","evidence":"Project-bound routing contracts exist."},
+        {"id":"approval","name":"Approval and dispatch safety","weight":25,"yesterday_score":60,"today_score":60,"evidence_state":"NEEDS_VERIFICATION","evidence":"The approval-to-dispatch chain remains stacked draft work."},
+        {"id":"delivery","name":"End-to-end delivery evidence","weight":25,"yesterday_score":55,"today_score":55,"evidence_state":"NEEDS_VERIFICATION","evidence":"One complete approved proposal to Codex to delivered outcome is not proven."},
+        {"id":"reliability","name":"Reliability, tests and retry efficiency","weight":25,"yesterday_score":39.8,"today_score":39.8,"evidence_state":"NEEDS_VERIFICATION","evidence":"The full suite retains an existing unrelated failure and drafts are not mainline."}
+      ],
+      "progress_yesterday": 56.2,
+      "progress_today": 56.2,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "Open stacked drafts were not counted as production progress.",
+      "next_quality_threshold": "Rebase the stacked approval chain, obtain a fully green suite, and prove one approved proposal to Codex command to delivery result.",
+      "missing_conditions": ["Mainline approval storage","Mainline dispatch endpoint","Full green test suite","One end-to-end approved delivery","Stable retry and failure counters"],
+      "evidence_state": "NEEDS_VERIFICATION"
+    },
+    {
+      "project_id": "brain-management",
+      "project_name": "Brain Management",
+      "big_goal": "A live and trustworthy command and observability surface showing current portfolio health, strategic progress, Daily Intelligence, and exact source-to-deploy evidence.",
+      "rubric": [
+        {"id":"product","name":"Dashboard and command-surface completeness","weight":25,"yesterday_score":90,"today_score":90,"evidence_state":"PROVEN","evidence":"Adaptive dashboard and Daily Intelligence UI are implemented."},
+        {"id":"publication","name":"Exact publication reliability","weight":25,"yesterday_score":85,"today_score":85,"evidence_state":"PROVEN","evidence":"Schema-v6 and exact-snapshot contracts are implemented and tested."},
+        {"id":"visibility","name":"Portfolio decision visibility","weight":25,"yesterday_score":80,"today_score":80,"evidence_state":"PROVEN","evidence":"Project health and goal architecture are visible; strategic percentages await this publication."},
+        {"id":"freshness","name":"Live freshness and operational trust","weight":25,"yesterday_score":69.8,"today_score":69.8,"evidence_state":"NEEDS_VERIFICATION","evidence":"The current canonical snapshot still lacks same-attempt public timestamp verification."}
+      ],
+      "progress_yesterday": 81.2,
+      "progress_today": 81.2,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "The strategic publication is not counted until exact mirror and public verification complete.",
+      "next_quality_threshold": "Publish the strategic snapshot and verify exact source commit, mirror identity, public timestamp and visible scoreboards.",
+      "missing_conditions": ["Strategic snapshot mirror identity","Source-mapped deploy for this timestamp","Public timestamp equality","Visible project and system scoreboards"],
+      "evidence_state": "NEEDS_VERIFICATION"
+    },
+    {
+      "project_id": "torontotantra",
+      "project_name": "Toronto Tantra",
+      "big_goal": "A premium and concise event-program ecosystem with excellent mobile experience, reliable publishing, clear safety and trust, and measured conversion of qualified Toronto interest.",
+      "rubric": [
+        {"id":"product","name":"Program clarity and completeness","weight":25,"yesterday_score":80,"today_score":80,"evidence_state":"PROVEN","evidence":"Three program-first landings and original programs are implemented."},
+        {"id":"live","name":"Publishing and live reliability","weight":25,"yesterday_score":75,"today_score":75,"evidence_state":"PROVEN","evidence":"Automatic static publication and image checks are implemented."},
+        {"id":"ux","name":"Mobile, visual and registration UX","weight":25,"yesterday_score":65,"today_score":65,"evidence_state":"NEEDS_VERIFICATION","evidence":"Major improvements exist; current device-level production proof is limited."},
+        {"id":"growth","name":"Trust, funnel and business outcomes","weight":25,"yesterday_score":40.8,"today_score":40.8,"evidence_state":"NEEDS_VERIFICATION","evidence":"Registration paths exist, but qualified-interest and confirmed-registration KPIs do not."}
+      ],
+      "progress_yesterday": 65.2,
+      "progress_today": 65.2,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "The major landing improvements were already inside the previous evidence boundary.",
+      "next_quality_threshold": "Instrument qualified interest to conversation to confirmed registration across the three programs.",
+      "missing_conditions": ["Observed qualified-interest source","Registration outcome records","Current production mobile QA","Content and event update cadence"],
+      "evidence_state": "NEEDS_VERIFICATION"
+    },
+    {
+      "project_id": "ai-projects-brain",
+      "project_name": "AI Projects Brain",
+      "big_goal": "A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence.",
+      "rubric": [
+        {"id":"strategy","name":"Strategic clarity and portfolio model","weight":25,"yesterday_score":70,"today_score":90,"evidence_state":"PROVEN","evidence":"This run creates a canonical Big Goal and weighted rubric for every active project."},
+        {"id":"automation","name":"Automation and execution leverage","weight":25,"yesterday_score":80,"today_score":88,"evidence_state":"PROVEN","evidence":"Daily Intelligence, exact publication and task-sweep memory are automated."},
+        {"id":"validation","name":"Evidence, validation and learning","weight":25,"yesterday_score":75,"today_score":85,"evidence_state":"PROVEN","evidence":"Strategic persistence and publication gain deterministic regression coverage."},
+        {"id":"outcomes","name":"Business awareness and adaptive intelligence","weight":25,"yesterday_score":52.6,"today_score":62.2,"evidence_state":"NEEDS_VERIFICATION","evidence":"Outcome gaps are explicit; observed KPI and provider collectors remain incomplete."}
+      ],
+      "progress_yesterday": 69.4,
+      "progress_today": 81.3,
+      "daily_delta": 11.9,
+      "change_state": "CHANGED",
+      "why_changed": "Canonical weighted Big Goals, strategic persistence, regression coverage and a publication path were implemented.",
+      "next_quality_threshold": "Automate evidence ingestion for strategic scores from product, provider, live and business sources.",
+      "missing_conditions": ["Observed project KPI connectors","Stable provider and live collectors","Automatic rubric evidence ingestion","Context and retry counters","Public strategic-dashboard verification"],
+      "evidence_state": "PROVEN"
+    },
+    {
+      "project_id": "psihotavr",
+      "project_name": "Psihotavr",
+      "big_goal": "A clearly governed legacy production platform whose source, live build, data and auth state, and retirement or coexistence role are explicitly proven.",
+      "rubric": [
+        {"id":"product","name":"Legacy product completeness","weight":25,"yesterday_score":75,"today_score":75,"evidence_state":"PROVEN","evidence":"The legacy catalog and product capability are substantial."},
+        {"id":"governance","name":"Canonical source and live governance","weight":25,"yesterday_score":25,"today_score":25,"evidence_state":"BLOCKED","evidence":"Canonical repository, source mapping and retirement state remain unknown."},
+        {"id":"journey","name":"UX, commerce and customer journey","weight":25,"yesterday_score":55,"today_score":55,"evidence_state":"NEEDS_VERIFICATION","evidence":"Positive historical capability exists without a current canonical audit."},
+        {"id":"persistence","name":"Data, auth and transition maintainability","weight":25,"yesterday_score":48.2,"today_score":48.2,"evidence_state":"BLOCKED","evidence":"Current provider state and formal relationship to Ezohata are not proven."}
+      ],
+      "progress_yesterday": 50.8,
+      "progress_today": 50.8,
+      "daily_delta": 0.0,
+      "change_state": "UNCHANGED",
+      "why_changed": "No new canonical source or live-retirement evidence was found.",
+      "next_quality_threshold": "Prove the canonical live source and decide coexistence, migration, or retirement with preservation and rollback evidence.",
+      "missing_conditions": ["Canonical repository and source proof","Current live build mapping","Auth, data and provider state","Formal relationship to Ezohata","Retirement or maintenance runbook"],
+      "evidence_state": "BLOCKED"
+    }
+  ],
+  "system_intelligence_goal": {
+    "goal_id": "agent_project_operating_system",
+    "big_goal": "Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success.",
+    "rubric": [
+      {"id":"strategy","name":"Strategic clarity and decision quality","weight":25,"yesterday_score":60,"today_score":85,"evidence_state":"PROVEN","evidence":"Portfolio goals and quality bars become explicit and persistent."},
+      {"id":"execution","name":"Execution completion and automation leverage","weight":25,"yesterday_score":80,"today_score":88,"evidence_state":"PROVEN","evidence":"Daily intelligence, publication and task-sweep memory are automated."},
+      {"id":"evidence","name":"Live verification, learning and replay","weight":25,"yesterday_score":72,"today_score":78,"evidence_state":"NEEDS_VERIFICATION","evidence":"Truthful gates and regression coverage are strong; provider closure remains incomplete."},
+      {"id":"visibility","name":"Portfolio visibility, efficiency and business awareness","weight":25,"yesterday_score":50.8,"today_score":50.2,"evidence_state":"NEEDS_VERIFICATION","evidence":"Strategic visibility improves sharply, while observed KPI sources and retry-cost counters remain absent."}
+    ],
+    "progress_yesterday": 65.7,
+    "progress_today": 75.3,
+    "daily_delta": 9.6,
+    "change_state": "CHANGED",
+    "why_changed": "The run adds canonical project Big Goals, weighted progress, daily deltas, persistent memory, regression coverage and an automated dashboard publication path.",
+    "next_quality_threshold": "Automate provider, live and business-outcome evidence ingestion so strategic scores update without manual synthesis.",
+    "missing_conditions": ["Stable provider and live collectors","Observed business KPI sources","Context and retry cost counters","Automatic rubric evidence ingestion","Public strategic-dashboard verification"],
+    "evidence_state": "PROVEN"
+  }
+}

@@ -1,0 +1,72 @@
+name: Publish Strategic Goal Scorecard
+
+on:
+  pull_request:
+    paths:
+      - 'projects/codex-automation/strategic-goal-scorecard.json'
+      - 'scripts/apply-strategic-goal-scorecard.mjs'
+      - 'scripts/update-daily-intelligence.mjs'
+      - 'tests/strategic-goal-scorecard.test.mjs'
+      - 'tests/daily-intelligence-writer.test.mjs'
+      - '.github/workflows/publish-strategic-goals.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'projects/codex-automation/strategic-goal-scorecard.json'
+      - 'scripts/apply-strategic-goal-scorecard.mjs'
+      - 'scripts/update-daily-intelligence.mjs'
+      - 'tests/strategic-goal-scorecard.test.mjs'
+      - 'tests/daily-intelligence-writer.test.mjs'
+      - '.github/workflows/publish-strategic-goals.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: strategic-goal-scorecard-publication-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  apply-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate strategic scoring and persistence
+        run: |
+          set -euo pipefail
+          node --test tests/daily-intelligence-writer.test.mjs
+          node --test tests/strategic-goal-scorecard.test.mjs
+
+      - name: Apply canonical strategic scorecard
+        run: |
+          set -euo pipefail
+          node scripts/apply-strategic-goal-scorecard.mjs
+          node scripts/validate-portfolio-dashboard.mjs \
+            projects/codex-automation/system-health-dashboard.json \
+            projects/portfolio-registry.json \
+            projects/codex-automation/system-health-dashboard.md
+
+      - name: Commit strategic dashboard snapshot
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            projects/codex-automation/system-health-dashboard.json \
+            projects/codex-automation/system-health-dashboard.md
+          if git diff --cached --quiet; then
+            echo 'Strategic scorecard already applied.'
+            exit 0
+          fi
+          git commit -m 'Publish strategic project goal scoreboard'
+          git pull --rebase origin main
+          git push origin HEAD:main
