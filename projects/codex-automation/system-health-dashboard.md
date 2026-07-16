@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-16T06:58:20+02:00`  
+**Last updated:** `2026-07-16T20:12:00+02:00`  
 **Evening result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
@@ -11,22 +11,23 @@
 
 ## Main upgrade applied this evening
 
-**`not_applicable_numeric_semantics_alignment`** — Aligned canonical and public validators so numeric NOT_APPLICABLE metrics use null evidence fields instead of misleading zeroes.
+**`immutable_publication_receipt_loop`** — Canonical dashboard dispatches now reach production, and LIVE proof is published as a snapshot-bound receipt without rewriting business evidence.
 
-End-to-end publication exposed a contract contradiction: the canonical validator required numerator/denominator for every numeric metric, while the public validator correctly rejected zero evidence for NOT_APPLICABLE. The conflict blocked sync, build and Netlify publication.
+The canonical publisher emitted a repository dispatch that Brain Management did not listen for, while deploy proof embedded in the canonical snapshot could self-invalidate by creating another unpublished snapshot. The receipt boundary closes both gaps and rejects stale, mismatched or incomplete proof.
 
 ## Changed files / prompts / automations
 
-- `scripts/normalize-dashboard-not-applicable.mjs`
-- `scripts/validate-portfolio-dashboard.mjs`
-- `tests/not-applicable-metric-semantics.test.mjs`
-- `.github/workflows/publish-system-health-dashboard.yml`
-- `projects/codex-automation/pending-dashboard-upgrade.json`
+- `brain-management/.github/workflows/publish-system-health-dashboard.yml`
+- `brain-management/system-health-dashboard/publication-receipt.mjs`
+- `brain-management/system-health-dashboard/app.js`
+- `brain-management/tests/publication-receipt.test.mjs`
+- `brain-management/package.json`
+- `systems/evening-upgrade-runtime-contract.md`
 ## Portfolio Health change
 
 State **NEEDS_ATTENTION**; active 10; observed 4; blocked 3.
-Strongest change: Dashboard publication now has one consistent NOT_APPLICABLE evidence contract across canonical and public repositories.
-Largest risk: Provider/live evidence and observed business KPI sources remain missing across several active projects.
+Strongest change: Dashboard publication now has an event-driven, snapshot-bound proof path with deterministic rejection of stale receipts.
+Largest risk: Provider/live proof and observed business KPI sources remain the largest constraints across active commercial projects.
 
 ## Project Health matrix change
 
@@ -225,3 +226,27 @@ Indicators 24; history 1/30; score unknown.
 
 Percentages are conservative weighted progress values from the canonical project-specific rubrics. Missing evidence is never counted as success.
 <!-- /STRATEGIC_GOAL_SCOREBOARD -->
+
+
+<!-- EVENING_UPGRADE:evening-2026-07-16-immutable-publication-receipt -->
+## Evening Architecture Upgrade — 2026-07-16
+
+### Validation
+
+- **24/24 deterministic checks expected and required before merge/publication.**
+- Exact-snapshot publisher topology is enforced.
+- Canonical/mirror publication remains snapshot-specific; this new snapshot is **STALE 2/4** until deployment and public verification.
+
+### Metric impact
+
+| Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
+|---|---|---|---|---|---|---|---|---|
+| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | canonical dispatch had no production listener; LIVE proof could remain STALE after a successful exact deploy | repository dispatch triggers production and a matching immutable receipt can prove LIVE 4/4 without changing the snapshot timestamp | automatic_proof_loop_closed | brain-management PR #41, production-workflow regression run 29522752138 and receipt validator tests | high |
+| False Success Rate | AI Projects Brain / Brain Management | Efficiency and System Intelligence | Execution quality and completion | READY deploy metadata and old embedded proof could be mistaken for current LIVE evidence | LIVE requires exact snapshot/public timestamps, absolute deploy chronology, source SHA and all Portfolio/Project/Goal UI checks | live_evidence_guardrail_tightened | publication-receipt.mjs plus five deterministic rejection/overlay cases | high |
+| Avoidable Handoff Rate | Brain Management | Efficiency and System Intelligence | Autonomy and resource use | mirror equality could produce no push, leaving a manual heartbeat or workflow run necessary | canonical repository_dispatch is now an explicit production trigger even when mirror bytes are unchanged | manual_publication_handoff_removed | paired ai-projects-brain dispatch and brain-management repository_dispatch listener | high |
+
+### Ranked Morning handoff
+
+1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify the 20:12 snapshot-bound receipt and record the production workflow, content deploy and public receipt evidence without rewriting canonical business fields. Expected metric effect: Publication Freshness STALE 2/4 -> LIVE 4/4 when the matching receipt is independently proven.
+2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority active commercial project. Expected metric effect: Business Growth Outcomes not_instrumented -> observed or explicitly blocked.
+3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Add Context/Retry Cost only after a stable non-secret counter source exists. Expected metric effect: Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence.

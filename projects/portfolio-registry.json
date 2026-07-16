@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-15T20:23:05+02:00",
+  "last_updated": "2026-07-16T20:12:00+02:00",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current routing and Project Health scope. Legacy projects.md/projects.json remain historical until reconciled.",
   "source_priority": [
@@ -146,7 +146,11 @@
         "brain-management sync run 29439796379",
         "scripts/validate-portfolio-dashboard.mjs",
         "scripts/normalize-dashboard-not-applicable.mjs",
-        "scripts/validate-system-health-dashboard.mjs"
+        "scripts/validate-system-health-dashboard.mjs",
+        "andylitvinov-design/brain-management/pull/41",
+        "brain-management workflow run 29522752138",
+        "andylitvinov-design/ai-projects-brain/pull/125",
+        "ai-projects-brain workflow runs 29522802408 and 29522799914"
       ],
       "sectors": {
         "execution": "PASS",
