@@ -129,6 +129,22 @@ test('persists project and system Big Goals with bounded strategic history', () 
   assert.equal(second.daily_intelligence.strategic_history.length, 2);
 });
 
+test('same-day reapplication preserves the declared yesterday baseline and delta', () => {
+  const first = updateDashboardObject(dashboard(), {
+    observedAt: '2026-07-16',
+    strategicGoals: strategicGoals(60),
+  });
+  const second = updateDashboardObject(dashboard({ daily_intelligence: first.daily_intelligence }), {
+    observedAt: '2026-07-16',
+    strategicGoals: strategicGoals(60),
+  });
+  assert.equal(second.daily_intelligence.project_goals[0].progress_yesterday, 40);
+  assert.equal(second.daily_intelligence.project_goals[0].daily_delta, 20);
+  assert.equal(second.daily_intelligence.system_intelligence_goal.progress_yesterday, 40);
+  assert.equal(second.daily_intelligence.system_intelligence_goal.daily_delta, 20);
+  assert.equal(second.daily_intelligence.strategic_history.length, 1);
+});
+
 test('preserves strategic goals when a metric-only snapshot is generated', () => {
   const strategic = buildStrategicGoals({}, strategicGoals(60));
   const result = buildDailyIntelligence(dashboard({
