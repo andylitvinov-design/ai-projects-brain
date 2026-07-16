@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "run_id": "evening-2026-07-16-immutable-publication-receipt",
+  "observed_at": "2026-07-16T20:12:00+02:00",
+  "result": "APPLIED_UPGRADE",
+  "main_upgrade": {
+    "id": "immutable_publication_receipt_loop",
+    "summary": "Canonical dashboard dispatches now reach production, and LIVE proof is published as a snapshot-bound receipt without rewriting business evidence.",
+    "why": "The canonical publisher emitted a repository dispatch that Brain Management did not listen for, while deploy proof embedded in the canonical snapshot could self-invalidate by creating another unpublished snapshot. The receipt boundary closes both gaps and rejects stale, mismatched or incomplete proof."
+  },
+  "portfolio": {
+    "strongest_positive_change": "Dashboard publication now has an event-driven, snapshot-bound proof path with deterministic rejection of stale receipts.",
+    "largest_risk_project_id": "portfolio",
+    "largest_risk": "Provider/live proof and observed business KPI sources remain the largest constraints across active commercial projects."
+  },
+  "publication": {
+    "verified_at": "2026-07-15T10:00:31+02:00",
+    "previous_verified_deploy": {
+      "deploy_id": "6a573e142b93890e6f8d61a9",
+      "published_at": "2026-07-15T08:00:21.606Z",
+      "source_commit_sha": "5d682d1629ac6783e87d1357fa47b4f5d4195d26",
+      "branch": "main"
+    },
+    "evidence_refs": [
+      "andylitvinov-design/brain-management/pull/41",
+      "brain-management workflow run 29522752138",
+      "andylitvinov-design/ai-projects-brain/pull/125",
+      "ai-projects-brain workflow runs 29522802408 and 29522799914"
+    ]
+  },
+  "changed_files": [
+    "brain-management/.github/workflows/publish-system-health-dashboard.yml",
+    "brain-management/system-health-dashboard/publication-receipt.mjs",
+    "brain-management/system-health-dashboard/app.js",
+    "brain-management/tests/publication-receipt.test.mjs",
+    "brain-management/package.json",
+    "systems/evening-upgrade-runtime-contract.md"
+  ],
+  "metric_impact": [
+    {
+      "metric": "Publication Freshness",
+      "project": "Brain Management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "before": "canonical dispatch had no production listener; LIVE proof could remain STALE after a successful exact deploy",
+      "after": "repository dispatch triggers production and a matching immutable receipt can prove LIVE 4/4 without changing the snapshot timestamp",
+      "change": "automatic_proof_loop_closed",
+      "evidence": "brain-management PR #41, production-workflow regression run 29522752138 and receipt validator tests",
+      "confidence": "high"
+    },
+    {
+      "metric": "False Success Rate",
+      "project": "AI Projects Brain / Brain Management",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Execution quality and completion",
+      "before": "READY deploy metadata and old embedded proof could be mistaken for current LIVE evidence",
+      "after": "LIVE requires exact snapshot/public timestamps, absolute deploy chronology, source SHA and all Portfolio/Project/Goal UI checks",
+      "change": "live_evidence_guardrail_tightened",
+      "evidence": "publication-receipt.mjs plus five deterministic rejection/overlay cases",
+      "confidence": "high"
+    },
+    {
+      "metric": "Avoidable Handoff Rate",
+      "project": "Brain Management",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Autonomy and resource use",
+      "before": "mirror equality could produce no push, leaving a manual heartbeat or workflow run necessary",
+      "after": "canonical repository_dispatch is now an explicit production trigger even when mirror bytes are unchanged",
+      "change": "manual_publication_handoff_removed",
+      "evidence": "paired ai-projects-brain dispatch and brain-management repository_dispatch listener",
+      "confidence": "high"
+    }
+  ],
+  "system_intelligence_gain": {
+    "rules_improved": 1,
+    "validators_added_or_tightened": 1,
+    "deterministic_checks_added": 5,
+    "replay_cases_added_or_improved": 1,
+    "behavior_fixtures_added_or_improved": 1,
+    "duplicate_instructions_removed": 0,
+    "evidence_fields_added": 7,
+    "automation_contracts_improved": 2,
+    "dashboard_registry_schema_improvements": 0,
+    "project_records_instrumented": 2
+  },
+  "evening_verification_questions": [
+    "Did the controlled 20:12 snapshot reach an identical Brain Management mirror?",
+    "Did repository_dispatch start the production workflow without a manual heartbeat commit?",
+    "Did the public receipt match the new snapshot timestamp and verified content deploy ID?",
+    "Did the public UI render Portfolio Health, project selection and the three-goal pyramid as LIVE 4/4?"
+  ],
+  "unknown_blocked": [
+    "The new 20:12 snapshot remains STALE until its own matching production receipt and public UI verification complete.",
+    "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
+    "Provider readiness numerator remains unknown for several active projects.",
+    "Context/Retry Cost remains unknown because stable non-secret counters are unavailable.",
+    "Current /audit-ui and /audit-fin evidence remains NOT_TESTED in the dashboard.",
+    "Psihotavr canonical source and retirement state remains NEEDS_VERIFICATION."
+  ],
+  "risky_work_handoffs": [
+    {
+      "route": "/safe",
+      "project_id": "brain-management",
+      "target": "Snapshot-bound publication receipt for the 20:12 dashboard snapshot",
+      "blocker": "The new canonical timestamp must complete mirror, content deploy, timestamp/UI checks and receipt publication before LIVE is allowed.",
+      "required_evidence": "matching public snapshot timestamp, READY content deploy ID/source commit and verified receipt with all UI checks true"
+    },
+    {
+      "route": "/safe",
+      "project_id": "ezohata",
+      "target": "auth/upload/storage proof",
+      "blocker": "Provider-dependent persistence remains unverified.",
+      "required_evidence": "owner session and live persistence proof"
+    },
+    {
+      "route": "/audit-fin",
+      "project_id": "ezohata-finance",
+      "target": "finance/provider verification",
+      "blocker": "Origin, signed session, migration parity and balances remain unproven.",
+      "required_evidence": "non-secret reconciled evidence"
+    }
+  ],
+  "morning_handoff": [
+    {
+      "rank": 1,
+      "project_id": "brain-management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "action": "Verify the 20:12 snapshot-bound receipt and record the production workflow, content deploy and public receipt evidence without rewriting canonical business fields.",
+      "expected_metric_effect": "Publication Freshness STALE 2/4 -> LIVE 4/4 when the matching receipt is independently proven."
+    },
+    {
+      "rank": 2,
+      "project_id": "portfolio",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Commercial outcomes",
+      "action": "Register one observed KPI source, owner and cadence for the highest-priority active commercial project.",
+      "expected_metric_effect": "Business Growth Outcomes not_instrumented -> observed or explicitly blocked."
+    },
+    {
+      "rank": 3,
+      "project_id": "ai-projects-brain",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Autonomy and resource use",
+      "action": "Add Context/Retry Cost only after a stable non-secret counter source exists.",
+      "expected_metric_effect": "Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence."
+    }
+  ]
+}
