@@ -198,6 +198,7 @@ Minimum viewports:
 ```txt
 desktop: about 1365x900
 mobile: about 390x844 or 390x900
+reflow: 320 CSS px equivalent, or a 1280px viewport at 400% zoom when feasible
 tablet: when the UI has tablet-specific layout risk
 ```
 
@@ -205,11 +206,17 @@ Minimum scenarios:
 
 1. Target page loads and primary content is visible.
 2. Mobile layout has no horizontal overflow and no hidden primary actions.
-3. One interactive state is checked: hover, focus, open, submit, loading, error,
+3. Non-exempt content reflows at a 320 CSS px equivalent without page-level
+   two-dimensional scrolling; zoom/text enlargement does not hide content or
+   reorder keyboard navigation away from the visual flow.
+4. One interactive state is checked: hover, focus, open, submit, loading, error,
    or empty.
-4. For stateful UI, clean-session default is checked before clicked-state.
-5. For legacy persisted UI, old storage keys are checked or explicitly marked
+5. For stateful UI, clean-session default is checked before clicked-state.
+6. For legacy persisted UI, old storage keys are checked or explicitly marked
    `needs verification`.
+7. If translucency, glass, or blur is used, inspect its worst-case background:
+   contrast, image color fidelity, and an opaque/reduced-transparency fallback
+   must remain usable.
 
 If browser verification cannot run, say exactly why and provide manual
 verification steps. Do not claim live is fixed unless live or preview was
@@ -336,6 +343,8 @@ Verification:
 - Desktop:
 - Mobile:
 - Tablet:
+- Reflow/zoom:
+- Translucency/material contrast (when used):
 - Clean-session default:
 - Legacy persisted state:
 - Clicked/selected state:
