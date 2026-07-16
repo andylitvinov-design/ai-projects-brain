@@ -16,7 +16,7 @@ function sameValue(a, b) {
 
 function numericDelta(today, yesterday) {
   return typeof today === 'number' && Number.isFinite(today) && typeof yesterday === 'number' && Number.isFinite(yesterday)
-    ? today - yesterday
+    ? Number((today - yesterday).toFixed(1))
     : 'state';
 }
 
@@ -53,7 +53,82 @@ function recommendationFor(metric) {
   return metric.recommended_action || metric.next_action || metric.what_improves_it || 'Collect the next required evidence and update this metric.';
 }
 
-export function buildDailyIntelligence(dashboard, { observedAt, explicitChanges = [] } = {}) {
+function assertProgress(value, label) {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 100) {
+    throw new Error(`${label} must be a number from 0 to 100`);
+  }
+}
+
+function validateGoal(goal, label) {
+  if (!goal || typeof goal !== 'object') throw new Error(`${label} is required`);
+  if (!Array.isArray(goal.rubric) || goal.rubric.length < 4) throw new Error(`${label}.rubric must contain at least four dimensions`);
+  const totalWeight = goal.rubric.reduce((sum, item) => sum + Number(item.weight || 0), 0);
+  if (totalWeight !== 100) throw new Error(`${label}.rubric weights must sum to 100`);
+  for (const [index, item] of goal.rubric.entries()) {
+    assertProgress(item.today_score, `${label}.rubric[${index}].today_score`);
+    if (item.yesterday_score !== null && item.yesterday_score !== undefined) {
+      assertProgress(item.yesterday_score, `${label}.rubric[${index}].yesterday_score`);
+    }
+  }
+  assertProgress(goal.progress_today, `${label}.progress_today`);
+  if (goal.progress_yesterday !== null && goal.progress_yesterday !== undefined) {
+    assertProgress(goal.progress_yesterday, `${label}.progress_yesterday`);
+  }
+}
+
+function normalizeGoal(goal, previousGoal, label) {
+  validateGoal(goal, label);
+  const progressYesterday = typeof previousGoal?.progress_today === 'number'
+    ? previousGoal.progress_today
+    : (goal.progress_yesterday ?? null);
+  const dailyDelta = typeof progressYesterday === 'number'
+    ? Number((goal.progress_today - progressYesterday).toFixed(1))
+    : null;
+  return {
+    ...goal,
+    progress_yesterday: progressYesterday,
+    daily_delta: dailyDelta,
+  };
+}
+
+export function buildStrategicGoals(previous = {}, strategicGoals) {
+  if (!strategicGoals) {
+    return {
+      project_goals: previous.project_goals || [],
+      system_intelligence_goal: previous.system_intelligence_goal || null,
+      strategic_history: previous.strategic_history || [],
+      strategic_observed_at: previous.strategic_observed_at || null,
+    };
+  }
+
+  const previousById = new Map((previous.project_goals || []).map((goal) => [goal.project_id, goal]));
+  const projectGoals = strategicGoals.project_goals.map((goal, index) =>
+    normalizeGoal(goal, previousById.get(goal.project_id), `project_goals[${index}]`));
+  const systemIntelligenceGoal = normalizeGoal(
+    strategicGoals.system_intelligence_goal,
+    previous.system_intelligence_goal,
+    'system_intelligence_goal',
+  );
+  const date = String(strategicGoals.observed_at).slice(0, 10);
+  const historyEntry = {
+    date,
+    projects: Object.fromEntries(projectGoals.map((goal) => [goal.project_id, goal.progress_today])),
+    system_intelligence: systemIntelligenceGoal.progress_today,
+  };
+  const strategicHistory = [
+    ...(previous.strategic_history || []).filter((entry) => entry.date !== date),
+    historyEntry,
+  ].slice(-30);
+
+  return {
+    project_goals: projectGoals,
+    system_intelligence_goal: systemIntelligenceGoal,
+    strategic_history: strategicHistory,
+    strategic_observed_at: strategicGoals.observed_at,
+  };
+}
+
+export function buildDailyIntelligence(dashboard, { observedAt, explicitChanges = [], strategicGoals } = {}) {
   const previous = dashboard.daily_intelligence || {};
   const previousById = new Map((previous.indicators || []).map((item) => [item.id, item]));
   const metrics = metricRows(dashboard);
@@ -128,6 +203,7 @@ export function buildDailyIntelligence(dashboard, { observedAt, explicitChanges 
   const history = [...(previous.history || []).filter((entry) => entry.date !== date), historyEntry].slice(-30);
   const mainWin = indicators.find((item) => item.delta_label === 'RESOLVED') || indicators.find((item) => item.delta_label === 'CHANGED');
   const mainRisk = indicators.find((item) => item.delta_label === 'UNCHANGED' && /BLOCKED|FAIL|STALE|unknown/i.test(String(item.today))) || indicators.find((item) => isUnknown(item.today));
+  const strategic = buildStrategicGoals(previous, strategicGoals);
 
   return {
     summary: {
@@ -144,6 +220,7 @@ export function buildDailyIntelligence(dashboard, { observedAt, explicitChanges 
     recommendations,
     stability,
     history,
+    ...strategic,
   };
 }
 
@@ -163,11 +240,23 @@ function main() {
   const input = args.includes('--input') ? args[args.indexOf('--input') + 1] : 'projects/codex-automation/system-health-dashboard.json';
   const mirror = args.includes('--mirror') ? args[args.indexOf('--mirror') + 1] : null;
   const observedAt = args.includes('--observed-at') ? args[args.indexOf('--observed-at') + 1] : undefined;
+  const explicitGoalsFile = args.includes('--goals') ? args[args.indexOf('--goals') + 1] : null;
+  const defaultGoalsFile = 'projects/codex-automation/strategic-goal-scorecard.json';
+  const goalsFile = explicitGoalsFile || (fs.existsSync(defaultGoalsFile) ? defaultGoalsFile : null);
+  const strategicGoals = goalsFile ? JSON.parse(fs.readFileSync(goalsFile, 'utf8')) : undefined;
   const dashboard = JSON.parse(fs.readFileSync(input, 'utf8'));
-  const updated = updateDashboardObject(dashboard, { observedAt });
+  const updated = updateDashboardObject(dashboard, { observedAt, strategicGoals });
   atomicWrite(input, updated);
   if (mirror) atomicWrite(mirror, updated);
-  process.stdout.write(JSON.stringify({ status: 'UPDATED', input, mirror, indicators: updated.daily_intelligence.indicators.length, history: updated.daily_intelligence.history.length }) + '\n');
+  process.stdout.write(JSON.stringify({
+    status: 'UPDATED',
+    input,
+    mirror,
+    indicators: updated.daily_intelligence.indicators.length,
+    project_goals: updated.daily_intelligence.project_goals.length,
+    history: updated.daily_intelligence.history.length,
+    strategic_history: updated.daily_intelligence.strategic_history.length,
+  }) + '\n');
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) main();
