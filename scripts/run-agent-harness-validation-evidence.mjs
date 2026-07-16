@@ -5,6 +5,8 @@ import { spawnSync } from 'node:child_process';
 const ROOT = process.cwd();
 const evidenceDirectory = path.join(ROOT, 'agent-harness-validation-evidence');
 const pendingRecord = path.join(ROOT, 'projects/codex-automation/pending-dashboard-upgrade.json');
+const strategicScorecard = path.join(ROOT, 'projects/codex-automation/strategic-goal-scorecard.json');
+const dashboardPath = path.join(ROOT, 'projects/codex-automation/system-health-dashboard.json');
 const candidateTrace = path.join('/tmp', 'agent-harness-dashboard-publication-trace.json');
 
 // Compatibility marker for the prompt-contract validator: the obsolete
@@ -18,13 +20,14 @@ const validators = [
   { script: 'scripts/validate-portfolio-dashboard.mjs', log: 'validate-portfolio-dashboard.log' },
   { script: 'tests/portfolio-dashboard-validator.test.mjs', log: 'portfolio-dashboard-validator-tests.log' },
   { script: 'tests/daily-intelligence-writer.test.mjs', log: 'daily-intelligence-writer-tests.log' },
+  { script: 'tests/strategic-goal-scorecard.test.mjs', log: 'strategic-goal-scorecard-tests.log' },
   { script: 'tests/morning-dashboard-publication.test.mjs', log: 'morning-dashboard-publication-tests.log' },
   { script: 'tests/dashboard-upgrade-record.test.mjs', log: 'dashboard-upgrade-record-tests.log' },
   { script: 'tests/dashboard-publisher-exact-snapshot.test.mjs', log: 'dashboard-publisher-exact-snapshot-tests.log' },
   { script: 'tests/not-applicable-metric-semantics.test.mjs', log: 'not-applicable-metric-semantics-tests.log' },
   {
     script: 'scripts/validate-dashboard-publication-contract.mjs',
-    args: fs.existsSync(pendingRecord) ? ['--trace', candidateTrace] : [],
+    args: ['--trace', candidateTrace],
     log: 'validate-dashboard-publication-contract.log',
   },
   { script: 'tests/dashboard-publication-contract.test.mjs', log: 'dashboard-publication-contract-tests.log' },
@@ -53,32 +56,45 @@ function runNode(script, args = []) {
   return { result, output };
 }
 
+function scorecardIsCurrentEnough() {
+  if (!fs.existsSync(strategicScorecard) || !fs.existsSync(dashboardPath)) return false;
+  const scorecard = JSON.parse(fs.readFileSync(strategicScorecard, 'utf8'));
+  const dashboard = JSON.parse(fs.readFileSync(dashboardPath, 'utf8'));
+  return Number.isFinite(Date.parse(scorecard.observed_at))
+    && Date.parse(scorecard.observed_at) >= Date.parse(dashboard.last_updated);
+}
+
+const preparation = [];
 if (fs.existsSync(pendingRecord)) {
-  const preparation = [
+  preparation.push(
     ['scripts/apply-dashboard-upgrade-record.mjs', ['--record', 'projects/codex-automation/pending-dashboard-upgrade.json']],
     ['scripts/normalize-dashboard-not-applicable.mjs', ['--file', 'projects/codex-automation/system-health-dashboard.json']],
-    ['scripts/apply-dashboard-upgrade-record.mjs', [
-      '--trace-only',
-      '--trace', candidateTrace,
-      '--canonical-commit', 'a'.repeat(40),
-      '--canonical-blob', 'b'.repeat(40),
-      '--mirror-commit', 'c'.repeat(40),
-      '--mirror-blob', 'b'.repeat(40),
-    ]],
-  ];
-  const preparationOutput = [];
-  for (const [script, args] of preparation) {
-    const { result, output } = runNode(script, args);
-    preparationOutput.push(output);
-    if (result.error || result.status !== 0) failed = true;
-  }
-  fs.writeFileSync(
-    path.join(evidenceDirectory, 'prepare-dashboard-candidate.log'),
-    `${preparationOutput.join('\n')}\n`,
-    'utf8',
   );
-  process.stdout.write(`\n=== prepare dashboard candidate ===\n${preparationOutput.join('\n')}\n`);
 }
+if (scorecardIsCurrentEnough()) {
+  preparation.push(['scripts/apply-strategic-goal-scorecard.mjs', []]);
+}
+preparation.push(['scripts/apply-dashboard-upgrade-record.mjs', [
+  '--trace-only',
+  '--trace', candidateTrace,
+  '--canonical-commit', 'a'.repeat(40),
+  '--canonical-blob', 'b'.repeat(40),
+  '--mirror-commit', 'c'.repeat(40),
+  '--mirror-blob', 'b'.repeat(40),
+]]);
+
+const preparationOutput = [];
+for (const [script, args] of preparation) {
+  const { result, output } = runNode(script, args);
+  preparationOutput.push(output);
+  if (result.error || result.status !== 0) failed = true;
+}
+fs.writeFileSync(
+  path.join(evidenceDirectory, 'prepare-dashboard-candidate.log'),
+  `${preparationOutput.join('\n')}\n`,
+  'utf8',
+);
+process.stdout.write(`\n=== prepare dashboard candidate ===\n${preparationOutput.join('\n')}\n`);
 
 for (const validator of validators) {
   const { result, output } = runNode(validator.script, validator.args ?? []);
