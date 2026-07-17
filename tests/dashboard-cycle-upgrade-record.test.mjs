@@ -116,6 +116,7 @@ test('requires an explicit supported cycle', () => {
 
 test('applies a Morning record without corrupting Evening history', () => {
   const previousExactMetric = dashboard.project_metrics.find((entry) => entry.id === 'exact_snapshot_publisher_contract');
+  const priorEveningMarkers = markdown.match(/<!-- EVENING_UPGRADE:[^>]+-->/g) ?? [];
   const result = applyCycleUpgradeRecord(dashboard, registry, markdown, record());
   const metricIndex = Object.fromEntries(result.dashboard.metric_schema.map((field, index) => [field, index]));
   const publicationMetric = result.dashboard.metrics.find((row) => row[metricIndex.id] === 'publication_freshness');
@@ -142,7 +143,7 @@ test('applies a Morning record without corrupting Evening history', () => {
   assert.match(result.markdown, /\*\*Morning result:\*\* `APPLIED_UPGRADE`/);
   assert.match(result.markdown, /MORNING_UPGRADE:morning-cycle-aware-test/);
   assert.match(result.markdown, /### Evening verification questions/);
-  assert.doesNotMatch(result.markdown, /Evening Architecture Upgrade — 2026-07-17/);
+  for (const marker of priorEveningMarkers) assert.ok(result.markdown.includes(marker));
 });
 
 test('builds cycle-neutral publication trace evidence', () => {
