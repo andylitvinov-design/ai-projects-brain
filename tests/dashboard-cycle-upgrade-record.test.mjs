@@ -119,13 +119,18 @@ test('applies a Morning record without corrupting Evening history', () => {
   const result = applyCycleUpgradeRecord(dashboard, registry, markdown, record());
   const metricIndex = Object.fromEntries(result.dashboard.metric_schema.map((field, index) => [field, index]));
   const publicationMetric = result.dashboard.metrics.find((row) => row[metricIndex.id] === 'publication_freshness');
+  const evalMetric = result.dashboard.metrics.find((row) => row[metricIndex.id] === 'eval_pass_rate');
 
   assert.equal(result.dashboard.status, 'morning_upgrade_publication_stale');
   assert.match(result.dashboard.publication_evidence.publication_attempt_id, /^morning-/);
   assert.match(result.dashboard.publication_evidence.stages.deploy_identified.failure_reason, /Morning snapshot/);
   assert.doesNotMatch(publicationMetric[metricIndex.source], /evening snapshot/i);
   assert.match(publicationMetric[metricIndex.source], /Morning snapshot/);
-  assert.equal(result.dashboard.validation.executed_checks, 25);
+  assert.equal(evalMetric[metricIndex.numerator], 28);
+  assert.equal(evalMetric[metricIndex.denominator], 28);
+  assert.equal(result.dashboard.validation.executed_checks, 28);
+  assert.equal(result.dashboard.validation.passed_checks, 28);
+  assert.ok(result.dashboard.validation.checks.includes('3 Markdown core synchronization regressions'));
   assert.ok(result.dashboard.activity_log.some((entry) => entry.date === '2026-07-17' && entry.cycle === 'Morning System Upgrade'));
   assert.ok(!result.dashboard.activity_log.some((entry) => entry.date === '2026-07-17' && entry.cycle === 'Evening Architecture Upgrade'));
   assert.ok(result.dashboard.agent_assessments.some((entry) => entry.agent === '/upgrade-cycle-record'));

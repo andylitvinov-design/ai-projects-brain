@@ -127,29 +127,30 @@ export function applyCycleUpgradeRecord(inputDashboard, inputRegistry, inputMark
   if (evalMetric) {
     Object.assign(evalMetric, {
       value: 100,
-      numerator: 25,
-      denominator: 25,
+      numerator: 28,
+      denominator: 28,
       unit: '%/count',
       period: 'run',
-      source: '24 existing adaptive-dashboard checks + 1 cycle-aware upgrade-record regression',
+      source: '24 existing adaptive-dashboard checks + 1 cycle-aware upgrade-record regression + 3 Markdown core synchronization regressions',
       confidence: 'high',
       status: 'PASS',
       previous_value: 100,
-      change: 'denominator+1',
+      change: 'denominator+4',
       target_or_slo: 'all pass',
-      interpretation: 'Morning and Evening controlled records now preserve truthful cycle identity.',
-      next_action: 'Keep the cycle-aware regression in CI.',
+      interpretation: 'Cycle identity and the mutable Markdown evidence core are protected by deterministic regressions.',
+      next_action: 'Keep cycle-aware and Markdown-core synchronization regressions in CI.',
     });
   }
   saveMetricRows(dashboard, metrics);
 
   dashboard.validation = {
-    executed_checks: 25,
-    passed_checks: 25,
+    executed_checks: 28,
+    passed_checks: 28,
     failed_checks: 0,
     checks: [
       '24 existing adaptive-dashboard checks',
       'cycle-aware upgrade-record regression',
+      '3 Markdown core synchronization regressions',
     ],
     ci_status: 'workflow_expected_then_verified',
   };
