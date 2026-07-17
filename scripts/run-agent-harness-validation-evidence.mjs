@@ -6,6 +6,7 @@ const ROOT = process.cwd();
 const evidenceDirectory = path.join(ROOT, 'agent-harness-validation-evidence');
 const pendingRecord = path.join(ROOT, 'projects/codex-automation/pending-dashboard-upgrade.json');
 const strategicScorecard = path.join(ROOT, 'projects/codex-automation/strategic-goal-scorecard.json');
+const strategicEvidence = path.join(ROOT, 'projects/codex-automation/strategic-evidence.json');
 const dashboardPath = path.join(ROOT, 'projects/codex-automation/system-health-dashboard.json');
 const candidateTrace = path.join('/tmp', 'agent-harness-dashboard-publication-trace.json');
 
@@ -21,6 +22,7 @@ const validators = [
   { script: 'tests/portfolio-dashboard-validator.test.mjs', log: 'portfolio-dashboard-validator-tests.log' },
   { script: 'tests/daily-intelligence-writer.test.mjs', log: 'daily-intelligence-writer-tests.log' },
   { script: 'tests/strategic-goal-scorecard.test.mjs', log: 'strategic-goal-scorecard-tests.log' },
+  { script: 'tests/strategic-evidence-ingestion.test.mjs', log: 'strategic-evidence-ingestion-tests.log' },
   { script: 'tests/morning-dashboard-publication.test.mjs', log: 'morning-dashboard-publication-tests.log' },
   { script: 'tests/dashboard-upgrade-record.test.mjs', log: 'dashboard-upgrade-record-tests.log' },
   { script: 'tests/dashboard-publisher-exact-snapshot.test.mjs', log: 'dashboard-publisher-exact-snapshot-tests.log' },
@@ -70,6 +72,9 @@ if (fs.existsSync(pendingRecord)) {
     ['scripts/apply-dashboard-upgrade-record.mjs', ['--record', 'projects/codex-automation/pending-dashboard-upgrade.json']],
     ['scripts/normalize-dashboard-not-applicable.mjs', ['--file', 'projects/codex-automation/system-health-dashboard.json']],
   );
+}
+if (fs.existsSync(strategicEvidence) && fs.existsSync(strategicScorecard)) {
+  preparation.push(['scripts/apply-strategic-evidence.mjs', []]);
 }
 if (scorecardIsCurrentEnough()) {
   preparation.push(['scripts/apply-strategic-goal-scorecard.mjs', []]);
