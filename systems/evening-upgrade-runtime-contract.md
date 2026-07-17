@@ -52,6 +52,15 @@ Do not reread unchanged large project files unless a project is selected for the
 7. A new canonical timestamp automatically invalidates every older receipt. Never carry LIVE proof forward across snapshot timestamps.
 8. Reconcile receipt evidence before selecting the evening upgrade. Treat READY deploy metadata without the matching public timestamp and UI receipt as `NEEDS_VERIFICATION`, not PASS.
 
+## Trigger-independent publication recovery
+
+1. The canonical Brain Management publisher remains the only workflow allowed to deploy the dashboard or create a publication receipt.
+2. A separate recovery watchdog may check the current mirror, public JSON and public receipt, then dispatch the canonical publisher when exact-snapshot proof is missing.
+3. The watchdog must not contain Netlify credentials, provider mutation logic or direct deployment commands.
+4. A valid matching receipt and equal public timestamp require a healthy no-op; stale, missing or invalid evidence requires dispatch rather than a false `LIVE` claim.
+5. Keep one manual trigger and a low-frequency GitHub-native schedule so publication can recover even when a push or cross-repository dispatch is missed.
+6. A retry commit, queued workflow or dispatch request is not publication evidence. The run remains `STALE` until the canonical publisher produces a matching receipt and visible UI proof.
+
 ## Recovery states
 
 A run must finish in one of these states:
