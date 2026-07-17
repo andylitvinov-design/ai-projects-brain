@@ -169,20 +169,27 @@ export function applyCycleUpgradeRecord(inputDashboard, inputRegistry, inputMark
   ];
   dashboard.evening_verification_questions = record.evening_verification_questions;
 
-  let markdown = result.markdown
+  const genericMarker = `<!-- EVENING_UPGRADE:${record.run_id} -->`;
+  const morningMarker = `<!-- MORNING_UPGRADE:${record.run_id} -->`;
+  const markerIndex = result.markdown.lastIndexOf(genericMarker);
+  if (markerIndex < 0) throw new Error(`new upgrade appendix marker not found for ${record.run_id}`);
+
+  let markdownPrefix = result.markdown.slice(0, markerIndex)
     .replace(/\*\*Evening result:\*\*/g, '**Morning result:**')
-    .replace(/## Main upgrade applied this evening/g, '## Main upgrade applied this morning')
-    .replace(`<!-- EVENING_UPGRADE:${record.run_id} -->`, `<!-- MORNING_UPGRADE:${record.run_id} -->`)
+    .replace(/## Main upgrade applied this evening/g, '## Main upgrade applied this morning');
+  let currentBlock = result.markdown.slice(markerIndex)
+    .replace(genericMarker, morningMarker)
     .replace(`## Evening Architecture Upgrade — ${date}`, `## Morning System Upgrade — ${date}`);
 
   const questions = record.evening_verification_questions
     .map((question, index) => `${index + 1}. ${question}`)
     .join('\n');
-  markdown = markdown.replace(
+  currentBlock = currentBlock.replace(
     /### Ranked Morning handoff\n\n[\s\S]*$/,
     `### Evening verification questions\n\n${questions}\n`,
   );
 
+  const markdown = `${markdownPrefix}${currentBlock}`;
   return { dashboard, registry: result.registry, markdown };
 }
 
