@@ -530,9 +530,9 @@
           "evidence": "Outcome gaps are explicit; observed KPI and provider collectors remain incomplete."
         }
       ],
-      "progress_yesterday": 81.8,
+      "progress_yesterday": 81.3,
       "progress_today": 83,
-      "daily_delta": 1.2,
+      "daily_delta": 1.7,
       "change_state": "CHANGED",
       "why_changed": "Source-linked dimension updates, anti-inflation ceilings, live-proof gates, duplicate protection and five regression cases are now merged and mandatory in both strategic publication and Agent Harness validation.",
       "next_quality_threshold": "Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources.",
@@ -657,9 +657,9 @@
         "evidence": "Strategic visibility improves sharply, while observed KPI sources and retry-cost counters remain absent."
       }
     ],
-    "progress_yesterday": 76.3,
+    "progress_yesterday": 75.3,
     "progress_today": 76.8,
-    "daily_delta": 0.5,
+    "daily_delta": 1.5,
     "change_state": "CHANGED",
     "why_changed": "The operating system can now apply source-linked evidence automatically and refuse unsupported percentage growth as part of required validation.",
     "next_quality_threshold": "Automate provider, live, business-outcome and context-efficiency evidence collection.",
@@ -682,16 +682,19 @@
       "system-intelligence-false-live-resistance-20260716"
     ],
     "last_run": {
-      "applied": [
-        "ai-projects-brain-source-linked-evidence-ingestion-20260717",
-        "system-intelligence-evidence-ingestion-20260717"
-      ],
+      "applied": [],
       "skipped": [
         "brain-management-publication-receipt-architecture-20260716",
         "ai-projects-brain-immutable-receipt-contract-20260716",
-        "system-intelligence-false-live-resistance-20260716"
+        "system-intelligence-false-live-resistance-20260716",
+        "ai-projects-brain-source-linked-evidence-ingestion-20260717",
+        "system-intelligence-evidence-ingestion-20260717"
       ],
       "source_ledger_status": "source_linked_verified_evidence"
+    },
+    "daily_baseline": {
+      "date": "2026-07-16",
+      "source": "dashboard.daily_intelligence.strategic_history"
     }
   }
 }

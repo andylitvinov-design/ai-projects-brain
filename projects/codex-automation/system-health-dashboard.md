@@ -215,14 +215,14 @@ Indicators 24; history 1/30; score unknown.
 | Codex Links | A safe multi-project command and approval bridge with explicit human approval, correct routing, complete delivery evidence, and low retry cost. | 56.2% | 56.2% | +0 pp | NEEDS_VERIFICATION | Rebase the stacked approval chain, obtain a fully green suite, and prove one approved proposal to Codex command to delivery result. |
 | Brain Management | A live and trustworthy command and observability surface showing current portfolio health, strategic progress, Daily Intelligence, and exact source-to-deploy evidence. | 81.2% | 82.5% | +1.3 pp | NEEDS_VERIFICATION | Produce and independently verify a fresh receipt whose snapshot timestamp, source commit, content deploy and visible scoreboards all match the current canonical snapshot. |
 | Toronto Tantra | A premium and concise event-program ecosystem with excellent mobile experience, reliable publishing, clear safety and trust, and measured conversion of qualified Toronto interest. | 65.2% | 65.2% | +0 pp | NEEDS_VERIFICATION | Instrument qualified interest to conversation to confirmed registration across the three programs. |
-| AI Projects Brain | A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence. | 81.8% | 83% | +1.2 pp | PROVEN | Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources. |
+| AI Projects Brain | A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence. | 81.3% | 83% | +1.7 pp | PROVEN | Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources. |
 | Psihotavr | A clearly governed legacy production platform whose source, live build, data and auth state, and retirement or coexistence role are explicitly proven. | 50.8% | 50.8% | +0 pp | BLOCKED | Prove the canonical live source and decide coexistence, migration, or retirement with preservation and rollback evidence. |
 
 ## System Intelligence Scoreboard
 
 | Big Goal | Yesterday | Today | Daily Delta | Evidence | Next Quality Threshold |
 |---|---:|---:|---:|---|---|
-| Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success. | 76.3% | 76.8% | +0.5 pp | PROVEN | Automate provider, live, business-outcome and context-efficiency evidence collection. |
+| Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success. | 75.3% | 76.8% | +1.5 pp | PROVEN | Automate provider, live, business-outcome and context-efficiency evidence collection. |
 
 Percentages are conservative weighted progress values from the canonical project-specific rubrics. Missing evidence is never counted as success.
 <!-- /STRATEGIC_GOAL_SCOREBOARD -->
