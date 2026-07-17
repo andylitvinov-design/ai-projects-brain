@@ -106,7 +106,7 @@ jobs:
           node --test tests/dashboard-cycle-upgrade-record.test.mjs
           node --test tests/dashboard-publisher-exact-snapshot.test.mjs
           node --test tests/not-applicable-metric-semantics.test.mjs
-          node scripts/apply-dashboard-upgrade-record.mjs --trace-only \
+          node scripts/apply-cycle-dashboard-upgrade-record.mjs --trace-only \
             --trace /tmp/system-health-dashboard-publication-trace.json \
             --canonical-commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa \
             --canonical-blob bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb \
@@ -190,7 +190,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node scripts/apply-dashboard-upgrade-record.mjs --trace-only \
+          node scripts/apply-cycle-dashboard-upgrade-record.mjs --trace-only \
             --dashboard projects/codex-automation/system-health-dashboard.json \
             --trace projects/codex-automation/system-health-dashboard-publication-trace.json \
             --canonical-commit '${{ steps.canonical.outputs.commit }}' \

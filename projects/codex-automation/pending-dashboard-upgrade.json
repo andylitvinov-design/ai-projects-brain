@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "cycle": "Morning System Upgrade",
+  "run_id": "morning-2026-07-17-cycle-neutral-publication-evidence",
+  "observed_at": "2026-07-17T07:53:45+02:00",
+  "result": "APPLIED_UPGRADE",
+  "main_upgrade": {
+    "id": "cycle_neutral_publication_evidence",
+    "summary": "Removed the final hard-coded Evening wording from shared publication metrics and trace evidence while retaining explicit Morning ownership where appropriate.",
+    "why": "The cycle-aware snapshot and attempt ID were correct, but shared trace and Publication Freshness text still said evening snapshot. Evidence must be internally consistent before it can support truthful automation decisions."
+  },
+  "portfolio": {
+    "strongest_positive_change": "Morning publication evidence is now consistent across status, history, metrics, trace identifiers and trace descriptions.",
+    "largest_risk_project_id": "portfolio",
+    "largest_risk": "Observed business KPI sources and provider/live evidence remain incomplete across several active projects."
+  },
+  "publication": {
+    "verified_at": "2026-07-17T05:22:38.194Z",
+    "previous_verified_deploy": {
+      "deploy_id": "6a59bc16f349e3e190a47208",
+      "published_at": "2026-07-17T05:22:33.420Z",
+      "source_commit_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
+      "branch": "main"
+    },
+    "evidence_refs": [
+      "Netlify deploy 6a59bc16f349e3e190a47208",
+      "canonical/mirror blob 3b781bbc47c49d7f003aa4e60ed08ff3a53d806a",
+      "publication trace 14c1314906b6f3d49b012d257dc2898e6625e580"
+    ]
+  },
+  "changed_files": [
+    "scripts/apply-cycle-dashboard-upgrade-record.mjs",
+    "tests/dashboard-cycle-upgrade-record.test.mjs",
+    ".github/workflows/publish-system-health-dashboard.yml",
+    "projects/codex-automation/pending-dashboard-upgrade.json"
+  ],
+  "metric_impact": [
+    {
+      "metric": "False Success Rate",
+      "project": "AI Projects Brain",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Execution quality and completion",
+      "before": "Morning identifiers were correct but shared metric and trace descriptions still referred to an Evening snapshot.",
+      "after": "Morning-specific content remains Morning and shared trace language is cycle-neutral across all generated evidence.",
+      "change": "cross_layer_evidence_consistency_completed",
+      "evidence": "cycle-aware trace builder plus metric and trace regression assertions",
+      "confidence": "high"
+    },
+    {
+      "metric": "Eval Pass Rate",
+      "project": "AI Projects Brain",
+      "goal": "Continuous Self-Development",
+      "sector": "Validation and accumulated knowledge",
+      "before": "25/25 checks with Morning attempt-ID coverage",
+      "after": "25/25 checks with Morning metric text and cycle-neutral trace coverage",
+      "change": "assertion_scope_expanded",
+      "evidence": "tests/dashboard-cycle-upgrade-record.test.mjs",
+      "confidence": "high"
+    },
+    {
+      "metric": "Publication Freshness",
+      "project": "Brain Management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "before": "Latest proven receipt deploy predates the final evidence-consistent snapshot",
+      "after": "07:53 snapshot enters exact mirror, content deploy, public UI verification and immutable receipt publication",
+      "change": "new_snapshot_publication_required",
+      "evidence": "cycle-aware trace-only workflow and repository dispatch",
+      "confidence": "high"
+    }
+  ],
+  "system_intelligence_gain": {
+    "rules_improved": 1,
+    "validators_added_or_tightened": 1,
+    "deterministic_checks_added": 0,
+    "replay_cases_added_or_improved": 1,
+    "behavior_fixtures_added_or_improved": 1,
+    "duplicate_instructions_removed": 0,
+    "evidence_fields_added": 2,
+    "automation_contracts_improved": 1,
+    "dashboard_registry_schema_improvements": 0,
+    "project_records_instrumented": 1
+  },
+  "evening_verification_questions": [
+    "Does the final trace use a morning- attempt ID and contain no incorrect Evening wording?",
+    "Are canonical and mirror blobs identical for the 07:53 snapshot?",
+    "Does a READY receipt deploy identify the exact mirror commit containing that blob?",
+    "Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 07:53 snapshot?"
+  ],
+  "unknown_blocked": [
+    "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
+    "Provider readiness numerator remains unknown for several active projects.",
+    "Context/Retry Cost remains unknown because stable non-secret counters are unavailable.",
+    "Current /audit-ui and /audit-fin evidence remains NOT_TESTED in the dashboard.",
+    "Psihotavr canonical source and retirement state remain NEEDS_VERIFICATION."
+  ],
+  "risky_work_handoffs": [
+    {
+      "route": "/safe",
+      "project_id": "ezohata",
+      "target": "auth/upload/storage proof",
+      "blocker": "Provider-dependent persistence remains unverified.",
+      "required_evidence": "owner session and live persistence proof"
+    },
+    {
+      "route": "/audit-fin",
+      "project_id": "ezohata-finance",
+      "target": "finance/provider verification",
+      "blocker": "Origin, signed session, migration parity and current balances remain unproven.",
+      "required_evidence": "non-secret reconciled production evidence"
+    }
+  ],
+  "morning_handoff": [
+    {
+      "rank": 1,
+      "project_id": "brain-management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "action": "Verify the exact 07:53 Morning snapshot receipt without rewriting canonical business fields.",
+      "expected_metric_effect": "Publication Freshness STALE 2/4 to LIVE 4/4 when the matching receipt is proven."
+    }
+  ],
+  "agent_assessment": {
+    "project_id": "ai-projects-brain",
+    "agent": "/upgrade-cycle-record",
+    "sector": "learning",
+    "observed_at": "2026-07-17T07:53:45+02:00",
+    "status": "PASS",
+    "applicable_checks": 4,
+    "passed_checks": 4,
+    "finding_count": 3,
+    "critical_finding_count": 0,
+    "evidence_refs": [
+      "scripts/apply-cycle-dashboard-upgrade-record.mjs",
+      "tests/dashboard-cycle-upgrade-record.test.mjs",
+      ".github/workflows/publish-system-health-dashboard.yml",
+      "projects/codex-automation/system-health-dashboard-publication-trace.json"
+    ],
+    "summary": "Controlled Morning records preserve cycle identity in dashboard content, metrics, attempt IDs and trace descriptions.",
+    "recommended_action": "Keep cycle-aware trace generation and cross-layer assertions in mandatory CI.",
+    "confidence": "high"
+  },
+  "project_metric": {
+    "project_id": "ai-projects-brain",
+    "sector": "learning",
+    "id": "cycle_aware_upgrade_record_contract",
+    "name": "Cycle-aware Upgrade Record Contract",
+    "purpose": "Prevent Morning evidence from being labeled as Evening anywhere in the publication chain.",
+    "type": "ratio",
+    "value": 100,
+    "numerator": 4,
+    "denominator": 4,
+    "unit": "%/checks",
+    "period": "2026-07-17T07:53:45+02:00",
+    "source": "cycle-aware content, metric, attempt-ID and trace regressions",
+    "owner": "Morning System Upgrade",
+    "confidence": "high",
+    "status": "PASS",
+    "previous_value": "content_and_trace_identity_partial",
+    "change": "full_cross_layer_identity",
+    "target_or_slo": "4/4",
+    "interpretation": "Dashboard content, publication metrics, trace IDs and trace descriptions preserve truthful cycle ownership.",
+    "next_action": "Keep the cycle-aware wrapper in both snapshot and trace workflow steps.",
+    "lifecycle": "active"
+  }
+}
