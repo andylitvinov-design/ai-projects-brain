@@ -4,8 +4,11 @@ on:
   pull_request:
     paths:
       - 'projects/codex-automation/strategic-goal-scorecard.json'
+      - 'projects/codex-automation/strategic-evidence.json'
+      - 'scripts/apply-strategic-evidence.mjs'
       - 'scripts/apply-strategic-goal-scorecard.mjs'
       - 'scripts/update-daily-intelligence.mjs'
+      - 'tests/strategic-evidence-ingestion.test.mjs'
       - 'tests/strategic-goal-scorecard.test.mjs'
       - 'tests/daily-intelligence-writer.test.mjs'
       - '.github/workflows/publish-strategic-goals.yml'
@@ -13,8 +16,11 @@ on:
     branches: [main]
     paths:
       - 'projects/codex-automation/strategic-goal-scorecard.json'
+      - 'projects/codex-automation/strategic-evidence.json'
+      - 'scripts/apply-strategic-evidence.mjs'
       - 'scripts/apply-strategic-goal-scorecard.mjs'
       - 'scripts/update-daily-intelligence.mjs'
+      - 'tests/strategic-evidence-ingestion.test.mjs'
       - 'tests/strategic-goal-scorecard.test.mjs'
       - 'tests/daily-intelligence-writer.test.mjs'
       - '.github/workflows/publish-strategic-goals.yml'
@@ -45,6 +51,12 @@ jobs:
           set -euo pipefail
           node --test tests/daily-intelligence-writer.test.mjs
           node --test tests/strategic-goal-scorecard.test.mjs
+          node --test tests/strategic-evidence-ingestion.test.mjs
+
+      - name: Apply verified strategic evidence
+        run: |
+          set -euo pipefail
+          node scripts/apply-strategic-evidence.mjs
 
       - name: Apply canonical strategic scorecard
         run: |
@@ -62,12 +74,13 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add \
+            projects/codex-automation/strategic-goal-scorecard.json \
             projects/codex-automation/system-health-dashboard.json \
             projects/codex-automation/system-health-dashboard.md
           if git diff --cached --quiet; then
-            echo 'Strategic scorecard already applied.'
+            echo 'Strategic evidence and scorecard are already applied.'
           else
-            git commit -m 'Publish strategic project goal scoreboard'
+            git commit -m 'Publish source-linked strategic evidence'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
