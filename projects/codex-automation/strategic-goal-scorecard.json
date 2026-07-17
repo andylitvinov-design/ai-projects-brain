@@ -508,10 +508,17 @@
           "id": "validation",
           "name": "Evidence, validation and learning",
           "weight": 25,
-          "yesterday_score": 75,
-          "today_score": 85,
+          "yesterday_score": 85,
+          "today_score": 90,
           "evidence_state": "PROVEN",
-          "evidence": "Strategic persistence and publication gain deterministic regression coverage."
+          "evidence": "Source-linked dimension updates, anti-inflation ceilings, live-proof gates, duplicate protection and five regression cases are now merged and mandatory in both strategic publication and Agent Harness validation.",
+          "evidence_ref": {
+            "id": "ai-projects-brain-source-linked-evidence-ingestion-20260717",
+            "source_state": "merged_verified",
+            "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
+            "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
+            "observed_at": "2026-07-17T05:12:08Z"
+          }
         },
         {
           "id": "outcomes",
@@ -523,16 +530,15 @@
           "evidence": "Outcome gaps are explicit; observed KPI and provider collectors remain incomplete."
         }
       ],
-      "progress_yesterday": 81.3,
-      "progress_today": 81.8,
-      "daily_delta": 0.5,
+      "progress_yesterday": 81.8,
+      "progress_today": 83,
+      "daily_delta": 1.2,
       "change_state": "CHANGED",
-      "why_changed": "The operating system now separates immutable business snapshots from external publication receipts and invalidates stale receipt evidence automatically when the snapshot changes.",
-      "next_quality_threshold": "Automate source-linked evidence ingestion and produce dimension-by-dimension score proposals without manual synthesis.",
+      "why_changed": "Source-linked dimension updates, anti-inflation ceilings, live-proof gates, duplicate protection and five regression cases are now merged and mandatory in both strategic publication and Agent Harness validation.",
+      "next_quality_threshold": "Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources.",
       "missing_conditions": [
         "Observed project KPI connectors",
         "Stable provider and live collectors",
-        "Automatic rubric evidence ingestion",
         "Context and retry counters",
         "Public strategic-dashboard verification"
       ],
@@ -613,10 +619,17 @@
         "id": "execution",
         "name": "Execution completion and automation leverage",
         "weight": 25,
-        "yesterday_score": 80,
-        "today_score": 88,
+        "yesterday_score": 88,
+        "today_score": 90,
         "evidence_state": "PROVEN",
-        "evidence": "Daily intelligence, publication and task-sweep memory are automated."
+        "evidence": "The operating system can now apply source-linked evidence automatically and refuse unsupported percentage growth as part of required validation.",
+        "evidence_ref": {
+          "id": "system-intelligence-evidence-ingestion-20260717",
+          "source_state": "merged_verified",
+          "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
+          "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
+          "observed_at": "2026-07-17T05:12:08Z"
+        }
       },
       {
         "id": "evidence",
@@ -644,17 +657,16 @@
         "evidence": "Strategic visibility improves sharply, while observed KPI sources and retry-cost counters remain absent."
       }
     ],
-    "progress_yesterday": 75.3,
-    "progress_today": 76.3,
-    "daily_delta": 1,
+    "progress_yesterday": 76.3,
+    "progress_today": 76.8,
+    "daily_delta": 0.5,
     "change_state": "CHANGED",
-    "why_changed": "The system gained a deterministic anti-false-success boundary: stale, incomplete or older publication receipts cannot reinterpret an immutable snapshot as LIVE.",
-    "next_quality_threshold": "Ingest provider, live and observed business evidence automatically while preserving source-level ceilings and no-false-LIVE rules.",
+    "why_changed": "The operating system can now apply source-linked evidence automatically and refuse unsupported percentage growth as part of required validation.",
+    "next_quality_threshold": "Automate provider, live, business-outcome and context-efficiency evidence collection.",
     "missing_conditions": [
       "Stable provider and live collectors",
       "Observed business KPI sources",
       "Context and retry cost counters",
-      "Automatic rubric evidence ingestion",
       "Public strategic-dashboard verification"
     ],
     "evidence_state": "PROVEN"
@@ -664,16 +676,21 @@
     "last_observed_at": "2026-07-17T07:03:49+02:00",
     "applied_evidence_ids": [
       "ai-projects-brain-immutable-receipt-contract-20260716",
+      "ai-projects-brain-source-linked-evidence-ingestion-20260717",
       "brain-management-publication-receipt-architecture-20260716",
+      "system-intelligence-evidence-ingestion-20260717",
       "system-intelligence-false-live-resistance-20260716"
     ],
     "last_run": {
       "applied": [
+        "ai-projects-brain-source-linked-evidence-ingestion-20260717",
+        "system-intelligence-evidence-ingestion-20260717"
+      ],
+      "skipped": [
         "brain-management-publication-receipt-architecture-20260716",
         "ai-projects-brain-immutable-receipt-contract-20260716",
         "system-intelligence-false-live-resistance-20260716"
       ],
-      "skipped": [],
       "source_ledger_status": "source_linked_verified_evidence"
     }
   }
