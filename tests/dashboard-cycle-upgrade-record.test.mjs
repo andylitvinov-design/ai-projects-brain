@@ -117,6 +117,7 @@ test('applies a Morning record without corrupting Evening history', () => {
   const result = applyCycleUpgradeRecord(dashboard, registry, markdown, record());
 
   assert.equal(result.dashboard.status, 'morning_upgrade_publication_stale');
+  assert.match(result.dashboard.publication_evidence.publication_attempt_id, /^morning-/);
   assert.equal(result.dashboard.validation.executed_checks, 25);
   assert.ok(result.dashboard.activity_log.some((entry) => entry.date === '2026-07-17' && entry.cycle === 'Morning System Upgrade'));
   assert.ok(!result.dashboard.activity_log.some((entry) => entry.date === '2026-07-17' && entry.cycle === 'Evening Architecture Upgrade'));
