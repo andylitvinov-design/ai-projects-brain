@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "cycle": "Morning System Upgrade",
+  "run_id": "morning-2026-07-17-dashboard-markdown-core-sync",
+  "observed_at": "2026-07-17T08:20:00+02:00",
+  "result": "APPLIED_UPGRADE",
+  "main_upgrade": {
+    "id": "dashboard_markdown_core_json_sync",
+    "summary": "Made the mutable Markdown evidence core a deterministic rendering of the exact canonical dashboard JSON while preserving immutable Morning and Evening history appendices.",
+    "why": "The canonical JSON and mirror were exact, but the human-facing Markdown core still displayed an obsolete deploy ID, timestamp, validation count and publication ladder. That created internal evidence drift and could mislead later automation runs."
+  },
+  "portfolio": {
+    "strongest_positive_change": "Canonical JSON, mirror JSON and the mutable Markdown evidence core now share one deterministic source of truth.",
+    "largest_risk_project_id": "portfolio",
+    "largest_risk": "Observed business KPI sources and provider/live evidence remain incomplete across several active projects."
+  },
+  "publication": {
+    "verified_at": "2026-07-17T05:22:38.194Z",
+    "previous_verified_deploy": {
+      "deploy_id": "6a59bc16f349e3e190a47208",
+      "published_at": "2026-07-17T05:22:33.420Z",
+      "source_commit_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
+      "branch": "main"
+    },
+    "evidence_refs": [
+      "Netlify deploy 6a59bc16f349e3e190a47208",
+      "canonical/mirror blob 69f61a3e706fe2ea914e5454b2efde81642d7055",
+      "PR #132 validation workflows",
+      "scripts/sync-dashboard-markdown-core.mjs"
+    ]
+  },
+  "changed_files": [
+    "scripts/sync-dashboard-markdown-core.mjs",
+    "tests/dashboard-markdown-core-sync.test.mjs",
+    ".github/workflows/publish-system-health-dashboard.yml",
+    "scripts/apply-cycle-dashboard-upgrade-record.mjs",
+    "tests/dashboard-cycle-upgrade-record.test.mjs",
+    "projects/codex-automation/pending-dashboard-upgrade.json"
+  ],
+  "metric_impact": [
+    {
+      "metric": "Evidence Completeness",
+      "project": "AI Projects Brain",
+      "goal": "Continuous Self-Development",
+      "sector": "Validation and accumulated knowledge",
+      "before": "Canonical JSON was current while the mutable Markdown core retained an obsolete deploy ID, timestamp, validation count and publication ladder.",
+      "after": "Eight mutable Markdown evidence sections are regenerated from the exact canonical JSON on every publication run while historical appendices remain unchanged.",
+      "change": "markdown_core_json_sync_enforced",
+      "evidence": "deterministic synchronizer, idempotence test and stale-evidence regression",
+      "confidence": "high"
+    },
+    {
+      "metric": "Eval Pass Rate",
+      "project": "AI Projects Brain",
+      "goal": "Continuous Self-Development",
+      "sector": "Validation and accumulated knowledge",
+      "before": "25/25 deterministic checks",
+      "after": "28/28 deterministic checks",
+      "change": "denominator+3",
+      "evidence": "three dashboard Markdown core synchronization regressions",
+      "confidence": "high"
+    },
+    {
+      "metric": "Publication Freshness",
+      "project": "Brain Management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "before": "The latest verified receipt deploy covers the prior snapshot and the Markdown core was internally stale.",
+      "after": "The 08:20 exact snapshot enters mirror, content deploy, UI verification and immutable receipt publication with a synchronized human evidence surface.",
+      "change": "new_exact_snapshot_publication_required",
+      "evidence": "exact-snapshot workflow plus Markdown-core synchronization gate",
+      "confidence": "high"
+    }
+  ],
+  "system_intelligence_gain": {
+    "rules_improved": 1,
+    "validators_added_or_tightened": 1,
+    "deterministic_checks_added": 3,
+    "replay_cases_added_or_improved": 1,
+    "behavior_fixtures_added_or_improved": 1,
+    "duplicate_instructions_removed": 0,
+    "evidence_fields_added": 8,
+    "automation_contracts_improved": 1,
+    "dashboard_registry_schema_improvements": 0,
+    "project_records_instrumented": 1
+  },
+  "evening_verification_questions": [
+    "Does the canonical Markdown core show the same last_updated, deploy evidence, validation count and publication state as the canonical JSON?",
+    "Are canonical and mirror JSON blobs identical for the 08:20 snapshot?",
+    "Does a READY receipt deploy identify the exact mirror commit containing the 08:20 blob?",
+    "Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 08:20 snapshot?"
+  ],
+  "unknown_blocked": [
+    "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
+    "Provider readiness numerator remains unknown for several active projects.",
+    "Context/Retry Cost remains unknown because stable non-secret counters are unavailable.",
+    "Current /audit-ui and /audit-fin evidence remains NOT_TESTED in the dashboard.",
+    "Psihotavr canonical source and retirement state remain NEEDS_VERIFICATION."
+  ],
+  "risky_work_handoffs": [
+    {
+      "route": "/safe",
+      "project_id": "brain-management",
+      "target": "exact Netlify publication",
+      "blocker": "The new 08:20 snapshot has no matching READY content and receipt deploy yet.",
+      "required_evidence": "content deploy ID, receipt deploy ID, exact source commit, public timestamp equality and visible Portfolio/Project/Goal UI"
+    },
+    {
+      "route": "/safe",
+      "project_id": "ezohata",
+      "target": "auth/upload/storage proof",
+      "blocker": "Provider-dependent persistence remains unverified.",
+      "required_evidence": "owner session and live persistence proof"
+    },
+    {
+      "route": "/audit-fin",
+      "project_id": "ezohata-finance",
+      "target": "finance/provider verification",
+      "blocker": "Origin, signed session, migration parity and current balances remain unproven.",
+      "required_evidence": "non-secret reconciled production evidence"
+    }
+  ],
+  "morning_handoff": [
+    {
+      "rank": 1,
+      "project_id": "brain-management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "action": "Verify the exact 08:20 Morning snapshot receipt without rewriting canonical business fields.",
+      "expected_metric_effect": "Publication Freshness STALE 2/4 to LIVE 4/4 when the matching receipt is proven."
+    }
+  ],
+  "agent_assessment": {
+    "project_id": "ai-projects-brain",
+    "agent": "/upgrade-markdown-core-sync",
+    "sector": "learning",
+    "observed_at": "2026-07-17T08:20:00+02:00",
+    "status": "PASS",
+    "applicable_checks": 3,
+    "passed_checks": 3,
+    "finding_count": 1,
+    "critical_finding_count": 0,
+    "evidence_refs": [
+      "scripts/sync-dashboard-markdown-core.mjs",
+      "tests/dashboard-markdown-core-sync.test.mjs",
+      ".github/workflows/publish-system-health-dashboard.yml",
+      "PR #132"
+    ],
+    "summary": "The mutable Markdown evidence core is synchronized from canonical JSON, stale evidence is rejected and historical cycle appendices are preserved idempotently.",
+    "recommended_action": "Keep Markdown core synchronization before validation and publication on every run.",
+    "confidence": "high"
+  },
+  "project_metric": {
+    "project_id": "ai-projects-brain",
+    "sector": "learning",
+    "id": "dashboard_markdown_core_sync",
+    "name": "Dashboard Markdown Core Sync",
+    "purpose": "Prevent the human-readable dashboard core from drifting from the exact canonical JSON snapshot.",
+    "type": "ratio",
+    "value": 100,
+    "numerator": 8,
+    "denominator": 8,
+    "unit": "%/sections",
+    "period": "2026-07-17T08:20:00+02:00",
+    "source": "Markdown core synchronizer and three deterministic regressions",
+    "owner": "Morning System Upgrade",
+    "confidence": "high",
+    "status": "PASS",
+    "previous_value": "core_sections_partially_stale",
+    "change": "deterministic_json_rendering",
+    "target_or_slo": "8/8",
+    "interpretation": "All mutable evidence sections are regenerated from canonical JSON while historical appendices are preserved.",
+    "next_action": "Keep the synchronizer and idempotence regression in mandatory publication CI.",
+    "lifecycle": "active"
+  }
+}
