@@ -98,28 +98,39 @@ jobs:
       - name: Validate exact adaptive snapshot and publication contract
         shell: bash
         run: |
-          set -euo pipefail
-          node scripts/validate-portfolio-dashboard.mjs \
-            projects/codex-automation/system-health-dashboard.json \
-            projects/portfolio-registry.json \
-            projects/codex-automation/system-health-dashboard.md
-          node --test tests/portfolio-dashboard-validator.test.mjs
-          node --test tests/daily-intelligence-writer.test.mjs
-          node --test tests/morning-dashboard-publication.test.mjs
-          node --test tests/dashboard-publication-contract.test.mjs
-          node --test tests/dashboard-upgrade-record.test.mjs
-          node --test tests/dashboard-cycle-upgrade-record.test.mjs
-          node --test tests/dashboard-markdown-core-sync.test.mjs
-          node --test tests/dashboard-publisher-exact-snapshot.test.mjs
-          node --test tests/not-applicable-metric-semantics.test.mjs
-          node scripts/apply-cycle-dashboard-upgrade-record.mjs --trace-only \
-            --trace /tmp/system-health-dashboard-publication-trace.json \
-            --canonical-commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa \
-            --canonical-blob bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb \
-            --mirror-commit cccccccccccccccccccccccccccccccccccccccc \
-            --mirror-blob bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-          node scripts/validate-dashboard-publication-contract.mjs \
-            --trace /tmp/system-health-dashboard-publication-trace.json
+          set -o pipefail
+          {
+            set -euo pipefail
+            node scripts/validate-portfolio-dashboard.mjs \
+              projects/codex-automation/system-health-dashboard.json \
+              projects/portfolio-registry.json \
+              projects/codex-automation/system-health-dashboard.md
+            node --test tests/portfolio-dashboard-validator.test.mjs
+            node --test tests/daily-intelligence-writer.test.mjs
+            node --test tests/morning-dashboard-publication.test.mjs
+            node --test tests/dashboard-publication-contract.test.mjs
+            node --test tests/dashboard-upgrade-record.test.mjs
+            node --test tests/dashboard-cycle-upgrade-record.test.mjs
+            node --test tests/dashboard-markdown-core-sync.test.mjs
+            node --test tests/dashboard-publisher-exact-snapshot.test.mjs
+            node --test tests/not-applicable-metric-semantics.test.mjs
+            node scripts/apply-cycle-dashboard-upgrade-record.mjs --trace-only \
+              --trace /tmp/system-health-dashboard-publication-trace.json \
+              --canonical-commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa \
+              --canonical-blob bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb \
+              --mirror-commit cccccccccccccccccccccccccccccccccccccccc \
+              --mirror-blob bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+            node scripts/validate-dashboard-publication-contract.mjs \
+              --trace /tmp/system-health-dashboard-publication-trace.json
+          } 2>&1 | tee dashboard-publication-validation.log
+
+      - name: Preserve validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dashboard-publication-validation-${{ github.run_id }}
+          path: dashboard-publication-validation.log
+          if-no-files-found: warn
 
       - name: Preserve validated exact snapshot evidence
         uses: actions/upload-artifact@v4
