@@ -1,33 +1,31 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-17T07:03:49+02:00`  
-**Evening result:** `APPLIED_UPGRADE`  
+**Last updated:** `2026-07-17T07:31:21+02:00`  
+**Morning result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
 ## Status
 
 **APPLIED_UPGRADE**
 
-## Main upgrade applied this evening
+## Main upgrade applied this morning
 
-**`immutable_publication_receipt_loop`** — Canonical dashboard dispatches now reach production, and LIVE proof is published as a snapshot-bound receipt without rewriting business evidence.
+**`cycle_aware_dashboard_upgrade_records`** — Added cycle-aware controlled dashboard records so Morning updates preserve truthful Morning history instead of being mislabeled as Evening.
 
-The canonical publisher emitted a repository dispatch that Brain Management did not listen for, while deploy proof embedded in the canonical snapshot could self-invalidate by creating another unpublished snapshot. The receipt boundary closes both gaps and rejects stale, mismatched or incomplete proof.
+The exact-snapshot pipeline was reliable, but its controlled record applier encoded Evening semantics. That could corrupt activity history and ownership evidence when Morning used the same safe publication path.
 
 ## Changed files / prompts / automations
 
-- `brain-management/.github/workflows/publish-system-health-dashboard.yml`
-- `brain-management/system-health-dashboard/publication-receipt.mjs`
-- `brain-management/system-health-dashboard/app.js`
-- `brain-management/tests/publication-receipt.test.mjs`
-- `brain-management/package.json`
-- `systems/evening-upgrade-runtime-contract.md`
+- `scripts/apply-cycle-dashboard-upgrade-record.mjs`
+- `tests/dashboard-cycle-upgrade-record.test.mjs`
+- `.github/workflows/publish-system-health-dashboard.yml`
+- `projects/codex-automation/pending-dashboard-upgrade.json`
 ## Portfolio Health change
 
 State **NEEDS_ATTENTION**; active 10; observed 4; blocked 3.
-Strongest change: Dashboard publication now has an event-driven, snapshot-bound proof path with deterministic rejection of stale receipts.
-Largest risk: Provider/live proof and observed business KPI sources remain the largest constraints across active commercial projects.
+Strongest change: The 07:03 strategic snapshot reached the exact mirror and a READY receipt deploy, while controlled snapshot records now preserve Morning and Evening identity.
+Largest risk: Observed business KPI sources and provider/live evidence remain incomplete across several active projects.
 
 ## Project Health matrix change
 
@@ -172,81 +170,9 @@ Indicators 24; history 1/30; score unknown.
 | Eval Pass Rate | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | 22/22 | 24/24 | denominator+2 | upgrade-record and exact-snapshot workflow regressions | high |
 | Scheduler Health | AI Projects Brain | Continuous Self-Development | Rule and automation lifecycle | 2/2; duplicates=0 | 2/2; duplicates=0 | verified_again | live automation registry | high |
 
-### Ranked Morning handoff
+### Evening verification questions
 
-1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify the Evening snapshot publication ladder and record the new deploy/public timestamp proof without regenerating canonical business fields. Expected metric effect: Publication Freshness STALE 2/4 -> LIVE 4/4 when independently proven.
-2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority active commercial project. Expected metric effect: Business Growth Outcomes not_instrumented -> observed or explicitly blocked.
-3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Add stable non-secret counters for context/retry cost only if a trustworthy source exists. Expected metric effect: Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence.
-
-
-<!-- EVENING_UPGRADE:evening-architecture-2026-07-15-not-applicable-semantics -->
-## Evening Architecture Upgrade — 2026-07-15
-
-### Validation
-
-- **24/24 deterministic checks expected and required before merge/publication.**
-- Exact-snapshot publisher topology is enforced.
-- Canonical/mirror publication remains snapshot-specific; this new snapshot is **STALE 2/4** until deployment and public verification.
-
-### Metric impact
-
-| Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
-|---|---|---|---|---|---|---|---|---|
-| NOT_APPLICABLE Numeric Evidence Contract | AI Projects Brain / Brain Management | Continuous Self-Development | Validation and accumulated knowledge | canonical required 0/0; public rejected 0/0 | null/null contract with deterministic normalization | cross_repo_contract_aligned | validator pair + three semantic regression cases | high |
-| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | new Evening mirror blocked before deploy | publication path unblocked; new snapshot still requires 4/4 proof | validation_blocker_removed | failed runs 29439792641 and 29439796379 reconciled into validator fix | high |
-| Scheduler Health | AI Projects Brain | Continuous Self-Development | Rule and automation lifecycle | 2/2; duplicates=0 | 2/2; duplicates=0 | verified_again | live automation registry | high |
-
-### Ranked Morning handoff
-
-1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify the normalized Evening snapshot publication ladder and record the new deploy/public timestamp proof without changing canonical business evidence. Expected metric effect: Publication Freshness STALE 2/4 -> LIVE 4/4 when independently proven.
-2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority active commercial project. Expected metric effect: Business Growth Outcomes not_instrumented -> observed or explicitly blocked.
-3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Add stable non-secret counters for context/retry cost only if a trustworthy source exists. Expected metric effect: Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence.
-
-<!-- STRATEGIC_GOAL_SCOREBOARD:1 -->
-## Portfolio Strategic Scoreboard
-
-| Project | Big Goal | Yesterday | Today | Daily Delta | Evidence | Next Quality Threshold |
-|---|---|---:|---:|---:|---|---|
-| Ezohata | A trusted bilingual esoteric-commerce platform with complete catalog parity, excellent mobile discovery, secure owner administration, durable orders and uploads, and measured conversion. | 58% | 58% | +0 pp | BLOCKED | Prove one production owner journey: Google login to admin change or upload to public visibility to order handoff. |
-| EzoHata Finance | A trustworthy owner-only financial control system with reconciled history, current provider balances, explainable movements, secure sessions, and zero synthetic accounting. | 59.5% | 59.5% | +0 pp | BLOCKED | Prove a production owner session and reconcile imported totals plus current provider balances in one evidence run. |
-| Legacy Finance / Incoming Ledger | A stable and clearly bounded legacy ledger that remains reliable during transition and has an explicit migration, archival, or retirement decision. | 56.5% | 56.5% | +0 pp | NEEDS_VERIFICATION | Choose and document retained reference, migration source, or retired archive, with parity and rollback evidence. |
-| Psitherapy | A polished therapeutic self-analysis product with a coherent workbook, secure production identity, durable progress, safe boundaries, and clear paid-support pathways. | 53.5% | 53.5% | +0 pp | BLOCKED | Complete a reversible Firebase preview cutover proving login, saved progress and the core intake journey before production. |
-| Reiki Yggdrasil | A coherent and trustworthy Reiki training and practitioner platform with excellent live journeys, safe administration, and measured inquiries or bookings. | 43.5% | 43.5% | +0 pp | NEEDS_VERIFICATION | Run one full product, live and conversion audit and establish the first observed inquiry or booking KPI. |
-| Codex Links | A safe multi-project command and approval bridge with explicit human approval, correct routing, complete delivery evidence, and low retry cost. | 56.2% | 56.2% | +0 pp | NEEDS_VERIFICATION | Rebase the stacked approval chain, obtain a fully green suite, and prove one approved proposal to Codex command to delivery result. |
-| Brain Management | A live and trustworthy command and observability surface showing current portfolio health, strategic progress, Daily Intelligence, and exact source-to-deploy evidence. | 81.2% | 82.5% | +1.3 pp | NEEDS_VERIFICATION | Produce and independently verify a fresh receipt whose snapshot timestamp, source commit, content deploy and visible scoreboards all match the current canonical snapshot. |
-| Toronto Tantra | A premium and concise event-program ecosystem with excellent mobile experience, reliable publishing, clear safety and trust, and measured conversion of qualified Toronto interest. | 65.2% | 65.2% | +0 pp | NEEDS_VERIFICATION | Instrument qualified interest to conversation to confirmed registration across the three programs. |
-| AI Projects Brain | A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence. | 81.3% | 83% | +1.7 pp | PROVEN | Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources. |
-| Psihotavr | A clearly governed legacy production platform whose source, live build, data and auth state, and retirement or coexistence role are explicitly proven. | 50.8% | 50.8% | +0 pp | BLOCKED | Prove the canonical live source and decide coexistence, migration, or retirement with preservation and rollback evidence. |
-
-## System Intelligence Scoreboard
-
-| Big Goal | Yesterday | Today | Daily Delta | Evidence | Next Quality Threshold |
-|---|---:|---:|---:|---|---|
-| Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success. | 75.3% | 76.8% | +1.5 pp | PROVEN | Automate provider, live, business-outcome and context-efficiency evidence collection. |
-
-Percentages are conservative weighted progress values from the canonical project-specific rubrics. Missing evidence is never counted as success.
-<!-- /STRATEGIC_GOAL_SCOREBOARD -->
-
-
-<!-- EVENING_UPGRADE:evening-2026-07-16-immutable-publication-receipt -->
-## Evening Architecture Upgrade — 2026-07-16
-
-### Validation
-
-- **24/24 deterministic checks expected and required before merge/publication.**
-- Exact-snapshot publisher topology is enforced.
-- Canonical/mirror publication remains snapshot-specific; this new snapshot is **STALE 2/4** until deployment and public verification.
-
-### Metric impact
-
-| Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
-|---|---|---|---|---|---|---|---|---|
-| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | canonical dispatch had no production listener; LIVE proof could remain STALE after a successful exact deploy | repository dispatch triggers production and a matching immutable receipt can prove LIVE 4/4 without changing the snapshot timestamp | automatic_proof_loop_closed | brain-management PR #41, production-workflow regression run 29522752138 and receipt validator tests | high |
-| False Success Rate | AI Projects Brain / Brain Management | Efficiency and System Intelligence | Execution quality and completion | READY deploy metadata and old embedded proof could be mistaken for current LIVE evidence | LIVE requires exact snapshot/public timestamps, absolute deploy chronology, source SHA and all Portfolio/Project/Goal UI checks | live_evidence_guardrail_tightened | publication-receipt.mjs plus five deterministic rejection/overlay cases | high |
-| Avoidable Handoff Rate | Brain Management | Efficiency and System Intelligence | Autonomy and resource use | mirror equality could produce no push, leaving a manual heartbeat or workflow run necessary | canonical repository_dispatch is now an explicit production trigger even when mirror bytes are unchanged | manual_publication_handoff_removed | paired ai-projects-brain dispatch and brain-management repository_dispatch listener | high |
-
-### Ranked Morning handoff
-
-1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify the 20:12 snapshot-bound receipt and record the production workflow, content deploy and public receipt evidence without rewriting canonical business fields. Expected metric effect: Publication Freshness STALE 2/4 -> LIVE 4/4 when the matching receipt is independently proven.
-2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority active commercial project. Expected metric effect: Business Growth Outcomes not_instrumented -> observed or explicitly blocked.
-3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Add Context/Retry Cost only after a stable non-secret counter source exists. Expected metric effect: Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence.
+1. Did the Morning record remain labeled Morning in JSON, Markdown and activity history?
+2. Did canonical and mirror finish with identical blobs after the controlled write?
+3. Did the new snapshot receive a READY content deploy and receipt deploy from the exact mirror commit?
+4. Did public timestamp equality and Portfolio, Project and Goal UI verification complete for the new snapshot?

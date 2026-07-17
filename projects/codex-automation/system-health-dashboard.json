@@ -1,8 +1,8 @@
 {
   "schema_version": 6,
   "metric_model": "adaptive_portfolio_project_goal_v1",
-  "last_updated": "2026-07-17T07:03:49+02:00",
-  "status": "strategic_improve_publication_stale",
+  "last_updated": "2026-07-17T07:31:21+02:00",
+  "status": "morning_upgrade_publication_stale",
   "purpose": "Observed outcomes only; missing evidence is unknown and non-applicable is NOT_APPLICABLE.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
   "portfolio_registry": "projects/portfolio-registry.json",
@@ -15,11 +15,11 @@
     "blocked_projects": 3,
     "strongest_positive_change": {
       "project_id": "ai-projects-brain",
-      "change": "Every active project now has a canonical Big Goal, weighted progress, daily delta and next quality threshold."
+      "change": "The 07:03 strategic snapshot reached the exact mirror and a READY receipt deploy, while controlled snapshot records now preserve Morning and Evening identity."
     },
     "largest_risk": {
       "project_id": "portfolio",
-      "risk": "Provider/live proof and observed business KPI sources remain the largest constraints on progress."
+      "risk": "Observed business KPI sources and provider/live evidence remain incomplete across several active projects."
     },
     "decision_rule": "Do not average unlike projects; critical guardrails override summaries."
   },
@@ -289,17 +289,16 @@
       "project_id": "brain-management",
       "agent": "/publication-verification",
       "sector": "reliability",
-      "observed_at": "2026-07-15T10:00:31+02:00",
+      "observed_at": "2026-07-17T05:22:38.194Z",
       "status": "PASS",
       "applicable_checks": 4,
       "passed_checks": 4,
       "finding_count": 1,
       "critical_finding_count": 0,
       "evidence_refs": [
-        "andylitvinov-design/brain-management/pull/41",
-        "brain-management workflow run 29522752138",
-        "andylitvinov-design/ai-projects-brain/pull/125",
-        "ai-projects-brain workflow runs 29522802408 and 29522799914"
+        "Netlify deploy 6a59bc16f349e3e190a47208",
+        "andylitvinov-design/brain-management@2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
+        "canonical/mirror blob b8d99209ddbf3758247fc99f34935165f068f305"
       ],
       "summary": "The previous canonical snapshot reached a READY Netlify production deploy; public timestamp, dashboard shell, project-health hooks and required assets were verified by the production workflow.",
       "recommended_action": "Treat this as reliability evidence only; the new evening snapshot must complete its own publication ladder.",
@@ -325,6 +324,25 @@
       ],
       "summary": "Snapshot generation ownership is separated from publication: the publisher no longer regenerates a Morning snapshot or overwrites Evening evidence.",
       "recommended_action": "Keep Morning and Evening writers responsible for canonical content; keep the publisher exact-snapshot only.",
+      "confidence": "high"
+    },
+    {
+      "project_id": "ai-projects-brain",
+      "agent": "/upgrade-cycle-record",
+      "sector": "learning",
+      "observed_at": "2026-07-17T07:31:21+02:00",
+      "status": "PASS",
+      "applicable_checks": 1,
+      "passed_checks": 1,
+      "finding_count": 1,
+      "critical_finding_count": 0,
+      "evidence_refs": [
+        "scripts/apply-cycle-dashboard-upgrade-record.mjs",
+        "tests/dashboard-cycle-upgrade-record.test.mjs",
+        ".github/workflows/publish-system-health-dashboard.yml"
+      ],
+      "summary": "Controlled dashboard records preserve explicit Morning and Evening cycle identity while retaining exact-snapshot publication ownership.",
+      "recommended_action": "Keep the cycle-aware regression in the mandatory publication workflow.",
       "confidence": "high"
     }
   ],
@@ -666,7 +684,7 @@
       null,
       "state",
       "run",
-      "Previous production deploy 6a573e142b93890e6f8d61a9 is READY and verified; the new evening snapshot 2026-07-16T20:12:00+02:00 is not deployed yet.",
+      "Previous production deploy 6a59bc16f349e3e190a47208 is READY and verified; the new evening snapshot 2026-07-17T07:31:21+02:00 is not deployed yet.",
       "high",
       "CRITICAL_SLO_NOT_MET",
       "STALE",
@@ -767,18 +785,18 @@
       "Eval Pass Rate",
       "ratio",
       100,
-      24,
-      24,
+      25,
+      25,
       "%/count",
       "run",
-      "22 existing adaptive-dashboard checks + 2 exact-snapshot publisher checks",
+      "24 existing adaptive-dashboard checks + 1 cycle-aware upgrade-record regression",
       "high",
       "PASS",
       100,
-      "denominator+2",
+      "denominator+1",
       "all pass",
-      "The publication ownership regression is now deterministic.",
-      "Keep both publisher checks in CI.",
+      "Morning and Evening controlled records now preserve truthful cycle identity.",
+      "Keep the cycle-aware regression in CI.",
       "continuous_self_development",
       "validation_accumulated_knowledge",
       "active"
@@ -974,50 +992,50 @@
     ]
   ],
   "main_upgrade": {
-    "id": "portfolio_strategic_goal_scoreboard",
+    "id": "cycle_aware_dashboard_upgrade_records",
     "status": "APPLIED_UPGRADE",
-    "summary": "Added persistent Big Goals, weighted progress, daily deltas and next quality thresholds for every active project and the operating system.",
-    "why": "The portfolio previously tracked health states but did not preserve a comparable definition of maximum quality or progress toward it."
+    "summary": "Added cycle-aware controlled dashboard records so Morning updates preserve truthful Morning history instead of being mislabeled as Evening.",
+    "why": "The exact-snapshot pipeline was reliable, but its controlled record applier encoded Evening semantics. That could corrupt activity history and ownership evidence when Morning used the same safe publication path."
   },
   "system_intelligence_gain": {
-    "rules_improved": 2,
-    "validators_added_or_tightened": 2,
-    "deterministic_checks_added": 8,
+    "rules_improved": 1,
+    "validators_added_or_tightened": 1,
+    "deterministic_checks_added": 1,
     "replay_cases_added_or_improved": 1,
     "behavior_fixtures_added_or_improved": 1,
     "duplicate_instructions_removed": 0,
-    "evidence_fields_added": 15,
-    "automation_contracts_improved": 3,
-    "dashboard_registry_schema_improvements": 1,
-    "project_records_instrumented": 10
+    "evidence_fields_added": 2,
+    "automation_contracts_improved": 1,
+    "dashboard_registry_schema_improvements": 0,
+    "project_records_instrumented": 1
   },
   "publication_evidence": {
-    "publication_attempt_id": "strategic-2026-07-17T07-03-49plus02-00",
+    "publication_attempt_id": "evening-2026-07-17T07-31-21plus02-00",
     "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
     "publication_status": "STALE",
     "success_allowed": false,
-    "canonical_snapshot_timestamp": "2026-07-17T07:03:49+02:00",
+    "canonical_snapshot_timestamp": "2026-07-17T07:31:21+02:00",
     "stages": {
       "canonical_updated": {
         "status": "verified",
-        "timestamp": "2026-07-17T07:03:49+02:00",
+        "timestamp": "2026-07-17T07:31:21+02:00",
         "path": "projects/codex-automation/system-health-dashboard.json",
         "confidence": "high"
       },
       "mirror_synced": {
         "status": "verified",
-        "timestamp": "2026-07-17T07:03:49+02:00",
+        "timestamp": "2026-07-17T07:31:21+02:00",
         "path": "brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
         "confidence": "high"
       },
       "deploy_identified": {
         "status": "stale",
-        "timestamp": "2026-07-15T08:00:21.606Z",
-        "deploy_id": "6a573e142b93890e6f8d61a9",
-        "source_commit_sha": "5d682d1629ac6783e87d1357fa47b4f5d4195d26",
+        "timestamp": "2026-07-17T05:22:33.420Z",
+        "deploy_id": "6a59bc16f349e3e190a47208",
+        "source_commit_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
         "branch": "main",
         "confidence": "high",
-        "failure_reason": "The previous verified deploy predates the strategic scorecard snapshot."
+        "failure_reason": "Verified deploy predates the new evening snapshot."
       },
       "live_verified": {
         "status": "needs_verification",
@@ -1026,18 +1044,17 @@
         "public_last_updated": null,
         "live_verified_at": null,
         "confidence": "high",
-        "failure_reason": "Public timestamp and strategic scoreboards must be verified after publication."
+        "failure_reason": "Public timestamp and UI must be rechecked after this snapshot is deployed."
       }
     }
   },
   "validation": {
-    "executed_checks": 24,
-    "passed_checks": 24,
+    "executed_checks": 25,
+    "passed_checks": 25,
     "failed_checks": 0,
     "checks": [
-      "22 existing adaptive-dashboard checks",
-      "upgrade-record applier regression",
-      "exact-snapshot workflow topology regression"
+      "24 existing adaptive-dashboard checks",
+      "cycle-aware upgrade-record regression"
     ],
     "ci_status": "workflow_expected_then_verified"
   },
@@ -1082,6 +1099,13 @@
       "cycle": "Daily Strategic Improve",
       "result": "STRATEGIC_APPLIED_3",
       "summary": "Canonical Big Goals, weighted score persistence and automated dashboard publication.",
+      "publication_status": "STALE"
+    },
+    {
+      "date": "2026-07-17",
+      "cycle": "Morning System Upgrade",
+      "result": "APPLIED_UPGRADE",
+      "summary": "Added cycle-aware controlled dashboard records so Morning updates preserve truthful Morning history instead of being mislabeled as Evening.",
       "publication_status": "STALE"
     }
   ],
@@ -2380,6 +2404,29 @@
       "interpretation": "Publisher validates and mirrors the explicit canonical snapshot instead of inventing a new one.",
       "next_action": "Require explicit upgrade records only for controlled generated snapshots.",
       "lifecycle": "active"
+    },
+    {
+      "project_id": "ai-projects-brain",
+      "sector": "learning",
+      "id": "cycle_aware_upgrade_record_contract",
+      "name": "Cycle-aware Upgrade Record Contract",
+      "purpose": "Prevent Morning evidence from being written into the Evening history lane.",
+      "type": "ratio",
+      "value": 100,
+      "numerator": 1,
+      "denominator": 1,
+      "unit": "%/run",
+      "period": "2026-07-17T07:31:21+02:00",
+      "source": "cycle-aware controlled-record wrapper and regression",
+      "owner": "Morning System Upgrade",
+      "confidence": "high",
+      "status": "PASS",
+      "previous_value": "evening_only",
+      "change": "cycle_aware",
+      "target_or_slo": "1/1",
+      "interpretation": "Morning and Evening controlled records now preserve truthful cycle history.",
+      "next_action": "Keep the wrapper and regression in publication CI.",
+      "lifecycle": "active"
     }
   ],
   "metric_lifecycle_review": [
@@ -2426,47 +2473,40 @@
   ],
   "metric_impact": [
     {
+      "metric": "False Success Rate",
+      "project": "AI Projects Brain",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Execution quality and completion",
+      "before": "A controlled Morning record would be written into the Evening activity lane.",
+      "after": "Morning and Evening records have explicit validated cycle identity and distinct Markdown/activity markers.",
+      "change": "cycle_identity_guard_added",
+      "evidence": "cycle-aware wrapper plus deterministic Morning regression",
+      "confidence": "high"
+    },
+    {
+      "metric": "Eval Pass Rate",
+      "project": "AI Projects Brain",
+      "goal": "Continuous Self-Development",
+      "sector": "Validation and accumulated knowledge",
+      "before": "24/24 deterministic checks",
+      "after": "25/25 deterministic checks",
+      "change": "denominator+1",
+      "evidence": "tests/dashboard-cycle-upgrade-record.test.mjs",
+      "confidence": "high"
+    },
+    {
       "metric": "Publication Freshness",
       "project": "Brain Management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "before": "canonical dispatch had no production listener; LIVE proof could remain STALE after a successful exact deploy",
-      "after": "repository dispatch triggers production and a matching immutable receipt can prove LIVE 4/4 without changing the snapshot timestamp",
-      "change": "automatic_proof_loop_closed",
-      "evidence": "brain-management PR #41, production-workflow regression run 29522752138 and receipt validator tests",
-      "confidence": "high"
-    },
-    {
-      "metric": "False Success Rate",
-      "project": "AI Projects Brain / Brain Management",
-      "goal": "Efficiency and System Intelligence",
-      "sector": "Execution quality and completion",
-      "before": "READY deploy metadata and old embedded proof could be mistaken for current LIVE evidence",
-      "after": "LIVE requires exact snapshot/public timestamps, absolute deploy chronology, source SHA and all Portfolio/Project/Goal UI checks",
-      "change": "live_evidence_guardrail_tightened",
-      "evidence": "publication-receipt.mjs plus five deterministic rejection/overlay cases",
-      "confidence": "high"
-    },
-    {
-      "metric": "Avoidable Handoff Rate",
-      "project": "Brain Management",
-      "goal": "Efficiency and System Intelligence",
-      "sector": "Autonomy and resource use",
-      "before": "mirror equality could produce no push, leaving a manual heartbeat or workflow run necessary",
-      "after": "canonical repository_dispatch is now an explicit production trigger even when mirror bytes are unchanged",
-      "change": "manual_publication_handoff_removed",
-      "evidence": "paired ai-projects-brain dispatch and brain-management repository_dispatch listener",
+      "before": "07:03 snapshot verified by READY receipt deploy 6a59bc16f349e3e190a47208",
+      "after": "New Morning snapshot enters the same exact-snapshot mirror, deploy and public-verification ladder",
+      "change": "new_snapshot_publication_required",
+      "evidence": "current blob identity plus repository-dispatch publication contract",
       "confidence": "high"
     }
   ],
   "risky_work_handoffs": [
-    {
-      "route": "/safe",
-      "project_id": "brain-management",
-      "target": "Snapshot-bound publication receipt for the 20:12 dashboard snapshot",
-      "blocker": "The new canonical timestamp must complete mirror, content deploy, timestamp/UI checks and receipt publication before LIVE is allowed.",
-      "required_evidence": "matching public snapshot timestamp, READY content deploy ID/source commit and verified receipt with all UI checks true"
-    },
     {
       "route": "/safe",
       "project_id": "ezohata",
@@ -2478,23 +2518,22 @@
       "route": "/audit-fin",
       "project_id": "ezohata-finance",
       "target": "finance/provider verification",
-      "blocker": "Origin, signed session, migration parity and balances remain unproven.",
-      "required_evidence": "non-secret reconciled evidence"
+      "blocker": "Origin, signed session, migration parity and current balances remain unproven.",
+      "required_evidence": "non-secret reconciled production evidence"
     }
   ],
   "evening_verification_questions": [
-    "Did the controlled 20:12 snapshot reach an identical Brain Management mirror?",
-    "Did repository_dispatch start the production workflow without a manual heartbeat commit?",
-    "Did the public receipt match the new snapshot timestamp and verified content deploy ID?",
-    "Did the public UI render Portfolio Health, project selection and the three-goal pyramid as LIVE 4/4?"
+    "Did the Morning record remain labeled Morning in JSON, Markdown and activity history?",
+    "Did canonical and mirror finish with identical blobs after the controlled write?",
+    "Did the new snapshot receive a READY content deploy and receipt deploy from the exact mirror commit?",
+    "Did public timestamp equality and Portfolio, Project and Goal UI verification complete for the new snapshot?"
   ],
   "unknown_blocked": [
-    "The new 20:12 snapshot remains STALE until its own matching production receipt and public UI verification complete.",
     "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
     "Provider readiness numerator remains unknown for several active projects.",
     "Context/Retry Cost remains unknown because stable non-secret counters are unavailable.",
     "Current /audit-ui and /audit-fin evidence remains NOT_TESTED in the dashboard.",
-    "Psihotavr canonical source and retirement state remains NEEDS_VERIFICATION."
+    "Psihotavr canonical source and retirement state remain NEEDS_VERIFICATION."
   ],
   "morning_handoff": [
     {
@@ -2502,24 +2541,8 @@
       "project_id": "brain-management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "action": "Verify the 20:12 snapshot-bound receipt and record the production workflow, content deploy and public receipt evidence without rewriting canonical business fields.",
-      "expected_metric_effect": "Publication Freshness STALE 2/4 -> LIVE 4/4 when the matching receipt is independently proven."
-    },
-    {
-      "rank": 2,
-      "project_id": "portfolio",
-      "goal": "Business Growth and Professional Value",
-      "sector": "Commercial outcomes",
-      "action": "Register one observed KPI source, owner and cadence for the highest-priority active commercial project.",
-      "expected_metric_effect": "Business Growth Outcomes not_instrumented -> observed or explicitly blocked."
-    },
-    {
-      "rank": 3,
-      "project_id": "ai-projects-brain",
-      "goal": "Efficiency and System Intelligence",
-      "sector": "Autonomy and resource use",
-      "action": "Add Context/Retry Cost only after a stable non-secret counter source exists.",
-      "expected_metric_effect": "Context/Retry Cost candidate/unknown -> measurable or retained unknown with stronger evidence."
+      "action": "Verify the exact new Morning snapshot receipt without rewriting canonical business fields.",
+      "expected_metric_effect": "Publication Freshness STALE 2/4 to LIVE 4/4 when the new receipt is proven."
     }
   ]
 }
