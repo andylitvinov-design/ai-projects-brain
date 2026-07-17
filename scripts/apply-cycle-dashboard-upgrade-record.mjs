@@ -69,6 +69,10 @@ export function applyCycleUpgradeRecord(inputDashboard, inputRegistry, inputMark
   const date = timestamp.slice(0, 10);
 
   dashboard.status = 'morning_upgrade_publication_stale';
+  dashboard.publication_evidence = {
+    ...dashboard.publication_evidence,
+    publication_attempt_id: `morning-${timestamp.replace(/[:.]/g, '-').replace(/\+/g, 'plus')}`,
+  };
 
   dashboard.agent_assessments = (dashboard.agent_assessments ?? []).filter(
     (entry) => !(entry.project_id === 'ai-projects-brain' && entry.agent === '/upgrade-publication-ownership'),
