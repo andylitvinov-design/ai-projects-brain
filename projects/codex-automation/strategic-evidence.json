@@ -32,7 +32,7 @@
       "source_ref": "060d8788ebb2d2456bc49482c0f3b75fec74cad4",
       "observed_at": "2026-07-16T18:12:00Z",
       "summary": "The operating system now separates immutable business snapshots from external publication receipts and invalidates stale receipt evidence automatically when the snapshot changes.",
-      "next_quality_threshold": "Automate source-linked evidence ingestion and produce dimension-by-dimension score proposals without manual synthesis."
+      "next_quality_threshold": "Expand source-linked evidence collection into provider, live and observed business-outcome connectors."
     },
     {
       "id": "system-intelligence-false-live-resistance-20260716",
@@ -47,6 +47,37 @@
       "observed_at": "2026-07-16T18:12:00Z",
       "summary": "The system gained a deterministic anti-false-success boundary: stale, incomplete or older publication receipts cannot reinterpret an immutable snapshot as LIVE.",
       "next_quality_threshold": "Ingest provider, live and observed business evidence automatically while preserving source-level ceilings and no-false-LIVE rules."
+    },
+    {
+      "id": "ai-projects-brain-source-linked-evidence-ingestion-20260717",
+      "target_type": "project",
+      "project_id": "ai-projects-brain",
+      "rubric_id": "validation",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
+      "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
+      "observed_at": "2026-07-17T05:12:08Z",
+      "summary": "Source-linked dimension updates, anti-inflation ceilings, live-proof gates, duplicate protection and five regression cases are now merged and mandatory in both strategic publication and Agent Harness validation.",
+      "missing_conditions_remove": ["Automatic rubric evidence ingestion"],
+      "next_quality_threshold": "Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources."
+    },
+    {
+      "id": "system-intelligence-evidence-ingestion-20260717",
+      "target_type": "system",
+      "rubric_id": "execution",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
+      "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
+      "observed_at": "2026-07-17T05:12:08Z",
+      "summary": "The operating system can now apply source-linked evidence automatically and refuse unsupported percentage growth as part of required validation.",
+      "missing_conditions_remove": ["Automatic rubric evidence ingestion"],
+      "next_quality_threshold": "Automate provider, live, business-outcome and context-efficiency evidence collection."
     }
   ]
 }
