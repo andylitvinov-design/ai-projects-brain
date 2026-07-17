@@ -1,7 +1,7 @@
 {
   "schema_version": 6,
   "metric_model": "adaptive_portfolio_project_goal_v1",
-  "last_updated": "2026-07-17T07:46:14+02:00",
+  "last_updated": "2026-07-17T07:53:45+02:00",
   "status": "morning_upgrade_publication_stale",
   "purpose": "Observed outcomes only; missing evidence is unknown and non-applicable is NOT_APPLICABLE.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
@@ -15,7 +15,7 @@
     "blocked_projects": 3,
     "strongest_positive_change": {
       "project_id": "ai-projects-brain",
-      "change": "Controlled Morning publication evidence is now cycle-consistent across JSON, Markdown, activity history and trace identifiers."
+      "change": "Morning publication evidence is now consistent across status, history, metrics, trace identifiers and trace descriptions."
     },
     "largest_risk": {
       "project_id": "portfolio",
@@ -297,8 +297,8 @@
       "critical_finding_count": 0,
       "evidence_refs": [
         "Netlify deploy 6a59bc16f349e3e190a47208",
-        "canonical/mirror blob 439001dfa4babf5f66fe721723b3eec69b57abb6",
-        "publication trace showing stale evening prefix before repair"
+        "canonical/mirror blob 3b781bbc47c49d7f003aa4e60ed08ff3a53d806a",
+        "publication trace 14c1314906b6f3d49b012d257dc2898e6625e580"
       ],
       "summary": "The previous canonical snapshot reached a READY Netlify production deploy; public timestamp, dashboard shell, project-health hooks and required assets were verified by the production workflow.",
       "recommended_action": "Treat this as reliability evidence only; the new evening snapshot must complete its own publication ladder.",
@@ -330,19 +330,20 @@
       "project_id": "ai-projects-brain",
       "agent": "/upgrade-cycle-record",
       "sector": "learning",
-      "observed_at": "2026-07-17T07:46:14+02:00",
+      "observed_at": "2026-07-17T07:53:45+02:00",
       "status": "PASS",
-      "applicable_checks": 2,
-      "passed_checks": 2,
-      "finding_count": 2,
+      "applicable_checks": 4,
+      "passed_checks": 4,
+      "finding_count": 3,
       "critical_finding_count": 0,
       "evidence_refs": [
         "scripts/apply-cycle-dashboard-upgrade-record.mjs",
         "tests/dashboard-cycle-upgrade-record.test.mjs",
+        ".github/workflows/publish-system-health-dashboard.yml",
         "projects/codex-automation/system-health-dashboard-publication-trace.json"
       ],
-      "summary": "Controlled Morning records preserve cycle identity in dashboard content and publication trace identifiers.",
-      "recommended_action": "Keep the cross-layer cycle identity assertion in mandatory CI.",
+      "summary": "Controlled Morning records preserve cycle identity in dashboard content, metrics, attempt IDs and trace descriptions.",
+      "recommended_action": "Keep cycle-aware trace generation and cross-layer assertions in mandatory CI.",
       "confidence": "high"
     }
   ],
@@ -684,14 +685,14 @@
       null,
       "state",
       "run",
-      "Previous production deploy 6a59bc16f349e3e190a47208 is READY and verified; the new evening snapshot 2026-07-17T07:46:14+02:00 is not deployed yet.",
+      "Previous production deploy 6a59bc16f349e3e190a47208 is READY and verified; the new Morning snapshot 2026-07-17T07:53:45+02:00 is not deployed yet.",
       "high",
       "CRITICAL_SLO_NOT_MET",
       "STALE",
       "previous_snapshot_recovered_new_snapshot_pending",
       "4/4 same run",
-      "Production publication works, but LIVE is snapshot-specific and must be re-proven after this canonical update.",
-      "Publish the exact evening snapshot and verify timestamp plus required UI.",
+      "Production publication works, but LIVE is snapshot-specific and must be re-proven after this Morning update.",
+      "Publish the exact Morning snapshot and verify timestamp plus required UI.",
       "business_growth_professional_value",
       "professional_delivery_live_reliability",
       "active"
@@ -992,10 +993,10 @@
     ]
   ],
   "main_upgrade": {
-    "id": "complete_cycle_identity_across_publication_trace",
+    "id": "cycle_neutral_publication_evidence",
     "status": "APPLIED_UPGRADE",
-    "summary": "Completed cycle-aware publication evidence so Morning identity is preserved in dashboard status, activity history, Markdown markers and publication attempt IDs.",
-    "why": "The first cycle-aware run exposed one remaining trace inconsistency: the publication attempt ID retained an Evening prefix even though the snapshot was Morning. Truthful evidence requires all layers to agree."
+    "summary": "Removed the final hard-coded Evening wording from shared publication metrics and trace evidence while retaining explicit Morning ownership where appropriate.",
+    "why": "The cycle-aware snapshot and attempt ID were correct, but shared trace and Publication Freshness text still said evening snapshot. Evidence must be internally consistent before it can support truthful automation decisions."
   },
   "system_intelligence_gain": {
     "rules_improved": 1,
@@ -1004,27 +1005,27 @@
     "replay_cases_added_or_improved": 1,
     "behavior_fixtures_added_or_improved": 1,
     "duplicate_instructions_removed": 0,
-    "evidence_fields_added": 1,
+    "evidence_fields_added": 2,
     "automation_contracts_improved": 1,
     "dashboard_registry_schema_improvements": 0,
     "project_records_instrumented": 1
   },
   "publication_evidence": {
-    "publication_attempt_id": "morning-2026-07-17T07-46-14plus02-00",
+    "publication_attempt_id": "morning-2026-07-17T07-53-45plus02-00",
     "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
     "publication_status": "STALE",
     "success_allowed": false,
-    "canonical_snapshot_timestamp": "2026-07-17T07:46:14+02:00",
+    "canonical_snapshot_timestamp": "2026-07-17T07:53:45+02:00",
     "stages": {
       "canonical_updated": {
         "status": "verified",
-        "timestamp": "2026-07-17T07:46:14+02:00",
+        "timestamp": "2026-07-17T07:53:45+02:00",
         "path": "projects/codex-automation/system-health-dashboard.json",
         "confidence": "high"
       },
       "mirror_synced": {
         "status": "verified",
-        "timestamp": "2026-07-17T07:46:14+02:00",
+        "timestamp": "2026-07-17T07:53:45+02:00",
         "path": "brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
         "confidence": "high"
       },
@@ -1035,7 +1036,7 @@
         "source_commit_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
         "branch": "main",
         "confidence": "high",
-        "failure_reason": "Verified deploy predates the new evening snapshot."
+        "failure_reason": "Verified deploy predates the new Morning snapshot."
       },
       "live_verified": {
         "status": "needs_verification",
@@ -1105,7 +1106,7 @@
       "date": "2026-07-17",
       "cycle": "Morning System Upgrade",
       "result": "APPLIED_UPGRADE",
-      "summary": "Completed cycle-aware publication evidence so Morning identity is preserved in dashboard status, activity history, Markdown markers and publication attempt IDs.",
+      "summary": "Removed the final hard-coded Evening wording from shared publication metrics and trace evidence while retaining explicit Morning ownership where appropriate.",
       "publication_status": "STALE"
     }
   ],
@@ -2413,19 +2414,19 @@
       "purpose": "Prevent Morning evidence from being labeled as Evening anywhere in the publication chain.",
       "type": "ratio",
       "value": 100,
-      "numerator": 2,
-      "denominator": 2,
+      "numerator": 4,
+      "denominator": 4,
       "unit": "%/checks",
-      "period": "2026-07-17T07:46:14+02:00",
-      "source": "cycle-aware wrapper and cross-layer regression",
+      "period": "2026-07-17T07:53:45+02:00",
+      "source": "cycle-aware content, metric, attempt-ID and trace regressions",
       "owner": "Morning System Upgrade",
       "confidence": "high",
       "status": "PASS",
-      "previous_value": "content_identity_only",
-      "change": "content_and_trace_identity",
-      "target_or_slo": "2/2",
-      "interpretation": "Dashboard content and trace IDs now preserve truthful Morning/Evening ownership.",
-      "next_action": "Keep the wrapper and assertion in publication CI.",
+      "previous_value": "content_and_trace_identity_partial",
+      "change": "full_cross_layer_identity",
+      "target_or_slo": "4/4",
+      "interpretation": "Dashboard content, publication metrics, trace IDs and trace descriptions preserve truthful cycle ownership.",
+      "next_action": "Keep the cycle-aware wrapper in both snapshot and trace workflow steps.",
       "lifecycle": "active"
     }
   ],
@@ -2477,10 +2478,10 @@
       "project": "AI Projects Brain",
       "goal": "Efficiency and System Intelligence",
       "sector": "Execution quality and completion",
-      "before": "Morning snapshot status and history were correct but publication_attempt_id still used evening-.",
-      "after": "All controlled Morning evidence layers use Morning identity, including publication_attempt_id and generated trace.",
-      "change": "cross_layer_cycle_identity_completed",
-      "evidence": "wrapper repair plus regression assertion for /^morning-/",
+      "before": "Morning identifiers were correct but shared metric and trace descriptions still referred to an Evening snapshot.",
+      "after": "Morning-specific content remains Morning and shared trace language is cycle-neutral across all generated evidence.",
+      "change": "cross_layer_evidence_consistency_completed",
+      "evidence": "cycle-aware trace builder plus metric and trace regression assertions",
       "confidence": "high"
     },
     {
@@ -2488,8 +2489,8 @@
       "project": "AI Projects Brain",
       "goal": "Continuous Self-Development",
       "sector": "Validation and accumulated knowledge",
-      "before": "25/25 checks without an explicit trace-prefix assertion",
-      "after": "25/25 checks with cycle-prefix coverage inside the cycle-aware regression",
+      "before": "25/25 checks with Morning attempt-ID coverage",
+      "after": "25/25 checks with Morning metric text and cycle-neutral trace coverage",
       "change": "assertion_scope_expanded",
       "evidence": "tests/dashboard-cycle-upgrade-record.test.mjs",
       "confidence": "high"
@@ -2499,10 +2500,10 @@
       "project": "Brain Management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "before": "Previous snapshot has exact mirror identity; new trace repair is not yet public",
-      "after": "07:46 snapshot enters exact mirror, content deploy, UI verification and immutable receipt publication",
+      "before": "Latest proven receipt deploy predates the final evidence-consistent snapshot",
+      "after": "07:53 snapshot enters exact mirror, content deploy, public UI verification and immutable receipt publication",
       "change": "new_snapshot_publication_required",
-      "evidence": "repository-dispatch exact-snapshot contract",
+      "evidence": "cycle-aware trace-only workflow and repository dispatch",
       "confidence": "high"
     }
   ],
@@ -2523,10 +2524,10 @@
     }
   ],
   "evening_verification_questions": [
-    "Does the final publication trace use a morning- publication_attempt_id?",
-    "Are canonical and mirror blobs identical for the 07:46 snapshot?",
-    "Does the READY receipt deploy identify the exact mirror commit containing that blob?",
-    "Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 07:46 snapshot?"
+    "Does the final trace use a morning- attempt ID and contain no incorrect Evening wording?",
+    "Are canonical and mirror blobs identical for the 07:53 snapshot?",
+    "Does a READY receipt deploy identify the exact mirror commit containing that blob?",
+    "Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 07:53 snapshot?"
   ],
   "unknown_blocked": [
     "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
@@ -2541,7 +2542,7 @@
       "project_id": "brain-management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "action": "Verify the exact 07:46 Morning snapshot receipt without rewriting canonical business fields.",
+      "action": "Verify the exact 07:53 Morning snapshot receipt without rewriting canonical business fields.",
       "expected_metric_effect": "Publication Freshness STALE 2/4 to LIVE 4/4 when the matching receipt is proven."
     }
   ]

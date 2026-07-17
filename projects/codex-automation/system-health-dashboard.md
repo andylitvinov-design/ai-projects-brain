@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-17T07:46:14+02:00`  
+**Last updated:** `2026-07-17T07:53:45+02:00`  
 **Morning result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
@@ -11,19 +11,20 @@
 
 ## Main upgrade applied this morning
 
-**`complete_cycle_identity_across_publication_trace`** — Completed cycle-aware publication evidence so Morning identity is preserved in dashboard status, activity history, Markdown markers and publication attempt IDs.
+**`cycle_neutral_publication_evidence`** — Removed the final hard-coded Evening wording from shared publication metrics and trace evidence while retaining explicit Morning ownership where appropriate.
 
-The first cycle-aware run exposed one remaining trace inconsistency: the publication attempt ID retained an Evening prefix even though the snapshot was Morning. Truthful evidence requires all layers to agree.
+The cycle-aware snapshot and attempt ID were correct, but shared trace and Publication Freshness text still said evening snapshot. Evidence must be internally consistent before it can support truthful automation decisions.
 
 ## Changed files / prompts / automations
 
 - `scripts/apply-cycle-dashboard-upgrade-record.mjs`
 - `tests/dashboard-cycle-upgrade-record.test.mjs`
+- `.github/workflows/publish-system-health-dashboard.yml`
 - `projects/codex-automation/pending-dashboard-upgrade.json`
 ## Portfolio Health change
 
 State **NEEDS_ATTENTION**; active 10; observed 4; blocked 3.
-Strongest change: Controlled Morning publication evidence is now cycle-consistent across JSON, Markdown, activity history and trace identifiers.
+Strongest change: Morning publication evidence is now consistent across status, history, metrics, trace identifiers and trace descriptions.
 Largest risk: Observed business KPI sources and provider/live evidence remain incomplete across several active projects.
 
 ## Project Health matrix change
@@ -200,3 +201,28 @@ Indicators 24; history 1/30; score unknown.
 2. Are canonical and mirror blobs identical for the 07:46 snapshot?
 3. Does the READY receipt deploy identify the exact mirror commit containing that blob?
 4. Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 07:46 snapshot?
+
+
+<!-- MORNING_UPGRADE:morning-2026-07-17-cycle-neutral-publication-evidence -->
+## Morning System Upgrade — 2026-07-17
+
+### Validation
+
+- **24/24 deterministic checks expected and required before merge/publication.**
+- Exact-snapshot publisher topology is enforced.
+- Canonical/mirror publication remains snapshot-specific; this new snapshot is **STALE 2/4** until deployment and public verification.
+
+### Metric impact
+
+| Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
+|---|---|---|---|---|---|---|---|---|
+| False Success Rate | AI Projects Brain | Efficiency and System Intelligence | Execution quality and completion | Morning identifiers were correct but shared metric and trace descriptions still referred to an Evening snapshot. | Morning-specific content remains Morning and shared trace language is cycle-neutral across all generated evidence. | cross_layer_evidence_consistency_completed | cycle-aware trace builder plus metric and trace regression assertions | high |
+| Eval Pass Rate | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | 25/25 checks with Morning attempt-ID coverage | 25/25 checks with Morning metric text and cycle-neutral trace coverage | assertion_scope_expanded | tests/dashboard-cycle-upgrade-record.test.mjs | high |
+| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | Latest proven receipt deploy predates the final evidence-consistent snapshot | 07:53 snapshot enters exact mirror, content deploy, public UI verification and immutable receipt publication | new_snapshot_publication_required | cycle-aware trace-only workflow and repository dispatch | high |
+
+### Evening verification questions
+
+1. Does the final trace use a morning- attempt ID and contain no incorrect Evening wording?
+2. Are canonical and mirror blobs identical for the 07:53 snapshot?
+3. Does a READY receipt deploy identify the exact mirror commit containing that blob?
+4. Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 07:53 snapshot?
