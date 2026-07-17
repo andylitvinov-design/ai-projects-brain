@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const DEFAULT_SCORECARD = 'projects/codex-automation/strategic-goal-scorecard.json';
 const DEFAULT_EVIDENCE = 'projects/codex-automation/strategic-evidence.json';
+const DEFAULT_DASHBOARD = 'projects/codex-automation/system-health-dashboard.json';
 const EVIDENCE_STATES = new Set(['PROVEN', 'NEEDS_VERIFICATION', 'BLOCKED', 'RESOLVED', 'SUPERSEDED']);
 const POSITIVE_SOURCE_STATES = new Set(['merged_verified', 'workflow_success', 'live_verified', 'observed_outcome', 'owner_confirmed']);
 const LIVE_SOURCE_STATES = new Set(['live_verified', 'observed_outcome', 'owner_confirmed']);
@@ -85,7 +86,45 @@ function updateMissingConditions(goal, entry) {
   return [...new Set([...existing, ...(entry.missing_conditions_add || [])])];
 }
 
-export function applyStrategicEvidence(inputScorecard, evidenceLedger) {
+function baselineFor(goal, targetType, previousDay, sameObservationDate) {
+  const historical = targetType === 'system'
+    ? previousDay?.system_intelligence
+    : previousDay?.projects?.[goal.project_id];
+  if (typeof historical === 'number' && Number.isFinite(historical)) return historical;
+  if (sameObservationDate && typeof goal.progress_yesterday === 'number') return goal.progress_yesterday;
+  return goal.progress_today;
+}
+
+function normalizeDailyDeltas(scorecard, previousDay) {
+  if (!previousDay) return;
+  for (const goal of scorecard.project_goals || []) {
+    const baseline = previousDay.projects?.[goal.project_id];
+    if (typeof baseline !== 'number' || !Number.isFinite(baseline)) continue;
+    goal.progress_yesterday = baseline;
+    goal.progress_today = weightedProgress(goal);
+    goal.daily_delta = Number((goal.progress_today - baseline).toFixed(1));
+    goal.change_state = goal.daily_delta === 0 ? 'UNCHANGED' : 'CHANGED';
+  }
+  const system = scorecard.system_intelligence_goal;
+  const systemBaseline = previousDay.system_intelligence;
+  if (system && typeof systemBaseline === 'number' && Number.isFinite(systemBaseline)) {
+    system.progress_yesterday = systemBaseline;
+    system.progress_today = weightedProgress(system);
+    system.daily_delta = Number((system.progress_today - systemBaseline).toFixed(1));
+    system.change_state = system.daily_delta === 0 ? 'UNCHANGED' : 'CHANGED';
+  }
+}
+
+function previousDayFromDashboard(dashboard, evidenceDate) {
+  const history = dashboard?.daily_intelligence?.strategic_history;
+  if (!Array.isArray(history)) return null;
+  return history
+    .filter((entry) => entry?.date && entry.date < evidenceDate)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .at(-1) || null;
+}
+
+export function applyStrategicEvidence(inputScorecard, evidenceLedger, { previousDay = null } = {}) {
   if (inputScorecard?.schema_version !== 1) throw new Error('scorecard.schema_version must be 1');
   if (evidenceLedger?.schema_version !== 1) throw new Error('evidence.schema_version must be 1');
   assertTimestamp(evidenceLedger.observed_at, 'evidence.observed_at');
@@ -97,6 +136,8 @@ export function applyStrategicEvidence(inputScorecard, evidenceLedger) {
   if (duplicateIds.length) throw new Error(`duplicate evidence ids: ${[...new Set(duplicateIds)].join(', ')}`);
 
   const scorecard = deepClone(inputScorecard);
+  const evidenceDate = String(evidenceLedger.observed_at).slice(0, 10);
+  const sameObservationDate = String(inputScorecard.observed_at || '').slice(0, 10) === evidenceDate;
   const appliedBefore = new Set(scorecard.evidence_ingestion?.applied_evidence_ids || []);
   const projectById = new Map((scorecard.project_goals || []).map((goal) => [goal.project_id, goal]));
   const touched = new Map();
@@ -134,12 +175,14 @@ export function applyStrategicEvidence(inputScorecard, evidenceLedger) {
     if (!touched.has(goalKey)) {
       touched.set(goalKey, {
         goal,
-        baselineProgress: goal.progress_today,
+        baselineProgress: baselineFor(goal, entry.target_type, previousDay, sameObservationDate),
         summaries: [],
       });
     }
 
-    dimension.yesterday_score = currentScore;
+    if (!sameObservationDate || dimension.yesterday_score === null || dimension.yesterday_score === undefined) {
+      dimension.yesterday_score = currentScore;
+    }
     dimension.today_score = entry.proposed_score;
     dimension.evidence_state = entry.evidence_state;
     dimension.evidence = entry.summary;
@@ -178,6 +221,8 @@ export function applyStrategicEvidence(inputScorecard, evidenceLedger) {
     goal.why_changed = summaries.join(' ');
   }
 
+  normalizeDailyDeltas(scorecard, previousDay);
+
   if (appliedNow.length) scorecard.observed_at = evidenceLedger.observed_at;
   scorecard.evidence_ingestion = {
     schema_version: 1,
@@ -188,6 +233,10 @@ export function applyStrategicEvidence(inputScorecard, evidenceLedger) {
       skipped: results.filter((item) => item.status === 'ALREADY_APPLIED').map((item) => item.id),
       source_ledger_status: evidenceLedger.status || 'unknown',
     },
+    daily_baseline: previousDay ? {
+      date: previousDay.date,
+      source: 'dashboard.daily_intelligence.strategic_history',
+    } : null,
   };
 
   return { scorecard, results };
@@ -205,9 +254,12 @@ function main() {
   const scorecardFile = argValue(args, '--scorecard', DEFAULT_SCORECARD);
   const evidenceFile = argValue(args, '--evidence', DEFAULT_EVIDENCE);
   const outputFile = argValue(args, '--output', scorecardFile);
+  const dashboardFile = argValue(args, '--dashboard', DEFAULT_DASHBOARD);
   const scorecard = JSON.parse(fs.readFileSync(scorecardFile, 'utf8'));
   const evidence = JSON.parse(fs.readFileSync(evidenceFile, 'utf8'));
-  const result = applyStrategicEvidence(scorecard, evidence);
+  const dashboard = fs.existsSync(dashboardFile) ? JSON.parse(fs.readFileSync(dashboardFile, 'utf8')) : null;
+  const previousDay = previousDayFromDashboard(dashboard, String(evidence.observed_at).slice(0, 10));
+  const result = applyStrategicEvidence(scorecard, evidence, { previousDay });
   atomicWrite(outputFile, result.scorecard);
   process.stdout.write(`${JSON.stringify({
     status: 'STRATEGIC_EVIDENCE_APPLIED',
