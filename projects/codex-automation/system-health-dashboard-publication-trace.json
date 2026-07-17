@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
-  "publication_attempt_id": "morning-2026-07-17T08-20-00plus02-00",
-  "canonical_snapshot_timestamp": "2026-07-17T08:20:00+02:00",
+  "publication_attempt_id": "evening-2026-07-17T20-42-00plus02-00",
+  "canonical_snapshot_timestamp": "2026-07-17T20:42:00+02:00",
   "publication_status": "STALE",
   "success_allowed": false,
   "stages": {
@@ -12,9 +12,9 @@
       "evidence_reference": "Exact committed snapshot; publisher did not regenerate business fields.",
       "confidence": "high",
       "status": "verified",
-      "timestamp": "2026-07-17T08:20:00+02:00",
-      "commit_sha": "e0dad120730e8323f1d1384e2ac244e3853272b8",
-      "blob_sha": "660ade21f032d7806b6f9703ef434d2ff96a1fd5"
+      "timestamp": "2026-07-17T20:42:00+02:00",
+      "commit_sha": "aeea911d5621b24973bb83078f98de5b0e9022b8",
+      "blob_sha": "e38bb1ad306a7f18d0a88c26983636185191fcf9"
     },
     "mirror_synced": {
       "checked_url_or_path": "andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
@@ -22,9 +22,9 @@
       "evidence_reference": "Mirror blob equals canonical blob.",
       "confidence": "high",
       "status": "verified",
-      "timestamp": "2026-07-17T08:20:00+02:00",
-      "commit_sha": "f4103299112c86e927fc2cbdc3e5968b6ab4ebbe",
-      "blob_sha": "660ade21f032d7806b6f9703ef434d2ff96a1fd5"
+      "timestamp": "2026-07-17T20:42:00+02:00",
+      "commit_sha": "dd313504b9d409cef50ee07c6bcd9c44ca0afb4f",
+      "blob_sha": "e38bb1ad306a7f18d0a88c26983636185191fcf9"
     },
     "deploy_identified": {
       "checked_url_or_path": "Netlify deploy 6a59bc16f349e3e190a47208",
@@ -36,7 +36,7 @@
       "deploy_id": "6a59bc16f349e3e190a47208",
       "source_commit_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
       "branch": "main",
-      "failure_reason": "Verified deploy predates the new Morning snapshot."
+      "failure_reason": "Verified deploy predates the new controlled snapshot."
     },
     "live_verified": {
       "checked_url_or_path": "https://brain-management.netlify.app/system-health-dashboard/",
