@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   applyUpgradeRecord,
+  buildPublicationTrace,
   validateUpgradeRecord,
 } from './apply-dashboard-upgrade-record.mjs';
 
@@ -11,6 +12,7 @@ const DEFAULT_DASHBOARD = 'projects/codex-automation/system-health-dashboard.jso
 const DEFAULT_MARKDOWN = 'projects/codex-automation/system-health-dashboard.md';
 const DEFAULT_REGISTRY = 'projects/portfolio-registry.json';
 const DEFAULT_RECORD = 'projects/codex-automation/pending-dashboard-upgrade.json';
+const DEFAULT_TRACE = 'projects/codex-automation/system-health-dashboard-publication-trace.json';
 const SUPPORTED_CYCLES = new Set(['Morning System Upgrade', 'Evening Architecture Upgrade']);
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -48,6 +50,17 @@ export function validateCycleUpgradeRecord(record) {
   return errors;
 }
 
+export function buildCyclePublicationTrace(dashboard, refs) {
+  const trace = buildPublicationTrace(dashboard, refs);
+  trace.stages.deploy_identified.evidence_reference = 'Most recent verified production deploy predates the new controlled snapshot.';
+  if (typeof trace.stages.deploy_identified.failure_reason === 'string') {
+    trace.stages.deploy_identified.failure_reason = trace.stages.deploy_identified.failure_reason
+      .replace(/new evening snapshot/gi, 'new controlled snapshot')
+      .replace(/evening snapshot/gi, 'controlled snapshot');
+  }
+  return trace;
+}
+
 export function applyCycleUpgradeRecord(inputDashboard, inputRegistry, inputMarkdown, record) {
   const errors = validateCycleUpgradeRecord(record);
   if (errors.length) throw new Error(errors.join('\n'));
@@ -72,6 +85,13 @@ export function applyCycleUpgradeRecord(inputDashboard, inputRegistry, inputMark
   dashboard.publication_evidence = {
     ...dashboard.publication_evidence,
     publication_attempt_id: `morning-${timestamp.replace(/[:.]/g, '-').replace(/\+/g, 'plus')}`,
+    stages: {
+      ...dashboard.publication_evidence.stages,
+      deploy_identified: {
+        ...dashboard.publication_evidence.stages.deploy_identified,
+        failure_reason: 'Verified deploy predates the new Morning snapshot.',
+      },
+    },
   };
 
   dashboard.agent_assessments = (dashboard.agent_assessments ?? []).filter(
@@ -95,6 +115,14 @@ export function applyCycleUpgradeRecord(inputDashboard, inputRegistry, inputMark
   );
 
   const metrics = metricRows(dashboard);
+  const publicationMetric = metrics.find((entry) => entry.id === 'publication_freshness');
+  if (publicationMetric) {
+    Object.assign(publicationMetric, {
+      source: `Previous production deploy ${record.publication.previous_verified_deploy.deploy_id} is READY and verified; the new Morning snapshot ${timestamp} is not deployed yet.`,
+      interpretation: 'Production publication works, but LIVE is snapshot-specific and must be re-proven after this Morning update.',
+      next_action: 'Publish the exact Morning snapshot and verify timestamp plus required UI.',
+    });
+  }
   const evalMetric = metrics.find((entry) => entry.id === 'eval_pass_rate');
   if (evalMetric) {
     Object.assign(evalMetric, {
@@ -164,6 +192,18 @@ function main() {
   const markdownFile = path.resolve(root, argValue(args, '--markdown', DEFAULT_MARKDOWN));
   const registryFile = path.resolve(root, argValue(args, '--registry', DEFAULT_REGISTRY));
   const recordFile = path.resolve(root, argValue(args, '--record', DEFAULT_RECORD));
+  const traceFile = path.resolve(root, argValue(args, '--trace', DEFAULT_TRACE));
+
+  if (args.includes('--trace-only')) {
+    const trace = buildCyclePublicationTrace(readJson(dashboardFile), {
+      canonicalCommitSha: argValue(args, '--canonical-commit'),
+      canonicalBlobSha: argValue(args, '--canonical-blob'),
+      mirrorCommitSha: argValue(args, '--mirror-commit'),
+      mirrorBlobSha: argValue(args, '--mirror-blob'),
+    });
+    writeJson(traceFile, trace);
+    return;
+  }
 
   const result = applyCycleUpgradeRecord(
     readJson(dashboardFile),
