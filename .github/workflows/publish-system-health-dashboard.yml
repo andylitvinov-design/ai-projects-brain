@@ -12,6 +12,7 @@ on:
       - 'scripts/update-daily-intelligence.mjs'
       - 'scripts/publish-morning-dashboard-snapshot.mjs'
       - 'scripts/apply-dashboard-upgrade-record.mjs'
+      - 'scripts/apply-cycle-dashboard-upgrade-record.mjs'
       - 'scripts/normalize-dashboard-not-applicable.mjs'
       - 'scripts/validate-portfolio-dashboard.mjs'
       - 'scripts/validate-dashboard-publication-contract.mjs'
@@ -19,6 +20,7 @@ on:
       - 'tests/daily-intelligence-writer.test.mjs'
       - 'tests/morning-dashboard-publication.test.mjs'
       - 'tests/dashboard-upgrade-record.test.mjs'
+      - 'tests/dashboard-cycle-upgrade-record.test.mjs'
       - 'tests/dashboard-publisher-exact-snapshot.test.mjs'
       - 'tests/not-applicable-metric-semantics.test.mjs'
       - 'tests/portfolio-dashboard-validator.test.mjs'
@@ -37,6 +39,7 @@ on:
       - 'scripts/update-daily-intelligence.mjs'
       - 'scripts/publish-morning-dashboard-snapshot.mjs'
       - 'scripts/apply-dashboard-upgrade-record.mjs'
+      - 'scripts/apply-cycle-dashboard-upgrade-record.mjs'
       - 'scripts/normalize-dashboard-not-applicable.mjs'
       - 'scripts/validate-portfolio-dashboard.mjs'
       - 'scripts/validate-dashboard-publication-contract.mjs'
@@ -44,6 +47,7 @@ on:
       - 'tests/daily-intelligence-writer.test.mjs'
       - 'tests/morning-dashboard-publication.test.mjs'
       - 'tests/dashboard-upgrade-record.test.mjs'
+      - 'tests/dashboard-cycle-upgrade-record.test.mjs'
       - 'tests/dashboard-publisher-exact-snapshot.test.mjs'
       - 'tests/not-applicable-metric-semantics.test.mjs'
       - 'tests/portfolio-dashboard-validator.test.mjs'
@@ -78,7 +82,7 @@ jobs:
           set -euo pipefail
           RECORD='projects/codex-automation/pending-dashboard-upgrade.json'
           if test -f "$RECORD"; then
-            node scripts/apply-dashboard-upgrade-record.mjs --record "$RECORD" --consume
+            node scripts/apply-cycle-dashboard-upgrade-record.mjs --record "$RECORD" --consume
             node scripts/normalize-dashboard-not-applicable.mjs \
               --file projects/codex-automation/system-health-dashboard.json
             echo 'applied=true' >> "$GITHUB_OUTPUT"
@@ -99,6 +103,7 @@ jobs:
           node --test tests/morning-dashboard-publication.test.mjs
           node --test tests/dashboard-publication-contract.test.mjs
           node --test tests/dashboard-upgrade-record.test.mjs
+          node --test tests/dashboard-cycle-upgrade-record.test.mjs
           node --test tests/dashboard-publisher-exact-snapshot.test.mjs
           node --test tests/not-applicable-metric-semantics.test.mjs
           node scripts/apply-dashboard-upgrade-record.mjs --trace-only \
