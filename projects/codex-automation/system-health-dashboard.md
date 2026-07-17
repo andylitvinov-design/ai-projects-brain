@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-16T20:12:00+02:00`  
+**Last updated:** `2026-07-17T07:03:49+02:00`  
 **Evening result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
@@ -213,16 +213,16 @@ Indicators 24; history 1/30; score unknown.
 | Psitherapy | A polished therapeutic self-analysis product with a coherent workbook, secure production identity, durable progress, safe boundaries, and clear paid-support pathways. | 53.5% | 53.5% | +0 pp | BLOCKED | Complete a reversible Firebase preview cutover proving login, saved progress and the core intake journey before production. |
 | Reiki Yggdrasil | A coherent and trustworthy Reiki training and practitioner platform with excellent live journeys, safe administration, and measured inquiries or bookings. | 43.5% | 43.5% | +0 pp | NEEDS_VERIFICATION | Run one full product, live and conversion audit and establish the first observed inquiry or booking KPI. |
 | Codex Links | A safe multi-project command and approval bridge with explicit human approval, correct routing, complete delivery evidence, and low retry cost. | 56.2% | 56.2% | +0 pp | NEEDS_VERIFICATION | Rebase the stacked approval chain, obtain a fully green suite, and prove one approved proposal to Codex command to delivery result. |
-| Brain Management | A live and trustworthy command and observability surface showing current portfolio health, strategic progress, Daily Intelligence, and exact source-to-deploy evidence. | 81.2% | 81.2% | +0 pp | NEEDS_VERIFICATION | Publish the strategic snapshot and verify exact source commit, mirror identity, public timestamp and visible scoreboards. |
+| Brain Management | A live and trustworthy command and observability surface showing current portfolio health, strategic progress, Daily Intelligence, and exact source-to-deploy evidence. | 81.2% | 82.5% | +1.3 pp | NEEDS_VERIFICATION | Produce and independently verify a fresh receipt whose snapshot timestamp, source commit, content deploy and visible scoreboards all match the current canonical snapshot. |
 | Toronto Tantra | A premium and concise event-program ecosystem with excellent mobile experience, reliable publishing, clear safety and trust, and measured conversion of qualified Toronto interest. | 65.2% | 65.2% | +0 pp | NEEDS_VERIFICATION | Instrument qualified interest to conversation to confirmed registration across the three programs. |
-| AI Projects Brain | A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence. | 69.4% | 81.3% | +11.9 pp | PROVEN | Automate evidence ingestion for strategic scores from product, provider, live and business sources. |
+| AI Projects Brain | A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence. | 81.3% | 81.8% | +0.5 pp | PROVEN | Automate source-linked evidence ingestion and produce dimension-by-dimension score proposals without manual synthesis. |
 | Psihotavr | A clearly governed legacy production platform whose source, live build, data and auth state, and retirement or coexistence role are explicitly proven. | 50.8% | 50.8% | +0 pp | BLOCKED | Prove the canonical live source and decide coexistence, migration, or retirement with preservation and rollback evidence. |
 
 ## System Intelligence Scoreboard
 
 | Big Goal | Yesterday | Today | Daily Delta | Evidence | Next Quality Threshold |
 |---|---:|---:|---:|---|---|
-| Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success. | 65.7% | 75.3% | +9.6 pp | PROVEN | Automate provider, live and business-outcome evidence ingestion so strategic scores update without manual synthesis. |
+| Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success. | 75.3% | 76.3% | +1 pp | PROVEN | Ingest provider, live and observed business evidence automatically while preserving source-level ceilings and no-false-LIVE rules. |
 
 Percentages are conservative weighted progress values from the canonical project-specific rubrics. Missing evidence is never counted as success.
 <!-- /STRATEGIC_GOAL_SCOREBOARD -->
