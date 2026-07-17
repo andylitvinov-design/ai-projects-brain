@@ -103,3 +103,30 @@ test('enforces source-state score ceilings and unique evidence ids', () => {
   duplicate.entries[1].id = duplicate.entries[0].id;
   assert.throws(() => applyStrategicEvidence(scorecard(), duplicate), /duplicate evidence ids/);
 });
+
+test('preserves the original previous-day baseline across multiple evidence batches on the same day', () => {
+  const previousDay = { date: '2026-07-16', projects: { alpha: 70 }, system_intelligence: 70 };
+  const firstLedger = evidence();
+  firstLedger.entries = [firstLedger.entries[0]];
+  const first = applyStrategicEvidence(scorecard(), firstLedger, { previousDay });
+
+  const secondLedger = {
+    schema_version: 1,
+    observed_at: '2026-07-17T07:03:49+02:00',
+    status: 'source_linked_verified_evidence',
+    entries: [{
+      id: 'alpha-evidence-2', target_type: 'project', project_id: 'alpha', rubric_id: 'evidence',
+      proposed_score: 90, evidence_state: 'PROVEN', source_state: 'merged_verified', requires_live_proof: false,
+      source_url: 'https://github.com/example/alpha/pull/2', source_ref: 'b'.repeat(40),
+      observed_at: '2026-07-17T05:00:00Z', summary: 'Second verified evidence batch.',
+    }],
+  };
+  const second = applyStrategicEvidence(first.scorecard, secondLedger, { previousDay });
+  const project = second.scorecard.project_goals[0];
+  assert.equal(project.progress_yesterday, 70);
+  assert.equal(project.progress_today, 75);
+  assert.equal(project.daily_delta, 5);
+  assert.deepEqual(second.scorecard.evidence_ingestion.daily_baseline, {
+    date: '2026-07-16', source: 'dashboard.daily_intelligence.strategic_history',
+  });
+});
