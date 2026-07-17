@@ -13,6 +13,7 @@ on:
       - 'scripts/publish-morning-dashboard-snapshot.mjs'
       - 'scripts/apply-dashboard-upgrade-record.mjs'
       - 'scripts/apply-cycle-dashboard-upgrade-record.mjs'
+      - 'scripts/sync-dashboard-markdown-core.mjs'
       - 'scripts/normalize-dashboard-not-applicable.mjs'
       - 'scripts/validate-portfolio-dashboard.mjs'
       - 'scripts/validate-dashboard-publication-contract.mjs'
@@ -21,6 +22,7 @@ on:
       - 'tests/morning-dashboard-publication.test.mjs'
       - 'tests/dashboard-upgrade-record.test.mjs'
       - 'tests/dashboard-cycle-upgrade-record.test.mjs'
+      - 'tests/dashboard-markdown-core-sync.test.mjs'
       - 'tests/dashboard-publisher-exact-snapshot.test.mjs'
       - 'tests/not-applicable-metric-semantics.test.mjs'
       - 'tests/portfolio-dashboard-validator.test.mjs'
@@ -40,6 +42,7 @@ on:
       - 'scripts/publish-morning-dashboard-snapshot.mjs'
       - 'scripts/apply-dashboard-upgrade-record.mjs'
       - 'scripts/apply-cycle-dashboard-upgrade-record.mjs'
+      - 'scripts/sync-dashboard-markdown-core.mjs'
       - 'scripts/normalize-dashboard-not-applicable.mjs'
       - 'scripts/validate-portfolio-dashboard.mjs'
       - 'scripts/validate-dashboard-publication-contract.mjs'
@@ -48,6 +51,7 @@ on:
       - 'tests/morning-dashboard-publication.test.mjs'
       - 'tests/dashboard-upgrade-record.test.mjs'
       - 'tests/dashboard-cycle-upgrade-record.test.mjs'
+      - 'tests/dashboard-markdown-core-sync.test.mjs'
       - 'tests/dashboard-publisher-exact-snapshot.test.mjs'
       - 'tests/not-applicable-metric-semantics.test.mjs'
       - 'tests/portfolio-dashboard-validator.test.mjs'
@@ -89,6 +93,7 @@ jobs:
           else
             echo 'applied=false' >> "$GITHUB_OUTPUT"
           fi
+          node scripts/sync-dashboard-markdown-core.mjs
 
       - name: Validate exact adaptive snapshot and publication contract
         shell: bash
@@ -104,6 +109,7 @@ jobs:
           node --test tests/dashboard-publication-contract.test.mjs
           node --test tests/dashboard-upgrade-record.test.mjs
           node --test tests/dashboard-cycle-upgrade-record.test.mjs
+          node --test tests/dashboard-markdown-core-sync.test.mjs
           node --test tests/dashboard-publisher-exact-snapshot.test.mjs
           node --test tests/not-applicable-metric-semantics.test.mjs
           node scripts/apply-cycle-dashboard-upgrade-record.mjs --trace-only \
