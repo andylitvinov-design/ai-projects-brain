@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
   "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
-  "publication_attempt_id": "evening-2026-07-17T07-31-21plus02-00",
-  "canonical_snapshot_timestamp": "2026-07-17T07:31:21+02:00",
+  "publication_attempt_id": "morning-2026-07-17T07-46-14plus02-00",
+  "canonical_snapshot_timestamp": "2026-07-17T07:46:14+02:00",
   "publication_status": "STALE",
   "success_allowed": false,
   "stages": {
@@ -12,9 +12,9 @@
       "evidence_reference": "Exact committed snapshot; publisher did not regenerate business fields.",
       "confidence": "high",
       "status": "verified",
-      "timestamp": "2026-07-17T07:31:21+02:00",
-      "commit_sha": "4bbdf806de2ea7deaba3b7630ea1f5e28e9e12dd",
-      "blob_sha": "439001dfa4babf5f66fe721723b3eec69b57abb6"
+      "timestamp": "2026-07-17T07:46:14+02:00",
+      "commit_sha": "3bcd0ac39db8910056495903ba97380c73197b35",
+      "blob_sha": "3b781bbc47c49d7f003aa4e60ed08ff3a53d806a"
     },
     "mirror_synced": {
       "checked_url_or_path": "andylitvinov-design/brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
@@ -22,9 +22,9 @@
       "evidence_reference": "Mirror blob equals canonical blob.",
       "confidence": "high",
       "status": "verified",
-      "timestamp": "2026-07-17T07:31:21+02:00",
-      "commit_sha": "f44ab642045bacbc6614dc97de3f91d78a5e7d7d",
-      "blob_sha": "439001dfa4babf5f66fe721723b3eec69b57abb6"
+      "timestamp": "2026-07-17T07:46:14+02:00",
+      "commit_sha": "01eba28484401ddba9bbc505a66b2b374a94f330",
+      "blob_sha": "3b781bbc47c49d7f003aa4e60ed08ff3a53d806a"
     },
     "deploy_identified": {
       "checked_url_or_path": "Netlify deploy 6a59bc16f349e3e190a47208",
