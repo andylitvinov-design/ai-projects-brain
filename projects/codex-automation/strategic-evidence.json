@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-07-17T07:03:49+02:00",
+  "status": "source_linked_verified_evidence",
+  "scoring_policy": "Apply only dimension-level changes backed by immutable source references. Code-only evidence cannot satisfy a live-required condition.",
+  "entries": [
+    {
+      "id": "brain-management-publication-receipt-architecture-20260716",
+      "target_type": "project",
+      "project_id": "brain-management",
+      "rubric_id": "publication",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/brain-management/pull/41",
+      "source_ref": "3e9b48fefba426c145fb9c23838e007a926e70b3",
+      "observed_at": "2026-07-16T18:09:56Z",
+      "summary": "The snapshot-bound publication receipt loop, repository-dispatch listener, absolute deploy ordering and receipt regression coverage were merged. This proves the publication architecture, but not freshness of the current public alias.",
+      "next_quality_threshold": "Produce and independently verify a fresh receipt whose snapshot timestamp, source commit, content deploy and visible scoreboards all match the current canonical snapshot."
+    },
+    {
+      "id": "ai-projects-brain-immutable-receipt-contract-20260716",
+      "target_type": "project",
+      "project_id": "ai-projects-brain",
+      "rubric_id": "automation",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/125",
+      "source_ref": "060d8788ebb2d2456bc49482c0f3b75fec74cad4",
+      "observed_at": "2026-07-16T18:12:00Z",
+      "summary": "The operating system now separates immutable business snapshots from external publication receipts and invalidates stale receipt evidence automatically when the snapshot changes.",
+      "next_quality_threshold": "Automate source-linked evidence ingestion and produce dimension-by-dimension score proposals without manual synthesis."
+    },
+    {
+      "id": "system-intelligence-false-live-resistance-20260716",
+      "target_type": "system",
+      "rubric_id": "evidence",
+      "proposed_score": 82,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/125",
+      "source_ref": "060d8788ebb2d2456bc49482c0f3b75fec74cad4",
+      "observed_at": "2026-07-16T18:12:00Z",
+      "summary": "The system gained a deterministic anti-false-success boundary: stale, incomplete or older publication receipts cannot reinterpret an immutable snapshot as LIVE.",
+      "next_quality_threshold": "Ingest provider, live and observed business evidence automatically while preserving source-level ceilings and no-false-LIVE rules."
+    }
+  ]
+}
