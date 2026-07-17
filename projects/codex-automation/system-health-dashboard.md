@@ -1,33 +1,32 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-17T08:20:00+02:00`  
-**Morning result:** `APPLIED_UPGRADE`  
+**Last updated:** `2026-07-17T20:42:00+02:00`  
+**Evening result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
 ## Status
 
 **APPLIED_UPGRADE**
 
-## Main upgrade applied this morning
+## Main upgrade applied this evening
 
-**`dashboard_markdown_core_json_sync`** — Made the mutable Markdown evidence core a deterministic rendering of the exact canonical dashboard JSON while preserving immutable Morning and Evening history appendices.
+**`receipt_aware_publication_self_healing`** — Added a trigger-independent, receipt-aware recovery path that dispatches the sole canonical dashboard publisher when an exact snapshot remains stale.
 
-The canonical JSON and mirror were exact, but the human-facing Markdown core still displayed an obsolete deploy ID, timestamp, validation count and publication ladder. That created internal evidence drift and could mislead later automation runs.
+The 08:20 canonical and mirror snapshots matched, but the retry commit produced no observable workflow run or check and Netlify remained on the prior deploy. Push or cross-repository dispatch alone was therefore an unprotected single point of failure.
 
 ## Changed files / prompts / automations
 
-- `scripts/sync-dashboard-markdown-core.mjs`
-- `tests/dashboard-markdown-core-sync.test.mjs`
-- `.github/workflows/publish-system-health-dashboard.yml`
-- `scripts/apply-cycle-dashboard-upgrade-record.mjs`
-- `tests/dashboard-cycle-upgrade-record.test.mjs`
+- `brain-management/.github/workflows/recover-stale-system-health-dashboard.yml`
+- `brain-management/tests/dashboard-publication-watchdog.test.mjs`
+- `systems/evening-upgrade-runtime-contract.md`
+- `tests/dashboard-publisher-exact-snapshot.test.mjs`
 - `projects/codex-automation/pending-dashboard-upgrade.json`
 ## Portfolio Health change
 
 State **NEEDS_ATTENTION**; active 10; observed 4; blocked 3.
-Strongest change: Canonical JSON, mirror JSON and the mutable Markdown evidence core now share one deterministic source of truth.
-Largest risk: Observed business KPI sources and provider/live evidence remain incomplete across several active projects.
+Strongest change: Brain Management now has a GitHub-native recovery watchdog that no-ops on a valid matching receipt and otherwise dispatches the existing canonical publisher without becoming a second deployer.
+Largest risk: Observed business KPI sources and provider/live evidence remain incomplete across several active projects; the new publication snapshot must still earn its own matching receipt before LIVE.
 
 ## Project Health matrix change
 
@@ -92,22 +91,22 @@ Indicators 24; history 1/30; score unknown.
 
 | Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
 |---|---|---|---|---|---|---|---|---|
-| Evidence Completeness | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | Canonical JSON was current while the mutable Markdown core retained an obsolete deploy ID, timestamp, validation count and publication ladder. | Eight mutable Markdown evidence sections are regenerated from the exact canonical JSON on every publication run while historical appendices remain unchanged. | markdown_core_json_sync_enforced | deterministic synchronizer, idempotence test and stale-evidence regression | high |
-| Eval Pass Rate | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | 25/25 deterministic checks | 28/28 deterministic checks | denominator+3 | three dashboard Markdown core synchronization regressions | high |
-| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | The latest verified receipt deploy covers the prior snapshot and the Markdown core was internally stale. | The 08:20 exact snapshot enters mirror, content deploy, UI verification and immutable receipt publication with a synchronized human evidence surface. | new_exact_snapshot_publication_required | exact-snapshot workflow plus Markdown-core synchronization gate | high |
+| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | The exact 08:20 mirror existed, but its retry commit had no observable workflow run or check and Netlify still served the prior READY deploy. | A twice-daily and manual receipt-aware watchdog checks the exact public timestamp and immutable receipt, then dispatches the sole canonical publisher only when recovery is required. | self_healing_dispatch_fallback_added | brain-management PR #43, merge 0d1e370, three watchdog contract regressions | high |
+| False Success Rate | AI Projects Brain | Efficiency and System Intelligence | Execution quality and completion | A retry commit or dispatch request could be mistaken for recovered publication despite absent current receipt and UI proof. | The runtime contract explicitly keeps the snapshot STALE until public timestamp equality, valid receipt and required Portfolio/Project/Goal UI proof exist. | retry_is_not_live_evidence | trigger-independent recovery contract plus exact-snapshot regression | high |
+| Avoidable Handoff Rate | Brain Management | Efficiency and System Intelligence | Autonomy and resource use | A missed publication trigger could require Andrey to open Actions and manually run the workflow. | GitHub-native scheduled recovery can dispatch the canonical publisher without owner interaction; effect remains unmeasured until the first observed recovery run. | manual_recovery_path_automated | watchdog workflow schedule, workflow_dispatch and no-op/dispatch gates | medium |
 
 ## System Intelligence Gain
 
 - rules_improved: **1**
 - validators_added_or_tightened: **1**
-- deterministic_checks_added: **3**
+- deterministic_checks_added: **4**
 - replay_cases_added_or_improved: **1**
 - behavior_fixtures_added_or_improved: **1**
 - duplicate_instructions_removed: **0**
-- evidence_fields_added: **8**
-- automation_contracts_improved: **1**
+- evidence_fields_added: **3**
+- automation_contracts_improved: **2**
 - dashboard_registry_schema_improvements: **0**
-- project_records_instrumented: **1**
+- project_records_instrumented: **2**
 
 ## Critical guardrails
 
@@ -119,23 +118,22 @@ Indicators 24; history 1/30; score unknown.
 
 ## Publication ladder
 
-- canonical_updated: **verified** — 2026-07-17T08:20:00+02:00
-- mirror_synced: **verified** — 2026-07-17T08:20:00+02:00
-- deploy_identified: **stale** — 2026-07-17T05:22:33.420Z; deploy 6a59bc16f349e3e190a47208; source 2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62; branch main; Verified deploy predates the new Morning snapshot.
+- canonical_updated: **verified** — 2026-07-17T20:42:00+02:00
+- mirror_synced: **verified** — 2026-07-17T20:42:00+02:00
+- deploy_identified: **stale** — 2026-07-17T05:22:33.420Z; deploy 6a59bc16f349e3e190a47208; source 2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62; branch main; Verified deploy predates the new evening snapshot.
 - live_verified: **needs_verification** — Public timestamp and UI must be rechecked after this snapshot is deployed.
 
 ## Exact risky-work handoffs
 
-1. **brain-management → /safe (exact Netlify publication):** The new 08:20 snapshot has no matching READY content and receipt deploy yet. Evidence: content deploy ID, receipt deploy ID, exact source commit, public timestamp equality and visible Portfolio/Project/Goal UI
-2. **ezohata → /safe (auth/upload/storage proof):** Provider-dependent persistence remains unverified. Evidence: owner session and live persistence proof
-3. **ezohata-finance → /audit-fin (finance/provider verification):** Origin, signed session, migration parity and current balances remain unproven. Evidence: non-secret reconciled production evidence
+1. **ezohata → /safe (auth/upload/storage proof):** Provider-dependent persistence remains unverified. Evidence: owner session and live persistence proof
+2. **ezohata-finance → /audit-fin (finance/provider verification):** Origin, signed session, migration parity and current balances remain unproven. Evidence: non-secret reconciled production evidence
 
 ## Validation evidence
 
-- **28/28 PASS**; failed 0.
-- Checks: 24 existing adaptive-dashboard checks; cycle-aware upgrade-record regression; 3 Markdown core synchronization regressions.
+- **24/24 PASS**; failed 0.
+- Checks: 22 existing adaptive-dashboard checks; upgrade-record applier regression; exact-snapshot workflow topology regression.
 - CI status: workflow_expected_then_verified.
-- Canonical snapshot timestamp: 2026-07-17T08:20:00+02:00.
+- Canonical snapshot timestamp: 2026-07-17T20:42:00+02:00.
 
 ## What remains unknown, not applicable or blocked
 
@@ -144,13 +142,14 @@ Indicators 24; history 1/30; score unknown.
 - Context/Retry Cost remains unknown because stable non-secret counters are unavailable.
 - Current /audit-ui and /audit-fin evidence remains NOT_TESTED in the dashboard.
 - Psihotavr canonical source and retirement state remain NEEDS_VERIFICATION.
+- The watchdog contract is merged, but its first successful stale-snapshot recovery and matching receipt are not yet observed.
 
 ## Evening verification questions
 
-- Does the canonical Markdown core show the same last_updated, deploy evidence, validation count and publication state as the canonical JSON?
-- Are canonical and mirror JSON blobs identical for the 08:20 snapshot?
-- Does a READY receipt deploy identify the exact mirror commit containing the 08:20 blob?
-- Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 08:20 snapshot?
+- Are the new Evening canonical and Brain Management mirror JSON blobs identical?
+- Does the recovery watchdog dispatch the canonical publisher when the public receipt is stale or missing?
+- Do current content and receipt deploys identify the exact new mirror commit?
+- Do public timestamp equality and visible Portfolio Health, project selection and goal-pyramid checks pass for the new snapshot?
 
 
 <!-- EVENING_UPGRADE:evening-architecture-2026-07-15-exact-snapshot-publisher -->
@@ -252,3 +251,27 @@ Indicators 24; history 1/30; score unknown.
 2. Are canonical and mirror JSON blobs identical for the 08:20 snapshot?
 3. Does a READY receipt deploy identify the exact mirror commit containing the 08:20 blob?
 4. Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 08:20 snapshot?
+
+
+<!-- EVENING_UPGRADE:evening-2026-07-17-receipt-aware-self-healing-publication -->
+## Evening Architecture Upgrade — 2026-07-17
+
+### Validation
+
+- **24/24 deterministic checks expected and required before merge/publication.**
+- Exact-snapshot publisher topology is enforced.
+- Canonical/mirror publication remains snapshot-specific; this new snapshot is **STALE 2/4** until deployment and public verification.
+
+### Metric impact
+
+| Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
+|---|---|---|---|---|---|---|---|---|
+| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | The exact 08:20 mirror existed, but its retry commit had no observable workflow run or check and Netlify still served the prior READY deploy. | A twice-daily and manual receipt-aware watchdog checks the exact public timestamp and immutable receipt, then dispatches the sole canonical publisher only when recovery is required. | self_healing_dispatch_fallback_added | brain-management PR #43, merge 0d1e370, three watchdog contract regressions | high |
+| False Success Rate | AI Projects Brain | Efficiency and System Intelligence | Execution quality and completion | A retry commit or dispatch request could be mistaken for recovered publication despite absent current receipt and UI proof. | The runtime contract explicitly keeps the snapshot STALE until public timestamp equality, valid receipt and required Portfolio/Project/Goal UI proof exist. | retry_is_not_live_evidence | trigger-independent recovery contract plus exact-snapshot regression | high |
+| Avoidable Handoff Rate | Brain Management | Efficiency and System Intelligence | Autonomy and resource use | A missed publication trigger could require Andrey to open Actions and manually run the workflow. | GitHub-native scheduled recovery can dispatch the canonical publisher without owner interaction; effect remains unmeasured until the first observed recovery run. | manual_recovery_path_automated | watchdog workflow schedule, workflow_dispatch and no-op/dispatch gates | medium |
+
+### Ranked Morning handoff
+
+1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify that the watchdog or normal trigger produced a current content deploy and matching immutable receipt for the exact Evening snapshot; keep STALE if any link is missing. Expected metric effect: Publication Freshness STALE 2/4 to LIVE 4/4 only after exact receipt and UI proof.
+2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority commercial project. Expected metric effect: Business Growth Outcomes not_instrumented to observed for one project.
+3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Instrument Context/Retry Cost only after a stable non-secret counter source exists. Expected metric effect: Context/Retry Cost candidate/unknown to measurable without invented data.

@@ -1,8 +1,8 @@
 {
   "schema_version": 6,
   "metric_model": "adaptive_portfolio_project_goal_v1",
-  "last_updated": "2026-07-17T08:20:00+02:00",
-  "status": "morning_upgrade_publication_stale",
+  "last_updated": "2026-07-17T20:42:00+02:00",
+  "status": "evening_upgrade_publication_stale",
   "purpose": "Observed outcomes only; missing evidence is unknown and non-applicable is NOT_APPLICABLE.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
   "portfolio_registry": "projects/portfolio-registry.json",
@@ -15,11 +15,11 @@
     "blocked_projects": 3,
     "strongest_positive_change": {
       "project_id": "ai-projects-brain",
-      "change": "Canonical JSON, mirror JSON and the mutable Markdown evidence core now share one deterministic source of truth."
+      "change": "Brain Management now has a GitHub-native recovery watchdog that no-ops on a valid matching receipt and otherwise dispatches the existing canonical publisher without becoming a second deployer."
     },
     "largest_risk": {
       "project_id": "portfolio",
-      "risk": "Observed business KPI sources and provider/live evidence remain incomplete across several active projects."
+      "risk": "Observed business KPI sources and provider/live evidence remain incomplete across several active projects; the new publication snapshot must still earn its own matching receipt before LIVE."
     },
     "decision_rule": "Do not average unlike projects; critical guardrails override summaries."
   },
@@ -306,48 +306,6 @@
       "confidence": "high"
     },
     {
-      "project_id": "brain-management",
-      "agent": "/publication-verification",
-      "sector": "reliability",
-      "observed_at": "2026-07-17T05:22:38.194Z",
-      "status": "PASS",
-      "applicable_checks": 4,
-      "passed_checks": 4,
-      "finding_count": 1,
-      "critical_finding_count": 0,
-      "evidence_refs": [
-        "Netlify deploy 6a59bc16f349e3e190a47208",
-        "canonical/mirror blob 69f61a3e706fe2ea914e5454b2efde81642d7055",
-        "PR #132 validation workflows",
-        "scripts/sync-dashboard-markdown-core.mjs"
-      ],
-      "summary": "The previous canonical snapshot reached a READY Netlify production deploy; public timestamp, dashboard shell, project-health hooks and required assets were verified by the production workflow.",
-      "recommended_action": "Treat this as reliability evidence only; the new evening snapshot must complete its own publication ladder.",
-      "confidence": "high"
-    },
-    {
-      "project_id": "ai-projects-brain",
-      "agent": "/upgrade-publication-ownership",
-      "sector": "learning",
-      "observed_at": "2026-07-16T20:12:00+02:00",
-      "status": "PASS",
-      "applicable_checks": 2,
-      "passed_checks": 2,
-      "finding_count": 1,
-      "critical_finding_count": 0,
-      "evidence_refs": [
-        "brain-management/.github/workflows/publish-system-health-dashboard.yml",
-        "brain-management/system-health-dashboard/publication-receipt.mjs",
-        "brain-management/system-health-dashboard/app.js",
-        "brain-management/tests/publication-receipt.test.mjs",
-        "brain-management/package.json",
-        "systems/evening-upgrade-runtime-contract.md"
-      ],
-      "summary": "Snapshot generation ownership is separated from publication: the publisher no longer regenerates a Morning snapshot or overwrites Evening evidence.",
-      "recommended_action": "Keep Morning and Evening writers responsible for canonical content; keep the publisher exact-snapshot only.",
-      "confidence": "high"
-    },
-    {
       "project_id": "ai-projects-brain",
       "agent": "/upgrade-markdown-core-sync",
       "sector": "learning",
@@ -365,6 +323,49 @@
       ],
       "summary": "The mutable Markdown evidence core is synchronized from canonical JSON, stale evidence is rejected and historical cycle appendices are preserved idempotently.",
       "recommended_action": "Keep Markdown core synchronization before validation and publication on every run.",
+      "confidence": "high"
+    },
+    {
+      "project_id": "brain-management",
+      "agent": "/publication-verification",
+      "sector": "reliability",
+      "observed_at": "2026-07-17T05:22:38.194Z",
+      "status": "PASS",
+      "applicable_checks": 4,
+      "passed_checks": 4,
+      "finding_count": 1,
+      "critical_finding_count": 0,
+      "evidence_refs": [
+        "andylitvinov-design/brain-management/pull/43",
+        "andylitvinov-design/brain-management@0d1e370fc44d6af3602df642099806da88785fea",
+        "brain-management/.github/workflows/recover-stale-system-health-dashboard.yml",
+        "brain-management/tests/dashboard-publication-watchdog.test.mjs",
+        "Netlify deploy 6a59bc16f349e3e190a47208",
+        "brain-management retry commit bdd6634448c27a0d282c49b4fa3b62dd3d5d2c34 with no workflow run or check status"
+      ],
+      "summary": "The previous canonical snapshot reached a READY Netlify production deploy; public timestamp, dashboard shell, project-health hooks and required assets were verified by the production workflow.",
+      "recommended_action": "Treat this as reliability evidence only; the new evening snapshot must complete its own publication ladder.",
+      "confidence": "high"
+    },
+    {
+      "project_id": "ai-projects-brain",
+      "agent": "/upgrade-publication-ownership",
+      "sector": "learning",
+      "observed_at": "2026-07-17T20:42:00+02:00",
+      "status": "PASS",
+      "applicable_checks": 2,
+      "passed_checks": 2,
+      "finding_count": 1,
+      "critical_finding_count": 0,
+      "evidence_refs": [
+        "brain-management/.github/workflows/recover-stale-system-health-dashboard.yml",
+        "brain-management/tests/dashboard-publication-watchdog.test.mjs",
+        "systems/evening-upgrade-runtime-contract.md",
+        "tests/dashboard-publisher-exact-snapshot.test.mjs",
+        "projects/codex-automation/pending-dashboard-upgrade.json"
+      ],
+      "summary": "Snapshot generation ownership is separated from publication: the publisher no longer regenerates a Morning snapshot or overwrites Evening evidence.",
+      "recommended_action": "Keep Morning and Evening writers responsible for canonical content; keep the publisher exact-snapshot only.",
       "confidence": "high"
     }
   ],
@@ -706,14 +707,14 @@
       null,
       "state",
       "run",
-      "Previous production deploy 6a59bc16f349e3e190a47208 is READY and verified; the new Morning snapshot 2026-07-17T08:20:00+02:00 is not deployed yet.",
+      "Previous production deploy 6a59bc16f349e3e190a47208 is READY and verified; the new evening snapshot 2026-07-17T20:42:00+02:00 is not deployed yet.",
       "high",
       "CRITICAL_SLO_NOT_MET",
       "STALE",
       "previous_snapshot_recovered_new_snapshot_pending",
       "4/4 same run",
-      "Production publication works, but LIVE is snapshot-specific and must be re-proven after this Morning update.",
-      "Publish the exact Morning snapshot and verify timestamp plus required UI.",
+      "Production publication works, but LIVE is snapshot-specific and must be re-proven after this canonical update.",
+      "Publish the exact evening snapshot and verify timestamp plus required UI.",
       "business_growth_professional_value",
       "professional_delivery_live_reliability",
       "active"
@@ -807,18 +808,18 @@
       "Eval Pass Rate",
       "ratio",
       100,
-      28,
-      28,
+      24,
+      24,
       "%/count",
       "run",
-      "24 existing adaptive-dashboard checks + 1 cycle-aware upgrade-record regression + 3 Markdown core synchronization regressions",
+      "22 existing adaptive-dashboard checks + 2 exact-snapshot publisher checks",
       "high",
       "PASS",
       100,
-      "denominator+4",
+      "denominator+2",
       "all pass",
-      "Cycle identity and the mutable Markdown evidence core are protected by deterministic regressions.",
-      "Keep cycle-aware and Markdown-core synchronization regressions in CI.",
+      "The publication ownership regression is now deterministic.",
+      "Keep both publisher checks in CI.",
       "continuous_self_development",
       "validation_accumulated_knowledge",
       "active"
@@ -1014,39 +1015,39 @@
     ]
   ],
   "main_upgrade": {
-    "id": "dashboard_markdown_core_json_sync",
+    "id": "receipt_aware_publication_self_healing",
     "status": "APPLIED_UPGRADE",
-    "summary": "Made the mutable Markdown evidence core a deterministic rendering of the exact canonical dashboard JSON while preserving immutable Morning and Evening history appendices.",
-    "why": "The canonical JSON and mirror were exact, but the human-facing Markdown core still displayed an obsolete deploy ID, timestamp, validation count and publication ladder. That created internal evidence drift and could mislead later automation runs."
+    "summary": "Added a trigger-independent, receipt-aware recovery path that dispatches the sole canonical dashboard publisher when an exact snapshot remains stale.",
+    "why": "The 08:20 canonical and mirror snapshots matched, but the retry commit produced no observable workflow run or check and Netlify remained on the prior deploy. Push or cross-repository dispatch alone was therefore an unprotected single point of failure."
   },
   "system_intelligence_gain": {
     "rules_improved": 1,
     "validators_added_or_tightened": 1,
-    "deterministic_checks_added": 3,
+    "deterministic_checks_added": 4,
     "replay_cases_added_or_improved": 1,
     "behavior_fixtures_added_or_improved": 1,
     "duplicate_instructions_removed": 0,
-    "evidence_fields_added": 8,
-    "automation_contracts_improved": 1,
+    "evidence_fields_added": 3,
+    "automation_contracts_improved": 2,
     "dashboard_registry_schema_improvements": 0,
-    "project_records_instrumented": 1
+    "project_records_instrumented": 2
   },
   "publication_evidence": {
-    "publication_attempt_id": "morning-2026-07-17T08-20-00plus02-00",
+    "publication_attempt_id": "evening-2026-07-17T20-42-00plus02-00",
     "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
     "publication_status": "STALE",
     "success_allowed": false,
-    "canonical_snapshot_timestamp": "2026-07-17T08:20:00+02:00",
+    "canonical_snapshot_timestamp": "2026-07-17T20:42:00+02:00",
     "stages": {
       "canonical_updated": {
         "status": "verified",
-        "timestamp": "2026-07-17T08:20:00+02:00",
+        "timestamp": "2026-07-17T20:42:00+02:00",
         "path": "projects/codex-automation/system-health-dashboard.json",
         "confidence": "high"
       },
       "mirror_synced": {
         "status": "verified",
-        "timestamp": "2026-07-17T08:20:00+02:00",
+        "timestamp": "2026-07-17T20:42:00+02:00",
         "path": "brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
         "confidence": "high"
       },
@@ -1057,7 +1058,7 @@
         "source_commit_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
         "branch": "main",
         "confidence": "high",
-        "failure_reason": "Verified deploy predates the new Morning snapshot."
+        "failure_reason": "Verified deploy predates the new evening snapshot."
       },
       "live_verified": {
         "status": "needs_verification",
@@ -1071,13 +1072,13 @@
     }
   },
   "validation": {
-    "executed_checks": 28,
-    "passed_checks": 28,
+    "executed_checks": 24,
+    "passed_checks": 24,
     "failed_checks": 0,
     "checks": [
-      "24 existing adaptive-dashboard checks",
-      "cycle-aware upgrade-record regression",
-      "3 Markdown core synchronization regressions"
+      "22 existing adaptive-dashboard checks",
+      "upgrade-record applier regression",
+      "exact-snapshot workflow topology regression"
     ],
     "ci_status": "workflow_expected_then_verified"
   },
@@ -1129,6 +1130,13 @@
       "cycle": "Morning System Upgrade",
       "result": "APPLIED_UPGRADE",
       "summary": "Made the mutable Markdown evidence core a deterministic rendering of the exact canonical dashboard JSON while preserving immutable Morning and Evening history appendices.",
+      "publication_status": "STALE"
+    },
+    {
+      "date": "2026-07-17",
+      "cycle": "Evening Architecture Upgrade",
+      "result": "APPLIED_UPGRADE",
+      "summary": "Added a trigger-independent, receipt-aware recovery path that dispatches the sole canonical dashboard publisher when an exact snapshot remains stale.",
       "publication_status": "STALE"
     }
   ],
@@ -2431,29 +2439,6 @@
     {
       "project_id": "ai-projects-brain",
       "sector": "learning",
-      "id": "exact_snapshot_publisher_contract",
-      "name": "Exact Snapshot Publisher Contract",
-      "purpose": "Prevent publication CI from rewriting Morning/Evening business evidence.",
-      "type": "ratio",
-      "value": 100,
-      "numerator": 1,
-      "denominator": 1,
-      "unit": "%/run",
-      "period": "2026-07-16T20:12:00+02:00",
-      "source": "workflow topology test and controlled upgrade-record applier",
-      "owner": "Evening Architecture Upgrade",
-      "confidence": "high",
-      "status": "PASS",
-      "previous_value": "publisher_regenerated_morning_snapshot",
-      "change": "ownership_separated",
-      "target_or_slo": "1/1",
-      "interpretation": "Publisher validates and mirrors the explicit canonical snapshot instead of inventing a new one.",
-      "next_action": "Require explicit upgrade records only for controlled generated snapshots.",
-      "lifecycle": "active"
-    },
-    {
-      "project_id": "ai-projects-brain",
-      "sector": "learning",
       "id": "dashboard_markdown_core_sync",
       "name": "Dashboard Markdown Core Sync",
       "purpose": "Prevent the human-readable dashboard core from drifting from the exact canonical JSON snapshot.",
@@ -2472,6 +2457,29 @@
       "target_or_slo": "8/8",
       "interpretation": "All mutable evidence sections are regenerated from canonical JSON while historical appendices are preserved.",
       "next_action": "Keep the synchronizer and idempotence regression in mandatory publication CI.",
+      "lifecycle": "active"
+    },
+    {
+      "project_id": "ai-projects-brain",
+      "sector": "learning",
+      "id": "exact_snapshot_publisher_contract",
+      "name": "Exact Snapshot Publisher Contract",
+      "purpose": "Prevent publication CI from rewriting Morning/Evening business evidence.",
+      "type": "ratio",
+      "value": 100,
+      "numerator": 1,
+      "denominator": 1,
+      "unit": "%/run",
+      "period": "2026-07-17T20:42:00+02:00",
+      "source": "workflow topology test and controlled upgrade-record applier",
+      "owner": "Evening Architecture Upgrade",
+      "confidence": "high",
+      "status": "PASS",
+      "previous_value": "publisher_regenerated_morning_snapshot",
+      "change": "ownership_separated",
+      "target_or_slo": "1/1",
+      "interpretation": "Publisher validates and mirrors the explicit canonical snapshot instead of inventing a new one.",
+      "next_action": "Require explicit upgrade records only for controlled generated snapshots.",
       "lifecycle": "active"
     }
   ],
@@ -2519,47 +2527,40 @@
   ],
   "metric_impact": [
     {
-      "metric": "Evidence Completeness",
-      "project": "AI Projects Brain",
-      "goal": "Continuous Self-Development",
-      "sector": "Validation and accumulated knowledge",
-      "before": "Canonical JSON was current while the mutable Markdown core retained an obsolete deploy ID, timestamp, validation count and publication ladder.",
-      "after": "Eight mutable Markdown evidence sections are regenerated from the exact canonical JSON on every publication run while historical appendices remain unchanged.",
-      "change": "markdown_core_json_sync_enforced",
-      "evidence": "deterministic synchronizer, idempotence test and stale-evidence regression",
-      "confidence": "high"
-    },
-    {
-      "metric": "Eval Pass Rate",
-      "project": "AI Projects Brain",
-      "goal": "Continuous Self-Development",
-      "sector": "Validation and accumulated knowledge",
-      "before": "25/25 deterministic checks",
-      "after": "28/28 deterministic checks",
-      "change": "denominator+3",
-      "evidence": "three dashboard Markdown core synchronization regressions",
-      "confidence": "high"
-    },
-    {
       "metric": "Publication Freshness",
       "project": "Brain Management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "before": "The latest verified receipt deploy covers the prior snapshot and the Markdown core was internally stale.",
-      "after": "The 08:20 exact snapshot enters mirror, content deploy, UI verification and immutable receipt publication with a synchronized human evidence surface.",
-      "change": "new_exact_snapshot_publication_required",
-      "evidence": "exact-snapshot workflow plus Markdown-core synchronization gate",
+      "before": "The exact 08:20 mirror existed, but its retry commit had no observable workflow run or check and Netlify still served the prior READY deploy.",
+      "after": "A twice-daily and manual receipt-aware watchdog checks the exact public timestamp and immutable receipt, then dispatches the sole canonical publisher only when recovery is required.",
+      "change": "self_healing_dispatch_fallback_added",
+      "evidence": "brain-management PR #43, merge 0d1e370, three watchdog contract regressions",
       "confidence": "high"
+    },
+    {
+      "metric": "False Success Rate",
+      "project": "AI Projects Brain",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Execution quality and completion",
+      "before": "A retry commit or dispatch request could be mistaken for recovered publication despite absent current receipt and UI proof.",
+      "after": "The runtime contract explicitly keeps the snapshot STALE until public timestamp equality, valid receipt and required Portfolio/Project/Goal UI proof exist.",
+      "change": "retry_is_not_live_evidence",
+      "evidence": "trigger-independent recovery contract plus exact-snapshot regression",
+      "confidence": "high"
+    },
+    {
+      "metric": "Avoidable Handoff Rate",
+      "project": "Brain Management",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Autonomy and resource use",
+      "before": "A missed publication trigger could require Andrey to open Actions and manually run the workflow.",
+      "after": "GitHub-native scheduled recovery can dispatch the canonical publisher without owner interaction; effect remains unmeasured until the first observed recovery run.",
+      "change": "manual_recovery_path_automated",
+      "evidence": "watchdog workflow schedule, workflow_dispatch and no-op/dispatch gates",
+      "confidence": "medium"
     }
   ],
   "risky_work_handoffs": [
-    {
-      "route": "/safe",
-      "project_id": "brain-management",
-      "target": "exact Netlify publication",
-      "blocker": "The new 08:20 snapshot has no matching READY content and receipt deploy yet.",
-      "required_evidence": "content deploy ID, receipt deploy ID, exact source commit, public timestamp equality and visible Portfolio/Project/Goal UI"
-    },
     {
       "route": "/safe",
       "project_id": "ezohata",
@@ -2576,17 +2577,18 @@
     }
   ],
   "evening_verification_questions": [
-    "Does the canonical Markdown core show the same last_updated, deploy evidence, validation count and publication state as the canonical JSON?",
-    "Are canonical and mirror JSON blobs identical for the 08:20 snapshot?",
-    "Does a READY receipt deploy identify the exact mirror commit containing the 08:20 blob?",
-    "Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 08:20 snapshot?"
+    "Are the new Evening canonical and Brain Management mirror JSON blobs identical?",
+    "Does the recovery watchdog dispatch the canonical publisher when the public receipt is stale or missing?",
+    "Do current content and receipt deploys identify the exact new mirror commit?",
+    "Do public timestamp equality and visible Portfolio Health, project selection and goal-pyramid checks pass for the new snapshot?"
   ],
   "unknown_blocked": [
     "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
     "Provider readiness numerator remains unknown for several active projects.",
     "Context/Retry Cost remains unknown because stable non-secret counters are unavailable.",
     "Current /audit-ui and /audit-fin evidence remains NOT_TESTED in the dashboard.",
-    "Psihotavr canonical source and retirement state remain NEEDS_VERIFICATION."
+    "Psihotavr canonical source and retirement state remain NEEDS_VERIFICATION.",
+    "The watchdog contract is merged, but its first successful stale-snapshot recovery and matching receipt are not yet observed."
   ],
   "morning_handoff": [
     {
@@ -2594,8 +2596,24 @@
       "project_id": "brain-management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "action": "Verify the exact 08:20 Morning snapshot receipt without rewriting canonical business fields.",
-      "expected_metric_effect": "Publication Freshness STALE 2/4 to LIVE 4/4 when the matching receipt is proven."
+      "action": "Verify that the watchdog or normal trigger produced a current content deploy and matching immutable receipt for the exact Evening snapshot; keep STALE if any link is missing.",
+      "expected_metric_effect": "Publication Freshness STALE 2/4 to LIVE 4/4 only after exact receipt and UI proof."
+    },
+    {
+      "rank": 2,
+      "project_id": "portfolio",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Commercial outcomes",
+      "action": "Register one observed KPI source, owner and cadence for the highest-priority commercial project.",
+      "expected_metric_effect": "Business Growth Outcomes not_instrumented to observed for one project."
+    },
+    {
+      "rank": 3,
+      "project_id": "ai-projects-brain",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Autonomy and resource use",
+      "action": "Instrument Context/Retry Cost only after a stable non-secret counter source exists.",
+      "expected_metric_effect": "Context/Retry Cost candidate/unknown to measurable without invented data."
     }
   ]
 }
