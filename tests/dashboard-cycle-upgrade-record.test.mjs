@@ -3,11 +3,13 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {
   applyCycleUpgradeRecord,
+  buildCyclePublicationTrace,
   validateCycleUpgradeRecord,
 } from '../scripts/apply-cycle-dashboard-upgrade-record.mjs';
 
 const timestamp = '2026-07-17T07:31:21+02:00';
 const sha = 'a'.repeat(40);
+const blob = 'b'.repeat(40);
 
 function record() {
   return {
@@ -115,9 +117,14 @@ test('requires an explicit supported cycle', () => {
 test('applies a Morning record without corrupting Evening history', () => {
   const previousExactMetric = dashboard.project_metrics.find((entry) => entry.id === 'exact_snapshot_publisher_contract');
   const result = applyCycleUpgradeRecord(dashboard, registry, markdown, record());
+  const metricIndex = Object.fromEntries(result.dashboard.metric_schema.map((field, index) => [field, index]));
+  const publicationMetric = result.dashboard.metrics.find((row) => row[metricIndex.id] === 'publication_freshness');
 
   assert.equal(result.dashboard.status, 'morning_upgrade_publication_stale');
   assert.match(result.dashboard.publication_evidence.publication_attempt_id, /^morning-/);
+  assert.match(result.dashboard.publication_evidence.stages.deploy_identified.failure_reason, /Morning snapshot/);
+  assert.doesNotMatch(publicationMetric[metricIndex.source], /evening snapshot/i);
+  assert.match(publicationMetric[metricIndex.source], /Morning snapshot/);
   assert.equal(result.dashboard.validation.executed_checks, 25);
   assert.ok(result.dashboard.activity_log.some((entry) => entry.date === '2026-07-17' && entry.cycle === 'Morning System Upgrade'));
   assert.ok(!result.dashboard.activity_log.some((entry) => entry.date === '2026-07-17' && entry.cycle === 'Evening Architecture Upgrade'));
@@ -131,4 +138,19 @@ test('applies a Morning record without corrupting Evening history', () => {
   assert.match(result.markdown, /MORNING_UPGRADE:morning-cycle-aware-test/);
   assert.match(result.markdown, /### Evening verification questions/);
   assert.doesNotMatch(result.markdown, /Evening Architecture Upgrade — 2026-07-17/);
+});
+
+test('builds cycle-neutral publication trace evidence', () => {
+  const result = applyCycleUpgradeRecord(dashboard, registry, markdown, record());
+  const trace = buildCyclePublicationTrace(result.dashboard, {
+    canonicalCommitSha: sha,
+    canonicalBlobSha: blob,
+    mirrorCommitSha: sha,
+    mirrorBlobSha: blob,
+  });
+
+  assert.match(trace.publication_attempt_id, /^morning-/);
+  assert.doesNotMatch(trace.stages.deploy_identified.evidence_reference, /evening/i);
+  assert.doesNotMatch(trace.stages.deploy_identified.failure_reason, /evening/i);
+  assert.match(trace.stages.deploy_identified.evidence_reference, /controlled snapshot/);
 });
