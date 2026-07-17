@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-17T07:53:45+02:00`  
+**Last updated:** `2026-07-17T08:20:00+02:00`  
 **Morning result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
@@ -11,20 +11,22 @@
 
 ## Main upgrade applied this morning
 
-**`cycle_neutral_publication_evidence`** — Removed the final hard-coded Evening wording from shared publication metrics and trace evidence while retaining explicit Morning ownership where appropriate.
+**`dashboard_markdown_core_json_sync`** — Made the mutable Markdown evidence core a deterministic rendering of the exact canonical dashboard JSON while preserving immutable Morning and Evening history appendices.
 
-The cycle-aware snapshot and attempt ID were correct, but shared trace and Publication Freshness text still said evening snapshot. Evidence must be internally consistent before it can support truthful automation decisions.
+The canonical JSON and mirror were exact, but the human-facing Markdown core still displayed an obsolete deploy ID, timestamp, validation count and publication ladder. That created internal evidence drift and could mislead later automation runs.
 
 ## Changed files / prompts / automations
 
+- `scripts/sync-dashboard-markdown-core.mjs`
+- `tests/dashboard-markdown-core-sync.test.mjs`
+- `.github/workflows/publish-system-health-dashboard.yml`
 - `scripts/apply-cycle-dashboard-upgrade-record.mjs`
 - `tests/dashboard-cycle-upgrade-record.test.mjs`
-- `.github/workflows/publish-system-health-dashboard.yml`
 - `projects/codex-automation/pending-dashboard-upgrade.json`
 ## Portfolio Health change
 
 State **NEEDS_ATTENTION**; active 10; observed 4; blocked 3.
-Strongest change: Morning publication evidence is now consistent across status, history, metrics, trace identifiers and trace descriptions.
+Strongest change: Canonical JSON, mirror JSON and the mutable Markdown evidence core now share one deterministic source of truth.
 Largest risk: Observed business KPI sources and provider/live evidence remain incomplete across several active projects.
 
 ## Project Health matrix change
@@ -90,22 +92,21 @@ Indicators 24; history 1/30; score unknown.
 
 | Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
 |---|---|---|---|---|---|---|---|---|
-| Daily Intelligence Publication Pipeline | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | writer only | 1/1 PASS | publication_integrated | workflow + blob identity | high |
-| Eval Pass Rate | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | 11/11 | 22/22 | denominator+11 | validation set | high |
-| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | STALE 2/4 | STALE 2/4 | canonical refreshed; public unchanged | deploy 6a5207d064f1feba62676b5e old/unmapped | high |
-| Scheduler Health | AI Projects Brain | Continuous Self-Development | Rule and automation lifecycle | 2/2 | 2/2 | verified_again | automation registry | high |
+| Evidence Completeness | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | Canonical JSON was current while the mutable Markdown core retained an obsolete deploy ID, timestamp, validation count and publication ladder. | Eight mutable Markdown evidence sections are regenerated from the exact canonical JSON on every publication run while historical appendices remain unchanged. | markdown_core_json_sync_enforced | deterministic synchronizer, idempotence test and stale-evidence regression | high |
+| Eval Pass Rate | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | 25/25 deterministic checks | 28/28 deterministic checks | denominator+3 | three dashboard Markdown core synchronization regressions | high |
+| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | The latest verified receipt deploy covers the prior snapshot and the Markdown core was internally stale. | The 08:20 exact snapshot enters mirror, content deploy, UI verification and immutable receipt publication with a synchronized human evidence surface. | new_exact_snapshot_publication_required | exact-snapshot workflow plus Markdown-core synchronization gate | high |
 
 ## System Intelligence Gain
 
 - rules_improved: **1**
 - validators_added_or_tightened: **1**
-- deterministic_checks_added: **5**
-- replay_cases_added_or_improved: **0**
-- behavior_fixtures_added_or_improved: **0**
+- deterministic_checks_added: **3**
+- replay_cases_added_or_improved: **1**
+- behavior_fixtures_added_or_improved: **1**
 - duplicate_instructions_removed: **0**
-- evidence_fields_added: **18**
+- evidence_fields_added: **8**
 - automation_contracts_improved: **1**
-- dashboard_registry_schema_improvements: **1**
+- dashboard_registry_schema_improvements: **0**
 - project_records_instrumented: **1**
 
 ## Critical guardrails
@@ -118,38 +119,38 @@ Indicators 24; history 1/30; score unknown.
 
 ## Publication ladder
 
-- canonical_updated: **verified** — 2026-07-15T07:51:30+02:00
-- mirror_synced: **verified** — blob identity gate
-- deploy_identified: **stale** — old source-unmapped Netlify deploy
-- live_verified: **needs_verification**
+- canonical_updated: **verified** — 2026-07-17T08:20:00+02:00
+- mirror_synced: **verified** — 2026-07-17T08:20:00+02:00
+- deploy_identified: **stale** — 2026-07-17T05:22:33.420Z; deploy 6a59bc16f349e3e190a47208; source 2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62; branch main; Verified deploy predates the new Morning snapshot.
+- live_verified: **needs_verification** — Public timestamp and UI must be rechecked after this snapshot is deployed.
 
 ## Exact risky-work handoffs
 
-1. **brain-management → /safe:** No current source-mapped deploy or public timestamp equality. Evidence: deploy ID, branch, source SHA, public timestamp and visible Portfolio/Project/Goal UI
-2. **ezohata → /safe:** Provider-dependent persistence unverified. Evidence: owner session and live persistence proof
-3. **ezohata-finance → /audit-fin:** Origin, signed session, migration parity and balances unproven. Evidence: non-secret reconciled evidence
+1. **brain-management → /safe (exact Netlify publication):** The new 08:20 snapshot has no matching READY content and receipt deploy yet. Evidence: content deploy ID, receipt deploy ID, exact source commit, public timestamp equality and visible Portfolio/Project/Goal UI
+2. **ezohata → /safe (auth/upload/storage proof):** Provider-dependent persistence remains unverified. Evidence: owner session and live persistence proof
+3. **ezohata-finance → /audit-fin (finance/provider verification):** Origin, signed session, migration parity and current balances remain unproven. Evidence: non-secret reconciled production evidence
 
 ## Validation evidence
 
-- **22/22 PASS**; canonical/mirror identity is blocking.
-- Three goals preserved; publication remains STALE.
+- **28/28 PASS**; failed 0.
+- Checks: 24 existing adaptive-dashboard checks; cycle-aware upgrade-record regression; 3 Markdown core synchronization regressions.
+- CI status: workflow_expected_then_verified.
+- Canonical snapshot timestamp: 2026-07-17T08:20:00+02:00.
 
 ## What remains unknown, not applicable or blocked
 
-- Public dashboard remains STALE.
-- Product Delivery Rate remains unknown.
-- Business Growth Outcomes remain not_instrumented.
-- Provider readiness numerator remains unknown.
-- Context/Retry Cost remains unknown.
-- Current /audit-ui and /audit-fin evidence remains NOT_TESTED.
-- Psihotavr source/retirement remains NEEDS_VERIFICATION.
+- Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.
+- Provider readiness numerator remains unknown for several active projects.
+- Context/Retry Cost remains unknown because stable non-secret counters are unavailable.
+- Current /audit-ui and /audit-fin evidence remains NOT_TESTED in the dashboard.
+- Psihotavr canonical source and retirement state remain NEEDS_VERIFICATION.
 
 ## Evening verification questions
 
-- Are canonical and mirror blobs identical?
-- Did all 22 checks pass on final main?
-- Was a source-mapped Netlify deploy created?
-- Does public timestamp equal canonical and show Portfolio Health, project selection and goal pyramid?
+- Does the canonical Markdown core show the same last_updated, deploy evidence, validation count and publication state as the canonical JSON?
+- Are canonical and mirror JSON blobs identical for the 08:20 snapshot?
+- Does a READY receipt deploy identify the exact mirror commit containing the 08:20 blob?
+- Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 08:20 snapshot?
 
 
 <!-- EVENING_UPGRADE:evening-architecture-2026-07-15-exact-snapshot-publisher -->
@@ -226,3 +227,28 @@ Indicators 24; history 1/30; score unknown.
 2. Are canonical and mirror blobs identical for the 07:53 snapshot?
 3. Does a READY receipt deploy identify the exact mirror commit containing that blob?
 4. Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 07:53 snapshot?
+
+
+<!-- MORNING_UPGRADE:morning-2026-07-17-dashboard-markdown-core-sync -->
+## Morning System Upgrade — 2026-07-17
+
+### Validation
+
+- **24/24 deterministic checks expected and required before merge/publication.**
+- Exact-snapshot publisher topology is enforced.
+- Canonical/mirror publication remains snapshot-specific; this new snapshot is **STALE 2/4** until deployment and public verification.
+
+### Metric impact
+
+| Metric | Project | Goal | Sector | Before | After | Change | Evidence | Confidence |
+|---|---|---|---|---|---|---|---|---|
+| Evidence Completeness | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | Canonical JSON was current while the mutable Markdown core retained an obsolete deploy ID, timestamp, validation count and publication ladder. | Eight mutable Markdown evidence sections are regenerated from the exact canonical JSON on every publication run while historical appendices remain unchanged. | markdown_core_json_sync_enforced | deterministic synchronizer, idempotence test and stale-evidence regression | high |
+| Eval Pass Rate | AI Projects Brain | Continuous Self-Development | Validation and accumulated knowledge | 25/25 deterministic checks | 28/28 deterministic checks | denominator+3 | three dashboard Markdown core synchronization regressions | high |
+| Publication Freshness | Brain Management | Business Growth and Professional Value | Professional delivery and live reliability | The latest verified receipt deploy covers the prior snapshot and the Markdown core was internally stale. | The 08:20 exact snapshot enters mirror, content deploy, UI verification and immutable receipt publication with a synchronized human evidence surface. | new_exact_snapshot_publication_required | exact-snapshot workflow plus Markdown-core synchronization gate | high |
+
+### Evening verification questions
+
+1. Does the canonical Markdown core show the same last_updated, deploy evidence, validation count and publication state as the canonical JSON?
+2. Are canonical and mirror JSON blobs identical for the 08:20 snapshot?
+3. Does a READY receipt deploy identify the exact mirror commit containing the 08:20 blob?
+4. Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 08:20 snapshot?

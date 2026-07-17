@@ -1,7 +1,7 @@
 {
   "schema_version": 6,
   "metric_model": "adaptive_portfolio_project_goal_v1",
-  "last_updated": "2026-07-17T07:53:45+02:00",
+  "last_updated": "2026-07-17T08:20:00+02:00",
   "status": "morning_upgrade_publication_stale",
   "purpose": "Observed outcomes only; missing evidence is unknown and non-applicable is NOT_APPLICABLE.",
   "dashboard_md": "projects/codex-automation/system-health-dashboard.md",
@@ -15,7 +15,7 @@
     "blocked_projects": 3,
     "strongest_positive_change": {
       "project_id": "ai-projects-brain",
-      "change": "Morning publication evidence is now consistent across status, history, metrics, trace identifiers and trace descriptions."
+      "change": "Canonical JSON, mirror JSON and the mutable Markdown evidence core now share one deterministic source of truth."
     },
     "largest_risk": {
       "project_id": "portfolio",
@@ -286,6 +286,26 @@
       "confidence": "high"
     },
     {
+      "project_id": "ai-projects-brain",
+      "agent": "/upgrade-cycle-record",
+      "sector": "learning",
+      "observed_at": "2026-07-17T07:53:45+02:00",
+      "status": "PASS",
+      "applicable_checks": 4,
+      "passed_checks": 4,
+      "finding_count": 3,
+      "critical_finding_count": 0,
+      "evidence_refs": [
+        "scripts/apply-cycle-dashboard-upgrade-record.mjs",
+        "tests/dashboard-cycle-upgrade-record.test.mjs",
+        ".github/workflows/publish-system-health-dashboard.yml",
+        "projects/codex-automation/system-health-dashboard-publication-trace.json"
+      ],
+      "summary": "Controlled Morning records preserve cycle identity in dashboard content, metrics, attempt IDs and trace descriptions.",
+      "recommended_action": "Keep cycle-aware trace generation and cross-layer assertions in mandatory CI.",
+      "confidence": "high"
+    },
+    {
       "project_id": "brain-management",
       "agent": "/publication-verification",
       "sector": "reliability",
@@ -297,8 +317,9 @@
       "critical_finding_count": 0,
       "evidence_refs": [
         "Netlify deploy 6a59bc16f349e3e190a47208",
-        "canonical/mirror blob 3b781bbc47c49d7f003aa4e60ed08ff3a53d806a",
-        "publication trace 14c1314906b6f3d49b012d257dc2898e6625e580"
+        "canonical/mirror blob 69f61a3e706fe2ea914e5454b2efde81642d7055",
+        "PR #132 validation workflows",
+        "scripts/sync-dashboard-markdown-core.mjs"
       ],
       "summary": "The previous canonical snapshot reached a READY Netlify production deploy; public timestamp, dashboard shell, project-health hooks and required assets were verified by the production workflow.",
       "recommended_action": "Treat this as reliability evidence only; the new evening snapshot must complete its own publication ladder.",
@@ -328,22 +349,22 @@
     },
     {
       "project_id": "ai-projects-brain",
-      "agent": "/upgrade-cycle-record",
+      "agent": "/upgrade-markdown-core-sync",
       "sector": "learning",
-      "observed_at": "2026-07-17T07:53:45+02:00",
+      "observed_at": "2026-07-17T08:20:00+02:00",
       "status": "PASS",
-      "applicable_checks": 4,
-      "passed_checks": 4,
-      "finding_count": 3,
+      "applicable_checks": 3,
+      "passed_checks": 3,
+      "finding_count": 1,
       "critical_finding_count": 0,
       "evidence_refs": [
-        "scripts/apply-cycle-dashboard-upgrade-record.mjs",
-        "tests/dashboard-cycle-upgrade-record.test.mjs",
+        "scripts/sync-dashboard-markdown-core.mjs",
+        "tests/dashboard-markdown-core-sync.test.mjs",
         ".github/workflows/publish-system-health-dashboard.yml",
-        "projects/codex-automation/system-health-dashboard-publication-trace.json"
+        "PR #132"
       ],
-      "summary": "Controlled Morning records preserve cycle identity in dashboard content, metrics, attempt IDs and trace descriptions.",
-      "recommended_action": "Keep cycle-aware trace generation and cross-layer assertions in mandatory CI.",
+      "summary": "The mutable Markdown evidence core is synchronized from canonical JSON, stale evidence is rejected and historical cycle appendices are preserved idempotently.",
+      "recommended_action": "Keep Markdown core synchronization before validation and publication on every run.",
       "confidence": "high"
     }
   ],
@@ -685,7 +706,7 @@
       null,
       "state",
       "run",
-      "Previous production deploy 6a59bc16f349e3e190a47208 is READY and verified; the new Morning snapshot 2026-07-17T07:53:45+02:00 is not deployed yet.",
+      "Previous production deploy 6a59bc16f349e3e190a47208 is READY and verified; the new Morning snapshot 2026-07-17T08:20:00+02:00 is not deployed yet.",
       "high",
       "CRITICAL_SLO_NOT_MET",
       "STALE",
@@ -786,18 +807,18 @@
       "Eval Pass Rate",
       "ratio",
       100,
-      25,
-      25,
+      28,
+      28,
       "%/count",
       "run",
-      "24 existing adaptive-dashboard checks + 1 cycle-aware upgrade-record regression",
+      "24 existing adaptive-dashboard checks + 1 cycle-aware upgrade-record regression + 3 Markdown core synchronization regressions",
       "high",
       "PASS",
       100,
-      "denominator+1",
+      "denominator+4",
       "all pass",
-      "Morning and Evening controlled records now preserve truthful cycle identity.",
-      "Keep the cycle-aware regression in CI.",
+      "Cycle identity and the mutable Markdown evidence core are protected by deterministic regressions.",
+      "Keep cycle-aware and Markdown-core synchronization regressions in CI.",
       "continuous_self_development",
       "validation_accumulated_knowledge",
       "active"
@@ -993,39 +1014,39 @@
     ]
   ],
   "main_upgrade": {
-    "id": "cycle_neutral_publication_evidence",
+    "id": "dashboard_markdown_core_json_sync",
     "status": "APPLIED_UPGRADE",
-    "summary": "Removed the final hard-coded Evening wording from shared publication metrics and trace evidence while retaining explicit Morning ownership where appropriate.",
-    "why": "The cycle-aware snapshot and attempt ID were correct, but shared trace and Publication Freshness text still said evening snapshot. Evidence must be internally consistent before it can support truthful automation decisions."
+    "summary": "Made the mutable Markdown evidence core a deterministic rendering of the exact canonical dashboard JSON while preserving immutable Morning and Evening history appendices.",
+    "why": "The canonical JSON and mirror were exact, but the human-facing Markdown core still displayed an obsolete deploy ID, timestamp, validation count and publication ladder. That created internal evidence drift and could mislead later automation runs."
   },
   "system_intelligence_gain": {
     "rules_improved": 1,
     "validators_added_or_tightened": 1,
-    "deterministic_checks_added": 0,
+    "deterministic_checks_added": 3,
     "replay_cases_added_or_improved": 1,
     "behavior_fixtures_added_or_improved": 1,
     "duplicate_instructions_removed": 0,
-    "evidence_fields_added": 2,
+    "evidence_fields_added": 8,
     "automation_contracts_improved": 1,
     "dashboard_registry_schema_improvements": 0,
     "project_records_instrumented": 1
   },
   "publication_evidence": {
-    "publication_attempt_id": "morning-2026-07-17T07-53-45plus02-00",
+    "publication_attempt_id": "morning-2026-07-17T08-20-00plus02-00",
     "trace_path": "projects/codex-automation/system-health-dashboard-publication-trace.json",
     "publication_status": "STALE",
     "success_allowed": false,
-    "canonical_snapshot_timestamp": "2026-07-17T07:53:45+02:00",
+    "canonical_snapshot_timestamp": "2026-07-17T08:20:00+02:00",
     "stages": {
       "canonical_updated": {
         "status": "verified",
-        "timestamp": "2026-07-17T07:53:45+02:00",
+        "timestamp": "2026-07-17T08:20:00+02:00",
         "path": "projects/codex-automation/system-health-dashboard.json",
         "confidence": "high"
       },
       "mirror_synced": {
         "status": "verified",
-        "timestamp": "2026-07-17T07:53:45+02:00",
+        "timestamp": "2026-07-17T08:20:00+02:00",
         "path": "brain-management/system-health-dashboard/data/current-system-health-dashboard.json",
         "confidence": "high"
       },
@@ -1050,12 +1071,13 @@
     }
   },
   "validation": {
-    "executed_checks": 25,
-    "passed_checks": 25,
+    "executed_checks": 28,
+    "passed_checks": 28,
     "failed_checks": 0,
     "checks": [
       "24 existing adaptive-dashboard checks",
-      "cycle-aware upgrade-record regression"
+      "cycle-aware upgrade-record regression",
+      "3 Markdown core synchronization regressions"
     ],
     "ci_status": "workflow_expected_then_verified"
   },
@@ -1106,7 +1128,7 @@
       "date": "2026-07-17",
       "cycle": "Morning System Upgrade",
       "result": "APPLIED_UPGRADE",
-      "summary": "Removed the final hard-coded Evening wording from shared publication metrics and trace evidence while retaining explicit Morning ownership where appropriate.",
+      "summary": "Made the mutable Markdown evidence core a deterministic rendering of the exact canonical dashboard JSON while preserving immutable Morning and Evening history appendices.",
       "publication_status": "STALE"
     }
   ],
@@ -2386,6 +2408,29 @@
     {
       "project_id": "ai-projects-brain",
       "sector": "learning",
+      "id": "cycle_aware_upgrade_record_contract",
+      "name": "Cycle-aware Upgrade Record Contract",
+      "purpose": "Prevent Morning evidence from being labeled as Evening anywhere in the publication chain.",
+      "type": "ratio",
+      "value": 100,
+      "numerator": 4,
+      "denominator": 4,
+      "unit": "%/checks",
+      "period": "2026-07-17T07:53:45+02:00",
+      "source": "cycle-aware content, metric, attempt-ID and trace regressions",
+      "owner": "Morning System Upgrade",
+      "confidence": "high",
+      "status": "PASS",
+      "previous_value": "content_and_trace_identity_partial",
+      "change": "full_cross_layer_identity",
+      "target_or_slo": "4/4",
+      "interpretation": "Dashboard content, publication metrics, trace IDs and trace descriptions preserve truthful cycle ownership.",
+      "next_action": "Keep the cycle-aware wrapper in both snapshot and trace workflow steps.",
+      "lifecycle": "active"
+    },
+    {
+      "project_id": "ai-projects-brain",
+      "sector": "learning",
       "id": "exact_snapshot_publisher_contract",
       "name": "Exact Snapshot Publisher Contract",
       "purpose": "Prevent publication CI from rewriting Morning/Evening business evidence.",
@@ -2409,24 +2454,24 @@
     {
       "project_id": "ai-projects-brain",
       "sector": "learning",
-      "id": "cycle_aware_upgrade_record_contract",
-      "name": "Cycle-aware Upgrade Record Contract",
-      "purpose": "Prevent Morning evidence from being labeled as Evening anywhere in the publication chain.",
+      "id": "dashboard_markdown_core_sync",
+      "name": "Dashboard Markdown Core Sync",
+      "purpose": "Prevent the human-readable dashboard core from drifting from the exact canonical JSON snapshot.",
       "type": "ratio",
       "value": 100,
-      "numerator": 4,
-      "denominator": 4,
-      "unit": "%/checks",
-      "period": "2026-07-17T07:53:45+02:00",
-      "source": "cycle-aware content, metric, attempt-ID and trace regressions",
+      "numerator": 8,
+      "denominator": 8,
+      "unit": "%/sections",
+      "period": "2026-07-17T08:20:00+02:00",
+      "source": "Markdown core synchronizer and three deterministic regressions",
       "owner": "Morning System Upgrade",
       "confidence": "high",
       "status": "PASS",
-      "previous_value": "content_and_trace_identity_partial",
-      "change": "full_cross_layer_identity",
-      "target_or_slo": "4/4",
-      "interpretation": "Dashboard content, publication metrics, trace IDs and trace descriptions preserve truthful cycle ownership.",
-      "next_action": "Keep the cycle-aware wrapper in both snapshot and trace workflow steps.",
+      "previous_value": "core_sections_partially_stale",
+      "change": "deterministic_json_rendering",
+      "target_or_slo": "8/8",
+      "interpretation": "All mutable evidence sections are regenerated from canonical JSON while historical appendices are preserved.",
+      "next_action": "Keep the synchronizer and idempotence regression in mandatory publication CI.",
       "lifecycle": "active"
     }
   ],
@@ -2474,14 +2519,14 @@
   ],
   "metric_impact": [
     {
-      "metric": "False Success Rate",
+      "metric": "Evidence Completeness",
       "project": "AI Projects Brain",
-      "goal": "Efficiency and System Intelligence",
-      "sector": "Execution quality and completion",
-      "before": "Morning identifiers were correct but shared metric and trace descriptions still referred to an Evening snapshot.",
-      "after": "Morning-specific content remains Morning and shared trace language is cycle-neutral across all generated evidence.",
-      "change": "cross_layer_evidence_consistency_completed",
-      "evidence": "cycle-aware trace builder plus metric and trace regression assertions",
+      "goal": "Continuous Self-Development",
+      "sector": "Validation and accumulated knowledge",
+      "before": "Canonical JSON was current while the mutable Markdown core retained an obsolete deploy ID, timestamp, validation count and publication ladder.",
+      "after": "Eight mutable Markdown evidence sections are regenerated from the exact canonical JSON on every publication run while historical appendices remain unchanged.",
+      "change": "markdown_core_json_sync_enforced",
+      "evidence": "deterministic synchronizer, idempotence test and stale-evidence regression",
       "confidence": "high"
     },
     {
@@ -2489,10 +2534,10 @@
       "project": "AI Projects Brain",
       "goal": "Continuous Self-Development",
       "sector": "Validation and accumulated knowledge",
-      "before": "25/25 checks with Morning attempt-ID coverage",
-      "after": "25/25 checks with Morning metric text and cycle-neutral trace coverage",
-      "change": "assertion_scope_expanded",
-      "evidence": "tests/dashboard-cycle-upgrade-record.test.mjs",
+      "before": "25/25 deterministic checks",
+      "after": "28/28 deterministic checks",
+      "change": "denominator+3",
+      "evidence": "three dashboard Markdown core synchronization regressions",
       "confidence": "high"
     },
     {
@@ -2500,14 +2545,21 @@
       "project": "Brain Management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "before": "Latest proven receipt deploy predates the final evidence-consistent snapshot",
-      "after": "07:53 snapshot enters exact mirror, content deploy, public UI verification and immutable receipt publication",
-      "change": "new_snapshot_publication_required",
-      "evidence": "cycle-aware trace-only workflow and repository dispatch",
+      "before": "The latest verified receipt deploy covers the prior snapshot and the Markdown core was internally stale.",
+      "after": "The 08:20 exact snapshot enters mirror, content deploy, UI verification and immutable receipt publication with a synchronized human evidence surface.",
+      "change": "new_exact_snapshot_publication_required",
+      "evidence": "exact-snapshot workflow plus Markdown-core synchronization gate",
       "confidence": "high"
     }
   ],
   "risky_work_handoffs": [
+    {
+      "route": "/safe",
+      "project_id": "brain-management",
+      "target": "exact Netlify publication",
+      "blocker": "The new 08:20 snapshot has no matching READY content and receipt deploy yet.",
+      "required_evidence": "content deploy ID, receipt deploy ID, exact source commit, public timestamp equality and visible Portfolio/Project/Goal UI"
+    },
     {
       "route": "/safe",
       "project_id": "ezohata",
@@ -2524,10 +2576,10 @@
     }
   ],
   "evening_verification_questions": [
-    "Does the final trace use a morning- attempt ID and contain no incorrect Evening wording?",
-    "Are canonical and mirror blobs identical for the 07:53 snapshot?",
-    "Does a READY receipt deploy identify the exact mirror commit containing that blob?",
-    "Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 07:53 snapshot?"
+    "Does the canonical Markdown core show the same last_updated, deploy evidence, validation count and publication state as the canonical JSON?",
+    "Are canonical and mirror JSON blobs identical for the 08:20 snapshot?",
+    "Does a READY receipt deploy identify the exact mirror commit containing the 08:20 blob?",
+    "Do public timestamp equality and Portfolio, Project and Goal UI checks pass for the 08:20 snapshot?"
   ],
   "unknown_blocked": [
     "Business Growth Outcomes remain not_instrumented because no observed KPI source is registered.",
@@ -2542,7 +2594,7 @@
       "project_id": "brain-management",
       "goal": "Business Growth and Professional Value",
       "sector": "Professional delivery and live reliability",
-      "action": "Verify the exact 07:53 Morning snapshot receipt without rewriting canonical business fields.",
+      "action": "Verify the exact 08:20 Morning snapshot receipt without rewriting canonical business fields.",
       "expected_metric_effect": "Publication Freshness STALE 2/4 to LIVE 4/4 when the matching receipt is proven."
     }
   ]

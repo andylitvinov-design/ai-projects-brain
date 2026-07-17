@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-17T07:53:45+02:00",
+  "last_updated": "2026-07-17T08:20:00+02:00",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current routing and Project Health scope. Legacy projects.md/projects.json remain historical until reconciled.",
   "source_priority": [
@@ -157,7 +157,10 @@
         "canonical/mirror blob 439001dfa4babf5f66fe721723b3eec69b57abb6",
         "publication trace showing stale evening prefix before repair",
         "canonical/mirror blob 3b781bbc47c49d7f003aa4e60ed08ff3a53d806a",
-        "publication trace 14c1314906b6f3d49b012d257dc2898e6625e580"
+        "publication trace 14c1314906b6f3d49b012d257dc2898e6625e580",
+        "canonical/mirror blob 69f61a3e706fe2ea914e5454b2efde81642d7055",
+        "PR #132 validation workflows",
+        "scripts/sync-dashboard-markdown-core.mjs"
       ],
       "sectors": {
         "execution": "PASS",
