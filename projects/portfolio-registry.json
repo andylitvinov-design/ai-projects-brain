@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-17T07:31:21+02:00",
+  "last_updated": "2026-07-17T07:46:14+02:00",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current routing and Project Health scope. Legacy projects.md/projects.json remain historical until reconciled.",
   "source_priority": [
@@ -153,7 +153,9 @@
         "ai-projects-brain workflow runs 29522802408 and 29522799914",
         "Netlify deploy 6a59bc16f349e3e190a47208",
         "andylitvinov-design/brain-management@2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
-        "canonical/mirror blob b8d99209ddbf3758247fc99f34935165f068f305"
+        "canonical/mirror blob b8d99209ddbf3758247fc99f34935165f068f305",
+        "canonical/mirror blob 439001dfa4babf5f66fe721723b3eec69b57abb6",
+        "publication trace showing stale evening prefix before repair"
       ],
       "sectors": {
         "execution": "PASS",
