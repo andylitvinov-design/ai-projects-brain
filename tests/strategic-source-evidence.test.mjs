@@ -97,7 +97,7 @@ test('rejects duplicate observation IDs', () => {
   );
 });
 
-test('canonical source observation document passes proof validation', () => {
+test('canonical source observation document passes proof validation before or after preparation', () => {
   const observations = JSON.parse(fs.readFileSync(
     'projects/codex-automation/strategic-source-observations.json',
     'utf8',
@@ -107,6 +107,10 @@ test('canonical source observation document passes proof validation', () => {
     'utf8',
   ));
   const result = buildStrategicEvidence(observations, existing);
-  assert.equal(result.entries.length, existing.entries.length + observations.observations.length);
-  assert.equal(new Set(result.entries.map((entry) => entry.id)).size, result.entries.length);
+  const expectedIds = new Set([
+    ...existing.entries.map((entry) => entry.id),
+    ...observations.observations.map((observation) => observation.id),
+  ]);
+  assert.equal(result.entries.length, expectedIds.size);
+  assert.deepEqual(new Set(result.entries.map((entry) => entry.id)), expectedIds);
 });
