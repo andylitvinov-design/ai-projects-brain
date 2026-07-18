@@ -59,7 +59,7 @@ Do not reread unchanged large project files unless a project is selected for the
 3. The watchdog must not contain Netlify credentials, provider mutation logic or direct deployment commands.
 4. A valid matching receipt and equal public timestamp require a healthy no-op; stale, missing or invalid evidence requires dispatch rather than a false `LIVE` claim.
 5. Keep one manual trigger and an off-peak recurring GitHub-native schedule so publication can recover even when a push or cross-repository dispatch is missed.
-6. A retry commit, queued workflow or accepted dispatch request is not publication evidence. The run remains `STALE` until the canonical publisher produces a matching receipt and visible UI proof.
+6. A retry commit, queued workflow or dispatch request is not publication evidence. The run remains `STALE` until the canonical publisher produces a matching receipt and visible UI proof.
 7. After dispatch, the watchdog must observe a newly created canonical publisher workflow run and record its run ID and URL. HTTP acceptance without an observable run is `PUBLISHER_RUN_NOT_OBSERVED`, not a successful recovery.
 8. Persist a small recovery artifact containing the snapshot timestamp, freshness reason, request time and observed publisher run identity. Do not store tokens, provider payloads or secrets.
 9. Use a repeated off-peak cadence that bounds stale duration without creating a second deployer; the publisher itself remains responsible for deployment and receipt verification.
