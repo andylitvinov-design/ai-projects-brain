@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "cycle": "Evening Architecture Upgrade",
+  "run_id": "evening-architecture-2026-07-18-observable-publication-recovery",
+  "observed_at": "2026-07-18T20:07:42+02:00",
+  "result": "APPLIED_UPGRADE",
+  "main_upgrade": {
+    "id": "observable_publication_recovery_dispatch",
+    "summary": "The receipt-aware recovery watchdog now retries stale snapshots every two hours and requires a concrete canonical publisher workflow run after dispatch.",
+    "why": "The 07:35 canonical and mirror snapshots were identical, but retry commits had no observable Actions status and Netlify still served the prior deploy. Treating an accepted dispatch as recovery evidence left a blind gap between request and actual publisher execution."
+  },
+  "portfolio": {
+    "strongest_positive_change": "Brain Management recovery now produces run-bound evidence and retries missed publication triggers without becoming a second deployer.",
+    "largest_risk_project_id": "portfolio",
+    "largest_risk": "Provider/live proof and observed commercial KPI sources remain incomplete across several active projects."
+  },
+  "publication": {
+    "verified_at": "2026-07-17T05:22:38.194Z",
+    "previous_verified_deploy": {
+      "deploy_id": "6a59bc16f349e3e190a47208",
+      "published_at": "2026-07-17T05:22:33.420Z",
+      "source_commit_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
+      "branch": "main"
+    },
+    "evidence_refs": [
+      "andylitvinov-design/brain-management/pull/44",
+      "andylitvinov-design/brain-management@e022b7333adf993038cce6c4f9f73923d359ddde",
+      "brain-management workflow runs 29655166854 and 29655166920",
+      "brain-management/.github/workflows/recover-stale-system-health-dashboard.yml",
+      "brain-management/tests/dashboard-publication-watchdog.test.mjs"
+    ]
+  },
+  "changed_files": [
+    "brain-management/.github/workflows/recover-stale-system-health-dashboard.yml",
+    "brain-management/tests/dashboard-publication-watchdog.test.mjs",
+    "systems/evening-upgrade-runtime-contract.md",
+    "projects/codex-automation/pending-dashboard-upgrade.json"
+  ],
+  "metric_impact": [
+    {
+      "metric": "Publication Freshness",
+      "project": "Brain Management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "before": "Twice-daily recovery accepted a dispatch without proving that a canonical publisher run was created.",
+      "after": "Two-hour off-peak recovery records a concrete publisher run ID and URL or fails with unobserved-dispatch evidence.",
+      "change": "dispatch_to_run_observability_added",
+      "evidence": "brain-management PR #44, merge e022b733, 4 watchdog regressions",
+      "confidence": "high"
+    },
+    {
+      "metric": "False Success Rate",
+      "project": "AI Projects Brain",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Execution quality and completion",
+      "before": "HTTP dispatch acceptance could be reported as recovery activity despite no observable publisher execution.",
+      "after": "Dispatch acknowledgement, observed publisher run and matching LIVE receipt are three distinct evidence stages.",
+      "change": "recovery_evidence_ladder_tightened",
+      "evidence": "Evening runtime contract and observable recovery artifact contract",
+      "confidence": "high"
+    },
+    {
+      "metric": "Avoidable Handoff Rate",
+      "project": "Brain Management",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Autonomy and resource use",
+      "before": "A missed push or repository dispatch could leave the snapshot stale until manual investigation.",
+      "after": "Repeated off-peak recovery retries stale snapshots and surfaces the exact publisher run identity automatically.",
+      "change": "manual_recovery_window_reduced",
+      "evidence": "recovery schedule and run-observation gate",
+      "confidence": "high"
+    }
+  ],
+  "system_intelligence_gain": {
+    "rules_improved": 1,
+    "validators_added_or_tightened": 1,
+    "deterministic_checks_added": 4,
+    "replay_cases_added_or_improved": 1,
+    "behavior_fixtures_added_or_improved": 1,
+    "duplicate_instructions_removed": 0,
+    "evidence_fields_added": 2,
+    "automation_contracts_improved": 2,
+    "dashboard_registry_schema_improvements": 0,
+    "project_records_instrumented": 2
+  },
+  "evening_verification_questions": [
+    "Did the merge-triggered recovery workflow observe and record a new canonical publisher run for the 20:07:42 snapshot?",
+    "Did the canonical publisher produce a READY content deploy whose source commit contains the identical mirror blob?",
+    "Does the public receipt bind the 20:07:42 snapshot, content deploy and required Portfolio, Project and Goal UI checks?",
+    "Does the next healthy recovery run no-op rather than create a duplicate deploy?"
+  ],
+  "unknown_blocked": [
+    "The post-merge production recovery run and its publisher run identity are not yet independently accessible from this execution environment.",
+    "The new 20:07:42 snapshot remains STALE until a matching public timestamp and immutable receipt are verified.",
+    "Observed leads, orders, revenue, attendance and conversion remain unknown without registered KPI sources.",
+    "Provider readiness remains blocked or needs verification for Ezohata, EzoHata Finance, Psitherapy and Psihotavr.",
+    "Context/Retry Cost still lacks a stable non-secret counter source."
+  ],
+  "risky_work_handoffs": [],
+  "morning_handoff": [
+    {
+      "rank": 1,
+      "project_id": "brain-management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "action": "Verify the recovery artifact, observed publisher run, READY content deploy, matching public timestamp, immutable receipt and visible Portfolio/Project/Goal UI for the 20:07:42 snapshot.",
+      "expected_metric_effect": "Publication Freshness 2/4 STALE -> 4/4 LIVE only with exact receipt proof"
+    },
+    {
+      "rank": 2,
+      "project_id": "portfolio",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Commercial outcomes",
+      "action": "Register one observed KPI source with owner, bounded period and cadence for the highest-priority commercial project.",
+      "expected_metric_effect": "Business Growth Outcomes unknown -> first observed project KPI"
+    },
+    {
+      "rank": 3,
+      "project_id": "ai-projects-brain",
+      "goal": "Efficiency and System Intelligence",
+      "sector": "Autonomy and resource use",
+      "action": "Add Context/Retry Cost only after a stable non-secret collector exists.",
+      "expected_metric_effect": "Context/Retry Cost candidate -> measurable active metric"
+    }
+  ]
+}
