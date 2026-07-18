@@ -67,3 +67,41 @@ The only P0/P1 chain requiring further proof is the public dashboard alias. GitH
 ### Evidence rule
 
 Use the ladder `request -> task/session -> local change -> remote branch -> accessible PR -> checks -> merge -> deploy -> public/live proof`. A merged receipt implementation and READY provider deploy are insufficient when independent public-content evidence conflicts.
+
+## 2026-07-18
+
+Status: `TASK_SWEEP_NEEDS_VERIFICATION`
+
+### Source coverage
+
+- GitHub organization-wide pull requests updated after 2026-07-17 04:46 UTC, remote refs, commit comparisons, checks and delivery contracts: inspected.
+- Netlify current production deploy for `brain-management`: inspected.
+- Public dashboard JSON/page: independently inspected and confirmed stale relative to the repository snapshot.
+- Public Slack search for `Codex` messages after 2026-07-17 returned no results.
+- CODEX_LOCAL filesystem: not inspected; no synced local-computer source was available, so no direct-local branch, worktree or session claims were made.
+
+### Reconciled chains
+
+| Priority | Project | Chain | Proven state | Next check |
+| --- | --- | --- | --- | --- |
+| P0 | brain-management | exact 20:42 dashboard publication | Canonical and mirror share blob `e38bb1ad306a7f18d0a88c26983636185191fcf9`, schema 6 and `last_updated=2026-07-17T20:42:00+02:00`; public alias still serves the older schema-1 snapshot; Netlify current production deploy remains `6a59bc16f349e3e190a47208`, which predates the 20:42 snapshot; PR #43 and companion ai-projects-brain PR #134 merged the receipt-aware watchdog | Let the GitHub-native watchdog dispatch the sole canonical publisher, then require matching public timestamp, UI hooks and immutable receipt before LIVE. |
+| P1 | codex-links | Prompt Router and independent Code Copilot reviewer | PR #163 is an accessible open draft on `codex/prompt-router-verifier` at `85b2156b6d3282010a6943fbfe35f1683086606c`; branch is 34 commits ahead / 77 behind current `main`; no GitHub Actions run exists for the current head; production and live Codex/Claude smokes remain unproven | Preserve as source material and salvage onto fresh `main`; do not merge or rebase the 34-commit branch wholesale. |
+| P1 | ezohata | secure Google OAuth owner cabinet | PR #41 is an accessible open draft on `codex/google-oauth-owner` at `f01f7ce3ee345821d4d5385a897fa1f7497757a4`; branch is 2 commits ahead / 0 behind; GitHub Verify and Vercel preview are green | Keep `PROVIDER_BLOCKED` until production Supabase Google provider activation and a real owner/non-owner live auth matrix are proven. |
+| P1 | finance | Monobank warning and refresh-all stale drafts | PR #530 closed without merge as stale source requiring fresh-main salvage; PR #531 closed without merge as `SUPERSEDED_BY_MAIN` | No merge/rebase. Reopen only through a fresh branch if the narrow Monobank warning remains a current priority. |
+
+### Automatic resolutions
+
+- Added an evidence-backed `FRESH_MAIN_SALVAGE_REQUIRED` reconciliation to `codex-links#163`, including exact remote branch, head SHA, divergence and missing live checks.
+- Added an evidence-backed `PROVIDER_BLOCKED` reconciliation to `ezohata#41`, preserving the green code/preview evidence while withholding merge and production-complete claims.
+- Reconciled Finance PR #530/#531 closures and removed the superseded refresh-all chain from the active queue.
+- Confirmed that every active remote branch identified in this run already has an accessible GitHub PR; no PR auto-creation gap was proven.
+
+### Remaining blockers
+
+- Dashboard exact snapshot is not publicly current; the watchdog/publisher recovery chain must complete and produce a matching immutable receipt.
+- `codex-links#163` requires fresh-main salvage and current CI/live bridge evidence.
+- `ezohata#41` requires genuine owner/provider action before merge.
+
+### Evidence rule
+
+Use the ladder `request -> task/session -> local change -> remote branch -> accessible PR -> checks -> merge -> deploy -> public/live proof`. A matching repository blob, green preview or READY old deploy is not LIVE proof for a newer snapshot.
