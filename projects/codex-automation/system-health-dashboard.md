@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-17T20:42:00+02:00`  
+**Last updated:** `2026-07-18T06:59:46+02:00`  
 **Evening result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
@@ -275,3 +275,28 @@ Indicators 24; history 1/30; score unknown.
 1. **brain-management / Business Growth and Professional Value / Professional delivery and live reliability:** Verify that the watchdog or normal trigger produced a current content deploy and matching immutable receipt for the exact Evening snapshot; keep STALE if any link is missing. Expected metric effect: Publication Freshness STALE 2/4 to LIVE 4/4 only after exact receipt and UI proof.
 2. **portfolio / Business Growth and Professional Value / Commercial outcomes:** Register one observed KPI source, owner and cadence for the highest-priority commercial project. Expected metric effect: Business Growth Outcomes not_instrumented to observed for one project.
 3. **ai-projects-brain / Efficiency and System Intelligence / Autonomy and resource use:** Instrument Context/Retry Cost only after a stable non-secret counter source exists. Expected metric effect: Context/Retry Cost candidate/unknown to measurable without invented data.
+
+<!-- STRATEGIC_GOAL_SCOREBOARD:1 -->
+## Portfolio Strategic Scoreboard
+
+| Project | Big Goal | Yesterday | Today | Daily Delta | Evidence | Next Quality Threshold |
+|---|---|---:|---:|---:|---|---|
+| Ezohata | A trusted bilingual esoteric-commerce platform with complete catalog parity, excellent mobile discovery, secure owner administration, durable orders and uploads, and measured conversion. | 58% | 58% | +0 pp | BLOCKED | Prove one production owner journey: Google login to admin change or upload to public visibility to order handoff. |
+| EzoHata Finance | A trustworthy owner-only financial control system with reconciled history, current provider balances, explainable movements, secure sessions, and zero synthetic accounting. | 59.5% | 59.5% | +0 pp | BLOCKED | Prove a production owner session and reconcile imported totals plus current provider balances in one evidence run. |
+| Legacy Finance / Incoming Ledger | A stable and clearly bounded legacy ledger that remains reliable during transition and has an explicit migration, archival, or retirement decision. | 56.5% | 56.5% | +0 pp | NEEDS_VERIFICATION | Choose and document retained reference, migration source, or retired archive, with parity and rollback evidence. |
+| Psitherapy | A polished therapeutic self-analysis product with a coherent workbook, secure production identity, durable progress, safe boundaries, and clear paid-support pathways. | 53.5% | 53.5% | +0 pp | BLOCKED | Complete a reversible Firebase preview cutover proving login, saved progress and the core intake journey before production. |
+| Reiki Yggdrasil | A coherent and trustworthy Reiki training and practitioner platform with excellent live journeys, safe administration, and measured inquiries or bookings. | 43.5% | 43.5% | +0 pp | NEEDS_VERIFICATION | Run one full product, live and conversion audit and establish the first observed inquiry or booking KPI. |
+| Codex Links | A safe multi-project command and approval bridge with explicit human approval, correct routing, complete delivery evidence, and low retry cost. | 56.2% | 56.2% | +0 pp | NEEDS_VERIFICATION | Rebase the stacked approval chain, obtain a fully green suite, and prove one approved proposal to Codex command to delivery result. |
+| Brain Management | A live and trustworthy command and observability surface showing current portfolio health, strategic progress, Daily Intelligence, and exact source-to-deploy evidence. | 82.5% | 82.5% | +0 pp | NEEDS_VERIFICATION | Prove one watchdog-triggered recovery with a matching public timestamp, source commit, content deploy, receipt and visible scoreboards. |
+| Toronto Tantra | A premium and concise event-program ecosystem with excellent mobile experience, reliable publishing, clear safety and trust, and measured conversion of qualified Toronto interest. | 65.2% | 65.2% | +0 pp | NEEDS_VERIFICATION | Instrument qualified interest to conversation to confirmed registration across the three programs. |
+| AI Projects Brain | A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence. | 83% | 83% | +0 pp | PROVEN | Connect recovery outcomes and public receipts to the strategic evidence ledger automatically. |
+| Psihotavr | A clearly governed legacy production platform whose source, live build, data and auth state, and retirement or coexistence role are explicitly proven. | 50.8% | 50.8% | +0 pp | BLOCKED | Prove the canonical live source and decide coexistence, migration, or retirement with preservation and rollback evidence. |
+
+## System Intelligence Scoreboard
+
+| Big Goal | Yesterday | Today | Daily Delta | Evidence | Next Quality Threshold |
+|---|---:|---:|---:|---|---|
+| Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success. | 76.8% | 76.8% | +0 pp | PROVEN | Measure successful recovery rate, retry cost and time-to-proof from durable source observations. |
+
+Percentages are conservative weighted progress values from the canonical project-specific rubrics. Missing evidence is never counted as success.
+<!-- /STRATEGIC_GOAL_SCOREBOARD -->

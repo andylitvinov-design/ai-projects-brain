@@ -1,24 +1,9 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-07-17T07:03:49+02:00",
+  "observed_at": "2026-07-18T06:59:46+02:00",
   "status": "source_linked_verified_evidence",
   "scoring_policy": "Apply only dimension-level changes backed by immutable source references. Code-only evidence cannot satisfy a live-required condition.",
   "entries": [
-    {
-      "id": "brain-management-publication-receipt-architecture-20260716",
-      "target_type": "project",
-      "project_id": "brain-management",
-      "rubric_id": "publication",
-      "proposed_score": 90,
-      "evidence_state": "PROVEN",
-      "source_state": "merged_verified",
-      "requires_live_proof": false,
-      "source_url": "https://github.com/andylitvinov-design/brain-management/pull/41",
-      "source_ref": "3e9b48fefba426c145fb9c23838e007a926e70b3",
-      "observed_at": "2026-07-16T18:09:56Z",
-      "summary": "The snapshot-bound publication receipt loop, repository-dispatch listener, absolute deploy ordering and receipt regression coverage were merged. This proves the publication architecture, but not freshness of the current public alias.",
-      "next_quality_threshold": "Produce and independently verify a fresh receipt whose snapshot timestamp, source commit, content deploy and visible scoreboards all match the current canonical snapshot."
-    },
     {
       "id": "ai-projects-brain-immutable-receipt-contract-20260716",
       "target_type": "project",
@@ -35,6 +20,86 @@
       "next_quality_threshold": "Expand source-linked evidence collection into provider, live and observed business-outcome connectors."
     },
     {
+      "id": "ai-projects-brain-source-linked-evidence-ingestion-20260717",
+      "target_type": "project",
+      "project_id": "ai-projects-brain",
+      "rubric_id": "validation",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
+      "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
+      "observed_at": "2026-07-17T05:12:08Z",
+      "summary": "Source-linked dimension updates, anti-inflation ceilings, live-proof gates, duplicate protection and five regression cases are now merged and mandatory in both strategic publication and Agent Harness validation.",
+      "missing_conditions_remove": [
+        "Automatic rubric evidence ingestion"
+      ],
+      "next_quality_threshold": "Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources."
+    },
+    {
+      "id": "ai-projects-brain-trigger-independent-publication-recovery-20260717",
+      "target_type": "project",
+      "rubric_id": "automation",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/134",
+      "source_ref": "f3695bfe3686b7553c25e13114a5b89b00444199",
+      "observed_at": "2026-07-17T18:44:26Z",
+      "summary": "The portfolio operating system now has a trigger-independent, receipt-aware recovery contract that preserves validation diagnostics, exact-snapshot ownership and one-publisher architecture while retrying stale publication safely.",
+      "project_id": "ai-projects-brain",
+      "next_quality_threshold": "Connect recovery outcomes and public receipts to the strategic evidence ledger automatically."
+    },
+    {
+      "id": "brain-management-publication-receipt-architecture-20260716",
+      "target_type": "project",
+      "project_id": "brain-management",
+      "rubric_id": "publication",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/brain-management/pull/41",
+      "source_ref": "3e9b48fefba426c145fb9c23838e007a926e70b3",
+      "observed_at": "2026-07-16T18:09:56Z",
+      "summary": "The snapshot-bound publication receipt loop, repository-dispatch listener, absolute deploy ordering and receipt regression coverage were merged. This proves the publication architecture, but not freshness of the current public alias.",
+      "next_quality_threshold": "Produce and independently verify a fresh receipt whose snapshot timestamp, source commit, content deploy and visible scoreboards all match the current canonical snapshot."
+    },
+    {
+      "id": "brain-management-publication-watchdog-20260717",
+      "target_type": "project",
+      "rubric_id": "publication",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/brain-management/pull/43",
+      "source_ref": "0d1e370fc44d6af3602df642099806da88785fea",
+      "observed_at": "2026-07-17T18:33:01Z",
+      "summary": "A receipt-aware watchdog now checks the exact public snapshot and immutable receipt, no-ops when healthy, and dispatches the sole canonical publisher only when stale. It never deploys to Netlify directly, so recovery gains do not weaken the no-false-LIVE boundary.",
+      "project_id": "brain-management",
+      "next_quality_threshold": "Prove one watchdog-triggered recovery with a matching public timestamp, source commit, content deploy, receipt and visible scoreboards."
+    },
+    {
+      "id": "system-intelligence-evidence-ingestion-20260717",
+      "target_type": "system",
+      "rubric_id": "execution",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
+      "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
+      "observed_at": "2026-07-17T05:12:08Z",
+      "summary": "The operating system can now apply source-linked evidence automatically and refuse unsupported percentage growth as part of required validation.",
+      "missing_conditions_remove": [
+        "Automatic rubric evidence ingestion"
+      ],
+      "next_quality_threshold": "Automate provider, live, business-outcome and context-efficiency evidence collection."
+    },
+    {
       "id": "system-intelligence-false-live-resistance-20260716",
       "target_type": "system",
       "rubric_id": "evidence",
@@ -49,35 +114,18 @@
       "next_quality_threshold": "Ingest provider, live and observed business evidence automatically while preserving source-level ceilings and no-false-LIVE rules."
     },
     {
-      "id": "ai-projects-brain-source-linked-evidence-ingestion-20260717",
-      "target_type": "project",
-      "project_id": "ai-projects-brain",
-      "rubric_id": "validation",
-      "proposed_score": 90,
-      "evidence_state": "PROVEN",
-      "source_state": "merged_verified",
-      "requires_live_proof": false,
-      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
-      "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
-      "observed_at": "2026-07-17T05:12:08Z",
-      "summary": "Source-linked dimension updates, anti-inflation ceilings, live-proof gates, duplicate protection and five regression cases are now merged and mandatory in both strategic publication and Agent Harness validation.",
-      "missing_conditions_remove": ["Automatic rubric evidence ingestion"],
-      "next_quality_threshold": "Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources."
-    },
-    {
-      "id": "system-intelligence-evidence-ingestion-20260717",
+      "id": "system-intelligence-publication-recovery-loop-20260717",
       "target_type": "system",
       "rubric_id": "execution",
       "proposed_score": 90,
       "evidence_state": "PROVEN",
       "source_state": "merged_verified",
       "requires_live_proof": false,
-      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
-      "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
-      "observed_at": "2026-07-17T05:12:08Z",
-      "summary": "The operating system can now apply source-linked evidence automatically and refuse unsupported percentage growth as part of required validation.",
-      "missing_conditions_remove": ["Automatic rubric evidence ingestion"],
-      "next_quality_threshold": "Automate provider, live, business-outcome and context-efficiency evidence collection."
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/134",
+      "source_ref": "f3695bfe3686b7553c25e13114a5b89b00444199",
+      "observed_at": "2026-07-17T18:44:26Z",
+      "summary": "Execution resilience improved through a deterministic recovery loop that detects stale publication evidence and re-dispatches the canonical path without converting retry activity into success evidence.",
+      "next_quality_threshold": "Measure successful recovery rate, retry cost and time-to-proof from durable source observations."
     }
   ]
 }

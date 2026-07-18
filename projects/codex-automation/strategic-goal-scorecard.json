@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-07-17T07:03:49+02:00",
+  "observed_at": "2026-07-18T06:59:46+02:00",
   "status": "canonical_strategic_goal_scorecard",
   "scoring_policy": {
     "method": "weighted_confirmed_progress_lower_bound",
@@ -373,16 +373,16 @@
           "id": "publication",
           "name": "Exact publication reliability",
           "weight": 25,
-          "yesterday_score": 85,
+          "yesterday_score": 90,
           "today_score": 90,
           "evidence_state": "PROVEN",
-          "evidence": "The snapshot-bound publication receipt loop, repository-dispatch listener, absolute deploy ordering and receipt regression coverage were merged. This proves the publication architecture, but not freshness of the current public alias.",
+          "evidence": "A receipt-aware watchdog now checks the exact public snapshot and immutable receipt, no-ops when healthy, and dispatches the sole canonical publisher only when stale. It never deploys to Netlify directly, so recovery gains do not weaken the no-false-LIVE boundary.",
           "evidence_ref": {
-            "id": "brain-management-publication-receipt-architecture-20260716",
+            "id": "brain-management-publication-watchdog-20260717",
             "source_state": "merged_verified",
-            "source_url": "https://github.com/andylitvinov-design/brain-management/pull/41",
-            "source_ref": "3e9b48fefba426c145fb9c23838e007a926e70b3",
-            "observed_at": "2026-07-16T18:09:56Z"
+            "source_url": "https://github.com/andylitvinov-design/brain-management/pull/43",
+            "source_ref": "0d1e370fc44d6af3602df642099806da88785fea",
+            "observed_at": "2026-07-17T18:33:01Z"
           }
         },
         {
@@ -404,12 +404,12 @@
           "evidence": "The current canonical snapshot still lacks same-attempt public timestamp verification."
         }
       ],
-      "progress_yesterday": 81.2,
+      "progress_yesterday": 82.5,
       "progress_today": 82.5,
-      "daily_delta": 1.3,
-      "change_state": "CHANGED",
-      "why_changed": "The snapshot-bound publication receipt loop, repository-dispatch listener, absolute deploy ordering and receipt regression coverage were merged. This proves the publication architecture, but not freshness of the current public alias.",
-      "next_quality_threshold": "Produce and independently verify a fresh receipt whose snapshot timestamp, source commit, content deploy and visible scoreboards all match the current canonical snapshot.",
+      "daily_delta": 0,
+      "change_state": "UNCHANGED",
+      "why_changed": "A receipt-aware watchdog now checks the exact public snapshot and immutable receipt, no-ops when healthy, and dispatches the sole canonical publisher only when stale. It never deploys to Netlify directly, so recovery gains do not weaken the no-false-LIVE boundary.",
+      "next_quality_threshold": "Prove one watchdog-triggered recovery with a matching public timestamp, source commit, content deploy, receipt and visible scoreboards.",
       "missing_conditions": [
         "Strategic snapshot mirror identity",
         "Source-mapped deploy for this timestamp",
@@ -492,16 +492,16 @@
           "id": "automation",
           "name": "Automation and execution leverage",
           "weight": 25,
-          "yesterday_score": 88,
+          "yesterday_score": 90,
           "today_score": 90,
           "evidence_state": "PROVEN",
-          "evidence": "The operating system now separates immutable business snapshots from external publication receipts and invalidates stale receipt evidence automatically when the snapshot changes.",
+          "evidence": "The portfolio operating system now has a trigger-independent, receipt-aware recovery contract that preserves validation diagnostics, exact-snapshot ownership and one-publisher architecture while retrying stale publication safely.",
           "evidence_ref": {
-            "id": "ai-projects-brain-immutable-receipt-contract-20260716",
+            "id": "ai-projects-brain-trigger-independent-publication-recovery-20260717",
             "source_state": "merged_verified",
-            "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/125",
-            "source_ref": "060d8788ebb2d2456bc49482c0f3b75fec74cad4",
-            "observed_at": "2026-07-16T18:12:00Z"
+            "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/134",
+            "source_ref": "f3695bfe3686b7553c25e13114a5b89b00444199",
+            "observed_at": "2026-07-17T18:44:26Z"
           }
         },
         {
@@ -530,12 +530,12 @@
           "evidence": "Outcome gaps are explicit; observed KPI and provider collectors remain incomplete."
         }
       ],
-      "progress_yesterday": 81.3,
+      "progress_yesterday": 83,
       "progress_today": 83,
-      "daily_delta": 1.7,
-      "change_state": "CHANGED",
-      "why_changed": "Source-linked dimension updates, anti-inflation ceilings, live-proof gates, duplicate protection and five regression cases are now merged and mandatory in both strategic publication and Agent Harness validation.",
-      "next_quality_threshold": "Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources.",
+      "daily_delta": 0,
+      "change_state": "UNCHANGED",
+      "why_changed": "The portfolio operating system now has a trigger-independent, receipt-aware recovery contract that preserves validation diagnostics, exact-snapshot ownership and one-publisher architecture while retrying stale publication safely.",
+      "next_quality_threshold": "Connect recovery outcomes and public receipts to the strategic evidence ledger automatically.",
       "missing_conditions": [
         "Observed project KPI connectors",
         "Stable provider and live collectors",
@@ -619,16 +619,16 @@
         "id": "execution",
         "name": "Execution completion and automation leverage",
         "weight": 25,
-        "yesterday_score": 88,
+        "yesterday_score": 90,
         "today_score": 90,
         "evidence_state": "PROVEN",
-        "evidence": "The operating system can now apply source-linked evidence automatically and refuse unsupported percentage growth as part of required validation.",
+        "evidence": "Execution resilience improved through a deterministic recovery loop that detects stale publication evidence and re-dispatches the canonical path without converting retry activity into success evidence.",
         "evidence_ref": {
-          "id": "system-intelligence-evidence-ingestion-20260717",
+          "id": "system-intelligence-publication-recovery-loop-20260717",
           "source_state": "merged_verified",
-          "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/127",
-          "source_ref": "c84cdd949530fdaa7662b0c9d0afd600cd62e00e",
-          "observed_at": "2026-07-17T05:12:08Z"
+          "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/134",
+          "source_ref": "f3695bfe3686b7553c25e13114a5b89b00444199",
+          "observed_at": "2026-07-17T18:44:26Z"
         }
       },
       {
@@ -657,12 +657,12 @@
         "evidence": "Strategic visibility improves sharply, while observed KPI sources and retry-cost counters remain absent."
       }
     ],
-    "progress_yesterday": 75.3,
+    "progress_yesterday": 76.8,
     "progress_today": 76.8,
-    "daily_delta": 1.5,
-    "change_state": "CHANGED",
-    "why_changed": "The operating system can now apply source-linked evidence automatically and refuse unsupported percentage growth as part of required validation.",
-    "next_quality_threshold": "Automate provider, live, business-outcome and context-efficiency evidence collection.",
+    "daily_delta": 0,
+    "change_state": "UNCHANGED",
+    "why_changed": "Execution resilience improved through a deterministic recovery loop that detects stale publication evidence and re-dispatches the canonical path without converting retry activity into success evidence.",
+    "next_quality_threshold": "Measure successful recovery rate, retry cost and time-to-proof from durable source observations.",
     "missing_conditions": [
       "Stable provider and live collectors",
       "Observed business KPI sources",
@@ -673,27 +673,34 @@
   },
   "evidence_ingestion": {
     "schema_version": 1,
-    "last_observed_at": "2026-07-17T07:03:49+02:00",
+    "last_observed_at": "2026-07-18T06:59:46+02:00",
     "applied_evidence_ids": [
       "ai-projects-brain-immutable-receipt-contract-20260716",
       "ai-projects-brain-source-linked-evidence-ingestion-20260717",
+      "ai-projects-brain-trigger-independent-publication-recovery-20260717",
       "brain-management-publication-receipt-architecture-20260716",
+      "brain-management-publication-watchdog-20260717",
       "system-intelligence-evidence-ingestion-20260717",
-      "system-intelligence-false-live-resistance-20260716"
+      "system-intelligence-false-live-resistance-20260716",
+      "system-intelligence-publication-recovery-loop-20260717"
     ],
     "last_run": {
-      "applied": [],
+      "applied": [
+        "ai-projects-brain-trigger-independent-publication-recovery-20260717",
+        "brain-management-publication-watchdog-20260717",
+        "system-intelligence-publication-recovery-loop-20260717"
+      ],
       "skipped": [
-        "brain-management-publication-receipt-architecture-20260716",
         "ai-projects-brain-immutable-receipt-contract-20260716",
-        "system-intelligence-false-live-resistance-20260716",
         "ai-projects-brain-source-linked-evidence-ingestion-20260717",
-        "system-intelligence-evidence-ingestion-20260717"
+        "brain-management-publication-receipt-architecture-20260716",
+        "system-intelligence-evidence-ingestion-20260717",
+        "system-intelligence-false-live-resistance-20260716"
       ],
       "source_ledger_status": "source_linked_verified_evidence"
     },
     "daily_baseline": {
-      "date": "2026-07-16",
+      "date": "2026-07-17",
       "source": "dashboard.daily_intelligence.strategic_history"
     }
   }
