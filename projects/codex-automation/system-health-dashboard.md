@@ -1,7 +1,7 @@
 # Agent/Codex System Health Dashboard
 
 **Metric model:** `adaptive_portfolio_project_goal_v1`  
-**Last updated:** `2026-07-18T06:59:46+02:00`  
+**Last updated:** `2026-07-18T07:08:30+02:00`  
 **Evening result:** `APPLIED_UPGRADE`  
 **Public publication state:** `STALE`
 
@@ -289,14 +289,14 @@ Indicators 24; history 1/30; score unknown.
 | Codex Links | A safe multi-project command and approval bridge with explicit human approval, correct routing, complete delivery evidence, and low retry cost. | 56.2% | 56.2% | +0 pp | NEEDS_VERIFICATION | Rebase the stacked approval chain, obtain a fully green suite, and prove one approved proposal to Codex command to delivery result. |
 | Brain Management | A live and trustworthy command and observability surface showing current portfolio health, strategic progress, Daily Intelligence, and exact source-to-deploy evidence. | 82.5% | 82.5% | +0 pp | NEEDS_VERIFICATION | Prove one watchdog-triggered recovery with a matching public timestamp, source commit, content deploy, receipt and visible scoreboards. |
 | Toronto Tantra | A premium and concise event-program ecosystem with excellent mobile experience, reliable publishing, clear safety and trust, and measured conversion of qualified Toronto interest. | 65.2% | 65.2% | +0 pp | NEEDS_VERIFICATION | Instrument qualified interest to conversation to confirmed registration across the three programs. |
-| AI Projects Brain | A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence. | 83% | 83% | +0 pp | PROVEN | Connect recovery outcomes and public receipts to the strategic evidence ledger automatically. |
+| AI Projects Brain | A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence. | 83% | 85% | +2 pp | PROVEN | Connect the proof-gated observation layer to current provider readiness, public receipts, observed conversion and retry-cost collectors. |
 | Psihotavr | A clearly governed legacy production platform whose source, live build, data and auth state, and retirement or coexistence role are explicitly proven. | 50.8% | 50.8% | +0 pp | BLOCKED | Prove the canonical live source and decide coexistence, migration, or retirement with preservation and rollback evidence. |
 
 ## System Intelligence Scoreboard
 
 | Big Goal | Yesterday | Today | Daily Delta | Evidence | Next Quality Threshold |
 |---|---:|---:|---:|---|---|
-| Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success. | 76.8% | 76.8% | +0 pp | PROVEN | Measure successful recovery rate, retry cost and time-to-proof from durable source observations. |
+| Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success. | 76.8% | 79.8% | +3 pp | PROVEN | Add stable provider, public-live, commercial-outcome and context/retry collectors with explicit owners and cadences. |
 
 Percentages are conservative weighted progress values from the canonical project-specific rubrics. Missing evidence is never counted as success.
 <!-- /STRATEGIC_GOAL_SCOREBOARD -->

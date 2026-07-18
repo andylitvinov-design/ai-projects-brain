@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-07-18T06:59:46+02:00",
+  "observed_at": "2026-07-18T07:08:30+02:00",
   "status": "source_linked_verified_evidence",
   "scoring_policy": "Apply only dimension-level changes backed by immutable source references. Code-only evidence cannot satisfy a live-required condition.",
   "entries": [
@@ -18,6 +18,24 @@
       "observed_at": "2026-07-16T18:12:00Z",
       "summary": "The operating system now separates immutable business snapshots from external publication receipts and invalidates stale receipt evidence automatically when the snapshot changes.",
       "next_quality_threshold": "Expand source-linked evidence collection into provider, live and observed business-outcome connectors."
+    },
+    {
+      "id": "ai-projects-brain-proof-gated-source-observations-20260718",
+      "target_type": "project",
+      "rubric_id": "outcomes",
+      "proposed_score": 70,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/136",
+      "source_ref": "f255813380d5e0c2b5e3dd22b5823676b5dbc2f1",
+      "observed_at": "2026-07-18T05:08:30Z",
+      "summary": "Adaptive intelligence now has a canonical source-observation layer that can represent merged changes, workflow results, exact live proof, observed outcomes and owner confirmations before they influence strategic percentages. This improves evidence adaptability but does not claim that provider, live or business KPI collectors already exist.",
+      "project_id": "ai-projects-brain",
+      "missing_conditions_remove": [
+        "Source-observation normalization"
+      ],
+      "next_quality_threshold": "Connect the proof-gated observation layer to current provider readiness, public receipts, observed conversion and retry-cost collectors."
     },
     {
       "id": "ai-projects-brain-source-linked-evidence-ingestion-20260717",
@@ -114,6 +132,20 @@
       "next_quality_threshold": "Ingest provider, live and observed business evidence automatically while preserving source-level ceilings and no-false-LIVE rules."
     },
     {
+      "id": "system-intelligence-proof-gated-source-validation-20260718",
+      "target_type": "system",
+      "rubric_id": "evidence",
+      "proposed_score": 86,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/136",
+      "source_ref": "f255813380d5e0c2b5e3dd22b5823676b5dbc2f1",
+      "observed_at": "2026-07-18T05:08:30Z",
+      "summary": "Evidence quality improved because source-type proof is now validated before scoring: merged PRs require merge proof, live claims require exact timestamp, source, receipt and visible-surface equality, and observed outcomes require a named metric with a bounded measurement window.",
+      "next_quality_threshold": "Feed real provider, public-live and observed-outcome records through the proof gates and measure false-positive rejection."
+    },
+    {
       "id": "system-intelligence-publication-recovery-loop-20260717",
       "target_type": "system",
       "rubric_id": "execution",
@@ -126,6 +158,20 @@
       "observed_at": "2026-07-17T18:44:26Z",
       "summary": "Execution resilience improved through a deterministic recovery loop that detects stale publication evidence and re-dispatches the canonical path without converting retry activity into success evidence.",
       "next_quality_threshold": "Measure successful recovery rate, retry cost and time-to-proof from durable source observations."
+    },
+    {
+      "id": "system-intelligence-source-observation-visibility-20260718",
+      "target_type": "system",
+      "rubric_id": "visibility",
+      "proposed_score": 58,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/136",
+      "source_ref": "f255813380d5e0c2b5e3dd22b5823676b5dbc2f1",
+      "observed_at": "2026-07-18T05:08:30Z",
+      "summary": "Portfolio visibility and operating efficiency improved because source observations are now durable, normalized by ID, validated in Strategic Goal publication and mandatory in Agent Harness Validators. Business KPI and context/retry counters remain absent and are not credited.",
+      "next_quality_threshold": "Add stable provider, public-live, commercial-outcome and context/retry collectors with explicit owners and cadences."
     }
   ]
 }
