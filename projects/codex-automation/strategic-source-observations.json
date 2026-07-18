@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-07-18T06:59:46+02:00",
+  "status": "strategic_source_observations",
+  "observations": [
+    {
+      "id": "brain-management-publication-watchdog-20260717",
+      "target_type": "project",
+      "project_id": "brain-management",
+      "rubric_id": "publication",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/brain-management/pull/43",
+      "source_ref": "0d1e370fc44d6af3602df642099806da88785fea",
+      "observed_at": "2026-07-17T18:33:01Z",
+      "summary": "A receipt-aware watchdog now checks the exact public snapshot and immutable receipt, no-ops when healthy, and dispatches the sole canonical publisher only when stale. It never deploys to Netlify directly, so recovery gains do not weaken the no-false-LIVE boundary.",
+      "next_quality_threshold": "Prove one watchdog-triggered recovery with a matching public timestamp, source commit, content deploy, receipt and visible scoreboards.",
+      "proof": {
+        "merged": true
+      }
+    },
+    {
+      "id": "ai-projects-brain-trigger-independent-publication-recovery-20260717",
+      "target_type": "project",
+      "project_id": "ai-projects-brain",
+      "rubric_id": "automation",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/134",
+      "source_ref": "f3695bfe3686b7553c25e13114a5b89b00444199",
+      "observed_at": "2026-07-17T18:44:26Z",
+      "summary": "The portfolio operating system now has a trigger-independent, receipt-aware recovery contract that preserves validation diagnostics, exact-snapshot ownership and one-publisher architecture while retrying stale publication safely.",
+      "next_quality_threshold": "Connect recovery outcomes and public receipts to the strategic evidence ledger automatically.",
+      "proof": {
+        "merged": true
+      }
+    },
+    {
+      "id": "system-intelligence-publication-recovery-loop-20260717",
+      "target_type": "system",
+      "rubric_id": "execution",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/134",
+      "source_ref": "f3695bfe3686b7553c25e13114a5b89b00444199",
+      "observed_at": "2026-07-17T18:44:26Z",
+      "summary": "Execution resilience improved through a deterministic recovery loop that detects stale publication evidence and re-dispatches the canonical path without converting retry activity into success evidence.",
+      "next_quality_threshold": "Measure successful recovery rate, retry cost and time-to-proof from durable source observations.",
+      "proof": {
+        "merged": true
+      }
+    }
+  ]
+}
