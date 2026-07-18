@@ -5,9 +5,12 @@ on:
     paths:
       - 'projects/codex-automation/strategic-goal-scorecard.json'
       - 'projects/codex-automation/strategic-evidence.json'
+      - 'projects/codex-automation/strategic-source-observations.json'
+      - 'scripts/build-strategic-source-evidence.mjs'
       - 'scripts/apply-strategic-evidence.mjs'
       - 'scripts/apply-strategic-goal-scorecard.mjs'
       - 'scripts/update-daily-intelligence.mjs'
+      - 'tests/strategic-source-evidence.test.mjs'
       - 'tests/strategic-evidence-ingestion.test.mjs'
       - 'tests/strategic-goal-scorecard.test.mjs'
       - 'tests/daily-intelligence-writer.test.mjs'
@@ -17,9 +20,12 @@ on:
     paths:
       - 'projects/codex-automation/strategic-goal-scorecard.json'
       - 'projects/codex-automation/strategic-evidence.json'
+      - 'projects/codex-automation/strategic-source-observations.json'
+      - 'scripts/build-strategic-source-evidence.mjs'
       - 'scripts/apply-strategic-evidence.mjs'
       - 'scripts/apply-strategic-goal-scorecard.mjs'
       - 'scripts/update-daily-intelligence.mjs'
+      - 'tests/strategic-source-evidence.test.mjs'
       - 'tests/strategic-evidence-ingestion.test.mjs'
       - 'tests/strategic-goal-scorecard.test.mjs'
       - 'tests/daily-intelligence-writer.test.mjs'
@@ -46,12 +52,18 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Validate strategic scoring and persistence
+      - name: Validate strategic scoring and source observations
         run: |
           set -euo pipefail
           node --test tests/daily-intelligence-writer.test.mjs
           node --test tests/strategic-goal-scorecard.test.mjs
+          node --test tests/strategic-source-evidence.test.mjs
           node --test tests/strategic-evidence-ingestion.test.mjs
+
+      - name: Build proof-gated strategic evidence
+        run: |
+          set -euo pipefail
+          node scripts/build-strategic-source-evidence.mjs
 
       - name: Apply verified strategic evidence
         run: |
@@ -74,13 +86,14 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add \
+            projects/codex-automation/strategic-evidence.json \
             projects/codex-automation/strategic-goal-scorecard.json \
             projects/codex-automation/system-health-dashboard.json \
             projects/codex-automation/system-health-dashboard.md
           if git diff --cached --quiet; then
-            echo 'Strategic evidence and scorecard are already applied.'
+            echo 'Strategic source evidence and scorecard are already applied.'
           else
-            git commit -m 'Publish source-linked strategic evidence'
+            git commit -m 'Publish proof-gated strategic source evidence'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
