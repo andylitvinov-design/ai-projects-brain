@@ -7,6 +7,7 @@ const evidenceDirectory = path.join(ROOT, 'agent-harness-validation-evidence');
 const pendingRecord = path.join(ROOT, 'projects/codex-automation/pending-dashboard-upgrade.json');
 const strategicScorecard = path.join(ROOT, 'projects/codex-automation/strategic-goal-scorecard.json');
 const strategicEvidence = path.join(ROOT, 'projects/codex-automation/strategic-evidence.json');
+const strategicSourceObservations = path.join(ROOT, 'projects/codex-automation/strategic-source-observations.json');
 const dashboardPath = path.join(ROOT, 'projects/codex-automation/system-health-dashboard.json');
 const candidateTrace = path.join('/tmp', 'agent-harness-dashboard-publication-trace.json');
 
@@ -22,6 +23,7 @@ const validators = [
   { script: 'tests/portfolio-dashboard-validator.test.mjs', log: 'portfolio-dashboard-validator-tests.log' },
   { script: 'tests/daily-intelligence-writer.test.mjs', log: 'daily-intelligence-writer-tests.log' },
   { script: 'tests/strategic-goal-scorecard.test.mjs', log: 'strategic-goal-scorecard-tests.log' },
+  { script: 'tests/strategic-source-evidence.test.mjs', log: 'strategic-source-evidence-tests.log' },
   { script: 'tests/strategic-evidence-ingestion.test.mjs', log: 'strategic-evidence-ingestion-tests.log' },
   { script: 'tests/morning-dashboard-publication.test.mjs', log: 'morning-dashboard-publication-tests.log' },
   { script: 'tests/dashboard-upgrade-record.test.mjs', log: 'dashboard-upgrade-record-tests.log' },
@@ -72,6 +74,9 @@ if (fs.existsSync(pendingRecord)) {
     ['scripts/apply-dashboard-upgrade-record.mjs', ['--record', 'projects/codex-automation/pending-dashboard-upgrade.json']],
     ['scripts/normalize-dashboard-not-applicable.mjs', ['--file', 'projects/codex-automation/system-health-dashboard.json']],
   );
+}
+if (fs.existsSync(strategicSourceObservations)) {
+  preparation.push(['scripts/build-strategic-source-evidence.mjs', []]);
 }
 if (fs.existsSync(strategicEvidence) && fs.existsSync(strategicScorecard)) {
   preparation.push(['scripts/apply-strategic-evidence.mjs', []]);
