@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-07-18T07:35:00+02:00",
+  "last_updated": "2026-07-18T20:07:42+02:00",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current routing and Project Health scope. Legacy projects.md/projects.json remain historical until reconciled.",
   "source_priority": [
@@ -167,7 +167,10 @@
         "brain-management/tests/dashboard-publication-watchdog.test.mjs",
         "brain-management retry commit bdd6634448c27a0d282c49b4fa3b62dd3d5d2c34 with no workflow run or check status",
         "automation:Morning System Upgrade",
-        "brain-management/.github/workflows/publish-system-health-dashboard.yml"
+        "brain-management/.github/workflows/publish-system-health-dashboard.yml",
+        "andylitvinov-design/brain-management/pull/44",
+        "andylitvinov-design/brain-management@e022b7333adf993038cce6c4f9f73923d359ddde",
+        "brain-management workflow runs 29655166854 and 29655166920"
       ],
       "sectors": {
         "execution": "PASS",
