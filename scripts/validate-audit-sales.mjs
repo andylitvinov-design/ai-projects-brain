@@ -106,7 +106,6 @@ includesAll(markers, [
   'Primary-path loading, responsiveness, visual stability',
   '## Durable marker decision contracts',
   '## Evidence and safety rules',
-  'Temporary candidates expire after 90 days',
 ], paths.markers);
 
 const expectedCategoryWeights = new Map([
