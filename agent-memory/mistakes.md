@@ -21,3 +21,23 @@ Correct behavior:
 
 Regression check:
 - See `agent-memory/harness-regression-tests.md` R001 and R003.
+
+## 2026-07-19 — Rapid follow-up PR cascade after partial-path validation
+
+Type: repeated_failure  
+Scope: harness / dashboard publication / strategic evidence  
+Status: converted_to_topic_memory_and_active_gate  
+Related memory: `agent-memory/topics/harness-stabilization.md`  
+Related rule: `systems/harness-stabilization-gate.md`
+
+Failure:
+- Related harness PRs repeatedly repaired adjacent layers only after the preceding PR was merged or exercised.
+- Fresh-main and duplicate-work gates prevented parallel duplicates but did not stop sequential corrective PR cascades.
+- Green PR checks were sometimes treated as enough to continue feature growth before one clean scheduled/provider/public cycle existed.
+
+Correct behavior:
+- Enter stabilization mode after two post-merge regressions in 24 hours or three related PRs in 72 hours.
+- Freeze unrelated feature growth, use one stabilization PR, replay the full affected safe path, and require one clean scheduled or production-equivalent cycle before `STABILIZED_VERIFIED`.
+
+Regression check:
+- Weekly Agent Harness Review must report trigger count, stabilization PR, CI, and clean-cycle evidence.
