@@ -8,6 +8,8 @@ const pendingRecord = path.join(ROOT, 'projects/codex-automation/pending-dashboa
 const strategicScorecard = path.join(ROOT, 'projects/codex-automation/strategic-goal-scorecard.json');
 const strategicEvidence = path.join(ROOT, 'projects/codex-automation/strategic-evidence.json');
 const strategicSourceObservations = path.join(ROOT, 'projects/codex-automation/strategic-source-observations.json');
+const strategicCollectorRegistry = path.join(ROOT, 'projects/codex-automation/strategic-collector-registry.json');
+const strategicActionPlan = path.join(ROOT, 'projects/codex-automation/strategic-action-plan.json');
 const dashboardPath = path.join(ROOT, 'projects/codex-automation/system-health-dashboard.json');
 const candidateTrace = path.join('/tmp', 'agent-harness-dashboard-publication-trace.json');
 
@@ -25,6 +27,7 @@ const validators = [
   { script: 'tests/strategic-goal-scorecard.test.mjs', log: 'strategic-goal-scorecard-tests.log' },
   { script: 'tests/strategic-source-evidence.test.mjs', log: 'strategic-source-evidence-tests.log' },
   { script: 'tests/strategic-evidence-ingestion.test.mjs', log: 'strategic-evidence-ingestion-tests.log' },
+  { script: 'tests/strategic-action-plan.test.mjs', log: 'strategic-action-plan-tests.log' },
   { script: 'tests/morning-dashboard-publication.test.mjs', log: 'morning-dashboard-publication-tests.log' },
   { script: 'tests/dashboard-upgrade-record.test.mjs', log: 'dashboard-upgrade-record-tests.log' },
   { script: 'tests/dashboard-publisher-exact-snapshot.test.mjs', log: 'dashboard-publisher-exact-snapshot-tests.log' },
@@ -80,6 +83,13 @@ if (fs.existsSync(strategicSourceObservations)) {
 }
 if (fs.existsSync(strategicEvidence) && fs.existsSync(strategicScorecard)) {
   preparation.push(['scripts/apply-strategic-evidence.mjs', []]);
+}
+if (fs.existsSync(strategicCollectorRegistry) && fs.existsSync(strategicScorecard)) {
+  preparation.push(['scripts/build-strategic-action-plan.mjs', [
+    '--registry', strategicCollectorRegistry,
+    '--scorecard', strategicScorecard,
+    '--output', strategicActionPlan,
+  ]]);
 }
 if (scorecardIsCurrentEnough()) {
   preparation.push(['scripts/apply-strategic-goal-scorecard.mjs', []]);
