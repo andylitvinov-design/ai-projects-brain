@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "cycle": "Morning System Upgrade",
+  "run_id": "morning-2026-07-19-monotonic-snapshot-guard",
+  "observed_at": "2026-07-19T07:30:35+02:00",
+  "result": "APPLIED_UPGRADE",
+  "main_upgrade": {
+    "id": "dashboard_snapshot_monotonicity_guard",
+    "summary": "Added a monotonic snapshot contract and strengthened the publication watchdog so delayed writers cannot replace newer canonical or mirror dashboard evidence with an older snapshot.",
+    "why": "A delayed mirror sync on 2026-07-19 replaced a newer Evening snapshot with an older Strategic snapshot. Timestamp equality and successful workflow execution are insufficient when writer ordering can move the dashboard backwards."
+  },
+  "portfolio": {
+    "strongest_positive_change": "Dashboard writers and recovery now have an explicit monotonic timestamp, blob-SHA and compare-and-swap gate that preserves the newest evidence.",
+    "largest_risk_project_id": "portfolio",
+    "largest_risk": "Provider/live proof and observed business KPI sources remain incomplete across several active projects."
+  },
+  "publication": {
+    "verified_at": "2026-07-17T05:22:38.194Z",
+    "previous_verified_deploy": {
+      "deploy_id": "6a59bc16f349e3e190a47208",
+      "published_at": "2026-07-17T05:22:33.420Z",
+      "source_commit_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62",
+      "branch": "main"
+    },
+    "evidence_refs": [
+      "systems/dashboard-snapshot-monotonicity-contract.md",
+      "automation:Dashboard Publication Watch",
+      "andylitvinov-design/brain-management@86c15a9c35f9d5043a67665b1a078777887ab835",
+      "canonical-blob:b2797fda54d3d5d5d6ff47b2aca9f89ce543a040",
+      "mirror-blob:661391104229f9fbfd24a812ac7d4781e86bb5f6"
+    ]
+  },
+  "changed_files": [
+    "systems/dashboard-snapshot-monotonicity-contract.md",
+    "automation:Dashboard Publication Watch",
+    "projects/codex-automation/pending-dashboard-upgrade.json",
+    "projects/codex-automation/system-health-dashboard.json",
+    "projects/codex-automation/system-health-dashboard.md",
+    "brain-management/system-health-dashboard/data/current-system-health-dashboard.json"
+  ],
+  "metric_impact": [
+    {
+      "metric": "Publication Freshness",
+      "project": "brain-management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "before": "A delayed writer could replace a newer mirror snapshot with an older validated snapshot.",
+      "after": "Older candidates are rejected; canonical/mirror timestamps and blobs must move monotonically and finish identical.",
+      "change": "stale-writer rollback guarded",
+      "evidence": "monotonicity contract plus watchdog CAS rules",
+      "confidence": "high"
+    },
+    {
+      "metric": "Rule Lifecycle",
+      "project": "ai-projects-brain",
+      "goal": "Continuous Self-Development",
+      "sector": "Rule and automation lifecycle",
+      "before": "Snapshot race protection existed mainly in one automation prompt.",
+      "after": "An active durable contract defines pre-write, decision, post-write and receipt gates.",
+      "change": "durable guardrail added",
+      "evidence": "systems/dashboard-snapshot-monotonicity-contract.md",
+      "confidence": "high"
+    }
+  ],
+  "system_intelligence_gain": {
+    "rules_improved": 1,
+    "validators_added_or_tightened": 0,
+    "deterministic_checks_added": 0,
+    "replay_cases_added_or_improved": 0,
+    "behavior_fixtures_added_or_improved": 0,
+    "duplicate_instructions_removed": 0,
+    "evidence_fields_added": 4,
+    "automation_contracts_improved": 1,
+    "dashboard_registry_schema_improvements": 0,
+    "project_records_instrumented": 1
+  },
+  "evening_verification_questions": [
+    "Did the controlled publisher apply the Morning record on top of the 2026-07-19T07:14:00+02:00 canonical snapshot without losing Daily Strategic Improve fields?",
+    "Do canonical and mirror finish with identical JSON blob SHAs and a timestamp not older than 2026-07-19T07:30:35+02:00?",
+    "Does the production content deploy identify the latest mirror source commit rather than an older recovery or receipt deploy?",
+    "Does the public receipt bind the exact current snapshot timestamp, mirror source commit and verified content deploy ID with all required UI checks true?",
+    "Did any delayed workflow attempt to move canonical or mirror backwards after this run?"
+  ],
+  "unknown_blocked": [
+    "Observed leads, orders, revenue, attendance and conversion remain uninstrumented for several active projects.",
+    "Current provider/live proof remains incomplete for Ezohata, EzoHata Finance, Psitherapy and Psihotavr.",
+    "Context/Retry Cost remains unknown because stable counters are unavailable.",
+    "The new exact snapshot remains STALE until its content deploy and public receipt are independently verified."
+  ],
+  "risky_work_handoffs": [],
+  "morning_handoff": [
+    {
+      "rank": 1,
+      "project_id": "brain-management",
+      "goal": "Business Growth and Professional Value",
+      "sector": "Professional delivery and live reliability",
+      "action": "Verify the exact Morning snapshot publication and receipt without allowing any older writer to overwrite it.",
+      "expected_metric_effect": "dashboard publication 2/4 -> 4/4 when exact receipt proof exists"
+    }
+  ],
+  "agent_assessment": {
+    "project_id": "ai-projects-brain",
+    "agent": "/upgrade-snapshot-monotonicity",
+    "sector": "learning",
+    "observed_at": "2026-07-19T07:30:35+02:00",
+    "status": "PASS",
+    "applicable_checks": 5,
+    "passed_checks": 5,
+    "finding_count": 1,
+    "critical_finding_count": 0,
+    "evidence_refs": [
+      "systems/dashboard-snapshot-monotonicity-contract.md",
+      "automation:Dashboard Publication Watch",
+      "andylitvinov-design/brain-management@86c15a9c35f9d5043a67665b1a078777887ab835",
+      "canonical-blob:b2797fda54d3d5d5d6ff47b2aca9f89ce543a040",
+      "mirror-blob:661391104229f9fbfd24a812ac7d4781e86bb5f6"
+    ],
+    "summary": "The stale-writer failure class now has explicit timestamp monotonicity, blob equality, compare-and-swap, conflict recovery and receipt-bound publication rules.",
+    "recommended_action": "Keep the monotonic gate mandatory for every canonical, mirror and recovery write and add executable regression coverage in a later safe code cycle.",
+    "confidence": "high"
+  },
+  "project_metric": {
+    "project_id": "ai-projects-brain",
+    "sector": "learning",
+    "id": "dashboard_snapshot_monotonicity_contract",
+    "name": "Dashboard Snapshot Monotonicity Contract",
+    "purpose": "Prevent delayed writers and recovery jobs from replacing newer dashboard evidence with older snapshots.",
+    "type": "ratio",
+    "value": 100,
+    "numerator": 5,
+    "denominator": 5,
+    "unit": "%/checks",
+    "period": "2026-07-19T07:30:35+02:00",
+    "source": "active monotonicity contract, watchdog rules and pre-write canonical/mirror evidence",
+    "owner": "Morning System Upgrade",
+    "confidence": "high",
+    "status": "PASS",
+    "previous_value": "not_enforced",
+    "change": "monotonic_gate_active",
+    "target_or_slo": "5/5",
+    "interpretation": "The operational contract now rejects timestamp rollback, preserves newer evidence and requires exact post-write and receipt proof.",
+    "next_action": "Add an executable stale-writer regression to the canonical publisher when a safe code change is available.",
+    "lifecycle": "active"
+  }
+}
