@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-07-18T07:08:30+02:00",
+  "observed_at": "2026-07-19T07:14:00+02:00",
   "status": "canonical_strategic_goal_scorecard",
   "scoring_policy": {
     "method": "weighted_confirmed_progress_lower_bound",
@@ -524,25 +524,25 @@
           "id": "outcomes",
           "name": "Business awareness and adaptive intelligence",
           "weight": 25,
-          "yesterday_score": 52.6,
-          "today_score": 70,
+          "yesterday_score": 70,
+          "today_score": 78,
           "evidence_state": "PROVEN",
-          "evidence": "Adaptive intelligence now has a canonical source-observation layer that can represent merged changes, workflow results, exact live proof, observed outcomes and owner confirmations before they influence strategic percentages. This improves evidence adaptability but does not claim that provider, live or business KPI collectors already exist.",
+          "evidence": "Adaptive intelligence now assigns every active project and System Intelligence a canonical evidence collector with source type, accountable role, cadence, success contract and explicit missing proof. This closes collector ownership and coverage, but does not claim that external provider or KPI data has already been observed.",
           "evidence_ref": {
-            "id": "ai-projects-brain-proof-gated-source-observations-20260718",
+            "id": "ai-projects-brain-strategic-collector-ownership-20260719",
             "source_state": "merged_verified",
-            "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/136",
-            "source_ref": "f255813380d5e0c2b5e3dd22b5823676b5dbc2f1",
-            "observed_at": "2026-07-18T05:08:30Z"
+            "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+            "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+            "observed_at": "2026-07-19T05:12:00Z"
           }
         }
       ],
-      "progress_yesterday": 83,
-      "progress_today": 85,
+      "progress_yesterday": 85,
+      "progress_today": 87,
       "daily_delta": 2,
       "change_state": "CHANGED",
-      "why_changed": "Adaptive intelligence now has a canonical source-observation layer that can represent merged changes, workflow results, exact live proof, observed outcomes and owner confirmations before they influence strategic percentages. This improves evidence adaptability but does not claim that provider, live or business KPI collectors already exist.",
-      "next_quality_threshold": "Connect the proof-gated observation layer to current provider readiness, public receipts, observed conversion and retry-cost collectors.",
+      "why_changed": "Adaptive intelligence now assigns every active project and System Intelligence a canonical evidence collector with source type, accountable role, cadence, success contract and explicit missing proof. This closes collector ownership and coverage, but does not claim that external provider or KPI data has already been observed.",
+      "next_quality_threshold": "Execute the selected collectors and turn exact public, provider and business observations into validated source evidence.",
       "missing_conditions": [
         "Observed project KPI connectors",
         "Stable provider and live collectors",
@@ -617,10 +617,17 @@
         "id": "strategy",
         "name": "Strategic clarity and decision quality",
         "weight": 25,
-        "yesterday_score": 60,
-        "today_score": 85,
+        "yesterday_score": 85,
+        "today_score": 90,
         "evidence_state": "PROVEN",
-        "evidence": "Portfolio goals and quality bars become explicit and persistent."
+        "evidence": "Decision quality improved because the system now selects exactly three non-healthy strategic actions through a deterministic formula using confirmed goal gap, expected rubric impact, portfolio leverage, evidence state, readiness and stall risk instead of defect volume or intuition alone.",
+        "evidence_ref": {
+          "id": "system-intelligence-deterministic-leverage-selection-20260719",
+          "source_state": "merged_verified",
+          "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+          "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+          "observed_at": "2026-07-19T05:12:00Z"
+        }
       },
       {
         "id": "execution",
@@ -658,25 +665,25 @@
         "id": "visibility",
         "name": "Portfolio visibility, efficiency and business awareness",
         "weight": 25,
-        "yesterday_score": 50.8,
-        "today_score": 58,
+        "yesterday_score": 58,
+        "today_score": 68,
         "evidence_state": "PROVEN",
-        "evidence": "Portfolio visibility and operating efficiency improved because source observations are now durable, normalized by ID, validated in Strategic Goal publication and mandatory in Agent Harness Validators. Business KPI and context/retry counters remain absent and are not credited.",
+        "evidence": "Portfolio visibility and efficiency improved because collector coverage, health, overdue state, stalled targets, blocked dependencies and exact Top-3 actions are now generated as a durable plan and validated by both Strategic Goal publication and Agent Harness Validators. Actual retry-cost and business-outcome counters remain absent and are not credited.",
         "evidence_ref": {
-          "id": "system-intelligence-source-observation-visibility-20260718",
+          "id": "system-intelligence-collector-stall-visibility-20260719",
           "source_state": "merged_verified",
-          "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/136",
-          "source_ref": "f255813380d5e0c2b5e3dd22b5823676b5dbc2f1",
-          "observed_at": "2026-07-18T05:08:30Z"
+          "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+          "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+          "observed_at": "2026-07-19T05:12:00Z"
         }
       }
     ],
-    "progress_yesterday": 76.8,
-    "progress_today": 79.8,
-    "daily_delta": 3,
+    "progress_yesterday": 79.8,
+    "progress_today": 83.5,
+    "daily_delta": 3.7,
     "change_state": "CHANGED",
-    "why_changed": "Evidence quality improved because source-type proof is now validated before scoring: merged PRs require merge proof, live claims require exact timestamp, source, receipt and visible-surface equality, and observed outcomes require a named metric with a bounded measurement window. Portfolio visibility and operating efficiency improved because source observations are now durable, normalized by ID, validated in Strategic Goal publication and mandatory in Agent Harness Validators. Business KPI and context/retry counters remain absent and are not credited.",
-    "next_quality_threshold": "Add stable provider, public-live, commercial-outcome and context/retry collectors with explicit owners and cadences.",
+    "why_changed": "Portfolio visibility and efficiency improved because collector coverage, health, overdue state, stalled targets, blocked dependencies and exact Top-3 actions are now generated as a durable plan and validated by both Strategic Goal publication and Agent Harness Validators. Actual retry-cost and business-outcome counters remain absent and are not credited. Decision quality improved because the system now selects exactly three non-healthy strategic actions through a deterministic formula using confirmed goal gap, expected rubric impact, portfolio leverage, evidence state, readiness and stall risk instead of defect volume or intuition alone.",
+    "next_quality_threshold": "Calibrate priority weights against completed outcomes and measured time-to-proof without changing rubrics opportunistically.",
     "missing_conditions": [
       "Stable provider and live collectors",
       "Observed business KPI sources",
@@ -687,14 +694,17 @@
   },
   "evidence_ingestion": {
     "schema_version": 1,
-    "last_observed_at": "2026-07-18T07:08:30+02:00",
+    "last_observed_at": "2026-07-19T07:14:00+02:00",
     "applied_evidence_ids": [
       "ai-projects-brain-immutable-receipt-contract-20260716",
       "ai-projects-brain-proof-gated-source-observations-20260718",
       "ai-projects-brain-source-linked-evidence-ingestion-20260717",
+      "ai-projects-brain-strategic-collector-ownership-20260719",
       "ai-projects-brain-trigger-independent-publication-recovery-20260717",
       "brain-management-publication-receipt-architecture-20260716",
       "brain-management-publication-watchdog-20260717",
+      "system-intelligence-collector-stall-visibility-20260719",
+      "system-intelligence-deterministic-leverage-selection-20260719",
       "system-intelligence-evidence-ingestion-20260717",
       "system-intelligence-false-live-resistance-20260716",
       "system-intelligence-proof-gated-source-validation-20260718",
@@ -702,7 +712,11 @@
       "system-intelligence-source-observation-visibility-20260718"
     ],
     "last_run": {
-      "applied": [],
+      "applied": [
+        "ai-projects-brain-strategic-collector-ownership-20260719",
+        "system-intelligence-collector-stall-visibility-20260719",
+        "system-intelligence-deterministic-leverage-selection-20260719"
+      ],
       "skipped": [
         "ai-projects-brain-immutable-receipt-contract-20260716",
         "ai-projects-brain-proof-gated-source-observations-20260718",
@@ -719,7 +733,7 @@
       "source_ledger_status": "source_linked_verified_evidence"
     },
     "daily_baseline": {
-      "date": "2026-07-17",
+      "date": "2026-07-18",
       "source": "dashboard.daily_intelligence.strategic_history"
     }
   }

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-07-18T07:08:30+02:00",
+  "observed_at": "2026-07-19T07:14:00+02:00",
   "status": "source_linked_verified_evidence",
   "scoring_policy": "Apply only dimension-level changes backed by immutable source references. Code-only evidence cannot satisfy a live-required condition.",
   "entries": [
@@ -56,6 +56,24 @@
       "next_quality_threshold": "Connect the validated evidence ledger to provider, public-live, conversion and retry-cost sources."
     },
     {
+      "id": "ai-projects-brain-strategic-collector-ownership-20260719",
+      "target_type": "project",
+      "rubric_id": "outcomes",
+      "proposed_score": 78,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+      "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+      "observed_at": "2026-07-19T05:12:00Z",
+      "summary": "Adaptive intelligence now assigns every active project and System Intelligence a canonical evidence collector with source type, accountable role, cadence, success contract and explicit missing proof. This closes collector ownership and coverage, but does not claim that external provider or KPI data has already been observed.",
+      "project_id": "ai-projects-brain",
+      "missing_conditions_remove": [
+        "Stable provider and live collector ownership"
+      ],
+      "next_quality_threshold": "Execute the selected collectors and turn exact public, provider and business observations into validated source evidence."
+    },
+    {
       "id": "ai-projects-brain-trigger-independent-publication-recovery-20260717",
       "target_type": "project",
       "rubric_id": "automation",
@@ -99,6 +117,37 @@
       "summary": "A receipt-aware watchdog now checks the exact public snapshot and immutable receipt, no-ops when healthy, and dispatches the sole canonical publisher only when stale. It never deploys to Netlify directly, so recovery gains do not weaken the no-false-LIVE boundary.",
       "project_id": "brain-management",
       "next_quality_threshold": "Prove one watchdog-triggered recovery with a matching public timestamp, source commit, content deploy, receipt and visible scoreboards."
+    },
+    {
+      "id": "system-intelligence-collector-stall-visibility-20260719",
+      "target_type": "system",
+      "rubric_id": "visibility",
+      "proposed_score": 68,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+      "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+      "observed_at": "2026-07-19T05:12:00Z",
+      "summary": "Portfolio visibility and efficiency improved because collector coverage, health, overdue state, stalled targets, blocked dependencies and exact Top-3 actions are now generated as a durable plan and validated by both Strategic Goal publication and Agent Harness Validators. Actual retry-cost and business-outcome counters remain absent and are not credited.",
+      "missing_conditions_remove": [
+        "Collector ownership and cadence registry"
+      ],
+      "next_quality_threshold": "Connect privacy-safe retry, time-to-proof and business-outcome counters and verify the selected actions complete at a higher rate."
+    },
+    {
+      "id": "system-intelligence-deterministic-leverage-selection-20260719",
+      "target_type": "system",
+      "rubric_id": "strategy",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+      "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+      "observed_at": "2026-07-19T05:12:00Z",
+      "summary": "Decision quality improved because the system now selects exactly three non-healthy strategic actions through a deterministic formula using confirmed goal gap, expected rubric impact, portfolio leverage, evidence state, readiness and stall risk instead of defect volume or intuition alone.",
+      "next_quality_threshold": "Calibrate priority weights against completed outcomes and measured time-to-proof without changing rubrics opportunistically."
     },
     {
       "id": "system-intelligence-evidence-ingestion-20260717",

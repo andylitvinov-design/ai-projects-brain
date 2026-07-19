@@ -394,15 +394,15 @@
       "target_name": "System Intelligence",
       "rubric_id": "visibility",
       "big_goal": "Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success.",
-      "progress_today": 79.8,
-      "goal_gap": 20.2,
-      "daily_delta": 3,
+      "progress_today": 83.5,
+      "goal_gap": 16.5,
+      "daily_delta": 3.7,
       "evidence_state": "PROVEN",
       "collector_health": "UNPROVEN",
       "age_hours": null,
       "stall_state": "MOVING",
       "action_state": "PLANNED",
-      "priority_score": 105.09,
+      "priority_score": 103.42,
       "source_type": "observed_outcome",
       "owner_role": "portfolio_automation",
       "cadence_hours": 168,
@@ -411,7 +411,7 @@
       "action": "Register one privacy-safe business outcome source and cadence for every commercial active project.",
       "success_contract": "Commercial projects expose aggregate outcome names, owners, units and bounded windows without personal or financial payloads.",
       "missing_proof": "Observed KPI adapters for commercial projects.",
-      "next_quality_threshold": "Add stable provider, public-live, commercial-outcome and context/retry collectors with explicit owners and cadences."
+      "next_quality_threshold": "Calibrate priority weights against completed outcomes and measured time-to-proof without changing rubrics opportunistically."
     },
     {
       "collector_id": "psitherapy-firebase-cutover",
@@ -471,15 +471,15 @@
       "target_name": "System Intelligence",
       "rubric_id": "visibility",
       "big_goal": "Consistently choose the highest-leverage work, execute safe improvements end-to-end, learn from failures, reduce rework, and prove live outcomes without false success.",
-      "progress_today": 79.8,
-      "goal_gap": 20.2,
-      "daily_delta": 3,
+      "progress_today": 83.5,
+      "goal_gap": 16.5,
+      "daily_delta": 3.7,
       "evidence_state": "PROVEN",
       "collector_health": "UNPROVEN",
       "age_hours": null,
       "stall_state": "MOVING",
       "action_state": "PLANNED",
-      "priority_score": 97.09,
+      "priority_score": 95.42,
       "source_type": "observed_outcome",
       "owner_role": "system_automation",
       "cadence_hours": 24,
@@ -488,7 +488,7 @@
       "action": "Measure retries, time-to-proof, reopened work and evidence rejection without storing prompts or private payloads.",
       "success_contract": "Privacy-safe aggregate counters have definitions, units, bounded windows and a daily cadence.",
       "missing_proof": "Stable non-content retry and cycle-time counter source.",
-      "next_quality_threshold": "Add stable provider, public-live, commercial-outcome and context/retry collectors with explicit owners and cadences."
+      "next_quality_threshold": "Calibrate priority weights against completed outcomes and measured time-to-proof without changing rubrics opportunistically."
     },
     {
       "collector_id": "ai-projects-brain-collector-health",
@@ -497,8 +497,8 @@
       "target_name": "AI Projects Brain",
       "rubric_id": "outcomes",
       "big_goal": "A self-improving portfolio operating system that preserves strategic goals, selects highest-leverage work, validates delivery, learns from failures, and maintains truthful evidence.",
-      "progress_today": 85,
-      "goal_gap": 15,
+      "progress_today": 87,
+      "goal_gap": 13,
       "daily_delta": 2,
       "evidence_state": "PROVEN",
       "collector_health": "HEALTHY",
@@ -514,7 +514,7 @@
       "action": "Validate collector ownership, cadence, coverage, freshness and action selection on every strategic run.",
       "success_contract": "Every active project and System Intelligence has a valid collector and exactly three non-healthy actions are selected deterministically.",
       "missing_proof": "Merged implementation and mandatory CI evidence.",
-      "next_quality_threshold": "Connect the proof-gated observation layer to current provider readiness, public receipts, observed conversion and retry-cost collectors."
+      "next_quality_threshold": "Execute the selected collectors and turn exact public, provider and business observations into validated source evidence."
     }
   ]
 }
