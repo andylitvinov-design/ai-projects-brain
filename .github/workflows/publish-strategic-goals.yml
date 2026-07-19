@@ -6,12 +6,16 @@ on:
       - 'projects/codex-automation/strategic-goal-scorecard.json'
       - 'projects/codex-automation/strategic-evidence.json'
       - 'projects/codex-automation/strategic-source-observations.json'
+      - 'projects/codex-automation/strategic-collector-registry.json'
+      - 'projects/codex-automation/strategic-action-plan.json'
       - 'scripts/build-strategic-source-evidence.mjs'
+      - 'scripts/build-strategic-action-plan.mjs'
       - 'scripts/apply-strategic-evidence.mjs'
       - 'scripts/apply-strategic-goal-scorecard.mjs'
       - 'scripts/update-daily-intelligence.mjs'
       - 'tests/strategic-source-evidence.test.mjs'
       - 'tests/strategic-evidence-ingestion.test.mjs'
+      - 'tests/strategic-action-plan.test.mjs'
       - 'tests/strategic-goal-scorecard.test.mjs'
       - 'tests/daily-intelligence-writer.test.mjs'
       - '.github/workflows/publish-strategic-goals.yml'
@@ -21,12 +25,16 @@ on:
       - 'projects/codex-automation/strategic-goal-scorecard.json'
       - 'projects/codex-automation/strategic-evidence.json'
       - 'projects/codex-automation/strategic-source-observations.json'
+      - 'projects/codex-automation/strategic-collector-registry.json'
+      - 'projects/codex-automation/strategic-action-plan.json'
       - 'scripts/build-strategic-source-evidence.mjs'
+      - 'scripts/build-strategic-action-plan.mjs'
       - 'scripts/apply-strategic-evidence.mjs'
       - 'scripts/apply-strategic-goal-scorecard.mjs'
       - 'scripts/update-daily-intelligence.mjs'
       - 'tests/strategic-source-evidence.test.mjs'
       - 'tests/strategic-evidence-ingestion.test.mjs'
+      - 'tests/strategic-action-plan.test.mjs'
       - 'tests/strategic-goal-scorecard.test.mjs'
       - 'tests/daily-intelligence-writer.test.mjs'
       - '.github/workflows/publish-strategic-goals.yml'
@@ -52,13 +60,14 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Validate strategic scoring and source observations
+      - name: Validate strategic scoring, sources and action selection
         run: |
           set -euo pipefail
           node --test tests/daily-intelligence-writer.test.mjs
           node --test tests/strategic-goal-scorecard.test.mjs
           node --test tests/strategic-source-evidence.test.mjs
           node --test tests/strategic-evidence-ingestion.test.mjs
+          node --test tests/strategic-action-plan.test.mjs
 
       - name: Build proof-gated strategic evidence
         run: |
@@ -69,6 +78,11 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/apply-strategic-evidence.mjs
+
+      - name: Build strategic collector action plan
+        run: |
+          set -euo pipefail
+          node scripts/build-strategic-action-plan.mjs
 
       - name: Apply canonical strategic scorecard
         run: |
@@ -88,12 +102,13 @@ jobs:
           git add \
             projects/codex-automation/strategic-evidence.json \
             projects/codex-automation/strategic-goal-scorecard.json \
+            projects/codex-automation/strategic-action-plan.json \
             projects/codex-automation/system-health-dashboard.json \
             projects/codex-automation/system-health-dashboard.md
           if git diff --cached --quiet; then
-            echo 'Strategic source evidence and scorecard are already applied.'
+            echo 'Strategic source evidence, action plan and scorecard are already applied.'
           else
-            git commit -m 'Publish proof-gated strategic source evidence'
+            git commit -m 'Publish proof-gated strategic source evidence and action plan'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
