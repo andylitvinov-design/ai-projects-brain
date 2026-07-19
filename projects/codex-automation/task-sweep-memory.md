@@ -105,3 +105,41 @@ Status: `TASK_SWEEP_NEEDS_VERIFICATION`
 ### Evidence rule
 
 Use the ladder `request -> task/session -> local change -> remote branch -> accessible PR -> checks -> merge -> deploy -> public/live proof`. A matching repository blob, green preview or READY old deploy is not LIVE proof for a newer snapshot.
+
+## 2026-07-19
+
+Status: `TASK_SWEEP_NEEDS_VERIFICATION`
+
+### Source coverage
+
+- GitHub organization-wide pull requests updated after 2026-07-18 04:45 UTC, current PR metadata, repository files and pull-request workflow evidence: inspected.
+- Netlify current production deploy for `brain-management`: inspected before and after recovery merge.
+- Public Slack search for `Codex` messages after 2026-07-18 returned no results.
+- Public HTTP reads and direct GitHub Actions run listing were unavailable through the current network/tool path; no LIVE claim was made from provider state alone.
+- CODEX_LOCAL filesystem: not inspected; no synced local-computer source was available, so no direct-local branch, worktree or session claims were made.
+
+### Reconciled chains
+
+| Priority | Project | Chain | Proven state | Next check |
+| --- | --- | --- | --- | --- |
+| P0 | brain-management | exact 20:07 dashboard publication | Canonical and mirror share blob `f9ce8d257ff5a17dc4d400902e4ce7079f6e6525`, schema 6 and `last_updated=2026-07-18T20:07:42+02:00`; old Netlify production deploy `6a59bc16f349e3e190a47208` predates the snapshot; recovery PR #47 passed Publish System Health Dashboard run #84 and merged at `cc288241aed15887c444ee47f01f5a79dbc5eece` | Verify the post-merge publication run, new Netlify content/receipt deploy and exact public timestamp/UI hooks before LIVE. |
+| P1 | ezohata | secure Google OAuth owner cabinet | PR #41 remains an accessible open draft on `codex/google-oauth-owner` at `f01f7ce3ee345821d4d5385a897fa1f7497757a4`; mergeable but provider-gated; scope is 172 files and cannot be treated as a narrow auth patch | Require production Supabase Google provider activation plus real owner/non-owner auth evidence before any merge decision. |
+| P1 | finance | PayPal derived-balance loading state | Stale PR #343 closed without merge; current-safe salvage contract moved to issue #622 | Implement from current `main` in a new narrow PR; preserve provider, ledger and balance semantics. |
+| P1 | codex-links | Prompt Router and independent Code Copilot reviewer | Conflict-heavy PR #163 closed without merge; product/security requirements moved to issue #173 | Rebuild from current `main` and require current CI, Cloudflare and live bridge proof. |
+
+### Automatic resolutions
+
+- Created Finance issue #622 and closed stale PR #343 without merge, preserving the current UI-only bug and exact safe checks.
+- Created Codex Links issue #173 and closed stale PR #163 without merge, preserving product requirements and strengthening local-token handling requirements.
+- Created verified Brain Management PR #47 on remote branch `automation/morning-task-sweep-dashboard-recovery-20260719`, head `b7e3244eca7b0c66c6c4d6c96cbac4fb83efe7df`; Publish System Health Dashboard run #84 succeeded; PR merged to `main` at `cc288241aed15887c444ee47f01f5a79dbc5eece`.
+- No remote branch without an accessible open or recently closed PR was proven in the reconciled chains.
+
+### Remaining blockers
+
+- Exact dashboard public/live proof is pending after PR #47 merge.
+- Ezohata PR #41 remains provider/owner blocked and is too broad for an automatic merge.
+- Finance issue #622 and Codex Links issue #173 are fresh-main implementation backlogs, not completed product delivery.
+
+### Evidence rule
+
+Use the ladder `request -> task/session -> local change -> remote branch -> accessible PR -> checks -> merge -> deploy -> public/live proof`. PR #47 is merged, but dashboard LIVE remains unclaimed until a matching post-merge content deploy, immutable receipt and public timestamp/UI evidence are independently available.
