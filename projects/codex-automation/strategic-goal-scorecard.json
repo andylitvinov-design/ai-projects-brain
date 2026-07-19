@@ -702,20 +702,19 @@
       "system-intelligence-source-observation-visibility-20260718"
     ],
     "last_run": {
-      "applied": [
-        "ai-projects-brain-proof-gated-source-observations-20260718",
-        "system-intelligence-proof-gated-source-validation-20260718",
-        "system-intelligence-source-observation-visibility-20260718"
-      ],
+      "applied": [],
       "skipped": [
         "ai-projects-brain-immutable-receipt-contract-20260716",
+        "ai-projects-brain-proof-gated-source-observations-20260718",
         "ai-projects-brain-source-linked-evidence-ingestion-20260717",
         "ai-projects-brain-trigger-independent-publication-recovery-20260717",
         "brain-management-publication-receipt-architecture-20260716",
         "brain-management-publication-watchdog-20260717",
         "system-intelligence-evidence-ingestion-20260717",
         "system-intelligence-false-live-resistance-20260716",
-        "system-intelligence-publication-recovery-loop-20260717"
+        "system-intelligence-proof-gated-source-validation-20260718",
+        "system-intelligence-publication-recovery-loop-20260717",
+        "system-intelligence-source-observation-visibility-20260718"
       ],
       "source_ledger_status": "source_linked_verified_evidence"
     },
