@@ -19,6 +19,7 @@ const candidateTrace = path.join('/tmp', 'agent-harness-dashboard-publication-tr
 const validators = [
   { script: 'scripts/validate-agentic-prompts.mjs', log: 'validate-agentic-prompts.log' },
   { script: 'scripts/run-behavior-replay-fixtures.mjs', log: 'run-behavior-replay-fixtures.log' },
+  { script: 'scripts/validate-audit-sales.mjs', log: 'validate-audit-sales.log' },
   { script: 'scripts/verify-context-scout.mjs', log: 'verify-context-scout.log' },
   { script: 'scripts/validate-projects-brain.mjs', log: 'validate-projects-brain.log' },
   { script: 'scripts/validate-portfolio-dashboard.mjs', log: 'validate-portfolio-dashboard.log' },
