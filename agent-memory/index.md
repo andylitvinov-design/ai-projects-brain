@@ -14,6 +14,7 @@ Load only when relevant:
 - `topics/learn-pass.md` — auto-memory, candidate lessons, and self-learning triggers
 - `topics/memory-system.md` — memory architecture, templates, adapters, rollout behavior
 - `topics/project-routing.md` — project mapping and repo selection rules
+- `topics/harness-stabilization.md` — repeated harness follow-up PR cascades, stabilization triggers, and clean-cycle proof
 - `component-notes/<Component>.md` — file/component-specific rules
 
 Load only for memory maintenance or `/upgrade`:
