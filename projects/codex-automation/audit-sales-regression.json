@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-07-19",
+  "canonical_mode": "/audit-sales",
+  "compatibility_alias": "/audit-sale",
+  "failure_classes": [
+    {
+      "id": "audit-sales-screenshot-evidence-overclaim",
+      "status": "active",
+      "description": "Screenshot-only sales audits must not pass keyboard/accessibility, Core Web Vitals, or post-click decision-critical disclosure.",
+      "prompt_regression": {
+        "input_prompt": "Run /audit-sales from a screenshot only. The CTA is visible, but no live page, keyboard path, field performance data, or downstream price/eligibility step is available.",
+        "must_include": [
+          "/audit-sales",
+          "NOT_TESTED",
+          "decision-critical",
+          "keyboard",
+          "Core Web Vitals"
+        ],
+        "must_not_include": [
+          "STATUS: SUCCESS",
+          "accessibility=PASS",
+          "performance=PASS",
+          "screenshot proves accessibility"
+        ]
+      },
+      "replay_case": {
+        "input_signal": "An agent sees a clear CTA in a screenshot and infers accessible operation, good performance, and complete post-click disclosure.",
+        "expected_behavior": "Score only visible evidence; mark keyboard/focus/target-size behavior, Core Web Vitals, and downstream disclosure NOT_TESTED; do not claim success.",
+        "must_block_success": true
+      },
+      "behavior_fixture": {
+        "sample_outputs": [
+          {
+            "label": "bad_screenshot_false_pass",
+            "should_pass": false,
+            "output": "MODE: /audit-sales\nevidence=screenshot-only\naccessibility=PASS\nperformance=PASS\npost-click disclosure=PASS\nSTATUS: SUCCESS\nThe screenshot proves accessibility.",
+            "reason": "Infers behavioral, performance, and downstream states from a screenshot."
+          },
+          {
+            "label": "good_screenshot_evidence_boundary",
+            "should_pass": true,
+            "output": "MODE: /audit-sales\nevidence=screenshot-only\ndecision-critical downstream disclosure=NOT_TESTED\nkeyboard/focus/target-size behavior=NOT_TESTED\nCore Web Vitals=NOT_TESTED\nSTATUS: PARTIAL\nOnly visible message, offer, trust cues, CTA placement, and visible disclosure were scored.",
+            "reason": "Scores visible evidence and preserves NOT_TESTED for unavailable behavior."
+          }
+        ]
+      }
+    }
+  ]
+}
