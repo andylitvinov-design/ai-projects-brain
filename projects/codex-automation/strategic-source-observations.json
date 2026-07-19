@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-07-18T07:08:30+02:00",
+  "observed_at": "2026-07-19T07:14:00+02:00",
   "status": "strategic_source_observations",
   "observations": [
     {
@@ -17,9 +17,7 @@
       "observed_at": "2026-07-17T18:33:01Z",
       "summary": "A receipt-aware watchdog now checks the exact public snapshot and immutable receipt, no-ops when healthy, and dispatches the sole canonical publisher only when stale. It never deploys to Netlify directly, so recovery gains do not weaken the no-false-LIVE boundary.",
       "next_quality_threshold": "Prove one watchdog-triggered recovery with a matching public timestamp, source commit, content deploy, receipt and visible scoreboards.",
-      "proof": {
-        "merged": true
-      }
+      "proof": { "merged": true }
     },
     {
       "id": "ai-projects-brain-trigger-independent-publication-recovery-20260717",
@@ -35,9 +33,7 @@
       "observed_at": "2026-07-17T18:44:26Z",
       "summary": "The portfolio operating system now has a trigger-independent, receipt-aware recovery contract that preserves validation diagnostics, exact-snapshot ownership and one-publisher architecture while retrying stale publication safely.",
       "next_quality_threshold": "Connect recovery outcomes and public receipts to the strategic evidence ledger automatically.",
-      "proof": {
-        "merged": true
-      }
+      "proof": { "merged": true }
     },
     {
       "id": "system-intelligence-publication-recovery-loop-20260717",
@@ -52,9 +48,7 @@
       "observed_at": "2026-07-17T18:44:26Z",
       "summary": "Execution resilience improved through a deterministic recovery loop that detects stale publication evidence and re-dispatches the canonical path without converting retry activity into success evidence.",
       "next_quality_threshold": "Measure successful recovery rate, retry cost and time-to-proof from durable source observations.",
-      "proof": {
-        "merged": true
-      }
+      "proof": { "merged": true }
     },
     {
       "id": "ai-projects-brain-proof-gated-source-observations-20260718",
@@ -69,13 +63,9 @@
       "source_ref": "f255813380d5e0c2b5e3dd22b5823676b5dbc2f1",
       "observed_at": "2026-07-18T05:08:30Z",
       "summary": "Adaptive intelligence now has a canonical source-observation layer that can represent merged changes, workflow results, exact live proof, observed outcomes and owner confirmations before they influence strategic percentages. This improves evidence adaptability but does not claim that provider, live or business KPI collectors already exist.",
-      "missing_conditions_remove": [
-        "Source-observation normalization"
-      ],
+      "missing_conditions_remove": ["Source-observation normalization"],
       "next_quality_threshold": "Connect the proof-gated observation layer to current provider readiness, public receipts, observed conversion and retry-cost collectors.",
-      "proof": {
-        "merged": true
-      }
+      "proof": { "merged": true }
     },
     {
       "id": "system-intelligence-proof-gated-source-validation-20260718",
@@ -90,9 +80,7 @@
       "observed_at": "2026-07-18T05:08:30Z",
       "summary": "Evidence quality improved because source-type proof is now validated before scoring: merged PRs require merge proof, live claims require exact timestamp, source, receipt and visible-surface equality, and observed outcomes require a named metric with a bounded measurement window.",
       "next_quality_threshold": "Feed real provider, public-live and observed-outcome records through the proof gates and measure false-positive rejection.",
-      "proof": {
-        "merged": true
-      }
+      "proof": { "merged": true }
     },
     {
       "id": "system-intelligence-source-observation-visibility-20260718",
@@ -107,9 +95,55 @@
       "observed_at": "2026-07-18T05:08:30Z",
       "summary": "Portfolio visibility and operating efficiency improved because source observations are now durable, normalized by ID, validated in Strategic Goal publication and mandatory in Agent Harness Validators. Business KPI and context/retry counters remain absent and are not credited.",
       "next_quality_threshold": "Add stable provider, public-live, commercial-outcome and context/retry collectors with explicit owners and cadences.",
-      "proof": {
-        "merged": true
-      }
+      "proof": { "merged": true }
+    },
+    {
+      "id": "ai-projects-brain-strategic-collector-ownership-20260719",
+      "target_type": "project",
+      "project_id": "ai-projects-brain",
+      "rubric_id": "outcomes",
+      "proposed_score": 78,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+      "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+      "observed_at": "2026-07-19T05:12:00Z",
+      "summary": "Adaptive intelligence now assigns every active project and System Intelligence a canonical evidence collector with source type, accountable role, cadence, success contract and explicit missing proof. This closes collector ownership and coverage, but does not claim that external provider or KPI data has already been observed.",
+      "missing_conditions_remove": ["Stable provider and live collector ownership"],
+      "next_quality_threshold": "Execute the selected collectors and turn exact public, provider and business observations into validated source evidence.",
+      "proof": { "merged": true }
+    },
+    {
+      "id": "system-intelligence-deterministic-leverage-selection-20260719",
+      "target_type": "system",
+      "rubric_id": "strategy",
+      "proposed_score": 90,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+      "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+      "observed_at": "2026-07-19T05:12:00Z",
+      "summary": "Decision quality improved because the system now selects exactly three non-healthy strategic actions through a deterministic formula using confirmed goal gap, expected rubric impact, portfolio leverage, evidence state, readiness and stall risk instead of defect volume or intuition alone.",
+      "next_quality_threshold": "Calibrate priority weights against completed outcomes and measured time-to-proof without changing rubrics opportunistically.",
+      "proof": { "merged": true }
+    },
+    {
+      "id": "system-intelligence-collector-stall-visibility-20260719",
+      "target_type": "system",
+      "rubric_id": "visibility",
+      "proposed_score": 68,
+      "evidence_state": "PROVEN",
+      "source_state": "merged_verified",
+      "requires_live_proof": false,
+      "source_url": "https://github.com/andylitvinov-design/ai-projects-brain/pull/141",
+      "source_ref": "d2a613b9bc6f8bd553605117106b1acf352626de",
+      "observed_at": "2026-07-19T05:12:00Z",
+      "summary": "Portfolio visibility and efficiency improved because collector coverage, health, overdue state, stalled targets, blocked dependencies and exact Top-3 actions are now generated as a durable plan and validated by both Strategic Goal publication and Agent Harness Validators. Actual retry-cost and business-outcome counters remain absent and are not credited.",
+      "missing_conditions_remove": ["Collector ownership and cadence registry"],
+      "next_quality_threshold": "Connect privacy-safe retry, time-to-proof and business-outcome counters and verify the selected actions complete at a higher rate.",
+      "proof": { "merged": true }
     }
   ]
 }
