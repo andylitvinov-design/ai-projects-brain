@@ -51,7 +51,7 @@ For an accessible URL:
 
 ## Truth and safety boundaries
 
-Use verified business facts only. Do not invent testimonials, results, statistics, qualifications, prices, guarantees, scarcity, urgency, benchmarks, or conversion rates. Do not promise conversion uplift without analytics or an experiment.
+Use verified business facts only. Do not invent testimonials, results, statistics, qualifications, prices, guarantees, scarcity, urgency, or conversion rates. Do not invent or apply generic conversion benchmarks as page-specific evidence. Do not promise conversion uplift without analytics or an experiment.
 
 Do not use dark patterns, manipulative pressure, fake scarcity, fake urgency, hidden costs, forced continuity, or misleading comparison framing. Decision-critical cost, eligibility, timing, format, renewal/continuity, data requirements, and the actual post-CTA step must not be hidden until after commitment.
 
