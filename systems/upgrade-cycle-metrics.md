@@ -1,208 +1,133 @@
 # Upgrade Cycle Metrics Contract
 
-Status: active adaptive metric model for Andrey's Agent/Codex OS.
-Last updated: 2026-07-14.
+Status: active.
+Last updated: 2026-07-19.
+
+This metrics contract is subordinate to `systems/live-upgrade-delivery-contract.md`. When instructions conflict, the live delivery contract wins.
 
 ## Purpose
 
-Measure whether the system:
+Measure whether Andrey's Agent/Codex operating system:
 
-1. executes Andrey's tasks correctly, completely, quickly and autonomously;
-2. improves business and product implementation across active projects;
-3. learns from real failures and becomes more capable every day.
+1. selects the highest-value safe work;
+2. completes it through verified production behavior;
+3. reduces carryover, rework and owner dependency;
+4. improves products and operations more often than it improves its own reporting machinery;
+5. learns from confirmed failures without creating meta-work loops.
 
-The dashboard is a pyramid, not a flat scorecard:
+## Health model
 
 ```text
 Portfolio Health
-  -> Project Health matrix
+  -> Project Health
     -> Goal
       -> Sector
         -> Metric
           -> Evidence
 ```
 
-There is no decision-making overall score. Critical guardrails override summaries.
+There is no overall decision score across unlike projects. Critical guardrails override summaries.
 
 ## Measurement rules
 
-1. Prefer observed counts, ratios, durations, currency and states.
+1. Prefer observed counts, ratios, durations, currency and explicit states.
 2. Every numeric metric requires numerator, denominator, period, unit and source.
-3. Missing evidence or denominator is `unknown`, never zero.
-4. `NOT_APPLICABLE` is different from zero and from unknown.
-5. A PR, merge, issue, prompt or deploy-ready state is not a live result.
-6. Compare projects with themselves over time; do not rank unlike projects with one score.
-7. A metric must belong to exactly one goal and one sector in the system pyramid.
-8. Project metrics may vary by project profile. Global metrics must remain few.
-9. Audit agents provide evidence and readiness assessments; they do not invent revenue or conversion outcomes.
-10. Metrics have lifecycle: `candidate`, `active`, `watch`, `needs_revision`, `superseded`, `retired`.
+3. Missing evidence is `unknown`; non-applicable is `NOT_APPLICABLE`.
+4. A task, prompt, issue, branch, PR, merge, deployment or receipt is not a live outcome.
+5. Compare each project with itself over time.
+6. Audit agents provide readiness evidence, not invented business outcomes.
+7. Preserve metric IDs and history. Changed definitions must be marked `SUPERSEDED`.
+8. Success terminology follows `systems/live-upgrade-delivery-contract.md` exclusively.
 
-## Layer 1: Portfolio Health
+## Project Health sectors
 
-Portfolio Health answers: **How healthy is Andrey's business implementation across all active projects?**
+Each active project may use applicable sectors:
 
-Display:
+- `Execution`: completion, lead time, rework, false success.
+- `Product Value`: user journey, usable functionality, pain removed.
+- `Business Growth`: observed leads, orders, revenue, attendance, savings or other registered KPI.
+- `Standards`: applicable `/audit-ui`, `/audit-sales`, `/audit-fin`, accessibility, security and engineering checks.
+- `Reliability`: live readiness, freshness, change failures, recovery and rollback.
+- `Learning`: accepted findings implemented, recurrence prevention and replay coverage.
 
-- number of active projects;
-- projects with observed metrics;
-- projects blocked by critical guardrails;
-- strongest positive change;
-- largest portfolio risk;
-- project matrix by sectors.
+## Canonical daily and rolling-seven-day metrics
 
-Portfolio status is a state only:
+### Primary outcome
 
-`STRONG / IMPROVING / PARTIALLY_INSTRUMENTED / NEEDS_ATTENTION / BLOCKED / INSUFFICIENT_DATA`.
+`Verified Live Upgrade Count`
 
-Do not average project scores.
+Count of useful upgrade chains ending `LIVE_VERIFIED` during the period.
 
-## Layer 2: Project Health
+### Live Completion Rate
 
-Each project has six common sectors. A sector may be `NOT_APPLICABLE` for a project.
+```text
+selected chains ending LIVE_VERIFIED / all selected chains
+```
 
-### 1. Execution
+### Carryover Count
 
-Can the project changes be completed correctly and verified?
+Unresolved selected chains at cycle close.
 
-Possible metrics:
+### Median Cycle Time
 
-- task success / first-pass acceptance;
-- live completion;
-- lead time to verified result;
-- rework;
-- false-success events.
+Median minutes from candidate selection to `LIVE_VERIFIED`.
 
-### 2. Product Value
+### Product Upgrade Ratio
 
-Does the project solve a real user problem?
+```text
+verified PRODUCT + OPERATIONAL upgrades / all verified upgrades
+```
 
-Possible metrics:
+### Infrastructure Upgrade Ratio
 
-- product delivery;
-- user pain recurrence;
-- journey completion;
-- usability/conversion barriers from `/audit-ui`;
-- verified user outcome.
+```text
+verified INFRASTRUCTURE upgrades / all verified upgrades
+```
 
-### 3. Business Growth
+The rolling policy is no more than one infrastructure upgrade for every three product or operational upgrades, unless a proven P0/P1 infrastructure defect blocks multiple projects.
 
-Does the project create measurable economic or operational value?
+### Regression Rate
 
-Project-specific outcomes:
+```text
+verified upgrades with a confirmed regression / verified upgrades
+```
 
-- qualified leads;
-- orders;
-- confirmed revenue;
-- conversion;
-- attendance and repeat attendance;
-- cost or manual time reduction;
-- finance accuracy and exceptions prevented.
+### Owner Blocker Count
 
-`/audit-sales` may assess funnel and sales readiness, but only observed leads/orders/revenue confirm growth.
+Count of chains ending `BLOCKED_BY_OWNER`.
 
-### 4. Standards
+### Autonomous Recovery Rate
 
-Does the implementation meet applicable professional standards?
+```text
+recoverable failed chains restored automatically / all recoverable failed chains
+```
 
-Evidence may come from:
+### Supporting metrics
 
-- `/audit-ui`: accessibility, responsive quality, clarity, trust, UX and conversion readiness;
-- `/audit-sales`: audience, offer, trust, CTA, objections, friction and measurement readiness;
-- `/audit-fin`: reconciliation, integrity, audit trail and exception handling;
-- engineering/security/live validators.
+- false-success critical count;
+- failed-deployment recovery time;
+- provider/live readiness ratio;
+- evidence completeness;
+- scheduler uniqueness and health;
+- context/retry cost when observable.
 
-Use:
+## Candidate-selection evidence
 
-`passed applicable checks / all applicable checks`.
+Every selected candidate records the canonical 1-5 rubric values:
 
-Never create a subjective “world-class score”.
+- impact;
+- urgency;
+- completion probability;
+- risk;
+- calculated priority;
+- carryover status;
+- category: PRODUCT, OPERATIONAL or INFRASTRUCTURE.
 
-### 5. Reliability
+The calculation and tie-break rules are defined in `systems/live-upgrade-delivery-contract.md`.
 
-Can users depend on the live implementation?
+## Audit-agent evidence
 
-Metrics:
-
-- provider/live readiness;
-- publication freshness;
-- change fail rate;
-- recovery time;
-- rollback readiness;
-- auth/payment/storage/data integrity when applicable.
-
-### 6. Learning
-
-Does the project improve after audits, failures and user corrections?
-
-Metrics:
-
-- accepted findings implemented;
-- verified impact of implemented findings;
-- recurrence prevention;
-- learning reuse;
-- replay/validator protection.
-
-## Layer 3: Agent/Codex OS goal pyramid
-
-The existing global metric set remains the continuity source. Every metric is assigned exactly once.
-
-### Goal 1: Efficiency and System Intelligence
-
-#### Execution quality and completion
-
-- Task Success Rate
-- Live Completion Rate
-- False Success Rate / critical count
-- Correct Abstention Rate
-
-#### Speed and delivery flow
-
-- Lead Time to Live
-- Deployment Frequency
-- Rework Rate
-
-#### Autonomy and resource use
-
-- Avoidable Handoff Rate
-- Verification Retry Rate
-- Duplicate Scan Rate
-- Context/Retry Cost
-
-### Goal 2: Business Growth and Professional Value
-
-#### Product and user value
-
-- Product Delivery Rate
-- User Pain Recurrence Rate
-
-#### Commercial outcomes
-
-- Business Growth Outcomes, split into project-specific counts when evidence exists
-
-#### Professional delivery and live reliability
-
-- Change Fail Rate
-- Failed Deployment Recovery Time
-- Provider/Live Readiness Ratio
-- Publication Freshness
-- Rollback Readiness Ratio
-
-### Goal 3: Continuous Self-Development
-
-#### Validation and accumulated knowledge
-
-- Eval Pass Rate
-- Evidence Completeness
-- Failure-Class Coverage
-
-#### Rule and automation lifecycle
-
-- Rule Lifecycle
-- Scheduler Health
-
-## Audit-agent evidence contract
-
-Every `/audit-ui`, `/audit-sales`, `/audit-fin` or other structured assessment intended for Project Health must publish:
+Structured assessments publish:
 
 ```text
 project_id
@@ -220,98 +145,73 @@ recommended_action
 confidence
 ```
 
-Rules:
+Audit evidence cannot be converted into revenue, conversion or verified user impact without observed outcome data.
 
-- audit assessment is evidence, not direct business outcome;
-- heuristic historical scores may be shown as navigation only;
-- inaccessible behavior is `NOT_TESTED`;
-- no invented conversion, revenue, testimonial, credential or impact;
-- implementation impact requires after-change verification.
+## Upgrade evidence record
 
-## Project metric record
-
-Project-specific metrics use:
+Use the complete schema in `systems/live-upgrade-delivery-contract.md`. At minimum retain:
 
 ```text
+upgrade_id
 project_id
-sector
-id
-name
-purpose
-type
-value
-numerator
-denominator
-unit
-period
-source
-owner
-confidence
-status
-previous_value
-change
-target_or_slo
-interpretation
-next_action
-lifecycle
+source_cycle
+summary
+category
+candidate_score
+carryover_from
+terminal_state
+technical_evidence
+user_evidence
+blocker
+next_automatic_action
+started_at
+verified_at
+cycle_time_minutes
+regression_detected
+recovery_attempted
 ```
 
 ## Critical guardrails
 
-These are trust constraints, not progress metrics:
-
 - zero critical false-success claims;
-- publication canonical/mirror/deploy/live ladder is 4/4 in the same run;
-- provider/live-dependent work stays blocked without current proof;
-- exactly one enabled Morning System Upgrade and one enabled Evening Architecture Upgrade, zero duplicates;
+- only the four canonical terminal states;
+- technical proof and user proof remain separate;
+- provider/live work stays incomplete without current production evidence;
+- exactly one enabled Morning System Upgrade and one enabled Evening Delivery Closure;
 - risky production/auth/payment/billing/data/secret work uses an explicit safe route;
-- project metrics cannot claim observed health from an audit score alone.
+- unresolved carryover is processed before new work;
+- no mandatory harness/dashboard change per run;
+- infrastructure ratio limit is enforced.
 
-## Morning System Upgrade responsibilities
+## Cycle responsibilities
 
-Morning must:
+### Morning Task Sweep
 
-1. read this contract before updating metrics;
-2. refresh Portfolio Health and Project Health from current evidence;
-3. update the three-goal system pyramid;
-4. apply 1-3 safe real upgrades;
-5. attribute each upgrade to one goal, one sector and affected projects;
-6. ingest current audit-agent evidence when available;
-7. preserve unknown and not-applicable states;
-8. update canonical Markdown/JSON and identical mirror;
-9. verify publication ladder;
-10. finish `APPLIED_UPGRADE` or `NO_SAFE_UPGRADE`, never only audited.
+Discover, reconcile and rank unresolved chains. Persist at most three candidates. It is not a parallel architecture-upgrade run.
 
-## Evening Architecture Upgrade responsibilities
+### Daily Strategic Priorities
 
-Evening must:
+Maintain Big Goals and contribute at most three scored strategic candidates. It does not implement, merge or deploy.
 
-1. verify Morning claims and public evidence;
-2. compare portfolio, project, goal and sector changes since the prior snapshot;
-3. identify the highest-leverage structural weakness;
-4. apply 1-3 safe harness/schema/validator/test/automation upgrades;
-5. update project-health and agent-assessment evidence;
-6. detect metrics needing revision, superseding or retirement;
-7. preserve history and continuity mappings;
-8. produce a ranked Morning handoff tied to project, goal, sector and expected metric effect.
+### Morning System Upgrade
 
-## Dashboard presentation
+Own primary delivery: carryover first, at most three chains, full safe ladder through production verification, evidence persistence and metrics update.
 
-The public dashboard must provide:
+### Evening Delivery Closure
 
-1. `Portfolio Health` default tab;
-2. project matrix with sectors: Execution, Product Value, Business Growth, Standards, Reliability, Learning;
-3. selectable project drilldown with metrics and audit evidence;
-4. `System Health` tab with three goals, sectors and all global metrics assigned exactly once;
-5. critical guardrails;
-6. Daily Intelligence and historical deltas;
-7. metric notes explaining purpose, definition and evidence;
-8. no overall decision score.
+Own verification, one recovery attempt, minimal safe repair, regression detection, carryover persistence and next-morning handoff. It may perform a system/harness improvement only when evidence and the infrastructure ratio permit it.
 
-## References
+### Dashboard Publication Watch
 
-- DORA: https://dora.dev/guides/dora-metrics-four-keys/
-- SPACE: https://queue.acm.org/detail.cfm?id=3454124
-- Google SRE: https://sre.google/sre-book/service-level-objectives/
-- OpenAI evals: https://platform.openai.com/docs/guides/evals
-- NIST AI RMF: https://www.nist.gov/itl/ai-risk-management-framework
+Observe and recover the dashboard publication chain without becoming a second deployer. Publication machinery is supporting infrastructure and does not count as a product upgrade.
+
+## Compact reporting
+
+Report only:
+
+1. `LIVE VERIFIED` with project, production URL and proof.
+2. `NOT CLOSED` with failed stage and next automatic action.
+3. `OWNER ACTION` with one exact action and direct link.
+4. daily and rolling-seven-day metrics.
+
+Commits, validators, schemas and receipts appear only when they prove a delivered result or explain a blocker.
