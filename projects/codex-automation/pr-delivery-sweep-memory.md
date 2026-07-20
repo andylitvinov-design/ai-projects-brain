@@ -31,7 +31,7 @@ Purpose: persist evidence-backed PR-stage reconciliation across recurring sweeps
 2. **Brain Management / dashboard publication**
    - Existing delivery PR reused: https://github.com/andylitvinov-design/brain-management/pull/50
    - Merge SHA: `01fd31eca34ba28fcaf0d58d9cce56b77b0f1a00`.
-   - Canonical branch reachability: confirmed; this SHA is the current latest commit on `brain-management/main`.
+   - Canonical branch reachability: confirmed; this SHA is on `brain-management/main`.
    - `LOST_MERGED_WRONG_BASE`: not detected for PR #50.
    - Canonical source snapshot remains blob `b2797fda54d3d5d5d6ff47b2aca9f89ce543a040`, schema `6`, `last_updated=2026-07-19T07:14:00+02:00`, status `strategic_improve_publication_stale`.
    - Available commit-to-workflow lookup returned no matching pull-request-triggered run for the merge SHA; it does not expose the relevant push/workflow-dispatch publication run.
@@ -49,6 +49,13 @@ Purpose: persist evidence-backed PR-stage reconciliation across recurring sweeps
    - Canonical files now expose Netlify as Brain Management production, Cloudflare Pages as legacy, and this PR Delivery Sweep evidence ledger.
    - Terminal state: `LIVE_VERIFIED` for the repository-memory outcome; no external deploy applies to this project-memory change.
 
+4. **Brain Management / repo-level safety map**
+   - Existing PR #48 contained a current docs-only correction but its branch had diverged from `main` (`ahead 1 / behind 7`).
+   - The current safe content was salvaged onto a fresh branch from `brain-management/main` and opened as https://github.com/andylitvinov-design/brain-management/pull/51.
+   - PR #51 merged by squash as `f12d91ea6471484605422b992ca23029bbc1c2ae`; stale PR #48 was closed without merge.
+   - The canonical repo safety map now routes production verification to Netlify, preserves Cloudflare Pages as legacy, and documents mobile-run authorization, dashboard paths, browser checks and rollback boundaries.
+   - Terminal state: `LIVE_VERIFIED` for the repository-safety-map outcome; this Markdown-only change requires no product deploy proof.
+
 ### Open blocked chains
 
 - **Ezohata PR #41** — terminal state `BLOCKED_BY_OWNER`. Required action remains production Supabase Google-provider activation using the existing OAuth client, followed by one genuine owner login and one non-owner denial check. Do not merge the broad auth branch from preview/code evidence alone.
@@ -56,9 +63,9 @@ Purpose: persist evidence-backed PR-stage reconciliation across recurring sweeps
 
 ### Safety and regression ledger
 
-- `LOST_MERGED_WRONG_BASE`: not detected in the selected merged chains; Brain Management PR #50 and AI Projects Brain PR #147 are reachable from their canonical `main` branches.
+- `LOST_MERGED_WRONG_BASE`: not detected in the selected merged chains; Brain Management PRs #50/#51 and AI Projects Brain PR #147 are reachable from their canonical `main` branches.
 - `REGRESSION_DEFAULT_STATE_NOT_VERIFIED`: active for Finance PR #623 until preview verification.
-- Remote branch without accessible PR: none proven among selected carryover branches after Finance PR #623 creation and AI Projects Brain stale-branch salvage.
+- Remote branch without accessible PR: none proven among selected carryover branches after Finance PR #623 creation and both fresh-main stale-branch salvages.
 - Merged commit not reachable from canonical production branch: not detected for the selected merged chains.
 
 ### Ranked next Morning Task Sweep handoff
