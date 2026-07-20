@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "cycle": "Morning System Upgrade",
+  "observed_at": "2026-07-20T07:49:00+02:00",
+  "selected_chain_count": 3,
+  "selected_chains": [
+    {
+      "upgrade_id": "morning-20260720-brain-dashboard-publication",
+      "observed_at": "2026-07-20T07:49:00+02:00",
+      "project_id": "brain-management",
+      "source_cycle": "MORNING",
+      "summary": "Close the exact dashboard publisher, Netlify deploy and public receipt chain already merged through PR #50.",
+      "category": "INFRASTRUCTURE",
+      "candidate_score": {
+        "impact": 4,
+        "urgency": 5,
+        "completion_probability": 3,
+        "risk": 1,
+        "priority": 60
+      },
+      "carryover_from": "TASK_SWEEP_2026-07-20",
+      "terminal_state": "MERGED_WAITING_DEPLOY",
+      "technical_evidence": {
+        "branch": "main",
+        "commit_sha": "01fd31eca34ba28fcaf0d58d9cce56b77b0f1a00",
+        "pr_url": "https://github.com/andylitvinov-design/brain-management/pull/50",
+        "checks": [
+          "PR #50 is reachable from canonical main",
+          "canonical publisher workflow contains tests, build, Netlify production deploy, public timestamp, UI-hook and receipt checks",
+          "matching push/workflow-dispatch run was not observable through the current connector"
+        ],
+        "merge_sha": "01fd31eca34ba28fcaf0d58d9cce56b77b0f1a00",
+        "deploy_id": "unknown",
+        "deploy_source_sha": "unknown"
+      },
+      "user_evidence": {
+        "production_url": "https://brain-management.netlify.app/system-health-dashboard/",
+        "tested_route_or_flow": "exact current dashboard snapshot, required UI hooks and immutable publication receipt",
+        "desktop_result": "unknown",
+        "mobile_result": "unknown",
+        "clean_session_result": "unknown",
+        "console_network_result": "unknown"
+      },
+      "blocker": {
+        "owner_action": "NOT_APPLICABLE",
+        "direct_link": "NOT_APPLICABLE",
+        "reason": "Matching Actions and Netlify publication evidence is pending, not owner input."
+      },
+      "next_automatic_action": "Identify the dispatcher and canonical publisher run caused by PR #50; inspect or retry only the failed job once if needed, then prove matching Netlify content deploy, public timestamp, required UI hooks and immutable receipt. Do not create another heartbeat first.",
+      "started_at": "2026-07-20T07:30:00+02:00",
+      "verified_at": "unknown",
+      "cycle_time_minutes": "unknown",
+      "regression_detected": false,
+      "recovery_attempted": false
+    },
+    {
+      "upgrade_id": "morning-20260720-business-mysteries-live-verification",
+      "observed_at": "2026-07-20T07:49:00+02:00",
+      "project_id": "torontotantra",
+      "source_cycle": "MORNING",
+      "summary": "Verify the merged Business Mysteries program-first landing page as an actual desktop and mobile production user flow.",
+      "category": "PRODUCT",
+      "candidate_score": {
+        "impact": 3,
+        "urgency": 3,
+        "completion_probability": 5,
+        "risk": 1,
+        "priority": 45
+      },
+      "carryover_from": "TASK_SWEEP_2026-07-20",
+      "terminal_state": "MERGED_WAITING_DEPLOY",
+      "technical_evidence": {
+        "branch": "main",
+        "commit_sha": "ffc6912fbd2b7402156ddf0381bf3272053780f4",
+        "pr_url": "https://github.com/andylitvinov-design/torontotantra/pull/23",
+        "checks": [
+          "Task Sweep identified exact READY production deploy and expected live content",
+          "clean-session desktop/mobile and console/network proof remains unavailable"
+        ],
+        "merge_sha": "ffc6912fbd2b7402156ddf0381bf3272053780f4",
+        "deploy_id": "dpl_2Uwha2V839Sxj4TooaqjTH3xB9nL",
+        "deploy_source_sha": "ffc6912fbd2b7402156ddf0381bf3272053780f4"
+      },
+      "user_evidence": {
+        "production_url": "https://businessmysteries.vercel.app/",
+        "tested_route_or_flow": "program visibility, business imagery and contact actions",
+        "desktop_result": "unknown",
+        "mobile_result": "unknown",
+        "clean_session_result": "unknown",
+        "console_network_result": "unknown"
+      },
+      "blocker": {
+        "owner_action": "NOT_APPLICABLE",
+        "direct_link": "NOT_APPLICABLE",
+        "reason": "Browser verification evidence is pending, not owner input."
+      },
+      "next_automatic_action": "Run clean-session desktop and mobile verification, confirm image loading, program visibility and contact actions, and inspect console/network errors before assigning LIVE_VERIFIED.",
+      "started_at": "2026-07-20T07:30:00+02:00",
+      "verified_at": "unknown",
+      "cycle_time_minutes": "unknown",
+      "regression_detected": false,
+      "recovery_attempted": false
+    },
+    {
+      "upgrade_id": "morning-20260720-finance-paypal-loading",
+      "observed_at": "2026-07-20T07:49:00+02:00",
+      "project_id": "legacy-finance",
+      "source_cycle": "MORNING",
+      "summary": "Finish the fresh-main PayPal derived-balance loading lifecycle fix through full gates and merge without changing provider, ledger, balance, persistence or auth semantics.",
+      "category": "OPERATIONAL",
+      "candidate_score": {
+        "impact": 4,
+        "urgency": 4,
+        "completion_probability": 4,
+        "risk": 2,
+        "priority": 32
+      },
+      "carryover_from": "TASK_SWEEP_2026-07-20",
+      "terminal_state": "MERGED_WAITING_DEPLOY",
+      "technical_evidence": {
+        "branch": "main",
+        "commit_sha": "34f7898299dc0348c703d1419aa1ea1a693dfdc4",
+        "pr_url": "https://github.com/andylitvinov-design/finance/pull/623",
+        "checks": [
+          "focused success, API-error, timeout and missing-date regression coverage",
+          "full repository test suite: 1435 passed, 0 failed",
+          "npm run build passed",
+          "bash scripts/release-guard.sh passed",
+          "temporary validation run 29719864146 passed",
+          "temporary validation workflow removed before merge; final product diff contains three files"
+        ],
+        "merge_sha": "34f7898299dc0348c703d1419aa1ea1a693dfdc4",
+        "deploy_id": "unknown",
+        "deploy_source_sha": "unknown"
+      },
+      "user_evidence": {
+        "production_url": "https://ezohata-incoming-ledger.vercel.app/",
+        "tested_route_or_flow": "PayPal derived-balance success, API error and 30-second timeout loading lifecycle",
+        "desktop_result": "unknown",
+        "mobile_result": "unknown",
+        "clean_session_result": "unknown",
+        "console_network_result": "unknown"
+      },
+      "blocker": {
+        "owner_action": "NOT_APPLICABLE",
+        "direct_link": "NOT_APPLICABLE",
+        "reason": "Matching production deploy and live UI verification are pending, not owner input."
+      },
+      "next_automatic_action": "Identify the push-to-main production workflow for merge 34f7898299dc0348c703d1419aa1ea1a693dfdc4, prove the production source SHA and health checks, then verify clean-session desktop/mobile success, API-error and timeout behavior. Keep REGRESSION_DEFAULT_STATE_NOT_VERIFIED active until this proof exists.",
+      "started_at": "2026-07-20T07:30:00+02:00",
+      "verified_at": "unknown",
+      "cycle_time_minutes": "unknown",
+      "regression_detected": false,
+      "recovery_attempted": true
+    }
+  ],
+  "owner_blockers": [
+    {
+      "project_id": "ezohata",
+      "terminal_state": "BLOCKED_BY_OWNER",
+      "owner_action": "Enable the Google provider in production Supabase using the existing OAuth client, then complete one real owner login and one non-owner denial check.",
+      "direct_link": "https://supabase.com/dashboard/project/sgaiemtpjvvotqbngqvy/auth/providers",
+      "reason": "Provider activation and genuine production authorization evidence cannot be inferred from code or preview checks."
+    }
+  ],
+  "metrics": {
+    "daily": {
+      "period": "2026-07-20",
+      "verified_live_upgrade_count": 0,
+      "live_completion_rate": {
+        "numerator": 0,
+        "denominator": 3,
+        "value": "0/3"
+      },
+      "carryover_count": {
+        "value": 3,
+        "unit": "selected unresolved chains"
+      },
+      "median_cycle_time_minutes": "unknown",
+      "product_upgrade_ratio": "NOT_APPLICABLE (0/0 verified upgrades)",
+      "regression_rate": "NOT_APPLICABLE (0/0 verified upgrades)",
+      "owner_blocker_count": 1,
+      "autonomous_recovery_rate": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": "1/1",
+        "scope": "recoverable selected CI or validation-gate failures",
+        "evidence": "Finance validation environment was diagnosed and minimally repaired until all required gates passed; product PR then merged."
+      },
+      "infrastructure_upgrade_ratio": "NOT_APPLICABLE (0/0 verified upgrades)"
+    },
+    "rolling_seven_days": {
+      "period": "2026-07-14/2026-07-20",
+      "verified_live_upgrade_count": "unknown",
+      "live_completion_rate": "unknown",
+      "carryover_count": "unknown as a complete seven-day series; current selected close is 3",
+      "median_cycle_time_minutes": "unknown",
+      "product_upgrade_ratio": "unknown",
+      "regression_rate": "unknown",
+      "owner_blocker_count": "unknown as a complete seven-day total; current observed count is 1",
+      "autonomous_recovery_rate": "unknown",
+      "infrastructure_upgrade_ratio": "unknown",
+      "reason": "Canonical per-chain denominators were introduced recently and older runs cannot be safely backfilled from incomplete evidence."
+    }
+  },
+  "evening_handoff": [
+    {
+      "rank": 1,
+      "project_id": "finance",
+      "action": "Locate the push-to-main production deploy for merge 34f7898299dc0348c703d1419aa1ea1a693dfdc4, verify source SHA and health checks, then test PayPal loading completion on desktop/mobile clean sessions."
+    },
+    {
+      "rank": 2,
+      "project_id": "brain-management",
+      "action": "Locate the PR #50 dispatcher and canonical publisher run and prove matching Netlify content deploy, public snapshot, UI hooks and immutable receipt; do not create another heartbeat first."
+    },
+    {
+      "rank": 3,
+      "project_id": "torontotantra",
+      "action": "Perform clean-session desktop/mobile Business Mysteries verification including images, program content, contact actions and console/network state."
+    }
+  ],
+  "evidence_gaps": [
+    "The available GitHub commit-to-workflow lookup exposes PR-triggered runs but not the relevant push or workflow-dispatch runs for merged commits.",
+    "No public browser or provider deploy reader was available in this run, so desktop/mobile, clean-session and console/network evidence remains unknown.",
+    "No claims were made about an unsynced local computer filesystem."
+  ],
+  "dashboard_metrics_publication": {
+    "source_record_updated": true,
+    "live_dashboard_updated": false,
+    "reason": "The canonical dashboard publication chain is itself unresolved; metrics were persisted without inventing live publication evidence."
+  }
+}
