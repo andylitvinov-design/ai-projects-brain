@@ -1,7 +1,7 @@
 # Evening Delivery Closure Runtime Contract
 
 Status: active.
-Last updated: 2026-07-19.
+Last updated: 2026-07-20.
 
 This contract is subordinate to `systems/live-upgrade-delivery-contract.md`. When instructions conflict, the live delivery contract wins.
 
@@ -78,6 +78,14 @@ User proof requires the intended production route, flow or operational result to
 The dashboard publisher remains the single deployer. Evening may verify or dispatch the canonical publisher once, but must not create a second deployer, direct provider mutation path or cosmetic heartbeat commit.
 
 A new snapshot invalidates older live proof. Dashboard `LIVE_VERIFIED` requires exact snapshot equality, source/deploy mapping, valid receipt and visible required UI.
+
+## Trigger-independent publication recovery
+
+- The canonical dashboard publisher is the only workflow allowed to deploy the dashboard or create a publication receipt.
+- Any watchdog, sweep or closure recovery path must not contain Netlify credentials, provider mutation logic or direct deployment commands; it may only verify or dispatch the canonical publisher once.
+- A valid matching receipt and equal public timestamp require a healthy no-op: do not create a heartbeat, duplicate deploy or cosmetic commit when the exact snapshot is already proven live.
+- A retry commit, queued workflow or dispatch request is not publication evidence. Require the completed canonical run, matching deploy source, equal public timestamp, required UI hooks and receipt identity.
+- Recovery must work from current evidence rather than depending on one specific trigger type; push, merge and manual dispatch are diagnostic trigger sources, not separate publishers.
 
 ## Metrics update
 
