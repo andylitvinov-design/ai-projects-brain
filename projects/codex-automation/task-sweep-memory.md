@@ -143,3 +143,73 @@ Status: `TASK_SWEEP_NEEDS_VERIFICATION`
 ### Evidence rule
 
 Use the ladder `request -> task/session -> local change -> remote branch -> accessible PR -> checks -> merge -> deploy -> public/live proof`. PR #47 is merged, but dashboard LIVE remains unclaimed until a matching post-merge content deploy, immutable receipt and public timestamp/UI evidence are independently available.
+
+## 2026-07-20
+
+Cycle terminal state: `MERGED_WAITING_DEPLOY` for the highest-ranked unresolved chain.
+
+### Source coverage
+
+- Read the canonical live-delivery contract, remote-PR auto-creation contract, prior Morning ledger, Evening closure and current PR-delivery sweep ledger before discovery.
+- Inspected selected GitHub issues, PRs, branch comparisons, commits and available workflow evidence updated during the preceding 24 hours.
+- Rechecked Netlify production state for `brain-management` and Vercel production/deployed source evidence for Business Mysteries.
+- Public Slack search for recent `Codex` evidence returned no results.
+- No connected ChatGPT task-history index or synced local-computer Codex filesystem was available; no direct claims about unsynced sessions, worktrees or local-only branches were made.
+- Remote-branch coverage is scoped to selected carryover and recent chains; no branch without an accessible PR was proven among those chains.
+
+### LIVE_VERIFIED
+
+1. **AI Projects Brain source map and PR-sweep ledger**
+   - PR #147 was rechecked as merged to canonical `main` at `f69e3de564b159d82378e3f1dcdf7b330662d03d`.
+   - Agent Harness Validators run 259 and the validation-only dashboard workflow run 81 succeeded before merge.
+   - Canonical memory now identifies Netlify as Brain Management production, Cloudflare Pages as legacy and preserves the PR-delivery evidence ledger.
+   - No external deployment applies to this repository-memory outcome.
+
+2. **Codex Links command-dispatch safety boundary**
+   - Reused open PR #175 on current `main`; its branch was ahead 1 / behind 0 and Validate run 388 succeeded.
+   - Squash-merged as `3732b9bb36429891b537266fbdde098278650264`.
+   - Canonical `SAFE.md` now records that default command creation is not currently authorization-gated and points to issue #174 for the code repair.
+   - This verifies the repository safety-map correction only; production command authorization is not claimed fixed.
+
+### NOT CLOSED
+
+| Rank | Project | Chain | Terminal state | Failed stage | Next automatic action |
+| --- | --- | --- | --- | --- | --- |
+| 1 | brain-management | Dashboard exact publication after PRs #49 and #50 | `MERGED_WAITING_DEPLOY` | PR #50 merge `01fd31eca34ba28fcaf0d58d9cce56b77b0f1a00` is canonical, but Netlify still reports old deploy `6a59bc16f349e3e190a47208`; repository snapshot remains schema 6, `last_updated=2026-07-19T07:14:00+02:00`, status `strategic_improve_publication_stale` | Identify the dispatcher and canonical publisher run caused by PR #50. If failed, rerun only failed jobs once and inspect logs; otherwise repair the exact trigger/permission layer. Then require deploy-source SHA, public timestamp, UI hooks and immutable receipt. Do not create another heartbeat first. |
+| 2 | torontotantra / Business Mysteries | Concise program-first landing and business photography from PR #23 | `MERGED_WAITING_DEPLOY` | Exact production deploy `dpl_2Uwha2V839Sxj4TooaqjTH3xB9nL` is READY from merge SHA `ffc6912fbd2b7402156ddf0381bf3272053780f4`, and the live root returns the expected visible program/business-only images; desktop/mobile clean-session and console/network proof are still missing | Perform desktop and mobile clean-session browser verification on `https://businessmysteries.vercel.app`, including image loading, program visibility, contact actions and console/network errors. |
+| 3 | finance | PayPal derived-balance loading state, PR #623 | `NO_SAFE_UPGRADE` | Fresh-main PR exists and focused lifecycle tests passed 4/4, but only unrelated Binance workflows are green; repository-wide tests, build, release guard and preview default-state proof are missing | Run `node --test tests/*.test.*`, `npm run build`, `bash scripts/release-guard.sh`, then verify preview success/error/timeout loading states. Merge only after all gates pass. |
+| 4 | codex-links | Owner authorization for command creation, issue #174 | `NO_SAFE_UPGRADE` | High-severity failing layer is proven, but a safe owner-session or short-lived capability repair is not implemented; a one-line token guard would break the public UI | Design and implement the smallest fresh-main capability flow with anonymous, valid, expired/replayed, double-submit and public-serialization regressions. No provider dispatch after failed authorization. |
+| 5 | codex-links | Prompt Router and independent reviewer, issue #173 | `NO_SAFE_UPGRADE` | Stale PR #163 is closed source material; no fresh-main branch, current CI or live bridge proof exists | Keep behind issue #174; rebuild only after the command-create authorization boundary is safe. |
+| 6 | brain-management | Production safety map, PR #48 | `NO_SAFE_UPGRADE` | Docs branch is 1 ahead / 7 behind current main and has no workflow run; merging the stale branch would bypass fresh-main and product-to-infrastructure controls | Re-audit from fresh main only after higher-value carryover closes; salvage the current SAFE.md correction rather than rebasing or merging wholesale. |
+
+### OWNER ACTION
+
+- **Ezohata PR #41 — `BLOCKED_BY_OWNER`**: enable Google in the production Supabase Auth providers using the existing OAuth client, then complete one genuine owner login and one non-owner denial check: `https://supabase.com/dashboard/project/sgaiemtpjvvotqbngqvy/auth/providers`. The draft remains broad (172 files), so green code/preview evidence is insufficient for automatic merge.
+
+### Duplicate and remote-PR reconciliation
+
+- Finance issue #622 has one canonical fresh-main PR #623; stale PR #343 remains closed source material.
+- Codex Links issue #173 keeps stale PR #163 as source material only; issue #174 is a distinct higher-priority security chain, not a duplicate.
+- Brain Management PR #50 is reachable from canonical `main`; no wrong-base merge was detected.
+- Every selected active remote branch had an accessible PR. No new PR-creation gap was proven.
+
+### Upgrade Candidate Score and ranked Morning handoff
+
+| Rank | Chain | Impact | Urgency | Completion probability | Risk | Priority |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | Brain Management exact publisher/deploy/live closure | 4 | 5 | 3 | 1 | 60 |
+| 2 | Business Mysteries desktop/mobile live verification | 3 | 3 | 5 | 1 | 45 |
+| 3 | Finance PR #623 full gates, preview and merge decision | 4 | 4 | 4 | 2 | 32 |
+
+Next queue, not selected in the Top 3: Codex Links issue #174 scores `5 * 5 * 3 / 3 = 25`; Ezohata remains owner-blocked and is not an autonomous Morning candidate.
+
+### Evidence gaps
+
+- GitHub commit-to-workflow lookup exposes PR-triggered runs, not the relevant Brain Management push/workflow-dispatch publisher run.
+- No synced local/computer Codex source was available, so repository-wide Finance commands could not be run from a canonical worktree in this sweep.
+- Business Mysteries has exact deploy and live HTTP/content proof, but no browser viewport or console/network evidence.
+- Slack public search returned no recent Codex evidence; private Slack/DM history was not inspected.
+
+### Evidence rule
+
+Use the ladder `request -> task/session -> local change -> remote branch -> accessible PR -> checks -> merge -> deploy -> public/live proof`. A merge, READY deploy or HTTP 200 alone is not `LIVE_VERIFIED` when the intended user flow still lacks required proof.
