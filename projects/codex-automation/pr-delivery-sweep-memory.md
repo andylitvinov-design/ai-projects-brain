@@ -39,11 +39,15 @@ Purpose: persist evidence-backed PR-stage reconciliation across recurring sweeps
    - Failed stage: canonical publisher run/deploy/live observability.
    - Next automatic action: identify the canonical publication run caused by PR #50, then require matching Netlify deploy source SHA, public JSON timestamp, required UI hooks and immutable receipt before `LIVE_VERIFIED`.
 
-3. **AI Projects Brain / Brain Management source map**
-   - Existing PR #145 was equivalent but its branch had diverged from current `main` (`ahead 1 / behind 5`).
-   - Current safe file content was salvaged onto fresh `main` in `fix/pr-delivery-ledger-and-brain-source-20260720` together with this evidence ledger.
-   - The fresh change corrects the project capsule from legacy Cloudflare production to canonical Netlify production without changing runtime code, provider configuration or secrets.
-   - Exact PR and merge evidence are recorded in the continuation of this entry after GitHub creation/merge.
+3. **AI Projects Brain / Brain Management source map and sweep ledger**
+   - Existing PR #145 was equivalent but its branch had diverged from current `main` (`ahead 1 / behind 5`). It was closed without merge after fresh salvage.
+   - Current safe content was salvaged onto fresh `main` in PR https://github.com/andylitvinov-design/ai-projects-brain/pull/147.
+   - The first Agent Harness Validators run exposed a pre-existing contract/test mismatch: the receipt-aware recovery assertions were absent from `systems/evening-upgrade-runtime-contract.md`.
+   - One minimal docs-only CI repair added the required single-publisher, no-direct-deploy, healthy-no-op and proof-boundary clauses. No provider credentials or runtime deploy path were added.
+   - Re-run evidence: Agent Harness Validators run `259` succeeded; Publish System Health Dashboard run `81` succeeded in validation-only mode with sync/commit/dispatch steps skipped for the PR.
+   - PR #147 merged by squash as `f69e3de564b159d82378e3f1dcdf7b330662d03d` and is reachable from canonical `ai-projects-brain/main`.
+   - Canonical files now expose Netlify as Brain Management production, Cloudflare Pages as legacy, and this PR Delivery Sweep evidence ledger.
+   - Terminal state: `LIVE_VERIFIED` for the repository-memory outcome; no external deploy applies to this project-memory change.
 
 ### Open blocked chains
 
@@ -52,10 +56,10 @@ Purpose: persist evidence-backed PR-stage reconciliation across recurring sweeps
 
 ### Safety and regression ledger
 
-- `LOST_MERGED_WRONG_BASE`: not detected in the selected merged chain; Brain Management PR #50 is reachable from canonical `main`.
+- `LOST_MERGED_WRONG_BASE`: not detected in the selected merged chains; Brain Management PR #50 and AI Projects Brain PR #147 are reachable from their canonical `main` branches.
 - `REGRESSION_DEFAULT_STATE_NOT_VERIFIED`: active for Finance PR #623 until preview verification.
 - Remote branch without accessible PR: none proven among selected carryover branches after Finance PR #623 creation and AI Projects Brain stale-branch salvage.
-- Merged commit not reachable from canonical production branch: not detected for Brain Management PR #50.
+- Merged commit not reachable from canonical production branch: not detected for the selected merged chains.
 
 ### Ranked next Morning Task Sweep handoff
 
