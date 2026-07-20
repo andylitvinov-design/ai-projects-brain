@@ -209,12 +209,17 @@ Minimum scenarios:
 3. Non-exempt content reflows at a 320 CSS px equivalent without page-level
    two-dimensional scrolling; zoom/text enlargement does not hide content or
    reorder keyboard navigation away from the visual flow.
-4. One interactive state is checked: hover, focus, open, submit, loading, error,
+4. Tab through the page with sticky headers/footers and persistent overlays
+   open. The focused component is not fully hidden, and its focus indicator
+   remains distinguishable against any blur, dimming, or translucent layer.
+5. Pointer targets are at least 24 by 24 CSS px, or each undersized target has a
+   documented WCAG spacing/equivalent/inline/user-agent/essential exception.
+6. One interactive state is checked: hover, focus, open, submit, loading, error,
    or empty.
-5. For stateful UI, clean-session default is checked before clicked-state.
-6. For legacy persisted UI, old storage keys are checked or explicitly marked
+7. For stateful UI, clean-session default is checked before clicked-state.
+8. For legacy persisted UI, old storage keys are checked or explicitly marked
    `needs verification`.
-7. If translucency, glass, or blur is used, inspect its worst-case background:
+9. If translucency, glass, or blur is used, inspect its worst-case background:
    contrast, image color fidelity, and an opaque/reduced-transparency fallback
    must remain usable.
 
@@ -345,6 +350,8 @@ Verification:
 - Tablet:
 - Reflow/zoom:
 - Translucency/material contrast (when used):
+- Focus not obscured:
+- Target size/spacing:
 - Clean-session default:
 - Legacy persisted state:
 - Clicked/selected state:
