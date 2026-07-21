@@ -1,1 +1,87 @@
-{"schema_version":1,"cycle":"Morning System Upgrade","observed_at":"2026-07-20T08:20:00+02:00","selected_chain_count":3,"selected_chains":[{"upgrade_id":"morning-20260720-brain-dashboard-publication","observed_at":"2026-07-20T08:20:00+02:00","project_id":"brain-management","source_cycle":"MORNING","summary":"Close the exact dashboard publisher, Netlify deploy and public receipt chain already merged through PR #50.","category":"INFRASTRUCTURE","candidate_score":{"impact":4,"urgency":5,"completion_probability":3,"risk":1,"priority":60},"carryover_from":"TASK_SWEEP_2026-07-20","terminal_state":"MERGED_WAITING_DEPLOY","technical_evidence":{"branch":"main","commit_sha":"a2421b69f662999990334eb30683044f78cccfc4","pr_url":"https://github.com/andylitvinov-design/brain-management/pull/52","checks":["PR #52 added the dispatcher workflow to the canonical publisher push filter and merged to main","Publish System Health Dashboard PR validation run 29720432676 passed","production diagnostic run 29720983465 captured current public JSON, receipt and asset evidence","public JSON remains at 2026-07-17T07:03:49+02:00 while canonical main is 2026-07-19T07:14:00+02:00","public receipt remains bound to source 2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62 and deploy 6a59bc0d776efdc0c7b430c4","project-health.mjs failed to fetch in the diagnostic run"],"merge_sha":"a2421b69f662999990334eb30683044f78cccfc4","deploy_id":"6a59bc0d776efdc0c7b430c4","deploy_source_sha":"2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62","verification_run_id":29720983465,"verification_artifact":"dashboard-live-diagnostic-29720983465"},"user_evidence":{"production_url":"https://brain-management.netlify.app/system-health-dashboard/","tested_route_or_flow":"canonical dashboard JSON, immutable publication receipt and required public assets","desktop_result":"not reached because publication identity failed first","mobile_result":"not reached because publication identity failed first","clean_session_result":"not reached because publication identity failed first","console_network_result":"project-health.mjs fetch failed; other tested publication assets passed"},"blocker":{"owner_action":"NOT_APPLICABLE","direct_link":"NOT_APPLICABLE","reason":"The canonical production publisher has not produced a receipt for current main; this is an automated delivery failure, not an owner-only input."},"next_automatic_action":"Evening Delivery Closure should inspect the canonical publisher run for main commit a2421b69f662999990334eb30683044f78cccfc4. If no matching run exists, invoke the existing publisher workflow_dispatch once; if a job failed, rerun only that failed job. Then require public timestamp 2026-07-19T07:14:00+02:00, receipt source a2421b69f662999990334eb30683044f78cccfc4 and successful project-health.mjs fetch before browser verification.","started_at":"2026-07-20T07:30:00+02:00","verified_at":"unknown","cycle_time_minutes":"unknown","regression_detected":false,"recovery_attempted":true},{"upgrade_id":"morning-20260720-business-mysteries-live-verification","observed_at":"2026-07-20T08:20:00+02:00","project_id":"torontotantra","source_cycle":"MORNING","summary":"Verify the merged Business Mysteries program-first landing page as an actual desktop and mobile production user flow.","category":"PRODUCT","candidate_score":{"impact":3,"urgency":3,"completion_probability":5,"risk":1,"priority":45},"carryover_from":"TASK_SWEEP_2026-07-20","terminal_state":"LIVE_VERIFIED","technical_evidence":{"branch":"main","commit_sha":"ffc6912fbd2b7402156ddf0381bf3272053780f4","pr_url":"https://github.com/andylitvinov-design/torontotantra/pull/23","checks":["production HTML SHA-256 exactly matched canonical main: 7976a6dd9ac95061aed63a5562b54fb1eb2d39460b8104fbd0e996241141c3e6","clean desktop and mobile Chromium verification run 29721240011 passed","all required program sections were visible","both business images loaded","Telegram and WhatsApp contact actions were present","no horizontal overflow, console errors, failed requests or HTTP errors were observed"],"merge_sha":"ffc6912fbd2b7402156ddf0381bf3272053780f4","deploy_id":"dpl_2Uwha2V839Sxj4TooaqjTH3xB9nL","deploy_source_sha":"ffc6912fbd2b7402156ddf0381bf3272053780f4","verification_run_id":29721240011,"verification_artifact":"business-mysteries-live-evidence-29721240011"},"user_evidence":{"production_url":"https://businessmysteries.vercel.app/","tested_route_or_flow":"program visibility, business imagery and Telegram/WhatsApp contact actions","desktop_result":"PASS: required text and images visible, contact actions present, no overflow or browser/network errors","mobile_result":"PASS: required text and images visible, contact actions present, no overflow or browser/network errors","clean_session_result":"PASS","console_network_result":"PASS: zero console errors, failed requests and HTTP errors"},"blocker":{"owner_action":"NOT_APPLICABLE","direct_link":"NOT_APPLICABLE","reason":"No remaining blocker."},"next_automatic_action":"No delivery action remains for this cycle; retain the verification artifact for regression comparison.","started_at":"2026-07-20T07:30:00+02:00","verified_at":"2026-07-20T08:18:26+02:00","cycle_time_minutes":48,"regression_detected":false,"recovery_attempted":true},{"upgrade_id":"morning-20260720-finance-paypal-loading","observed_at":"2026-07-20T08:20:00+02:00","project_id":"legacy-finance","source_cycle":"MORNING","summary":"Finish the fresh-main PayPal derived-balance loading lifecycle fix through full gates, merge, matching production asset and browser verification.","category":"OPERATIONAL","candidate_score":{"impact":4,"urgency":4,"completion_probability":4,"risk":2,"priority":32},"carryover_from":"TASK_SWEEP_2026-07-20","terminal_state":"LIVE_VERIFIED","technical_evidence":{"branch":"main","commit_sha":"34f7898299dc0348c703d1419aa1ea1a693dfdc4","pr_url":"https://github.com/andylitvinov-design/finance/pull/623","checks":["full repository test suite passed: 1435 passed, 0 failed","npm run build passed","bash scripts/release-guard.sh passed","production index loads paypal-derived-balance-loading-fix.js","live and canonical asset SHA-256 both equal 046c960dbb4c19146b3270ed3429097064fd1e5544695c6184e8eeac9acb193e","clean desktop and mobile Chromium verification run 29721170493 passed","success, structured API error, 30-second timeout and missing-date states all ended with paypalDerivedBalanceLoading=false","no console errors, failed requests or HTTP errors were observed"],"merge_sha":"34f7898299dc0348c703d1419aa1ea1a693dfdc4","deploy_id":"unknown","deploy_source_sha":"unknown; exact deployed asset hash equals canonical merge content","verification_run_id":29721170493,"verification_artifact":"paypal-loading-live-evidence-29721170493"},"user_evidence":{"production_url":"https://ezohata-incoming-ledger.vercel.app/","tested_route_or_flow":"PayPal derived-balance success, structured API error, 30-second timeout and missing-date loading lifecycle","desktop_result":"PASS: every tested state cleared loading and rendered the final state","mobile_result":"PASS: every tested state cleared loading and rendered the final state","clean_session_result":"PASS","console_network_result":"PASS: zero console errors, failed requests and HTTP errors"},"blocker":{"owner_action":"NOT_APPLICABLE","direct_link":"NOT_APPLICABLE","reason":"No remaining blocker."},"next_automatic_action":"No delivery action remains for this cycle; keep REGRESSION_DEFAULT_STATE_NOT_VERIFIED closed unless a production regression is observed.","started_at":"2026-07-20T07:30:00+02:00","verified_at":"2026-07-20T08:16:31+02:00","cycle_time_minutes":47,"regression_detected":false,"recovery_attempted":true}],"owner_blockers":[{"project_id":"ezohata","terminal_state":"BLOCKED_BY_OWNER","owner_action":"Enable the Google provider in production Supabase using the existing OAuth client, then complete one real owner login and one non-owner denial check.","direct_link":"https://supabase.com/dashboard/project/sgaiemtpjvvotqbngqvy/auth/providers","reason":"Provider activation and genuine production authorization evidence cannot be inferred from code or preview checks."}],"metrics":{"daily":{"period":"2026-07-20","verified_live_upgrade_count":2,"live_completion_rate":{"numerator":2,"denominator":3,"value":"2/3","unit":"selected chains"},"carryover_count":{"value":1,"unit":"selected unresolved chains"},"median_cycle_time_minutes":{"value":47.5,"sample_size":2,"unit":"minutes","source":"candidate selection at 07:30 to artifact-backed LIVE_VERIFIED timestamps"},"product_upgrade_ratio":{"numerator":2,"denominator":2,"value":"2/2","unit":"verified upgrades"},"regression_rate":{"numerator":0,"denominator":2,"value":"0/2","unit":"verified upgrades"},"owner_blocker_count":{"value":1,"unit":"BLOCKED_BY_OWNER chains"},"autonomous_recovery_rate":{"numerator":2,"denominator":3,"value":"2/3","unit":"recoverable failed selected chains","evidence":"Finance and Business Mysteries were restored through evidence-based verification repairs; Brain Management remains unrecovered after the publisher bootstrap repair."},"infrastructure_upgrade_ratio":{"numerator":0,"denominator":2,"value":"0/2","unit":"verified upgrades"}},"rolling_seven_days":{"period":"2026-07-14/2026-07-20","verified_live_upgrade_count":"unknown","live_completion_rate":"unknown","carryover_count":"unknown as a complete seven-day series; current cycle close is 1","median_cycle_time_minutes":"unknown","product_upgrade_ratio":"unknown","regression_rate":"unknown","owner_blocker_count":"unknown as a complete seven-day total; current observed count is 1","autonomous_recovery_rate":"unknown","infrastructure_upgrade_ratio":"unknown","reason":"Canonical per-chain denominators were introduced recently and older runs cannot be safely backfilled from incomplete evidence."}},"evening_handoff":[{"rank":1,"project_id":"brain-management","terminal_state":"MERGED_WAITING_DEPLOY","action":"Inspect the canonical publisher run for main a2421b69f662999990334eb30683044f78cccfc4. If absent, invoke the existing publisher workflow_dispatch once; if failed, rerun only the failed job. Reverify public timestamp, receipt source/deploy and project-health.mjs before desktop/mobile checks."}],"evidence_gaps":["The current GitHub connector exposes PR-triggered runs but not the push/workflow-dispatch publisher run associated with Brain Management main.","Brain Management production remains on an older public snapshot and receipt, so live dashboard metrics cannot be truthfully updated.","The exact Vercel deploy ID/source SHA for the legacy Finance production alias was not exposed; exact deployed asset equality and browser behavior were proved instead.","No claims were made about an unsynced local computer filesystem."],"dashboard_metrics_publication":{"source_record_updated":true,"live_dashboard_updated":false,"reason":"Daily metrics were updated in the canonical evidence record. The live dashboard remains stale and must not be mutated or claimed current until its canonical publisher produces a matching receipt."}}
+{
+  "schema_version": 1,
+  "cycle": "Morning System Upgrade",
+  "observed_at": "2026-07-21T07:37:15+02:00",
+  "selected_chain_count": 1,
+  "selected_chains": [
+    {
+      "upgrade_id": "morning-20260721-brain-single-publisher",
+      "project_id": "brain-management",
+      "source_cycle": "MORNING",
+      "summary": "Consolidate dashboard publication into one canonical workflow with content and receipt verification.",
+      "category": "INFRASTRUCTURE",
+      "candidate_score": {"impact": 5, "urgency": 5, "completion_probability": 3, "risk": 1, "priority": 75},
+      "carryover_from": "TASK_SWEEP_2026-07-21",
+      "terminal_state": "MERGED_WAITING_DEPLOY",
+      "technical_evidence": {
+        "branch": "main",
+        "commit_sha": "1c860159c632fc6e9acdcc68814f48abd5e66381",
+        "pr_url": "https://github.com/andylitvinov-design/brain-management/pull/56",
+        "checks": [
+          "workflow run 29804427560 passed tests, build and publication contract",
+          "duplicate post-merge deploy workflow removed",
+          "canonical workflow retains content upload, receipt upload and exact source/deploy binding",
+          "PR #56 squash-merged to main"
+        ],
+        "merge_sha": "1c860159c632fc6e9acdcc68814f48abd5e66381",
+        "deploy_id": "unknown",
+        "deploy_source_sha": "unknown"
+      },
+      "user_evidence": {
+        "production_url": "https://brain-management.netlify.app/system-health-dashboard/",
+        "tested_route_or_flow": "latest snapshot, Portfolio renderer and publication receipt",
+        "desktop_result": "unknown",
+        "mobile_result": "unknown",
+        "clean_session_result": "unknown",
+        "console_network_result": "unknown"
+      },
+      "blocker": {
+        "owner_action": "NOT_APPLICABLE",
+        "direct_link": "NOT_APPLICABLE",
+        "reason": "The matching post-merge publisher run, deploy, receipt and production behavior are not observable yet."
+      },
+      "next_automatic_action": "Locate the canonical push run for merge 1c860159c632fc6e9acdcc68814f48abd5e66381. Retry only a failed job once, then verify exact deploy, snapshot, receipt, project-health asset and desktop/mobile Portfolio behavior.",
+      "started_at": "2026-07-21T07:28:51+02:00",
+      "verified_at": "unknown",
+      "cycle_time_minutes": "unknown",
+      "regression_detected": true,
+      "recovery_attempted": true
+    }
+  ],
+  "metrics": {
+    "daily": {
+      "period": "2026-07-21",
+      "verified_live_upgrade_count": 0,
+      "live_completion_rate": {"numerator": 0, "denominator": 1, "value": "0/1"},
+      "carryover_count": 1,
+      "median_cycle_time_minutes": "unknown",
+      "product_upgrade_ratio": "NOT_APPLICABLE (0/0)",
+      "regression_rate": "NOT_APPLICABLE (0/0)",
+      "owner_blocker_count": 1,
+      "autonomous_recovery_rate": {"numerator": 0, "denominator": 1, "value": "0/1"},
+      "infrastructure_upgrade_ratio": "NOT_APPLICABLE (0/0)"
+    },
+    "rolling_seven_days": {
+      "period": "2026-07-15/2026-07-21",
+      "verified_live_upgrade_count": "unknown",
+      "live_completion_rate": "unknown",
+      "carryover_count": "unknown; current selected close is 1",
+      "median_cycle_time_minutes": "unknown",
+      "product_upgrade_ratio": "unknown",
+      "regression_rate": "unknown",
+      "owner_blocker_count": "unknown; current observed count is 1",
+      "autonomous_recovery_rate": "unknown",
+      "infrastructure_upgrade_ratio": "unknown"
+    }
+  },
+  "evening_handoff": [
+    {"rank": 1, "project_id": "brain-management", "terminal_state": "MERGED_WAITING_DEPLOY", "action": "Close the canonical publisher through exact deploy, receipt and clean desktop/mobile verification."},
+    {"rank": 2, "project_id": "torontotantra", "terminal_state": "MERGED_WAITING_DEPLOY", "action": "Verify the portrait regression on current production without creating another image PR unless reproduced."},
+    {"rank": 3, "project_id": "codex-links", "terminal_state": "NO_SAFE_UPGRADE", "action": "Proceed only from a valid fresh-main authorization branch for issue #174."}
+  ],
+  "dashboard_metrics_publication": {
+    "source_record_updated": true,
+    "live_dashboard_updated": false,
+    "reason": "The public dashboard remains unverified; no live metric claim was made."
+  }
+}
