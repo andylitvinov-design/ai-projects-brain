@@ -73,3 +73,70 @@ Purpose: persist evidence-backed PR-stage reconciliation across recurring sweeps
 1. `brain-management` — inspect the exact post-merge publisher run for `01fd31eca34ba28fcaf0d58d9cce56b77b0f1a00`; verify matching deploy, public snapshot, UI hooks and receipt. Do not create another heartbeat first.
 2. `finance` — complete PR #623 repository-wide tests, build, release guard and preview default-state verification; merge only after all gates pass.
 3. `ezohata` — keep PR #41 `BLOCKED_BY_OWNER`; recheck only after the production Supabase provider action and real owner/non-owner auth evidence exist.
+
+## 2026-07-21
+
+### Source coverage
+
+- Re-read the canonical live-delivery and remote-PR auto-creation contracts plus the current PR Delivery Sweep and Evening Delivery Closure ledgers.
+- Inspected current PR state, head/base SHAs, merge reachability and available pull-request workflow evidence for `ai-projects-brain`, `brain-management`, `finance`, `ezohata`, `report`, `codex-links`, `torontotantra` and `ezohata-finance` carryover.
+- No synced local/computer Codex filesystem was available and no claim was made about unsynced local branches.
+- Public Netlify/Vercel browser verification could not be repeated from this runner because DNS resolution failed; prior immutable browser/run evidence was used only where already persisted canonically.
+- No recent selected remote branch without an accessible PR was proven: Finance `fix/paypal-derived-balance-loading-fresh-main-20260720`, Brain Management `fix/direct-post-merge-dashboard-publish`, and AI Projects Brain `automation/evening-delivery-closure-20260720` all had accessible PRs.
+
+### PRs automatically reused, updated or reconciled
+
+1. **AI Projects Brain PR #155 — Evening closure persistence**
+   - PR: https://github.com/andylitvinov-design/ai-projects-brain/pull/155
+   - Head `cadbbb1601078ca0da90837f21b05459318ae063` was based on then-current `main` `cd19a6aaf6214ffe36d6f903b3e3b2e242be69bc`.
+   - Agent Harness Validators run `29766555360` / run number `274` completed successfully.
+   - Safe docs-only squash merge completed as `254ca799660020e8139806687b971227d22fe166` and is now canonical `main`.
+   - Terminal state: `LIVE_VERIFIED` for the durable repository-evidence outcome; no external deploy is applicable.
+
+2. **AI Projects Brain PR #152 — stale strategic queue**
+   - PR: https://github.com/andylitvinov-design/ai-projects-brain/pull/152
+   - The branch had diverged from current `main`: one unique stale queue commit while `main` contained four later Morning/Evening and audit changes.
+   - Its ranked queue had already been consumed and superseded by later Morning System Upgrade and Evening Delivery Closure evidence.
+   - Closed without merge after an explanatory comment; no fresh salvage was needed because replaying the old queue would overwrite current carryover semantics.
+   - Terminal state: `NO_SAFE_UPGRADE`.
+
+3. **Finance PR #623 — PayPal derived-balance loading lifecycle**
+   - PR: https://github.com/andylitvinov-design/finance/pull/623
+   - Merged as `34f7898299dc0348c703d1419aa1ea1a693dfdc4`; comparison against canonical `finance/main` is `identical`, proving reachability and excluding `LOST_MERGED_WRONG_BASE`.
+   - Canonical Evening evidence records 1435 passing tests, build, release guard, exact live asset hash and clean desktop/mobile run `29721170493` for success, structured error, timeout and missing-date states.
+   - Terminal state: `LIVE_VERIFIED`.
+   - `REGRESSION_DEFAULT_STATE_NOT_VERIFIED`: resolved for this chain.
+
+4. **Brain Management PR #55 — direct post-merge dashboard upload**
+   - PR: https://github.com/andylitvinov-design/brain-management/pull/55
+   - Merged as `0959d725016512af0ac68838cab165c3d2315db3`; comparison against canonical `brain-management/main` is `identical`.
+   - The fragile dispatch-to-second-workflow path was replaced with one bounded post-merge path that validates and uploads directly to the existing Netlify site.
+   - No current source-mapped Netlify deploy, exact public snapshot/receipt or clean browser proof was accessible in this run.
+   - Terminal state: `MERGED_WAITING_DEPLOY`.
+   - Failed stage: provider deploy and current production verification after canonical merge.
+   - Next automatic action: inspect the post-merge workflow execution for `0959d725...`; if failed, rerun only its failed job once, then require matching deploy source SHA, public timestamp, receipt, `project-health.mjs` and clean desktop/mobile portfolio behavior.
+
+### Safe merges completed
+
+- `ai-projects-brain#155` merged as `254ca799660020e8139806687b971227d22fe166` after green Agent Harness validation.
+- Finance #623 and Brain Management #55 were confirmed reachable from their canonical production branches; no duplicate merge or wrong-base salvage was required.
+
+### Failed CI or blocked chains
+
+- **Brain Management dashboard:** `MERGED_WAITING_DEPLOY`; exact failed stage is post-merge provider upload/live proof, not branch or PR reachability.
+- **Ezohata PR #41:** `BLOCKED_BY_OWNER`; draft remains broad (172 files) and requires production Supabase Google-provider activation plus one owner login and one non-owner denial before any merge decision.
+- **PsiTherapy report PR #122:** `BLOCKED_BY_OWNER`; Firebase project/provider/domain/environment access and authenticated preview proof are still required before cutover or merge.
+- **Codex Links issue #174:** `NO_SAFE_UPGRADE` in this PR-stage run; no current safe fresh-main implementation PR exists for the command-creation authorization boundary.
+
+### Required regression classes
+
+- `LOST_MERGED_WRONG_BASE`: not detected for Finance #623, Brain Management #55 or AI Projects Brain #155; each merge is reachable from canonical `main`.
+- `REGRESSION_DEFAULT_STATE_NOT_VERIFIED`: resolved for Finance #623 by persisted production behavior evidence.
+- Remote branch without accessible PR: none proven among selected recent delivery heads.
+- Merged commit not reachable from canonical production branch: none detected among selected merges.
+
+### Ranked next Morning Task Sweep handoff
+
+1. `brain-management` — recover/observe the single direct post-merge publisher for `0959d725016512af0ac68838cab165c3d2315db3`; require matching Netlify deploy, public snapshot, receipt, required assets and clean portfolio behavior.
+2. `codex-links` — reconcile issue #174 into one smallest fresh-main authorization PR only if a valid remote branch appears; otherwise keep `NO_SAFE_UPGRADE` and do not revive stale PR #163.
+3. `ezohata` — keep PR #41 `BLOCKED_BY_OWNER`; recheck only after production Google provider activation and genuine owner/non-owner auth evidence.
