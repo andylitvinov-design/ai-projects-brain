@@ -174,7 +174,91 @@ There is a compact repeat Wu Xing + Bach note standard. It uses the canonical 4-
 
 ---
 
-## 7. Required pre-send density gate
+## 7. `/приложение` — отдельный клиентский текст после отчёта Андрея
+
+When the user sends their own finished report / analysis and asks:
+
+- `/приложение`;
+- `напиши приложение по моему тексту`;
+- `добавь приложение после моего отчёта`;
+
+produce **one finished client-facing follow-up text** that Andrey can send immediately after his original report.
+
+This is not:
+
+- a rewrite of Andrey’s report;
+- a quality review;
+- a list of what is missing;
+- a second full report;
+- a repeated prescription;
+- the usual one-line remedy-message appendix.
+
+Do not repeat Dao numbers, Wu Xing measurements, images, remedy lists or conclusions already stated by Andrey unless a short reference is necessary to reveal a new mechanism.
+
+### Required content
+
+The `/приложение` text must briefly include:
+
+1. **Psychodynamic discovery based on Wu Xing / Dao dynamics**
+   - reveal the inner rule, conflict or defensive mechanism behind the elemental picture;
+   - formulate the discovery clearly, for example: `Проблема уже не в слабых границах, а в способе их удерживать.`
+
+2. **Meaning of remedies that became irrelevant / left**
+   - explain what old layer they represented;
+   - explain what their disappearance says about progress or a change of phase;
+   - do not merely list old remedies.
+
+3. **Meaning of every currently relevant remedy**
+   - one short living sentence per remedy;
+   - explain its function in the current psychological mechanism, not as a botanical reference;
+   - preserve main and additional layers when the source text distinguishes them.
+
+4. **Practical psychological guidance**
+   - name what the client should notice in everyday life;
+   - explain what should soften and what should strengthen;
+   - give a realistic way to help: a small behavioural or internal practice, without generic advice.
+
+### Client structure
+
+Use this compact flow without technical section labels unless labels make the text clearer:
+
+```md
+**Дополнение. Психодинамика и препараты**
+
+Главное открытие: ...
+
+По У-Син это видно как ...
+
+То, что ушли [препараты], показывает ...
+
+Актуальные препараты:
+[Препарат] — [его суть в текущем механизме].
+...
+
+На что обратить внимание: ...
+
+Как помочь: ...
+```
+
+### Style and length
+
+- default length: **180–350 words**;
+- write as a finished second message for the client;
+- main value = new psychological meaning, not repetition;
+- keep one clear discovery at the centre;
+- end with a practical direction of self-work;
+- no QA notes, no phrases `чего не хватает`, no commentary addressed to Andrey;
+- no guarantees, diagnoses or advice to stop medical treatment.
+
+A `/приложение` response fails if it only explains remedies but does not contain:
+
+- a psychological discovery;
+- what to notice;
+- how to help.
+
+---
+
+## 8. Required pre-send density gate
 
 Before sending any client report, ask internally:
 
@@ -194,7 +278,7 @@ If only longer, rewrite.
 
 ---
 
-## 8. Audit consequence
+## 9. Audit consequence
 
 A report fails compactness / client-readiness if:
 
@@ -204,10 +288,10 @@ A report fails compactness / client-readiness if:
 - the first useful conclusion appears late;
 - the psychodynamic block becomes a second full report;
 - the client must read through process notes instead of receiving the distilled meaning;
-- Appendix contains analysis instead of remedy messages.
+- Appendix contains analysis instead of remedy messages, except when the user explicitly invokes the separate `/приложение` client-follow-up format defined in section 7.
 
 Verdict:
 
 ```md
-Needs rewrite: expanded input was not distilled into a sharper client-facing 4-part report.
+Needs rewrite: expanded input was not distilled into a sharper client-facing report.
 ```
