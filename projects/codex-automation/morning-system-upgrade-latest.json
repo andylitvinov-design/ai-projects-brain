@@ -1,87 +1,205 @@
 {
   "schema_version": 1,
   "cycle": "Morning System Upgrade",
-  "observed_at": "2026-07-21T07:37:15+02:00",
-  "selected_chain_count": 1,
+  "observed_at": "2026-07-22T07:31:40+02:00",
+  "selected_chain_count": 2,
   "selected_chains": [
     {
-      "upgrade_id": "morning-20260721-brain-single-publisher",
-      "project_id": "brain-management",
+      "upgrade_id": "morning-20260722-torontotantra-portrait-live-verification",
+      "observed_at": "2026-07-22T07:31:40+02:00",
+      "project_id": "torontotantra",
       "source_cycle": "MORNING",
-      "summary": "Consolidate dashboard publication into one canonical workflow with content and receipt verification.",
-      "category": "INFRASTRUCTURE",
-      "candidate_score": {"impact": 5, "urgency": 5, "completion_probability": 3, "risk": 1, "priority": 75},
-      "carryover_from": "TASK_SWEEP_2026-07-21",
+      "summary": "Close the facilitator portrait regression through exact canonical/deploy evidence and clean production browser verification without creating another image repair unless the defect reproduces.",
+      "category": "PRODUCT",
+      "candidate_score": {
+        "impact": 4,
+        "urgency": 5,
+        "completion_probability": 4,
+        "risk": 1,
+        "priority": 80
+      },
+      "carryover_from": "TASK_SWEEP_2026-07-22",
       "terminal_state": "MERGED_WAITING_DEPLOY",
       "technical_evidence": {
         "branch": "main",
-        "commit_sha": "1c860159c632fc6e9acdcc68814f48abd5e66381",
-        "pr_url": "https://github.com/andylitvinov-design/brain-management/pull/56",
+        "commit_sha": "df432e020f13271bb5e7697bcb4a336f3abda322",
+        "pr_url": "https://github.com/andylitvinov-design/torontotantra/pull/39",
         "checks": [
-          "workflow run 29804427560 passed tests, build and publication contract",
-          "duplicate post-merge deploy workflow removed",
-          "canonical workflow retains content upload, receipt upload and exact source/deploy binding",
-          "PR #56 squash-merged to main"
+          "Current canonical main is df432e020f13271bb5e7697bcb4a336f3abda322.",
+          "Vercel commit status for current main is success and maps to deployment CPEQWRUmu54L4V8UUCXAvX3BTymG.",
+          "PR #38 restored the facilitator JPEG from a known historical Git blob.",
+          "The current asset-integrity test requires the exact landing-page path, more than 10000 bytes, valid SOI, dimensions, start-of-scan and reachable EOI.",
+          "A clean Chromium production navigation was attempted once in the automation runtime and failed before page load with net::ERR_BLOCKED_BY_ADMINISTRATOR."
         ],
-        "merge_sha": "1c860159c632fc6e9acdcc68814f48abd5e66381",
-        "deploy_id": "unknown",
-        "deploy_source_sha": "unknown"
+        "merge_sha": "df432e020f13271bb5e7697bcb4a336f3abda322",
+        "deploy_id": "CPEQWRUmu54L4V8UUCXAvX3BTymG",
+        "deploy_source_sha": "df432e020f13271bb5e7697bcb4a336f3abda322"
+      },
+      "user_evidence": {
+        "production_url": "https://torontotantra.vercel.app/",
+        "tested_route_or_flow": "facilitator portrait full-frame decode and rendering",
+        "desktop_result": "unknown; production navigation was blocked by the automation runtime before rendering",
+        "mobile_result": "not reached because the clean browser verification environment was blocked",
+        "clean_session_result": "failed at environment boundary: net::ERR_BLOCKED_BY_ADMINISTRATOR",
+        "console_network_result": "unknown; the page did not load, so no production console/network claim is made"
+      },
+      "blocker": {
+        "owner_action": "NOT_APPLICABLE",
+        "direct_link": "NOT_APPLICABLE",
+        "reason": "Technical delivery is current, but required target-browser production proof is unavailable from the present network-restricted runtime."
+      },
+      "next_automatic_action": "Evening Delivery Closure should run one clean desktop/mobile browser verification from a network-enabled existing CI/browser context, confirm the image natural dimensions and decode, capture failed requests and console errors, and retain the current code if the defect does not reproduce.",
+      "started_at": "2026-07-22T07:31:40+02:00",
+      "verified_at": "unknown",
+      "cycle_time_minutes": "unknown",
+      "regression_detected": "unknown; the prior regression is documented but was not reproduced or cleared in a target browser today",
+      "recovery_attempted": true
+    },
+    {
+      "upgrade_id": "morning-20260722-brain-dashboard-publication",
+      "observed_at": "2026-07-22T07:31:40+02:00",
+      "project_id": "brain-management",
+      "source_cycle": "MORNING",
+      "summary": "Close the existing canonical System Health Dashboard publisher through a matching Netlify deploy, receipt and visible Portfolio values.",
+      "category": "INFRASTRUCTURE",
+      "candidate_score": {
+        "impact": 5,
+        "urgency": 5,
+        "completion_probability": 2,
+        "risk": 1,
+        "priority": 50
+      },
+      "carryover_from": "EVENING_2026-07-21",
+      "terminal_state": "BLOCKED_BY_OWNER",
+      "technical_evidence": {
+        "branch": "main",
+        "commit_sha": "41891b1193619262bdbf7ae069b6125cd83c8989",
+        "pr_url": "NOT_APPLICABLE; current publisher and renderer commits are already reachable from main",
+        "checks": [
+          "Current main remains 41891b1193619262bdbf7ae069b6125cd83c8989.",
+          "Renderer commit 8af8b2b06bb045f567bb81b603335789735da471 and canonical publisher commit ed5e66341014f629bcaad0d03f2109013416f505 are reachable from main.",
+          "Current main exposes no Actions status or failed run ID through the connected GitHub interface.",
+          "No second deployer, heartbeat commit or speculative trigger repair was created."
+        ],
+        "merge_sha": "41891b1193619262bdbf7ae069b6125cd83c8989",
+        "deploy_id": "6a59bc16f349e3e190a47208",
+        "deploy_source_sha": "2ab6f1e1d8b3a6bb2c5781e178882ccf744ccb62"
       },
       "user_evidence": {
         "production_url": "https://brain-management.netlify.app/system-health-dashboard/",
-        "tested_route_or_flow": "latest snapshot, Portfolio renderer and publication receipt",
-        "desktop_result": "unknown",
+        "tested_route_or_flow": "current Portfolio strategic values, snapshot and publication receipt",
+        "desktop_result": "known stale from current persisted evidence and user report",
         "mobile_result": "unknown",
         "clean_session_result": "unknown",
         "console_network_result": "unknown"
       },
       "blocker": {
-        "owner_action": "NOT_APPLICABLE",
-        "direct_link": "NOT_APPLICABLE",
-        "reason": "The matching post-merge publisher run, deploy, receipt and production behavior are not observable yet."
+        "owner_action": "Run the existing Publish System Health Dashboard workflow once on main.",
+        "direct_link": "https://github.com/andylitvinov-design/brain-management/actions/workflows/publish-system-health-dashboard.yml",
+        "reason": "No executable workflow run or failed job is exposed to the connected GitHub tool, and the current Netlify production remains mapped to the older source."
       },
-      "next_automatic_action": "Locate the canonical push run for merge 1c860159c632fc6e9acdcc68814f48abd5e66381. Retry only a failed job once, then verify exact deploy, snapshot, receipt, project-health asset and desktop/mobile Portfolio behavior.",
-      "started_at": "2026-07-21T07:28:51+02:00",
+      "next_automatic_action": "After the owner starts the workflow, inspect the exact run; rerun only failed jobs once if required; then verify the matching source SHA, public snapshot, receipt binding, project-health module and clean desktop/mobile Portfolio behavior.",
+      "started_at": "2026-07-22T07:31:40+02:00",
       "verified_at": "unknown",
       "cycle_time_minutes": "unknown",
       "regression_detected": true,
-      "recovery_attempted": true
+      "recovery_attempted": false
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "project_id": "codex-links",
+      "candidate_score": {
+        "impact": 5,
+        "urgency": 5,
+        "completion_probability": 3,
+        "risk": 3,
+        "priority": 25
+      },
+      "terminal_state": "NO_SAFE_UPGRADE",
+      "reason": "Issue #174 has no valid fresh-main implementation branch or PR; stale PR #163 was not revived."
+    }
+  ],
+  "owner_blockers": [
+    {
+      "project_id": "brain-management",
+      "terminal_state": "BLOCKED_BY_OWNER",
+      "owner_action": "Run Publish System Health Dashboard once on main.",
+      "direct_link": "https://github.com/andylitvinov-design/brain-management/actions/workflows/publish-system-health-dashboard.yml",
+      "reason": "The connected tool cannot create the required manual workflow run and no failed run ID exists for a safe rerun."
     }
   ],
   "metrics": {
     "daily": {
-      "period": "2026-07-21",
+      "period": "2026-07-22",
       "verified_live_upgrade_count": 0,
-      "live_completion_rate": {"numerator": 0, "denominator": 1, "value": "0/1"},
-      "carryover_count": 1,
+      "live_completion_rate": {
+        "numerator": 0,
+        "denominator": 2,
+        "value": "0/2",
+        "unit": "selected chains"
+      },
+      "carryover_count": {
+        "value": 2,
+        "unit": "selected unresolved chains"
+      },
       "median_cycle_time_minutes": "unknown",
-      "product_upgrade_ratio": "NOT_APPLICABLE (0/0)",
-      "regression_rate": "NOT_APPLICABLE (0/0)",
-      "owner_blocker_count": 1,
-      "autonomous_recovery_rate": {"numerator": 0, "denominator": 1, "value": "0/1"},
-      "infrastructure_upgrade_ratio": "NOT_APPLICABLE (0/0)"
+      "product_upgrade_ratio": "NOT_APPLICABLE (0/0 verified upgrades)",
+      "regression_rate": "NOT_APPLICABLE (0/0 verified upgrades); one confirmed dashboard production regression remains unresolved",
+      "owner_blocker_count": {
+        "value": 1,
+        "unit": "selected BLOCKED_BY_OWNER chains"
+      },
+      "autonomous_recovery_rate": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": "0/1",
+        "unit": "recoverable failed selected chains"
+      },
+      "infrastructure_upgrade_ratio": "NOT_APPLICABLE (0/0 verified upgrades)"
     },
     "rolling_seven_days": {
-      "period": "2026-07-15/2026-07-21",
+      "period": "2026-07-16/2026-07-22",
       "verified_live_upgrade_count": "unknown",
       "live_completion_rate": "unknown",
-      "carryover_count": "unknown; current selected close is 1",
+      "carryover_count": "unknown as a complete seven-day series; current selected carryover is 2",
       "median_cycle_time_minutes": "unknown",
       "product_upgrade_ratio": "unknown",
       "regression_rate": "unknown",
-      "owner_blocker_count": "unknown; current observed count is 1",
+      "owner_blocker_count": "unknown as a complete seven-day total; current selected count is 1",
       "autonomous_recovery_rate": "unknown",
-      "infrastructure_upgrade_ratio": "unknown"
+      "infrastructure_upgrade_ratio": "unknown",
+      "reason": "Compatible per-chain denominators are incomplete and cannot be safely backfilled."
     }
   },
   "evening_handoff": [
-    {"rank": 1, "project_id": "brain-management", "terminal_state": "MERGED_WAITING_DEPLOY", "action": "Close the canonical publisher through exact deploy, receipt and clean desktop/mobile verification."},
-    {"rank": 2, "project_id": "torontotantra", "terminal_state": "MERGED_WAITING_DEPLOY", "action": "Verify the portrait regression on current production without creating another image PR unless reproduced."},
-    {"rank": 3, "project_id": "codex-links", "terminal_state": "NO_SAFE_UPGRADE", "action": "Proceed only from a valid fresh-main authorization branch for issue #174."}
+    {
+      "rank": 1,
+      "project_id": "torontotantra",
+      "terminal_state": "MERGED_WAITING_DEPLOY",
+      "action": "Run one clean desktop/mobile production browser verification from a network-enabled existing context; require successful image decode, no partial gray frame, no failed image request and no console error."
+    },
+    {
+      "rank": 2,
+      "project_id": "brain-management",
+      "terminal_state": "BLOCKED_BY_OWNER",
+      "action": "After the owner starts the existing canonical workflow, verify exact run, deploy source, snapshot, receipt and Portfolio UI; do not create another trigger repair."
+    },
+    {
+      "rank": 3,
+      "project_id": "codex-links",
+      "terminal_state": "NO_SAFE_UPGRADE",
+      "action": "Proceed only when a valid fresh-main owner-session or short-lived capability implementation branch exists for issue #174."
+    }
+  ],
+  "evidence_gaps": [
+    "The current automation runtime blocks direct production Chromium navigation with net::ERR_BLOCKED_BY_ADMINISTRATOR.",
+    "No Brain Management workflow run or failed job ID is exposed for the current main.",
+    "No synced unsynchronized local/computer Codex filesystem was accessed."
   ],
   "dashboard_metrics_publication": {
     "source_record_updated": true,
     "live_dashboard_updated": false,
-    "reason": "The public dashboard remains unverified; no live metric claim was made."
+    "reason": "The dashboard publisher is owner-blocked and production remains stale; no live metric value was fabricated."
   }
 }
