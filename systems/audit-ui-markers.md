@@ -1,7 +1,7 @@
 # /audit-ui design markers
 
-Version: 1.2  
-Last reviewed: 2026-07-20  
+Version: 1.3  
+Last reviewed: 2026-07-23  
 Owner: `/audit-ui` shared standard
 
 ## Purpose
@@ -40,7 +40,7 @@ scoreboard plus the three highest-impact defects is more useful.
 | Image and media direction | Crop, aspect ratio, loading state, relation to copy | Media is purposeful, consistently framed, and does not obscure text or distort the promise. |
 | Primary journey and CTA | Navigation, CTA placement, form/cart/checkout path | The main action is visible, understandable, reachable, and does not compete with equal-weight actions. |
 | Responsive composition and reflow | 390px mobile, desktop, tablet when layout changes, and a 320 CSS px equivalent / zoomed viewport | Non-exempt content reflows without two-dimensional page scrolling, clipped text, hidden primary actions, or a source-order mismatch; text enlargement remains usable. |
-| States and feedback | Default, hover/focus, selected, loading, empty, error, success | States are distinct, recoverable, and the clean-session default is verified before clicked state. |
+| States, errors, and feedback | Default, hover/focus, selected, loading, empty, validation error, submit error, success, and dynamic status messages | States are distinct and recoverable; each detected input error is identified in text and linked or associated with its field; success, result, waiting, progress, and error status updates are programmatically determinable without unnecessary focus theft; the clean-session default is verified before clicked state. |
 | Accessibility and input | Contrast, focus visibility/obscuration, target size/spacing, keyboard, motion | Focused components remain visible above sticky or overlay layers; pointer targets are at least 24 by 24 CSS px or satisfy a documented spacing/equivalent/inline exception; controls retain contrast and do not depend on hover, drag, or motion alone. |
 | Performance and stability | Image/font reservation, layout shift, interaction cost | The visual solution avoids avoidable CLS, heavy decorative JS, and delayed primary interaction. |
 | Trust and content integrity | Price, status, permissions, source-backed content | Critical labels/data are legible, current-looking, and not visually disguised or misleading. |
@@ -98,6 +98,9 @@ articles: [WCAG 2.2](https://www.w3.org/TR/WCAG22/),
 [W3C Contrast](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html),
 [W3C Focus Not Obscured](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html),
 [W3C Target Size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html),
+[W3C Error Identification](https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html),
+[W3C Status Messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html),
+[accessible forms](https://web.dev/learn/accessibility/forms),
 [accessible responsive design](https://web.dev/articles/accessible-responsive-design),
 and [Web Vitals](https://web.dev/articles/vitals).
 
@@ -111,6 +114,7 @@ and [Liquid Glass accessibility behavior](https://developer.apple.com/videos/pla
 
 | Date | Change | Reason |
 |---|---|---|
+| 2026-07-23 | v1.3: strengthened states and feedback with explicit error identification, field association, and programmatically determinable dynamic-status checks. | W3C WCAG 2.2 defines text error identification and non-focus-stealing status exposure; web.dev and GOV.UK provide established, observable form patterns. The change closes a screen-reader feedback gap without adding a new trend or duplicating visual state checks. |
 | 2026-07-20 | v1.2: made focus obscuration and target-size/spacing checks explicit in the accessibility marker. | W3C WCAG 2.2 provides observable AA checks for sticky/overlay layers and 24 by 24 CSS px targets or documented exceptions; current Figma/Apple material signals add no safer replacement for existing trend candidates. |
 | 2026-07-16 | v1.1: strengthened responsive composition with 320 CSS px reflow/zoom proof; replaced vague texture candidate with testable controlled translucency/material depth. | W3C and web.dev establish reflow/source-order requirements; Apple, Figma, and Adobe show material/translucency and expressive visual systems are current signals, while contrast and opaque fallbacks remain safety gates. |
 | 2026-07-12 | Created v1.0 core scorecard and three trend candidates. | Separates durable UX quality from fashion-driven suggestions. |
