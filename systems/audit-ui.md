@@ -142,7 +142,7 @@ Check:
 - mobile layout;
 - tablet layout when relevant;
 - navigation clarity;
-- forms, validation, buttons, and tap targets;
+- forms, validation and error recovery, buttons, and tap targets;
 - loading, empty, error, and success states;
 - long text wrapping;
 - image aspect ratios;
@@ -214,14 +214,18 @@ Minimum scenarios:
    remains distinguishable against any blur, dimming, or translucent layer.
 5. Pointer targets are at least 24 by 24 CSS px, or each undersized target has a
    documented WCAG spacing/equivalent/inline/user-agent/essential exception.
-6. One interactive state is checked: hover, focus, open, submit, loading, error,
+6. Trigger one validation error and one dynamic update when those states exist.
+   The error is identified in text and associated with or linked to its field;
+   success, result, waiting, progress, and error status messages are exposed to
+   assistive technology without unnecessary focus movement or duplicate chatter.
+7. One interactive state is checked: hover, focus, open, submit, loading, error,
    or empty.
-7. For stateful UI, clean-session default is checked before clicked-state.
-8. For legacy persisted UI, old storage keys are checked or explicitly marked
+8. For stateful UI, clean-session default is checked before clicked-state.
+9. For legacy persisted UI, old storage keys are checked or explicitly marked
    `needs verification`.
-9. If translucency, glass, or blur is used, inspect its worst-case background:
-   contrast, image color fidelity, and an opaque/reduced-transparency fallback
-   must remain usable.
+10. If translucency, glass, or blur is used, inspect its worst-case background:
+    contrast, image color fidelity, and an opaque/reduced-transparency fallback
+    must remain usable.
 
 If browser verification cannot run, say exactly why and provide manual
 verification steps. Do not claim live is fixed unless live or preview was
@@ -352,6 +356,7 @@ Verification:
 - Translucency/material contrast (when used):
 - Focus not obscured:
 - Target size/spacing:
+- Errors/status announcements:
 - Clean-session default:
 - Legacy persisted state:
 - Clicked/selected state:
