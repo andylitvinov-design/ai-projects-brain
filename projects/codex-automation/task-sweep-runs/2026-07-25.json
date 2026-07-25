@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "run_date": "2026-07-25",
+  "generated_at": "2026-07-25T04:43:25.853Z",
+  "source_cycle": "TASK_SWEEP",
+  "dashboard_source": "https://brain-management.vercel.app/api/data",
+  "target_metrics": [
+    {
+      "metric_id": "lead_time_to_live",
+      "score_before": 33.3,
+      "raw_before": "1/3 timestamp pairs",
+      "collector_change": "Backfilled two verified completed-chain timestamp pairs.",
+      "expected_raw_after_ingestion": "3/3 timestamp pairs",
+      "expected_score_after_ingestion": 100,
+      "score_claim_state": "PENDING_DASHBOARD_INGESTION"
+    },
+    {
+      "metric_id": "context_retry_cost",
+      "score_before": 33.3,
+      "raw_before": "2/3 extra attempts",
+      "collector_change": "Persisted attempt and evidence-trigger boundaries so future sweeps do not repeat work without new evidence.",
+      "expected_score_after_ingestion": 33.3,
+      "score_claim_state": "NO_SCORE_INCREASE_CLAIMED"
+    }
+  ],
+  "timestamp_pairs_added": [
+    {
+      "chain_id": "brain-management-control-plane-20260724",
+      "project_id": "brain-management",
+      "first_discovered_at": "2026-07-24T09:04:09Z",
+      "live_verified_at": "2026-07-24T09:14:59.854Z",
+      "cycle_time_minutes": 10.8,
+      "terminal_state": "LIVE_VERIFIED",
+      "evidence": {
+        "pr_url": "https://github.com/andylitvinov-design/brain-management/pull/58",
+        "merge_sha": "3c1fec4b38fb54d126988f0e951884f0d92d248e",
+        "deploy_id": "dpl_C8S4bdy7K1UZToiBTtE9DS37DCHf",
+        "production_url": "https://brain-management.vercel.app"
+      }
+    },
+    {
+      "chain_id": "brain-management-publication-freshness-20260724",
+      "project_id": "brain-management",
+      "selected_at": "2026-07-24T17:59:14Z",
+      "live_verified_at": "2026-07-24T18:14:10Z",
+      "cycle_time_minutes": 15,
+      "terminal_state": "LIVE_VERIFIED",
+      "recovery_attempts": 1,
+      "evidence": {
+        "pr_url": "https://github.com/andylitvinov-design/brain-management/pull/59",
+        "merge_sha": "508578ca89be2634d24639446562ec5cc848b3ce",
+        "failed_deploy_id": "dpl_Dhbs1Hky81FJj7KnTdZrBWGaZwUm",
+        "deploy_id": "dpl_6w4t8ikqWnU8vf364PZuoiYsxvtH",
+        "production_url": "https://brain-management.vercel.app"
+      }
+    }
+  ],
+  "reconciled_chains": [
+    {
+      "chain_id": "brain-management-publication",
+      "terminal_state": "LIVE_VERIFIED",
+      "carryover_action": "REMOVE_FROM_UNRESOLVED",
+      "evidence_trigger": "NOT_APPLICABLE"
+    },
+    {
+      "chain_id": "torontotantra-pr-41",
+      "project_id": "torontotantra",
+      "first_discovered_at": "2026-07-23T00:00:00Z",
+      "selected_at": "2026-07-25T04:43:25.853Z",
+      "terminal_state": "BLOCKED_BY_OWNER",
+      "current_head_sha": "6bf452237c269007d73d336d7f9ee81f1557cf26",
+      "current_check_state": "VERCEL_FAILURE",
+      "owner_action": "Provide the exact approved facilitator portrait source or stable source/file ID with complete bytes.",
+      "next_automatic_action": "After new source evidence appears, rerun deterministic reconstruction, size/hash/decode checks, preview desktop/mobile and console/network verification.",
+      "retry_policy": "DO_NOT_RETRY_WITHOUT_NEW_SOURCE_EVIDENCE",
+      "dedupe_fingerprint": "torontotantra#41@6bf452237c269007d73d336d7f9ee81f1557cf26:missing-approved-source"
+    },
+    {
+      "chain_id": "codex-links-issue-174",
+      "project_id": "codex-links",
+      "first_discovered_at": "2026-07-19T00:00:00Z",
+      "selected_at": "2026-07-25T04:43:25.853Z",
+      "terminal_state": "NO_SAFE_UPGRADE",
+      "artifact_state": "NO_REMOTE_BRANCH_OR_PR",
+      "next_automatic_action": "Create or reuse a PR only after a fresh-main owner-session or short-lived capability implementation branch appears.",
+      "retry_policy": "MONITOR_BRANCH_DELTA_ONLY",
+      "dedupe_fingerprint": "codex-links#174:no-implementation-artifact"
+    },
+    {
+      "chain_id": "ezohata-pr-41",
+      "project_id": "ezohata",
+      "first_discovered_at": "2026-07-13T17:28:46Z",
+      "terminal_state": "BLOCKED_BY_OWNER",
+      "current_head_sha": "f01f7ce3ee345821d4d5385a897fa1f7497757a4",
+      "current_check_state": "VERCEL_SUCCESS_PREVIEW_ONLY",
+      "owner_action": "Enable the production Google provider and complete one real owner login plus one non-owner denial.",
+      "retry_policy": "DO_NOT_MERGE_FROM_PREVIEW_ONLY"
+    },
+    {
+      "chain_id": "psitherapy-pr-122",
+      "project_id": "psitherapy",
+      "first_discovered_at": "2026-07-02T15:28:53Z",
+      "terminal_state": "BLOCKED_BY_OWNER",
+      "owner_action": "Provide Firebase project/provider/domain/environment access and authenticated preview proof.",
+      "retry_policy": "DO_NOT_REFRESH_OR_MERGE_BEFORE_PROVIDER_ACCESS"
+    }
+  ],
+  "ranked_handoff": [
+    {
+      "rank": 1,
+      "chain_id": "provider-live-readiness-first-project",
+      "target_metric": "provider_live_readiness_ratio",
+      "owner_automation": "Morning System Upgrade",
+      "next_action": "Choose one provider-dependent project without an owner-only gate and verify config-name presence, auth/session smoke and live primary journey."
+    },
+    {
+      "rank": 2,
+      "chain_id": "torontotantra-pr-41",
+      "target_metric": "blocked_chain_readiness",
+      "owner_automation": "PR Delivery Sweep",
+      "next_action": "Wait for exact source evidence; then reuse PR #41 and run the binary-safe verification ladder."
+    },
+    {
+      "rank": 3,
+      "chain_id": "codex-links-issue-174",
+      "target_metric": "task_success_rate",
+      "owner_automation": "PR Delivery Sweep",
+      "next_action": "Monitor for a fresh-main implementation branch; do not create speculative auth code."
+    }
+  ],
+  "source_coverage": {
+    "github_remote": "CHECKED",
+    "vercel_production": "CHECKED",
+    "unsynced_local_codex": "NOT_ACCESSIBLE",
+    "unified_chatgpt_task_history": "NOT_ACCESSIBLE"
+  }
+}
