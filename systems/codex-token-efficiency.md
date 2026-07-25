@@ -1,188 +1,235 @@
 # Codex Token Efficiency Program
 
-Use this file with `systems/agent-rules.md` and `systems/codex-project-workflow.md`.
-The goal is not to skip project memory. The goal is to read the smallest useful context first, expand only when blocked, and finish with verification and memory updates.
+Use this policy with `systems/agent-rules.md` and
+`systems/codex-project-workflow.md`.
 
-## 1. Program stages
+The goal is not to skip project memory or verification. The goal is to load the
+smallest useful context first, expand only for a named reason, avoid repeated
+reads, and finish with a compact verified handoff.
 
-### Stage 1 — Policy layer
+When another workflow contains a broad list of project-memory files, this file
+controls the **initial read set**. A listed file is not automatically mandatory;
+it is opened only when the triggers below apply.
 
-- Add a shared token-efficiency policy in this file.
-- Link it from the main Codex workflow and agent rules.
-- Keep the policy short enough to be read often.
+## 1. Default bootstrap: four steps
 
-### Stage 2 — Template layer
+For normal Codex project work, start in this order:
 
-- Add short templates for `AGENTS.md`, `CODEX_BRIEF.md`, task intake, and session summaries.
-- Keep repo `AGENTS.md` files short; target 200 lines or less.
-- Move project details into `CODEX_BRIEF.md`, `STATE.md`, `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, and `RISKS.md`.
+1. Locate the canonical project and repository in `projects.json` or the
+   matching project index entry.
+2. Read `projects/<slug>/CODEX_BRIEF.md`; fall back to `PROJECT.md` or
+   `STATE.md` only when the brief is missing.
+3. Read the target repository's nearest applicable `AGENTS.md`.
+4. Search for and read the exact implementation files and nearest tests needed
+   for the task.
 
-### Stage 3 — Repo rollout
+Do not open the complete shared memory, long `README.md`, project history, or
+all system policies during bootstrap.
 
-Audit the high-impact repos first:
+## 2. Initial context budget
 
-1. `ai-projects-brain`
-2. `brain-management`
-3. `codex-links`
-4. `finance` / `ezohata-incoming-ledger`
+Unless the task is already known to be large:
 
-For each repo, check:
+- open no more than 5 context or memory files before locating implementation;
+- do not perform a recursive full-repository scan;
+- search or grep before opening a large file;
+- for files longer than 300 lines, read the relevant section first;
+- do not reread an unchanged file without recording the reason;
+- before opening a sixth context file, state the missing fact and why that file
+  is the smallest source likely to provide it.
 
-- whether `AGENTS.md` exists and is short;
-- whether `CODEX_BRIEF.md` exists;
-- whether `STATE.md` and `LOG.md` exist;
-- whether exact verification commands are documented;
-- whether deprecated repos and production targets are clearly separated;
-- whether there is a clear stop condition.
+Implementation files and tests discovered after the target is located are not
+counted as project-memory files, but broad reading of unrelated implementation
+areas is still prohibited.
 
-### Stage 4 — Dashboard layer
+## 3. Expansion triggers
 
-Add or expose token-efficiency signals in `brain-management`:
+Open additional memory only when the task requires it:
 
-- `broad_repo_scan`
-- `repeated_file_reads`
-- `missing_codex_brief`
-- `missing_state_log`
-- `long_final_report`
-- `no_compact_summary`
-- `unnecessary_tool_use`
-- `wrong_repo_context`
-- `no_exact_failing_command`
-- `skipped_verification`
+- `SYSTEM_MAP.md`: architecture, cross-module flows, ownership boundaries, or
+  an unclear implementation location.
+- `DATA_SCHEMA.md`: database tables, migrations, APIs, contracts, imports, or
+  data invariants.
+- `RISKS.md`: production, authentication, payments, destructive actions,
+  secrets, permissions, or high-impact behavior.
+- `STATE.md`: current production truth or current blockers not captured in the
+  brief.
+- `LOG.md`: recent history is material to the task; never treat it as current
+  truth automatically.
+- `DECISIONS.md`: the reason behind a durable architectural or product choice is
+  needed.
+- `README.md`: onboarding, commands, or deployment information is absent from
+  the brief.
+- full shared system policies: agent workflow design, `/improve`, policy audit,
+  or a conflict between compact instructions.
 
-### Stage 5 — Continuous improvement
+When expanding, name the trigger in one short line. Do not open adjacent files
+merely because they exist.
 
-After each significant Codex task:
+## 4. Task size levels
 
-- check whether the task wasted context;
-- update `STATE.md` or `LOG.md` if project facts changed;
-- add a short improvement note when a repeated token-waste pattern appears.
+### Tiny
 
-## 2. Task size levels
-
-### Tiny task
-
-Examples: docs wording, one small prompt, one known file.
+Examples: wording, one prompt, one known file.
 
 Read:
 
-- project record from `projects.md`;
-- `CODEX_BRIEF.md` or `STATE.md` if available;
-- the exact file requested.
+- project index entry;
+- `CODEX_BRIEF.md` or `STATE.md`;
+- exact requested file.
 
-Do not read full repo memory unless blocked.
-
-### Small task
+### Small
 
 Examples: one bug, one UI copy change, one endpoint check.
 
 Read:
 
-- project record from `projects.md`;
-- `CODEX_BRIEF.md`;
-- `STATE.md` / `LOG.md` if present;
-- exact implementation files and nearest tests.
+- default bootstrap;
+- nearest tests;
+- one additional memory file only when an expansion trigger applies.
 
-Do not start with a full repo scan.
-
-### Medium task
+### Medium
 
 Examples: feature patch, schema adjustment, dashboard change.
 
-Read additionally:
+Read:
 
-- `SYSTEM_MAP.md` if relevant;
-- `DATA_SCHEMA.md` if data/contracts are involved;
-- `RISKS.md` if present;
-- relevant tests and deploy docs.
+- default bootstrap;
+- relevant `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, `RISKS.md`, tests, or deploy docs
+  only by trigger.
 
-### Large task
+### Large
 
 Examples: architecture, long debug loop, production incident, cross-repo flow.
 
-Full project memory is allowed, but Codex must:
+Broader context is allowed, but Codex must:
 
-- state why broader context is needed;
-- keep notes short;
+- state why it is needed;
+- keep a list of files already studied;
 - avoid rereading unchanged files;
-- create a session summary before switching direction.
+- create a session summary before changing direction;
+- separate confirmed facts from `needs verification`.
 
-## 3. Context budget rules
+## 5. Memory roles
 
-- Start narrow; expand only when blocked.
-- Prefer `CODEX_BRIEF.md` over long `README.md` when available.
-- Use search/grep to locate exact files before opening large files.
-- Do not read the whole repo first.
-- Do not reread unchanged files without a reason.
-- Do not mix sibling repos unless the project record says they are connected.
-- Mark missing or uncertain context as `needs verification` and continue with the safest useful plan.
+Keep project memory separated by purpose:
 
-## 4. Tool budget rules
+- `CODEX_BRIEF.md`: compact routing index; target 80–150 lines.
+- `STATE.md`: current verified truth and active blockers.
+- `LOG.md`: dated history and evidence.
+- `DECISIONS.md`: durable decisions and rationale.
+- `SESSION_HANDOFF.md` or session summary: only unfinished current work.
+- `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, `RISKS.md`: specialist references opened
+  by trigger.
 
-- Do not use browser, Playwright, screenshots, live checks, or external MCP/tools unless the task requires them.
-- For docs-only tasks, verify files and links; do not perform live deploy checks unless links are part of the task.
-- For production claims, live verification is required when possible.
-- If a tool or live check fails, record the exact failing command/check.
+Do not duplicate long history or system policies inside `CODEX_BRIEF.md` or
+`AGENTS.md`.
 
-## 5. Compact and session summary triggers
+## 6. Repo instruction size
 
-Create or propose a session summary before:
+- Keep repository `AGENTS.md` short; target 200 lines or fewer.
+- `AGENTS.md` routes Codex to the correct memory, safety rules, and checks.
+- Put project details in the specialist memory files above.
+- Keep the always-read token rules in `AGENTS.md` to a compact checklist; link
+  here for policy audits rather than requiring the full file on every tiny task.
+
+## 7. Tool budget
+
+- Do not use browser, Playwright, screenshots, live checks, or external tools
+  unless the task requires them.
+- For documentation-only work, verify files, generated indexes, and links; do
+  not run unrelated live checks.
+- For production claims, perform live verification when possible.
+- When a tool fails, record the exact failing command or check once; do not
+  repeat equivalent calls without a changed hypothesis.
+
+## 8. Compact and handoff triggers
+
+Create a compact session summary before:
 
 - switching to a new major task;
-- after a long debugging loop;
-- when repeated checks or rereads begin;
-- before a new chat/session handoff;
-- before context becomes too large to keep reliable.
+- changing direction after a long debugging loop;
+- repeated checks or rereads begin;
+- handing work to another agent or session;
+- context becomes too large to remain reliable.
 
-The summary should capture only:
+Capture only:
 
-- target repo and branch;
+- repository and branch;
 - goal;
 - files already studied;
-- findings;
+- confirmed findings;
 - changes made;
-- checks run and failures;
+- checks and failures;
 - remaining risks;
 - next exact action.
 
-## 6. Repo instruction size rule
+The handoff replaces rereading chat history. It does not replace durable project
+memory.
 
-- Keep repo `AGENTS.md` short; target 200 lines or less.
-- `AGENTS.md` should route Codex to the correct memory files and safety rules.
-- Do not duplicate long project docs inside `AGENTS.md`.
-- Put operational detail into `CODEX_BRIEF.md`, `STATE.md`, `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, `RISKS.md`, or `LOG.md`.
+## 9. Execution telemetry
 
-## 7. Final report rule
+After each significant Codex task, emit or persist these fields when the
+workflow supports telemetry:
+
+```json
+{
+  "initial_context_files": 0,
+  "total_files_read": 0,
+  "repeated_file_reads": 0,
+  "broad_repo_scan": false,
+  "large_files_read_in_full": 0,
+  "external_tools_used": [],
+  "final_report_lines": 0,
+  "verification_run": false,
+  "memory_files_updated": [],
+  "context_expansion_reasons": []
+}
+```
+
+Flag the run when any of these occurs:
+
+- `initial_context_files > 5` without a recorded large-task reason;
+- `repeated_file_reads > 0` without a reason;
+- `broad_repo_scan = true` before targeted search failed;
+- a large file was read in full without a section-first reason;
+- external tools were used without task relevance;
+- verification was skipped without being reported;
+- a normal final report exceeds 30 lines;
+- meaningful project facts changed but memory update status was omitted.
+
+Dashboard and reporting details are defined in
+`systems/codex-efficiency-telemetry.md`.
+
+## 10. Final report
 
 For normal tasks, report only:
 
 - studied files;
-- what was found;
-- what changed;
+- finding;
+- change;
 - changed files;
-- checks run;
-- checks not run;
-- risks / `needs verification`;
-- `STATE.md` / `LOG.md` update status.
+- checks run and not run;
+- risks or `needs verification`;
+- memory update status;
+- next action.
 
-Avoid long narratives unless the user asks for analysis.
+Avoid chronological narratives unless requested. Target 30 lines or fewer.
 
-## 8. Stop condition
+## 11. Stop condition
 
 A Codex task is complete only when:
 
 - the minimal fix is implemented or a clear no-change diagnosis is given;
 - checks were run or explicitly marked not run;
-- changed files are listed;
-- risks are listed;
-- `STATE.md` / `LOG.md` update need is checked;
+- changed files and risks are listed;
+- project-memory update need was checked;
 - the next action is concrete.
 
-## 9. Non-goals
+## 12. Non-goals
 
-- Do not weaken Context First.
-- Do not weaken Project Memory First.
-- Do not weaken Production Awareness.
-- Do not weaken Secrets Safety.
-- Do not skip verification to save tokens.
-- Do not make Claude-only features mandatory for Codex unless clearly marked as Claude-only.
+- Do not weaken Context First; make it selective.
+- Do not weaken Project Memory First; route through the brief.
+- Do not weaken Production Awareness, secrets safety, or verification.
+- Do not save tokens by skipping required tests.
+- Do not make Claude-only features mandatory for Codex.
