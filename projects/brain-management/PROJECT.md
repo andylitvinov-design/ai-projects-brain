@@ -2,54 +2,56 @@
 
 ## 1. Purpose
 
-Management dashboard and ops workspace for Codex usage, daily thinking/audit data, mobile-run flows, and management reports.
+Operational management control plane for current metrics, immutable daily snapshots, automation assignments, delivery chains, Needs Attention, Trends, and the Apple/PWA mobile client.
 
 ## 2. Live URLs
 
-- production: https://brain-management.netlify.app
-- legacy: https://brain-management.pages.dev
-- preview: needs verification
-- admin: needs verification
-- needs verification: exact current Netlify deploy SHA, preview/admin mappings, and whether the legacy Cloudflare deployment should remain reachable.
+- canonical web production: https://brain-management.vercel.app
+- canonical Apple/PWA production: https://brain-management-mobile.vercel.app
+- web Needs Attention: https://brain-management.vercel.app/needs-attention
+- mobile Finance hub: https://brain-management-mobile.vercel.app/#/finance
+- legacy Netlify/Cloudflare URLs: historical only; do not use for current production verification unless a rollback explicitly targets them.
 
 ## 3. Repositories
 
 - canonical repo: https://github.com/andylitvinov-design/brain-management
-- deprecated repo: none confirmed
-- related repos: `ai-projects-brain` is project memory only; do not treat it as the runtime dashboard source.
+- durable memory: `andylitvinov-design/ai-projects-brain`
+- Finance source of truth: `andylitvinov-design/ezohata-finance`
+
+`ai-projects-brain` is durable project/governance memory, not the runtime dashboard. `ezohata-finance` owns financial formulas, balances, reconciliation, auth, and private finance data; Brain Management mobile only provides a safe hub and read-only status proxy.
 
 ## 4. Hosting / Deploy
 
-- provider: Netlify
-- production project/domain: `brain-management.netlify.app`
-- deploy config: `netlify.toml`
-- publish directory: repository root (`.`)
-- production branch/source: `main` expected; exact Netlify linkage and deployed SHA need verification
-- legacy provider: Cloudflare Pages at `brain-management.pages.dev`
-- deploy rules: do not verify or patch production through the legacy URL; use the Netlify source and preserve a rollback note.
+- provider: Vercel
+- web project: `brain-management`
+- mobile project: `brain-management-mobile`
+- production team: `super10`
+- mobile deployment can be direct-file/API deployed and therefore requires explicit source-to-deploy evidence; a READY deployment alone is not source proof.
+- canonical web APIs include `/api/data` and `/api/needs-attention`.
+- mobile APIs proxy canonical web data and EzoHata Finance public status without copying protected finance data.
 
 ## 5. Current Status
 
-Private canonical repo with a Netlify-hosted live dashboard. The repo README identifies the previous Cloudflare Pages URL as legacy. Dashboard snapshots live under the documented `dashboard-*/data/` paths.
+Web and mobile production are live on Vercel. The Apple/PWA client has dedicated Overview, Tasks, Needs Attention, Finance, Trends, Projects, and Metrics sections. Finance links must mirror `ezohata-finance/src/lib/product/routes.ts`; guessed routes are forbidden.
 
 ## 6. Important Files
 
-- `README.md`
-- `SAFE.md`
-- `netlify.toml`
-- `package.json`
-- `.env.example`
-- `dashboard-thinking/data/current-thinking-audit.json`
-- `dashboard-thinking/data/current-daily-upgrade.json`
-- `dashboard-thinking/data/current-daily-changes.json`
-- `system-health-dashboard/data/current-system-health-dashboard.json`
-- `scripts/refresh-management-dashboards.js`
-- `functions/api/mobile-run.js`
-- `functions/_lib/mobile-run.js`
+- `index.html`
+- `app.js`
+- `styles.css`
+- `attention.js`
+- `finance.js`
+- `manifest.webmanifest`
+- `sw.js`
+- `api/data.js`
+- `api/needs-attention.js`
+- `api/finance-status.js`
+- `tests/needs-attention.test.mjs`
+- `tests/mobile-finance.test.mjs`
 
 ## 7. Environment Variable Names
 
-Only names are listed. Values must never be stored here.
+Only names may be stored. Values must never be copied to memory or dashboard output.
 
 - `MOBILE_LAUNCH_KEY`
 - `STATUS_CALLBACK_SECRET`
@@ -67,49 +69,48 @@ Only names are listed. Values must never be stored here.
 
 ## 8. Known Issues
 
-- `projects.md` and `projects.json` still contain the legacy Cloudflare production mapping and need a coordinated registry regeneration/update.
-- Live Netlify deploy SHA and branch linkage need verification before production claims.
-- Morning report publish/API verification can fail on `codex-links.pages.dev` DNS/network reachability.
-- Agents sometimes verify dashboard JSON from the wrong root path.
-- Public exposure and freshness of operational dashboard JSON need live verification.
+- Direct mobile deployments may drift from repository `main`; verify deployed static assets and route contracts after every release.
+- Brain Management API currently has no dedicated write endpoint for Evening Delivery Closure receipts; Daily Dashboard Update remains the publication owner.
+- The durable registry previously pointed to Netlify/Cloudflare and required this correction.
+- Mobile Finance must not duplicate balances or private transactions. It may expose public provider/status metadata and authenticated links only.
 
-## 9. Recent Tasks
+## 9. Recent Durable Changes
 
-- 2026-07-19 `/safe` sweep proved repo/project-memory drift: repo-local README and `netlify.toml` identify Netlify, while shared inventory still named Cloudflare Pages.
-- Repo-level `SAFE.md` refresh opened in `brain-management` to document Netlify production, legacy Cloudflare, mobile workflow authorization, headers, and rollback boundaries.
-- Morning report flow uses refresh, verify current JSONs, publish, verify public API, and open inbox item on explicit request/failure.
+- 2026-07-25: Vercel web/mobile mapping verified and made canonical.
+- 2026-07-25: Needs Attention and Trends published in the management surfaces.
+- 2026-07-25: Finance hub added to Apple/PWA.
+- 2026-07-25: evening verification found guessed Finance paths and recovered them by synchronizing all 14 canonical `PRODUCT_ROUTES`; production deployment verified after the repair.
 
 ## 10. Next Actions
 
-- Regenerate or update the `projects.md` and `projects.json` brain-management record together so the mirrors match this project file.
-- Verify the exact Netlify production deploy source, branch, SHA, and live response headers.
-- Re-check live report publishing path when DNS/network is available.
-- Keep current JSON verification pointed at the documented dashboard data directories.
+- Add a supported operational closure-write path so Evening Delivery Closure can persist terminal evidence without editing metric formulas.
+- Keep mobile route-contract regression tests aligned with `ezohata-finance`.
+- Prefer repo-backed deployment or persist exact direct-deploy bundle provenance.
 
 ## 11. Risks
 
-- Routing agents or verification to a legacy deployment.
-- Reporting stale or private operational data publicly.
-- Mixing sibling repos into the management boundary.
-- Skipping the fixed report-generation and publication sequence.
-- Triggering GitHub workflow dispatch without proving authorization, freshness, and duplicate-submit behavior.
+- Reporting READY/merge as LIVE_VERIFIED without checking production behavior.
+- Mobile direct-deploy drift from GitHub source.
+- Duplicating financial calculations or exposing protected finance data.
+- Using legacy Netlify/Cloudflare URLs for current verification.
+- Mixing daily operational telemetry into durable memory.
 
 ## 12. Rules for Codex
 
-- Read repo `SAFE.md`, `AGENTS.md`, `README.md`, and `STATE.md` first when present.
-- Treat Netlify as production and Cloudflare Pages as legacy unless fresh deployment evidence proves otherwise.
-- Preserve the management report flow order.
-- Verify the exact dashboard data root before reading or writing snapshots.
-- Include the exact failing command/check when a step fails.
-- Never expose or request secret values; use environment-variable names only.
-- Do not merge, deploy, or trigger a secret-backed workflow during `/safe` without explicit authorization and evidence.
+- Read `systems/management-control-plane-contract.md` and `systems/live-upgrade-delivery-contract.md` first.
+- Treat `brain-management.vercel.app` and `brain-management-mobile.vercel.app` as the current live surfaces.
+- Verify web/mobile API responses and actual delivered assets, not only deployment state.
+- For Finance navigation, read `ezohata-finance/src/lib/product/routes.ts`; never invent route names.
+- Do not copy protected balances, transactions, session cookies, or secret values into Brain Management.
+- Preserve one implementation owner and persist unresolved carryover precisely.
 
 ## 13. Verification Status
 
-- repo mapping: confirmed by repo-local README and GitHub repository
-- production mapping: Netlify confirmed by repo-local README and deploy config; live response still needs verification
-- legacy mapping: Cloudflare Pages explicitly marked legacy in the repo README
-- env status: names only; values and completeness need verification
-- deploy status: Netlify config present; exact project linkage/deployed SHA needs verification
-- data flow: code and paths identified; live/public freshness behavior needs verification
-- shared inventory mirrors: needs verification/update (`projects.md`, `projects.json`)
+- canonical repo: confirmed
+- web production: confirmed, Vercel
+- mobile production: confirmed, Vercel
+- mobile Finance status proxy: confirmed HTTP 200
+- mobile canonical Finance route list: confirmed in production after recovery
+- runtime errors after recovery: none observed
+- exact finance balances: protected by owner session and intentionally not duplicated
+- operational closure receipt ingestion: needs supported Brain Management write path
