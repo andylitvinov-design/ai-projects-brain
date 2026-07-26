@@ -18,7 +18,7 @@
 | project_id | Name | Canonical repo | Production URL | Current state | Main evidence |
 |---|---|---|---|---|---|
 | `ezohata` | Ezohata | `andylitvinov-design/ezohata` | https://ezohata.vercel.app | BLOCKED — provider/live proof | `projects/ezohata/PROJECT.md` |
-| `ezohata-finance` | EzoHata Finance | `andylitvinov-design/ezohata-finance` | https://ezohata-finance.vercel.app | BLOCKED — session/provider proof | portfolio registry + Daily Improve memory |
+| `ezohata-finance` | EzoHata Finance | `andylitvinov-design/ezohata-finance` | https://ezohata-finance.vercel.app | BLOCKED_BY_OWNER — session/provider proof | `projects/ezohata-finance/STATE.md` |
 | `legacy-finance` | Legacy Finance / Incoming Ledger | `andylitvinov-design/finance` | https://ezohata-incoming-ledger.vercel.app | WATCH — legacy/reference boundary | `projects/ezohata-incoming-ledger/PROJECT.md` |
 | `psitherapy` | Psitherapy | `andylitvinov-design/report` | https://psitherapy.vercel.app | BLOCKED — auth cutover proof | Daily Improve memory |
 | `reiki-yggdrasil` | Reiki Yggdrasil | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | WATCH | `projects/reiki-yggdrasil/PROJECT.md` |
