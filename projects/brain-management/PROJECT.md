@@ -2,15 +2,14 @@
 
 ## 1. Purpose
 
-Operational management control plane for current metrics, immutable daily snapshots, automation assignments, delivery chains, Needs Attention, Trends, and the Apple/PWA mobile client.
+Operational management control plane for current metrics, immutable daily snapshots, automation assignments, delivery chains, Needs Attention, Trends, and the installable Apple/Android PWA.
 
 ## 2. Live URLs
 
-- canonical web production: https://brain-management.vercel.app
-- canonical Apple/PWA production: https://brain-management-mobile.vercel.app
-- web Needs Attention: https://brain-management.vercel.app/needs-attention
-- mobile Finance hub: https://brain-management-mobile.vercel.app/#/finance
-- legacy Netlify/Cloudflare URLs: historical only; do not use for current production verification unless a rollback explicitly targets them.
+- canonical production and installable PWA: https://brain-management.vercel.app
+- web Needs Attention: https://brain-management.vercel.app/#/attention
+- Finance hub: https://brain-management.vercel.app/#/wallet
+- legacy separate mobile, Netlify, and Cloudflare URLs: historical only; do not use for current production verification or new publication work.
 
 ## 3. Repositories
 
@@ -18,36 +17,39 @@ Operational management control plane for current metrics, immutable daily snapsh
 - durable memory: `andylitvinov-design/ai-projects-brain`
 - Finance source of truth: `andylitvinov-design/ezohata-finance`
 
-`ai-projects-brain` is durable project/governance memory, not the runtime dashboard. `ezohata-finance` owns financial formulas, balances, reconciliation, auth, and private finance data; Brain Management mobile only provides a safe hub and read-only status proxy.
+`ai-projects-brain` is durable project/governance memory, not the runtime dashboard. `ezohata-finance` owns financial formulas, balances, reconciliation, auth, and private finance data; Brain Management provides safe navigation and read-only public status only.
 
 ## 4. Hosting / Deploy
 
 - provider: Vercel
-- web project: `brain-management`
-- mobile project: `brain-management-mobile`
+- canonical Vercel project: `brain-management`
 - production team: `super10`
-- mobile deployment can be direct-file/API deployed and therefore requires explicit source-to-deploy evidence; a READY deployment alone is not source proof.
-- canonical web APIs include `/api/data` and `/api/needs-attention`.
-- mobile APIs proxy canonical web data and EzoHata Finance public status without copying protected finance data.
+- canonical source branch: `andylitvinov-design/brain-management/main`
+- web, API, and installable Apple/Android PWA are one deployment surface at `brain-management.vercel.app`.
+- do not require or create a separate `brain-management-mobile-production` environment or separate mobile Vercel project.
+- GitHub `VERCEL_TOKEN` is not required canonical infrastructure for ordinary publication. A stale workflow that depends on it is superseded deployment plumbing, not an owner blocker.
+- direct or connector deployments require exact source-manifest/build-output evidence, source SHA binding, runtime/API completeness, and post-deploy behavior verification.
 
 ## 5. Current Status
 
-Web and mobile production are live on Vercel. The Apple/PWA client has dedicated Overview, Tasks, Needs Attention, Finance, Trends, Projects, and Metrics sections. Finance links must mirror `ezohata-finance/src/lib/product/routes.ts`; guessed routes are forbidden.
+The canonical production site and installable PWA are live on the existing Vercel `brain-management` project. The current shell includes AI, Wallet, and Business sections with internal Overview, Tasks, Agents, Attention, Trends, Projects, and Metrics routes. Required operational APIs are published from the same deployment artifact.
 
 ## 6. Important Files
 
 - `index.html`
 - `app.js`
 - `styles.css`
-- `attention.js`
-- `finance.js`
 - `manifest.webmanifest`
 - `sw.js`
 - `api/data.js`
 - `api/needs-attention.js`
+- `api/trends.js`
+- `api/strategic-priorities.js`
 - `api/finance-status.js`
-- `tests/needs-attention.test.mjs`
-- `tests/mobile-finance.test.mjs`
+- `api/morning-task-sweep.js`
+- `api/evening-delivery-closure-result.js`
+- `history/`
+- repository-owned Vercel source/build manifest files
 
 ## 7. Environment Variable Names
 
@@ -69,37 +71,39 @@ Only names may be stored. Values must never be copied to memory or dashboard out
 
 ## 8. Known Issues
 
-- Direct mobile deployments may drift from repository `main`; verify deployed static assets and route contracts after every release.
-- Brain Management API currently has no dedicated write endpoint for Evening Delivery Closure receipts; Daily Dashboard Update remains the publication owner.
-- The durable registry previously pointed to Netlify/Cloudflare and required this correction.
-- Mobile Finance must not duplicate balances or private transactions. It may expose public provider/status metadata and authenticated links only.
+- Direct/artifact deployments can omit runtime files unless the repository-owned manifest/build output is used and verified.
+- Operational closure endpoints must be included in the exact production artifact; repository presence alone is not live proof.
+- Brain Management must not duplicate balances or private transactions. It may expose public provider/status metadata and authenticated links only.
+- Old reports and workflows may still mention a separate mobile project or GitHub `VERCEL_TOKEN`; treat those references as superseded unless a verified rollback explicitly restores them.
 
 ## 9. Recent Durable Changes
 
-- 2026-07-25: Vercel web/mobile mapping verified and made canonical.
-- 2026-07-25: Needs Attention and Trends published in the management surfaces.
-- 2026-07-25: Finance hub added to Apple/PWA.
-- 2026-07-25: evening verification found guessed Finance paths and recovered them by synchronizing all 14 canonical `PRODUCT_ROUTES`; production deployment verified after the repair.
+- 2026-07-25: Vercel became the canonical provider.
+- 2026-07-25: Needs Attention, Trends, and Finance navigation were added.
+- 2026-07-28: web/API/PWA were consolidated on the existing `brain-management` Vercel project and `brain-management.vercel.app`.
+- 2026-07-28: exact-source Build Output publication verified `/`, `/api/data`, `/api/needs-attention`, `/api/trends`, strategic priorities, standalone manifest, service worker, and zero runtime errors.
 
 ## 10. Next Actions
 
-- Add a supported operational closure-write path so Evening Delivery Closure can persist terminal evidence without editing metric formulas.
-- Keep mobile route-contract regression tests aligned with `ezohata-finance`.
-- Prefer repo-backed deployment or persist exact direct-deploy bundle provenance.
+- Keep every required API/runtime/history file in the repository-owned publication manifest/build output.
+- Include the latest operational handoff endpoints in each canonical artifact.
+- Keep Finance route links synchronized with `ezohata-finance` and preserve the owner-session boundary.
+- Remove or clearly mark stale separate-mobile/token-backed workflows as non-canonical.
 
 ## 11. Risks
 
-- Reporting READY/merge as LIVE_VERIFIED without checking production behavior.
-- Mobile direct-deploy drift from GitHub source.
-- Duplicating financial calculations or exposing protected finance data.
-- Using legacy Netlify/Cloudflare URLs for current verification.
+- Reporting merge, READY, or root HTTP 200 as `LIVE_VERIFIED` while required APIs or behavior are absent.
+- Partial direct-deploy bundles drifting from canonical `main`.
+- Reintroducing a separate mobile publication owner or false GitHub-token owner blocker.
+- Duplicating financial calculations or exposing protected Finance data.
 - Mixing daily operational telemetry into durable memory.
 
 ## 12. Rules for Codex
 
 - Read `systems/management-control-plane-contract.md` and `systems/live-upgrade-delivery-contract.md` first.
-- Treat `brain-management.vercel.app` and `brain-management-mobile.vercel.app` as the current live surfaces.
-- Verify web/mobile API responses and actual delivered assets, not only deployment state.
+- Treat `brain-management.vercel.app` as the single current web/API/PWA production surface.
+- Verify required APIs and delivered assets, not only deployment state or the root page.
+- Use the connected existing Vercel `brain-management` project for publication; do not ask Andrey to configure a GitHub `VERCEL_TOKEN` for ordinary deploys.
 - For Finance navigation, read `ezohata-finance/src/lib/product/routes.ts`; never invent route names.
 - Do not copy protected balances, transactions, session cookies, or secret values into Brain Management.
 - Preserve one implementation owner and persist unresolved carryover precisely.
@@ -107,10 +111,10 @@ Only names may be stored. Values must never be copied to memory or dashboard out
 ## 13. Verification Status
 
 - canonical repo: confirmed
-- web production: confirmed, Vercel
-- mobile production: confirmed, Vercel
-- mobile Finance status proxy: confirmed HTTP 200
-- mobile canonical Finance route list: confirmed in production after recovery
-- runtime errors after recovery: none observed
-- exact finance balances: protected by owner session and intentionally not duplicated
-- operational closure receipt ingestion: needs supported Brain Management write path
+- canonical Vercel project: `brain-management`
+- production/PWA URL: https://brain-management.vercel.app
+- `/`, `/api/data`, `/api/needs-attention`, `/api/trends`, and strategic-priorities data: verified HTTP 200 on 2026-07-28
+- standalone PWA manifest and current service worker: verified
+- runtime errors after final recovery: none observed
+- exact Finance balances: protected by owner session and intentionally not duplicated
+- separate mobile Vercel project/environment: superseded, not canonical
