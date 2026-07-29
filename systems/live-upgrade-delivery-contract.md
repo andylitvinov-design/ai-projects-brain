@@ -1,7 +1,7 @@
 # Live Upgrade Delivery Contract
 
 Status: active canonical contract.
-Last updated: 2026-07-19.
+Last updated: 2026-07-26.
 
 ## Purpose
 
@@ -104,6 +104,22 @@ On failure:
 5. otherwise map to `BLOCKED_BY_OWNER` or `MERGED_WAITING_DEPLOY` with exact evidence.
 
 Never loop indefinitely or create multiple speculative repair PRs.
+
+## Direct-deploy source parity gate
+
+This gate is mandatory for Vercel/API/artifact deployments that are not built automatically from the canonical Git branch, including hand-assembled source bundles and connector-driven deployments.
+
+Before a direct deployment can advance beyond `MERGED_WAITING_DEPLOY`:
+
+1. generate the artifact from the current canonical production branch after merge;
+2. use a repository-owned explicit file manifest or build output, not an ad hoc partial file list;
+3. prove that every runtime route, API endpoint, history file, static asset and configuration file required by the delivered behavior is present;
+4. bind the artifact to the canonical source commit SHA and record the artifact/file-manifest evidence;
+5. deploy that exact artifact and inspect the deployed assets or production APIs for source/schema parity;
+6. verify the intended production route or operation independently after deployment;
+7. map any missing file, stale deployed asset, unknown source SHA or schema drift to `MERGED_WAITING_DEPLOY`, never `LIVE_VERIFIED`.
+
+A repeated omission from a direct-deploy bundle is a delivery failure class. The recovery must update the repository-owned manifest or build process and add a regression check; another manual one-off bundle is not a durable correction.
 
 ## Evidence schema
 
