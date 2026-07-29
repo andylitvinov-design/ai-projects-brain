@@ -49,10 +49,11 @@ This file is the durable lifecycle registry for reusable AI-system rules. Daily 
   - the canonical delivery contract requires repository-owned manifest/build output, source-SHA binding, runtime/API/asset completeness, production parity inspection and independent behavior verification for direct deployments;
   - on 2026-07-28, Evening Delivery Closure rejected a Brain Management deployment where the root returned HTTP 200 but `/api/data` returned HTTP 404;
   - the same closure recorded two incomplete intermediate publications and reached `LIVE_VERIFIED` only after publishing one exact-source Vercel Build Output API artifact containing the PWA shell, assets and operational APIs together;
-  - PR #180 merged the durable direct-deploy parity gate into canonical `ai-projects-brain/main` after current-state reconciliation and green validation.
+  - PR #180 merged the durable direct-deploy parity gate into canonical `ai-projects-brain/main` after current-state reconciliation and green validation;
+  - on 2026-07-29, Evening Delivery Closure inspected the new Brain Management exact-source export before publication and found that the web archive omitted JavaScript assets referenced by `index.html` and omitted the transitive `lib/history.js` dependency required by `api/hobby-snapshots.js`; the chain correctly remained `MERGED_WAITING_DEPLOY` instead of deploying an incomplete artifact.
 - **Activated:** `2026-07-29`
 - **Owner:** `PR Delivery Sweep` verifies source/branch/merge evidence; `Daily Dashboard Update` maintains repository-owned publication manifests and source-to-deploy records; `Evening Delivery Closure` enforces production parity before terminal closure; `Weekly Brain Refresh` reconciles durable validity.
-- **Regression condition:** mark `needs_revision` if any direct deployment is recorded as `LIVE_VERIFIED` while its source SHA, repository-owned manifest/build output, required runtime/API/asset files, deployed source parity, or post-deploy intended behavior is missing, stale, incomplete, or unverified.
+- **Regression condition:** mark `needs_revision` if any direct deployment is recorded as `LIVE_VERIFIED` while its source SHA, repository-owned manifest/build output, transitive runtime dependency closure, required runtime/API/asset files, deployed source parity, or post-deploy intended behavior is missing, stale, incomplete, or unverified.
 - **Retirement condition:** mark `superseded` only when all canonical production projects use automatic source-bound deployments with an equivalent or stronger enforced parity contract.
 
 ## Candidate rules
