@@ -40,6 +40,21 @@ This file is the durable lifecycle registry for reusable AI-system rules. Daily 
 - **Regression condition:** mark `needs_revision` if any automation records `LIVE_VERIFIED` while a required production API, route, asset, clean-session behavior, or observable operation is missing, stale, unmapped to the delivered source, or unverified.
 - **Retirement condition:** mark `superseded` only when a stronger canonical proof contract replaces this rule and all delivery/closure automations adopt the replacement.
 
+### `delivery.direct_deploy_source_parity`
+
+- **State:** `active`
+- **Rule:** A direct or artifact-based production deployment may not advance beyond `MERGED_WAITING_DEPLOY` unless it is generated from the current canonical production branch using a repository-owned manifest or build output, bound to the source commit SHA, complete for every required runtime route, API, asset and configuration file, and independently verified after deployment.
+- **Canonical source:** `systems/live-upgrade-delivery-contract.md`, section “Direct-deploy source parity gate”.
+- **Current usage evidence:**
+  - the canonical delivery contract requires repository-owned manifest/build output, source-SHA binding, runtime/API/asset completeness, production parity inspection and independent behavior verification for direct deployments;
+  - on 2026-07-28, Evening Delivery Closure rejected a Brain Management deployment where the root returned HTTP 200 but `/api/data` returned HTTP 404;
+  - the same closure recorded two incomplete intermediate publications and reached `LIVE_VERIFIED` only after publishing one exact-source Vercel Build Output API artifact containing the PWA shell, assets and operational APIs together;
+  - PR #180 merged the durable direct-deploy parity gate into canonical `ai-projects-brain/main` after current-state reconciliation and green validation.
+- **Activated:** `2026-07-29`
+- **Owner:** `PR Delivery Sweep` verifies source/branch/merge evidence; `Daily Dashboard Update` maintains repository-owned publication manifests and source-to-deploy records; `Evening Delivery Closure` enforces production parity before terminal closure; `Weekly Brain Refresh` reconciles durable validity.
+- **Regression condition:** mark `needs_revision` if any direct deployment is recorded as `LIVE_VERIFIED` while its source SHA, repository-owned manifest/build output, required runtime/API/asset files, deployed source parity, or post-deploy intended behavior is missing, stale, incomplete, or unverified.
+- **Retirement condition:** mark `superseded` only when all canonical production projects use automatic source-bound deployments with an equivalent or stronger enforced parity contract.
+
 ## Candidate rules
 
 The remaining operational guardrails stay candidates until each has current usage evidence, a stable identifier, and regression or retirement criteria. Activating a rule solely to improve a score is forbidden.
