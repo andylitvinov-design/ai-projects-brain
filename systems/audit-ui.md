@@ -149,7 +149,8 @@ Check:
 - overflow and truncation;
 - sticky elements and footer behavior;
 - keyboard focus and basic accessibility;
-- performance regressions and layout shift;
+- clean-session render integrity, critical asset/data delivery, runtime errors,
+  interaction responsiveness, and layout shift;
 - default state, persisted state, and clicked/selected state for stateful UI.
 
 ## 6. Polish layer - interface feel
@@ -204,7 +205,12 @@ tablet: when the UI has tablet-specific layout risk
 
 Minimum scenarios:
 
-1. Target page loads and primary content is visible.
+1. In a clean session, the target page reaches a non-empty, correctly styled
+   render in a supported real browser. HTTP 200 alone is not proof: confirm the
+   approved navigation and required primary/summary content are present, no
+   fatal console/runtime error stops rendering, and critical HTML/CSS/JS/data
+   resources return the expected content type without auth/protected-preview
+   redirects or a stale shell/data-version mismatch.
 2. Mobile layout has no horizontal overflow and no hidden primary actions.
 3. Non-exempt content reflows at a 320 CSS px equivalent without page-level
    two-dimensional scrolling; zoom/text enlargement does not hide content or
@@ -219,7 +225,8 @@ Minimum scenarios:
    success, result, waiting, progress, and error status messages are exposed to
    assistive technology without unnecessary focus movement or duplicate chatter.
 7. One interactive state is checked: hover, focus, open, submit, loading, error,
-   or empty.
+   or empty. The interaction reaches visible feedback without an obvious
+   long-task freeze; use field or lab INP evidence when it is available.
 8. For stateful UI, clean-session default is checked before clicked-state.
 9. For legacy persisted UI, old storage keys are checked or explicitly marked
    `needs verification`.
@@ -352,6 +359,7 @@ Verification:
 - Desktop:
 - Mobile:
 - Tablet:
+- Render integrity:
 - Reflow/zoom:
 - Translucency/material contrast (when used):
 - Focus not obscured:
