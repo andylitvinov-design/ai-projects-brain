@@ -1,49 +1,62 @@
 # AI System Efficiency
 
-Last aggregated: `2026-07-26`
+Last aggregated: `2026-08-01`
 
-The scorecard below is an immutable historical aggregate for the week ending `2026-07-26`. Later repairs or closures are noted for context but do not rewrite the week-ending denominators.
+Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
-## Core dimensions
+## Immutable week-ending 2026-07-26 scorecard
 
-- Completion: tasks closed with evidence, PR, or clear no-change diagnosis.
-- Context efficiency: initial files, total files, repeated reads, broad scans.
-- Tool efficiency: unnecessary browser/MCP/tool calls and failed loops.
-- Verification quality: exact checks run, skipped checks, live claims supported.
-- Memory quality: current state updated without duplicating history.
-- Automation health: successful runs, actionable findings, stale or duplicate loops.
+The values below remain historical and are not rewritten by later repairs.
 
-## Week-ending 2026-07-26 scorecard
+| Metric | Week-end value | Interpretation |
+|---|---:|---|
+| Important task closure rate | 25% (`1/4`) | One selected provider-readiness chain remained unresolved; confidence medium because immutable history covered `3/7` days. |
+| Live verified upgrades | 2 | One product/operational delivery and one infrastructure publication repair. |
+| Product/operational share | 50% (`1/2`) | Following work should rebalance from infrastructure toward product outcomes. |
+| Rework rate | 33.3% (`1/3` completed chains) | Finance-mobile required a corrective route-contract recovery. |
+| False-success-free rate | 66.7% (`2/3` claims) | One claim required correction after current production behavior was checked. |
+| Autonomous recovery rate | 100% (`1/1`) | The recoverable production regression closed within the bounded recovery loop. |
+| Deterministic verification pass rate | 96.3% (`26/27`) | Historical cutoff preserves one failed typecheck attempt even though later full verification passed. |
+| Duplicate work removed | 4 chains | Reconciliation removed resolved, temporary, superseded or duplicate chains. |
+| Assignment conflicts | 0 | One implementation owner per active chain. |
+| Immutable weekly history | 42.9% (`3/7` days) | Missing days must not be fabricated. |
 
-| Metric | Week-end value | Trend | Notes |
-|---|---:|---|---|
-| Important task closure rate | 25% (`1/4`) | down from 33.3% baseline | The week-ending selected-chain denominator included one unresolved provider-readiness chain. Confidence is medium because immutable history covered only `3/7` required days. |
-| Live verified upgrades | 2 | first evidence-backed weekly aggregate | One operational Finance-mobile chain and one infrastructure publication-repair chain had durable timestamp pairs. Only one counted as product/operational delivery. |
-| Product/operational share of verified upgrades | 50% (`1/2`) | below contract target | Infrastructure share was also 50%. The exception was justified by repeated publication drift, but the following week should rebalance toward product/operational outcomes. |
-| Rework rate | 33.3% (`1/3` completed chains) | needs reduction | Mobile Finance required a corrective route-contract recovery after guessed paths reached production. |
-| False-success-free rate | 66.7% (`2/3` claims) | needs reduction | One completion claim required correction after current production behavior was checked. |
-| Autonomous recovery rate | 100% (`1/1` recoverable production regressions) | positive | The Finance-mobile route regression was repaired within the bounded one-retry recovery loop. |
-| Deterministic verification pass rate | 96.3% (`26/27`) | slightly down | At the week-ending cutoff, EzoHata Finance PR #21 had one failed typecheck attempt after tests and lint. A later evidence-backed repair reran the complete gate successfully; the historical `26/27` value is intentionally preserved. |
-| Duplicate work removed | 4 chains | positive | Morning reconciliation removed resolved, temporary, superseded or duplicate chains before delivery assignment. |
-| Assignment conflicts | 0 | healthy | Brain Management exposed one implementation owner per chain. |
-| Immutable weekly history | 42.9% (`3/7` days) | incomplete | Do not invent backfill. Weekly conclusions remain medium confidence until future honest snapshots accumulate. |
-| Broad repo scans | no unjustified scan proven in the daily chain | improved | PR Delivery consumed only the fresh Morning handoff; broad portfolio discovery stayed in Morning Task Sweep. |
-| Repeated unchanged reads | no denominator yet | needs instrumentation | Retry metrics distinguish evidence-backed recovery from unnecessary loops, but file-read telemetry was not aggregated weekly. |
-| Oversized final reports | needs verification | — | No stable report-size collector was published for the week-ending window. |
-| Missing/stale project capsules | no proven catalog mapping defect in the week-ending denominator | improved | Direct-deploy source drift remained a delivery risk rather than a scoreable catalog defect. A later single-project Brain Management mapping correction is tracked separately. |
-| Automation duplication | 0 active ownership conflicts; 2 stale PRs | improved | Brain Management PR #76 and AI Projects Brain PR #170 were stale operational artifacts, but neither owned an active implementation chain. |
+## Current evidence through 2026-08-01
 
-## Current state after the weekly cutoff
+This is a week-to-date operational synthesis, not a replacement full-week denominator.
 
-- EzoHata Finance PR #21 is merged, the complete verification rerun is green, and the readiness endpoint is live; the remaining chain is `BLOCKED_BY_OWNER` for owner-session/provider-journey proof.
-- The second lifecycle rule reached `LIVE_VERIFIED` and Brain Management publishes `2 active/9`.
-- Brain Management dashboard and installable Apple/Android PWA use the same canonical Vercel project and URL.
-- These later facts validate the delivery contracts but do not retroactively change the historical week-ending metrics above.
+| Signal | Current evidence | Trend / meaning |
+|---|---|---|
+| Brain Management aggregate health | overall `70.1`; efficiency `63.7`; business `72.5`; self-development `77.2` | Current operational snapshot is fresh at `2026-08-01T06:06:00Z`. |
+| Product delivery conversion | product delivery `1/4`; task success `1/4`; live completion `1/4` | Weakest reusable outcome signal. The three metrics share one input and must remain one chain. |
+| Provider/live readiness | `0/4` | No autonomous action is safe; owner-session/read-only journey evidence is required. |
+| Public business-KPI coverage | `4/6`, score `66.7` | Improved from missing source coverage using fresh accepted public probes; formula unchanged. |
+| Canonical API readiness | `3/5 → 5/5` | Two HTML-fallback API defects were removed and live verified. |
+| Rule lifecycle | `2 active/9 → 3 active/9` | Real input improvement; score `22.2 → 33.3`. |
+| Open-PR hygiene | `46 → 36` in one verified run | Three focused docs PRs merged, seven obsolete/superseded PRs closed; remaining sensitive finance backlog needs bounded review. |
+| Duplicate/carryover cleanup | 4 chains removed | Positive; terminal and duplicate work did not reach downstream implementation. |
+| Implementation ownership conflicts | 0 | Healthy separation of discovery, ranking, implementation, PR delivery, publication and closure. |
+| Runtime verification | 24 metrics, 10 Trends, 7 agent cards, 5/5 JSON APIs, zero verified runtime-error clusters | Strong release verification; HTTP status alone is no longer accepted. |
+| Function-budget adaptation | first candidate 14 functions; final implementation at or below 12 | One useful diagnostic iteration avoided a failing Hobby deployment by reusing existing functions. |
+| Zero-effect PRs | 0 in current publication receipt | The API repair changed a technical blocker even though the metric score remained 100. |
 
-## Highest-leverage efficiency correction
+## Efficiency lessons
 
-For direct or artifact-based production deploys, require source-bundle manifest parity with current canonical `main`, source SHA binding, runtime/API completeness and post-deploy behavior verification. A hand-built bundle that omits runtime files must map to `MERGED_WAITING_DEPLOY`, never `LIVE_VERIFIED`.
+1. A technical repair may be valid without a score change when it removes a concrete machine-consumption blocker; record the raw technical before/after state.
+2. PR inventory reduction is useful only when closure evidence is strong. Old, financial or owner-dependent PRs remain open until facts are verified.
+3. Body/content-type checks prevent false success more efficiently than repeated deploy attempts.
+4. Source/deploy parity and transitive dependency closure reduce recovery loops.
+5. Honest partial history is more valuable than fabricated seven-day completeness.
 
-## Guardrail
+## Missing instrumentation
 
-Efficiency must never be improved by skipping auth, security, data-loss protection, tests, accessibility or required production verification.
+- Stable weekly denominator for repeated unchanged file reads.
+- Stable report-size/oversized-final-response collector.
+- Complete current seven-day immutable-history coverage.
+- Full owner-wide repository inventory from the available connector.
+
+These remain `needs verification`; they are not scored from inference.
+
+## Highest-value efficiency correction
+
+Select one exact existing product deliverable from the shared `1/4` denominator and carry it through one-owner implementation, safe delivery, production verification and metric re-read. This should improve real outcome conversion rather than add another control-plane-only change.

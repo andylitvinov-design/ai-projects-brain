@@ -1,71 +1,77 @@
 # AI Projects Brain — Master Index
 
-> Главная точка входа для человека и ИИ. Этот файл должен оставаться коротким, актуальным и ссылаться на канонические источники, а не дублировать их.
+> Главная точка входа для человека и ИИ. Файл остаётся коротким и ссылается на канонические источники вместо дублирования их содержимого.
+
+Last reconciled: `2026-08-01`
 
 ## 1. Найти проект
 
-- Human project catalog: `projects/index.md`
-- Machine-readable catalog: `projects.json`
-- Extended inventory: `projects.md`
-- Generated/search-oriented index: `data/project-index.json`
+- Current human routing index: `projects/index.md`
+- Current machine-readable active overlay: `projects/portfolio-registry.json`
+- Detailed project capsules: `projects/<slug>/PROJECT.md`
+- Historical extended inventory: `projects.md`
+- Historical machine database: `projects.json`
+- Generated/search-oriented legacy index: `data/project-index.json`
 
-Поиск проекта всегда начинается с `projects/index.md` или `projects.json`, затем открывается только capsule выбранного проекта.
+Поиск текущего активного проекта начинается с `projects/index.md` или `projects/portfolio-registry.json`, затем открывается capsule выбранного проекта. `projects.md`, `projects.json` и `data/project-index.json` используются для исторической непрерывности и помечены `needs_revision`, пока не пройдут полевую сверку.
 
 ## 2. Память конкретного проекта
 
-Для каждого активного проекта предпочтительна структура:
+Предпочтительная структура:
 
-- `projects/<slug>/PROJECT.md` — паспорт, canonical repo, live URL, статус и назначение.
-- `projects/<slug>/CODEX_BRIEF.md` — короткая навигация для Codex.
-- `projects/<slug>/STATE.md` — только текущее подтверждённое состояние.
-- `projects/<slug>/SYSTEM_MAP.md` — архитектура и связи.
-- `projects/<slug>/CHECKS.md` — точные проверки.
-- `projects/<slug>/RISKS.md` — production, auth, data и operational risks.
-- `projects/<slug>/DECISIONS.md` — устойчивые решения и причины.
-- `projects/<slug>/LOG.md` — датированная история, не текущая истина.
+- `PROJECT.md` — назначение, canonical repo/live, статус и durable boundaries.
+- `CODEX_BRIEF.md` — короткая навигация для Codex.
+- `STATE.md` — только текущее подтверждённое состояние.
+- `SYSTEM_MAP.md` — архитектура и связи.
+- `CHECKS.md` — точные проверки.
+- `RISKS.md` — production, auth, data и operational risks.
+- `DECISIONS.md` — устойчивые решения и причины.
+- `LOG.md` — датированная история, не текущая истина.
 
-Не каждый файл обязателен для каждого проекта. Отсутствующие ключевые файлы фиксируются в еженедельном аудите.
+Не каждый файл обязателен. Отсутствующие ключевые capsules фиксируются как `needs verification`, а не заполняются догадками.
 
-## 3. Управляющий контур ИИ-системы
+## 3. Управляющий контур
 
-- `governance/INDEX.md` — карта второго контура.
-- `governance/CURRENT.md` — текущее состояние ИИ-системы.
-- `governance/GOALS.md` — цели и приоритеты.
-- `governance/AUTOMATIONS.md` — действующие автоматизации, владельцы и дубли.
-- `governance/EFFICIENCY.md` — метрики эффективности и token/context health.
-- `governance/WEEKLY-LEARNINGS.md` — ключевые ошибки, уроки и изменения по неделям.
+- `governance/INDEX.md` — карта durable governance.
+- `governance/CURRENT.md` — текущее состояние системы.
+- `governance/GOALS.md` — цели, владельцы и next actions.
+- `governance/AUTOMATIONS.md` — роли, ownership и overlap checks.
+- `governance/EFFICIENCY.md` — недельные и текущие efficiency signals.
+- `governance/WEEKLY-LEARNINGS.md` — агрегированные ошибки и уроки.
 
-## 4. Общие системные правила
+`brain-management` остаётся operational control plane; `ai-projects-brain` остаётся durable source of truth.
 
-- `START-HERE-FOR-AGENTS.md` — диспетчерский вход.
-- `systems/agent-rules.md` — общие правила.
-- `systems/codex-project-workflow.md` — рабочий процесс Codex.
-- `systems/codex-token-efficiency.md` — минимальный контекст и бюджет.
-- `systems/codex-efficiency-telemetry.md` — измерение исполнения.
-- `systems/weekly-brain-refresh.md` — субботнее обновление базы и индексов.
+## 4. Общие правила
+
+- `START-HERE-FOR-AGENTS.md`
+- `systems/management-control-plane-contract.md`
+- `systems/agent-rules.md`
+- `systems/codex-project-workflow.md`
+- `systems/codex-token-efficiency.md`
+- `systems/codex-efficiency-telemetry.md`
+- `systems/weekly-brain-refresh.md`
 
 ## 5. Быстрый поиск
 
-Ищи в таком порядке:
-
-1. Название, URL или repo в `projects/index.md` / `projects.json`.
-2. Текущее состояние в `projects/<slug>/STATE.md`.
-3. Архитектуру в `SYSTEM_MAP.md`.
-4. Проверки в `CHECKS.md`.
-5. Решения в `DECISIONS.md`.
-6. Историю только при необходимости — в `LOG.md`.
-7. Общесистемные ошибки и эффективность — в `governance/`.
+1. Название, alias, URL или repo — `projects/index.md` / `projects/portfolio-registry.json`.
+2. Durable current project state — `projects/<slug>/PROJECT.md` и `STATE.md`.
+3. Архитектура — `SYSTEM_MAP.md`.
+4. Проверки — `CHECKS.md`.
+5. Решения — `DECISIONS.md`.
+6. История — `LOG.md` только при необходимости.
+7. Общесистемная эффективность, ownership и уроки — `governance/`.
 
 ## 6. Freshness contract
 
-Еженедельное субботнее обновление должно:
+Weekly Brain Refresh должен:
 
-- сверить каталог с доступными GitHub-репозиториями и активной работой;
-- добавить отсутствующие проекты или пометить `needs verification`;
-- обновить status, canonical repo, live target и ключевые блокеры;
-- убрать расхождения между human и machine indexes;
-- обновить управляющий контур;
-- проверить битые ссылки, дубли, устаревшие маршруты и слишком длинные briefs;
-- записать дату последнего успешного обновления и непроверенные источники.
+- сверять current active overlay с доступными GitHub/live evidence;
+- исправлять canonical repo/live/status и aliases;
+- добавлять подтверждённые активные проекты или помечать `needs verification`;
+- устранять дубли идентичности и stale sync state;
+- агрегировать недельные уроки, не копируя daily receipts;
+- обновлять compact human/machine routing;
+- сохранять legacy inventories до безопасной полевой сверки;
+- фиксировать непроверенные источники.
 
-Правило: полнота каталога не должна достигаться ценой выдуманных данных. Неуверенные факты маркируются `needs verification`.
+Полнота не достигается ценой выдуманных данных. Более свежая verified live/GitHub evidence и project capsule имеют приоритет над stale legacy index.
