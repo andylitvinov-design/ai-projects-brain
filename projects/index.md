@@ -9,8 +9,8 @@
 1. Read `projects/portfolio-registry.json`.
 2. Match the user's project or alias.
 3. Open the project capsule when it exists.
-4. For code work, use the canonical repository.
-5. For live/provider outcomes, require current deploy/source/behavior proof.
+4. For code work, use the canonical GitHub repo.
+5. For production work, current verified live evidence and the project capsule override a stale registry field; mark the registry discrepancy for bounded reconciliation rather than guessing.
 6. Never replace `unknown` with a guess.
 
 ## Current active portfolio
@@ -23,10 +23,14 @@
 | `psitherapy` | Psitherapy | `andylitvinov-design/report` | https://psitherapy.vercel.app | BLOCKED — auth cutover proof | Daily Improve memory |
 | `reiki-yggdrasil` | Reiki Yggdrasil | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | WATCH | `projects/reiki-yggdrasil/PROJECT.md` |
 | `codex-links` | Codex Links | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | WATCH | `projects/codex-links/PROJECT.md` |
-| `brain-management` | Brain Management | `andylitvinov-design/brain-management` | https://brain-management.netlify.app | BLOCKED — stale publication | dashboard publication trace |
+| `brain-management` | Brain Management | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | LIVE_VERIFIED core; auxiliary JSON-route regression | `projects/brain-management/PROJECT.md` and `brain-management/history/handoffs/2026-07-31-evening-delivery-closure.json` |
 | `torontotantra` | Toronto Tantra | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | WATCH | audit-sales memory |
 | `ai-projects-brain` | AI Projects Brain | `andylitvinov-design/ai-projects-brain` | NOT_APPLICABLE | IMPROVING | `systems/upgrade-cycle-metrics.md` |
 | `psihotavr` | Psihotavr | `andylitvinov-design/psihotavr` | https://psihotavr.vercel.app | NEEDS_VERIFICATION — live/retirement/source | Daily Improve memory |
+
+## Current bounded registry discrepancy
+
+`projects/portfolio-registry.json` still contains the historical Brain Management Netlify URL and pre-recovery status. Until Weekly Brain Refresh reconciles that machine-readable row, use the verified Vercel mapping and current state in `projects/brain-management/PROJECT.md`. Do not route production checks to Netlify.
 
 ## Common aliases
 
@@ -54,3 +58,4 @@ Secondary and archived projects remain discoverable in the historical registries
 - Do not merge auth/payment/data/provider work without the explicit safe route.
 - Audit evidence is readiness evidence, not revenue or verified impact.
 - Preserve historical registry records until bounded reconciliation is complete.
+- HTTP 200 is insufficient for an API contract: verify JSON body and content type.
