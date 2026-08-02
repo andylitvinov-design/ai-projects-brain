@@ -57,7 +57,9 @@ The canonical API currently exposes rolling seven-day denominators, but not a li
 | Latest duplicate cleanup | 4 aliases/chains | Correlated delivery metrics and completed recovery work were deduplicated before implementation. |
 | Current carryover | 3 chains | Provider owner blocker, shared delivery-conversion readiness gap and Psihotavr reachability classification. |
 | Owner blockers | 1 | Provider readiness remains `0/4` and genuinely requires the owner session. |
-| Assignment conflict | `1 detected → 0 remaining` | Morning reconciliation neutralized the generic conflicting assignment, but the later implementation still did not consume the ranked Psihotavr chain. |
+| Published ownership conflict | 1 conflict group, 3 aliases | The same shared `1/4` input is published as product delivery, task success and live completion with three owner labels. Runtime concurrent implementation is not proven, but the strategy-layer ownership contract is inconsistent. |
+| Morning System Upgrade assignment metadata | inconsistent | The published assignment chain is `strategic-product-delivery`, but its owner label remains Daily Strategic Priorities rather than the execution owner. |
+| Carryover publication parity | `3 reconciled → 1 active_chains entry` | The canonical API omits the delivery-conversion and Psihotavr chains from `active_chains` without an explicit exclusion state. |
 | Verified closure mix | 1 operational/API : 2 infrastructure/control plane | 33.3% product/operational share is below the `3:1` guardrail; P0 recovery justified the exception, not its continuation. |
 
 ## Efficiency lessons
@@ -69,6 +71,7 @@ The canonical API currently exposes rolling seven-day denominators, but not a li
 5. Honest partial history is more valuable than fabricated seven-day completeness.
 6. A valid reserve or control-plane repair does not satisfy a different ranked assignment. Implementation must consume the assigned `chain_id` or explicitly return it for reconciliation.
 7. Detection guards reduce recovery time only when they share a single-owner lock; otherwise they increase duplicate deploy and context risk.
+8. A zero-conflict operational assignment array does not prove ownership discipline when the published strategic layer splits one raw input into multiple owner-labelled aliases.
 
 ## Missing instrumentation
 
@@ -77,9 +80,10 @@ The canonical API currently exposes rolling seven-day denominators, but not a li
 - Live per-day immutable-history coverage behind the current rolling denominators.
 - Full owner-wide repository inventory from the available connector.
 - Machine-readable assignment-consumption parity: ranked chain_id versus implemented chain_id.
+- Shared-input identity enforcement between metrics, strategic priorities, assignments and active chains.
 
 These remain `needs verification`; they are not scored from inference.
 
 ## Highest-value efficiency correction
 
-Publish the exact four denominator items behind the shared `1/4` delivery input, select one existing user-visible or business-value deliverable with canonical repository and branch, and carry that single chain through implementation, safe delivery, production verification and metric re-read. The next verified implementation should be product-first rather than another publication or guard-only change.
+Publish the exact four denominator items behind the shared `1/4` delivery input, collapse the three strategic aliases into one owner-labelled chain, select one existing user-visible or business-value deliverable with canonical repository and branch, and carry that single chain through implementation, safe delivery, production verification and metric re-read. The next verified implementation should be product-first rather than another publication or guard-only change.
