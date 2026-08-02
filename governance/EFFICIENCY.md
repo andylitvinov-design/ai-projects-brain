@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-01`
+Last aggregated: `2026-08-02`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -40,6 +40,28 @@ This is a week-to-date operational synthesis, not a replacement full-week denomi
 | Function-budget adaptation | first candidate 14 functions; final implementation at or below 12 | One useful diagnostic iteration avoided a failing Hobby deployment by reusing existing functions. |
 | Zero-effect PRs | 0 in current publication receipt | The API repair changed a technical blocker even though the metric score remained 100. |
 
+## Rolling delivery scorecard through 2026-08-02
+
+The canonical API currently exposes rolling seven-day denominators, but not a live per-day history endpoint. These values are current evidence, not additive events to combine with the prior scorecard.
+
+| Metric | Current rolling value | Interpretation |
+|---|---:|---|
+| Selected delivery completion | 25% (`1/4`) | Three selected outcomes still have no verified live result. |
+| Task success | 25% (`1/4`) | Same raw delivery chain; do not create a second owner. |
+| Live completion | 25% (`1/4`) | Same raw delivery chain; exact four denominator identities remain unpublished. |
+| Rework rate | 33.3% (`1/3` completed) | One completed chain required a corrective pass. |
+| False-success-free rate | 66.7% (`2/3` claims) | One claim required correction after production evidence. |
+| Change success | 66.7% (`2/3` production changes) | One production change required repair. |
+| Autonomous recovery | 100% (`1/1`) | The observed recoverable production failure closed within the bounded loop. |
+| Deterministic verification | 96.3% (`26/27`) | One failed validation remains honestly represented. |
+| Latest duplicate cleanup | 4 aliases/chains | Correlated delivery metrics and completed recovery work were deduplicated before implementation. |
+| Current carryover | 3 chains | Provider owner blocker, shared delivery-conversion readiness gap and Psihotavr reachability classification. |
+| Owner blockers | 1 | Provider readiness remains `0/4` and genuinely requires the owner session. |
+| Published ownership conflict | 1 conflict group, 3 aliases | The same shared `1/4` input is published as product delivery, task success and live completion with three owner labels. Runtime concurrent implementation is not proven, but the strategy-layer ownership contract is inconsistent. |
+| Morning System Upgrade assignment metadata | inconsistent | The published assignment chain is `strategic-product-delivery`, but its owner label remains Daily Strategic Priorities rather than the execution owner. |
+| Carryover publication parity | `3 reconciled → 1 active_chains entry` | The canonical API omits the delivery-conversion and Psihotavr chains from `active_chains` without an explicit exclusion state. |
+| Verified closure mix | 1 operational/API : 2 infrastructure/control plane | 33.3% product/operational share is below the `3:1` guardrail; P0 recovery justified the exception, not its continuation. |
+
 ## Efficiency lessons
 
 1. A technical repair may be valid without a score change when it removes a concrete machine-consumption blocker; record the raw technical before/after state.
@@ -47,16 +69,21 @@ This is a week-to-date operational synthesis, not a replacement full-week denomi
 3. Body/content-type checks prevent false success more efficiently than repeated deploy attempts.
 4. Source/deploy parity and transitive dependency closure reduce recovery loops.
 5. Honest partial history is more valuable than fabricated seven-day completeness.
+6. A valid reserve or control-plane repair does not satisfy a different ranked assignment. Implementation must consume the assigned `chain_id` or explicitly return it for reconciliation.
+7. Detection guards reduce recovery time only when they share a single-owner lock; otherwise they increase duplicate deploy and context risk.
+8. A zero-conflict operational assignment array does not prove ownership discipline when the published strategic layer splits one raw input into multiple owner-labelled aliases.
 
 ## Missing instrumentation
 
 - Stable weekly denominator for repeated unchanged file reads.
 - Stable report-size/oversized-final-response collector.
-- Complete current seven-day immutable-history coverage.
+- Live per-day immutable-history coverage behind the current rolling denominators.
 - Full owner-wide repository inventory from the available connector.
+- Machine-readable assignment-consumption parity: ranked chain_id versus implemented chain_id.
+- Shared-input identity enforcement between metrics, strategic priorities, assignments and active chains.
 
 These remain `needs verification`; they are not scored from inference.
 
 ## Highest-value efficiency correction
 
-Select one exact existing product deliverable from the shared `1/4` denominator and carry it through one-owner implementation, safe delivery, production verification and metric re-read. This should improve real outcome conversion rather than add another control-plane-only change.
+Publish the exact four denominator items behind the shared `1/4` delivery input, collapse the three strategic aliases into one owner-labelled chain, select one existing user-visible or business-value deliverable with canonical repository and branch, and carry that single chain through implementation, safe delivery, production verification and metric re-read. The next verified implementation should be product-first rather than another publication or guard-only change.
