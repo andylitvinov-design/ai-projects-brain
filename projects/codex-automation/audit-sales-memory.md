@@ -15,17 +15,140 @@ Persistent longitudinal memory for the weekly `/audit-sales` portfolio review an
 
 ## Current portfolio baseline
 
-No weekly portfolio `/audit-sales` run has completed yet.
+Baseline date: 2026-08-03.
 
-| Project | Repo | Production URL | Previous score | Evidence state | Top known sales question |
-|---|---|---|---:|---|---|
-| Ezohata | `andylitvinov-design/ezohata` | `https://ezohata.vercel.app` | — | NOT_TESTED | Does the catalog clearly convert interest into a Telegram or order action? |
-| Psihotavr | `andylitvinov-design/psihotavr` | `https://psihotavr.vercel.app` | — | NOT_TESTED | Is the stable Telegram-first path clear and trustworthy? |
-| Psitherapy | `andylitvinov-design/report` | `https://psitherapy.vercel.app` | — | NOT_TESTED | Does the public intake create value before login? |
-| Reiki Yggdrasil | `andylitvinov-design/reiki-yggdrasil` | `https://reiki-yggdrasil.vercel.app` | — | NOT_TESTED | Is one course or profile journey understandable and completable? |
-| TorontoTantra | `andylitvinov-design/torontotantra` | `https://torontotantra.vercel.app` | — | NOT_TESTED | Does the site turn interest into a community or event lead? |
-| EzoHata Finance | `andylitvinov-design/ezohata-finance` | `https://ezohata-finance.vercel.app` | — | NOT_TESTED | Does the owner workflow communicate the next decision clearly? |
-| Legacy Finance | `andylitvinov-design/finance` | `https://ezohata-incoming-ledger.vercel.app` | — | NOT_TESTED | Is the legacy/reference role explicit to users and agents? |
+This is a source-level heuristic baseline. The automation runtime could not resolve the listed public domains, so clean desktop/mobile browser state, keyboard/focus behavior, CTA completion, Core Web Vitals, analytics, provider-backed persistence, and production source parity remain `NOT_TESTED` or `NEEDS_VERIFICATION` unless repository evidence explicitly proves the code path.
+
+| Project | Repo | Production URL | Score | Confidence | Evidence state | Main next question |
+|---|---|---|---:|---|---|---|
+| Ezohata | `andylitvinov-design/ezohata` | `https://ezohata.vercel.app` | 68 | medium-low | SOURCE_INSPECTED / LIVE_NOT_TESTED | Can trust and product-fit support catch up with the already clear Telegram order path? |
+| Psihotavr | `andylitvinov-design/psihotavr` | `https://psihotavr.vercel.app` | 40 | very low | MEMORY_ONLY / REPO_AND_LIVE_NEEDS_VERIFICATION | Is the current public collector and Telegram-first path actually usable on the canonical production deployment? |
+| Psitherapy | `andylitvinov-design/report` | `https://psitherapy.vercel.app` | 63 | medium-low | SOURCE_INSPECTED / LIVE_NOT_TESTED | Is the public intake and specialist-request path truthful, persistent, and valuable before login? |
+| Reiki Yggdrasil | `andylitvinov-design/reiki-yggdrasil` | `https://reiki-yggdrasil.vercel.app` | 38 | low | DOCS_INSPECTED / DOMAIN_AND_LIVE_NEEDS_VERIFICATION | Which one public course/master/profile journey is canonical, and on which production domain? |
+| TorontoTantra | `andylitvinov-design/torontotantra` | `https://torontotantra.vercel.app` | 75 | medium | SOURCE_INSPECTED / LIVE_NOT_TESTED | Does joining Telegram lead predictably to registration, payment, and a reserved place? |
+| EzoHata Finance | `andylitvinov-design/ezohata-finance` | `https://ezohata-finance.vercel.app` | 43 | low | DOCS_INSPECTED / OWNER_AND_LIVE_BLOCKED | Does the owner-only login/onboarding clearly communicate the next decision and distinguish this app from legacy finance? |
+| Legacy Finance | `andylitvinov-design/finance` | `https://ezohata-incoming-ledger.vercel.app` | 36 | low | DOCS_INSPECTED / LIVE_NOT_TESTED | Is the legacy/reference role visible inside the product, with a clear route to the new finance system? |
+
+Scores use the full 100-point denominator. `NOT_TESTED` markers receive no points; therefore these scores are conservative evidence scores, not forecasts of commercial performance.
+
+## 2026-08-03 portfolio audit
+
+### Portfolio discovery
+
+Included:
+
+- Ezohata
+- Psihotavr
+- Psitherapy
+- Reiki Yggdrasil
+- TorontoTantra
+- EzoHata Finance
+- Legacy Finance / Incoming Ledger
+
+Excluded from scoring:
+
+- Brain Management and Codex Links: internal operations/infrastructure rather than public sales or lead funnels.
+- AI Projects Brain: no public conversion surface.
+- Codex Links MyPortal: finance/provider surface with unverified canonical repository mapping.
+- Body Explore and Business Mysteries: public links were discovered from TorontoTantra source, but canonical repo, production source, and active-status mapping are not yet verified.
+
+### Sales Change Map
+
+This is the first completed weekly portfolio run, so all site findings are `NEW`. There is no previous score delta and no revenue inference.
+
+| Project | A | B | C | D | E | F | G | Total | Change label |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Ezohata | 18 | 16 | 6 | 18 | 5 | 5 | 0 | 68 | NEW_BASELINE |
+| Psihotavr | 10 | 10 | 4 | 10 | 4 | 2 | 0 | 40 | NEW_BASELINE |
+| Psitherapy | 16 | 16 | 6 | 15 | 5 | 5 | 0 | 63 | NEW_BASELINE |
+| Reiki Yggdrasil | 10 | 9 | 5 | 8 | 4 | 2 | 0 | 38 | NEW_BASELINE |
+| TorontoTantra | 18 | 19 | 10 | 17 | 9 | 2 | 0 | 75 | NEW_BASELINE |
+| EzoHata Finance | 15 | 12 | 7 | 6 | 3 | 0 | 0 | 43 | NEW_BASELINE |
+| Legacy Finance | 12 | 10 | 5 | 5 | 2 | 2 | 0 | 36 | NEW_BASELINE |
+
+### Ezohata
+
+- Audience/offer/action: people exploring mandalas and related materials; browse catalog, compare previews, add to cart, submit a Telegram-first order.
+- Preserve: clear catalog finder; explicit Telegram checkout expectation; visible total and order code; only Telegram plus optional email requested; loading, success, error, empty-cart, and duplicate-submit guard code exists.
+- Top leaks:
+  - `NEW P1`: trust/proof is thin in the inspected homepage and checkout source.
+  - `NEW P1`: product outcome, fit, deliverable, and practical use are less concrete than the catalog structure and ordering mechanics.
+  - `NEW P2`: no measurement evidence for catalog view, add-to-cart, checkout start, successful order, or direct Telegram fallback.
+- Recommended changes: add product-fit and deliverable blocks; add verified creator/business/contact/policy signals; explain response time and post-order process near checkout; instrument privacy-safe funnel events.
+- Prompt route: `/delivery`.
+- Do not touch: clean-room boundary, protected preview approach, collection/mandala/article distinction, Telegram-first flow, private originals, provider configuration.
+
+### Psihotavr
+
+- Audience/offer/action: mandala catalog users; intended Telegram-first order and inquiry path.
+- Preserve: legacy catalog content, image mappings, taxonomy distinctions, and Telegram-first behavior when verified.
+- Top leaks:
+  - `NEW P1`: current canonical repo/live/retirement state and public collector behavior are unproven.
+  - `NEW P1`: the main CTA and Telegram completion path could not be inspected.
+  - `NEW P1`: trust, decision support, and current provider boundaries are not evidenced.
+- Recommended changes: first prove canonical source and clean-session behavior; verify one catalog-to-Telegram journey; make the order/contact next step explicit; add only verified trust/process signals; define funnel events after the path is proven.
+- Prompt route: `/safe` before any conversion change.
+- Do not touch: Excel-derived catalog data, image mappings, Telegram-first order path, auth/provider experiments, legacy branches.
+
+### Psitherapy
+
+- Audience/offer/action: visitors seeking self-analysis, AI-guided intake, reports, or a specialist consultation; start first intake or leave a specialist request.
+- Preserve: clear package ladder and prices in source; repeated intake CTA; test duration/status labels; empty states; clear distinction between self-analysis and specialist help.
+- Top leaks:
+  - `NEW P1`: source copy can say a specialist request was saved while the booking section is still being connected; durable persistence is not proven.
+  - `NEW P1`: public value and eligibility before login/cabinet entry are not yet proven in live state.
+  - `NEW P1`: health/AI limitations, practitioner identity, privacy, and evidence signals are weaker than the breadth of offered interpretation.
+- Recommended changes: make booking-state language strictly truthful to actual persistence; add a public pre-login value/process summary; place non-diagnostic AI/health boundaries and verified practitioner identity near intake; explain what each package produces; instrument intake and lead events without health payloads.
+- Prompt route: `/safe` because truthful persistence and health-copy boundaries come before optimization.
+- Do not touch: user data, provider settings, auth configuration, report contents, medical claims, private analytics.
+
+### Reiki Yggdrasil
+
+- Audience/offer/action: learners, clients, and masters using public learning, masters catalog, profile/cabinet, services, and courses.
+- Preserve: RU-first experience, accepted desktop structure, public masters concept, authenticated private content boundaries.
+- Top leaks:
+  - `NEW P1`: production identity is fragmented across `reiki-yggdrasil.vercel.app`, target `mentalica.vercel.app`, and staging `2mentalica.vercel.app`.
+  - `NEW P1`: no single canonical public conversion journey is defined across learning, master discovery, profile, services, and courses.
+  - `NEW P1`: auth, access, orders, course invitations, and Supabase persistence require live proof.
+- Recommended changes: resolve canonical public domain/source first; choose one primary public journey; explain who the platform is for and the next step before login; expose verified course/service scope and access expectations; define adoption events after live proof.
+- Prompt route: `/planner`.
+- Do not touch: Supabase policies, production domain aliases, private storage, course access, admin roles, accepted three-column layout.
+
+### TorontoTantra
+
+- Audience/offer/action: adults interested in Tarot archetypes, embodied group practice, and constellations; join Telegram for event updates and registration information.
+- Preserve: clear audience and format; fully clothed/18+/consent boundaries; FAQ; facilitator background; duration, location, group size, fee, transfer policy, and non-therapy disclaimer.
+- Top leaks:
+  - `NEW P1`: exact date and the actual reservation/payment step are deferred to Telegram.
+  - `NEW P1`: joining Telegram does not explicitly say whether a place is reserved or what happens next.
+  - `NEW P2`: proof of past events and measurement of Telegram-to-registration completion are absent from inspected source.
+- Recommended changes: state that Telegram membership does or does not reserve a place; publish the exact registration sequence and response timing; add verified past-event evidence or participant feedback only when consented and true; add a privacy-safe outbound Telegram click and confirmed-registration measurement plan.
+- Prompt route: `/delivery`.
+- Do not touch: consent/optional-touch boundaries, fully clothed framing, educational/non-therapy disclaimer, verified prices, participant privacy.
+
+### EzoHata Finance
+
+- Audience/offer/action: Andrey as the owner; authenticate and use the new finance system for verified records and decisions.
+- Preserve: owner-only framing, immutable evidence, explicit no-invented-balancing rule, server-verified Google identity, signed HttpOnly session, separation from Supabase Auth.
+- Top leaks:
+  - `NEW P1`: this is not a public sales funnel, and the public/login surface must clearly state owner-only access and purpose.
+  - `NEW P1`: next-step onboarding and readiness after login are not inspectable and provider journeys remain blocked.
+  - `NEW P2`: no adoption/decision-success measurement evidence exists.
+- Recommended changes: make owner-only status and new-vs-legacy distinction explicit; add a post-login readiness/next-action checklist; expose provider readiness without secrets; define owner workflow success events that contain no financial payloads.
+- Prompt route: `/planner`.
+- Do not touch: financial records, provider credentials, Supabase data, reconciliation logic, login configuration, legacy evidence.
+
+### Legacy Finance
+
+- Audience/offer/action: Andrey using the legacy incoming-ledger dashboard for payments, expenses, balances, and provider imports.
+- Preserve: canonical repo/status endpoints, source-of-truth diagnostics, discrepancy visibility, finance invariants, read-only legacy-repo boundary.
+- Top leaks:
+  - `NEW P1`: the legacy/reference role may be clear in documentation but is not proven visible inside the product.
+  - `NEW P1`: the relationship and migration path to EzoHata Finance are not proven in the user interface.
+  - `NEW P2`: no adoption or decision-completion measurement evidence exists.
+- Recommended changes: add a visible non-alarming legacy/reference banner when appropriate; provide a clear link and comparison to the new finance app; identify which workflows remain authoritative here; define no-financial-payload usage events; verify one current provider and one manual-data journey before any stronger claim.
+- Prompt route: `/planner`.
+- Do not touch: financial data, Google Sheets, provider tokens, balance formulas, release source lock, deprecated repo boundary.
 
 ## Current durable principles
 
@@ -34,7 +157,7 @@ No weekly portfolio `/audit-sales` run has completed yet.
 - Heuristic score changes are not conversion-rate or revenue evidence.
 - Provider-dependent paths remain `BLOCKED` or `NEEDS_VERIFICATION` without live proof.
 - Every site audit must preserve what already sells well and produce one bounded Codex prompt.
-- Screenshot evidence cannot prove keyboard operation, focus, target-size compliance, post-click behavior, Core Web Vitals, or analytics.
+- Screenshot or source-only evidence cannot prove keyboard operation, focus, target-size compliance, post-click behavior, Core Web Vitals, analytics, or production persistence.
 - Decision-critical cost, eligibility, timing, format, continuity, and post-CTA expectations must be visible before meaningful commitment.
 - Primary-path performance uses current field evidence when available; lab/manual evidence without field data may support `WATCH`, not an unqualified field-performance `PASS`.
 
@@ -42,43 +165,27 @@ No weekly portfolio `/audit-sales` run has completed yet.
 
 ### 2026-07-19 — accepted marker changes: 3; temporary candidates accepted: 0
 
-Sources reviewed:
-
-| Source | Type | Evidence used |
-|---|---|---|
-| W3C, WCAG 2.2 and Understanding documents, updated 2026-02-11 | Normative accessibility standard | Keyboard operation, visible/unobscured focus, name/role/value, status/error support, and minimum pointer target size/spacing. |
-| web.dev, Web Vitals and Core Web Vitals thresholds | Current platform performance guidance | Field measurement at the 75th percentile; good thresholds LCP `<=2.5s`, INP `<=200ms`, CLS `<=0.1`; field and lab evidence must not be conflated. |
-| Baymard, 2026 cart-abandonment statistics using 2025 reasons data | Established ecommerce UX/CRO research | Hidden or late extra costs, inability to see total cost, trust gaps, forced account creation, long checkout, and site errors are observable abandonment barriers. |
-| Baymard, checkout form-field research, updated 2024–2025 | Established ecommerce UX research | Perceived effort is driven strongly by fields users must consider; ask only what is needed and explain required data. |
-| Google Analytics 4 recommended events and lead/ecommerce funnel guidance, accessed 2026-07-19 | Current analytics platform guidance | `generate_lead`, `form_start`, `form_submit`, `begin_checkout`, `purchase`, and related events are implementation vocabulary, not proof of correct tracking or business outcome. |
-| ONS/GOV.UK user-needs and transaction guidance, accessed 2026-07-19 | Established service/content design guidance | Clear user need, upfront eligibility/context, predictable next steps, minimal cognitive load, and evidence-based wording improve task completion and trust. |
+Sources reviewed: W3C WCAG 2.2; web.dev Core Web Vitals guidance; Baymard checkout and form-effort research; Google Analytics 4 recommended events; ONS/GOV.UK user-needs and transaction guidance.
 
 Accepted principles:
 
-1. **Refine B4: decision-critical expectations before commitment.** Supported by Baymard checkout evidence and GOV.UK transaction guidance. It converts hidden/late price, eligibility, timing, format, continuity, and next-step ambiguity into a concrete barrier without requiring every service to publish a fixed price.
-2. **Refine F1: operable primary path.** Supported by WCAG 2.2. Mobile appearance alone is insufficient; keyboard operation, understandable control names, visible/unobscured focus, no trap, and target-size/spacing risk are now explicit.
-3. **Refine F3: performance and stability evidence.** Supported by web.dev. A `PASS` requires current field evidence plus no observed blocker; repeatable lab/manual evidence without field data is `WATCH`; visual impression is `NOT_TESTED`.
+1. Refined B4 for decision-critical expectations before commitment.
+2. Refined F1 for keyboard/mobile operability, visible focus, understandable controls, and target-size risk.
+3. Refined F3 so field evidence is required for an unconditional performance `PASS`.
 
-Rejected candidates:
+Rejected candidates: generic conversion benchmarks; urgency/countdown optimization; event-code presence as proof of measurement; AI-search/GEO as a durable conversion marker.
 
-- **Generic industry conversion-rate benchmark:** rejected because benchmarks are context-sensitive, easy to misuse as promises, and do not identify a page-specific observable barrier.
-- **Urgency/countdown optimization marker:** rejected because urgency is already covered and a new marker would reward manipulation or fake scarcity.
-- **“GA4 event exists” as a pass for measurement or outcomes:** rejected because code/tag presence does not prove event delivery, deduplication, attribution, or business impact.
-- **AI-search / GEO visibility:** rejected as a trend signal, not yet a cross-site conversion barrier with a stable PASS/WATCH/FAIL contract.
-
-Regression/replay/fixture coverage:
-
-- Added durable failure class `audit-sales-screenshot-evidence-overclaim`.
-- It blocks a sales audit from scoring keyboard/accessibility, performance, or post-click disclosure `PASS` from screenshot-only evidence.
-- It requires `/audit-sales`, `NOT_TESTED`, `decision-critical`, `keyboard`, and `Core Web Vitals` in the safe sample.
-- `/audit-sale` remains alias-only and has no separate fixture.
-
-Accepted durable marker refinements: 3.
-Accepted temporary candidates: 0.
-
-No temporary candidate was accepted, so no 90-day expiry entry is active.
+Regression coverage: `audit-sales-screenshot-evidence-overclaim` prevents screenshot/source-only evidence from claiming accessibility, performance, or downstream-flow `PASS`. `/audit-sale` remains alias-only.
 
 ## History
+
+### 2026-08-03
+
+- Completed the first weekly portfolio `/audit-sales` baseline for seven canonical projects.
+- Inspected canonical project memory and accessible repository source/docs.
+- Live browser, keyboard, Core Web Vitals, analytics, source-commit parity, and provider completion remained unavailable and were marked `NOT_TESTED` or `NEEDS_VERIFICATION`.
+- Added one bounded improvement prompt direction per site.
+- No product code, deploy, provider configuration, data, payment, message, issue, or product PR was created or changed.
 
 ### 2026-07-19
 
