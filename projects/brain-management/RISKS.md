@@ -17,6 +17,13 @@
 - Cloudflare Pages
 - Deploy source and branch need verification before
   production work.
+- GitHub Actions may fail before the first repository step and expose
+  `steps=null` with unavailable `BlobNotFound` logs. Repeated pre-step
+  failures are an external CI-reachability blocker, not evidence that the
+  branch code is invalid or safe to merge. Preserve the exact head SHA,
+  avoid duplicate recovery PRs, and hand the existing PR to PR Delivery
+  Sweep until required checks can run or a repository-policy-approved
+  deterministic replacement is available.
 
 ## Security Risks
 
