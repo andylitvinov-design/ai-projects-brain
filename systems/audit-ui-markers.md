@@ -1,7 +1,7 @@
 # /audit-ui design markers
 
-Version: 1.4  
-Last reviewed: 2026-07-30  
+Version: 1.5  
+Last reviewed: 2026-08-06  
 Owner: `/audit-ui` shared standard
 
 ## Purpose
@@ -39,6 +39,7 @@ scoreboard plus the three highest-impact defects is more useful.
 | Surface discipline | Cards, borders, shadows, radii, effects | Surfaces show hierarchy rather than card-inside-card, arbitrary glow, or competing decoration. |
 | Image and media direction | Crop, aspect ratio, loading state, relation to copy | Media is purposeful, consistently framed, and does not obscure text or distort the promise. |
 | Primary journey and CTA | Navigation, CTA placement, form/cart/checkout path | The main action is visible, understandable, reachable, and does not compete with equal-weight actions. |
+| Form completion and accessible authentication | Labels/instructions, field purpose and autocomplete, repeated data, password-manager/paste/OTP support, cognitive tests | Fields expose the correct purpose and autocomplete semantics; information already entered in the same process is auto-populated or selectable unless a WCAG exception applies; sign-in permits paste and password-manager/autofill assistance and offers a path that does not require solving, recalling, or manually transcribing a cognitive test unless a documented WCAG exception applies. |
 | Responsive composition and reflow | 390px mobile, desktop, tablet when layout changes, and a 320 CSS px equivalent / zoomed viewport | Non-exempt content reflows without two-dimensional page scrolling, clipped text, hidden primary actions, or a source-order mismatch; text enlargement remains usable. |
 | States, errors, and feedback | Default, hover/focus, selected, loading, empty, validation error, submit error, success, and dynamic status messages | States are distinct and recoverable; each detected input error is identified in text and linked or associated with its field; success, result, waiting, progress, and error status updates are programmatically determinable without unnecessary focus theft; the clean-session default is verified before clicked state. |
 | Accessibility and input | Contrast, focus visibility/obscuration, target size/spacing, keyboard, motion | Focused components remain visible above sticky or overlay layers; pointer targets are at least 24 by 24 CSS px or satisfy a documented spacing/equivalent/inline exception; controls retain contrast and do not depend on hover, drag, or motion alone. |
@@ -101,6 +102,10 @@ articles: [WCAG 2.2](https://www.w3.org/TR/WCAG22/),
 [W3C Error Identification](https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html),
 [W3C Status Messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html),
 [accessible forms](https://web.dev/learn/accessibility/forms),
+[W3C Accessible Authentication](https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-minimum.html),
+[W3C Redundant Entry](https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html),
+[web.dev sign-in form best practices](https://web.dev/articles/sign-in-form-best-practices),
+[GOV.UK password input](https://design-system.service.gov.uk/components/password-input/),
 [accessible responsive design](https://web.dev/articles/accessible-responsive-design),
 and [Web Vitals](https://web.dev/articles/vitals). Render-integrity evidence also uses
 [web.dev's critical rendering path](https://web.dev/learn/performance/understanding-the-critical-path),
@@ -117,6 +122,7 @@ and [Liquid Glass accessibility behavior](https://developer.apple.com/videos/pla
 
 | Date | Change | Reason |
 |---|---|---|
+| 2026-08-06 | v1.5: added a durable form-completion and accessible-authentication marker covering autocomplete semantics, redundant entry, paste/password-manager assistance, and cognitive-test alternatives. | WCAG 2.2 Accessible Authentication and Redundant Entry provide observable AA requirements; web.dev and GOV.UK supply established cross-browser form patterns. The marker reduces completion friction for login, admin, finance, cart, and multi-step flows without weakening security or duplicating error-state checks. |
 | 2026-07-30 | v1.4: strengthened performance/stability into an observable render-integrity marker covering clean-session browser render, critical asset/data delivery, runtime failure, and stale shell/data mismatch. | web.dev documents critical render-blocking CSS/JS and INP responsiveness; GOV.UK and MDN treat robust baseline rendering/progressive enhancement as a reliability principle. This catches blank, unstyled, protected-asset, and stale-shell failures without creating a visual trend requirement. |
 | 2026-07-23 | v1.3: strengthened states and feedback with explicit error identification, field association, and programmatically determinable dynamic-status checks. | W3C WCAG 2.2 defines text error identification and non-focus-stealing status exposure; web.dev and GOV.UK provide established, observable form patterns. The change closes a screen-reader feedback gap without adding a new trend or duplicating visual state checks. |
 | 2026-07-20 | v1.2: made focus obscuration and target-size/spacing checks explicit in the accessibility marker. | W3C WCAG 2.2 provides observable AA checks for sticky/overlay layers and 24 by 24 CSS px targets or documented exceptions; current Figma/Apple material signals add no safer replacement for existing trend candidates. |
