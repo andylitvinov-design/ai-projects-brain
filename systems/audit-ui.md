@@ -142,7 +142,8 @@ Check:
 - mobile layout;
 - tablet layout when relevant;
 - navigation clarity;
-- forms, validation and error recovery, buttons, and tap targets;
+- forms, completion friction, authentication assistance, validation and error
+  recovery, buttons, and tap targets;
 - loading, empty, error, and success states;
 - long text wrapping;
 - image aspect ratios;
@@ -183,6 +184,8 @@ Test or reason through:
 - many cards or list items;
 - slow loading and failed requests;
 - permission or auth blocked states;
+- password-manager, paste, autofill, one-time-code, and repeated-entry behavior
+  when forms or authentication are in scope;
 - small mobile width;
 - large desktop width;
 - localization and text expansion;
@@ -224,13 +227,20 @@ Minimum scenarios:
    The error is identified in text and associated with or linked to its field;
    success, result, waiting, progress, and error status messages are exposed to
    assistive technology without unnecessary focus movement or duplicate chatter.
-7. One interactive state is checked: hover, focus, open, submit, loading, error,
+7. When a form or authentication flow exists, inspect labels, field purpose,
+   input type, and autocomplete semantics. In one same-process flow, previously
+   entered information is auto-populated or selectable unless a documented
+   exception applies. Sign-in permits paste and password-manager/autofill help;
+   one-time codes can be assisted where supported; no step requires solving,
+   recalling, or manually transcribing a cognitive test without an alternative,
+   assistance mechanism, or documented WCAG exception.
+8. One interactive state is checked: hover, focus, open, submit, loading, error,
    or empty. The interaction reaches visible feedback without an obvious
    long-task freeze; use field or lab INP evidence when it is available.
-8. For stateful UI, clean-session default is checked before clicked-state.
-9. For legacy persisted UI, old storage keys are checked or explicitly marked
-   `needs verification`.
-10. If translucency, glass, or blur is used, inspect its worst-case background:
+9. For stateful UI, clean-session default is checked before clicked-state.
+10. For legacy persisted UI, old storage keys are checked or explicitly marked
+    `needs verification`.
+11. If translucency, glass, or blur is used, inspect its worst-case background:
     contrast, image color fidelity, and an opaque/reduced-transparency fallback
     must remain usable.
 
@@ -365,6 +375,7 @@ Verification:
 - Focus not obscured:
 - Target size/spacing:
 - Errors/status announcements:
+- Form completion/authentication:
 - Clean-session default:
 - Legacy persisted state:
 - Clicked/selected state:
