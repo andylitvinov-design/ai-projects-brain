@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-08-01T08:55:00+02:00",
+  "last_updated": "2026-08-08T08:50:00+02:00",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current active-portfolio routing. Project capsules and newer verified live evidence override a stale field; uncertain facts remain needs verification.",
   "source_priority": [
@@ -30,7 +30,7 @@
       "repo": "andylitvinov-design/ezohata-finance",
       "live_url": "https://ezohata-finance.vercel.app",
       "status": "BLOCKED_BY_OWNER",
-      "evidence_refs": ["projects/ezohata-finance/STATE.md", "brain-management/history/handoffs/2026-08-01-morning-task-sweep.json"],
+      "evidence_refs": ["projects/ezohata-finance/STATE.md", "projects/index.md"],
       "sectors": {"execution":"WATCH","product_value":"WATCH","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"BLOCKED","learning":"WATCH"},
       "blocker": "A current owner-session smoke and one read-only Wise or YooMoney production journey remain unproven."
     },
@@ -53,9 +53,9 @@
       "repo": "andylitvinov-design/report",
       "live_url": "https://psitherapy.vercel.app",
       "status": "BLOCKED",
-      "evidence_refs": ["projects/index.md", "projects/codex-automation/daily-improve-memory.md"],
+      "evidence_refs": ["projects/index.md", "projects/codex-automation/daily-improve-memory.md", "connected GitHub inventory 2026-08-08"],
       "sectors": {"execution":"WATCH","product_value":"UNKNOWN","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"BLOCKED","learning":"WATCH"},
-      "blocker": "Firebase provider/domain/env and current production-login cutover proof remain incomplete."
+      "blocker": "Repository mapping is now confirmed as andylitvinov-design/report, but current production auth/provider cutover proof remains incomplete."
     },
     {
       "project_id": "reiki-yggdrasil",
@@ -85,17 +85,16 @@
       "aliases": ["dashboard", "system health", "brain management", "дашборд"],
       "repo": "andylitvinov-design/brain-management",
       "live_url": "https://brain-management.vercel.app",
-      "status": "LIVE_VERIFIED",
+      "status": "DEGRADED_FAIL_CLOSED",
       "evidence_refs": [
         "projects/brain-management/PROJECT.md",
-        "brain-management/history/handoffs/2026-07-31-evening-delivery-closure.json",
-        "brain-management/history/handoffs/2026-08-01-morning-system-upgrade.json",
-        "brain-management/history/handoffs/2026-08-01-daily-dashboard-update.json",
-        "andylitvinov-design/brain-management@92cec78d0ee474ef53db904ec97abe5521a5824f",
-        "andylitvinov-design/brain-management@1e297dfb9b0dc7bc4a327319107b27db47c706a8"
+        "governance/CURRENT.md",
+        "canonical /api/data re-read 2026-08-08",
+        "canonical /api/agent-productivity re-read 2026-08-08",
+        "canonical /api/trends re-read 2026-08-08"
       ],
-      "sectors": {"execution":"PASS","product_value":"WATCH","business_growth":"NOT_APPLICABLE","standards":"PASS","reliability":"PASS","learning":"PASS"},
-      "blocker": null,
+      "sectors": {"execution":"BLOCKED","product_value":"WATCH","business_growth":"NOT_APPLICABLE","standards":"PASS","reliability":"BLOCKED","learning":"PASS"},
+      "blocker": "Operational source timestamp 2026-08-06T04:55:44.630Z is about 49.8h old; current APIs correctly fail closed with STALE_OPERATIONAL_DATA_FORBIDDEN until atomic refresh/publication recovers.",
       "legacy_live_aliases": ["https://brain-management.netlify.app", "https://brain-management.pages.dev"]
     },
     {
@@ -129,19 +128,39 @@
       "status": "NEEDS_VERIFICATION",
       "evidence_refs": ["projects/index.md", "projects/codex-automation/daily-improve-memory.md"],
       "sectors": {"execution":"UNKNOWN","product_value":"WATCH","business_growth":"UNKNOWN","standards":"NOT_TESTED","reliability":"BLOCKED","learning":"WATCH"},
-      "blocker": "Canonical live/retirement/source state and the current public collector failure require explicit verification."
+      "blocker": "Existing repo/live identity is retained from prior evidence, but the repository is not present in the current installed GitHub inventory and current live/source/collector state still requires explicit verification."
     }
   ],
   "legacy_registry_state": {
     "status": "NEEDS_REVISION",
-    "reason": "The canonical active overlay and human routing index are reconciled. projects.md, projects.json, and data/project-index.json remain historical continuity sources that need bounded field-by-field reconciliation before they can be treated as current.",
+    "reason": "The canonical active overlay is current, but projects.md, projects.json, and data/project-index.json still contain historical mappings. Exact known deltas are recorded in data/legacy-project-index-reconciliation-2026-08-08.json; legacy files must not override this overlay until safely patched field by field.",
     "continuity": ["projects/index.md", "projects.md", "projects.json", "data/project-index.json"]
   },
+  "accessible_repository_inventory": {
+    "observed_at": "2026-08-08",
+    "count": 30,
+    "source": "connected GitHub installed repository inventory",
+    "active_overlay_count": 10,
+    "rule": "Repository accessibility does not imply active-project status; backup, experimental, infrastructure and bootstrap repositories remain secondary until current project/live evidence promotes them.",
+    "notable_secondary_or_support_repositories": [
+      "andylitvinov-design/agent-loops",
+      "andylitvinov-design/active-projects-ops",
+      "andylitvinov-design/artefacts",
+      "andylitvinov-design/ezohata_ads",
+      "andylitvinov-design/hermes-cloud",
+      "andylitvinov-design/psitrends-work",
+      "andylitvinov-design/dao-usin-bach-report-kit",
+      "andylitvinov-design/codex-daily-backups",
+      "andylitvinov-design/weblinks-private-backup"
+    ]
+  },
   "reconciliation": {
-    "run_date": "2026-08-01",
+    "run_date": "2026-08-08",
     "active_project_count": 10,
-    "brain_management_mapping_fixed": true,
-    "duplicate_identity_resolved": "andylitvinov-design/finance is canonical for legacy-finance; andylitvinov-design/ezohata-incoming-ledger is deprecated/read-only",
-    "full_accessible_repository_inventory": "NEEDS_VERIFICATION"
+    "brain_management_mapping": "canonical Vercel mapping retained; current state changed from LIVE_VERIFIED to DEGRADED_FAIL_CLOSED due stale operational source",
+    "psitherapy_repo_mapping": "confirmed as andylitvinov-design/report by current connected GitHub inventory",
+    "duplicate_identity_resolved": "andylitvinov-design/finance remains canonical for legacy-finance; andylitvinov-design/ezohata-incoming-ledger remains deprecated/read-only",
+    "full_accessible_repository_inventory": "ENUMERATED_30",
+    "psihotavr_accessibility": "NEEDS_VERIFICATION"
   }
 }
