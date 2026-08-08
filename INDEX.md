@@ -1,45 +1,43 @@
 # AI Projects Brain — Master Index
 
-> Главная точка входа для человека и ИИ. Файл остаётся коротким и ссылается на канонические источники вместо дублирования их содержимого.
+> Главная точка входа для человека и ИИ. Индексы остаются короткими и направляют к каноническим durable-источникам вместо копирования состояния.
 
-Last reconciled: `2026-08-01`
+Last reconciled: `2026-08-08`
 
 ## 1. Найти проект
 
-- Current human routing index: `projects/index.md`
-- Current machine-readable active overlay: `projects/portfolio-registry.json`
-- Detailed project capsules: `projects/<slug>/PROJECT.md`
-- Historical extended inventory: `projects.md`
-- Historical machine database: `projects.json`
-- Generated/search-oriented legacy index: `data/project-index.json`
+- Current human routing: `projects/index.md`
+- Current machine active overlay: `projects/portfolio-registry.json`
+- Current compact machine catalog + repository inventory: `projects.json`
+- Search-oriented machine index: `data/project-index.json`
+- Detailed capsules: `projects/<slug>/PROJECT.md`
+- Human catalog summary: `projects.md`
 
-Поиск текущего активного проекта начинается с `projects/index.md` или `projects/portfolio-registry.json`, затем открывается capsule выбранного проекта. `projects.md`, `projects.json` и `data/project-index.json` используются для исторической непрерывности и помечены `needs_revision`, пока не пройдут полевую сверку.
+Поиск активного проекта начинается с `projects/index.md` или `projects/portfolio-registry.json`, затем открывается capsule. Текущая GitHub-инвентаризация содержит 30 доступных owner repositories; она хранится отдельно от 10-проектного active overlay, чтобы вспомогательные, backup и bootstrap repositories не становились активными продуктами автоматически.
 
 ## 2. Память конкретного проекта
 
-Предпочтительная структура:
-
-- `PROJECT.md` — назначение, canonical repo/live, статус и durable boundaries.
-- `CODEX_BRIEF.md` — короткая навигация для Codex.
-- `STATE.md` — только текущее подтверждённое состояние.
+- `PROJECT.md` — назначение, canonical repo/live, текущий durable status и boundaries.
+- `STATE.md` — только подтверждённое текущее состояние.
 - `SYSTEM_MAP.md` — архитектура и связи.
 - `CHECKS.md` — точные проверки.
-- `RISKS.md` — production, auth, data и operational risks.
+- `RISKS.md` — production/auth/data/operational risks.
 - `DECISIONS.md` — устойчивые решения и причины.
 - `LOG.md` — датированная история, не текущая истина.
+- `CODEX_BRIEF.md` — короткая навигация для Codex.
 
-Не каждый файл обязателен. Отсутствующие ключевые capsules фиксируются как `needs verification`, а не заполняются догадками.
+Неподтверждённые repo/live/provider факты остаются `NEEDS_VERIFICATION`; историческая ссылка не считается текущей canonical mapping без свежей reachability evidence.
 
 ## 3. Управляющий контур
 
 - `governance/INDEX.md` — карта durable governance.
-- `governance/CURRENT.md` — текущее состояние системы.
+- `governance/CURRENT.md` — что подтверждено сейчас.
 - `governance/GOALS.md` — цели, владельцы и next actions.
-- `governance/AUTOMATIONS.md` — роли, ownership и overlap checks.
-- `governance/EFFICIENCY.md` — недельные и текущие efficiency signals.
-- `governance/WEEKLY-LEARNINGS.md` — агрегированные ошибки и уроки.
+- `governance/AUTOMATIONS.md` — фактические scheduler roles, ownership и gaps.
+- `governance/EFFICIENCY.md` — immutable weekly scorecards и текущая evidence-backed synthesis.
+- `governance/WEEKLY-LEARNINGS.md` — агрегированные ошибки, причины и reusable lessons.
 
-`brain-management` остаётся operational control plane; `ai-projects-brain` остаётся durable source of truth.
+`brain-management` остаётся operational control plane. `ai-projects-brain` остаётся durable source of truth. Operational stale/fail-closed state не переписывается здесь как healthy только потому, что более ранний deployment когда-то был `LIVE_VERIFIED`.
 
 ## 4. Общие правила
 
@@ -54,24 +52,24 @@ Last reconciled: `2026-08-01`
 ## 5. Быстрый поиск
 
 1. Название, alias, URL или repo — `projects/index.md` / `projects/portfolio-registry.json`.
-2. Durable current project state — `projects/<slug>/PROJECT.md` и `STATE.md`.
-3. Архитектура — `SYSTEM_MAP.md`.
-4. Проверки — `CHECKS.md`.
-5. Решения — `DECISIONS.md`.
-6. История — `LOG.md` только при необходимости.
-7. Общесистемная эффективность, ownership и уроки — `governance/`.
+2. Полный owner-repository inventory — `projects.json` / `data/project-index.json`.
+3. Durable current project state — `projects/<slug>/PROJECT.md` и `STATE.md`.
+4. Архитектура/проверки — `SYSTEM_MAP.md` / `CHECKS.md`.
+5. Решения/история — `DECISIONS.md` / `LOG.md`.
+6. System ownership, goals, efficiency and lessons — `governance/`.
 
-## 6. Freshness contract
+## 6. Freshness and identity contract
 
 Weekly Brain Refresh должен:
 
-- сверять current active overlay с доступными GitHub/live evidence;
-- исправлять canonical repo/live/status и aliases;
-- добавлять подтверждённые активные проекты или помечать `needs verification`;
-- устранять дубли идентичности и stale sync state;
+- сверять active overlay с текущей GitHub/live/provider evidence;
+- отдельно перечислять доступные repositories и активные product identities;
+- исправлять stale repo/live/status aliases без повышения uncertainty до факта;
+- переводить недоступную historical mapping в `NEEDS_VERIFICATION`, а не сохранять её как active canonical fact;
+- считать production verification time-bound: если operational guard позже fail-closed, durable CURRENT должен отражать деградацию;
+- сверять фактический scheduler с durable automation registry;
 - агрегировать недельные уроки, не копируя daily receipts;
-- обновлять compact human/machine routing;
-- сохранять legacy inventories до безопасной полевой сверки;
-- фиксировать непроверенные источники.
+- сохранять предыдущие версии через Git history и capsules;
+- не превращать diagnostic/probe deployment projects в canonical products.
 
-Полнота не достигается ценой выдуманных данных. Более свежая verified live/GitHub evidence и project capsule имеют приоритет над stale legacy index.
+Evidence precedence: verified live behavior → current GitHub/provider evidence → immutable Brain Management history → capsule → routing/index metadata.
