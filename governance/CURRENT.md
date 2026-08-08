@@ -1,46 +1,56 @@
 # Current AI System State
 
-Last weekly refresh: `2026-08-01`
+Last weekly refresh: `2026-08-08`
 
 ## Operating model
 
-- `ai-projects-brain` is the durable source of truth for project catalog, project state, governance, automation ownership, lessons and indexes.
-- `brain-management` is the operational control plane for current metrics, immutable snapshots, assignments, chains, collectors and dashboard/API publication.
-- ChatGPT Automations collect and execute bounded stages. They must not create parallel registries, duplicate implementation ownership, or independent metric definitions.
+- `ai-projects-brain` is the durable source of truth for project catalog, canonical mappings, governance, goals, automation ownership, lessons and search indexes.
+- `brain-management` is the operational control plane for current metrics, immutable operational receipts, assignments, chains, collectors and dashboard/API publication.
+- Recurring workers may execute bounded stages but must not create parallel catalogs, metric definitions, publishers or implementation owners.
 
 ## Current health
 
 | Area | Status | Evidence / next action |
 |---|---|---|
-| Brain Management operational control plane | healthy / LIVE_VERIFIED | Canonical Vercel production has real HTML, six approved routes, four Overview aggregates, 24 metrics, 5/5 JSON APIs, ten Trends, seven agent cards, six manifest shortcuts and no verified runtime-error cluster. |
-| Durable source-of-truth boundary | healthy | Runtime receipts remain in Brain Management; durable catalog and governance changes remain here. |
-| Active portfolio routing | reconciled for the ten-project overlay | `projects/portfolio-registry.json` and `projects/index.md` now agree, including the Brain Management Vercel mapping and the canonical `finance` repository for legacy finance. |
-| Complete accessible repository inventory | needs verification | Connector discovery did not provide a complete owner-wide enumeration. Do not promote unverified backup or experimental repositories into the active portfolio. |
-| Legacy human/machine indexes | partial | `projects.md`, `projects.json`, and `data/project-index.json` remain continuity sources requiring bounded field-by-field reconciliation. |
-| Automation ownership | healthy | Current daily chain has zero concurrent implementation-owner conflicts; discovery, ranking, implementation, PR hygiene, publication and closure remain separate. |
-| Weekly review freshness | due | Latest Weekly Delivery System Review and Sunday Dashboard Review cover the week ending 2026-07-26. Their next scheduled runs should supply the next full weekly denominators. |
-| Search/navigation | improved | Current aliases and canonical repo/live mappings are present in the active registry and routing index. |
+| Brain Management operational control plane | `DEGRADED_STALE_FAIL_CLOSED` | On 2026-08-08 all five canonical operational APIs returned 503 JSON with `STALE_OPERATIONAL_DATA_FORBIDDEN`; source `2026-08-06T04:55:44.630Z` was ~48–50h old against an 18h ceiling. Existing recovery remains owned by Brain Regression Guard. |
+| Fail-closed release/freshness protection | healthy and proven | The system correctly refuses to mask stale sources with fresh wrapper/deploy timestamps; reduced one-file preview was rejected. |
+| Durable source-of-truth boundary | healthy | Operational receipts remain in Brain Management; durable catalog/governance synthesis remains here. |
+| Active portfolio routing | reconciled, 1 identity unresolved | Ten-project overlay retained. Nine active repo mappings are currently reachable; Psihotavr historical repo returns 404 and is downgraded to `IDENTITY_UNRESOLVED`. |
+| Complete owner repository inventory | confirmed | Current GitHub owner enumeration exposes 30 accessible repositories. Accessibility does not imply active-product status. |
+| Human/machine indexes | reconciled to compact current format | `projects.md`, `projects.json`, `data/project-index.json`, `projects/index.md` and `portfolio-registry.json` now route to capsules and current evidence instead of stale duplicated detail. |
+| Automation ownership | degraded by scheduler gaps | Discovery, PR hygiene, ranking, closure and regression recovery have current scheduler evidence. The recurring primary implementation role and atomic publication role have no active scheduler evidence at this reconciliation and must not be claimed healthy from old docs. |
+| Weekly review freshness | latest full review evidence ends 2026-08-02 | PR #190 records Weekly Delivery findings; PR #189 records Sunday control-plane findings. Current-week operational receipts extend durable CURRENT/lessons but are not a fabricated full-week scorecard. |
+| Search/navigation | improved | Active identities, aliases, 30-repo inventory and unresolved identity warnings are machine-readable. |
 
-## Confirmed current operational state
+## Confirmed changes since the prior refresh
 
-- Brain Management `/api/data` generated `2026-08-01T06:06:00Z` and reports overall `70.1`, efficiency `63.7`, business `72.5`, self-development `77.2`.
-- Public business-KPI evidence improved from no accepted source to `4/6` applicable projects without changing the formula.
-- The auxiliary API contract moved from `3/5` to `5/5` parseable JSON endpoints and reached `LIVE_VERIFIED`.
-- Rule lifecycle reached `3 active/9` from `2 active/9`.
-- Morning reconciliation removed four duplicate or terminal chains.
-- PR hygiene reduced the verified open-PR inventory from 46 to 36 in one run: three focused documentation PRs merged and seven obsolete/superseded PRs closed.
+- Brain Management rule lifecycle advanced from `3 active/9` to `6 active/9` by 2026-08-04 through real guard activations; formula unchanged.
+- Atomic source refresh, full operational API/shell validation and production source-parity checks were strengthened in Brain Management during Aug 5–6.
+- Repeated GitHub-hosted workflow failures before checkout (`steps=null`, unavailable logs / BlobNotFound class) were recorded as a durable failure mode in AI Projects Brain PR #191; they must not be misdiagnosed as code failures.
+- `/audit-ui` durable markers advanced to v1.5 in PR #192 with explicit accessible form-completion/authentication assistance checks.
+- Current GitHub inventory closes the earlier owner-repository enumeration gap: 30 repositories are now explicitly known.
 
 ## Current strategic blockers
 
-1. EzoHata Finance provider/live readiness is `0/4` and genuinely `BLOCKED_BY_OWNER`; it needs a current owner-session smoke and one read-only Wise or YooMoney journey.
-2. Product delivery, task success and live completion remain a shared `1/4` input. One exact denominator item and canonical implementation repository must be selected before work begins.
-3. Psihotavr remains `NEEDS_VERIFICATION`; its current public collector failed and its live/source/retirement state is not fully proven.
-4. Metric-level source references, honest seven-day history coverage and a supported operational closure-write path remain improvement areas; do not fabricate missing history.
+1. **Production freshness/source parity:** canonical Brain Management APIs are fail-closed; the current recovery chain lacks a fresh complete attributable dependency-closed artifact. Owner: Brain Regression Guard until terminal evidence.
+2. **EzoHata Finance protected proof:** provider/live readiness remains `0/4`; a current owner session and one read-only Wise or YooMoney journey are required. This is a genuine owner-only blocker.
+3. **Shared delivery `1/4` readiness:** product delivery/task success/live completion still lack the exact four denominator identities, one existing deliverable, project/repo/branch and one implementation owner.
+4. **Scheduler ownership gap:** the durable management contract requires distinct implementation and atomic publication stages, but current scheduler evidence does not show active owners for those recurring roles. Regression recovery must not silently become routine publication.
+5. **Psihotavr identity:** canonical repository/provider/live ownership is unresolved; no code/business-KPI action should be routed until re-proven.
+6. **Provider-project sprawl:** multiple temporary Brain Management Vercel probe/recovery projects exist; only `brain-management` / `prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d` is canonical.
 
 ## Current priorities
 
-1. Preserve Brain Management's verified production contract and source/deploy parity.
-2. Convert one real product deliverable from the shared `1/4` denominator to live evidence under one owner.
-3. Complete the owner-only EzoHata Finance read-only verification.
-4. Reconcile legacy project indexes field by field without replacing the canonical active overlay.
-5. Continue accumulating honest immutable snapshots and metric-level evidence.
+1. Restore one clearly assigned recurring atomic publication stage and verify a fresh complete Brain Management artifact/canonical re-read without creating a parallel recovery owner.
+2. Restore/confirm one primary implementation-stage scheduler owner, then select one concrete product deliverable from the shared `1/4` input.
+3. Resolve Psihotavr canonical identity or explicitly retire it only after evidence; do not infer from the 404 alone.
+4. Complete the EzoHata Finance owner-only read-only provider proof.
+5. Keep the 30-repository inventory and ten-project overlay separate so experimental/backup repos do not become products by accident.
+
+## Sync status
+
+- durable catalog: `CURRENT_RECONCILED_2026-08-08`
+- operational control plane: `STALE_FAIL_CLOSED_NEEDS_RECOVERY`
+- memory boundary: `PRESERVED`
+- scheduler registry: `RECONCILED_WITH_GAPS`
+- next durable recheck: after the operational freshness chain reaches a terminal state or current scheduler ownership changes
