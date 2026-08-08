@@ -1,89 +1,86 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-02`
+Last aggregated: `2026-08-08`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
 ## Immutable week-ending 2026-07-26 scorecard
 
-The values below remain historical and are not rewritten by later repairs.
+These historical values remain unchanged.
 
 | Metric | Week-end value | Interpretation |
 |---|---:|---|
-| Important task closure rate | 25% (`1/4`) | One selected provider-readiness chain remained unresolved; confidence medium because immutable history covered `3/7` days. |
+| Important task closure rate | 25% (`1/4`) | One selected provider-readiness chain remained unresolved; immutable history was incomplete. |
 | Live verified upgrades | 2 | One product/operational delivery and one infrastructure publication repair. |
-| Product/operational share | 50% (`1/2`) | Following work should rebalance from infrastructure toward product outcomes. |
-| Rework rate | 33.3% (`1/3` completed chains) | Finance-mobile required a corrective route-contract recovery. |
-| False-success-free rate | 66.7% (`2/3` claims) | One claim required correction after current production behavior was checked. |
-| Autonomous recovery rate | 100% (`1/1`) | The recoverable production regression closed within the bounded recovery loop. |
-| Deterministic verification pass rate | 96.3% (`26/27`) | Historical cutoff preserves one failed typecheck attempt even though later full verification passed. |
-| Duplicate work removed | 4 chains | Reconciliation removed resolved, temporary, superseded or duplicate chains. |
-| Assignment conflicts | 0 | One implementation owner per active chain. |
-| Immutable weekly history | 42.9% (`3/7` days) | Missing days must not be fabricated. |
+| Product/operational share | 50% (`1/2`) | Following work should rebalance toward product outcomes. |
+| Rework rate | 33.3% (`1/3`) | One completed chain required corrective work. |
+| False-success-free rate | 66.7% (`2/3`) | One claim required correction after current production behavior was checked. |
+| Autonomous recovery rate | 100% (`1/1`) | The observed recoverable regression closed within its bounded loop. |
+| Deterministic verification pass rate | 96.3% (`26/27`) | Historical cutoff preserves one failed validation. |
+| Duplicate work removed | 4 chains | Reconciliation removed resolved/superseded/duplicate chains. |
+| Assignment conflicts | 0 | One implementation owner per active chain at that cutoff. |
+| Immutable weekly history | 42.9% (`3/7` days) | Missing days were not fabricated. |
 
-## Current evidence through 2026-08-01
+## Prior rolling evidence through 2026-08-02
 
-This is a week-to-date operational synthesis, not a replacement full-week denominator.
+- Product delivery, task success and live completion shared one `1/4` raw input.
+- Rework was `1/3`; one of three success claims required correction.
+- Validation was `26/27`.
+- One owner-only provider blocker remained.
+- Verified closure mix was roughly one operational/API outcome to two infrastructure/control-plane outcomes, below the product-first guardrail but temporarily justified by P0 release recovery.
 
-| Signal | Current evidence | Trend / meaning |
+These rolling values are historical context, not additive events for the current week.
+
+## Current evidence through 2026-08-08
+
+| Signal | Current evidence | Efficiency meaning |
 |---|---|---|
-| Brain Management aggregate health | overall `70.1`; efficiency `63.7`; business `72.5`; self-development `77.2` | Current operational snapshot is fresh at `2026-08-01T06:06:00Z`. |
-| Product delivery conversion | product delivery `1/4`; task success `1/4`; live completion `1/4` | Weakest reusable outcome signal. The three metrics share one input and must remain one chain. |
-| Provider/live readiness | `0/4` | No autonomous action is safe; owner-session/read-only journey evidence is required. |
-| Public business-KPI coverage | `4/6`, score `66.7` | Improved from missing source coverage using fresh accepted public probes; formula unchanged. |
-| Canonical API readiness | `3/5 → 5/5` | Two HTML-fallback API defects were removed and live verified. |
-| Rule lifecycle | `2 active/9 → 3 active/9` | Real input improvement; score `22.2 → 33.3`. |
-| Open-PR hygiene | `46 → 36` in one verified run | Three focused docs PRs merged, seven obsolete/superseded PRs closed; remaining sensitive finance backlog needs bounded review. |
-| Duplicate/carryover cleanup | 4 chains removed | Positive; terminal and duplicate work did not reach downstream implementation. |
-| Implementation ownership conflicts | 0 | Healthy separation of discovery, ranking, implementation, PR delivery, publication and closure. |
-| Runtime verification | 24 metrics, 10 Trends, 7 agent cards, 5/5 JSON APIs, zero verified runtime-error clusters | Strong release verification; HTTP status alone is no longer accepted. |
-| Function-budget adaptation | first candidate 14 functions; final implementation at or below 12 | One useful diagnostic iteration avoided a failing Hobby deployment by reusing existing functions. |
-| Zero-effect PRs | 0 in current publication receipt | The API repair changed a technical blocker even though the metric score remained 100. |
+| Production freshness | canonical operational APIs return `503 STALE_OPERATIONAL_DATA_FORBIDDEN`; source `2026-08-06T04:55:44.630Z` is >18h old | **Liveness/freshness regressed.** The guard works, but the system is not currently serving fresh operational state. |
+| Release safety | reduced one-file preview rejected; stale source cannot be hidden by wrapper/deploy timestamp | **Safety improved.** Fail-closed behavior prevents false success and stale publication. |
+| Rule lifecycle | `3 active/9 → 6 active/9` by 2026-08-04 | **Real governance maturity gain** from activated guards, formula unchanged. |
+| Production-recovery ownership | one carryover chain, Brain Regression Guard owner | **Good deduplication.** Morning discovery/ranking did not create a parallel recovery owner. |
+| Routine scheduler completeness | primary implementation stage and atomic publication stage lack current active scheduler evidence | **Execution gap.** Recovery guard is compensating for incidents; routine outcome/publication ownership is incomplete. |
+| Hosted CI reliability | repeated workflows Aug 5–8 fail before checkout with `steps=null` / unavailable logs | **Verification overhead high.** Must classify as runner/reachability failure, not retry branch-code changes blindly. |
+| Repository discoverability | 30 owner repositories now enumerated | **Context-search improved.** The previous owner-wide inventory gap is closed. |
+| Active identity quality | 9/10 active repo mappings currently reachable; Psihotavr historical repo is 404/unresolved | **Routing improved by honest downgrade** rather than sending agents to a nonexistent repo. |
+| Provider identity discipline | canonical Brain Management project separated from many temporary probe/recovery projects | **Deployment ambiguity reduced** when routing follows canonical id only. |
+| Shared delivery outcome | exact `1/4` denominator items and concrete product deliverable still missing | **Product throughput remains under-specified.** No new product outcome should be inferred. |
+| Owner-only provider readiness | EzoHata Finance remains `0/4` | **Correct abstention.** Automation should not create fake provider progress. |
 
-## Rolling delivery scorecard through 2026-08-02
+## Current-week execution pattern
 
-The canonical API currently exposes rolling seven-day denominators, but not a live per-day history endpoint. These values are current evidence, not additive events to combine with the prior scorecard.
+Repository receipts from Aug 5–8 show repeated operational reconciliation, PR sweeps, strategic ranking, source-refresh/release guards and production-recovery work. Friday Trends research also produced a repository update. The dominant failure mode is not lack of guard code; it is maintaining a fresh, attributable, complete publication path under repeated pre-checkout CI failures and incomplete recurring stage ownership.
 
-| Metric | Current rolling value | Interpretation |
-|---|---:|---|
-| Selected delivery completion | 25% (`1/4`) | Three selected outcomes still have no verified live result. |
-| Task success | 25% (`1/4`) | Same raw delivery chain; do not create a second owner. |
-| Live completion | 25% (`1/4`) | Same raw delivery chain; exact four denominator identities remain unpublished. |
-| Rework rate | 33.3% (`1/3` completed) | One completed chain required a corrective pass. |
-| False-success-free rate | 66.7% (`2/3` claims) | One claim required correction after production evidence. |
-| Change success | 66.7% (`2/3` production changes) | One production change required repair. |
-| Autonomous recovery | 100% (`1/1`) | The observed recoverable production failure closed within the bounded loop. |
-| Deterministic verification | 96.3% (`26/27`) | One failed validation remains honestly represented. |
-| Latest duplicate cleanup | 4 aliases/chains | Correlated delivery metrics and completed recovery work were deduplicated before implementation. |
-| Current carryover | 3 chains | Provider owner blocker, shared delivery-conversion readiness gap and Psihotavr reachability classification. |
-| Owner blockers | 1 | Provider readiness remains `0/4` and genuinely requires the owner session. |
-| Published ownership conflict | 1 conflict group, 3 aliases | The same shared `1/4` input is published as product delivery, task success and live completion with three owner labels. Runtime concurrent implementation is not proven, but the strategy-layer ownership contract is inconsistent. |
-| Morning System Upgrade assignment metadata | inconsistent | The published assignment chain is `strategic-product-delivery`, but its owner label remains Daily Strategic Priorities rather than the execution owner. |
-| Carryover publication parity | `3 reconciled → 1 active_chains entry` | The canonical API omits the delivery-conversion and Psihotavr chains from `active_chains` without an explicit exclusion state. |
-| Verified closure mix | 1 operational/API : 2 infrastructure/control plane | 33.3% product/operational share is below the `3:1` guardrail; P0 recovery justified the exception, not its continuation. |
+Key distinction:
+
+- **Guard correctness:** improved.
+- **Fresh operational availability:** degraded.
+- **Durable search/catalog quality:** improved.
+- **Product-delivery conversion:** no verified improvement proven in this refresh.
 
 ## Efficiency lessons
 
-1. A technical repair may be valid without a score change when it removes a concrete machine-consumption blocker; record the raw technical before/after state.
-2. PR inventory reduction is useful only when closure evidence is strong. Old, financial or owner-dependent PRs remain open until facts are verified.
-3. Body/content-type checks prevent false success more efficiently than repeated deploy attempts.
-4. Source/deploy parity and transitive dependency closure reduce recovery loops.
-5. Honest partial history is more valuable than fabricated seven-day completeness.
-6. A valid reserve or control-plane repair does not satisfy a different ranked assignment. Implementation must consume the assigned `chain_id` or explicitly return it for reconciliation.
-7. Detection guards reduce recovery time only when they share a single-owner lock; otherwise they increase duplicate deploy and context risk.
-8. A zero-conflict operational assignment array does not prove ownership discipline when the published strategic layer splits one raw input into multiple owner-labelled aliases.
+1. A fail-closed 503 can be a correct safety behavior and still represent an unhealthy operational system. Track safety and liveness separately.
+2. `LIVE_VERIFIED` expires as a CURRENT claim when a later source-age or source-parity check fails.
+3. Repeated `steps=null`/no-log hosted-workflow failures should trigger infrastructure classification and exact-head preservation, not duplicate code-repair PRs.
+4. More guards are not a substitute for a clearly scheduled routine implementation owner and atomic publisher.
+5. Diagnostic deployment projects must not become durable identities; provider sprawl increases verification/context cost.
+6. Repository existence is not active-product status. Separate a complete repository inventory from the active product overlay.
+7. A valid technical recovery does not improve product-delivery metrics unless the unchanged raw denominator actually moves.
+8. Honest identity downgrade (`NEEDS_VERIFICATION`) is more efficient than repeated work against a stale repo mapping.
 
-## Missing instrumentation
+## Missing instrumentation / unresolved evidence
 
-- Stable weekly denominator for repeated unchanged file reads.
-- Stable report-size/oversized-final-response collector.
-- Live per-day immutable-history coverage behind the current rolling denominators.
-- Full owner-wide repository inventory from the available connector.
-- Machine-readable assignment-consumption parity: ranked chain_id versus implemented chain_id.
-- Shared-input identity enforcement between metrics, strategic priorities, assignments and active chains.
+- Stable immutable per-day denominator identities behind the shared `1/4` delivery signal.
+- Stable report-size / repeated-read collector.
+- Machine-readable ranked-chain → implemented-chain consumption parity across all active cycles.
+- Explicit scheduler-health contract that fails when required daily role slots are unassigned.
+- Psihotavr canonical identity and current provider/live source.
 
-These remain `needs verification`; they are not scored from inference.
+The prior owner-wide repository inventory gap is **closed**: 30 repositories were enumerated in the current GitHub owner view.
 
-## Highest-value efficiency correction
+## Highest-value efficiency corrections
 
-Publish the exact four denominator items behind the shared `1/4` delivery input, collapse the three strategic aliases into one owner-labelled chain, select one existing user-visible or business-value deliverable with canonical repository and branch, and carry that single chain through implementation, safe delivery, production verification and metric re-read. The next verified implementation should be product-first rather than another publication or guard-only change.
+1. Restore one active recurring atomic publication owner and close the stale-source recovery using one complete attributable artifact and canonical re-read.
+2. Restore/confirm one active primary implementation owner, then publish the exact four shared delivery denominator items and execute one real product deliverable.
+3. Keep CI pre-checkout failure handling bounded: preserve exact head, avoid duplicate trigger/recovery PRs, and use deterministic validation only where policy allows without converting it into false live credit.
