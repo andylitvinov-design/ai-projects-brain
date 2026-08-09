@@ -1,7 +1,7 @@
 # Live Upgrade Delivery Contract
 
 Status: active canonical contract.
-Last updated: 2026-07-26.
+Last updated: 2026-08-09.
 
 ## Purpose
 
@@ -118,6 +118,10 @@ Before a direct deployment can advance beyond `MERGED_WAITING_DEPLOY`:
 5. deploy that exact artifact and inspect the deployed assets or production APIs for source/schema parity;
 6. verify the intended production route or operation independently after deployment;
 7. map any missing file, stale deployed asset, unknown source SHA or schema drift to `MERGED_WAITING_DEPLOY`, never `LIVE_VERIFIED`.
+
+Emergency recovery may restore production behavior before source parity is closed. In that case the operational record may use a non-terminal diagnostic state such as `LIVE_BEHAVIOR_VERIFIED_SOURCE_PARITY_OPEN`, but the chain must not enter terminal `LIVE_VERIFIED` until the exact recovery source or a repository-owned reproducible manifest/build output is persisted or attributable to canonical source and the parity gate above is re-run successfully. Build-time generated or refreshed operational data that is not persisted in canonical source counts as unresolved source parity even when every live API is healthy.
+
+A closure receipt cannot waive this gate by stating that an emergency artifact is not byte-for-byte equivalent to the standard release. Behavior recovery and source parity are separate proofs; a source-parity recovery chain closes only when both are proven.
 
 A repeated omission from a direct-deploy bundle is a delivery failure class. The recovery must update the repository-owned manifest or build process and add a regression check; another manual one-off bundle is not a durable correction.
 
