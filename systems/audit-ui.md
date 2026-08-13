@@ -232,11 +232,11 @@ Minimum scenarios:
    3:1 contrast against adjacent colors where WCAG applies, or the exception is
    documented; data visualizations retain labels/legends and an accessible
    textual or tabular equivalent when needed.
-8. Trigger one validation error and one dynamic update when those states exist.
+7. Trigger one validation error and one dynamic update when those states exist.
    The error is identified in text and associated with or linked to its field;
    success, result, waiting, progress, and error status messages are exposed to
    assistive technology without unnecessary focus movement or duplicate chatter.
-7. When a form or authentication flow exists, inspect labels, field purpose,
+8. When a form or authentication flow exists, inspect labels, field purpose,
    input type, and autocomplete semantics. In one same-process flow, previously
    entered information is auto-populated or selectable unless a documented
    exception applies. Sign-in permits paste and password-manager/autofill help;
