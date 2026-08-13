@@ -150,6 +150,8 @@ Check:
 - overflow and truncation;
 - sticky elements and footer behavior;
 - keyboard focus and basic accessibility;
+- color-independent status, validation, selection, link, and chart meaning, plus
+  non-text contrast for essential UI boundaries and graphical objects;
 - clean-session render integrity, critical asset/data delivery, runtime errors,
   interaction responsiveness, and layout shift;
 - default state, persisted state, and clicked/selected state for stateful UI.
@@ -223,7 +225,14 @@ Minimum scenarios:
    remains distinguishable against any blur, dimming, or translucent layer.
 5. Pointer targets are at least 24 by 24 CSS px, or each undersized target has a
    documented WCAG spacing/equivalent/inline/user-agent/essential exception.
-6. Trigger one validation error and one dynamic update when those states exist.
+6. Inspect status, validation, selection, links, trend direction, and chart
+   series without relying on hue: each color-coded meaning has a visible text,
+   icon, shape, pattern, position, or direct-label cue. Essential control
+   boundaries, states, focus indicators, and graphical objects have at least
+   3:1 contrast against adjacent colors where WCAG applies, or the exception is
+   documented; data visualizations retain labels/legends and an accessible
+   textual or tabular equivalent when needed.
+8. Trigger one validation error and one dynamic update when those states exist.
    The error is identified in text and associated with or linked to its field;
    success, result, waiting, progress, and error status messages are exposed to
    assistive technology without unnecessary focus movement or duplicate chatter.
@@ -234,13 +243,13 @@ Minimum scenarios:
    one-time codes can be assisted where supported; no step requires solving,
    recalling, or manually transcribing a cognitive test without an alternative,
    assistance mechanism, or documented WCAG exception.
-8. One interactive state is checked: hover, focus, open, submit, loading, error,
+9. One interactive state is checked: hover, focus, open, submit, loading, error,
    or empty. The interaction reaches visible feedback without an obvious
    long-task freeze; use field or lab INP evidence when it is available.
-9. For stateful UI, clean-session default is checked before clicked-state.
-10. For legacy persisted UI, old storage keys are checked or explicitly marked
+10. For stateful UI, clean-session default is checked before clicked-state.
+11. For legacy persisted UI, old storage keys are checked or explicitly marked
     `needs verification`.
-11. If translucency, glass, or blur is used, inspect its worst-case background:
+12. If translucency, glass, or blur is used, inspect its worst-case background:
     contrast, image color fidelity, and an opaque/reduced-transparency fallback
     must remain usable.
 
@@ -375,6 +384,7 @@ Verification:
 - Focus not obscured:
 - Target size/spacing:
 - Errors/status announcements:
+- Color-independent meaning/non-text contrast:
 - Form completion/authentication:
 - Clean-session default:
 - Legacy persisted state:
