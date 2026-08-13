@@ -1,7 +1,7 @@
 # /audit-ui design markers
 
-Version: 1.5  
-Last reviewed: 2026-08-06  
+Version: 1.6  
+Last reviewed: 2026-08-13  
 Owner: `/audit-ui` shared standard
 
 ## Purpose
@@ -42,7 +42,7 @@ scoreboard plus the three highest-impact defects is more useful.
 | Form completion and accessible authentication | Labels/instructions, field purpose and autocomplete, repeated data, password-manager/paste/OTP support, cognitive tests | Fields expose the correct purpose and autocomplete semantics; information already entered in the same process is auto-populated or selectable unless a WCAG exception applies; sign-in permits paste and password-manager/autofill assistance and offers a path that does not require solving, recalling, or manually transcribing a cognitive test unless a documented WCAG exception applies. |
 | Responsive composition and reflow | 390px mobile, desktop, tablet when layout changes, and a 320 CSS px equivalent / zoomed viewport | Non-exempt content reflows without two-dimensional page scrolling, clipped text, hidden primary actions, or a source-order mismatch; text enlargement remains usable. |
 | States, errors, and feedback | Default, hover/focus, selected, loading, empty, validation error, submit error, success, and dynamic status messages | States are distinct and recoverable; each detected input error is identified in text and linked or associated with its field; success, result, waiting, progress, and error status updates are programmatically determinable without unnecessary focus theft; the clean-session default is verified before clicked state. |
-| Accessibility and input | Contrast, focus visibility/obscuration, target size/spacing, keyboard, motion | Focused components remain visible above sticky or overlay layers; pointer targets are at least 24 by 24 CSS px or satisfy a documented spacing/equivalent/inline exception; controls retain contrast and do not depend on hover, drag, or motion alone. |
+| Accessibility and input | Text and non-text contrast, color-independent meaning, focus visibility/obscuration, target size/spacing, keyboard, motion | Information, actions, validation, selected states, status/delta, and chart series are not communicated by color alone; essential control boundaries, states, focus indicators, and graphical objects have at least 3:1 contrast against adjacent colors where WCAG applies or a documented exception exists; focused components remain visible above sticky or overlay layers; pointer targets are at least 24 by 24 CSS px or satisfy a documented exception; controls do not depend on hover, drag, or motion alone. |
 | Render integrity, performance, and stability | Clean-session render, critical HTML/CSS/JS/data delivery, image/font reservation, layout shift, interaction cost | In a supported real browser, the approved shell and primary content reach a non-empty usable render without fatal runtime errors, protected/redirected critical assets, wrong content types, or a stale shell/data mismatch; the solution also avoids avoidable CLS, heavy decorative JS, and delayed primary interaction. |
 | Trust and content integrity | Price, status, permissions, source-backed content | Critical labels/data are legible, current-looking, and not visually disguised or misleading. |
 
@@ -97,6 +97,8 @@ The durable constraints are WCAG 2.2 and Web Vitals guidance, not trend
 articles: [WCAG 2.2](https://www.w3.org/TR/WCAG22/),
 [W3C Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html),
 [W3C Contrast](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html),
+[W3C Use of Color](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html),
+[W3C Non-text Contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html),
 [W3C Focus Not Obscured](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html),
 [W3C Target Size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html),
 [W3C Error Identification](https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html),
@@ -110,7 +112,7 @@ articles: [WCAG 2.2](https://www.w3.org/TR/WCAG22/),
 and [Web Vitals](https://web.dev/articles/vitals). Render-integrity evidence also uses
 [web.dev's critical rendering path](https://web.dev/learn/performance/understanding-the-critical-path),
 [GOV.UK progressive enhancement](https://www.gov.uk/service-manual/technology/using-progressive-enhancement),
-and [MDN progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement).
+and [MDN progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement). Color-independent meaning and data-visualization checks also use Apple's [Color guidance](https://developer.apple.com/design/human-interface-guidelines/color) and IBM Carbon's [accessibility](https://carbondesignsystem.com/guidelines/accessibility/developers/) and [chart anatomy](https://carbondesignsystem.com/data-visualization/chart-anatomy/) guidance.
 
 Current design signals are reviewed as optional evidence. The 2026 baseline now
 includes [Figma's web-design trends](https://www.figma.com/resource-library/web-design-trends/),
@@ -122,6 +124,7 @@ and [Liquid Glass accessibility behavior](https://developer.apple.com/videos/pla
 
 | Date | Change | Reason |
 |---|---|---|
+| 2026-08-13 | v1.6: strengthened the accessibility/input marker with color-independent meaning and testable non-text contrast for controls, states, status/delta indicators, and data visualizations. | WCAG 2.2 Use of Color and Non-text Contrast provide observable Level A/AA constraints; Apple and IBM Carbon reinforce redundant cues, labels, legends, and accessible chart alternatives. This catches color-only dashboard states and low-contrast UI graphics without prescribing a palette or visual style. |
 | 2026-08-06 | v1.5: added a durable form-completion and accessible-authentication marker covering autocomplete semantics, redundant entry, paste/password-manager assistance, and cognitive-test alternatives. | WCAG 2.2 Accessible Authentication and Redundant Entry provide observable AA requirements; web.dev and GOV.UK supply established cross-browser form patterns. The marker reduces completion friction for login, admin, finance, cart, and multi-step flows without weakening security or duplicating error-state checks. |
 | 2026-07-30 | v1.4: strengthened performance/stability into an observable render-integrity marker covering clean-session browser render, critical asset/data delivery, runtime failure, and stale shell/data mismatch. | web.dev documents critical render-blocking CSS/JS and INP responsiveness; GOV.UK and MDN treat robust baseline rendering/progressive enhancement as a reliability principle. This catches blank, unstyled, protected-asset, and stale-shell failures without creating a visual trend requirement. |
 | 2026-07-23 | v1.3: strengthened states and feedback with explicit error identification, field association, and programmatically determinable dynamic-status checks. | W3C WCAG 2.2 defines text error identification and non-focus-stealing status exposure; web.dev and GOV.UK provide established, observable form patterns. The change closes a screen-reader feedback gap without adding a new trend or duplicating visual state checks. |
