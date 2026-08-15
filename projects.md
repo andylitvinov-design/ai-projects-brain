@@ -1,6 +1,6 @@
 # Project Memory — Current Human Catalog
 
-Last reconciled: `2026-08-08`
+Last reconciled: `2026-08-15`
 
 > This file is now a compact current catalog. Detailed historical project records remain available in Git history before this reconciliation and in `projects/<slug>/PROJECT.md`. The canonical active machine overlay is `projects/portfolio-registry.json`; the complete current GitHub owner-repository enumeration is represented in `projects.json` and `data/project-index.json`.
 
@@ -21,14 +21,14 @@ Last reconciled: `2026-08-08`
 | `psitherapy` | Public psychotherapy/content funnel | `andylitvinov-design/report` | https://psitherapy.vercel.app | `BLOCKED` — repo/project exist; deploy-source/auth proof incomplete. |
 | `reiki-yggdrasil` | Reiki learning/master platform | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | `WATCH`. |
 | `codex-links` | Codex command/report delivery surface | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | `WATCH`. |
-| `brain-management` | Operational management control plane/PWA | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `DEGRADED_STALE_FAIL_CLOSED` — canonical operational APIs reject stale source data. |
+| `brain-management` | Operational management control plane/PWA | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `DEGRADED_STALE_MIXED_GUARD` — source age 102.9h; four APIs 503, one stale 200, `sw.js` 404 and parity false. |nonical operational APIs reject stale source data. |
 | `torontotantra` | Toronto Tantra and related landing/program surfaces | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | `WATCH`. |
 | `ai-projects-brain` | Durable project/governance memory | `andylitvinov-design/ai-projects-brain` | not applicable | `IMPROVING`. |
 | `psihotavr` | Historical mandala/catalog product identity | `NEEDS_VERIFICATION` | https://psihotavr.vercel.app historical/unverified | `IDENTITY_UNRESOLVED` — former repo mapping currently returns 404. |
 
 ## Current repository inventory
 
-GitHub owner enumeration on 2026-08-08 confirms 30 accessible repositories. Accessible repositories are not automatically active products.
+GitHub owner enumeration on 2026-08-15 confirms 30 accessible repositories. Accessible repositories are not automatically active products.
 
 ### Active-project repositories confirmed
 
@@ -42,7 +42,7 @@ These require capsule/mapping evidence before promotion into the active portfoli
 
 ## Identity corrections in this reconciliation
 
-- Brain Management remains one canonical Vercel product at `brain-management.vercel.app`, but CURRENT state is no longer `LIVE_VERIFIED`: `/api/data` and the other operational APIs are intentionally fail-closed because source age exceeded 18 hours.
+- Brain Management remains one canonical Vercel product at `brain-management.vercel.app`; its current state is `DEGRADED_STALE_MIXED_GUARD`, not `LIVE_VERIFIED`.n-management.vercel.app`, but CURRENT state is no longer `LIVE_VERIFIED`: `/api/data` and the other operational APIs are intentionally fail-closed because source age exceeded 18 hours.
 - Psitherapy repo mapping is confirmed as `andylitvinov-design/report` from current GitHub owner inventory plus its capsule.
 - Psihotavr's previously stored `andylitvinov-design/psihotavr` repo is not present in the current 30-repository owner enumeration and direct lookup returns 404. Its live/provider mapping also lacks current proof; do not route code work there until reverified.
 - `andylitvinov-design/finance` remains canonical for legacy finance; the similarly named incoming-ledger repository is reference/deprecated, not a duplicate product identity.
