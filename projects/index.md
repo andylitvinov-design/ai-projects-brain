@@ -13,7 +13,7 @@
 5. Do not promote backup, bootstrap, diagnostic or probe repositories into the active portfolio solely because they are accessible.
 6. Keep uncertainty explicit as `NEEDS_VERIFICATION`.
 
-## Current active portfolio — reconciled 2026-08-08
+## Current active portfolio — reconciled 2026-08-15
 
 | project_id | Name | Canonical repo | Production URL | Durable state | Current evidence / gap |
 |---|---|---|---|---|---|
@@ -23,14 +23,14 @@
 | `psitherapy` | Psitherapy | `andylitvinov-design/report` | https://psitherapy.vercel.app | BLOCKED | Repo and Vercel project exist; current deploy-source/auth cutover proof remains incomplete. |
 | `reiki-yggdrasil` | Reiki Yggdrasil | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | WATCH | Repo accessible; no newer durable state change proven this run. |
 | `codex-links` | Codex Links | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | WATCH | Repo accessible; keep production behavior verification boundary. |
-| `brain-management` | Brain Management | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | DEGRADED_STALE_FAIL_CLOSED | Canonical APIs return `503 STALE_OPERATIONAL_DATA_FORBIDDEN`; source `2026-08-06T04:55:44.630Z` exceeded the 18h ceiling. Recovery remains owned by Brain Regression Guard. |
+| `brain-management` | Brain Management | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | DEGRADED_STALE_MIXED_GUARD | 2026-08-15 re-read: source `2026-08-11T06:08:23.510Z` aged 102.9h; four APIs 503, `/api/needs-attention` stale 200, `/sw.js` 404, parity false. |nonical APIs return `503 STALE_OPERATIONAL_DATA_FORBIDDEN`; source `2026-08-06T04:55:44.630Z` exceeded the 18h ceiling. Recovery remains owned by Brain Regression Guard. |
 | `torontotantra` | Toronto Tantra | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | WATCH | Repo and canonical Vercel project are accessible; no newer durable state change proven this run. |
 | `ai-projects-brain` | AI Projects Brain | `andylitvinov-design/ai-projects-brain` | NOT_APPLICABLE | IMPROVING | Durable source of truth; current reconciliation branch is documentation/index only. |
 | `psihotavr` | Psihotavr | `NEEDS_VERIFICATION` | `https://psihotavr.vercel.app` historical / unverified | IDENTITY_UNRESOLVED | Current owner repository enumeration contains no `andylitvinov-design/psihotavr`; direct repo lookup returns 404 and current Vercel team inventory did not expose a `psihotavr` project. Preserve historical identity only until source/live mapping is re-proven. |
 
 ## Repository inventory
 
-Current GitHub owner enumeration confirms **30 accessible repositories**. Nine map directly to currently active project identities; the remaining repositories are related, backup, bootstrap, experimental or not yet mapped to an active product. Their presence is evidence of repository existence, not active-product status.
+Current GitHub owner enumeration on 2026-08-15 confirms **30 accessible repositories**. Nine map directly to currently active project identities; the remaining repositories are related, backup, bootstrap, experimental or not yet mapped to an active product. Their presence is evidence of repository existence, not active-product status.
 
 Current unresolved identity: Psihotavr remains in the ten-project portfolio because it is a meaningful historical product identity, but its previously recorded GitHub repo is not currently reachable. Do not route code changes until a canonical repository is proven.
 
