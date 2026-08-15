@@ -2,7 +2,7 @@
 
 > Durable memory about the quality of the AI-management system: goals, ownership, errors, lessons and efficiency. Operational daily data remains in Brain Management.
 
-Last reconciled: `2026-08-08`
+Last reconciled: `2026-08-15`
 
 ## Canonical files
 
@@ -12,6 +12,7 @@ Last reconciled: `2026-08-08`
 - `RULES.md` — durable rules, lifecycle state, usage evidence and regression/retirement criteria.
 - `EFFICIENCY.md` — immutable weekly scorecards plus clearly labelled current evidence.
 - `WEEKLY-LEARNINGS.md` — compact weekly failures, root causes, fixes and reusable lessons.
+- `durable-root-cause-candidate-2026-08-15.json` — one machine-readable candidate for the Daily Strategic Priorities scan; documentation has no direct metric effect.
 
 ## Source boundary
 
@@ -45,6 +46,9 @@ An older `LIVE_VERIFIED` record is historical evidence, not permanent health. If
 10. Current API verification includes content type, body, parseability and underlying source age.
 11. Diagnostic provider projects are not canonical identities unless the durable project mapping explicitly changes.
 12. A historical repository URL that is currently unreachable cannot remain a confirmed canonical repo.
+13. An enabled executor without a complete consumable assignment is `PIPELINE_BROKEN`, not healthy.
+14. Ranking must receive current authorized capability evidence; a disproven blocker requires a re-rank.
+15. Mixed route behavior that serves one stale HTTP 200 alongside fail-closed routes fails atomic publication health.
 
 ## Weekly cycle
 
