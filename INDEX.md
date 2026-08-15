@@ -2,7 +2,7 @@
 
 > Главная точка входа для человека и ИИ. Индексы остаются короткими и направляют к каноническим durable-источникам вместо копирования состояния.
 
-Last reconciled: `2026-08-08`
+Last reconciled: `2026-08-15`
 
 ## 1. Найти проект
 
@@ -36,6 +36,7 @@ Last reconciled: `2026-08-08`
 - `governance/AUTOMATIONS.md` — фактические scheduler roles, ownership и gaps.
 - `governance/EFFICIENCY.md` — immutable weekly scorecards и текущая evidence-backed synthesis.
 - `governance/WEEKLY-LEARNINGS.md` — агрегированные ошибки, причины и reusable lessons.
+- `governance/durable-root-cause-candidate-2026-08-15.json` — один machine-readable кандидат для следующего ranking scan.
 
 `brain-management` остаётся operational control plane. `ai-projects-brain` остаётся durable source of truth. Operational stale/fail-closed state не переписывается здесь как healthy только потому, что более ранний deployment когда-то был `LIVE_VERIFIED`.
 
