@@ -137,3 +137,9 @@ Before acting, each automation must:
 5. Automation report claims.
 
 Conflicts must be marked `needs verification`; newer claims do not override verified evidence automatically.
+## Metric evidence continuity
+
+The reusable metric-evidence contract is defined in [metric-evidence-continuity-contract.md](metric-evidence-continuity-contract.md).
+
+A metric publication is structurally healthy only when the unchanged-formula chain is auditable: `raw input → measurement mode → formula text + formula version → source refs → immutable daily identity`. Missing evidence metadata is a control-plane reliability defect, not evidence of a product or business score change.
+
