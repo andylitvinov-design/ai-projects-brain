@@ -1,7 +1,7 @@
 # Live Upgrade Delivery Contract
 
 Status: active canonical contract.
-Last updated: 2026-08-09.
+Last updated: 2026-08-16.
 
 ## Purpose
 
@@ -122,6 +122,19 @@ Before a direct deployment can advance beyond `MERGED_WAITING_DEPLOY`:
 Emergency recovery may restore production behavior before source parity is closed. In that case the operational record may use a non-terminal diagnostic state such as `LIVE_BEHAVIOR_VERIFIED_SOURCE_PARITY_OPEN`, but the chain must not enter terminal `LIVE_VERIFIED` until the exact recovery source or a repository-owned reproducible manifest/build output is persisted or attributable to canonical source and the parity gate above is re-run successfully. Build-time generated or refreshed operational data that is not persisted in canonical source counts as unresolved source parity even when every live API is healthy.
 
 A closure receipt cannot waive this gate by stating that an emergency artifact is not byte-for-byte equivalent to the standard release. Behavior recovery and source parity are separate proofs; a source-parity recovery chain closes only when both are proven.
+
+## Independent closure and immutable-build gate
+
+This gate applies whenever an implementation stage can create PRs, merge, deploy, or collect live evidence.
+
+1. The implementation owner may persist a candidate-effect receipt, but must not self-issue final terminal `LIVE_VERIFIED`. Until an independent closure owner accepts the exact artifact, the canonical state is `MERGED_WAITING_DEPLOY`; richer progress belongs in diagnostic or `effect_state` fields.
+2. The final terminal verifier must be `Evening Delivery Closure` or one explicitly reassigned independent verifier. The same owner context must not both implement the change and provide the only terminal proof.
+3. Top-level `terminal_state` is an enum restricted to `LIVE_VERIFIED`, `MERGED_WAITING_DEPLOY`, `BLOCKED_BY_OWNER`, or `NO_SAFE_UPGRADE`. Labels such as `PIPELINE_BROKEN`, `LIVE_VERIFIED_WITH_EFFECT`, `DEPLOYMENT_PENDING`, and `LIVE_BEHAVIOR_VERIFIED_SOURCE_PARITY_OPEN` may appear only as diagnostic/effect states mapped to one canonical state.
+4. Release preparation must not silently mutate tracked operational source after checkout. If collectors refresh data during build, the exact generated datasets or a repository-owned versioned snapshot/manifest that fully reconstructs them must first be persisted to the canonical source commit used by the deployment.
+5. The closure verifier must compare the canonical source SHA, persisted operational-source identity, artifact manifest/hash, deploy source SHA, and production evidence. A healthy API built from unpersisted refreshed data remains `MERGED_WAITING_DEPLOY`.
+6. Follow-up fixes that consume an assignment, repair a release guard, or close a repeat-execution loop remain part of the same `chain_id`; they do not create additional upgrade, deployment, product, or metric credit.
+
+This gate prevents a behavior recovery from being counted as source-parity-complete merely because the implementing run also observed healthy production.
 
 A repeated omission from a direct-deploy bundle is a delivery failure class. The recovery must update the repository-owned manifest or build process and add a regression check; another manual one-off bundle is not a durable correction.
 
