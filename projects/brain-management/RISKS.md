@@ -30,6 +30,14 @@
   same-source re-read and a re-read after the previous failure window, while
   preserving exact source SHA, dependency-closed manifest, formulas, and
   frozen UI. Repeated emergency refreshes receive no numeric metric credit.
+- A scheduler interval is not publication-cadence proof. On 2026-08-19 the
+  implementation worker was changed from daily to `07:30`/`19:30`
+  America/Toronto and the evening run completed a separate Trends task, but
+  did not refresh the shared operational snapshot. At `2026-08-20T10:30Z`,
+  four of five canonical APIs again failed closed on a `22.9h` source while
+  `/api/trends` served a separate newer source. Closure therefore requires
+  evidence that every claimed cadence cycle publishes one coherent canonical
+  operational source—not merely that a worker ran or deployed unrelated code.
 
 ## Deploy Risks
 
