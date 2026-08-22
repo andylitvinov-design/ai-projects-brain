@@ -1,76 +1,45 @@
 # AI Projects Brain — Master Index
 
-> Главная точка входа для человека и ИИ. Индексы остаются короткими и направляют к каноническим durable-источникам вместо копирования состояния.
+> Главная точка входа для человека и ИИ. Индексы маршрутизируют к каноническим durable-источникам и не копируют оперативные receipts.
 
-Last reconciled: `2026-08-15`
+Last reconciled: `2026-08-22`
 
-## 1. Найти проект
+## Найти проект
 
-- Current human routing: `projects/index.md`
-- Current machine active overlay: `projects/portfolio-registry.json`
-- Current compact machine catalog + repository inventory: `projects.json`
-- Search-oriented machine index: `data/project-index.json`
-- Detailed capsules: `projects/<slug>/PROJECT.md`
-- Human catalog summary: `projects.md`
+- Human routing: `projects/index.md`
+- Machine active overlay: `projects/portfolio-registry.json`
+- Compact catalog and repository inventory: `projects.json`
+- Search machine index: `data/project-index.json`
+- Capsules: `projects/<slug>/PROJECT.md`
+- Human summary: `projects.md`
 
-Поиск активного проекта начинается с `projects/index.md` или `projects/portfolio-registry.json`, затем открывается capsule. Текущая GitHub-инвентаризация содержит 30 доступных owner repositories; она хранится отдельно от 10-проектного active overlay, чтобы вспомогательные, backup и bootstrap repositories не становились активными продуктами автоматически.
+Текущий overlay содержит 10 active identities; GitHub owner inventory содержит 30 repositories. Backup/bootstrap/diagnostic repositories не становятся продуктами автоматически.
 
-## 2. Память конкретного проекта
+## Управляющий контур
 
-- `PROJECT.md` — назначение, canonical repo/live, текущий durable status и boundaries.
-- `STATE.md` — только подтверждённое текущее состояние.
-- `SYSTEM_MAP.md` — архитектура и связи.
-- `CHECKS.md` — точные проверки.
-- `RISKS.md` — production/auth/data/operational risks.
-- `DECISIONS.md` — устойчивые решения и причины.
-- `LOG.md` — датированная история, не текущая истина.
-- `CODEX_BRIEF.md` — короткая навигация для Codex.
+- `governance/INDEX.md` — durable governance map.
+- `governance/CURRENT.md` — current confirmed system state.
+- `governance/GOALS.md` — outcomes, owners and success conditions.
+- `governance/AUTOMATIONS.md` — scheduler-backed roles and registry conflicts.
+- `governance/EFFICIENCY.md` — immutable scorecards and current synthesis.
+- `governance/WEEKLY-LEARNINGS.md` — aggregated errors and lessons.
+- `governance/durable-root-cause-candidate-2026-08-22.json` — current machine candidate.
 
-Неподтверждённые repo/live/provider факты остаются `NEEDS_VERIFICATION`; историческая ссылка не считается текущей canonical mapping без свежей reachability evidence.
+`brain-management` is the operational control plane. `ai-projects-brain` is the durable source of truth.
 
-## 3. Управляющий контур
+## Read order
 
-- `governance/INDEX.md` — карта durable governance.
-- `governance/CURRENT.md` — что подтверждено сейчас.
-- `governance/GOALS.md` — цели, владельцы и next actions.
-- `governance/AUTOMATIONS.md` — фактические scheduler roles, ownership и gaps.
-- `governance/EFFICIENCY.md` — immutable weekly scorecards и текущая evidence-backed synthesis.
-- `governance/WEEKLY-LEARNINGS.md` — агрегированные ошибки, причины и reusable lessons.
-- `governance/durable-root-cause-candidate-2026-08-15.json` — один machine-readable кандидат для следующего ranking scan.
+1. `systems/management-control-plane-contract.md`.
+2. `projects/index.md` or `projects/portfolio-registry.json`.
+3. Project capsule.
+4. Current operational evidence when the task needs live state.
+5. Governance memory for ownership, goals and lessons.
 
-`brain-management` остаётся operational control plane. `ai-projects-brain` остаётся durable source of truth. Operational stale/fail-closed state не переписывается здесь как healthy только потому, что более ранний deployment когда-то был `LIVE_VERIFIED`.
+## Freshness and identity rules
 
-## 4. Общие правила
-
-- `START-HERE-FOR-AGENTS.md`
-- `systems/management-control-plane-contract.md`
-- `systems/agent-rules.md`
-- `systems/codex-project-workflow.md`
-- `systems/codex-token-efficiency.md`
-- `systems/codex-efficiency-telemetry.md`
-- `systems/weekly-brain-refresh.md`
-
-## 5. Быстрый поиск
-
-1. Название, alias, URL или repo — `projects/index.md` / `projects/portfolio-registry.json`.
-2. Полный owner-repository inventory — `projects.json` / `data/project-index.json`.
-3. Durable current project state — `projects/<slug>/PROJECT.md` и `STATE.md`.
-4. Архитектура/проверки — `SYSTEM_MAP.md` / `CHECKS.md`.
-5. Решения/история — `DECISIONS.md` / `LOG.md`.
-6. System ownership, goals, efficiency and lessons — `governance/`.
-
-## 6. Freshness and identity contract
-
-Weekly Brain Refresh должен:
-
-- сверять active overlay с текущей GitHub/live/provider evidence;
-- отдельно перечислять доступные repositories и активные product identities;
-- исправлять stale repo/live/status aliases без повышения uncertainty до факта;
-- переводить недоступную historical mapping в `NEEDS_VERIFICATION`, а не сохранять её как active canonical fact;
-- считать production verification time-bound: если operational guard позже fail-closed, durable CURRENT должен отражать деградацию;
-- сверять фактический scheduler с durable automation registry;
-- агрегировать недельные уроки, не копируя daily receipts;
-- сохранять предыдущие версии через Git history и capsules;
-- не превращать diagnostic/probe deployment projects в canonical products.
-
-Evidence precedence: verified live behavior → current GitHub/provider evidence → immutable Brain Management history → capsule → routing/index metadata.
+- Verified live behavior/source timestamps override older labels.
+- A historical unreachable repo becomes `NEEDS_VERIFICATION`, not inferred deleted.
+- An operational assignment requires enabled scheduler evidence.
+- Immediate recovery and delayed terminal closure are different states.
+- A zero-effect pilot is `EVALUATED_NO_EFFECT`, not `DONE`.
+- Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.
