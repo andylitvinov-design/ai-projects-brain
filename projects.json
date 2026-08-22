@@ -1,17 +1,19 @@
 {
   "schema_version": "2026-04-29-project-memory-v1",
-  "last_inventory_update": "2026-08-15",
+  "last_inventory_update": "2026-08-22",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "DEGRADED_STALE_MIXED_GUARD",
+    "brain_management_current_state": "RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
     "note": "Extended project-memory schema preserved for validator compatibility; current routing authority is the active overlay and project capsules.",
-    "run_date": "2026-08-15",
+    "run_date": "2026-08-22",
     "active_project_count": 10,
-    "brain_management_source_generated_at": "2026-08-11T06:08:23.510Z",
-    "brain_management_source_age_hours_at_check": 102.9,
-    "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT"
+    "brain_management_source_generated_at": "2026-08-22T11:57:34.985Z",
+    "brain_management_source_age_hours_at_check": 0.1,
+    "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
+    "brain_management_api_surfaces": "5/5 HTTP 200; source parity true; sw.js 200; delayed closure pending",
+    "trend_effect_state": "5 zero-effect tasks incorrectly marked DONE on canonical live"
   },
   "memory_files": [
     "projects.md",
@@ -338,7 +340,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "current_status": "DEGRADED_STALE_FAIL_CLOSED as of 2026-08-08. All five canonical operational APIs returned 503 JSON with STALE_OPERATIONAL_DATA_FORBIDDEN; source 2026-08-06T04:55:44.630Z exceeded the 18h ceiling. Older LIVE_VERIFIED evidence is historical, not current health.",
+      "current_status": "RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE as of 2026-08-22. Five canonical APIs return HTTP 200 from one current source with source parity true and sw.js 200; delayed independent closure remains pending. Canonical Trends still mislabels five zero-effect pilots as DONE.",
       "important_files": [
         "data-current.json",
         "api/data.js",
@@ -366,29 +368,31 @@
         "GOOGLE_AUTH_ALLOWED_DOMAIN"
       ],
       "known_issues": [
-        "Current operational source freshness is beyond 18h and fail-closed.",
-        "Repeated GitHub-hosted workflows may fail before checkout with steps=null/unavailable logs.",
-        "Temporary probe/recovery Vercel projects must not be treated as canonical identities."
+        "Delayed same-source checkpoint and independent terminal closure remain pending.",
+        "Five zero-effect Trends pilots are again marked DONE despite PR #396 effect contract.",
+        "Operational assignment registry names three roles without enabled schedulers."
       ],
       "recent_tasks": [
-        "Aug 5-6 strengthened atomic source refresh, reduced-payload rejection, production source-parity and fail-closed guards.",
-        "Aug 8 Morning Task Sweep preserved one production recovery owner and rejected a reduced one-file preview."
+        "PR #354 restored evidence continuity without score changes.",
+        "PR #357 corrected Aug 10-16 source-parity and terminal claims.",
+        "PRs #398-#400 restored Aug 22 coherent current publication; PR #396 added zero-effect semantics."
       ],
       "next_actions": [
-        "Produce one fresh complete attributable dependency-closed current-main artifact, verify route-complete preview, publish identically to canonical production and re-read source timestamps.",
-        "Restore explicit recurring scheduler ownership for routine implementation/publication stages without turning the recovery guard into a permanent publisher."
+        "Complete the delayed same-source checkpoint and independent Evening closure.",
+        "Make Trends effect-postprocessing release-invariant and reject zero-effect DONE.",
+        "Restore one non-duplicating prospective immutable-history publisher."
       ],
       "risks": [
-        "Reporting stale data as current.",
-        "Publishing reduced/pointer bundles.",
-        "Misdiagnosing hosted-runner pre-checkout failures as branch-code defects.",
-        "Creating parallel recovery ownership."
+        "Counting evaluated pilots as completed implementation.",
+        "Reactive freshness recovery after the 18-hour terminal window.",
+        "Treating operational assignment names as enabled scheduler capacity.",
+        "Creating parallel implementation or closure ownership."
       ],
       "rules_for_codex": [
-        "LIVE_VERIFIED is time-bound.",
-        "Verify source timestamps, body/content type, dependency closure and canonical alias after publication.",
-        "Use only canonical Vercel project id for durable identity.",
-        "Do not create parallel recovery chains."
+        "LIVE_VERIFIED is time-bound and requires independent terminal proof.",
+        "Zero-effect Trends tasks are EVALUATED_NO_EFFECT, never DONE.",
+        "Run semantic effect validation after refresh and before release.",
+        "Use only the canonical Vercel project and preserve one owner."
       ],
       "memory": {
         "state_file": "needs verification",
@@ -1057,5 +1061,6 @@
         "codex_brief": "projects/shamanic-academy-youtube/CODEX_BRIEF.md"
       }
     }
-  ]
+  ],
+  "generated_at": "2026-08-22T12:05:00Z"
 }
