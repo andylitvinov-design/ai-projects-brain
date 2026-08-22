@@ -1,74 +1,55 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-15`
+Last aggregated: `2026-08-22`
 
-Efficiency is measured from verified outcomes, truthful denominators, current source evidence, automation handoff quality and durable-memory accuracy. Safety, auth, tests, accessibility and production proof may not be skipped to raise a score.
+Efficiency uses verified outcomes, truthful denominators, immutable history, handoff quality and current production evidence. Reports, docs, merges and zero-effect pilots receive no metric credit.
 
-## Immutable historical baseline — week ending 2026-07-26
-
-| Metric | Value |
-|---|---:|
-| Important task closure | 25% (`1/4`) |
-| Live verified upgrades | 2 |
-| Rework | 33.3% (`1/3`) |
-| False-success-free | 66.7% (`2/3`) |
-| Deterministic verification | 96.3% (`26/27`) |
-| Immutable weekly history | 42.9% (`3/7`) |
-
-These historical values remain unchanged.
-
-## Latest weekly scorecard — 2026-08-03 through 2026-08-09
+## Latest complete weekly scorecard — 2026-08-10 through 2026-08-16
 
 | Signal | Raw value | Interpretation |
 |---|---:|---|
-| Product delivery / task success / live completion | `1/4` each | No denominator gain. Exact four items still unpublished. |
-| Live closures | 3 | All 3 were infrastructure/control-plane; product/business share 0%. |
-| Metric-gain closures | 2 | Both advanced rule lifecycle; no product/business metric gain. |
-| Rework | `1/3` | One completed chain required rework. |
-| Change failure | `1/3` | One of three changes failed/recovered. |
-| False-success correction | `1/3` | One terminal claim was corrected. |
-| Deterministic verification | `26/27` | Historical denominator preserved. |
-| Immutable current history | `0/7` | Latest immutable scored date was 2026-07-26; no days fabricated. |
-| PR inventory at week end | 34 open; 0 ready; 15 blocked; 14 conflicted; 32 stale >14d | High queue cost with no product merge. |
-| Hosted pre-repository failures | at least 5 runs | Increased recovery time and blocked attributable artifact creation. |
+| Immutable scored history | `1/7` | Only Aug 16 exists; missing days were not fabricated. |
+| Unique implementation assignments | `1` | One source-parity recovery chain consumed the week. |
+| Fully contract-valid LIVE_VERIFIED | `0/1` | Behavior recovery lacked persisted-source parity and independent closure at cutoff. |
+| Product/business upgrades | `0` | Product Delivery, Task Success and Live Completion stayed `1/4`. |
+| Selected-chain rework | `1/1` | Seven implementation PRs, two deployments and follow-up consumption repair mapped to the same chain. |
+| False-success corrections | `2` | Aug 11 and Aug 16 completion claims were corrected. |
+| PR inventory | `36 open / 0 ready` | 15 blocked, 14 conflicts, 1 CI repair, 5 review-needed, 1 keep-open. |
+| Product PR merges/repairs by PR Delivery | `0 / 0` | Queue activity did not convert to a product result. |
 
-## Current evidence — 2026-08-15
+## Confirmed control-plane improvements
+
+- Formula text and metric source refs improved `0/24 → 24/24`.
+- Core anti-gaming guards improved `0/4 → 4/4`.
+- Current owner-blocked queue contract improved `9/16 → 16/16` required fields.
+- Honest current-window immutable history improved `0/7 → 1/7`.
+- These are evidence/control-plane improvements with `NO_DIRECT_METRIC_EFFECT` unless their own unchanged raw-input metric explicitly changes.
+
+## Current evidence — 2026-08-22
 
 | Signal | Current evidence | Efficiency meaning |
 |---|---|---|
-| Publication freshness | source age 102.9h; 4 core APIs 503; `/api/needs-attention` stale HTTP 200; `sw.js` 404 | Guard safety is partly correct, but liveness and route-consistent fail-closed behavior are unhealthy. |
-| Source parity | false / nonterminal since Aug 6 | Emergency behavior recovery did not become repository-owned terminal proof. |
-| Ranking → implementation | `PIPELINE_BROKEN` | Highest-value candidate was rejected because capability context omitted connected Vercel. |
-| Morning System Upgrade | enabled, no consumable assignment | Scheduler presence improved; execution conversion did not. |
-| Daily effect | 0 verified metric gains in Aug 15 handoff/repair cycle | Receipt volume must not be mistaken for outcome. |
-| PR inventory | 36 open on Aug 15; no safe product merge | Queue grew from 34 to 36 while product throughput stayed flat. |
-| Catalog | 30 repos / 10 active identities / 1 unresolved | Stable, honest routing; no catalog expansion needed. |
+| Publication behavior | 5/5 APIs HTTP 200, one source `2026-08-22T11:57:34.985Z`, parity true, `sw.js` 200 | Immediate recovery is real; delayed closure still prevents terminal credit. |
+| Freshness operating pattern | reactive refresh records recur Aug 17–22 after prior sources exceed 18h | Safety works, but recurring repair consumes capacity and creates avoidable fail-closed windows. |
+| Trends implementation truth | five items marked DONE with no bound metric effect; PR #396 guard is not reflected on current live | Five evaluated pilots were mistaken for implementations again. |
+| Product delivery | `1/4` (25), weekly delta 0 | No product conversion gain. |
 | Provider readiness | `0/4` | Correctly owner-blocked. |
-| Rule lifecycle | last accepted `6/9` | No seventh rule activated; avoids metric gaming. |
+| Scheduler health | dashboard `3/4` (75); actual registry has three assignment names without enabled schedulers | Operational and scheduler registries disagree. |
+| Memory sync | `PENDING_DURABLE_UPDATE`; last success Aug 16; pending PR #196 | Current durable PR #193 and weekly PR #199 are not represented. |
+| Catalog | 30 repositories / 10 identities / 1 unresolved | Stable routing; no expansion needed. |
 
 ## Efficiency trend
 
-- **Safety/false-success prevention:** stronger than early August.
-- **Operational freshness:** worse; source age grew from ~48h on Aug 8 to 102.9h on Aug 15.
-- **Handoff quality:** degraded by capability-context omission, then correctly repaired without fake credit.
-- **Product-delivery conversion:** unchanged; 0 product/business closures in the latest complete weekly scorecard.
-- **Repository discoverability:** stable at 30 repositories and ten active identities.
-- **Queue cost:** worse; open PR inventory increased 34 → 36.
-- **Immutable measurement continuity:** worse/unchanged at 0/7 current scored days.
-
-## Reusable lessons
-
-1. Separate guard correctness, liveness, parity and product outcome; they are four different claims.
-2. An enabled executor without a complete assignment is not operational capacity.
-3. Capability discovery must be passed into ranking; otherwise an executable path can be falsely classified owner-blocked.
-4. A re-rank is required when a blocker is disproven before the execution window ends.
-5. Behavior recovery is nonterminal until exact repository/source/artifact parity is proven.
-6. Mixed API freshness behavior (four 503 plus one stale 200) must fail the publication contract.
-7. Daily receipts and documentation are `NO_DIRECT_METRIC_EFFECT`.
-8. Missing immutable days must remain missing; resume append-only capture prospectively.
+- **Evidence completeness:** improved materially without formula gaming.
+- **Immediate publication liveness:** improved from Aug 15 stale mixed behavior to current coherent 5/5.
+- **Continuous freshness:** still inefficient because repairs recur after the terminal window rather than before it.
+- **Effect conversion:** poor; five Trends pilots produced zero dashboard metric effect and were again labeled DONE.
+- **Product delivery:** unchanged at `1/4`; latest complete week produced zero product/business closure.
+- **History continuity:** improved only from 0/7 to 1/7 and remains insufficient for high-confidence weekly trends.
+- **Ownership clarity:** scheduler truth improved through reconciliation, revealing three stale operational assignment names.
 
 ## Highest-value corrections
 
-1. Re-rank and explicitly bind one owner to the current publication recovery using the verified connected Vercel capability.
-2. Restore an attributable dependency-closed artifact and canonical route-complete verification.
-3. Resume daily immutable scored snapshots, then move one named existing product/business deliverable from the shared `1/4` denominator to `LIVE_VERIFIED`.
+1. Enforce zero-effect semantics after every Trends refresh and release; select one real metric-bound deliverable.
+2. Complete the delayed Aug 22 same-source checkpoint and independent closure without reopening implementation.
+3. Restore one non-duplicating immutable-history publisher and accumulate seven prospective days.
