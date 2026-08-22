@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "last_updated": "2026-08-08T09:11:00+02:00",
+  "last_updated": "2026-08-22T12:05:00Z",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current active-project identity and routing. Verified live/GitHub/provider evidence overrides stale labels; inaccessible historical mappings are downgraded to NEEDS_VERIFICATION rather than guessed.",
   "source_priority": [
@@ -136,31 +136,31 @@
       "repo": "andylitvinov-design/brain-management",
       "live_url": "https://brain-management.vercel.app",
       "provider_project": "prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d",
-      "status": "DEGRADED_STALE_MIXED_GUARD",
-      "repo_reachability": "CONFIRMED_2026-08-15",
+      "status": "RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE",
+      "repo_reachability": "CONFIRMED_2026-08-22",
       "evidence_refs": [
         "projects/brain-management/PROJECT.md",
-        "brain-management/history/handoffs/2026-08-15-daily-strategic-priorities.json",
-        "brain-management/history/handoffs/2026-08-15-morning-system-upgrade.json",
-        "andylitvinov-design/brain-management@75f0d3b3ada3e69120066f4650c38cc8fd57e8e7"
+        "https://github.com/andylitvinov-design/brain-management/pull/396",
+        "https://github.com/andylitvinov-design/brain-management/pull/400",
+        "canonical live re-read 2026-08-22T12:02Z"
       ],
       "freshness": {
-        "checked_at": "2026-08-15T13:03:16Z",
-        "source_generated_at": "2026-08-11T06:08:23.510Z",
-        "age_hours": 102.9,
+        "checked_at": "2026-08-22T12:02:45Z",
+        "source_generated_at": "2026-08-22T11:57:34.985Z",
+        "age_hours": 0.1,
         "max_age_hours": 18,
         "api_statuses": {
-          "/api/data": 503,
-          "/api/trends": 503,
-          "/api/agent-productivity": 503,
-          "/api/strategic-priorities": 503,
+          "/api/data": 200,
+          "/api/trends": 200,
+          "/api/agent-productivity": 200,
+          "/api/strategic-priorities": 200,
           "/api/needs-attention": 200
         },
-        "service_worker_http": 404,
-        "source_parity": false,
-        "marker": "STALE_MIXED_GUARD"
+        "service_worker_http": 200,
+        "source_parity": true,
+        "marker": "CURRENT_AWAITING_DELAYED_CLOSURE"
       },
-      "blocker": "Ranking omitted the verified connected Vercel capability, so no consumable single-owner publication assignment exists; fresh attributable source/artifact parity remains open.",
+      "blocker": "Immediate publication recovery is coherent, but delayed independent closure is pending. Canonical Trends also regressed to five zero-effect tasks marked DONE after the effect guard merged.",
       "legacy_live_aliases": [
         "https://brain-management.netlify.app",
         "https://brain-management.pages.dev"
@@ -229,7 +229,7 @@
   ],
   "repository_inventory": {
     "status": "CONFIRMED_CURRENT_OWNER_ENUMERATION",
-    "checked_at": "2026-08-15",
+    "checked_at": "2026-08-22",
     "accessible_repository_count": 30,
     "active_project_repositories_confirmed": 9,
     "unresolved_active_identity_count": 1,
@@ -254,13 +254,14 @@
     ]
   },
   "reconciliation": {
-    "run_date": "2026-08-15",
+    "run_date": "2026-08-22",
     "active_project_count": 10,
     "accessible_repository_count": 30,
     "brain_management_current_state_corrected": true,
     "psihotavr_identity_downgraded": true,
     "duplicate_identity_rule": "andylitvinov-design/finance remains canonical for legacy-finance; andylitvinov-design/ezohata-incoming-ledger is reference/deprecated alias",
-    "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT"
+    "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
+    "catalog_mapping_changes": 0
   },
-  "generated_at": "2026-08-15T13:05:00Z"
+  "generated_at": "2026-08-22T12:05:00Z"
 }
