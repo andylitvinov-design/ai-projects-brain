@@ -1,17 +1,19 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-08-15T13:05:00Z",
+  "generated_at": "2026-08-22T12:05:00Z",
   "source": "projects.json",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "DEGRADED_STALE_MIXED_GUARD",
+    "brain_management_current_state": "RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
-    "run_date": "2026-08-15",
+    "run_date": "2026-08-22",
     "active_project_count": 10,
-    "brain_management_source_generated_at": "2026-08-11T06:08:23.510Z",
-    "brain_management_source_age_hours_at_check": 102.9,
-    "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT"
+    "brain_management_source_generated_at": "2026-08-22T11:57:34.985Z",
+    "brain_management_source_age_hours_at_check": 0.1,
+    "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
+    "brain_management_api_surfaces": "5/5 HTTP 200; source parity true; sw.js 200; delayed closure pending",
+    "trend_effect_state": "5 zero-effect tasks incorrectly marked DONE on canonical live"
   },
   "projects": [
     {
@@ -161,7 +163,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "status_summary": "DEGRADED_STALE_FAIL_CLOSED as of 2026-08-08. Canonical operational APIs return 503 JSON with STALE_OPERATIONAL_DATA_FORBIDDEN; source 2026-08-06T04:55:44.630Z exceeded the 18h ceiling. Older LIVE_VERIFIED evidence is historical, not current health.",
+      "status_summary": "RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE as of 2026-08-22. Five APIs return current coherent HTTP 200 JSON, source parity is true and sw.js is 200. Delayed independent closure remains pending; five zero-effect Trends pilots are still mislabeled DONE.",
       "memory_files": {
         "project_md": "projects/brain-management/PROJECT.md",
         "system_map": "projects/brain-management/SYSTEM_MAP.md",
@@ -179,7 +181,7 @@
         "repo_mapping": "listed",
         "live_mapping": "listed",
         "env_status": "names listed",
-        "deploy_status": "stale fail-closed"
+        "deploy_status": "current immediate proof; delayed closure pending"
       }
     },
     {
@@ -574,5 +576,6 @@
         "deploy_status": "listed"
       }
     }
-  ]
+  ],
+  "last_inventory_update": "2026-08-22"
 }
