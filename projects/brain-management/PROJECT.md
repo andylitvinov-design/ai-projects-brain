@@ -1,112 +1,77 @@
 # brain-management
 
-## 1. Purpose
+## Purpose
 
-Operational management control plane for current metrics, immutable operational receipts, assignments, delivery chains, Trends, projects, and the installable web/PWA client.
+Operational control plane for current metrics, immutable receipts, assignments, delivery chains, Trends, projects and the installable web/PWA client.
 
-## 2. Canonical targets
+## Canonical targets
 
-- production web/PWA: https://brain-management.vercel.app
-- repository: `andylitvinov-design/brain-management`
-- production branch: `main`
-- provider: Vercel team `super10`
-- canonical Vercel project: `brain-management`, id `prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d`
+- production: https://brain-management.vercel.app
+- repository / branch: `andylitvinov-design/brain-management` / `main`
+- Vercel team/project: `super10` / `prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d`
 - durable memory: `andylitvinov-design/ai-projects-brain`
-- Finance source of truth: `andylitvinov-design/ezohata-finance`
 
-Legacy Netlify/Cloudflare, deployment-specific URLs, and temporary Vercel probe/recovery projects are historical or diagnostic only.
+Legacy Netlify/Cloudflare aliases, deployment URLs and probe projects are noncanonical.
 
-## 3. Operational APIs
+## Current durable state — 2026-08-22
 
-Required canonical routes are `/api/data`, `/api/needs-attention`, `/api/trends`, `/api/strategic-priorities`, and `/api/agent-productivity`.
+State: `RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE`.
 
-HTTP status alone is not proof. Verify content type, JSON body, source timestamp, schema/count contracts and canonical alias binding on every route.
+Canonical re-read at 2026-08-22 12:02 UTC:
 
-## 4. Current durable state — 2026-08-15
+- five required APIs returned HTTP 200 JSON;
+- shared source timestamp: `2026-08-22T11:57:34.985Z` (about 0.1h old);
+- `/api/data` reports source parity true and canonical alias verified;
+- `/sw.js` returned HTTP 200 with cache `brain-management-v59`;
+- current Vercel production deployment `dpl_DbxvkUgnqoEHKYWCvqN6JNu9qipw` is READY;
+- runtime error inventory contains only one historical `url.parse()` deprecation warning last seen Aug 16, not a current deployment failure.
 
-Current state: `DEGRADED_STALE_MIXED_GUARD`.
+This is real immediate recovery, but operational state still requires a delayed same-source checkpoint and independent Evening Delivery Closure. Do not write `LIVE_VERIFIED` yet.
 
-Canonical re-read at 2026-08-15 13:03 UTC:
+## Current metrics and evidence gaps
 
-- `/api/data`, `/api/trends`, `/api/agent-productivity` and `/api/strategic-priorities` returned HTTP 503 JSON;
-- `/api/needs-attention` returned HTTP 200 with the same stale source, so route-consistent fail-closed behavior is broken;
-- source timestamp: `2026-08-11T06:08:23.510Z`;
-- source age: `102.9h` against the `18h` ceiling;
-- `/sw.js` returned 404;
-- repository/source/artifact parity remains false.
+- 24 metrics and ten projects are present.
+- Product Delivery, Task Success and Live Completion remain `1/4` (25).
+- Provider readiness remains `0/4`; public business evidence remains `4/6`.
+- Week-ending Aug 16 immutable history coverage is `1/7`.
+- `memory_sync_status` is `PENDING_DURABLE_UPDATE`, still referencing PR #196 instead of current PR #193/#199.
 
-The fail-closed guard still prevents four routes from serving stale data as current, but current liveness, the fifth-route contract and PWA publication are unhealthy.
+## Trends semantic regression
 
-## 5. Durable improvements and corrections
+Brain Management PR #396 established: zero-effect pilots are `EVALUATED_NO_EFFECT`, and only a verified live metric gain may become `DONE`. Current canonical `/api/trends` nevertheless exposes five queue items as `DONE` with `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`.
 
-- Aug 9 Sunday review separated behavior recovery from source-parity closure and corrected a false `LIVE_VERIFIED` claim to `LIVE_BEHAVIOR_VERIFIED_SOURCE_PARITY_OPEN`.
-- The seven-day history window now anchors to the current canonical date and exposes missing days.
-- Rule lifecycle remains last accepted at `6 active/9`; no new rule was activated merely to increase the score.
-- Morning System Upgrade is confirmed enabled; the current defect is assignment/capability handoff, not scheduler absence.
-- Aug 15 proved `CAPABILITY_CONTEXT_OMITTED`: ranking ignored the connected direct Vercel production channel and therefore emitted no executable assignment.
-- No product/business live closure was proven in the latest complete weekly scorecard.
+Treat this as `TREND_ZERO_EFFECT_DONE_REGRESSION`. Product metric credit remains zero. The release invariant must run the effect postprocessor after every Trends refresh and reject any zero-effect `DONE` before publication.
 
-## 6. Current chains and blockers
+## Automation/ownership state
 
-1. `production-source-parity-recovery-20260806` — Brain Regression Guard owner; nonterminal.
-2. `provider-live-readiness-ezohata-finance` — `BLOCKED_BY_OWNER`, raw input `0/4`.
-3. `product-delivery-next-concrete-improvement` — `PIPELINE_INCOMPLETE`; shared raw input `1/4`.
-4. Immutable scored history — `0/7` for week ending 2026-08-09.
-5. Psihotavr — current repo/provider/live identity unresolved.
+- Morning System Upgrade is enabled and assigned `trend-task-vibecoding-3117-agent-skills` after the publication checkpoint.
+- Evening Delivery Closure owns the delayed source checkpoint and terminal proof.
+- `/api/data` also names Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch, but no enabled recurring schedulers with those titles exist.
+- Tool availability and an operational label do not transfer ownership.
 
-## 7. Release and ownership guardrails
+## Release guardrails
 
-- One repository, one `main`, one canonical Vercel project and one canonical origin.
-- `LIVE_VERIFIED` is time-bound and requires fresh canonical re-read.
-- Never publish pointer, local-path, reduced, snapshot-only or hand-crafted shells.
-- Code and operational datasets must be packaged atomically from one current cycle.
-- Direct deployments require exact project/production binding, source SHA, dependency-closed manifest, required routes/assets and post-alias verification.
-- GitHub Actions billing is not an exhaustive release blocker while the authenticated connected Vercel route is available.
-- Tool availability does not transfer the release-owner lease or authorize deployment.
-- Ranking must include currently verified authorized capability channels.
-- Preserve six routes, four Overview aggregates, ten projects, ten Trends and 24 metrics unless an owner-approved contract supersedes them.
+- One repo, one `main`, one canonical Vercel project and one canonical origin.
+- Persist one coherent source before build; reject tracked post-checkout source mutation.
+- Verify status, content type, body, schema/counts, source timestamp, parity, service worker, rendered routes and runtime health.
+- Run semantic effect validation after every collector refresh and before release.
+- Zero-effect work receives no implementation/product/LIVE metric credit.
+- Preserve six routes, four Overview aggregates, ten projects, ten Trends and 24 metrics unless owner-approved.
 
-## 8. PWA/API verification
+## Current chains and blockers
 
-Closure requires root, assets, service worker/cache, all five APIs, source timestamps, runtime errors, rendered contract and source/artifact parity. Merge, READY, behavior recovery or a fresh wrapper timestamp alone is insufficient.
+1. `operational-source-freshness-refresh-20260818` — immediate recovery complete; delayed Evening checkpoint pending.
+2. `trend-implementation:trend-task-vibecoding-3117-agent-skills` — assigned only after checkpoint; requires baseline and actual same-metric effect.
+3. `provider-live-readiness-ezohata-finance` — `BLOCKED_BY_OWNER`, `0/4`.
+4. Immutable history — `1/7` for week ending Aug 16.
+5. Psihotavr identity — unresolved.
 
-## 9. Environment variable names
+## Next durable actions
 
-Only names may be stored; values never enter durable memory.
+1. Complete the delayed Aug 22 same-source checkpoint and independent closure.
+2. Make zero-effect semantic validation release-invariant and reclassify five live queue items truthfully.
+3. Restore one non-duplicating prospective immutable-history publisher, then complete one named product denominator item.
 
-- `MOBILE_LAUNCH_KEY`
-- `STATUS_CALLBACK_SECRET`
-- `MOBILE_RUNS`
-- `GH_REPO_OWNER`
-- `GH_REPO_NAME`
-- `GH_WORKFLOW_FILE`
-- `GH_WORKFLOW_REF`
-- `GH_WORKFLOW_PAT`
-- `GOOGLE_OAUTH_CLIENT_ID`
-- `GOOGLE_OAUTH_CLIENT_SECRET`
-- `GOOGLE_AUTH_SESSION_SECRET`
-- `GOOGLE_AUTH_ALLOWED_EMAILS`
-- `GOOGLE_AUTH_ALLOWED_DOMAIN`
+## Environment variable names
 
-## 10. Next durable actions
-
-1. Re-rank publication freshness with the connected Vercel channel and explicit single-owner lease.
-2. Restore one fresh attributable dependency-closed artifact and verify 5/5 APIs plus `sw.js`.
-3. Resume prospective immutable daily snapshots.
-4. After terminal P0 closure, execute one named existing product/business deliverable from `1/4`.
-5. Keep protected Finance and Psihotavr identity work separate.
-
-## 11. Verification status
-
-- canonical repo/branch/origin: confirmed
-- canonical Vercel project id: confirmed
-- current operational freshness: `FAIL_CLOSED_MIXED_WITH_STALE_SUCCESS`
-- four canonical operational APIs: 503 stale JSON
-- `/api/needs-attention`: 200 stale JSON
-- `/sw.js`: 404
-- latest known source timestamp: `2026-08-11T06:08:23.510Z`
-- source age at re-read: `102.9h`
-- max allowed source age: `18h`
-- source parity: false
-- current recovery owner: Brain Regression Guard
-- protected finance balances/provider payloads: intentionally not duplicated
+Values never enter durable memory. Known names: `MOBILE_LAUNCH_KEY`, `STATUS_CALLBACK_SECRET`, `MOBILE_RUNS`, `GH_REPO_OWNER`, `GH_REPO_NAME`, `GH_WORKFLOW_FILE`, `GH_WORKFLOW_REF`, `GH_WORKFLOW_PAT`, `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_AUTH_SESSION_SECRET`, `GOOGLE_AUTH_ALLOWED_EMAILS`, `GOOGLE_AUTH_ALLOWED_DOMAIN`.
