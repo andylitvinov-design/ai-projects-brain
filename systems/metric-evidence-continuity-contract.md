@@ -59,3 +59,10 @@ The control plane must enforce:
 ## Regression condition
 
 The contract fails when any canonical metric lacks formula/source evidence, current-window history is overstated, a queue item lacks execution evidence, the current weekly review pointer is stale, memory sync has no auditable success/pending state, or core anti-gaming guards are absent.
+
+## Canonical review surfaces
+
+The canonical control-plane release must publish both `/api/control-plane-health` and `/api/weekly-delivery-system-review` as dependency-closed JSON functions. Release construction and production verification must fail when either route is absent, non-JSON, or points behind the latest persisted structured review.
+
+`memory_sync_status.pending_durable_updates` must enumerate every currently relevant open durable PR or decision. A hard-coded singleton is incomplete sync evidence when additional relevant durable updates are open.
+
