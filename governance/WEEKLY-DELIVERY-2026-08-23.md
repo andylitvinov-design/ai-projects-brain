@@ -75,6 +75,18 @@ This PR reapplies one minimal durable correction on current main: strict stage o
 - Current scored history: **1/7**.
 - ai-projects-brain PR #199: open/conflicted and superseded by this focused current-main proposal.
 
+## Final production re-read
+
+At 2026-08-23T14:14:57Z all seven required APIs returned HTTP 200, including the new control-plane health and weekly-review routes. This is behavior recovery, not terminal closure:
+
+- `/mobile-release-manifest.json` returned **404**;
+- control-plane health was **DEGRADED, 15/16**, with current-window history at 1/7;
+- the weekly-review endpoint still served the week ending **2026-08-16**;
+- fresh data/priority responses still embedded the pre-recovery `1/5 HTTP 200; 0/5 terminal-valid` assignment baseline and production source SHA excluding PR #404;
+- no delayed independent closure accepted the exact artifact.
+
+Canonical state remains `MERGED_WAITING_DEPLOY`; metric credit remains zero.
+
 ## One next-week priority
 
 Keep the existing freshness chain and make coherent publication cadence owned and proven by **Daily Dashboard Update**:
