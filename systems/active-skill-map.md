@@ -1,6 +1,6 @@
 # Active Skill Map
 
-Last updated: 2026-07-13
+Last updated: 2026-08-27
 
 Purpose: one source of truth for which agent commands are visible to Andrey, which mechanisms are secondary/internal, and which scheduled loops own recurring work.
 
@@ -15,7 +15,8 @@ These are the commands that may be advertised as primary tools.
 | `/planner` | Turn unclear, risky, or abstract work into a concise delivery prompt or issue-backed plan. | Planning only; Codex execution happens through `/delivery`. |
 | `/delivery` | Execute a scoped implementation task with context, checks, PR/merge/deploy/live proof when allowed. | Product changes require source-of-truth and verification. |
 | `/audit` | Verify a specific code/data/site/PR/production area and apply safe deterministic fixes only. | No broad redesign or risky mutation. |
-| `/audit-ui` | Verify and minimally fix UI structure, polish, responsive states, and browser-visible regressions. | Must include browser/live proof when a URL/dev server exists. |
+| `/audit-ui` | Verify and minimally fix UI structure, polish, responsive states, browser-visible regressions, and reference mismatches when a screenshot is supplied. | Must include browser/live proof when a URL/dev server exists; substantial reference reconstruction routes to `/copy-ui`. |
+| `/copy-ui` | Reproduce a supplied screenshot or screen recording inside the current repository using iterative browser screenshot comparison. | Reference appearance is source of truth for visible UI only; preserve current architecture/data semantics and avoid unapproved dependencies/secrets. |
 | `/audit-sales` | Audit a public page's audience-message fit, offer, proof, objections, CTA path, friction, and measurement readiness. | Use verified facts only; no dark patterns, invented proof, or promised uplift. `/audit-sale` is compatibility alias only. |
 | `/audit-fin` | Verify finance/ledger invariants, defaulting to the last 30 days. | No blind source-data/provider mutation. |
 | `/improve` | Read-only strategic improvement discovery, portfolio vision, and ready prompts. | Finds what to improve; does not execute. |
@@ -32,7 +33,8 @@ These may be used by agents but should not be presented as equal top-level strat
 | --- | --- | --- |
 | `/context-scout` | Read-only context bundle before planner/delivery/audit/improve. | Usually implicit. |
 | `Memory Read` / `/memory` | Read existing memory/rules. | Secondary read-only lookup; do not use as durable save. |
-| `Playwright Verification` | Browser proof for UI/forms/routes/auth/uploads/responsive behavior. | Verification tool inside delivery/audit-ui/safe. |
+| `Playwright Verification` | Browser proof for UI/forms/routes/auth/uploads/responsive behavior. | Verification tool inside delivery/audit-ui/copy-ui/safe. |
+| `Visual Reference Engine` | Shared screenshot/recording analysis -> render -> screenshot -> compare -> fix loop. | Internal engine used by `/copy-ui` and reference-aware `/audit-ui`. |
 | `/critic` | Pre-execution critique and improved execution prompt. | Optional support mode. |
 | `Grill Me` | Clarify requirements before implementation. | Optional support mode. |
 | `Superpowers` | Discipline: context -> plan -> minimal change -> verification. | Internal execution style. |
@@ -45,6 +47,7 @@ These are not user-facing commands. They are checks that should be embedded into
 
 - false-success detector: do not claim success without matching proof.
 - live-proof gate: production or UI fixes require browser/live/API evidence when the target exists.
+- visual-reference parity gate: when a reference is supplied, compare a rendered target screenshot at the same or closest known viewport before claiming parity; report remaining differences instead of claiming pixel-perfect success without evidence.
 - provider/live readiness gate: provider-dependent work must separate code path, provider configured, data/schema present, deploy source, and live behavior before `SUCCESS`.
 - required-loop liveness: registry intent is not scheduler proof; normal recurring automations remain enabled after success, live enabled state must be checked, only an existing clearly intended schedule may be re-enabled, duplicates are forbidden, and missing live access is `NEEDS_VERIFICATION`.
 - dodelay recovery: if a task is unfinished, produce exact next action instead of pretending completion.
@@ -81,13 +84,15 @@ Required recurring loops must preserve their existing schedules after successful
 
 Keep them separate. `/improve` may produce issues/prompts. `/upgrade` may update brain/docs/harness and convert product/risky work into `/delivery`, `/audit-ui`, `/audit-fin`, or `/safe` tickets.
 
-### `/audit-ui` vs `/audit-sales` vs `/improve`
+### `/copy-ui` vs `/audit-ui` vs `/audit-sales`
 
 ```txt
-/audit-ui    = visual hierarchy, responsiveness, polish, accessibility, and browser-visible defects.
+/copy-ui    = reproduce a supplied visual reference inside the current project and iteratively verify screenshot parity.
+/audit-ui   = visual hierarchy, responsiveness, polish, accessibility, browser-visible defects, and reference mismatch diagnosis.
 /audit-sales = audience-message fit, offer, proof, objections, CTA path, friction, and measurement readiness.
-/improve     = broad read-only strategic discovery that may produce later delivery work.
 ```
+
+If parity requires reconstructing a substantial portion of a screen, use `/copy-ui`; do not silently turn a narrow `/audit-ui` fix into a rebuild.
 
 `/audit-sale` is accepted only as a compatibility alias for `/audit-sales`; never maintain it as a separate mode.
 
