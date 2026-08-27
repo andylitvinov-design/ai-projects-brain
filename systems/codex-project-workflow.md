@@ -7,10 +7,10 @@
   tools, reports, and handoffs small without weakening verification.
 - For ChatGPT-written prompts that Andrey will send to `/delivery`, read and
   apply `systems/chatgpt-delivery-prompt-standard.md`.
-- Start `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/audit-fin`,
+- Start `/planner`, `/delivery`, `/audit`, `/audit-ui`, `/copy-ui`, `/audit-fin`,
   `/critic`, and `/improve` with `/context-scout` from
   `systems/context-scout-mode.md` before planning, editing, auto-fixing,
-  critique, or improvement discovery.
+  critique, reproduction, or improvement discovery.
 - Work autonomously by default: do not ask unnecessary questions before
   safe read-only, docs, planning, diagnosis, or minimal patch-scope work.
 - If information is missing or uncertain, mark it as `needs verification`
@@ -33,13 +33,17 @@ Use these routes before writing or sending execution prompts:
    Andrey sends to `/delivery`.
 4. Existing implementation/data/site concern -> `/audit` -> verification
    checklist -> safe deterministic fixes or repair prompt.
-5. UI taste, layout, responsive, polish, or hardening concern -> `/audit-ui`
-   -> mode selection -> critique/audit/polish/hardening checklist -> minimal
-   safe fixes plus browser verification when available.
-6. Finance/ledger concern -> `/audit-fin` -> last-30-days default period unless
+5. UI taste, layout, responsive, polish, hardening, or visual-defect concern ->
+   `/audit-ui` -> mode selection -> critique/audit/polish/hardening checklist ->
+   minimal safe fixes plus browser verification when available. If a visual
+   reference is supplied, also apply `systems/audit-ui-reference-mode.md`.
+6. Screenshot/screen-recording reproduction request -> `/copy-ui` ->
+   `systems/copy-ui.md` -> visual reference analysis -> implementation -> browser
+   screenshot -> comparison -> iterative correction inside the current repo.
+7. Finance/ledger concern -> `/audit-fin` -> last-30-days default period unless
    overridden -> finance invariants -> safe deterministic fixes or repair prompt.
-7. Proposed goal/loop/prompt concern -> `/critic` -> improved execution prompt.
-8. Broad strategic improvement discovery -> `/improve` -> prioritized
+8. Proposed goal/loop/prompt concern -> `/critic` -> improved execution prompt.
+9. Broad strategic improvement discovery -> `/improve` -> prioritized
    delivery-ready plans or GitHub issues.
 
 Each route starts with `/context-scout` preflight and its compact
@@ -59,6 +63,15 @@ or production behavior. It is not prompt QA.
 `/audit-ui` is the UI-specific audit and minimal-fix standard for taste,
 composition, responsive states, polish, hardening, anti-slop checks, and
 browser verification. It must not become a redesign unless explicitly requested.
+When a visual reference is supplied, use `systems/audit-ui-reference-mode.md`
+and the shared Visual Reference Engine from `systems/copy-ui.md`.
+
+`/copy-ui` is the UI reproduction mode for supplied screenshots, mockups, or
+screen recordings. It implements inside the current repository, preserves the
+existing stack/data semantics, and must iterate render -> screenshot -> compare
+-> fix when browser tooling is available. `abi/screenshot-to-code` may be used
+as an optional reverse-engineering helper under the dependency/secrets rules in
+`systems/copy-ui.md`; generated code is never architecture authority.
 
 `/audit-fin` is finance-sensitive audit mode. It defaults to the last 30 days
 unless the user overrides the period.
@@ -143,6 +156,11 @@ Then read repo-local context in the target repository:
   patching, checks/tests, risks, final report format, token-efficiency
   constraints, and `STATE.md`/`LOG.md` update check.
 
+For `/copy-ui`, the supplied visual reference is the source of truth only for
+visible UI and demonstrated interaction. Preserve architecture/data behavior and
+use the explicit completion gate in `systems/copy-ui.md` rather than declaring
+success after an approximate first pass.
+
 ## 5. Task-specific investigation
 
 For bug tasks:
@@ -155,6 +173,8 @@ For design/UX tasks:
 
 - Compare current UI, layout, spacing, typography, colors, cards, buttons, forms, navigation, mobile, and desktop behavior.
 - Preserve accepted layouts unless the task explicitly changes them.
+- When a reference screenshot or recording is the requested target, route substantial reproduction to `/copy-ui`; use `/audit-ui` reference mode for diagnosis or bounded fixes.
+- Match the reference viewport first, then sanity-check supported responsive layouts.
 
 For quality/site audits:
 
@@ -219,7 +239,8 @@ For quality/site audits:
 - Run project-specific guard scripts if listed.
 - For docs-only memory changes, verify JSON validity, raw links, and generated indexes when scripts exist.
 - Check live URL only when relevant and possible.
-- Do not use browser, Playwright, screenshots, live checks, or external MCP/tools unless the task requires them.
+- Do not use browser, Playwright, screenshots, live checks, or external MCP/tools unless the task requires them. `/copy-ui` and reference-aware `/audit-ui` do require browser screenshot comparison when a runnable target exists.
+- For `/copy-ui`, capture the target implementation at the same or closest known reference viewport and perform at least one post-implementation comparison before `SUCCESS`.
 - Report checks that were not run instead of implying they passed.
 
 ## 8. Report
@@ -237,6 +258,9 @@ Keep normal Codex reports short. Include:
 - What still needs verification.
 - `STATE.md` / `LOG.md` update status.
 - Next action.
+
+For `/copy-ui`, also include reference viewport, screenshot comparison result,
+remaining visual differences, and interaction parity status.
 
 Avoid long narratives unless the user asks for analysis.
 
