@@ -1,6 +1,6 @@
 # Project Memory — Current Human Catalog
 
-Last reconciled: `2026-08-22`
+Last reconciled: `2026-08-29`
 
 > Compact current catalog. Canonical active machine overlay: `projects/portfolio-registry.json`. Full accessible repository inventory: `projects.json` / `data/project-index.json`. Detailed state: project capsules.
 
@@ -20,19 +20,20 @@ Last reconciled: `2026-08-22`
 | `psitherapy` | `andylitvinov-design/report` | https://psitherapy.vercel.app | `BLOCKED`; deploy-source/auth proof incomplete. |
 | `reiki-yggdrasil` | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | `WATCH`. |
 | `codex-links` | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | `WATCH`. |
-| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE`; immediate 5/5/parity/sw proof current, delayed closure and Trends semantic regression open. |
+| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN`; APIs are current, but history is 1/7, weekly review is stale and publication attribution/queue lock drift remain open. |
 | `torontotantra` | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | `WATCH`. |
 | `ai-projects-brain` | `andylitvinov-design/ai-projects-brain` | not applicable | `IMPROVING`; durable PR #193 open. |
 | `psihotavr` | `NEEDS_VERIFICATION` | historical/unverified https://psihotavr.vercel.app | `IDENTITY_UNRESOLVED`. |
 
 ## Repository inventory
 
-GitHub owner enumeration on 2026-08-22 confirms 30 accessible repositories. Nine map directly to active project identities. The other 21 are related, backup, bootstrap, experimental or inactive identities; accessibility alone is not promotion evidence.
+GitHub owner enumeration on 2026-08-29 confirms 30 accessible repositories. Nine map directly to active project identities. The other 21 are related, backup, bootstrap, experimental or inactive identities; accessibility alone is not promotion evidence.
 
 ## Reconciliation changes
 
 - No catalog identity, canonical repo or live mapping changed.
-- Brain Management current state moved from stale mixed guard to immediate coherent recovery awaiting delayed independent closure.
+- Brain Management current state moved to current-but-degraded continuity: APIs are readable, while history, weekly review publication and source/deployment attribution remain incomplete.
+- `/copy-ui` was merged as a cross-project workflow; it does not create an eleventh active project.
 - Removed corrupted duplicate text from human indexes.
 - Preserved Psihotavr uncertainty rather than inventing a replacement source.
 - Kept 10 active identities separate from 30 accessible repositories.

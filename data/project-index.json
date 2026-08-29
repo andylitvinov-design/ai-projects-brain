@@ -1,19 +1,19 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-08-22T12:05:00Z",
+  "generated_at": "2026-08-29T12:51:00Z",
   "source": "projects.json",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE",
+    "brain_management_current_state": "CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
-    "run_date": "2026-08-22",
+    "run_date": "2026-08-29",
     "active_project_count": 10,
-    "brain_management_source_generated_at": "2026-08-22T11:57:34.985Z",
-    "brain_management_source_age_hours_at_check": 0.1,
+    "brain_management_source_generated_at": "2026-08-29T00:02:13.657Z",
+    "brain_management_source_age_hours_at_check": 12.8,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "5/5 HTTP 200; source parity true; sw.js 200; delayed closure pending",
-    "trend_effect_state": "5 zero-effect tasks incorrectly marked DONE on canonical live"
+    "brain_management_api_surfaces": "required APIs HTTP 200; health DEGRADED at immutable history 1/7; weekly review one scorecard stale; publication attribution open",
+    "trend_effect_state": "1 EVALUATED_NO_EFFECT, 9 READY; next assignment lacks causal denominator eligibility"
   },
   "projects": [
     {
@@ -163,7 +163,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "status_summary": "RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE as of 2026-08-22. Five APIs return current coherent HTTP 200 JSON, source parity is true and sw.js is 200. Delayed independent closure remains pending; five zero-effect Trends pilots are still mislabeled DONE.",
+      "status_summary": "CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN as of 2026-08-29. Required APIs and sw.js return 200 from a 12.8h source and runtime errors are zero, but immutable history is 1/7, the weekly review API is one scorecard behind, publication attribution lacks a verified deployment id, and the release lock still references terminal task 3763 after assignment rotated to 3766.",
       "memory_files": {
         "project_md": "projects/brain-management/PROJECT.md",
         "system_map": "projects/brain-management/SYSTEM_MAP.md",
@@ -181,7 +181,7 @@
         "repo_mapping": "listed",
         "live_mapping": "listed",
         "env_status": "names listed",
-        "deploy_status": "current immediate proof; delayed closure pending"
+        "deploy_status": "current behavior readable; source/deployment attribution and delayed closure open"
       }
     },
     {
@@ -577,5 +577,5 @@
       }
     }
   ],
-  "last_inventory_update": "2026-08-22"
+  "last_inventory_update": "2026-08-29"
 }

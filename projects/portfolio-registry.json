@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "last_updated": "2026-08-22T12:05:00Z",
+  "last_updated": "2026-08-29T12:51:00Z",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current active-project identity and routing. Verified live/GitHub/provider evidence overrides stale labels; inaccessible historical mappings are downgraded to NEEDS_VERIFICATION rather than guessed.",
   "source_priority": [
@@ -136,31 +136,37 @@
       "repo": "andylitvinov-design/brain-management",
       "live_url": "https://brain-management.vercel.app",
       "provider_project": "prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d",
-      "status": "RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE",
-      "repo_reachability": "CONFIRMED_2026-08-22",
+      "status": "CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN",
+      "repo_reachability": "CONFIRMED_2026-08-29",
       "evidence_refs": [
         "projects/brain-management/PROJECT.md",
-        "https://github.com/andylitvinov-design/brain-management/pull/396",
-        "https://github.com/andylitvinov-design/brain-management/pull/400",
-        "canonical live re-read 2026-08-22T12:02Z"
+        "https://github.com/andylitvinov-design/brain-management/pull/466",
+        "brain-management/history/weekly-delivery/2026-08-23.json",
+        "canonical live re-read 2026-08-29T12:51Z"
       ],
       "freshness": {
-        "checked_at": "2026-08-22T12:02:45Z",
-        "source_generated_at": "2026-08-22T11:57:34.985Z",
-        "age_hours": 0.1,
+        "checked_at": "2026-08-29T12:51:00Z",
+        "source_generated_at": "2026-08-29T00:02:13.657Z",
+        "age_hours": 12.8,
         "max_age_hours": 18,
         "api_statuses": {
           "/api/data": 200,
           "/api/trends": 200,
           "/api/agent-productivity": 200,
           "/api/strategic-priorities": 200,
-          "/api/needs-attention": 200
+          "/api/needs-attention": 200,
+          "/api/control-plane-health": 200,
+          "/api/weekly-delivery-system-review": 200
         },
         "service_worker_http": 200,
         "source_parity": true,
-        "marker": "CURRENT_AWAITING_DELAYED_CLOSURE"
+        "control_plane_health": "DEGRADED_15_PASS_1_FAIL_1_WARNING",
+        "immutable_history": "1/7",
+        "weekly_review_state": "STALE_ONE_SCORECARD",
+        "publication_attribution": "OPEN",
+        "marker": "CURRENT_WARNING_CONTINUITY_DEGRADED"
       },
-      "blocker": "Immediate publication recovery is coherent, but delayed independent closure is pending. Canonical Trends also regressed to five zero-effect tasks marked DONE after the effect guard merged.",
+      "blocker": "APIs are readable, but immutable history is 1/7, the weekly review API is one scorecard behind, publication attribution lacks a verified deployment id, and the release lock still references terminal task 3763 after assignment rotated to 3766.",
       "legacy_live_aliases": [
         "https://brain-management.netlify.app",
         "https://brain-management.pages.dev"
@@ -229,7 +235,7 @@
   ],
   "repository_inventory": {
     "status": "CONFIRMED_CURRENT_OWNER_ENUMERATION",
-    "checked_at": "2026-08-22",
+    "checked_at": "2026-08-29",
     "accessible_repository_count": 30,
     "active_project_repositories_confirmed": 9,
     "unresolved_active_identity_count": 1,
@@ -254,7 +260,7 @@
     ]
   },
   "reconciliation": {
-    "run_date": "2026-08-22",
+    "run_date": "2026-08-29",
     "active_project_count": 10,
     "accessible_repository_count": 30,
     "brain_management_current_state_corrected": true,
@@ -263,5 +269,5 @@
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
     "catalog_mapping_changes": 0
   },
-  "generated_at": "2026-08-22T12:05:00Z"
+  "generated_at": "2026-08-29T12:51:00Z"
 }

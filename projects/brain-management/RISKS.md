@@ -12,6 +12,33 @@
   verification.
 - Data contracts need verification before schema changes.
 
+## Freshness Cadence Risks
+
+- A terminal freshness limit shorter than the effective publication interval
+  creates a guaranteed daily fail-closed window. This was independently
+  observed after the 2026-08-18 source refresh: the persisted source from
+  `2026-08-18T11:36:38.020Z` was valid at Evening Closure, then all five
+  canonical APIs returned HTTP 503 at `2026-08-19T10:30Z` with source age
+  `22.9h` against the unchanged `18h` terminal limit.
+- Do not treat another one-shot refresh or another date-specific chain as
+  prevention. Reuse the existing freshness chain and require one routine
+  publication owner with a maximum verified interval safely below the
+  terminal limit. The current Daily Dashboard Update and Brain Data
+  Freshness Watch scheduler state must be reconciled before claiming the
+  cadence gap is closed.
+- Closure proof for a cadence repair must include both an immediate
+  same-source re-read and a re-read after the previous failure window, while
+  preserving exact source SHA, dependency-closed manifest, formulas, and
+  frozen UI. Repeated emergency refreshes receive no numeric metric credit.
+- A scheduler interval is not publication-cadence proof. On 2026-08-19 the
+  implementation worker was changed from daily to `07:30`/`19:30`
+  America/Toronto and the evening run completed a separate Trends task, but
+  did not refresh the shared operational snapshot. At `2026-08-20T10:30Z`,
+  four of five canonical APIs again failed closed on a `22.9h` source while
+  `/api/trends` served a separate newer source. Closure therefore requires
+  evidence that every claimed cadence cycle publishes one coherent canonical
+  operational source—not merely that a worker ran or deployed unrelated code.
+
 ## Deploy Risks
 
 - Cloudflare Pages

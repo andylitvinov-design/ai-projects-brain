@@ -2,7 +2,7 @@
 
 > Durable memory about management quality, ownership, errors, lessons and efficiency. Operational daily data remains in Brain Management.
 
-Last reconciled: `2026-08-22`
+Last reconciled: `2026-08-29`
 
 ## Canonical files
 
@@ -12,7 +12,8 @@ Last reconciled: `2026-08-22`
 - `RULES.md` — durable rules and lifecycle evidence.
 - `EFFICIENCY.md` — immutable scorecards plus clearly labelled current evidence.
 - `WEEKLY-LEARNINGS.md` — compact weekly failures, causes, fixes and reusable lessons.
-- `durable-root-cause-candidate-2026-08-22.json` — current machine candidate for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-08-29.json` — current machine candidate for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-08-22.json` — prior candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-08-15.json` — prior candidate retained as historical evidence.
 
 ## Source boundary
@@ -40,6 +41,8 @@ Last reconciled: `2026-08-22`
 6. The effect postprocessor must run after collector refresh and before release; canonical live is the acceptance surface.
 7. Operational assignment names must resolve to enabled schedulers or explicit owner-only state.
 8. Documentation/index work is `NO_DIRECT_METRIC_EFFECT`.
+9. Metric binding requires a ledger-eligible denominator item and causal eligibility.
+10. Enabled finite schedules without remaining occurrences are not runnable capacity.
 
 ## Weekly cycle
 

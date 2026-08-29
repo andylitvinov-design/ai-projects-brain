@@ -2,7 +2,7 @@
 
 > Главная точка входа для человека и ИИ. Индексы маршрутизируют к каноническим durable-источникам и не копируют оперативные receipts.
 
-Last reconciled: `2026-08-22`
+Last reconciled: `2026-08-29`
 
 ## Найти проект
 
@@ -23,7 +23,7 @@ Last reconciled: `2026-08-22`
 - `governance/AUTOMATIONS.md` — scheduler-backed roles and registry conflicts.
 - `governance/EFFICIENCY.md` — immutable scorecards and current synthesis.
 - `governance/WEEKLY-LEARNINGS.md` — aggregated errors and lessons.
-- `governance/durable-root-cause-candidate-2026-08-22.json` — current machine candidate.
+- `governance/durable-root-cause-candidate-2026-08-29.json` — current machine candidate.
 
 `brain-management` is the operational control plane. `ai-projects-brain` is the durable source of truth.
 
@@ -35,6 +35,8 @@ Last reconciled: `2026-08-22`
 4. Current operational evidence when the task needs live state.
 5. Governance memory for ownership, goals and lessons.
 
+Capability routing: `systems/active-skill-map.md`; screenshot/screen-recording reconstruction routes to `/copy-ui`, while bounded verification/minimal repair remains `/audit-ui`.
+
 ## Freshness and identity rules
 
 - Verified live behavior/source timestamps override older labels.
@@ -42,4 +44,6 @@ Last reconciled: `2026-08-22`
 - An operational assignment requires enabled scheduler evidence.
 - Immediate recovery and delayed terminal closure are different states.
 - A zero-effect pilot is `EVALUATED_NO_EFFECT`, not `DONE`.
+- A delivery-metric assignment requires an immutable denominator item and causal eligibility.
+- Enabled finite schedules with no remaining occurrence are not runnable capacity.
 - Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.

@@ -11,7 +11,7 @@
 5. Do not promote backup/bootstrap/diagnostic repositories into the active portfolio.
 6. Keep uncertainty explicit as `NEEDS_VERIFICATION`.
 
-## Active portfolio — reconciled 2026-08-22
+## Active portfolio — reconciled 2026-08-29
 
 | project_id | Canonical repo | Production | Durable state |
 |---|---|---|---|
@@ -21,14 +21,14 @@
 | `psitherapy` | `andylitvinov-design/report` | https://psitherapy.vercel.app | `BLOCKED` — deploy-source/auth proof incomplete. |
 | `reiki-yggdrasil` | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | `WATCH`. |
 | `codex-links` | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | `WATCH`. |
-| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `RECOVERED_CURRENT_AWAITING_DELAYED_CLOSURE` — Aug 22 immediate 5/5/parity/sw proof; delayed closure pending; Trends zero-effect DONE regression open. |
+| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN` — APIs current; health DEGRADED at history 1/7; weekly review and release attribution stale. |
 | `torontotantra` | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | `WATCH`. |
 | `ai-projects-brain` | `andylitvinov-design/ai-projects-brain` | not applicable | `IMPROVING`; durable reconciliation PR #193. |
 | `psihotavr` | `NEEDS_VERIFICATION` | historical https://psihotavr.vercel.app | `IDENTITY_UNRESOLVED`. |
 
 ## Repository inventory
 
-Owner enumeration on 2026-08-22 confirms 30 accessible repositories. Active-project identities remain 10. Psihotavr remains the only unresolved active identity. No repo/live mapping changed this week.
+Owner enumeration on 2026-08-29 confirms 30 accessible repositories. Active-project identities remain 10. Psihotavr remains the only unresolved active identity. No repo/live mapping changed this week. The merged `/copy-ui` workflow is a capability alias, not a project identity.
 
 ## Common aliases
 
