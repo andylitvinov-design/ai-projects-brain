@@ -1,6 +1,6 @@
 # Automation Registry
 
-Last reconciled: `2026-08-02`
+Last reconciled: `2026-08-30`
 
 ## Registry contract
 
@@ -61,3 +61,24 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 12. Correlated metrics that share one raw input must use one strategic chain and one owner label across priorities, assignments, active chains and handoffs.
 13. `morning_system_upgrade_assignment` must identify Morning System Upgrade as execution owner and preserve the ranking source in a separate field.
 14. Canonical publication must either expose every latest reconciled carryover chain or publish an explicit exclusion/terminal classification for each omitted chain.
+
+## Reconciliation findings — 2026-08-30
+
+1. Morning Task Sweep and Daily Strategic Priorities persisted 7/7; PR Delivery persisted all 13 due morning/evening slots; independent Evening Delivery Closure persisted only 5/6 due days.
+2. Ranking and implementation diverged on Aug 24–25: freshness recovery held the ranking lease while Morning System Upgrade also executed multiple Trend pilots.
+3. PR Delivery Sweep merged and repaired 0 PRs while 52 Brain Management PRs merged. Implementation, control-plane and recovery workers continue to bypass the exclusive GitHub delivery stage.
+4. Eight Trend pilots used `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`; two closure receipts used `DEPLOYMENT_PENDING`; two Morning System Upgrade receipts used `PIPELINE_BROKEN`. All 12 violate the canonical top-level terminal enum.
+5. Carryover ownership is structurally named, but publication is incomplete: `/api/data` exposes only the Finance chain while freshness and the current exact Trend assignment remain nonterminal elsewhere.
+6. Daily Dashboard Update remains the exclusive publisher in the contract, yet Brain Regression Guard published current refresh work on Aug 29 and Aug 30. Detection and handoff are allowed; snapshot mutation, deployment or self-closure are not.
+7. The prior publisher-cadence candidate failed: six new delayed regressions, 23.5h between observed source snapshots, no second <=12h cycle, and current manifest 404.
+8. Current canonical health is DEGRADED 16/18 because immutable history is 1/7 and the data/priority assignment surfaces disagree.
+9. The next recovery candidate must reuse `operational-source-freshness-refresh-20260818`; a dated replacement chain or another prompt/schedule-only repair receives zero credit.
+10. Success next week requires two publisher-owned <=12h cycles, zero recovery PRs, manifest 200, source SHA/artifact/deployment parity, one coherent assignment surface and delayed Evening Closure using one canonical terminal state.
+
+## Enforcement clarifications — 2026-08-30
+
+- A detector may open or update the existing chain and hand it to the exclusive owner; it may not become a parallel publisher or terminal closer.
+- Rich diagnostic outcomes belong in a detail field. Top-level `terminal_state` remains exactly one of `LIVE_VERIFIED`, `MERGED_WAITING_DEPLOY`, `BLOCKED_BY_OWNER`, or `NO_SAFE_UPGRADE`.
+- Implementation may prepare a branch and tests, but PR/CI/merge evidence is accepted only from PR Delivery Sweep and terminal closure only from Evening Delivery Closure.
+- Every nonterminal reconciled chain must appear in the canonical active-chain surface or in an explicit exclusion record with owner and reason.
+
