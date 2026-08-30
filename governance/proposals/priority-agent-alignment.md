@@ -15,12 +15,15 @@ Make the current strategic-priority set an auditable input into agent work witho
 4. The control plane must publish the stages `RANKED → EXECUTABLE/BLOCKED → ASSIGNED → IMPROVED → LIVE_VERIFIED` for each current strategic priority.
 5. Dashboard/agent reporting must expose aggregate coverage: ranked, executable, assigned, metric-improved and LIVE_VERIFIED priority counts.
 6. Regression guards must fail if the current top set disappears, ranks are incomplete, strategic credit is shown without a current chain link, or maintenance work is presented as priority impact.
-7. One implementation owner per chain remains unchanged. Ranking does not itself create an implementation owner.
-8. Activating this candidate as a lifecycle rule is forbidden until repeated production evidence proves the contract is used across ranking, assignment, agent reporting and terminal verification. Activation must not be performed merely to increase `rule_lifecycle`.
+7. The published priority surface must be atomic: exactly one rank sequence `1..8`, one current `morning_system_upgrade_assignment`, and one `selected_trend_task` whose task and chain identities match that assignment. Terminal prior tasks must not remain selected beside a new assignment.
+8. One implementation owner per chain remains unchanged. Ranking does not itself create an implementation owner.
+9. Activating this candidate as a lifecycle rule is forbidden until repeated production evidence proves the contract is used across ranking, assignment, agent reporting and terminal verification. Activation must not be performed merely to increase `rule_lifecycle`.
 
 ## Current implementation evidence
 
 Brain Management now renders a `priority-agent-alignment` view on Overview and Agents, computes strategic impact only from exact current `chain_id` matches, classifies unmatched agent work as maintenance, and has a runtime regression guard for the alignment contract. This proposal records the reusable architecture without changing metric formulas or active-rule counts.
+
+On 2026-08-30 the canonical priority API exposed a concrete atomicity defect: eight rows contained duplicate rank `1` and no rank `3`, `selected_trend_task` still named terminal Persistent work, while `morning_system_upgrade_assignment` named the next CLAP task. Brain Management PR #473 proposes a source and regression-guard repair. The raw metric formulas and business/product scores remain unchanged; this is control-plane reliability evidence only.
 
 ## Acceptance for future activation
 
