@@ -136,12 +136,12 @@ Canonical field mapping in this database:
 - **live URL:** https://brain-management.vercel.app
 - **repo URL:** https://github.com/andylitvinov-design/brain-management
 - **hosting:** Vercel team `super10`, project `brain-management`
-- **current status:** Canonical production is `LIVE_VERIFIED` from `main`. Cloudflare Pages, Netlify, separate-mobile, preview, and deployment-specific URLs are historical or diagnostic only.
+- **current status:** Canonical production boundary is `main` on Vercel at https://brain-management.vercel.app. Current API behavior may be readable while terminal deployment/source attribution remains unresolved; Cloudflare Pages, Netlify, separate-mobile, preview, and deployment-specific URLs are historical or diagnostic only.
 - **important files:** `SAFE.md`, `index.html`, `app.js`, `styles.css`, `agent-productivity-ui.js`, `metrics-goals.js`, `dashboard-enhancements.js`, `manifest.webmanifest`, `sw.js`, `mobile-contract.json`, operational API files, `lib/history.js`
 - **env variables:** `MOBILE_LAUNCH_KEY`, `STATUS_CALLBACK_SECRET`, `MOBILE_RUNS`, `GH_REPO_OWNER`, `GH_REPO_NAME`, `GH_WORKFLOW_FILE`, `GH_WORKFLOW_REF`, `GH_WORKFLOW_PAT`, `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_AUTH_SESSION_SECRET`, `GOOGLE_AUTH_ALLOWED_EMAILS`, `GOOGLE_AUTH_ALLOWED_DOMAIN`
 - **known issues:** Provider/live readiness remains owner-session gated for protected finance journeys. Public business-KPI coverage excludes unverified or collector-error targets. Legacy Brain origins may contain stale historical snapshots and must not be treated as canonical production.
-- **recent tasks:** Canonical Vercel production and its five operational JSON APIs were live-verified; dashboard control-plane evidence continuity and canonical priority routing were repaired on 2026-08-30.
-- **next actions:** Keep the current Vercel live contract stable, preserve honest daily snapshots, and verify protected provider journeys only with an authorized owner session.
+- **recent tasks:** Canonical Vercel production and its five operational JSON APIs were behaviorally verified, but terminal deployment/source attribution remains unresolved; dashboard control-plane evidence continuity and canonical priority routing were repaired on 2026-08-30.
+- **next actions:** Keep the current Vercel live contract stable, preserve honest daily snapshots, prove matching source SHA, deployment ID, and delayed continuity before claiming terminal `LIVE_VERIFIED`, and verify protected provider journeys only with an authorized owner session.
 - **risks:** Reporting legacy Cloudflare data as current, mixing sibling repositories into the management boundary, exceeding the Vercel function budget, or claiming provider readiness without owner-session proof.
 - **rules for Codex:** Use one repository, `main`, Vercel project `brain-management`, and `https://brain-management.vercel.app` as the canonical production boundary. Verify JSON body/content type, not HTTP status alone. Treat `brain-management.pages.dev` as legacy/diagnostic only.
 
