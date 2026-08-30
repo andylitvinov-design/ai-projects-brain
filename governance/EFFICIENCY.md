@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-02`
+Last aggregated: `2026-08-30`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -87,3 +87,25 @@ These remain `needs verification`; they are not scored from inference.
 ## Highest-value efficiency correction
 
 Publish the exact four denominator items behind the shared `1/4` delivery input, collapse the three strategic aliases into one owner-labelled chain, select one existing user-visible or business-value deliverable with canonical repository and branch, and carry that single chain through implementation, safe delivery, production verification and metric re-read. The next verified implementation should be product-first rather than another publication or guard-only change.
+
+## Weekly delivery scorecard — 2026-08-24 through 2026-08-30
+
+| Metric | Evidence | Interpretation |
+|---|---:|---|
+| Distinct implementation/effect chains | 12 | Eight Trend pilots plus four infrastructure/control-plane chains; pure receipts and retries are excluded. |
+| Canonical `LIVE_VERIFIED` | 0/12 | Eight pilots verified live behavior but used noncanonical terminal labels and all had zero assigned-metric effect. |
+| Verified numeric metric gains | 0 | Product Delivery, Task Success and Live Completion remain the shared rolling `1/4` input. |
+| Product/business gain share | 0/12 | The only user-visible product pilot produced zero measured effect. |
+| Zero-effect Trend pilots | 8/8 | All were honestly re-read at zero delta, but their top-level terminal enum is still noncanonical. |
+| Freshness regressions | 6 new; 9 cumulative | The prior recovery candidate failed. Latest observed interval was 23.5h versus required <=12h. |
+| Freshness repair/retry/evidence PRs | 20 | One recurring chain; PR volume is rework evidence, not twenty improvements. |
+| Brain Management PR throughput | 57 created; 52 merged; 4 closed unmerged; 1 open | PR Delivery Sweep merged/repaired 0, proving stage bypass. |
+| Immutable history | 1/7 | Weekly score confidence remains partial even though handoff coverage is materially better. |
+| Carryover | 3 | Freshness/source attribution, Finance owner proof, and one exact Trend assignment whose surfaces disagree. |
+| Current production health | DEGRADED 16/18 | Assignment parity fails and the mobile release manifest is 404. |
+| Portfolio PR inventory | 42 open; 0 ready | 15 owner-blocked, 15 conflict repair, 3 CI repair, 7 review, 3 active. |
+
+### Efficiency conclusion
+
+The system is efficient at producing and merging evidence-heavy changes but ineffective at converting them into measured product outcomes. The highest-leverage correction is not another pilot: close the existing publisher-owned cadence chain with two <=12h coherent cycles, zero recovery PRs, exact source/deploy attribution and independent canonical closure. Only after that proof window should the next implementation slot return to a concrete product/business denominator item.
+
