@@ -23,7 +23,7 @@ Make the current strategic-priority set an auditable input into agent work witho
 
 Brain Management now renders a `priority-agent-alignment` view on Overview and Agents, computes strategic impact only from exact current `chain_id` matches, classifies unmatched agent work as maintenance, and has a runtime regression guard for the alignment contract. This proposal records the reusable architecture without changing metric formulas or active-rule counts.
 
-On 2026-08-30 the canonical priority API exposed a concrete atomicity defect: eight rows contained duplicate rank `1` and no rank `3`, `selected_trend_task` still named terminal Persistent work, while `morning_system_upgrade_assignment` named the next CLAP task. Brain Management PR #473 proposes a source and regression-guard repair. The raw metric formulas and business/product scores remain unchanged; this is control-plane reliability evidence only.
+On 2026-08-30 the canonical priority API exposed a concrete atomicity defect: eight rows contained duplicate rank `1` and no rank `3`, `selected_trend_task` still named terminal Persistent work, while `morning_system_upgrade_assignment` named the next CLAP task. Brain Management PRs #473 and #474 repair the source and the actual Vercel route, and add regression guards for both internal atomicity and cross-surface assignment parity. The raw metric formulas and business/product scores remain unchanged; this is control-plane reliability evidence only.
 
 ## Acceptance for future activation
 
