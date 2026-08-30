@@ -1,6 +1,6 @@
 # Projects
 
-Last inventory update: 2026-07-01.
+Last inventory update: 2026-08-30.
 
 This file mirrors the core records in `projects.json`. It lists public context only. Environment variables are names only, not values.
 
@@ -132,18 +132,18 @@ Canonical field mapping in this database:
 - **project memory:** `projects/brain-management/PROJECT.md`
 
 - **name:** brain-management
-- **purpose:** Management dashboard and ops workspace for Codex usage, daily thinking/audit data, mobile-run flows, and management reports.
-- **live URL:** https://brain-management.pages.dev
+- **purpose:** Operational management control plane for current metrics, immutable daily snapshots, automation assignments, delivery chains, Trends, projects, and the installable web/PWA client.
+- **live URL:** https://brain-management.vercel.app
 - **repo URL:** https://github.com/andylitvinov-design/brain-management
-- **hosting:** Cloudflare Pages
-- **current status:** Private repo with Cloudflare Pages live dashboard. Dashboard snapshots live under `dashboard-thinking/data/`.
-- **important files:** `README.md`, `.env.example`, `dashboard-thinking/data/current-thinking-audit.json`, `dashboard-thinking/data/current-daily-upgrade.json`, `dashboard-thinking/data/current-daily-changes.json`, `scripts/refresh-management-dashboards.js`, `functions/api/mobile-run.js`
-- **env variables:** `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_AUTH_SESSION_SECRET`, `GOOGLE_AUTH_ALLOWED_EMAILS`, `GOOGLE_AUTH_ALLOWED_DOMAIN`
-- **known issues:** Morning report publish/API verification can fail on `codex-links.pages.dev` DNS/network reachability. Agents sometimes verify dashboard JSON from the wrong root path.
-- **recent tasks:** Morning report flow uses refresh, verify current JSONs, publish, verify public API, and open inbox item on explicit request/failure.
-- **next actions:** Re-check live report publishing path when DNS/network is available. Keep current JSON verification pointed at `dashboard-thinking/data/`.
-- **risks:** Reporting stale data, mixing sibling repos into the management boundary, or skipping the fixed morning report sequence.
-- **rules for Codex:** Read `AGENTS.md`, `README.md`, and `STATE.md` first when present. Preserve the management report flow order. Include exact failing command/check when a step fails.
+- **hosting:** Vercel team `super10`, project `brain-management`
+- **current status:** Canonical production is `LIVE_VERIFIED` from `main`. Cloudflare Pages, Netlify, separate-mobile, preview, and deployment-specific URLs are historical or diagnostic only.
+- **important files:** `SAFE.md`, `index.html`, `app.js`, `styles.css`, `agent-productivity-ui.js`, `metrics-goals.js`, `dashboard-enhancements.js`, `manifest.webmanifest`, `sw.js`, `mobile-contract.json`, operational API files, `lib/history.js`
+- **env variables:** `MOBILE_LAUNCH_KEY`, `STATUS_CALLBACK_SECRET`, `MOBILE_RUNS`, `GH_REPO_OWNER`, `GH_REPO_NAME`, `GH_WORKFLOW_FILE`, `GH_WORKFLOW_REF`, `GH_WORKFLOW_PAT`, `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_AUTH_SESSION_SECRET`, `GOOGLE_AUTH_ALLOWED_EMAILS`, `GOOGLE_AUTH_ALLOWED_DOMAIN`
+- **known issues:** Provider/live readiness remains owner-session gated for protected finance journeys. Public business-KPI coverage excludes unverified or collector-error targets. Legacy Brain origins may contain stale historical snapshots and must not be treated as canonical production.
+- **recent tasks:** Canonical Vercel production and its five operational JSON APIs were live-verified; dashboard control-plane evidence continuity and canonical priority routing were repaired on 2026-08-30.
+- **next actions:** Keep the current Vercel live contract stable, preserve honest daily snapshots, and verify protected provider journeys only with an authorized owner session.
+- **risks:** Reporting legacy Cloudflare data as current, mixing sibling repositories into the management boundary, exceeding the Vercel function budget, or claiming provider readiness without owner-session proof.
+- **rules for Codex:** Use one repository, `main`, Vercel project `brain-management`, and `https://brain-management.vercel.app` as the canonical production boundary. Verify JSON body/content type, not HTTP status alone. Treat `brain-management.pages.dev` as legacy/diagnostic only.
 
 ## codex-links
 
