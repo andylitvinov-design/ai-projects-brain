@@ -51,6 +51,13 @@
   avoid duplicate recovery PRs, and hand the existing PR to PR Delivery
   Sweep until required checks can run or a repository-policy-approved
   deterministic replacement is available.
+- A red full release gate with failures spanning source/schema drift, retired
+  workflow fixtures, missing test dependencies, stale snapshots, and obsolete
+  assertions is a multi-owner migration, not one bounded repair. Read the
+  complete uploaded failure artifact before editing, separate source-owned
+  fixes from harness/dependency fixes, and stop automatic merge when the
+  candidate patch expands beyond one focused owner or cannot rerun the whole
+  gate. A tail-truncated failure list is not deterministic validation.
 
 ## Security Risks
 
