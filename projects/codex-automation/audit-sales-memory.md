@@ -351,6 +351,13 @@ Psihotavr remains explicitly tracked but is not treated as confirmed active prod
 
 Sources reviewed: W3C WCAG 2.2; web.dev Core Web Vitals guidance; Baymard checkout and form-effort research; Google Analytics 4 recommended events; ONS/GOV.UK user-needs and transaction guidance.
 
+Accepted durable marker refinements: 3
+Accepted temporary candidates: 0
+
+Rejected durable candidates include:
+
+- Generic industry conversion-rate benchmark
+- AI-search / GEO visibility
 Accepted principles:
 
 1. Refined B4 for decision-critical expectations before commitment.
