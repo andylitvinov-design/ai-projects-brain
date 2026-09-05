@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-30`
+Last aggregated: `2026-09-05`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -109,3 +109,40 @@ Publish the exact four denominator items behind the shared `1/4` delivery input,
 
 The system is efficient at producing and merging evidence-heavy changes but ineffective at converting them into measured product outcomes. The highest-leverage correction is not another pilot: close the existing publisher-owned cadence chain with two <=12h coherent cycles, zero recovery PRs, exact source/deploy attribution and independent canonical closure. Only after that proof window should the next implementation slot return to a concrete product/business denominator item.
 
+## Current-window evidence — 2026-08-31 through 2026-09-05
+
+This is a six-day synthesis, not a complete weekly scorecard. Missing Sep 6 evidence and missing immutable snapshots are not inferred.
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Trend terminal pilots | 13 | High implementation/deployment activity. |
+| Verified assigned-metric gains | 0/13 | Every pilot re-read the bound metric unchanged. |
+| Metric distribution | live completion 5; user pain 3; rework 3; context retry 2 | The failure spans four bindings, not one bad task. |
+| Canonical top-level terminal labels | 0/13 | All receipts still use noncanonical `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`. |
+| Independent closure receipts due through Sep 4 | 5/5 present | Persistence improved, but results were 1 `DEPLOYMENT_PENDING` and 4 `NO_SAFE_UPGRADE`; 0 canonical LIVE closure. |
+| Immutable history | 1/7 | Unchanged; six dates are missing. |
+| Product Delivery / Task Success / Live Completion | `1/4 / 1/4 / 1/4` | No conversion improvement. |
+| Deployment frequency | `1/3` | Repeated pilot deployment did not become product publication credit. |
+| PR inventory | `42 → 49`, 0 ready | Backlog grew seven while ready throughput stayed zero. |
+| Stale/nonmergeable PRs | 34 / 28 | Review, conflict and owner queues dominate. |
+| Sep 3–5 agent-productivity window | 3 reports, 0 live upgrades, 0 metric points, 5 regressions detected/recovered | Reactive recovery is active but produces no measured outcome. |
+| Freshness continuity | 23.0h and 4/7 APIs failed closed before Sep 5 refresh; later 1.3h and 7/7 | Recovery is real but cadence is not yet durable. |
+| Runtime errors | 0 in seven-day query | Runtime stability is not the current blocker. |
+| Latest Vercel inventory page | 20 production deployments, including 2 ERROR | Deployment volume is rework/activity evidence, not effect. |
+
+## Efficiency trend
+
+- **Effect conversion worsened:** eight zero-effect Trend pilots in the Aug 24–30 scorecard became thirteen more in six days, with no dashboard-metric gain.
+- **Semantic honesty is partial:** queue state now uses `EVALUATED_NO_EFFECT`, but top-level receipts still violate the canonical enum.
+- **Continuity remains reactive:** repeated daily recovery restores current live behavior, but source age still crosses the terminal limit and history remains 1/7.
+- **Stage separation remains weak:** current PR Delivery throughput is zero while implementation and recovery actors merge/deploy directly.
+- **Backlog worsened:** open PRs increased from 42 to 49 and ready items remained zero.
+- **Catalog search improved:** Books is now discoverable with explicit branch/provider/live uncertainty and no false production promotion.
+
+## Highest-value efficiency corrections
+
+1. Enforce the causal denominator gate before the next Trends implementation; stop consuming slots for tasks that cannot change the selected immutable input.
+2. Restore one scheduler-backed routine publisher, reuse one freshness chain and prove two <=12h cycles plus delayed closure and 7/7 history accumulation.
+3. Partition and repair the complete release gate by owner, then use PR Delivery Sweep to convert one real product PR to ready/merged/live evidence.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.

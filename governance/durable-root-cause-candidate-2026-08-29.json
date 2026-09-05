@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "candidate_id": "trend-metric-binding-causality-gap-20260829",
+  "generated_at": "2026-08-29T12:51:00Z",
+  "run_date": "2026-08-29",
+  "status": "DURABLE_ROOT_CAUSE_CANDIDATE",
+  "affected_metric": {
+    "metric_id": "live_completion_rate",
+    "raw_baseline": "1/4",
+    "score_baseline": 25,
+    "target_raw": "2/4",
+    "target_score": 50,
+    "formula_change_allowed": false
+  },
+  "root_cause": {
+    "code": "TREND_METRIC_BINDING_CAUSALITY_GAP",
+    "statement": "Daily ranking validates assignment fields but does not prove that a Trends implementation can enter the immutable delivery numerator. Generic capability pilots are repeatedly bound to live_completion_rate even when the ledger excludes them.",
+    "repeated": true
+  },
+  "evidence": {
+    "latest_receipt": "brain-management/history/handoffs/2026-08-29-trend-persistent-terminal.json",
+    "latest_actual_effect": {
+      "raw_before": "1/4",
+      "raw_after": "1/4",
+      "score_before": 25,
+      "score_after": 25,
+      "effect_credit": 0,
+      "reason": "The immutable delivery ledger did not count the bounded workflow pilot as a selected live delivery task."
+    },
+    "prior_week": {
+      "source": "brain-management/history/weekly-delivery/2026-08-23.json",
+      "zero_effect_trend_pilots": 5,
+      "numeric_metric_gains": 0,
+      "product_or_business_live_outcomes": 0
+    },
+    "next_assignment": {
+      "task_id": "trend-task-t-me-vibecoding-tg-3766",
+      "title": "Model Hardware Standard bounded pilot",
+      "bound_metric": "live_completion_rate",
+      "eligibility_proof": "MISSING"
+    }
+  },
+  "owner": {
+    "ranking_owner": "Daily Strategic Priorities",
+    "implementation_owner_after_valid_assignment": "Morning System Upgrade",
+    "verification_owner": "Evening Delivery Closure"
+  },
+  "smallest_safe_corrective_action": [
+    "Before publishing a delivery-metric assignment, require a stable immutable denominator_item_id.",
+    "Evaluate whether the exact implementation can make that denominator item enter the live numerator under the unchanged formula.",
+    "If eligibility is not proven, bind a compatible direct capability metric or emit NO_COMPATIBLE_METRIC without consuming the shared 1/4 denominator.",
+    "Keep the current queue task READY until this binding gate passes; do not fabricate product credit."
+  ],
+  "expected_effect": {
+    "process": "Eliminate predictable zero-effect delivery assignments and preserve implementation capacity for a causally eligible task.",
+    "raw_target": "The next accepted assignment is capable of moving live_completion_rate from 1/4 to 2/4.",
+    "credit_policy": "No numeric or completion credit until a canonical unchanged-formula ACTUAL_EFFECT receipt proves the raw change.",
+    "documentation_effect": "NO_DIRECT_METRIC_EFFECT"
+  },
+  "acceptance": [
+    "assignment contains denominator_item_id",
+    "eligibility evidence names the user-visible or business outcome and production route",
+    "terminal receipt re-reads the same metric",
+    "zero delta is EVALUATED_NO_EFFECT and releases the chain lock",
+    "no duplicate implementation owner"
+  ]
+}

@@ -2,22 +2,40 @@
 
 ## Purpose
 
-Public Vite/React site for mandala catalog sales, article and collection content, Telegram-first orders, admin/content workflows, and AI-video experiments.
+Historical project identity for the mandala/catalog site, article/collection content, Telegram-first orders, admin/content workflows and past AI-video experiments.
 
-## Canonical mapping
+## Current identity state — 2026-08-08
 
-- repository: `andylitvinov-design/psihotavr`
-- canonical branch: `main`
-- production URL: https://psihotavr.vercel.app
-- hosting: Vercel project mapping requires current deploy verification before a live claim
+Status: `IDENTITY_UNRESOLVED`.
 
-## Current state
+The previously recorded mapping `andylitvinov-design/psihotavr` is no longer safe to treat as canonical:
 
-Psihotavr remains an active public project. Historical work was sometimes merged into non-production branches, so `merged=true` alone is insufficient. For production-facing changes, confirm that the relevant commit reached `main`, identify the current Vercel deployment source, and verify the default user state in a clean browser session.
+- current GitHub owner enumeration returned 30 accessible repositories and did **not** include `psihotavr`;
+- direct repository lookup for `andylitvinov-design/psihotavr` returned `404 Not Found`;
+- the current connected Vercel team inventory did not expose a `psihotavr` project;
+- `https://psihotavr.vercel.app` remains a historical URL in memory, but current source/deployment ownership was not proven in this reconciliation.
 
-The preferred order path remains Telegram-first unless a backend-backed order flow has current provider, persistence, policy, and live evidence. Supabase/Firebase/auth/payment experiments must remain blocked until those gates are proven.
+Do not infer that the product was deleted, moved, or retired. The correct durable conclusion is `NEEDS_VERIFICATION` for canonical repository and live/provider mapping.
 
-## Important files
+## Historical mapping — reference only
+
+- historical repository: `andylitvinov-design/psihotavr`
+- historical canonical branch: `main`
+- historical production URL: https://psihotavr.vercel.app
+- historical stack: Vite/React with mandala catalog/admin/cart and AI-video experiments
+
+These facts are useful for identification and salvage, but they are not current code-routing authority until reverified.
+
+## Historical verification risks
+
+- Some historical work was merged into non-production branches, so `merged=true` was never sufficient by itself.
+- Default-state/localStorage regressions affected the `/mandalas` grid; clean-session and legacy-storage checks are still relevant if the project is recovered.
+- Auth/storage/order/provider experiments must remain blocked until the current backend and source are proven.
+- Telegram-first order behavior should not be replaced by an inferred backend flow.
+
+## Historical important-file map
+
+Use only after the canonical repository is re-established:
 
 - `package.json`
 - `vercel.json`
@@ -32,34 +50,29 @@ The preferred order path remains Telegram-first unless a backend-backed order fl
 - `api/ai-videos/generate.ts`
 - `api/ai-videos/status.ts`
 
-## Environment variable names
+## Environment variable names — historical only
 
-Names only; values must never be stored here:
+Never store values. Names previously associated with the project included `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_ADMIN_EMAILS`, Firebase identifiers, `ADMIN_TOKEN`, and AI-video provider keys. Do not assume any of them are still current.
 
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-- `VITE_ADMIN_EMAILS`
-- `FIREBASE_API_KEY`
-- `FIREBASE_AUTH_DOMAIN`
-- `FIREBASE_PROJECT_ID`
-- `GITHUB_TOKEN`
-- `ADMIN_TOKEN`
-- `HEYGEN_API_KEY`
-- `SYNTHESIA_API_KEY`
-- `D_ID_API_KEY`
+## Reverification gate
 
-## Verification gates
+Before any code, deployment or business-KPI action:
 
-1. Fresh `main` and duplicate/wrong-base PR check.
-2. Available tests, typecheck, lint, and build.
-3. For UI state: clean session, legacy storage, clicked state, desktop, and mobile.
-4. For production: deploy ID, branch, source commit, route evidence, and timestamp.
-5. For auth, storage, orders, payments, or providers: configuration, persistence/policy, live behavior, and rollback proof.
+1. Prove the current canonical repository or replacement source.
+2. Prove canonical production branch.
+3. Prove provider project/domain ownership and latest production source commit.
+4. Confirm whether the historical URL is current, redirected, retired or replaced.
+5. Re-read repo-local instructions and current file structure; do not apply the historical file map blindly.
+6. Verify clean-session/default state and mobile behavior before claiming production recovery.
 
 ## Do not
 
-- carry an old feature branch wholesale onto `main`;
-- expose secret values or private provider payloads;
-- claim LIVE from merge or a READY deployment alone;
-- replace the Telegram-first order path without proven backend readiness;
-- lose Excel-derived catalog content, image mappings, or the distinction between services, collections, and articles.
+- create or edit an unrelated repository merely to satisfy the historical identity;
+- treat the 404 as proof of deletion/retirement;
+- claim current live state from the remembered domain alone;
+- credit Psihotavr toward current business/source coverage until identity and collector evidence are restored;
+- expose old provider secrets or copy historical auth assumptions into a new source.
+
+## Next durable action
+
+Resolve the canonical source identity first. Once a repository/provider mapping is proven, update this capsule and the ten-project overlay together in one reconciliation.

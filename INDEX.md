@@ -1,77 +1,50 @@
 # AI Projects Brain — Master Index
 
-> Главная точка входа для человека и ИИ. Файл остаётся коротким и ссылается на канонические источники вместо дублирования их содержимого.
+> Главная точка входа для человека и ИИ. Индексы маршрутизируют к каноническим durable-источникам и не копируют оперативные receipts.
 
-Last reconciled: `2026-08-01`
+Last reconciled: `2026-09-05`
 
-## 1. Найти проект
+## Найти проект
 
-- Current human routing index: `projects/index.md`
-- Current machine-readable active overlay: `projects/portfolio-registry.json`
-- Detailed project capsules: `projects/<slug>/PROJECT.md`
-- Historical extended inventory: `projects.md`
-- Historical machine database: `projects.json`
-- Generated/search-oriented legacy index: `data/project-index.json`
+- Human routing: `projects/index.md`
+- Machine active overlay: `projects/portfolio-registry.json`
+- Compact catalog and repository inventory: `projects.json`
+- Search machine index: `data/project-index.json`
+- Capsules: `projects/<slug>/PROJECT.md`
+- Human summary: `projects.md`
 
-Поиск текущего активного проекта начинается с `projects/index.md` или `projects/portfolio-registry.json`, затем открывается capsule выбранного проекта. `projects.md`, `projects.json` и `data/project-index.json` используются для исторической непрерывности и помечены `needs_revision`, пока не пройдут полевую сверку.
+Текущий production overlay содержит 10 active identities; расширенный каталог содержит 21 meaningful memory record; GitHub owner inventory содержит 30 repositories. `books` добавлен как `ACTIVE_DEVELOPMENT_PREPRODUCTION` и не считается production identity до подтверждения одной canonical branch/provider/live mapping.
 
-## 2. Память конкретного проекта
+## Управляющий контур
 
-Предпочтительная структура:
+- `governance/INDEX.md` — durable governance map.
+- `governance/CURRENT.md` — current confirmed system state.
+- `governance/GOALS.md` — outcomes, owners and success conditions.
+- `governance/AUTOMATIONS.md` — scheduler-backed roles and registry conflicts.
+- `governance/EFFICIENCY.md` — immutable scorecards and current synthesis.
+- `governance/WEEKLY-LEARNINGS.md` — aggregated errors and lessons.
+- `governance/durable-root-cause-candidate-2026-09-05.json` — current machine candidate.
 
-- `PROJECT.md` — назначение, canonical repo/live, статус и durable boundaries.
-- `CODEX_BRIEF.md` — короткая навигация для Codex.
-- `STATE.md` — только текущее подтверждённое состояние.
-- `SYSTEM_MAP.md` — архитектура и связи.
-- `CHECKS.md` — точные проверки.
-- `RISKS.md` — production, auth, data и operational risks.
-- `DECISIONS.md` — устойчивые решения и причины.
-- `LOG.md` — датированная история, не текущая истина.
+`brain-management` is the operational control plane. `ai-projects-brain` is the durable source of truth.
 
-Не каждый файл обязателен. Отсутствующие ключевые capsules фиксируются как `needs verification`, а не заполняются догадками.
+## Read order
 
-## 3. Управляющий контур
+1. `systems/management-control-plane-contract.md`.
+2. `projects/index.md` or `projects/portfolio-registry.json`.
+3. Project capsule.
+4. Current operational evidence when the task needs live state.
+5. Governance memory for ownership, goals and lessons.
 
-- `governance/INDEX.md` — карта durable governance.
-- `governance/CURRENT.md` — текущее состояние системы.
-- `governance/GOALS.md` — цели, владельцы и next actions.
-- `governance/AUTOMATIONS.md` — роли, ownership и overlap checks.
-- `governance/EFFICIENCY.md` — недельные и текущие efficiency signals.
-- `governance/WEEKLY-LEARNINGS.md` — агрегированные ошибки и уроки.
+Capability routing: `systems/active-skill-map.md`; screenshot/screen-recording reconstruction routes to `/copy-ui`, while bounded verification/minimal repair remains `/audit-ui`.
 
-`brain-management` остаётся operational control plane; `ai-projects-brain` остаётся durable source of truth.
+## Freshness and identity rules
 
-## 4. Общие правила
-
-- `START-HERE-FOR-AGENTS.md`
-- `systems/management-control-plane-contract.md`
-- `systems/agent-rules.md`
-- `systems/codex-project-workflow.md`
-- `systems/codex-token-efficiency.md`
-- `systems/codex-efficiency-telemetry.md`
-- `systems/weekly-brain-refresh.md`
-
-## 5. Быстрый поиск
-
-1. Название, alias, URL или repo — `projects/index.md` / `projects/portfolio-registry.json`.
-2. Durable current project state — `projects/<slug>/PROJECT.md` и `STATE.md`.
-3. Архитектура — `SYSTEM_MAP.md`.
-4. Проверки — `CHECKS.md`.
-5. Решения — `DECISIONS.md`.
-6. История — `LOG.md` только при необходимости.
-7. Общесистемная эффективность, ownership и уроки — `governance/`.
-
-## 6. Freshness contract
-
-Weekly Brain Refresh должен:
-
-- сверять current active overlay с доступными GitHub/live evidence;
-- исправлять canonical repo/live/status и aliases;
-- добавлять подтверждённые активные проекты или помечать `needs verification`;
-- устранять дубли идентичности и stale sync state;
-- агрегировать недельные уроки, не копируя daily receipts;
-- обновлять compact human/machine routing;
-- сохранять legacy inventories до безопасной полевой сверки;
-- фиксировать непроверенные источники.
-
-Полнота не достигается ценой выдуманных данных. Более свежая verified live/GitHub evidence и project capsule имеют приоритет над stale legacy index.
+- Verified live behavior/source timestamps override older labels.
+- A historical unreachable repo becomes `NEEDS_VERIFICATION`, not inferred deleted.
+- An operational assignment requires enabled scheduler evidence.
+- Immediate recovery and delayed terminal closure are different states.
+- A zero-effect pilot is `EVALUATED_NO_EFFECT`, not `DONE`.
+- A delivery-metric assignment requires an immutable denominator item and causal eligibility.
+- Enabled finite schedules with no remaining occurrence are not runnable capacity.
+- Operational actor output without a matching enabled scheduler is attribution drift, not scheduler capacity.
+- Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.
