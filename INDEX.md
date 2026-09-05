@@ -2,7 +2,7 @@
 
 > Главная точка входа для человека и ИИ. Индексы маршрутизируют к каноническим durable-источникам и не копируют оперативные receipts.
 
-Last reconciled: `2026-08-29`
+Last reconciled: `2026-09-05`
 
 ## Найти проект
 
@@ -13,7 +13,7 @@ Last reconciled: `2026-08-29`
 - Capsules: `projects/<slug>/PROJECT.md`
 - Human summary: `projects.md`
 
-Текущий overlay содержит 10 active identities; GitHub owner inventory содержит 30 repositories. Backup/bootstrap/diagnostic repositories не становятся продуктами автоматически.
+Текущий production overlay содержит 10 active identities; расширенный каталог содержит 21 meaningful memory record; GitHub owner inventory содержит 30 repositories. `books` добавлен как `ACTIVE_DEVELOPMENT_PREPRODUCTION` и не считается production identity до подтверждения одной canonical branch/provider/live mapping.
 
 ## Управляющий контур
 
@@ -23,7 +23,7 @@ Last reconciled: `2026-08-29`
 - `governance/AUTOMATIONS.md` — scheduler-backed roles and registry conflicts.
 - `governance/EFFICIENCY.md` — immutable scorecards and current synthesis.
 - `governance/WEEKLY-LEARNINGS.md` — aggregated errors and lessons.
-- `governance/durable-root-cause-candidate-2026-08-29.json` — current machine candidate.
+- `governance/durable-root-cause-candidate-2026-09-05.json` — current machine candidate.
 
 `brain-management` is the operational control plane. `ai-projects-brain` is the durable source of truth.
 
@@ -46,4 +46,5 @@ Capability routing: `systems/active-skill-map.md`; screenshot/screen-recording r
 - A zero-effect pilot is `EVALUATED_NO_EFFECT`, not `DONE`.
 - A delivery-metric assignment requires an immutable denominator item and causal eligibility.
 - Enabled finite schedules with no remaining occurrence are not runnable capacity.
+- Operational actor output without a matching enabled scheduler is attribution drift, not scheduler capacity.
 - Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.

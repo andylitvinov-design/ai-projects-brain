@@ -13,67 +13,77 @@ Operational control plane for current metrics, immutable receipts, assignments, 
 
 Legacy Netlify/Cloudflare aliases, deployment URLs and probe projects are noncanonical.
 
-## Current durable state — 2026-08-29
+## Current durable state — 2026-09-05
 
-State: `CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN`.
+State: `CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN`.
 
-Canonical re-read at 2026-08-29 12:46–12:51 UTC:
+Canonical re-read at 2026-09-05 12:53 UTC:
 
-- required APIs and `/sw.js` returned HTTP 200;
-- shared source timestamp: `2026-08-29T00:02:13.657Z` (12.8h old, under the 18h terminal limit but in warning range);
-- 24 metrics, ten projects and ten Trends implementation tasks are present;
-- `/api/control-plane-health` reports `DEGRADED`: 15 checks pass, immutable history fails at `1/7`, and one warning is present;
-- latest Vercel production deployments are READY and 24h grouped runtime errors are zero;
-- `/api/data.publication` still says `IMPLEMENTED_AWAITING_PRODUCTION`, has no latest verified deployment id and references source SHA `1d7154d...`, so current publication attribution is incomplete;
-- service worker cache is `brain-management-v60`.
+- 7/7 required APIs and `/sw.js` returned HTTP 200;
+- shared operational source is `2026-09-05T11:35:50.912Z`, 1.3h old at check;
+- 24 metrics, ten operational projects and ten Trends implementation tasks are present;
+- control-plane health is `DEGRADED`: 17 passed, 1 failed, 0 errors and 1 warning; only `immutable_history_7d` fails at 1/7;
+- `/mobile-release-manifest.json` returns 200 with 299 files, cache `brain-management-v60` and source SHA `d82b87e869c293fc331cd0797cd8806bd1bd56f7`;
+- latest production deployment is READY; the seven-day runtime-error query is zero;
+- `/api/data.publication` remains stale internally: source SHA `1d7154d...`, state `IMPLEMENTED_AWAITING_PRODUCTION`, no latest verified deployment id, despite the newer live manifest.
+
+## Continuity and publication gaps
+
+- At 10:47 UTC on Sep 5, the prior source was 23.0h old and 4/7 APIs failed closed. Freshness was restored later, so current behavior is healthy but cadence is not proven.
+- Only Aug 30 exists in the current immutable window; Aug 31–Sep 5 are missing.
+- Weekly API serves Aug 17–23 while the Aug 24–30 durable review is already merged in AI Projects Brain PR #207.
+- The complete Mobile Release Bundle gate remains red across obsolete assertions, fixtures, dependencies and source-owned checks. PR #501 was closed when the failure set exceeded one bounded owner.
+- Five latest closure receipts contain no canonical `LIVE_VERIFIED`: one `DEPLOYMENT_PENDING` and four `NO_SAFE_UPGRADE`.
+
+## Trends and effect state
+
+- Aug 31–Sep 5 has 13 Trend terminal receipts: five bound to `live_completion_rate`, three to `user_pain_recurrence_rate`, three to `rework_rate` and two to `context_retry_cost`.
+- All 13 have raw before equal to raw after and zero metric credit.
+- All 13 still use noncanonical top-level `LIVE_VERIFIED_NO_EFFECT_EXPLAINED` even though queue state correctly uses `EVALUATED_NO_EFFECT`.
+- Current queue has 7 `EVALUATED_NO_EFFECT` and 3 READY.
+- Current assignment is CordisBench task `trend-task-arxiv-org-abs-2609-01600v1`, bound to `context_retry_cost` `2/3 completed → 3/4 completed`. It must not execute until immutable event eligibility is proven.
+
+## Automation and ownership state
+
+- Scheduler truth is 10 effective recurring tasks, one exhausted enabled task and three operational names without an enabled scheduler.
+- Daily Dashboard Update has no enabled scheduler although it is the exclusive routine publisher.
+- Agent-productivity reports Sep 3–5 activity as Brain Regression Guard even though no enabled scheduler has that title. This is actor/scheduler attribution drift.
+- Morning System Upgrade produced all 13 Trend terminal receipts and deployments, continuing to overlap PR Delivery and independent closure.
+- Current release lock is single-owner on task `...01600v1`, but its `acquired_at` remains Sep 1 while assignments rotated; lock rebinding freshness needs verification.
 
 ## Metrics and evidence gaps
 
-- Product Delivery, Task Success and Live Completion remain `1/4` (25).
+- Product Delivery, Task Success and Live Completion remain `1/4`.
+- Deployment Frequency remains `1/3`; Rework remains `1/3 completed`; Context Retry Cost remains `2/3 completed` (score 33.3).
 - Provider readiness remains `0/4`; public business evidence remains `4/6`.
-- Current immutable history is `1/7`: only Aug 23 exists for the Aug 23–29 window.
-- Canonical weekly review API serves week ending Aug 16, while repository evidence contains week ending Aug 23.
-- `memory_sync_status` lists PRs #193/#195/#196/#199 but omits open durable PR #203 and merged `/copy-ui` PR #204.
-
-## Trends and assignment state
-
-- Persistent task `...3763` is now correctly `EVALUATED_NO_EFFECT`; actual effect was `live_completion_rate 1/4 → 1/4`, score `25 → 25`.
-- The queue contains nine READY tasks and selects Model Hardware Standard task `...3766` next.
-- Operational release ownership and some assignment records still reference terminal task 3763. This is `QUEUE_ROTATED_LOCK_DRIFT`.
-- Five prior pilots plus Persistent have produced no same-metric gain. Before the next assignment, ranking must prove the task can enter an immutable delivery numerator.
-
-## Automation/ownership state
-
-- Morning System Upgrade is enabled and assigned task 3766, but must not inherit task 3763's release lock.
-- Evening Delivery Closure owns independent verification.
-- Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch are operational actors without enabled schedulers.
-- `Finish Trends Rotation` is enabled but exhausted its finite schedule and is not current capacity.
+- `memory_sync_status` still reports last durable success `d4519ad...` on Aug 23 and pending PRs #193/#195/#196/#203.
+- Sep 5 PR inventory is 49 open, 0 ready, 34 stale and 28 nonmergeable.
 
 ## Release guardrails
 
 - One repo, one `main`, one canonical Vercel project and one canonical origin.
-- Persist one coherent source before build; reject tracked post-checkout source mutation.
-- Verify status, content type, body, schema/counts, source timestamp, parity, service worker, rendered routes and runtime health.
+- Persist one coherent source before build; reject tracked post-checkout mutation.
+- Verify status, content type, body, schema/counts, source timestamp, parity, service worker, release manifest, rendered routes and runtime health.
 - Publish the newest weekly review and append prospective immutable history; never backfill missing dates.
-- Release locks are task/chain-specific and close at terminal transition.
-- Metric binding requires an immutable denominator item and causal eligibility.
-- Zero-effect work receives no implementation/product/LIVE metric credit.
-- Preserve six routes, four Overview aggregates, ten projects, ten Trends and 24 metrics unless owner-approved.
+- Release locks are task-specific and must rebind or close on every terminal queue transition.
+- The full release gate must rerun in entirety; tail-truncated or partial evidence is not green.
+- Metric binding requires a pre-existing immutable denominator item plus causal eligibility.
+- Zero-effect work receives no metric, product or canonical LIVE credit.
 
 ## Current chains and blockers
 
-1. `operational-source-freshness-refresh-20260818` — current behavior readable; routine publisher ownership and attributable delayed proof remain open.
-2. `trend-implementation-trend-task-t-me-vibecoding-tg-3766` — next READY assignment; causal delivery-metric eligibility unproven.
-3. task 3763 release lock — stale after terminal `EVALUATED_NO_EFFECT` transition.
-4. `provider-live-readiness-ezohata-finance` — `BLOCKED_BY_OWNER`, `0/4`.
-5. Immutable history — `1/7`; weekly review API one scorecard behind.
+1. `operational-source-freshness-refresh-20260818` — immediate live recovered; <=12h routine publisher cadence and attribution remain open.
+2. `trend-implementation-trend-task-arxiv-org-abs-2609-01600v1` — READY but causal immutable-event eligibility must be proven.
+3. Complete release gate — red multi-owner migration.
+4. Immutable history — 1/7; weekly review one cycle stale.
+5. `provider-live-readiness-ezohata-finance` — `BLOCKED_BY_OWNER`, 0/4.
 6. Psihotavr identity — unresolved.
 
 ## Next durable actions
 
-1. Require denominator eligibility before consuming task 3766 or bind it to a compatible direct metric.
-2. Restore one publisher-owned attributable cycle, clear the stale task-3763 lock and obtain independent delayed closure.
-3. Publish current weekly review evidence and accumulate seven prospective immutable days.
+1. Enforce the causal denominator gate before consuming task `...01600v1` or any successor.
+2. Restore one scheduler-backed routine publisher; prove two <=12h cycles, exact manifest/deploy attribution and delayed independent closure.
+3. Partition the full release-gate failures by owner, restore green validation, publish Aug 24–30 and accumulate seven real snapshots.
 
 ## Environment variable names
 

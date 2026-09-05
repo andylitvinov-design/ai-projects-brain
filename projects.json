@@ -1,19 +1,21 @@
 {
   "schema_version": "2026-04-29-project-memory-v1",
-  "last_inventory_update": "2026-08-29",
+  "last_inventory_update": "2026-09-05",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN",
+    "brain_management_current_state": "CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
     "note": "Extended project-memory schema preserved for validator compatibility; current routing authority is the active overlay and project capsules.",
-    "run_date": "2026-08-29",
+    "run_date": "2026-09-05",
     "active_project_count": 10,
-    "brain_management_source_generated_at": "2026-08-29T00:02:13.657Z",
-    "brain_management_source_age_hours_at_check": 12.8,
+    "meaningful_memory_project_count": 21,
+    "brain_management_source_generated_at": "2026-09-05T11:35:50.912Z",
+    "brain_management_source_age_hours_at_check": 1.3,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "required APIs HTTP 200; health DEGRADED at immutable history 1/7; weekly review one scorecard stale; publication attribution open",
-    "trend_effect_state": "1 EVALUATED_NO_EFFECT, 9 READY; next assignment lacks causal denominator eligibility"
+    "brain_management_api_surfaces": "7/7 required APIs and sw.js HTTP 200; health DEGRADED at immutable history 1/7; weekly review stale at Aug 17-23; publication attribution and complete release gate open",
+    "trend_effect_state": "current queue 7 EVALUATED_NO_EFFECT, 3 READY; 13 Aug 31-Sep 5 terminal pilots produced zero assigned-metric gain",
+    "books_state": "ACTIVE_DEVELOPMENT_PREPRODUCTION_OUTSIDE_PRODUCTION_OVERLAY"
   },
   "memory_files": [
     "projects.md",
@@ -340,7 +342,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "current_status": "CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN as of 2026-08-29. Required APIs and sw.js return 200 from a 12.8h source and current runtime errors are zero, but immutable history is 1/7, the weekly review API is one scorecard behind, publication attribution lacks a verified deployment id, and the release lock still references terminal task 3763 after assignment rotated to 3766.",
+      "current_status": "CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN as of 2026-09-05. Seven required APIs, sw.js and the 299-file release manifest return 200 from source 2026-09-05T11:35:50.912Z; 7-day runtime errors are zero. Control health is DEGRADED 17/18 because immutable history remains 1/7. The weekly API still serves Aug 17-23, internal publication attribution carries old source SHA 1d7154d... with no verified deployment id while the live manifest identifies d82b87e..., and the complete release gate remains red.",
       "important_files": [
         "data-current.json",
         "api/data.js",
@@ -1006,6 +1008,57 @@
       }
     },
     {
+      "slug": "books",
+      "name": "books",
+      "purpose": "Bilingual public book and knowledge library with long-form routes and a source-backed Homeopathy remedy catalog.",
+      "live_url": "needs verification",
+      "repo_url": "https://github.com/andylitvinov-design/books",
+      "hosting": "Two connected preview-only Vercel projects; canonical project needs verification",
+      "current_status": "ACTIVE_DEVELOPMENT_PREPRODUCTION as of 2026-09-05. Observed default branch codex/bootstrap-books. PR #4 is a 444-file stacked/conflicted integration against codex/public-book-library with no hosted checks or reviews. Vercel projects books and codex-public-book-library both report live=false and target=null; one canonical production target must be selected.",
+      "important_files": [
+        "projects/books/PROJECT.md",
+        "projects/books/CODEX_BRIEF.md"
+      ],
+      "env_variables": [
+        "needs verification"
+      ],
+      "known_issues": [
+        "Canonical production branch needs verification.",
+        "Duplicate Vercel project identity needs one canonical selection.",
+        "Large stacked PR needs conflict, hosted-check, provenance and medical-safety review before production."
+      ],
+      "recent_tasks": [
+        "PR #4 proposes the bilingual Homeopathy library and source/provenance assets."
+      ],
+      "next_actions": [
+        "Select one canonical production branch and Vercel project.",
+        "Resolve the stacked PR dependency without discarding the parent branch.",
+        "Require hosted checks and exact-source production verification."
+      ],
+      "risks": [
+        "READY preview or domain alias mistaken for production.",
+        "Medical/homeopathy content published without provenance and safety review.",
+        "Duplicate provider projects drift into separate identities."
+      ],
+      "rules_for_codex": [
+        "Do not promote Books into the production overlay until branch/provider/live mapping is proven.",
+        "Do not retarget or flatten the stacked PR without preserving its dependency.",
+        "Treat the two Vercel projects as duplicate aliases of one product identity."
+      ],
+      "memory": {
+        "state_file": "needs verification",
+        "log_file": "needs verification",
+        "project_md": "projects/books/PROJECT.md",
+        "system_map": "projects/books/SYSTEM_MAP.md",
+        "data_schema": "projects/books/DATA_SCHEMA.md",
+        "code_access": "projects/books/CODE_ACCESS.md",
+        "data_samples": "projects/books/DATA_SAMPLES.md",
+        "debug_log": "projects/books/DEBUG_LOG.md",
+        "risks": "projects/books/RISKS.md",
+        "codex_brief": "projects/books/CODEX_BRIEF.md"
+      }
+    },
+    {
       "slug": "shamanic-academy-youtube",
       "name": "shamanic-academy-youtube",
       "purpose": "Public knowledge base for videos, meditations, shorts, practices, and course-like material from YouTube channel Академия Древних Культур (@shamanic_academy).",
@@ -1062,5 +1115,5 @@
       }
     }
   ],
-  "generated_at": "2026-08-29T12:51:00Z"
+  "generated_at": "2026-09-05T12:58:50Z"
 }

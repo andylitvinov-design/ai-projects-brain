@@ -2,7 +2,7 @@
 
 > Durable memory about management quality, ownership, errors, lessons and efficiency. Operational daily data remains in Brain Management.
 
-Last reconciled: `2026-08-29`
+Last reconciled: `2026-09-05`
 
 ## Canonical files
 
@@ -12,7 +12,8 @@ Last reconciled: `2026-08-29`
 - `RULES.md` — durable rules and lifecycle evidence.
 - `EFFICIENCY.md` — immutable scorecards plus clearly labelled current evidence.
 - `WEEKLY-LEARNINGS.md` — compact weekly failures, causes, fixes and reusable lessons.
-- `durable-root-cause-candidate-2026-08-29.json` — current machine candidate for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-09-05.json` — current continuation candidate for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-08-29.json` — prior causal-binding candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-08-22.json` — prior candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-08-15.json` — prior candidate retained as historical evidence.
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "last_updated": "2026-08-29T12:51:00Z",
+  "last_updated": "2026-09-05T12:58:50Z",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current active-project identity and routing. Verified live/GitHub/provider evidence overrides stale labels; inaccessible historical mappings are downgraded to NEEDS_VERIFICATION rather than guessed.",
   "source_priority": [
@@ -136,18 +136,18 @@
       "repo": "andylitvinov-design/brain-management",
       "live_url": "https://brain-management.vercel.app",
       "provider_project": "prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d",
-      "status": "CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN",
-      "repo_reachability": "CONFIRMED_2026-08-29",
+      "status": "CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN",
+      "repo_reachability": "CONFIRMED_2026-09-05",
       "evidence_refs": [
         "projects/brain-management/PROJECT.md",
-        "https://github.com/andylitvinov-design/brain-management/pull/466",
         "brain-management/history/weekly-delivery/2026-08-23.json",
-        "canonical live re-read 2026-08-29T12:51Z"
+        "brain-management/history/closures/2026-09-04-evening-delivery-closure.json",
+        "canonical live re-read 2026-09-05T12:53Z"
       ],
       "freshness": {
-        "checked_at": "2026-08-29T12:51:00Z",
-        "source_generated_at": "2026-08-29T00:02:13.657Z",
-        "age_hours": 12.8,
+        "checked_at": "2026-09-05T12:53:10Z",
+        "source_generated_at": "2026-09-05T11:35:50.912Z",
+        "age_hours": 1.3,
         "max_age_hours": 18,
         "api_statuses": {
           "/api/data": 200,
@@ -160,13 +160,17 @@
         },
         "service_worker_http": 200,
         "source_parity": true,
-        "control_plane_health": "DEGRADED_15_PASS_1_FAIL_1_WARNING",
+        "control_plane_health": "DEGRADED_17_PASS_1_FAIL_1_WARNING",
         "immutable_history": "1/7",
-        "weekly_review_state": "STALE_ONE_SCORECARD",
+        "weekly_review_state": "STALE_AT_2026-08-23_WHILE_2026-08-30_DURABLE_REVIEW_EXISTS",
         "publication_attribution": "OPEN",
-        "marker": "CURRENT_WARNING_CONTINUITY_DEGRADED"
+        "complete_release_gate": "RED_LEGACY_ASSERTIONS_AND_MULTI_OWNER_FAILURE_SET",
+        "release_manifest_http": 200,
+        "release_manifest_source_sha": "d82b87e869c293fc331cd0797cd8806bd1bd56f7",
+        "runtime_errors_7d": 0,
+        "marker": "CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN"
       },
-      "blocker": "APIs are readable, but immutable history is 1/7, the weekly review API is one scorecard behind, publication attribution lacks a verified deployment id, and the release lock still references terminal task 3763 after assignment rotated to 3766.",
+      "blocker": "Fresh live behavior is readable, but immutable history remains 1/7, the weekly API still serves Aug 17-23, /api/data attribution still carries old source SHA 1d7154d... and no verified deployment id while the live release manifest identifies d82b87e..., and the complete release gate remains red.",
       "legacy_live_aliases": [
         "https://brain-management.netlify.app",
         "https://brain-management.pages.dev"
@@ -235,12 +239,24 @@
   ],
   "repository_inventory": {
     "status": "CONFIRMED_CURRENT_OWNER_ENUMERATION",
-    "checked_at": "2026-08-29",
+    "checked_at": "2026-09-05",
     "accessible_repository_count": 30,
     "active_project_repositories_confirmed": 9,
     "unresolved_active_identity_count": 1,
     "unresolved_active_identity": "psihotavr",
     "source": "GitHub owner affiliation enumeration"
+  },
+  "development_inventory": {
+    "meaningful_memory_project_count": 21,
+    "new_project": "books",
+    "books_state": "ACTIVE_DEVELOPMENT_PREPRODUCTION",
+    "books_repo": "andylitvinov-design/books",
+    "books_provider_projects": [
+      "prj_f3P1jqfNPAv9lDizUn5ZYiEgjLis",
+      "prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b"
+    ],
+    "books_provider_identity": "DUPLICATE_PREVIEW_PROJECTS_NEED_CANONICAL_SELECTION",
+    "rule": "Meaningful pre-production projects are cataloged without entering the production overlay until one canonical branch/provider/live mapping is proven."
   },
   "provider_inventory": {
     "vercel_team": "super10",
@@ -260,14 +276,15 @@
     ]
   },
   "reconciliation": {
-    "run_date": "2026-08-29",
+    "run_date": "2026-09-05",
     "active_project_count": 10,
     "accessible_repository_count": 30,
     "brain_management_current_state_corrected": true,
     "psihotavr_identity_downgraded": true,
     "duplicate_identity_rule": "andylitvinov-design/finance remains canonical for legacy-finance; andylitvinov-design/ezohata-incoming-ledger is reference/deprecated alias",
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "catalog_mapping_changes": 0
+    "catalog_mapping_changes": 1,
+    "catalog_mapping_change": "books added to extended catalog; production overlay unchanged"
   },
-  "generated_at": "2026-08-29T12:51:00Z"
+  "generated_at": "2026-09-05T12:58:50Z"
 }

@@ -1,19 +1,21 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-08-29T12:51:00Z",
+  "generated_at": "2026-09-05T13:01:13.208Z",
   "source": "projects.json",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN",
+    "brain_management_current_state": "CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
-    "run_date": "2026-08-29",
+    "run_date": "2026-09-05",
     "active_project_count": 10,
-    "brain_management_source_generated_at": "2026-08-29T00:02:13.657Z",
-    "brain_management_source_age_hours_at_check": 12.8,
+    "meaningful_memory_project_count": 21,
+    "brain_management_source_generated_at": "2026-09-05T11:35:50.912Z",
+    "brain_management_source_age_hours_at_check": 1.3,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "required APIs HTTP 200; health DEGRADED at immutable history 1/7; weekly review one scorecard stale; publication attribution open",
-    "trend_effect_state": "1 EVALUATED_NO_EFFECT, 9 READY; next assignment lacks causal denominator eligibility"
+    "brain_management_api_surfaces": "7/7 required APIs and sw.js HTTP 200; health DEGRADED at immutable history 1/7; weekly review stale at Aug 17-23; publication attribution and complete release gate open",
+    "trend_effect_state": "current queue 7 EVALUATED_NO_EFFECT, 3 READY; 13 Aug 31-Sep 5 terminal pilots produced zero assigned-metric gain",
+    "books_state": "ACTIVE_DEVELOPMENT_PREPRODUCTION_OUTSIDE_PRODUCTION_OVERLAY"
   },
   "projects": [
     {
@@ -79,7 +81,7 @@
       "live_url": "https://psihotavr.vercel.app",
       "repo_url": "needs verification",
       "hosting": "needs verification; historical Vercel mapping not currently proven",
-      "status_summary": "IDENTITY_UNRESOLVED as of 2026-08-08. Historical repo andylitvinov-design/psihotavr returned 404, was absent from the current 30-repository owner enumeration, and no matching connected Vercel team project was proven. Re-prove canonical source before code/KPI work.",
+      "status_summary": "IDENTITY_UNRESOLVED as of 2026-08-08. Historical repo andylitvinov-design/psihotavr returned 404, was absent from the current 30-repository owner enumeration, and no matching connected Vercel team project was proven. Do not infer deletion, rename, transfer or retirement; re-prove canonical source before code/KPI work.",
       "memory_files": {
         "project_md": "projects/psihotavr/PROJECT.md",
         "system_map": "projects/psihotavr/SYSTEM_MAP.md",
@@ -106,8 +108,8 @@
       "purpose": "Psitherapy public site and funnel for psychological analysis, psychotherapy, homeopathy-oriented content, and consultation offers.",
       "live_url": "https://psitherapy.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/report",
-      "hosting": "Vercel project psitherapy; deploy-source/auth cutover still needs verification",
-      "status_summary": "Current owner repository enumeration confirms andylitvinov-design/report and connected Vercel inventory confirms a psitherapy project. Exact deploy-source/auth cutover proof remains incomplete.",
+      "hosting": "Vercel project psitherapy; current repo/provider source cutover still needs verification",
+      "status_summary": "Active live identity. Current GitHub owner enumeration confirms repository andylitvinov-design/report and connected Vercel inventory confirms a psitherapy project; deployment-source/auth cutover proof remains incomplete.",
       "memory_files": {
         "project_md": "projects/psitherapy/PROJECT.md",
         "system_map": "projects/psitherapy/SYSTEM_MAP.md",
@@ -159,11 +161,11 @@
     {
       "name": "brain-management",
       "slug": "brain-management",
-      "purpose": "Operational management control plane for current metrics, immutable receipts, assignments, chains, collectors, Trends and PWA publication.",
+      "purpose": "Operational management control plane for current metrics, immutable operational receipts, assignments, chains, collectors, Trends and PWA publication.",
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "status_summary": "CURRENT_DEGRADED_CONTINUITY_AND_ATTRIBUTION_OPEN as of 2026-08-29. Required APIs and sw.js return 200 from a 12.8h source and runtime errors are zero, but immutable history is 1/7, the weekly review API is one scorecard behind, publication attribution lacks a verified deployment id, and the release lock still references terminal task 3763 after assignment rotated to 3766.",
+      "status_summary": "CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN as of 2026-09-05. Seven required APIs, sw.js and the 299-file release manifest return 200 from source 2026-09-05T11:35:50.912Z; 7-day runtime errors are zero. Control health is DEGRADED 17/18 because immutable history remains 1/7. The weekly API still serves Aug 17-23, internal publication attribution carries old source SHA 1d7154d... with no verified deployment id while the live manifest identifies d82b87e..., and the complete release gate remains red.",
       "memory_files": {
         "project_md": "projects/brain-management/PROJECT.md",
         "system_map": "projects/brain-management/SYSTEM_MAP.md",
@@ -181,7 +183,7 @@
         "repo_mapping": "listed",
         "live_mapping": "listed",
         "env_status": "names listed",
-        "deploy_status": "current behavior readable; source/deployment attribution and delayed closure open"
+        "deploy_status": "current behavior readable; attribution, history, weekly publication and complete gate open"
       }
     },
     {
@@ -549,6 +551,34 @@
       }
     },
     {
+      "name": "books",
+      "slug": "books",
+      "purpose": "Bilingual public book and knowledge library with long-form routes and a source-backed Homeopathy remedy catalog.",
+      "live_url": "needs verification",
+      "repo_url": "https://github.com/andylitvinov-design/books",
+      "hosting": "Two connected preview-only Vercel projects; canonical project needs verification",
+      "status_summary": "ACTIVE_DEVELOPMENT_PREPRODUCTION as of 2026-09-05. Observed default branch codex/bootstrap-books. PR #4 is a 444-file stacked/conflicted integration against codex/public-book-library with no hosted checks or reviews. Vercel projects books and codex-public-book-library both report live=false and target=null; one canonical production target must be selected.",
+      "memory_files": {
+        "project_md": "projects/books/PROJECT.md",
+        "system_map": "projects/books/SYSTEM_MAP.md",
+        "data_schema": "projects/books/DATA_SCHEMA.md",
+        "code_access": "projects/books/CODE_ACCESS.md",
+        "data_samples": "projects/books/DATA_SAMPLES.md",
+        "debug_log": "projects/books/DEBUG_LOG.md",
+        "risks": "projects/books/RISKS.md",
+        "codex_brief": "projects/books/CODEX_BRIEF.md",
+        "state_file": "needs verification",
+        "log_file": "needs verification"
+      },
+      "verification_flags": {
+        "has_needs_verification": true,
+        "repo_mapping": "listed",
+        "live_mapping": "needs verification",
+        "env_status": "needs verification",
+        "deploy_status": "needs verification"
+      }
+    },
+    {
       "name": "shamanic-academy-youtube",
       "slug": "shamanic-academy-youtube",
       "purpose": "Public knowledge base for videos, meditations, shorts, practices, and course-like material from YouTube channel Академия Древних Культур (@shamanic_academy).",
@@ -577,5 +607,5 @@
       }
     }
   ],
-  "last_inventory_update": "2026-08-29"
+  "last_inventory_update": "2026-09-05"
 }

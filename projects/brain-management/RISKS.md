@@ -12,6 +12,14 @@
   verification.
 - Data contracts need verification before schema changes.
 
+- A health endpoint must not validate an empty fallback as if it were a real
+  canonical snapshot when its upstream data dependency fails closed. On
+  `2026-09-03`, `/api/data` returned HTTP 503 for a 22.4h source while
+  `/api/control-plane-health` returned HTTP 200 and reported schema, metric,
+  project and priority failures against zero input. Health publication must
+  identify the upstream dependency failure explicitly, preserve the last
+  source-backed health evidence separately, and never reinterpret missing
+  input as source corruption or a fresh control-plane result.
 ## Freshness Cadence Risks
 
 - A terminal freshness limit shorter than the effective publication interval
@@ -51,6 +59,13 @@
   avoid duplicate recovery PRs, and hand the existing PR to PR Delivery
   Sweep until required checks can run or a repository-policy-approved
   deterministic replacement is available.
+- A red full release gate with failures spanning source/schema drift, retired
+  workflow fixtures, missing test dependencies, stale snapshots, and obsolete
+  assertions is a multi-owner migration, not one bounded repair. Read the
+  complete uploaded failure artifact before editing, separate source-owned
+  fixes from harness/dependency fixes, and stop automatic merge when the
+  candidate patch expands beyond one focused owner or cannot rerun the whole
+  gate. A tail-truncated failure list is not deterministic validation.
 
 ## Security Risks
 
