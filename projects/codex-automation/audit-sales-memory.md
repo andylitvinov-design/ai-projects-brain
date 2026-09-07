@@ -1,3 +1,18 @@
+# Audit Sales Memory
+
+Persistent longitudinal memory for the weekly /audit-sales portfolio review and the Sales Audit Intelligence framework update.
+
+## Rules
+
+- Read before every portfolio sales audit and every Sales Audit Intelligence upgrade.
+- Compare each site with the previous saved state.
+- Label major findings NEW, CHANGED, UNCHANGED, RESOLVED, or SUPERSEDED.
+- Store heuristic scores only as audit history, never as proof of revenue or conversion change.
+- Never store secret values, provider payloads, private analytics, personal data, customer messages, or financial records.
+- Preserve verified strengths and resolved findings instead of deleting history silently.
+- Keep one compact current portfolio table and a short dated history.
+- /audit-sales is canonical. /audit-sale is only a deprecated compatibility alias and never owns a separate scorecard, memory, validator, regression, or automation.
+
 ## Current portfolio snapshot
 
 Snapshot date: 2026-09-07.
