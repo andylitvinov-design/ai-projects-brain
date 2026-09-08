@@ -47,6 +47,20 @@
   evidence that every claimed cadence cycle publishes one coherent canonical
   operational source—not merely that a worker ran or deployed unrelated code.
 
+## Operational Handoff Continuity Risks
+
+- A missing dated management handoff is `PIPELINE_INCOMPLETE`, not evidence
+  that the stage found no work or reached a terminal state. The scheduled
+  Morning Task Sweep has no canonical handoff for `2026-09-06` or
+  `2026-09-07`; the last valid artifact before recovery is
+  `history/handoffs/2026-09-05-morning-task-sweep.json`.
+- Recovery must preserve chain IDs and owners from the last valid handoff,
+  reconcile every intervening PR Delivery, strategic-priority, Evening
+  Closure, terminal-receipt, and live-source artifact, then write one current
+  handoff that explicitly records the continuity gap. Do not fabricate missed
+  receipts, reset carryover ownership, or create date-specific duplicate
+  chains.
+
 ## Deploy Risks
 
 - Cloudflare Pages
