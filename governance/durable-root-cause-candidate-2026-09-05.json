@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "candidate_id": "trend-metric-binding-causality-gap-20260829",
+  "continuation_record_date": "2026-09-05",
+  "continuation_of": "governance/durable-root-cause-candidate-2026-08-29.json",
+  "generated_at": "2026-09-05T12:58:50Z",
+  "run_date": "2026-09-05",
+  "status": "DURABLE_ROOT_CAUSE_CANDIDATE_REPEATED_UNRESOLVED",
+  "affected_metric": {
+    "metric_id": "live_completion_rate",
+    "raw_baseline": "1/4",
+    "score_baseline": 25,
+    "target_raw": "2/4",
+    "target_score": 50,
+    "formula_change_allowed": false
+  },
+  "root_cause": {
+    "code": "TREND_METRIC_BINDING_CAUSALITY_GATE_NOT_ENFORCED",
+    "statement": "Daily ranking continues to validate baseline, target and evidence fields without requiring a pre-existing immutable denominator item or proving that the implementation can add or reclassify that item in the selected metric numerator. Generic synthetic pilots therefore reach live behavior and predictably re-read at zero effect.",
+    "repeated": true,
+    "prior_candidate_not_enforced": true
+  },
+  "evidence": {
+    "window": "2026-08-31 through 2026-09-05",
+    "terminal_trend_receipts": 13,
+    "zero_effect_receipts": 13,
+    "verified_metric_gains": 0,
+    "metric_distribution": {
+      "live_completion_rate": 5,
+      "user_pain_recurrence_rate": 3,
+      "rework_rate": 3,
+      "context_retry_cost": 2
+    },
+    "live_completion_receipts": [
+      "brain-management/history/handoffs/2026-09-01-trend-persona-execution-separation-terminal.json",
+      "brain-management/history/handoffs/2026-09-01-trend-swe-prime-terminal.json",
+      "brain-management/history/handoffs/2026-09-02-trend-codex-chatgpt-web-admission-terminal.json",
+      "brain-management/history/handoffs/2026-09-04-trend-proactive-thought-partner-terminal.json",
+      "brain-management/history/handoffs/2026-09-05-trend-verbal-reinforcement-learning-terminal.json"
+    ],
+    "live_completion_actual_effect": {
+      "raw_before": "1/4",
+      "raw_after": "1/4",
+      "score_before": 25,
+      "score_after": 25,
+      "effect_credit": 0,
+      "common_reason": "The bounded pilot did not add or reclassify a completed item in the immutable live-completion ledger."
+    },
+    "current_queue": {
+      "generated_at": "2026-09-05T11:35:50.912Z",
+      "evaluated_no_effect": 7,
+      "ready": 3,
+      "next_task_id": "trend-task-arxiv-org-abs-2609-01600v1"
+    },
+    "current_assignment": {
+      "metric_id": "context_retry_cost",
+      "raw_baseline": "2/3 completed",
+      "target_raw": "3/4 completed",
+      "denominator_item_id": null,
+      "immutable_ledger_transition_proof": "MISSING"
+    }
+  },
+  "owner": {
+    "ranking_owner": "Daily Strategic Priorities",
+    "implementation_owner_after_valid_assignment": "Morning System Upgrade",
+    "verification_owner": "Evening Delivery Closure"
+  },
+  "smallest_safe_corrective_action": [
+    "Before assigning any Trends task to a dashboard metric, require a stable pre-existing denominator_item_id from that metric's immutable ledger.",
+    "Name the exact existing item state and the implementation action that can transition it into the numerator under the unchanged formula.",
+    "Reject synthetic capability evidence that changes only a pilot-local fixture or endpoint while leaving the canonical ledger untouched.",
+    "If no causal item exists, emit NO_COMPATIBLE_METRIC and keep the task READY without consuming an implementation/deployment slot."
+  ],
+  "expected_effect": {
+    "process": "Stop predictable zero-effect assignments and reserve implementation capacity for a ledger-eligible product or operational outcome.",
+    "raw_target": "The next accepted live-completion assignment is capable of moving the unchanged raw input from 1/4 to 2/4.",
+    "measurement": "Compare the next accepted assignment cohort with the current 0/13 gain baseline and re-read the exact immutable metric after canonical production verification.",
+    "credit_policy": "No score, completion or product credit until canonical ACTUAL_EFFECT proves the raw change.",
+    "documentation_effect": "NO_DIRECT_METRIC_EFFECT"
+  },
+  "acceptance": [
+    "assignment contains denominator_item_id from an immutable source",
+    "eligibility evidence names current item state, target transition, user-visible or operational outcome and production route",
+    "ranking rejects tasks whose only measurable effect is pilot-local",
+    "terminal receipt re-reads the same immutable metric",
+    "zero delta remains EVALUATED_NO_EFFECT and releases or rebinds the task lock",
+    "no duplicate implementation owner"
+  ]
+}

@@ -60,6 +60,10 @@
   handoff that explicitly records the continuity gap. Do not fabricate missed
   receipts, reset carryover ownership, or create date-specific duplicate
   chains.
+- Scheduler execution metadata is not canonical persistence proof. In the
+  Sep 6–12 window, Morning handoffs for Sep 6, 7 and 11 are absent from main,
+  closure receipts stop at Sep 8, and the Sep 9 closure remains in conflicted
+  PR #561. Missing artifacts must remain `PIPELINE_INCOMPLETE`.
 
 ## Deploy Risks
 
@@ -80,6 +84,21 @@
   fixes from harness/dependency fixes, and stop automatic merge when the
   candidate patch expands beyond one focused owner or cannot rerun the whole
   gate. A tail-truncated failure list is not deterministic validation.
+- A connected-Vercel production can become READY while GitHub's canonical
+  Mobile Release Bundle remains red and the API attribution envelope still
+  names an old source SHA with no deployment id. These surfaces are not
+  interchangeable: closure requires one exact head/artifact/deployment/source
+  identity across both gates.
+
+## Effect-Causality Risks
+
+- A complete Trends assignment schema is not evidence that a pilot can change
+  its selected metric. Twenty-five consecutive pilots across the Aug 31–Sep 12
+  reconciliation windows reached live behavior with zero assigned-metric gain.
+- Before implementation, require an immutable denominator-event id and the
+  exact unchanged-formula transition the change can cause. If the only effect
+  is local benchmark improvement, return `NO_COMPATIBLE_METRIC` and do not
+  create implementation, terminalization or deployment PRs.
 
 ## Security Risks
 

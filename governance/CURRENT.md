@@ -1,46 +1,65 @@
 # Current AI System State
 
-Last weekly refresh: `2026-08-01`
+Last weekly refresh: `2026-09-12`
 
 ## Operating model
 
-- `ai-projects-brain` is the durable source of truth for project catalog, project state, governance, automation ownership, lessons and indexes.
-- `brain-management` is the operational control plane for current metrics, immutable snapshots, assignments, chains, collectors and dashboard/API publication.
-- ChatGPT Automations collect and execute bounded stages. They must not create parallel registries, duplicate implementation ownership, or independent metric definitions.
+- `ai-projects-brain` remains the durable source of truth for catalog, mappings, governance, goals, automation ownership, lessons and indexes.
+- `brain-management` remains the operational control plane for current metrics, immutable receipts, assignments, chains, collectors and dashboard/API publication.
+- Weekly Brain Refresh aggregates durable evidence only; it does not calculate daily metrics, publish live data or implement product work.
 
 ## Current health
 
 | Area | Status | Evidence / next action |
 |---|---|---|
-| Brain Management operational control plane | healthy / LIVE_VERIFIED | Canonical Vercel production has real HTML, six approved routes, four Overview aggregates, 24 metrics, 5/5 JSON APIs, ten Trends, seven agent cards, six manifest shortcuts and no verified runtime-error cluster. |
-| Durable source-of-truth boundary | healthy | Runtime receipts remain in Brain Management; durable catalog and governance changes remain here. |
-| Active portfolio routing | reconciled for the ten-project overlay | `projects/portfolio-registry.json` and `projects/index.md` now agree, including the Brain Management Vercel mapping and the canonical `finance` repository for legacy finance. |
-| Complete accessible repository inventory | needs verification | Connector discovery did not provide a complete owner-wide enumeration. Do not promote unverified backup or experimental repositories into the active portfolio. |
-| Legacy human/machine indexes | partial | `projects.md`, `projects.json`, and `data/project-index.json` remain continuity sources requiring bounded field-by-field reconciliation. |
-| Automation ownership | healthy | Current daily chain has zero concurrent implementation-owner conflicts; discovery, ranking, implementation, PR hygiene, publication and closure remain separate. |
-| Weekly review freshness | due | Latest Weekly Delivery System Review and Sunday Dashboard Review cover the week ending 2026-07-26. Their next scheduled runs should supply the next full weekly denominators. |
-| Search/navigation | improved | Current aliases and canonical repo/live mappings are present in the active registry and routing index. |
+| Brain Management | `CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN` | Re-read 2026-09-12 12:32 UTC: 7/7 required APIs, `/sw.js` and the 298-file manifest return 200 from source `2026-09-12T11:42:27.636Z`; health is DEGRADED 17/18 because immutable history is 0/7. |
+| Publication continuity | reactive, not attributable cadence | The same chain had reached 71h source age with four APIs at 503 at 10:31 UTC before the new refresh. `/api/data.publication` still says `IMPLEMENTED_AWAITING_PRODUCTION`, source SHA `1d7154d...` and no deployment id while live manifest SHA is `12d3804...`. |
+| Complete release gate | red | Recent Mobile Release Bundle runs fail deterministic repository assertions. Closure PR #561 is open/conflicted and its gate is red; a READY Vercel artifact is not a green repository release gate. |
+| Immutable history | `FAILED_0_OF_7` | Sep 6–12 are all missing. Operational handoffs and terminal receipts were not converted into fabricated scored snapshots. |
+| Weekly review publication | stale | Canonical API and `history/weekly-delivery/` stop at Aug 17–23. Sep 6 scheduler execution is visible, but no newer canonical scorecard/output is durably accessible. |
+| Trends effect conversion | `12_OF_12_ZERO_EFFECT_CURRENT_WINDOW` | Twelve Sep 7–12 terminal pilot receipts re-read their assigned metric unchanged. The new queue has ten READY tasks. |
+| Terminal semantics | noncanonical | All 12 current receipts still use top-level `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`; the canonical terminal enum remains unenforced. |
+| Scheduler registry | `10_EFFECTIVE_RECURRING / 1_EXHAUSTED_ENABLED / 3_OPERATIONAL_NAMES_UNSCHEDULED` | Eleven tasks are enabled; `Finish Trends Rotation` is exhausted. Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch have no enabled scheduler. |
+| Operational continuity | incomplete | Main has Morning handoffs for Sep 8–10 and Sep 12 but not Sep 6, 7 or 11; closure receipts exist for Sep 7–8, while Sep 9 is stranded in open PR #561 and Sep 10–11 are absent. |
+| Delivery backlog | flat with high churn | Sep 12 inventory remains 49 open / 0 ready / 35 stale / 27 nonmergeable. Brain Management created 36 PRs during Sep 7–12; 35 merged and one remains open, with zero verified metric gains. |
+| Project catalog | current with one promoted surface | 30 accessible repos, ten fixed production-overlay identities and 21 meaningful memory records. Books public production is now canonical; private storage remains blocked. Psihotavr remains unresolved. |
+| Memory sync | stale pending | Live last-success remains commit `d4519ad...` from Aug 23 and lists PRs #193/#195/#196/#203; it does not include later durable main or this reconciliation. |
+| Durable boundary | preserved | All changes in this refresh are documentation/catalog/index only: `NO_DIRECT_METRIC_EFFECT`. |
 
-## Confirmed current operational state
+## Catalog reconciliation
 
-- Brain Management `/api/data` generated `2026-08-01T06:06:00Z` and reports overall `70.1`, efficiency `63.7`, business `72.5`, self-development `77.2`.
-- Public business-KPI evidence improved from no accepted source to `4/6` applicable projects without changing the formula.
-- The auxiliary API contract moved from `3/5` to `5/5` parseable JSON endpoints and reached `LIVE_VERIFIED`.
-- Rule lifecycle reached `3 active/9` from `2 active/9`.
-- Morning reconciliation removed four duplicate or terminal chains.
-- PR hygiene reduced the verified open-PR inventory from 46 to 36 in one run: three focused documentation PRs merged and seven obsolete/superseded PRs closed.
+- GitHub inventory remains 30 repositories; fixed Brain Management production overlay remains ten identities and the extended memory catalog remains 21 records.
+- Books now has a verified public production identity: repo `andylitvinov-design/books`, source branch `codex/public-book-library`, Vercel project `prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b`, canonical URL https://codex-public-book-library.vercel.app.
+- Books repository default remains `codex/bootstrap-books`. The secondary `books` Vercel project is noncanonical. Private prescription persistence remains `BLOCKED_BY_PROVIDER_STORAGE` and must not inherit public-library readiness.
+- Psihotavr remains `IDENTITY_UNRESOLVED`; no replacement repo/provider mapping was invented.
 
 ## Current strategic blockers
 
-1. EzoHata Finance provider/live readiness is `0/4` and genuinely `BLOCKED_BY_OWNER`; it needs a current owner-session smoke and one read-only Wise or YooMoney journey.
-2. Product delivery, task success and live completion remain a shared `1/4` input. One exact denominator item and canonical implementation repository must be selected before work begins.
-3. Psihotavr remains `NEEDS_VERIFICATION`; its current public collector failed and its live/source/retirement state is not fully proven.
-4. Metric-level source references, honest seven-day history coverage and a supported operational closure-write path remain improvement areas; do not fabricate missing history.
+1. **Causality gate still not enforced:** after the Sep 5 continuation candidate, twelve more Trends pilots produced zero assigned-metric effect. The new assignment binds a generic capability to `context_retry_cost` without an immutable denominator-event identity.
+2. **Publisher identity split:** fresh sources are emitted as Brain Regression Guard work even though that scheduler does not exist; the nominal Daily Dashboard Update publisher is unscheduled.
+3. **History and weekly learning persistence:** all seven current scored days are missing and the live weekly review is almost three weeks behind the latest completed week.
+4. **Release-gate split brain:** provider production can be READY while repository Mobile Release Bundle remains red and internal attribution points to an old source/deployment identity.
+5. **Operational handoff gaps:** several Morning and Evening artifacts are absent; the Sep 9 closure is stuck in PR #561 rather than canonical main.
+6. **PR conversion:** 49 open / 0 ready remains unchanged despite 36 new Brain Management PRs and 35 merges.
+7. **Books partial readiness:** public library is live, while protected prescription storage and branch-governance alignment remain open.
 
-## Current priorities
+## Durable root-cause candidate
 
-1. Preserve Brain Management's verified production contract and source/deploy parity.
-2. Convert one real product deliverable from the shared `1/4` denominator to live evidence under one owner.
-3. Complete the owner-only EzoHata Finance read-only verification.
-4. Reconcile legacy project indexes field by field without replacing the canonical active overlay.
-5. Continue accumulating honest immutable snapshots and metric-level evidence.
+Canonical machine record: `governance/durable-root-cause-candidate-2026-09-12.json`.
+
+- continuation: `TREND_METRIC_BINDING_CAUSALITY_GAP` from 2026-08-29 and 2026-09-05
+- affected metric: `live_completion_rate`
+- raw baseline: `1/4` (25), unchanged across five of twelve current-window pilots; all 25 pilots across the last two reconciliation windows produced zero assigned-metric gains
+- owner: Daily Strategic Priorities
+- smallest safe correction: require an existing immutable denominator-event id and a demonstrated implementation-to-numerator transition before assignment; otherwise keep the task READY and emit `NO_COMPATIBLE_METRIC`
+- expected effect: stop predictably zero-effect implementation churn and make the next accepted task capable of moving `1/4 → 2/4`; zero credit until canonical ACTUAL_EFFECT proves the raw change
+
+## Sync status
+
+- durable catalog: `RECONCILED_IN_PR_193_2026-09-12`
+- operational control plane: `CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN`
+- memory boundary: `PRESERVED`
+- scheduler registry: `10_EFFECTIVE_RECURRING / 1_EXHAUSTED_ENABLED / 3_OPERATIONAL_NAMES_UNSCHEDULED`
+- immutable history: `0/7`
+- weekly publication: `STALE_AT_2026-08-23`
+- durable direct metric effect: `NO_DIRECT_METRIC_EFFECT`
