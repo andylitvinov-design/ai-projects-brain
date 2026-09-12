@@ -2,7 +2,7 @@
 
 > Главная точка входа для человека и ИИ. Индексы маршрутизируют к каноническим durable-источникам и не копируют оперативные receipts.
 
-Last reconciled: `2026-09-05`
+Last reconciled: `2026-09-12`
 
 ## Найти проект
 
@@ -13,7 +13,7 @@ Last reconciled: `2026-09-05`
 - Capsules: `projects/<slug>/PROJECT.md`
 - Human summary: `projects.md`
 
-Текущий production overlay содержит 10 active identities; расширенный каталог содержит 21 meaningful memory record; GitHub owner inventory содержит 30 repositories. `books` добавлен как `ACTIVE_DEVELOPMENT_PREPRODUCTION` и не считается production identity до подтверждения одной canonical branch/provider/live mapping.
+Текущий production overlay содержит 10 active identities; расширенный каталог содержит 21 meaningful memory record; GitHub owner inventory содержит 30 repositories. `books` теперь имеет подтверждённую public-library production mapping, но остаётся вне фиксированного operational overlay; private prescription/storage capability учитывается отдельно как provider-blocked.
 
 ## Управляющий контур
 
@@ -23,7 +23,7 @@ Last reconciled: `2026-09-05`
 - `governance/AUTOMATIONS.md` — scheduler-backed roles and registry conflicts.
 - `governance/EFFICIENCY.md` — immutable scorecards and current synthesis.
 - `governance/WEEKLY-LEARNINGS.md` — aggregated errors and lessons.
-- `governance/durable-root-cause-candidate-2026-09-05.json` — current machine candidate.
+- `governance/durable-root-cause-candidate-2026-09-12.json` — current machine continuation candidate.
 
 `brain-management` is the operational control plane. `ai-projects-brain` is the durable source of truth.
 

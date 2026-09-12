@@ -11,7 +11,7 @@
 5. Do not promote backup/bootstrap/diagnostic repositories into the active portfolio.
 6. Keep uncertainty explicit as `NEEDS_VERIFICATION`.
 
-## Active portfolio — reconciled 2026-09-05
+## Active portfolio — reconciled 2026-09-12
 
 | project_id | Canonical repo | Production | Durable state |
 |---|---|---|---|
@@ -21,22 +21,22 @@
 | `psitherapy` | `andylitvinov-design/report` | https://psitherapy.vercel.app | `BLOCKED` — deploy-source/auth proof incomplete. |
 | `reiki-yggdrasil` | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | `WATCH`. |
 | `codex-links` | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | `WATCH`. |
-| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN` — fresh 7/7 APIs; health DEGRADED at history 1/7; weekly review, attribution and full release gate stale/red. |
+| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN` — fresh 7/7 APIs after a 71h fail-closed interval; health DEGRADED at history 0/7; weekly review, sync, attribution and full release gate stale/red. |
 | `torontotantra` | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | `WATCH`. |
 | `ai-projects-brain` | `andylitvinov-design/ai-projects-brain` | not applicable | `IMPROVING`; durable reconciliation PR #193. |
 | `psihotavr` | `NEEDS_VERIFICATION` | historical https://psihotavr.vercel.app | `IDENTITY_UNRESOLVED`. |
 
 ## Repository inventory
 
-Owner enumeration on 2026-09-05 confirms 30 accessible repositories. Production-overlay identities remain 10. The extended catalog now has 21 meaningful memory records. Psihotavr remains the unresolved production identity.
+Owner enumeration on 2026-09-12 confirms 30 accessible repositories. Production-overlay identities remain 10. The extended catalog has 21 meaningful memory records. Psihotavr remains the unresolved production identity.
 
 ## Development / verification routing
 
 | Wording | Route | State |
 |---|---|---|
-| books, book library, книги, homeopathy library | `projects/books/PROJECT.md` | `ACTIVE_DEVELOPMENT_PREPRODUCTION`; repo confirmed, canonical production branch/provider/live mapping unresolved. |
+| books, book library, книги, homeopathy library | `projects/books/PROJECT.md` | `ACTIVE_PUBLIC_LIBRARY_PARTIAL`; canonical public production verified, private prescription/storage capability remains blocked. |
 
-The connected provider exposes both `books` and `codex-public-book-library` Vercel projects with preview-only deployments. Route both to the one Books identity until a canonical target is proven.
+The connected provider exposes both `books` and `codex-public-book-library`. Route both to one Books identity; only `codex-public-book-library` is canonical public production.
 
 ## Common aliases
 

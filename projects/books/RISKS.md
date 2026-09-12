@@ -1,7 +1,7 @@
 # Books Risks
 
-- Stacked branch dependency may be lost by an unsafe retarget/rebase.
-- Two Vercel projects may drift as competing production identities.
-- READY previews and aliases may be mistaken for canonical production.
+- Repository default `codex/bootstrap-books` and public production `codex/public-book-library` may drift.
+- The secondary `books` Vercel project may be mistaken for canonical production.
+- Public route success may be incorrectly generalized to private prescription persistence while provider storage is absent or unverified.
 - Medical/homeopathy content needs provenance, safety framing and publication review.
-- A 444-file PR without hosted checks or reviews is not safe to merge automatically.
+- Large generated/content PRs require hosted checks, render verification and independent provenance/safety review.

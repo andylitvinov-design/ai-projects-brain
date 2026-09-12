@@ -1,21 +1,21 @@
 {
   "schema_version": "2026-04-29-project-memory-v1",
-  "last_inventory_update": "2026-09-05",
+  "last_inventory_update": "2026-09-12",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN",
+    "brain_management_current_state": "CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
     "note": "Extended project-memory schema preserved for validator compatibility; current routing authority is the active overlay and project capsules.",
-    "run_date": "2026-09-05",
+    "run_date": "2026-09-12",
     "active_project_count": 10,
     "meaningful_memory_project_count": 21,
-    "brain_management_source_generated_at": "2026-09-05T11:35:50.912Z",
-    "brain_management_source_age_hours_at_check": 1.3,
+    "brain_management_source_generated_at": "2026-09-12T11:42:27.636Z",
+    "brain_management_source_age_hours_at_check": 0.8,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "7/7 required APIs and sw.js HTTP 200; health DEGRADED at immutable history 1/7; weekly review stale at Aug 17-23; publication attribution and complete release gate open",
-    "trend_effect_state": "current queue 7 EVALUATED_NO_EFFECT, 3 READY; 13 Aug 31-Sep 5 terminal pilots produced zero assigned-metric gain",
-    "books_state": "ACTIVE_DEVELOPMENT_PREPRODUCTION_OUTSIDE_PRODUCTION_OVERLAY"
+    "brain_management_api_surfaces": "7/7 required APIs, sw.js and 298-file manifest HTTP 200 after a 71h fail-closed interval; health DEGRADED at immutable history 0/7; weekly review, durable sync, publication attribution and complete release gate open",
+    "trend_effect_state": "current queue 10 READY; 12 Sep 7-12 terminal pilots and 25 across two refresh windows produced zero assigned-metric gain",
+    "books_state": "ACTIVE_PUBLIC_LIBRARY_PARTIAL_OUTSIDE_FIXED_PRODUCTION_OVERLAY"
   },
   "memory_files": [
     "projects.md",
@@ -342,7 +342,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "current_status": "CURRENT_DEGRADED_HISTORY_ATTRIBUTION_AND_GATE_OPEN as of 2026-09-05. Seven required APIs, sw.js and the 299-file release manifest return 200 from source 2026-09-05T11:35:50.912Z; 7-day runtime errors are zero. Control health is DEGRADED 17/18 because immutable history remains 1/7. The weekly API still serves Aug 17-23, internal publication attribution carries old source SHA 1d7154d... with no verified deployment id while the live manifest identifies d82b87e..., and the complete release gate remains red.",
+      "current_status": "CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN as of 2026-09-12. Seven required APIs, sw.js and the 298-file manifest return 200 from source 2026-09-12T11:42:27.636Z after a 71h fail-closed interval. Control health is DEGRADED 17/18 because immutable history is 0/7. Weekly review and memory sync are stale; internal attribution carries old source SHA 1d7154d... with no verified deployment id while the live manifest identifies 12d3804..., and the repository release gate remains red.",
       "important_files": [
         "data-current.json",
         "api/data.js",
@@ -1011,10 +1011,10 @@
       "slug": "books",
       "name": "books",
       "purpose": "Bilingual public book and knowledge library with long-form routes and a source-backed Homeopathy remedy catalog.",
-      "live_url": "needs verification",
+      "live_url": "https://codex-public-book-library.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/books",
-      "hosting": "Two connected preview-only Vercel projects; canonical project needs verification",
-      "current_status": "ACTIVE_DEVELOPMENT_PREPRODUCTION as of 2026-09-05. Observed default branch codex/bootstrap-books. PR #4 is a 444-file stacked/conflicted integration against codex/public-book-library with no hosted checks or reviews. Vercel projects books and codex-public-book-library both report live=false and target=null; one canonical production target must be selected.",
+      "hosting": "Canonical Vercel project codex-public-book-library (prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b); secondary books project is noncanonical",
+      "current_status": "ACTIVE_PUBLIC_LIBRARY_PARTIAL as of 2026-09-12. Repository default is codex/bootstrap-books; canonical public production source is codex/public-book-library. PR #4 and aggregate PR #2 are merged, and the canonical root plus bilingual Homeopathy route return 200. Private prescription persistence remains BLOCKED_BY_PROVIDER_STORAGE and the secondary books Vercel project is noncanonical.",
       "important_files": [
         "projects/books/PROJECT.md",
         "projects/books/CODEX_BRIEF.md"
@@ -1023,27 +1023,29 @@
         "needs verification"
       ],
       "known_issues": [
-        "Canonical production branch needs verification.",
-        "Duplicate Vercel project identity needs one canonical selection.",
-        "Large stacked PR needs conflict, hosted-check, provenance and medical-safety review before production."
+        "Repository default and public production source branches may drift.",
+        "Private prescription storage/resource configuration is not verified and must remain fail-closed.",
+        "Medical/homeopathy changes need hosted checks, render verification, provenance and safety review."
       ],
       "recent_tasks": [
-        "PR #4 proposes the bilingual Homeopathy library and source/provenance assets."
+        "PR #4 and aggregate PR #2 merged; public library and Homeopathy route are production-readable.",
+        "Private prescription work remains provider-storage blocked."
       ],
       "next_actions": [
-        "Select one canonical production branch and Vercel project.",
-        "Resolve the stacked PR dependency without discarding the parent branch.",
-        "Require hosted checks and exact-source production verification."
+        "Keep codex/public-book-library aligned with the canonical public deployment.",
+        "Provision and verify private storage only through authorized provider work.",
+        "Require hosted checks, provenance/safety review and exact-source production verification."
       ],
       "risks": [
-        "READY preview or domain alias mistaken for production.",
+        "Secondary books Vercel alias mistaken for canonical production.",
+        "Public-route readiness generalized incorrectly to private stateful flows.",
         "Medical/homeopathy content published without provenance and safety review.",
         "Duplicate provider projects drift into separate identities."
       ],
       "rules_for_codex": [
-        "Do not promote Books into the production overlay until branch/provider/live mapping is proven.",
-        "Do not retarget or flatten the stacked PR without preserving its dependency.",
-        "Treat the two Vercel projects as duplicate aliases of one product identity."
+        "Use codex/public-book-library and the codex-public-book-library Vercel project for public production.",
+        "Do not substitute repository default codex/bootstrap-books or the secondary books Vercel project.",
+        "Treat private prescription/storage readiness separately from public-library readiness."
       ],
       "memory": {
         "state_file": "needs verification",
@@ -1115,5 +1117,5 @@
       }
     }
   ],
-  "generated_at": "2026-09-05T12:58:50Z"
+  "generated_at": "2026-09-12T12:32:11Z"
 }
