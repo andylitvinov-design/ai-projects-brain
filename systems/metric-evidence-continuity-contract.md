@@ -66,3 +66,15 @@ The canonical control-plane release must publish both `/api/control-plane-health
 
 `memory_sync_status.pending_durable_updates` must enumerate every currently relevant open durable PR or decision. A hard-coded singleton is incomplete sync evidence when additional relevant durable updates are open.
 
+## Accepted enforcement — 2026-09-13
+
+The repeated continuity defect is now defined operationally:
+
+- the exclusive publisher must create at most one immutable scored snapshot for the observed calendar date as part of the same source-publication preparation run;
+- creation must fail closed on overwrite (`create-only` semantics); a second run on the same date reports reuse and must not mutate the existing snapshot;
+- history and Weekly Delivery Review resolvers must discover persisted dated files and select the greatest valid date or `week_end`; hard-coded dated import lists are not acceptable continuity;
+- control-plane health must report a Weekly Delivery Review warning when the selected `week_end` is more than seven days behind the canonical snapshot date;
+- refreshing `memory_sync_status` changes only durable-memory evidence: it must identify the latest accepted durable-main commit and every currently relevant open durable PR.
+
+Acceptance evidence: Brain Management PR #576. The 2026-09-13 operational repair records raw history coverage `0/7 → 1/7`, reveals the previously hidden Weekly Review lag of 21 days, and refreshes durable references from four to five open PRs. Formula version `2026-07-25-v1-preserved` and all product/business raw values remain unchanged. The repair receives zero product or business outcome credit.
+
