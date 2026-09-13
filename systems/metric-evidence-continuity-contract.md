@@ -76,5 +76,4 @@ The repeated continuity defect is now defined operationally:
 - control-plane health must report a Weekly Delivery Review warning when the selected `week_end` is more than seven days behind the canonical snapshot date;
 - refreshing `memory_sync_status` changes only durable-memory evidence: it must identify the latest accepted durable-main commit and every currently relevant open durable PR.
 
-Acceptance evidence: Brain Management PR #576. The 2026-09-13 operational repair records raw history coverage `0/7 → 1/7`, reveals the previously hidden Weekly Review lag of 21 days, and refreshes durable references from four to five open PRs. Formula version `2026-07-25-v1-preserved` and all product/business raw values remain unchanged. The repair receives zero product or business outcome credit.
-
+Acceptance evidence: Brain Management PR #576 and durable PR #211. The 2026-09-13 operational repair records raw history coverage `0/7 → 1/7`, reveals the previously hidden Weekly Review lag of 21 days, and refreshes durable references from four to six open PRs. Formula version `2026-07-25-v1-preserved` and all product/business raw values remain unchanged. The repair receives zero product or business outcome credit.
