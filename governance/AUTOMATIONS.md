@@ -1,6 +1,6 @@
 # Automation Registry
 
-Last reconciled: `2026-08-30`
+Last reconciled: `2026-09-13`
 
 ## Registry contract
 
@@ -11,12 +11,12 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 | Automation | Exclusive role | Current health | Persistence | Current evidence / next action |
 |---|---|---|---|---|
 | Morning Task Sweep | Discovery, carryover reconciliation, deduplication and readiness handoff | healthy with one readiness gap | Brain Management morning handoff | Latest reconciliation removed four duplicate/terminal aliases, preserved three carryover chains and rejected an assignment that lacked the exact denominator item, deliverable, repository and branch. |
-| PR Delivery Sweep | PR/branch/CI/review/conflict/merge stage plus open-PR hygiene | healthy, high backlog | Brain Management PR-delivery result | Latest valid handoff had zero PR-ready chains; portfolio inventory remained 36 open PRs, one docs-only conflict was repaired and merged, and no product metric was changed. |
-| Daily Strategic Priorities | Ranking only | ranking receipt valid; published shared-input model conflicted | Brain Management ranked queue | The ranking receipt selected the bounded Psihotavr chain. The later canonical snapshot instead publishes the shared `1/4` delivery input as three strategic aliases with three owner labels and must be reconciled to one chain. |
-| Morning System Upgrade | Single primary implementation owner | latest technical repair LIVE_VERIFIED; assignment adherence and metadata failed | Brain Management implementation handoff | Implemented assignment-source parity and atomic publication guards instead of the ranked Psihotavr chain. Current `morning_system_upgrade_assignment` names `strategic-product-delivery` but retains a Daily Strategic Priorities owner label rather than the execution owner. |
-| Daily Dashboard Update | Metrics, collectors, formulas, history, assignments and atomic publication | production healthy; ownership publication inconsistent | Brain Management API/history | Published current 2026-08-02 data and verified six routes, four Overview aggregates, 24 metrics, ten projects, ten Trends, seven agents, five operational APIs and no runtime-error cluster. It must now reconcile strategic priorities, assignments and active chains to the same ownership model. |
-| Evening Delivery Closure | Verification, bounded recovery and terminal closure | current report still VERIFYING after a live publication | Brain Management closure result | Must reconcile the current deployment identity and close only canonical production evidence; it must not compete with routine dashboard publication. |
-| Weekly Delivery System Review | Weekly execution-quality evaluator | operational scorecard merged; correction proposed | Brain Management weekly scorecard + durable governance PR | Current rolling counts are `1/4` live completion, `1/3` rework, `1/3` false-success correction, `1/1` recovery, `26/27` validations, three reconciled carryover chains, one owner blocker and one published ownership-conflict group. |
+| PR Delivery Sweep | PR/branch/CI/review/conflict/merge stage plus open-PR hygiene | active but bypassed; hosted gate red | Brain Management PR-delivery result | Sep 7–13: 0 merges and 0 repairs while 46 Brain Management PRs merged externally; one superseded duplicate PR was closed. The latest inventory is 49 open and 0 ready. |
+| Daily Strategic Priorities | Ranking only | active; handoff coverage partial | Brain Management ranked queue | Five of seven daily receipts are persisted. The recurring freshness blocker stayed rank 1, but Morning System Upgrade executed 14 Trend pilots instead. It must now rank the runnable-publisher recovery candidate before another pilot. |
+| Morning System Upgrade | Single primary implementation owner | active; stage and terminal-state overlap | Brain Management implementation handoff | Implemented, merged, deployed and self-terminalized 14 zero-effect Trend pilots. Its enabled prompt explicitly uses noncanonical success labels; routine publication and terminal closure must be removed from this stage. |
+| Daily Dashboard Update | Metrics, collectors, formulas, history, assignments and atomic publication | **disabled; exclusive owner not runnable** | Brain Management API/history | Scheduler evidence shows the existing automation disabled since 2026-08-28. Re-enable this same publisher on one fixed <=6h cadence; do not create a parallel publisher. |
+| Evening Delivery Closure | Verification, bounded recovery and terminal closure | active; immutable coverage failed | Brain Management closure result | Only 2/6 due receipts are canonical on main; the Sep 12 receipt remains open in PR #569 after a failed release gate. Diagnostic no-effect labels must map beneath one canonical terminal state. |
+| Weekly Delivery System Review | Weekly execution-quality evaluator | current scorecard and durable correction proposed | Brain Management weekly scorecard + durable governance PR | Sep 7–13: 0/17 canonical live closures, 0 metric gains, 14 zero-effect pilot receipts, 137/158 failed Actions runs, three carryover chains and one disabled-owner defect selected for recovery. |
 | Sunday Dashboard Review | Metric/control-plane architecture and dashboard quality | active | Brain Management health/history + durable contract PR | Owns metric architecture only; current delivery-process defects remain with Weekly Delivery System Review. |
 | Weekly Brain Refresh | Canonical durable-memory reconciler | active | AI Projects Brain catalog/governance/index PR | Reconciles durable state only; does not publish daily dashboard data or implement product work. |
 
@@ -82,3 +82,22 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 - Implementation may prepare a branch and tests, but PR/CI/merge evidence is accepted only from PR Delivery Sweep and terminal closure only from Evening Delivery Closure.
 - Every nonterminal reconciled chain must appear in the canonical active-chain surface or in an explicit exclusion record with owner and reason.
 
+## Reconciliation findings — 2026-09-13
+
+1. **Exclusive-owner availability failed.** Daily Dashboard Update is the canonical publication owner but its scheduler is disabled. A chain must not be assigned to an automation that cannot run; restore the existing automation or explicitly reassign before implementation.
+2. **Publication execution overlapped.** Morning System Upgrade and Sunday Dashboard Review created publication/deployment changes while the exclusive publisher was unavailable. Emergency diagnosis does not grant routine publisher ownership.
+3. **GitHub delivery remained separate only on paper.** PR Delivery Sweep merged/repaired 0 PRs while 46 Brain Management PRs merged elsewhere. Production CI failed 61/61, Mobile Release had 0/67 successes, and canary failed 13/13; merges using local/focused checks did not close the repository-owned gate.
+4. **Closure ownership and vocabulary failed.** Only 2/6 due Evening Closure receipts are on main. All 14/14 Trend terminal receipts use LIVE_VERIFIED_NO_EFFECT_EXPLAINED, although the delivery contract allows only LIVE_VERIFIED, MERGED_WAITING_DEPLOY, BLOCKED_BY_OWNER and NO_SAFE_UPGRADE.
+5. **Ranking and implementation diverged.** Five recorded ranking receipts kept the freshness chain at rank 1, while implementation completed 14 rank-2 Trend pilots with zero same-metric effect.
+6. **Carryover identity persisted but runnable ownership did not.** The same freshness, Finance and Trend lease IDs recur in recorded handoffs; publication must remain nonterminal until a runnable publisher and delayed independent closure exist.
+7. **The previous cadence candidate failed.** No observed interval met <=12 hours, at least four recovery PRs were created, exact source/deploy attribution remains open and the immutable window is 1/7.
+
+### Focused ownership correction
+
+- Daily Dashboard Update: re-enable the existing automation and make it the only routine operational snapshot writer/publisher on one fixed <=6h cadence.
+- Morning System Upgrade: implementation only; may repair a blocking publisher contract once, but must hand PR/CI/merge to PR Delivery Sweep and never self-issue terminal success.
+- Sunday Dashboard Review: metric/control-plane architecture and read-only verification; no routine operational publication.
+- PR Delivery Sweep: one unchanged-head green hosted gate before merge; red/cancelled hosted delivery is not replaceable by a merge count.
+- Evening Delivery Closure: independent delayed verification and canonical terminal mapping only.
+
+The recovery target is two consecutive publisher-owned cycles <=12 hours, zero new recovery PRs, exact source/artifact/deployment attribution, manifest/API health and honest 7/7 daily identities by the next weekly reconciliation. Prompt, scheduler, documentation, PR, merge and deploy changes receive zero improvement credit until that actual-effect receipt exists.
