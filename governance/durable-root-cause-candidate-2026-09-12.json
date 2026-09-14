@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "candidate_id": "trend-metric-binding-causality-gap-20260829",
+  "continuation_record_date": "2026-09-12",
+  "continuation_of": "governance/durable-root-cause-candidate-2026-09-05.json",
+  "generated_at": "2026-09-12T12:32:11Z",
+  "run_date": "2026-09-12",
+  "status": "DURABLE_ROOT_CAUSE_CANDIDATE_REPEATED_UNRESOLVED",
+  "affected_metric": {
+    "metric_id": "live_completion_rate",
+    "raw_baseline": "1/4",
+    "score_baseline": 25,
+    "target_raw": "2/4",
+    "target_score": 50,
+    "formula_change_allowed": false
+  },
+  "root_cause": {
+    "code": "TREND_METRIC_BINDING_CAUSALITY_GATE_STILL_NOT_ENFORCED",
+    "statement": "Daily ranking still accepts a generic pilot-to-metric binding without requiring a pre-existing immutable denominator event and proof that the implementation can transition that exact event into the metric numerator. Pilot-local benchmark success therefore reaches production and predictably re-reads at zero portfolio-metric effect.",
+    "repeated": true,
+    "prior_candidate_not_enforced": true
+  },
+  "evidence": {
+    "current_window": "2026-09-06 through 2026-09-12",
+    "terminal_trend_receipts": 12,
+    "zero_effect_receipts": 12,
+    "verified_metric_gains": 0,
+    "metric_distribution": {
+      "live_completion_rate": 5,
+      "rework_rate": 4,
+      "context_retry_cost": 2,
+      "user_pain_recurrence_rate": 1
+    },
+    "live_completion_actual_effect": {
+      "raw_before": "1/4",
+      "raw_after": "1/4",
+      "score_before": 25,
+      "score_after": 25,
+      "effect_credit": 0,
+      "common_reason": "The bounded capability changed only its pilot-local evidence and did not add or reclassify a completed item in the immutable live-completion ledger."
+    },
+    "two_refresh_windows": {
+      "terminal_pilots": 25,
+      "zero_effect_receipts": 25,
+      "verified_metric_gains": 0,
+      "live_completion_zero_effect_receipts": 10
+    },
+    "current_queue": {
+      "generated_at": "2026-09-11T16:09:44.452Z",
+      "ready": 10,
+      "evaluated_no_effect": 0,
+      "next_task_id": "trend-task-t-me-vibecoding-tg-3833"
+    },
+    "current_assignment": {
+      "metric_id": "context_retry_cost",
+      "raw_baseline": "2/3 completed",
+      "target_raw": "3/4 completed",
+      "denominator_item_id": null,
+      "immutable_ledger_transition_proof": "MISSING",
+      "product_delivery_denominator_binding": null
+    },
+    "source_refs": [
+      "brain-management/history/handoffs/2026-09-07-trend-*-terminal.json",
+      "brain-management/history/handoffs/2026-09-08-trend-*-terminal.json",
+      "brain-management/history/handoffs/2026-09-09-trend-*-terminal.json",
+      "brain-management/history/handoffs/2026-09-12-trend-korean-public-api-tool-calling-terminal.json",
+      "https://brain-management.vercel.app/api/data",
+      "https://brain-management.vercel.app/api/trends",
+      "https://brain-management.vercel.app/api/strategic-priorities"
+    ]
+  },
+  "owner": {
+    "ranking_owner": "Daily Strategic Priorities",
+    "implementation_owner_after_valid_assignment": "Morning System Upgrade",
+    "github_delivery_owner": "PR Delivery Sweep",
+    "verification_owner": "Evening Delivery Closure"
+  },
+  "smallest_safe_corrective_action": [
+    "Before assigning any Trends task, require a stable immutable denominator_event_id already present in the selected metric ledger.",
+    "Name the exact current event state, the target numerator transition, the canonical product or operational route and why the implementation can cause that transition under the unchanged formula.",
+    "Reject pilot-local benchmark improvements as metric eligibility when they cannot modify the canonical ledger event.",
+    "If no causally compatible metric event exists, emit NO_COMPATIBLE_METRIC, keep the task READY and do not create implementation, terminalization or deployment PRs."
+  ],
+  "expected_effect": {
+    "process": "Stop predictable zero-effect pilot churn before implementation and reserve capacity for a ledger-eligible outcome.",
+    "raw_target": "The next accepted live-completion assignment is capable of moving the unchanged raw input from 1/4 to 2/4.",
+    "measurement": "Compare the next accepted assignment cohort with the current 0/25 gain baseline and re-read the exact immutable metric after canonical production verification.",
+    "credit_policy": "No score, completion or product credit until canonical ACTUAL_EFFECT proves the raw change.",
+    "documentation_effect": "NO_DIRECT_METRIC_EFFECT"
+  },
+  "acceptance": [
+    "assignment contains immutable denominator_event_id",
+    "eligibility evidence names current event state and exact numerator transition",
+    "task has a canonical project, repo, branch and production route capable of producing that transition",
+    "ranking returns NO_COMPATIBLE_METRIC without consuming a slot when causality is absent",
+    "PR Delivery Sweep owns GitHub delivery and Evening Delivery Closure owns the terminal receipt",
+    "terminal receipt re-reads the same unchanged-formula metric",
+    "zero delta remains EVALUATED_NO_EFFECT with zero credit",
+    "no duplicate implementation owner"
+  ]
+}
