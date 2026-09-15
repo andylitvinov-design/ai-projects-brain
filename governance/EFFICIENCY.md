@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-30`
+Last aggregated: `2026-09-13`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -109,3 +109,25 @@ Publish the exact four denominator items behind the shared `1/4` delivery input,
 
 The system is efficient at producing and merging evidence-heavy changes but ineffective at converting them into measured product outcomes. The highest-leverage correction is not another pilot: close the existing publisher-owned cadence chain with two <=12h coherent cycles, zero recovery PRs, exact source/deploy attribution and independent canonical closure. Only after that proof window should the next implementation slot return to a concrete product/business denominator item.
 
+## Weekly delivery scorecard — 2026-09-07 through 2026-09-13
+
+| Metric | Evidence | Interpretation |
+|---|---:|---|
+| Distinct implementation/effect chains | 17 | 14 Trend pilots, one recurring freshness chain, one Sunday continuity repair and one public-books carryover. |
+| Canonical `LIVE_VERIFIED` | 0/17 | Live behavior alone did not satisfy canonical closure, effect and source/deploy evidence. |
+| Same-metric gains | 0/17 | All 14 Trend pilots re-read at zero; rolling product delivery/task success/live completion remain the shared `1/4`. |
+| Product : infrastructure/control-plane activity | 1 : 16 | The public-books chain is the only user-visible product chain; it remained unassigned to a dashboard metric. |
+| Conservative rework-chain lower bound | 6/17 | Four Trend chains needed explicit delivery repairs; freshness and Sunday continuity also needed repeat repair. |
+| Brain Management PR throughput | 48 created; 46 merged; 1 closed unmerged; 1 open | PR Delivery Sweep merged/repaired 0 and closed one superseded duplicate. |
+| Hosted workflow health | 15 success / 137 failure / 6 cancelled of 158 | Production CI was 0/61, Mobile Release was 0/67, and canary was 0/13; successful runs were reporting/sync/queue jobs. |
+| Deployment churn | 33 READY / 5 ERROR of 38 | High deployment activity did not close publication ownership or metric effect. |
+| Publication cadence | 0/5 observed intervals <=12h | Observed intervals were 48.03h, 24.07h, 23.83h, 72.18h and 23.89h. |
+| Immutable daily history | 1/7 | Only Sep 13 is canonical; missing days are not fabricated. |
+| Core handoff coverage | Morning 5/7; ranking 5/7; PR Delivery 6/13; closure 2/6 | Scheduler execution and an open receipt PR do not equal durable acceptance on main. |
+| Terminal-state discipline | 0/14 Trend receipts canonical | Every Trend terminal receipt used `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`. |
+| Carryover | 3 | Freshness/publisher recovery, Finance owner proof and the next Trend lease. |
+| Portfolio PR inventory | 49 open; 0 ready | 17 owner-blocked, 17 conflict repair, 3 CI repair, 9 review and 3 active; 35 are older than 14 days. |
+
+### Efficiency conclusion
+
+The dominant bottleneck is executable ownership, not another validator. Daily Dashboard Update is the declared exclusive publisher but is disabled; therefore the prior cadence candidate could not succeed and non-owner stages generated recovery PRs and deployments instead. Next-week efficiency is measured by restored publisher availability, two <=12-hour source-bound cycles, one green unchanged-head delivery gate, zero new recovery PRs and delayed independent closure—not by PR or deployment count.
