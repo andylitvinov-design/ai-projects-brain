@@ -102,14 +102,23 @@ Only names may be stored; values must never enter durable memory.
 - `GOOGLE_AUTH_ALLOWED_EMAILS`
 - `GOOGLE_AUTH_ALLOWED_DOMAIN`
 
-## 10. Next durable actions
+## 10. Runtime-data architecture — 2026-09-15
 
-1. Keep the current live contract stable while future honest daily snapshots accumulate.
-2. Select one concrete existing deliverable for the shared `1/4` delivery-conversion input; preserve one implementation owner.
-3. Complete the EzoHata Finance owner-session/read-only provider proof without copying protected finance data.
-4. Add metric-level evidence references and a supported operational closure-write path when safe.
+Operational snapshot refreshes are now separated from guarded Vercel application releases. Brain Management PRs #597–#599 removed mutable operational data from the static build output and added a guarded runtime GitHub source with explicit stale and missing-authorization failure behavior. Routine data refreshes must not consume constrained Vercel deployment storage.
 
-## 11. Verification status
+The architecture is `MERGED_NOT_LIVE`. Activation requires the existing Brain Management Vercel project to receive the environment-variable name `BRAIN_RUNTIME_GITHUB_TOKEN`, backed by a fine-grained token with read-only Contents access to `andylitvinov-design/brain-management`. The value must never be committed or copied into receipts.
+
+Activation is not complete until one guarded operator run updates the runtime source without a Vercel deployment, the canonical APIs re-read that new source, stale or missing authorization fails closed, and the current application deployment remains stable. Until then production is not `LIVE_VERIFIED`.
+
+## 11. Next durable actions
+
+1. Activate and verify the guarded runtime-data source without a routine application deployment.
+2. Keep the current live contract stable while future honest daily snapshots accumulate.
+3. Select one concrete existing deliverable for the shared `1/4` delivery-conversion input; preserve one implementation owner.
+4. Complete the EzoHata Finance owner-session/read-only provider proof without copying protected finance data.
+5. Add metric-level evidence references and a supported operational closure-write path when safe.
+
+## 12. Verification status
 
 - canonical repo/branch/origin: confirmed
 - production terminal state: `LIVE_VERIFIED`
