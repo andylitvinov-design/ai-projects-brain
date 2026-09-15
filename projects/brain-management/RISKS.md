@@ -61,6 +61,13 @@
   receipts, reset carryover ownership, or create date-specific duplicate
   chains.
 
+## Runtime Data Activation Risks
+
+- The runtime-data architecture merged in Brain Management PRs #597–#599 is not live merely because its code reached `main`. Until the existing Vercel project has `BRAIN_RUNTIME_GITHUB_TOKEN` configured with fine-grained, read-only Contents access to `andylitvinov-design/brain-management`, the guarded operator must remain fail-closed.
+- Never persist the token value in a repository, handoff, log excerpt, or durable-memory receipt. Store only the variable name and the minimum access contract.
+- Activation proof requires one operator run that changes the runtime source without creating a Vercel deployment, a canonical API re-read of that source, explicit stale/missing-auth failure behavior, and evidence that the application deployment stayed unchanged. A merge receipt or a routine data-only redeploy is insufficient.
+- Constrained Vercel deployment storage is part of the operating constraint: operational data refreshes must use the runtime-data path after activation and must not consume application deployments.
+
 ## Deploy Risks
 
 - Cloudflare Pages
