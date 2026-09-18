@@ -67,6 +67,8 @@
 - Never persist the token value in a repository, handoff, log excerpt, or durable-memory receipt. Store only the variable name and the minimum access contract.
 - Activation proof requires one operator run that changes the runtime source without creating a Vercel deployment, a canonical API re-read of that source, explicit stale/missing-auth failure behavior, and evidence that the application deployment stayed unchanged. A merge receipt or a routine data-only redeploy is insufficient.
 - Constrained Vercel deployment storage is part of the operating constraint: operational data refreshes must use the runtime-data path after activation and must not consume application deployments.
+- A product or pilot PR must not replace the runtime-data wrappers, restore bundled operational JSON, or weaken the storage-safe Vercel configuration. PR #602 demonstrated this regression while its complete Mobile Release Bundle was red on `OPERATIONAL_SOURCE_MANIFEST_FORBIDDEN`; focused pilot tests cannot substitute for that gate.
+- If runtime separation has regressed, credential activation alone is insufficient. Reapply the tested architecture on current `main`, reconcile every operational-source timestamp, pass the complete release gate, use at most one material deployment, and then prove subsequent refreshes without deployments.
 
 ## Deploy Risks
 

@@ -102,17 +102,17 @@ Only names may be stored; values must never enter durable memory.
 - `GOOGLE_AUTH_ALLOWED_EMAILS`
 - `GOOGLE_AUTH_ALLOWED_DOMAIN`
 
-## 10. Runtime-data architecture — 2026-09-15
+## 10. Runtime-data architecture — regression observed 2026-09-18
 
-Operational snapshot refreshes are now separated from guarded Vercel application releases. Brain Management PRs #597–#599 removed mutable operational data from the static build output and added a guarded runtime GitHub source with explicit stale and missing-authorization failure behavior. Routine data refreshes must not consume constrained Vercel deployment storage.
+Brain Management PRs #597–#599 originally removed mutable operational data from the static Vercel build and added a guarded runtime GitHub source. PR #602 (merge `93265d176ded956ce098516156508cd0413e5622`) later replaced those wrappers and the storage-safe Vercel configuration with deployment-bundled operational JSON while its Mobile Release Bundle #1246 was red on `OPERATIONAL_SOURCE_MANIFEST_FORBIDDEN`.
 
-The architecture is `MERGED_NOT_LIVE`. Activation requires the existing Brain Management Vercel project to receive the environment-variable name `BRAIN_RUNTIME_GITHUB_TOKEN`, backed by a fine-grained token with read-only Contents access to `andylitvinov-design/brain-management`. The value must never be committed or copied into receipts.
+The durable architecture state is therefore `REGRESSED_NOT_LIVE`, not merely `MERGED_NOT_LIVE`. Current main has incoherent source timestamps and canonical operational APIs fail closed. Recovery must first reapply the tested runtime-data separation on current `main` and pass the complete release gate. The existing Vercel project owner must then configure `BRAIN_RUNTIME_GITHUB_TOKEN` with fine-grained, read-only Contents access to `andylitvinov-design/brain-management`; the value must never enter a repository or receipt.
 
-Activation is not complete until one guarded operator run updates the runtime source without a Vercel deployment, the canonical APIs re-read that new source, stale or missing authorization fails closed, and the current application deployment remains stable. Until then production is not `LIVE_VERIFIED`.
+Terminal proof requires at most one material application deployment for the repaired architecture, followed by a guarded runtime-source update that creates no deployment, coherent canonical API re-reads, explicit stale/missing-auth failure behavior, and an unchanged healthy application deployment. Until that sequence passes, production is not `LIVE_VERIFIED`.
 
 ## 11. Next durable actions
 
-1. Activate and verify the guarded runtime-data source without a routine application deployment.
+1. Reapply the tested runtime-data separation on current main, pass the complete release gate, then activate and verify the guarded source with a no-deployment refresh.
 2. Keep the current live contract stable while future honest daily snapshots accumulate.
 3. Select one concrete existing deliverable for the shared `1/4` delivery-conversion input; preserve one implementation owner.
 4. Complete the EzoHata Finance owner-session/read-only provider proof without copying protected finance data.
