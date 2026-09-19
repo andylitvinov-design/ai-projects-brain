@@ -11,7 +11,7 @@
 5. Do not promote backup/bootstrap/diagnostic repositories into the active portfolio.
 6. Keep uncertainty explicit as `NEEDS_VERIFICATION`.
 
-## Active portfolio — reconciled 2026-09-12
+## Active portfolio — reconciled 2026-09-19
 
 | project_id | Canonical repo | Production | Durable state |
 |---|---|---|---|
@@ -21,20 +21,20 @@
 | `psitherapy` | `andylitvinov-design/report` | https://psitherapy.vercel.app | `BLOCKED` — deploy-source/auth proof incomplete. |
 | `reiki-yggdrasil` | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | `WATCH`. |
 | `codex-links` | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | `WATCH`. |
-| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN` — fresh 7/7 APIs after a 71h fail-closed interval; health DEGRADED at history 0/7; weekly review, sync, attribution and full release gate stale/red. |
+| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED` — five operational APIs fail closed from a 96.6h Sep 15 source; runtime separation is restored on `main` but not activated in production. |
 | `torontotantra` | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | `WATCH`. |
 | `ai-projects-brain` | `andylitvinov-design/ai-projects-brain` | not applicable | `IMPROVING`; durable reconciliation PR #193. |
 | `psihotavr` | `NEEDS_VERIFICATION` | historical https://psihotavr.vercel.app | `IDENTITY_UNRESOLVED`. |
 
 ## Repository inventory
 
-Owner enumeration on 2026-09-12 confirms 30 accessible repositories. Production-overlay identities remain 10. The extended catalog has 21 meaningful memory records. Psihotavr remains the unresolved production identity.
+Owner enumeration on 2026-09-19 confirms 30 accessible repositories. Production-overlay identities remain 10. The extended catalog has 21 meaningful memory records. Psihotavr remains the unresolved production identity.
 
 ## Development / verification routing
 
 | Wording | Route | State |
 |---|---|---|
-| books, book library, книги, homeopathy library | `projects/books/PROJECT.md` | `ACTIVE_PUBLIC_LIBRARY_PARTIAL`; canonical public production verified, private prescription/storage capability remains blocked. |
+| books, book library, книги, homeopathy library | `projects/books/PROJECT.md` | `ACTIVE_PUBLIC_LIBRARY_PARTIAL`; public production remains readable; private/signature draft PR #23 is owner-review-only and does not promote protected readiness. |
 
 The connected provider exposes both `books` and `codex-public-book-library`. Route both to one Books identity; only `codex-public-book-library` is canonical public production.
 

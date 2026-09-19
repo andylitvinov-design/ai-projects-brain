@@ -11,80 +11,77 @@ Operational control plane for current metrics, immutable receipts, assignments, 
 - Vercel team/project: `super10` / `prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d`
 - durable memory: `andylitvinov-design/ai-projects-brain`
 
-Legacy Netlify/Cloudflare aliases, deployment URLs and probe projects are noncanonical.
+Legacy aliases, deployment URLs and probe projects are noncanonical.
 
-## Current durable state — 2026-09-12
+## Current durable state — 2026-09-19
 
-State: `CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN`.
+State: `STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED`.
 
-Canonical re-read at 2026-09-12 12:32 UTC:
+Canonical re-read at 2026-09-19 12:11–12:12 UTC:
 
-- 7/7 required APIs, `/sw.js` and `/mobile-release-manifest.json` returned HTTP 200;
-- shared operational source is `2026-09-12T11:42:27.636Z`, 0.8h old at the first current check;
-- 24 metrics, ten operational projects and ten READY Trends tasks are present;
-- control-plane health is `DEGRADED`: 17 passed, 1 failed, 0 errors and 1 warning; `immutable_history_7d` fails at 0/7;
-- release manifest has 298 files, cache `brain-management-v60` and source SHA `12d38041124dcb4262bf8967b8f000ab37b1a24e`;
-- current Vercel production is READY, but the repository Mobile Release Bundle remains red;
-- seven-day runtime errors contain one recurring low-severity `url.parse()` deprecation warning on `/api/hobby-snapshots`.
+- `/api/data`, `/api/trends`, `/api/agent-productivity`, `/api/needs-attention` and `/api/strategic-priorities` all returned 503;
+- shared live source is `2026-09-15T11:34:55.858Z`, 96.6h old; the 18h data/productivity limit and 96h Trends limit are both exceeded;
+- `/api/weekly-delivery-system-review` returned 200 but still exposes Aug 17–23, generated 2026-08-23;
+- `/api/control-plane-health` returned 200 `DEGRADED` while evaluating missing/empty upstream data: 8 passed, 10 failed, 8 errors and 2 warnings;
+- `/sw.js` and `/mobile-release-manifest.json` returned 200; the Sep 15 manifest has cache `brain-management-v60`, 295 files and source SHA `93265d176ded956ce098516156508cd0413e5622`;
+- a reachable PWA, health endpoint or weekly fallback is not evidence that the operational control plane is current.
+
+## Repository/live architecture split
+
+PR #607 restored the storage-safe runtime-data separation on `main` after PR #602 reintroduced deployment-bundled operational JSON. Repository validation covered static-only packaging, guarded runtime readers, data-only collection, deployable-content hashing and the normal regression suite.
+
+Repository `main` contains a Sep 19 operational snapshot, but canonical production still serves the Sep 15 artifact. The architecture is therefore `RESTORED_ON_MAIN_BLOCKED_BY_OWNER`, not live-activated. Activation requires the existing Vercel project owner to configure `BRAIN_RUNTIME_GITHUB_TOKEN` with fine-grained read-only Contents access to `andylitvinov-design/brain-management`. The value must never enter source, logs or durable receipts.
+
+After credential configuration, closure requires: exact-main deployment guard, at most one material application deployment, 7/7 canonical API re-read, one later guarded runtime-source refresh that causes no deployment, and delayed independent terminal verification.
 
 ## Continuity and publication gaps
 
-- At 10:31 UTC on Sep 12, source age was 71h and four required APIs returned 503. The later refresh restored current behavior but did not prove a routine <=12h publication cadence.
-- `/api/data.publication` still reports `IMPLEMENTED_AWAITING_PRODUCTION`, source SHA `1d7154d...` and no verified deployment id despite the newer live manifest.
-- Sep 6–12 immutable scored snapshots are all missing: 0/7.
-- Weekly API and repository scorecard history still end at Aug 17–23. Visible Sep 6 scheduler execution has no newer canonical persisted scorecard.
-- Main lacks Morning handoffs for Sep 6, 7 and 11. Main closure receipts exist for Sep 7–8; Sep 9 is in open/conflicted PR #561, and Sep 10–11 are absent.
-- Recent Mobile Release Bundle workflows fail deterministic repository assertions. Vercel READY does not close this repository-gate defect.
+- Repository history has four prospective scored snapshots for Sep 13–19: Sep 13, 14, 15 and 18. Sep 16, 17 and 19 are absent; do not backfill them.
+- Live health reports only 3/7 because it is itself tied to the older Sep 15 source.
+- Morning and ranking handoffs exist for Sep 13, 14, 15, 18 and 19; Sep 16–17 are absent. Closure coverage is also incomplete.
+- The Sep 7–13 Weekly Delivery System Review exists in open PR #579, not canonical `main` or live. Live weekly publication remains at Aug 17–23.
+- `memory_sync_status` cannot be read through current `/api/data` because that endpoint fails closed. The last known sync was already stale; current durable reconciliation is not yet operationally acknowledged.
 
 ## Trends and effect state
 
-- Sep 7–12 has 12 Trend terminal receipts: five bound to `live_completion_rate`, four to `rework_rate`, two to `context_retry_cost` and one to `user_pain_recurrence_rate`.
-- All 12 have raw before equal to raw after and zero metric credit.
-- All 12 still use noncanonical top-level `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`.
-- A new collector rotation exposes ten READY tasks and correctly excludes prior terminal ids.
-- Current assignment is `trend-task-t-me-vibecoding-tg-3833`, bound to `context_retry_cost` `2/3 completed → 3/4 completed`, but has no immutable denominator-event id or causal ledger-transition proof. It must not consume another implementation slot until that proof exists.
+- Sep 13–18 contains seven terminal Trend receipts. All seven re-read their assigned metric unchanged and receive zero metric credit.
+- Across the last three reconciliation windows, 32 of 32 Trend pilots produced zero assigned-metric effect.
+- Daily Strategic Priorities now blocks task `trend-task-arxiv-org-abs-2609-11918v1` because an exact denominator identity and causal transition are unavailable; `implementation_authorized=false` is the correct result.
+- The assignment still names Morning System Upgrade even though that scheduler was disabled on Sep 18. Ranking refusal has begun, but runner-level fail-closed enforcement and a valid causally eligible task are not yet proven.
 
 ## Automation and ownership state
 
-- Scheduler truth remains ten effective recurring tasks, one exhausted enabled task and three operational names without an enabled scheduler.
-- Daily Dashboard Update has no enabled scheduler although it is the exclusive routine publisher.
-- Sep 12 agent-productivity reports work as Brain Regression Guard even though no enabled scheduler has that title: actor/scheduler attribution drift.
-- Morning System Upgrade continues to implement, merge, deploy and write its own rich terminal receipts, bypassing PR Delivery Sweep and independent closure.
-- Sep 12 owner inventory is 49 open PRs, 0 ready, 35 stale and 27 nonmergeable. The current PR Delivery Sweep merged or repaired zero.
+- Scheduler truth is nine enabled recurring automations.
+- Morning System Upgrade and Finish Trends Rotation are disabled; no enabled primary implementation owner remains.
+- Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch remain disabled; no enabled routine publisher exists.
+- Daily Strategic Priorities is active but still emits an assignment to a disabled executor.
+- Sep 19 PR inventory is 55 open, 0 ready, 39 stale, 31 nonmergeable and 13 drafts; the PR sweep merged, repaired and closed zero.
 
-## Metrics and evidence gaps
+## Metrics and effect
 
 - Product Delivery, Task Success and Live Completion remain `1/4`.
-- Deployment Frequency remains `1/3`; Rework remains `1/3 completed`; Context Retry Cost remains `2/3 completed`.
-- `memory_sync_status` still reports last durable success `d4519ad...` on Aug 23 and omits later durable main/PR state.
-- Twelve current-window Trend cycles and 36 new Brain Management PRs produced zero verified dashboard-metric gains.
+- Deployment Frequency remains `1/3`; Rework remains `1/3 completed`; User Pain Recurrence remains `1/2`; Context Retry Cost remains `2/3 completed`; Provider readiness remains `0/4`; Business KPI coverage remains `4/6`.
+- Repository snapshots label publication freshness current even while canonical production fails closed. Publication freshness must be derived from canonical source age, not repository snapshot recency.
+- The runtime restoration, this capsule and all index/governance changes are `NO_DIRECT_METRIC_EFFECT`.
 
 ## Release guardrails
 
 - One repo, one `main`, one canonical Vercel project and one canonical origin.
-- Persist one coherent source before build; reject tracked post-checkout mutation.
-- Verify status, body, schema/counts, source timestamp, parity, service worker, release manifest, rendered routes and runtime health.
-- A connected-provider READY artifact is not a green repository release gate and does not repair stale attribution.
-- Publish the newest weekly review and append prospective immutable history; never backfill missing dates.
-- Missing stage artifacts are `PIPELINE_INCOMPLETE`, not no-op or terminal receipts.
-- Metric assignment requires a pre-existing immutable denominator event plus causal eligibility.
+- Operational data stays outside static release bundles and is read only through the guarded runtime source.
+- A 200 health/fallback route cannot override 503 operational sources.
+- Repository freshness cannot substitute for canonical production freshness.
+- Publish the newest weekly review and append prospective immutable history; never fabricate missing dates.
+- Metric assignment requires an immutable denominator event and a demonstrable numerator transition before implementation.
+- A disabled executor cannot own an active assignment.
 - Zero-effect work receives no metric, product or canonical LIVE credit.
 
-## Current chains and blockers
+## Current blockers and next actions
 
-1. `operational-source-freshness-refresh-20260818` — immediate live recovered; <=12h routine publisher cadence, exact attribution and delayed closure remain open.
-2. `trend-implementation-trend-task-t-me-vibecoding-tg-3833` — READY but immutable-event causality is missing.
-3. Complete release gate — red; PR #561 conflicted and failing.
-4. Immutable history — 0/7; weekly review stale at Aug 23.
-5. `provider-live-readiness-ezohata-finance` — `BLOCKED_BY_OWNER`, 0/4.
-6. Psihotavr identity — unresolved.
-
-## Next durable actions
-
-1. Enforce the denominator-event causality gate before consuming task `...3833` or any successor.
-2. Restore one scheduler-backed routine publisher; prove two <=12h cycles, exact live attribution, seven snapshots and delayed independent closure.
-3. Repair and consume the full release/closure path through PR Delivery Sweep and Evening Delivery Closure, then publish the newest weekly scorecard.
+1. Owner activation: configure the scoped read-only runtime token, then perform the bounded exact-main activation and verify 7/7 APIs.
+2. Prove runtime separation: publish a later repository data refresh with no Vercel deployment, then complete delayed independent closure.
+3. Keep Trend implementation paused until an enabled executor receives an assignment with immutable denominator identity and runner-enforced causal eligibility.
+4. Merge or supersede PR #579 only after final-head validation so the Sep 7–13 scorecard becomes canonical; continue prospective snapshots toward 7/7.
 
 ## Environment variable names
 
-Values never enter durable memory. Known names: `MOBILE_LAUNCH_KEY`, `STATUS_CALLBACK_SECRET`, `MOBILE_RUNS`, `GH_REPO_OWNER`, `GH_REPO_NAME`, `GH_WORKFLOW_FILE`, `GH_WORKFLOW_REF`, `GH_WORKFLOW_PAT`, `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_AUTH_SESSION_SECRET`, `GOOGLE_AUTH_ALLOWED_EMAILS`, `GOOGLE_AUTH_ALLOWED_DOMAIN`.
+Values never enter durable memory. Known names: `BRAIN_RUNTIME_GITHUB_TOKEN`, `MOBILE_LAUNCH_KEY`, `STATUS_CALLBACK_SECRET`, `MOBILE_RUNS`, `GH_REPO_OWNER`, `GH_REPO_NAME`, `GH_WORKFLOW_FILE`, `GH_WORKFLOW_REF`, `GH_WORKFLOW_PAT`, `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_AUTH_SESSION_SECRET`, `GOOGLE_AUTH_ALLOWED_EMAILS`, `GOOGLE_AUTH_ALLOWED_DOMAIN`.

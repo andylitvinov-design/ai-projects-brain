@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-09-12`
+Last aggregated: `2026-09-19`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -183,5 +183,41 @@ This synthesis uses immutable receipts and current repository/live evidence. It 
 1. Enforce the immutable denominator-event gate before consuming any of the ten new Trends tasks.
 2. Restore one scheduler-backed publisher and prove two <=12h cycles, exact live attribution, 7/7 snapshots and delayed independent closure.
 3. Stop merging zero-effect pilot/terminal pairs outside PR Delivery; use one causally eligible product chain and one canonical terminal receipt.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
+
+## Current-window evidence — 2026-09-13 through 2026-09-19
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Trend terminal pilots | 7 | All seven completed before the implementation scheduler was disabled. |
+| Verified assigned-metric gains | 0/7; 0/32 across three windows | The repeated causal-binding failure remains the dominant learning signal. |
+| Next ranked task | `implementation_authorized=false` | Ranking now refuses missing denominator identity, a partial control improvement with no metric credit. |
+| Immutable history | repository 4/7; live view stale at 3/7 | Prospective persistence improved from 0/7, but continuity and live sync remain incomplete. |
+| Canonical operational APIs | 0/5 | Data, Trends, productivity, needs-attention and priorities fail closed from a 96.6h source. |
+| Repository/live source split | Sep 19 repository vs Sep 15 production | Runtime architecture is repaired in source but not activated for production. |
+| Weekly review | Sep 7–13 in open PR #579; live/main Aug 17–23 | Review execution is not canonical publication. |
+| Scheduler capacity | 9 enabled; no implementer or publisher | Disabling uncontrolled pilots reduced churn risk but left two exclusive stages unowned. |
+| PR inventory | 55 open; 0 ready; 39 stale; 31 nonmergeable; 13 drafts | Backlog increased from 49 while the sweep converted zero items. |
+| Books | public routes 200; PR #23 owner-review-only | Public readiness remains real; sensitive private/signature changes receive no readiness promotion. |
+
+### Latest complete review available
+
+The Sep 7–13 Weekly Delivery System Review in PR #579 counted 17 chains, 0 canonical `LIVE_VERIFIED`, 14/14 zero-effect Trends, 0 numeric or product/business gains, immutable history 1/7, and 48 Brain Management PRs created. It also recorded 158 Actions runs with 137 failures and Mobile Release Bundle at 0 successes of 67 attempts. Because the review is not on canonical `main` or live, it is evidence for learning, not proof of successful publication.
+
+## Efficiency trend — 2026-09-19
+
+- **Control improved late:** ranking finally blocks one causally unsupported task and Morning System Upgrade is disabled, but runner enforcement and a valid assignment remain unproven.
+- **Effect conversion remains zero:** seven more pilots extend the repeated sequence to 32/32 without assigned-metric gain.
+- **Architecture repair is not activation:** PR #607 restores the correct source design, while production remains stale fail-closed and owner-blocked.
+- **History improved but is incomplete:** repository coverage rose to 4/7; live health is stale and weekly publication remains weeks behind.
+- **Backlog worsened:** open PRs rose 49 → 55, with 0 ready and 0 sweep conversions.
+- **Stage capacity contracted:** stopping the zero-effect executor was correct, but no replacement implementer or routine publisher is enabled.
+
+## Highest-value efficiency corrections — 2026-09-19
+
+1. Activate the guarded runtime source once, then prove one data refresh with no application deployment and delayed closure.
+2. Enforce causal eligibility in both ranking and runner before restoring one implementation owner.
+3. Convert PR #579 through final-head validation and canonical publication, then accumulate the missing prospective history days.
 
 All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.

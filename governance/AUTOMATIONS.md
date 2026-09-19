@@ -1,72 +1,62 @@
 # Automation Registry
 
-Last reconciled: `2026-09-12`
+Last reconciled: `2026-09-19`
 
 ## Registry contract
 
-Scheduler evidence, operational actor identity and exclusive ownership must agree. Documentation or an operational report name alone does not prove runnable capacity.
+Scheduler evidence, operational actor identity and exclusive ownership must agree. Documentation, an assignment label or an operational report name alone does not prove runnable capacity.
 
 ## Current scheduler truth
 
-- 42 tasks are visible; 11 are marked enabled.
-- 10 enabled tasks have recurring schedules: Morning Task Sweep, PR Delivery Sweep, Daily Strategic Priorities, Morning System Upgrade, Evening Delivery Closure, Weekly Brain Refresh, Sunday Dashboard Review, Weekly Delivery System Review, Weekly Live Safe Sweep and Portfolio Sales Audit.
-- `Finish Trends Rotation` is still enabled but exhausted its 24 hourly occurrences on 2026-08-27: `ENABLED_BUT_EXHAUSTED`.
-- Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch are operational assignment names with no enabled scheduler: `UNASSIGNED_IN_SCHEDULER`.
+- 42 tasks are visible; nine are enabled and recurring.
+- Enabled management tasks: Morning Task Sweep, PR Delivery Sweep, Daily Strategic Priorities, Evening Delivery Closure, Weekly Brain Refresh, Sunday Dashboard Review and Weekly Delivery System Review.
+- Other enabled bounded roles: Weekly Live Safe Sweep and Portfolio Sales Audit.
+- Morning System Upgrade was disabled on Sep 18 after another zero-effect implementation; Finish Trends Rotation is also disabled. Neither is runnable capacity.
+- Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch remain disabled.
+- Result: no enabled primary implementation owner and no enabled routine operational publisher.
 
 ## Canonical management chain
 
 | Automation | Exclusive role | Current health | Current evidence / next action |
 |---|---|---|---|
-| Morning Task Sweep | discovery, carryover and readiness | active; continuity incomplete, outcome conversion zero | Sep 12 reconciled 3 chains and 135 non-additive duplicate markers, but main lacks Sep 6, 7 and 11 handoffs. No verified metric gain. |
-| PR Delivery Sweep | PR/branch/CI/review/merge stage | active but no ready throughput | Sep 12 inventory is 49 open / 0 ready / 35 stale / 27 nonmergeable; the sweep merged/repaired 0. Product/recovery workers still merge outside this stage. |
-| Daily Strategic Priorities | ranking only | active; causality gate still failed | Twelve more zero-effect Trend receipts and the new denominator-free assignment prove the Sep 5 candidate was documented but not enforced. |
-| Morning System Upgrade | one implementation owner | active twice daily; very high activity, zero metric conversion | Produced 12 current-window Trend terminals and most of 36 new Brain Management PRs; every assigned metric re-read unchanged. It continues to merge/deploy/self-terminalize. |
-| Daily Dashboard Update | metrics, history and atomic publication | `UNASSIGNED_IN_SCHEDULER` | Nominal exclusive publisher has no enabled task. Restore one scheduler-backed identity or explicitly reassign the contract; do not infer ownership from another actor's report. |
-| Evening Delivery Closure | independent verification and terminal closure | active, persistence incomplete | Main contains Sep 7–8 closures; Sep 9 is stuck in open/conflicted PR #561 and Sep 10–11 receipts are absent. No current canonical LIVE closure. |
-| Weekly Delivery System Review | execution-quality evaluator | active, canonical output stale | Scheduler ran Sep 6, but the newest accessible live and repository scorecard still ends Aug 23. Missing output is a persistence/sync defect, not evidence of no findings. |
-| Sunday Dashboard Review | metric/control-plane architecture | active, durable output not current | Scheduler ran Sep 6; no newer canonical durable/live review artifact was found. The last accepted durable corrections remain PRs #208/#209/#210. |
-| Weekly Brain Refresh | durable reconciler | active | Owns this catalog/governance/index PR only; no operational or product mutation. |
+| Morning Task Sweep | discovery, carryover and readiness | active; continuity partial | Sep 13, 14, 15, 18 and 19 handoffs exist; Sep 16–17 are missing. Sep 19 correctly carries owner activation, PR #579 and causal-gate work. |
+| PR Delivery Sweep | PR/branch/CI/review/merge stage | active; zero throughput | Sep 19 inventory is 55 open / 0 ready / 39 stale / 31 nonmergeable / 13 drafts; the run merged, repaired and closed zero. |
+| Daily Strategic Priorities | ranking only | active; gate partially enforced | The Sep 19 task is `implementation_authorized=false` because an exact denominator identity is unavailable. However, the assignment still targets disabled Morning System Upgrade. |
+| Morning System Upgrade | one implementation owner | `DISABLED` | Seven current-window and 32 cumulative Trend pilots produced zero assigned-metric effect before suspension. Do not re-enable without runner-level causal fail-closed rules. |
+| Daily Dashboard Update | metrics, history and atomic publication | `DISABLED / UNASSIGNED` | No routine publisher exists. Runtime activation is owner-blocked; after activation one scheduler-backed publisher must prove a no-deployment data refresh. |
+| Evening Delivery Closure | independent verification and terminal closure | active; cannot close owner block | Sep 18 correctly ended `BLOCKED_BY_OWNER`; it must independently verify 7/7 APIs and delayed no-deploy freshness after activation. |
+| Weekly Delivery System Review | execution-quality evaluator | active; output not canonical | Sep 7–13 scorecard exists in open PR #579, while live/main remain at Aug 17–23. Complete final-head validation and normal delivery. |
+| Sunday Dashboard Review | metric/control-plane architecture | active; repair not live | PRs #597–599 introduced runtime separation, #602 regressed it and #607 restored it on `main`; owner production activation remains open. |
+| Weekly Brain Refresh | durable reconciler | active | Owns catalog/governance/index reconciliation only; no operational, product or scheduler mutation. |
 
-## Other enabled automation
+## Ownership defects
 
-| Automation | Purpose | Boundary |
-|---|---|---|
-| Weekly Live Safe Sweep | bounded public live checks | no daily chain ownership or durable-catalog mutation |
-| Portfolio Sales Audit | weekly read-only conversion audit | no product mutation or invented conversion evidence |
-| Finish Trends Rotation | completed temporary recovery | exhausted; not capacity and should be disabled/archived by its owner |
-
-## Operational ownership conflicts
-
-1. **Actor/scheduler split:** Sep 12 agent-productivity is still attributed to Brain Regression Guard, but no enabled Brain Regression Guard scheduler exists.
-2. **Publisher overlap:** those Regression Guard-labelled reports refresh current sources and create dated `regression-guard-atomic-refresh-YYYYMMDD` chains even though Daily Dashboard Update owns routine publication.
-3. **Implementation overlap:** Morning System Upgrade implements, merges, deploys and writes rich terminal labels; PR Delivery Sweep and Evening Delivery Closure therefore remain bypassed.
-4. **Top-level enum drift:** all 12 Sep 7–12 Trend receipts use `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`, outside the canonical four-state enum.
-5. **Reactive continuity:** the Sep 12 source reached 71h and 4/7 APIs failed closed before recovery; a dated emergency refresh is not the required <=12h publisher cadence.
-6. **Missing stage artifacts:** Morning and Closure files are absent for several dates; the Sep 9 closure remains outside main in conflicted PR #561.
-7. **Release-gate split brain:** connected Vercel publishes READY artifacts while Mobile Release Bundle stays red and the API attribution envelope points to a legacy SHA/null deployment id.
+1. **Assigned-to-disabled executor:** Daily Strategic Priorities names Morning System Upgrade even though it is disabled.
+2. **No routine publisher:** repository data can advance while production remains stale because Daily Dashboard Update is disabled and the restored runtime path is not activated.
+3. **Repository/live split:** Sep 19 source exists on `main`, while canonical production still serves Sep 15 and five operational APIs fail closed.
+4. **Fallback ambiguity:** health and weekly endpoints return 200 from empty/stale upstream state; they cannot be counted as operational recovery.
+5. **Weekly persistence split:** the newest review is in PR #579 rather than canonical history or live.
+6. **PR-stage bypass/churn:** 55 open PRs and zero ready/processed indicate activity is not converting through the exclusive PR stage.
 
 ## Durable rules
 
 1. Read assignment, carryover and lock before acting.
-2. Preserve one implementation owner until canonical terminal state or explicit reassignment.
-3. Reuse the same chain/PR for the same defect; dated recovery aliases are not new work.
-4. Merge, READY, fresh wrapper, live behavior or evaluated pilot is not metric gain.
-5. APIs require status, content type, body, parseability, source identity and delayed verification.
-6. Direct deployments require current-source binding, exact manifest parity and dependency closure.
-7. Routine receipts stay in Brain Management; durable weekly synthesis stays here.
-8. A scheduler-less actor identity is `UNASSIGNED_IN_SCHEDULER` even if another task emits reports under that name.
-9. Detection guards may hand off an existing recovery chain; they do not become routine publishers or terminal closers.
-10. PR/CI/merge evidence belongs to PR Delivery Sweep; terminal closure belongs to Evening Delivery Closure.
-11. Rich diagnostic outcomes belong in detail fields; top-level terminal state stays canonical.
-12. A Trends metric binding needs pre-existing immutable denominator identity and causal eligibility, not just a raw baseline/target.
-13. Missing daily snapshots are not reconstructed from handoffs.
-14. Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.
+2. Preserve one enabled implementation owner until canonical terminal state or explicit reassignment.
+3. A disabled or expired scheduler cannot own an active assignment.
+4. Reuse the same chain/PR for the same defect; dated recovery aliases are not new work.
+5. Merge, READY, repository freshness, live behavior or evaluated pilot is not metric gain.
+6. APIs require status, body, parseability, source identity and delayed verification; fallback 200 does not override operational 503.
+7. Operational JSON stays out of static bundles; guarded runtime data refresh must not trigger application deployment.
+8. PR/CI/merge evidence belongs to PR Delivery Sweep; terminal closure belongs to Evening Delivery Closure.
+9. A Trends assignment requires immutable denominator identity, exact numerator transition, canonical route/repo/branch and runner enforcement before implementation.
+10. Missing daily snapshots are not reconstructed from handoffs.
+11. Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.
 
 ## Success conditions
 
 - one enabled scheduler identity for every canonical stage;
-- zero exhausted tasks counted as capacity;
-- two <=12h publisher-owned coherent cycles, then independent delayed closure, with no intermediate fail-closed window;
-- full release gate green;
-- next Trends assignment proves immutable ledger-event eligibility before implementation;
-- PR Delivery and Closure consume their exclusive stages rather than observing downstream work after the fact.
+- exact-main runtime activation with 7/7 canonical APIs;
+- one later guarded runtime-source refresh with no deployment, then delayed independent closure;
+- next accepted Trend task passes both ranking and runner causal gates;
+- newest weekly review reaches canonical main/live and seven prospective snapshots accumulate honestly;
+- PR Delivery converts at least one eligible PR rather than only reporting backlog.

@@ -2,7 +2,7 @@
 
 > Durable memory about management quality, ownership, errors, lessons and efficiency. Operational daily data remains in Brain Management.
 
-Last reconciled: `2026-09-12`
+Last reconciled: `2026-09-19`
 
 ## Canonical files
 
@@ -12,7 +12,8 @@ Last reconciled: `2026-09-12`
 - `RULES.md` — durable rules and lifecycle evidence.
 - `EFFICIENCY.md` — immutable scorecards plus clearly labelled current evidence.
 - `WEEKLY-LEARNINGS.md` — compact weekly failures, causes, fixes and reusable lessons.
-- `durable-root-cause-candidate-2026-09-12.json` — current continuation candidate for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-09-19.json` — current partially-enforced continuation candidate for Daily Strategic Priorities and the implementation runner.
+- `durable-root-cause-candidate-2026-09-12.json` — prior continuation candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-09-05.json` — prior continuation candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-08-29.json` — prior causal-binding candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-08-22.json` — prior candidate retained as historical evidence.
@@ -45,6 +46,9 @@ Last reconciled: `2026-09-12`
 8. Documentation/index work is `NO_DIRECT_METRIC_EFFECT`.
 9. Metric binding requires a ledger-eligible denominator item and causal eligibility.
 10. Enabled finite schedules without remaining occurrences are not runnable capacity.
+11. Repository-fresh runtime data does not override stale canonical production.
+12. Health/fallback HTTP 200 cannot override failed operational dependencies.
+13. A disabled executor cannot own an active assignment.
 
 ## Weekly cycle
 

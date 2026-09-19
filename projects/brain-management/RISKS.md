@@ -20,6 +20,10 @@
   identify the upstream dependency failure explicitly, preserve the last
   source-backed health evidence separately, and never reinterpret missing
   input as source corruption or a fresh control-plane result.
+- This recurred on 2026-09-19: five operational APIs returned 503 from a
+  96.6h source while health and weekly-review routes returned 200 from
+  empty/stale upstream state. Closure must report the operational 503s as the
+  controlling status.
 ## Freshness Cadence Risks
 
 - A terminal freshness limit shorter than the effective publication interval
@@ -65,6 +69,16 @@
   closure receipts stop at Sep 8, and the Sep 9 closure remains in conflicted
   PR #561. Missing artifacts must remain `PIPELINE_INCOMPLETE`.
 
+## Runtime Data Activation Risks
+
+- The runtime-data architecture merged in Brain Management PRs #597–#599 is not live merely because its code reached `main`. Until the existing Vercel project has `BRAIN_RUNTIME_GITHUB_TOKEN` configured with fine-grained, read-only Contents access to `andylitvinov-design/brain-management`, the guarded operator must remain fail-closed.
+- Never persist the token value in a repository, handoff, log excerpt, or durable-memory receipt. Store only the variable name and the minimum access contract.
+- Activation proof requires one operator run that changes the runtime source without creating a Vercel deployment, a canonical API re-read of that source, explicit stale/missing-auth failure behavior, and evidence that the application deployment stayed unchanged. A merge receipt or a routine data-only redeploy is insufficient.
+- Constrained Vercel deployment storage is part of the operating constraint: operational data refreshes must use the runtime-data path after activation and must not consume application deployments.
+- A product or pilot PR must not replace the runtime-data wrappers, restore bundled operational JSON, or weaken the storage-safe Vercel configuration. PR #602 demonstrated this regression while its complete Mobile Release Bundle was red on `OPERATIONAL_SOURCE_MANIFEST_FORBIDDEN`; focused pilot tests cannot substitute for that gate.
+- If runtime separation has regressed, credential activation alone is insufficient. Reapply the tested architecture on current `main`, reconcile every operational-source timestamp, pass the complete release gate, use at most one material deployment, and then prove subsequent refreshes without deployments.
+- PR #607 restored that architecture on current `main` and passed Mobile Release Bundle #1250, but repository restoration is not activation. Preserve state `RESTORED_ON_MAIN_BLOCKED_BY_OWNER` until the scoped Vercel credential, exact-main single deployment, 7/7 canonical API reread, and a subsequent no-deployment runtime refresh are independently verified.
+
 ## Deploy Risks
 
 - Cloudflare Pages
@@ -93,12 +107,15 @@
 ## Effect-Causality Risks
 
 - A complete Trends assignment schema is not evidence that a pilot can change
-  its selected metric. Twenty-five consecutive pilots across the Aug 31–Sep 12
+  its selected metric. Thirty-two consecutive pilots across the Aug 31–Sep 19
   reconciliation windows reached live behavior with zero assigned-metric gain.
 - Before implementation, require an immutable denominator-event id and the
   exact unchanged-formula transition the change can cause. If the only effect
   is local benchmark improvement, return `NO_COMPATIBLE_METRIC` and do not
   create implementation, terminalization or deployment PRs.
+- Ranking refusal alone is insufficient. The implementation runner must repeat
+  the causal check and fail closed, and an assignment must not name a disabled
+  executor.
 
 ## Security Risks
 

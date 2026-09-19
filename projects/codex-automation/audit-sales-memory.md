@@ -15,34 +15,77 @@ Persistent longitudinal memory for the weekly `/audit-sales` portfolio review an
 
 ## Current portfolio snapshot
 
-Snapshot date: 2026-09-07.
+Snapshot date: 2026-09-14.
 
-This run verified live rendered desktop state at 1363×936, current Vercel aliases/deploy metadata where accessible, direct CTA hrefs, EzoHata add-to-cart plus reload persistence, Psitherapy /demo, Reiki /masters and /shop, the Toronto Tantra /cuddle-therapy route, the canonical PsiTrends and EzoHata custom domains, and the new Books Library family. Mobile rendering, field Core Web Vitals, authenticated/provider completion, live analytics delivery, payment/order submission, and actual Telegram/WhatsApp messaging remain NOT_TESTED. The cloud browser could not open Telegram or WhatsApp landing state; href targets were observed without sending anything.
+This run verified clean desktop rendering at 1363×936, current public copy and CTA targets, EzoHata /ads/diagnostics including keyboard traversal, Books catalogue and remedy reader, Psitherapy /demo, Reiki /masters and /shop, both PsiTrends public surfaces, Toronto Tantra root plus /cuddle-therapy, the EzoHata legacy store, and Psihotavr. Mobile rendering, field Core Web Vitals, authenticated/provider completion, live analytics delivery, payment/order/lead submission, and actual Telegram/WhatsApp messaging remain NOT_TESTED.
 
 Scores use the full 100-point denominator. Deltas are heuristic evidence deltas, never revenue or conversion-rate claims.
 
 | Project | Repo / production source | A | B | C | D | E | F | G | Total | Prior | Delta | Change | Confidence |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|---|
-| Toronto Tantra | andylitvinov-design/torontotantra; torontotantra.vercel.app; main@72d269f5 | 18 | 19 | 10 | 17 | 9 | 4 | 0 | 77 | 77 | 0 | CHANGED_SCOPE | high desktop / medium overall |
-| Business Mysteries | businessmysteries.vercel.app; direct deployment; shared source family needs verification | 20 | 17 | 9 | 18 | 8 | 4 | 0 | 76 | 76 | 0 | UNCHANGED | medium |
-| Body Explore | bodyexplore.vercel.app; direct deployment; shared source family needs verification | 19 | 17 | 9 | 18 | 8 | 4 | 0 | 75 | 75 | 0 | UNCHANGED | medium |
+| Toronto Tantra | andylitvinov-design/torontotantra; torontotantra.vercel.app; main@72d269f5 | 18 | 19 | 10 | 17 | 9 | 4 | 0 | 77 | 77 | 0 | UNCHANGED | high desktop / medium overall |
+| Business Mysteries | businessmysteries.vercel.app; direct deployment; canonical source needs verification | 20 | 17 | 9 | 18 | 8 | 4 | 0 | 76 | 76 | 0 | UNCHANGED | medium |
+| Body Explore | bodyexplore.vercel.app; direct deployment; canonical source needs verification | 19 | 17 | 9 | 18 | 8 | 4 | 0 | 75 | 75 | 0 | UNCHANGED | medium |
 | Psychic Alchemy | psychicalchemy.vercel.app; direct deployment without Git metadata | 19 | 17 | 9 | 17 | 7 | 4 | 0 | 73 | 73 | 0 | UNCHANGED | medium visible / low source |
-| EzoHata clean-room | andylitvinov-design/ezohata; ezohata.vercel.app; main@d9d4688e | 18 | 15 | 6 | 18 | 5 | 7 | 0 | 69 | 70 | -1 | CHANGED_FAILURE_EVIDENCE | medium-high |
-| EzoHata legacy store | ezohata.com; canonical repo/hosting source needs verification | 16 | 15 | 7 | 13 | 5 | 3 | 0 | 59 | n/a | NEW_IN_SCOPE | NEW | medium visible / low source |
-| PsiTrends | psitrends.com canonical custom domain; Pages redesign at psitrends.pages.dev; source mapping needs verification | 18 | 15 | 4 | 15 | 6 | 4 | 0 | 62 | n/a | NEW_IN_SCOPE | NEW | medium visible / low source |
+| EzoHata clean-room | andylitvinov-design/ezohata; ezohata.vercel.app; main@5bb3c32a | 18 | 15 | 7 | 19 | 6 | 7 | 0 | 72 | 69 | +3 | CHANGED_SCOPE_AND_EVIDENCE | medium-high |
+| PsiTrends | psitrends.com canonical custom domain; Pages alternate at psitrends.pages.dev; source mapping needs verification | 18 | 15 | 4 | 15 | 6 | 4 | 0 | 62 | 62 | 0 | UNCHANGED | medium visible / low source |
 | Psitherapy | andylitvinov-design/report; psitherapy.vercel.app; main@7ebcd789 with gitDirty:1 | 16 | 16 | 6 | 15 | 5 | 2 | 0 | 60 | 60 | 0 | UNCHANGED_FAILURE | medium |
-| Reiki Yggdrasil | andylitvinov-design/reiki-yggdrasil; canonical production@b8c312ee; 2mentalica main@3fd7960a is a divergent alias | 10 | 9 | 5 | 8 | 4 | 2 | 0 | 38 | 38 | 0 | UNCHANGED_FAILURE | medium-low |
-| Books Library | andylitvinov-design/books; codex-public-book-library.vercel.app plus books-nu.vercel.app; branch/deploy parity needs verification | 13 | 15 | 4 | 13 | 2 | 6 | 0 | 53 | n/a | NEW_IN_SCOPE | NEW | medium visible / low source |
+| EzoHata legacy store | ezohata.com; canonical repo/hosting source needs verification | 16 | 15 | 7 | 13 | 5 | 3 | 0 | 59 | 59 | 0 | UNCHANGED | medium visible / low source |
+| Books Library | andylitvinov-design/books; codex-public-book-library.vercel.app; codex/public-book-library@2f665ca2; books-nu remains alternate | 13 | 15 | 5 | 15 | 3 | 7 | 0 | 58 | 53 | +5 | RESOLVED_PARTIAL | medium-high visible / medium source |
+| Reiki Yggdrasil | andylitvinov-design/reiki-yggdrasil; canonical production@b8c312ee; 2mentalica is a divergent alias | 10 | 9 | 5 | 8 | 4 | 2 | 0 | 38 | 38 | 0 | UNCHANGED_FAILURE | medium-low |
 
 ### Verification-only / excluded from scored public-sales families
 
 | Project | Current classification | Change |
 |---|---|---|
-| Psihotavr | psihotavr.vercel.app still returns DEPLOYMENT_NOT_FOUND and no Vercel project is accessible | UNCHANGED blocker; prior 40 retained as history |
-| Sales BWA Photo | live PsiTrends-branded alternate sales page; canonical repo and production role unknown | NEW_EVIDENCE; not scored separately from PsiTrends |
-| 2Mentalica | live alias of Reiki Yggdrasil with the same /masters raw error; main source differs from canonical Reiki production | NEW_ALIAS_EVIDENCE |
-| books-nu | alternate Books build from codex/maya-tradition-corpus@fb8176f8 with gitDirty:1 | NEW_ALIAS_EVIDENCE |
+| Psihotavr | psihotavr.vercel.app still returns DEPLOYMENT_NOT_FOUND; Brain collector reports COLLECTOR_ERROR | UNCHANGED blocker; prior 40 retained as history |
+| Sales BWA Photo | PsiTrends-branded alternate sales page; canonical role unknown | UNCHANGED verification-only |
+| 2Mentalica | Reiki alias from a source branch different from canonical production | UNCHANGED alias evidence |
+| books-nu | alternate Books build; canonical/source parity unresolved | UNCHANGED alias evidence |
 | Brain Management, Codex Links, AI Projects Brain, MyPortal, Finance and Incoming Ledger | internal/control/owner-only systems | UNCHANGED exclusions |
+
+## 2026-09-14 portfolio audit
+
+### Sales Change Map
+
+- Toronto Tantra, Business Mysteries, Body Explore and Psychic Alchemy: UNCHANGED. Their public message and contact CTAs remain usable; verified commercial facts, source proof or downstream contact completion remain incomplete.
+- EzoHata clean-room: CHANGED_SCOPE_AND_EVIDENCE. /ads/diagnostics is now a distinct public lead path. It provides an explicit analytics-consent choice, a short three-step explanation, a contact-method field and consent checkbox. Keyboard traversal reached the analytics controls, contact selector, input, consent control and submit button with visible outlines. Price, response time, eligibility and durable submission evidence remain absent; no lead was submitted. Open issue #58 records that durable abuse protection is still missing.
+- PsiTrends: UNCHANGED. The custom domain still publishes unsupported 300%/5x outcome claims and manipulative urgency. The Pages alternate still exposes internal conversion-design commentary.
+- EzoHata legacy: UNCHANGED. The store is active and current, but the large catalogue and health/outcome claims remain the primary trust and safety risks.
+- Psitherapy: UNCHANGED_FAILURE. /demo still renders the login screen with a link back to /demo. PR #130 remains open and not live.
+- Reiki Yggdrasil: UNCHANGED_FAILURE. /masters still exposes Failed to fetch. /shop uses a safe unavailable state. PR #504 remains open and not live.
+- Books Library: RESOLVED_PARTIAL. The previously observed empty navigation actions are absent, catalogue-to-reader works, and remedy entries now repeat an educational/archive/non-medical disclaimer. Strong therapeutic, efficacy, treatment and remote-impact claims remain in the same content, so the safety/trust issue is reduced but not resolved. Production source is codex/public-book-library@2f665ca2; open PR #22 concerns baseline headers and is not sales-score evidence.
+- Psihotavr: UNCHANGED blocker. Live still returns DEPLOYMENT_NOT_FOUND; the 2026-09-14 Brain collector keeps business_growth_outcomes at 4/6 and classifies Psihotavr COLLECTOR_ERROR. Previous candidate implementation is absent and actual metric effect is 0.
+- All scored families: G remains 0/5 because event delivery, deduplication, attribution and business-success matching were not proven.
+
+### Ranked portfolio action
+
+Continue the single conditional Psihotavr production-state candidate. Baseline remains business_growth_outcomes 4/6 (66.7). First prove active/retired status, canonical repo/domain/provider/branch and source commit. Only if active, restore the exact verified prior production mapping and confirm one public CTA without sending a message. Accepted collector evidence could then change 4/6 to 5/6 and 66.7 to 83.3. If retired or source proof fails, actual effect remains 0 and the formula/denominator do not change.
+
+### Site recommendations and prompt routes
+
+- Toronto Tantra — preserve facilitator identity, clear program, verified fee, consent, fully-clothed and 18+ boundaries. Leaks: P1 exact current event facts remain deferred; P1 Telegram does not define reply/payment/confirmation; P2 registration measurement is unproven. Recommend exactly: publish only verified date/venue/duration/fee; explain Telegram-to-reservation; state response time; maintain one current-events layer across root and /cuddle-therapy; define payload-free click and confirmed-registration events. Prompt route: /delivery.
+- Business Mysteries — preserve audience segmentation, four-part program and no-guarantee/no-financial-advice framing. Leaks: P1 date/venue/duration/fee absent; P1 proof thin; P2 contact completion unmeasured. Recommend exactly: prove canonical source; publish verified event facts or pending labels; explain inquiry-to-reservation; add only consented proof; define payload-free lead events. Prompt route: /delivery after source proof.
+- Body Explore — preserve fully-clothed participation, optional touch, reversible consent and non-medical framing. Leaks: P1 event facts deferred; P1 verified facilitator/event proof thin; P2 response/reservation completion unmeasured. Recommend exactly: prove canonical source; surface verified event facts or pending labels; explain contact-to-reservation; add a data-minimal first-message instruction; define payload-free lead events. Prompt route: /delivery after source proof.
+- Psychic Alchemy — preserve one dominant CTA, process clarity and visible medical disclaimer. Leaks: P1 price/duration/payment/response time absent; P1 diagnosis/cause language overstates certainty; P1 visitors are asked for sensitive context without data minimization. Recommend exactly: prove canonical source; publish verified commercial facts; make claims exploratory/non-diagnostic; add a short privacy notice; define payload-free lead events without health/message content. Prompt route: /planner.
+- EzoHata clean-room — preserve protected originals, taxonomy, Telegram-first ordering, consent choices and duplicate-submit safeguards. Leaks: P1 diagnostics has no proven durable abuse protection; P1 price/response/eligibility are unclear; P2 catalogue trust and delivered funnel analytics remain incomplete. Recommend exactly: implement the bounded durable abuse guard from issue #58; publish verified diagnostics price/response/eligibility or explicit pending states; clarify fulfilment/post-order expectations; clean visible source-backed product labels and discovery; validate payload-free lead/cart events end to end. Prompt route: /safe.
+- PsiTrends — preserve direct WhatsApp/Telegram actions, audience segmentation and visible services. Leaks: P0 unsupported 300%/5x outcomes and fake urgency; P1 conflicting public surfaces; P1 Pages copy exposes internal design commentary. Recommend exactly: remove or substantiate claims with consented evidence; remove manipulative urgency; choose one canonical production surface; replace internal commentary with visitor-facing process/trust copy; define payload-free inquiry events. Prompt route: /safe.
+- Psitherapy — preserve Google auth boundary and distinction between self-analysis and specialist support. Leaks: P0 /demo self-loop; P1 persistence/truthful success unproven; P1 health/AI privacy evidence incomplete. Recommend exactly: live-verify PR #130 or its equivalent; reconcile gitDirty source; prove durable specialist-request save before success; make pre-login deliverable concrete; keep health answers and identifiers out of analytics. Prompt route: /safe.
+- EzoHata legacy store — preserve current catalogue, prices and working contact/policy routes. Leaks: P0 health/outcome claims need evidence review; P1 catalogue obscures a beginner path; P1 cart/checkout persistence was not tested. Recommend exactly: safety-review health and guarantee language; separate education from medical implications; establish one beginner starting path; clarify deliverable/fulfilment/refund/support; verify one non-purchasing cart/checkout state. Prompt route: /safe.
+- Books Library — preserve source attribution, searchable catalogue, readable routes and the new repeated disclaimer. Leaks: P0 strong treatment/efficacy/remote-impact claims remain; P1 canonical domain/branch relationship is unclear; P2 reading/download completion is unmeasured. Recommend exactly: add a prominent collection-level editorial/non-medical boundary; qualify or contextualize unsupported health claims without rewriting source records silently; establish one canonical public domain and document the alternate; define anonymous catalogue-open/book-open/download-success events. Prompt route: /safe.
+- Reiki Yggdrasil — preserve public/private separation and RLS/provider boundaries. Leaks: P0 /masters raw error; P1 no single public conversion journey; P1 canonical and 2mentalica aliases diverge. Recommend exactly: ship and live-verify the friendly masters state; select one primary public journey; show value/access/next step before login; reconcile aliases and production source; add measurement only after journey proof. Prompt route: /planner.
+
+### Verification state
+
+PASS: all scored public desktop roots rendered without horizontal overflow; EzoHata diagnostics form had a visible sequential keyboard path; Books catalogue and remedy reader opened; direct on-site CTA targets were readable; Vercel production metadata was captured where accessible.
+RESOLVED: Books empty-href actions observed on 2026-09-07 are no longer present.
+FAIL: Psitherapy /demo self-loop; Reiki /masters raw error; Psihotavr 404.
+WATCH: Books health claims remain despite improved disclaimers; EzoHata diagnostics lacks proven durable abuse protection.
+NOT_TESTED: mobile rendered layout, complete keyboard/target-size coverage for unchanged sites, Telegram/WhatsApp landing completion, form/order/payment submission, auth/wrong-role, provider persistence, field CWV, analytics delivery/deduplication/attribution.
+
+### Sales Audit Intelligence
+
+No durable marker change. Version 1.1 remains current; the latest framework review date in the marker file is 2026-07-19. This run updates project evidence only and does not create a singular-mode scorecard, memory, validator or automation.
 
 ## 2026-09-07 portfolio audit
 

@@ -1,20 +1,20 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-09-12T12:32:11Z",
+  "generated_at": "2026-09-19T12:12:02Z",
   "source": "projects.json",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN",
+    "brain_management_current_state": "STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
-    "run_date": "2026-09-12",
+    "run_date": "2026-09-19",
     "active_project_count": 10,
     "meaningful_memory_project_count": 21,
-    "brain_management_source_generated_at": "2026-09-12T11:42:27.636Z",
-    "brain_management_source_age_hours_at_check": 0.8,
+    "brain_management_source_generated_at": "2026-09-15T11:34:55.858Z",
+    "brain_management_source_age_hours_at_check": 96.6,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "7/7 required APIs, sw.js and 298-file manifest HTTP 200 after a 71h fail-closed interval; health DEGRADED at immutable history 0/7; weekly review, durable sync, publication attribution and complete release gate open",
-    "trend_effect_state": "current queue 10 READY; 12 Sep 7-12 terminal pilots and 25 across two refresh windows produced zero assigned-metric gain",
+    "brain_management_api_surfaces": "five operational APIs return 503 from a 96.6h source; weekly and health return stale/fallback 200; sw.js and Sep 15 manifest return 200; runtime architecture restored on main but owner activation open",
+    "trend_effect_state": "7 Sep 13-18 terminals and 32 pilots across three refresh windows produced zero assigned-metric gain; next task is blocked by causal gate",
     "books_state": "ACTIVE_PUBLIC_LIBRARY_PARTIAL_OUTSIDE_FIXED_PRODUCTION_OVERLAY"
   },
   "projects": [
@@ -165,7 +165,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "status_summary": "CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN as of 2026-09-12. Seven required APIs, sw.js and the 298-file manifest return 200 from source 2026-09-12T11:42:27.636Z after a 71h fail-closed interval. Control health is DEGRADED 17/18 because immutable history is 0/7. Weekly review and memory sync are stale; internal attribution carries old source SHA 1d7154d... with no verified deployment id while the live manifest identifies 12d3804..., and the repository release gate remains red.",
+      "status_summary": "STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED as of 2026-09-19. Five operational APIs return 503 from a 96.6h Sep 15 source; weekly and health are stale/fallback 200. PR #607 restored runtime separation on main, but production activation is owner-blocked. Repository history is 4/7 and PR #579 is not yet canonical.",
       "memory_files": {
         "project_md": "projects/brain-management/PROJECT.md",
         "system_map": "projects/brain-management/SYSTEM_MAP.md",
@@ -183,7 +183,7 @@
         "repo_mapping": "listed",
         "live_mapping": "listed",
         "env_status": "names listed",
-        "deploy_status": "current behavior readable; attribution, history, weekly publication and complete gate open"
+        "deploy_status": "canonical production stale fail-closed; runtime path restored on main; owner activation, no-deploy refresh proof, history and weekly publication open"
       }
     },
     {
@@ -557,7 +557,7 @@
       "live_url": "https://codex-public-book-library.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/books",
       "hosting": "Canonical Vercel project codex-public-book-library (prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b); secondary books project is noncanonical",
-      "status_summary": "ACTIVE_PUBLIC_LIBRARY_PARTIAL as of 2026-09-12. Repository default is codex/bootstrap-books; canonical public production source is codex/public-book-library. PR #4 and aggregate PR #2 are merged, and the canonical root plus bilingual Homeopathy route return 200. Private prescription persistence remains BLOCKED_BY_PROVIDER_STORAGE and the secondary books Vercel project is noncanonical.",
+      "status_summary": "ACTIVE_PUBLIC_LIBRARY_PARTIAL as of 2026-09-19. Public production remains readable. Draft PR #23 is owner-review-only for sensitive private/signature flows; private persistence remains BLOCKED_BY_PROVIDER_STORAGE and the secondary books Vercel project is noncanonical.",
       "memory_files": {
         "project_md": "projects/books/PROJECT.md",
         "system_map": "projects/books/SYSTEM_MAP.md",
@@ -607,5 +607,5 @@
       }
     }
   ],
-  "last_inventory_update": "2026-09-12"
+  "last_inventory_update": "2026-09-19"
 }

@@ -137,53 +137,53 @@
       "live_url": "https://brain-management.vercel.app",
       "provider_project": "prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d",
       "status": "IMPROVING",
-      "repo_reachability": "CONFIRMED_2026-09-12",
+      "repo_reachability": "CONFIRMED_2026-09-19",
       "evidence_refs": [
         "projects/brain-management/PROJECT.md",
-        "brain-management/history/weekly-delivery/2026-08-23.json",
-        "brain-management/history/closures/2026-09-04-evening-delivery-closure.json",
-        "canonical live re-read 2026-09-12T12:32Z",
+        "brain-management PR #579 history/weekly-delivery/2026-09-13.json",
+        "brain-management/history/closures/2026-09-18-evening-delivery-closure.json",
+        "canonical live re-read 2026-09-19T12:12Z",
         "systems/dashboard-snapshot-monotonicity-contract.md",
         "automation:Dashboard Publication Watch",
-        "andylitvinov-design/brain-management@86c15a9c35f9d5043a67665b1a078777887ab835",
+        "andylitvinov-design/brain-management@cbd05c66989957713c208be5692d356d0d0c8f9a",
         "canonical-blob:b2797fda54d3d5d5d6ff47b2aca9f89ce543a040",
         "mirror-blob:661391104229f9fbfd24a812ac7d4781e86bb5f6"
       ],
       "freshness": {
-        "checked_at": "2026-09-12T12:32:11Z",
-        "source_generated_at": "2026-09-12T11:42:27.636Z",
-        "age_hours": 0.8,
+        "checked_at": "2026-09-19T12:12:02Z",
+        "source_generated_at": "2026-09-15T11:34:55.858Z",
+        "age_hours": 96.6,
         "max_age_hours": 18,
         "api_statuses": {
-          "/api/data": 200,
-          "/api/trends": 200,
-          "/api/agent-productivity": 200,
-          "/api/strategic-priorities": 200,
-          "/api/needs-attention": 200,
+          "/api/data": 503,
+          "/api/trends": 503,
+          "/api/agent-productivity": 503,
+          "/api/strategic-priorities": 503,
+          "/api/needs-attention": 503,
           "/api/control-plane-health": 200,
           "/api/weekly-delivery-system-review": 200
         },
         "service_worker_http": 200,
-        "source_parity": true,
-        "control_plane_health": "DEGRADED_17_PASS_1_FAIL_1_WARNING",
-        "immutable_history": "0/7",
-        "weekly_review_state": "STALE_AT_2026-08-23_WITH_NO_NEWER_CANONICAL_SCORECARD",
-        "publication_attribution": "OPEN",
-        "complete_release_gate": "RED_LEGACY_ASSERTIONS_AND_MULTI_OWNER_FAILURE_SET",
+        "source_parity": false,
+        "control_plane_health": "DEGRADED_8_PASS_10_FAIL_8_ERROR_2_WARNING_ON_EMPTY_UPSTREAM",
+        "immutable_history": "4/7_REPOSITORY_CURRENT_WINDOW_LIVE_VIEW_STALE_3/7",
+        "weekly_review_state": "SEP_7_13_IN_OPEN_PR_579_LIVE_STALE_AT_2026-08-23",
+        "publication_attribution": "REPOSITORY_SEP_19_VS_PRODUCTION_SEP_15",
+        "complete_release_gate": "RUNTIME_PATH_RESTORED_ON_MAIN_OWNER_ACTIVATION_UNPROVEN",
         "release_manifest_http": 200,
-        "release_manifest_source_sha": "12d38041124dcb4262bf8967b8f000ab37b1a24e",
-        "runtime_errors_7d": "ONE_URL_PARSE_DEPRECATION_WARNING",
-        "marker": "CURRENT_DEGRADED_REACTIVE_RECOVERY_HISTORY_ATTRIBUTION_AND_SYNC_OPEN"
+        "release_manifest_source_sha": "93265d176ded956ce098516156508cd0413e5622",
+        "runtime_errors_7d": "NO_CURRENT_APPLICATION_ERROR_CLUSTER_CONFIRMED",
+        "marker": "STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED"
       },
-      "blocker": null,
+      "blocker": "Owner must configure scoped read-only BRAIN_RUNTIME_GITHUB_TOKEN in the canonical Vercel project, then exact-main activation, 7/7 reread, no-deploy runtime refresh and delayed closure must pass.",
       "legacy_live_aliases": [
         "https://brain-management.netlify.app",
         "https://brain-management.pages.dev"
       ],
       "sectors": {
-        "execution": "PASS",
-        "reliability": "PASS",
-        "learning": "PASS"
+        "execution": "BLOCKED_BY_OWNER_ACTIVATION",
+        "reliability": "STALE_FAIL_CLOSED",
+        "learning": "PARTIAL_HISTORY_AND_WEEKLY_PUBLICATION"
       }
     },
     {
@@ -249,7 +249,7 @@
   ],
   "repository_inventory": {
     "status": "CONFIRMED_CURRENT_OWNER_ENUMERATION",
-    "checked_at": "2026-09-12",
+    "checked_at": "2026-09-19",
     "accessible_repository_count": 30,
     "active_project_repositories_confirmed": 9,
     "unresolved_active_identity_count": 1,
@@ -268,7 +268,7 @@
     "books_provider_identity": "CANONICAL_CODEX_PUBLIC_BOOK_LIBRARY_SECONDARY_BOOKS_PROJECT_NONCANONICAL",
     "books_public_production_branch": "codex/public-book-library",
     "books_public_live_url": "https://codex-public-book-library.vercel.app",
-    "books_private_capability": "BLOCKED_BY_PROVIDER_STORAGE",
+    "books_private_capability": "BLOCKED_BY_PROVIDER_STORAGE_AND_OWNER_REVIEW_PR_23",
     "rule": "Meaningful projects may have separate public and protected capability states; public production proof does not imply private stateful readiness."
   },
   "provider_inventory": {
@@ -289,15 +289,15 @@
     ]
   },
   "reconciliation": {
-    "run_date": "2026-09-12",
+    "run_date": "2026-09-19",
     "active_project_count": 10,
     "accessible_repository_count": 30,
     "brain_management_current_state_corrected": true,
     "psihotavr_identity_downgraded": true,
     "duplicate_identity_rule": "andylitvinov-design/finance remains canonical for legacy-finance; andylitvinov-design/ezohata-incoming-ledger is reference/deprecated alias",
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "catalog_mapping_changes": 1,
-    "catalog_mapping_change": "books public branch/provider/live mapping verified; private storage kept blocked; fixed production overlay unchanged"
+    "catalog_mapping_changes": 0,
+    "catalog_mapping_change": "no mapping changes; books public identity preserved, draft PR #23 kept owner-review-only, fixed production overlay unchanged"
   },
-  "generated_at": "2026-09-12T12:32:11Z"
+  "generated_at": "2026-09-19T12:12:02Z"
 }
