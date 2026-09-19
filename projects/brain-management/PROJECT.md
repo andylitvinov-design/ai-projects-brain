@@ -1,135 +1,87 @@
 # brain-management
 
-## 1. Purpose
+## Purpose
 
-Operational management control plane for current metrics, immutable daily snapshots, automation assignments, delivery chains, Trends, projects, and the installable web/PWA client.
+Operational control plane for current metrics, immutable receipts, assignments, delivery chains, Trends, projects and the installable web/PWA client.
 
-## 2. Canonical targets
+## Canonical targets
 
-- production web/PWA: https://brain-management.vercel.app
-- repository: `andylitvinov-design/brain-management`
-- production branch: `main`
-- provider/project: Vercel team `super10`, project `brain-management`
+- production: https://brain-management.vercel.app
+- repository / branch: `andylitvinov-design/brain-management` / `main`
+- Vercel team/project: `super10` / `prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d`
 - durable memory: `andylitvinov-design/ai-projects-brain`
-- Finance source of truth: `andylitvinov-design/ezohata-finance`
 
-Legacy Netlify, Cloudflare, separate-mobile, preview and deployment-specific URLs are historical or diagnostic only. They are not canonical publication targets.
+Legacy aliases, deployment URLs and probe projects are noncanonical.
 
-## 3. Canonical operational APIs
+## Current durable state — 2026-09-19
 
-- `/api/data`
-- `/api/needs-attention`
-- `/api/trends`
-- `/api/strategic-priorities`
-- `/api/agent-productivity`
+State: `STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED`.
 
-HTTP 200 is insufficient: each API must return the required JSON body and content type.
+Canonical re-read at 2026-09-19 12:11–12:12 UTC:
 
-## 4. Current durable state — 2026-08-01
+- `/api/data`, `/api/trends`, `/api/agent-productivity`, `/api/needs-attention` and `/api/strategic-priorities` all returned 503;
+- shared live source is `2026-09-15T11:34:55.858Z`, 96.6h old; the 18h data/productivity limit and 96h Trends limit are both exceeded;
+- `/api/weekly-delivery-system-review` returned 200 but still exposes Aug 17–23, generated 2026-08-23;
+- `/api/control-plane-health` returned 200 `DEGRADED` while evaluating missing/empty upstream data: 8 passed, 10 failed, 8 errors and 2 warnings;
+- `/sw.js` and `/mobile-release-manifest.json` returned 200; the Sep 15 manifest has cache `brain-management-v60`, 295 files and source SHA `93265d176ded956ce098516156508cd0413e5622`;
+- a reachable PWA, health endpoint or weekly fallback is not evidence that the operational control plane is current.
 
-Canonical production is `LIVE_VERIFIED`.
+## Repository/live architecture split
 
-Verified evidence:
+PR #607 restored the storage-safe runtime-data separation on `main` after PR #602 reintroduced deployment-bundled operational JSON. Repository validation covered static-only packaging, guarded runtime readers, data-only collection, deployable-content hashing and the normal regression suite.
 
-- real production HTML at the canonical Vercel origin;
-- exactly six fixed bottom routes in order: Overview, Tasks, Agents, Trends, Projects, Metrics;
-- four Overview aggregate cards;
-- 24 canonical metrics;
-- ten Trends over the 20-day analysis window;
-- seven agent-productivity cards;
-- all five canonical operational APIs return parseable JSON;
-- manifest contains six shortcuts;
-- service worker cache `brain-management-v67` is reachable;
-- no `[object Object]`, three-mode shell, unapproved visual redesign, or runtime-error cluster;
-- fresh public business-KPI evidence covers `4/6` applicable commercial projects without changing the formula.
+Repository `main` contains a Sep 19 operational snapshot, but canonical production still serves the Sep 15 artifact. The architecture is therefore `RESTORED_ON_MAIN_BLOCKED_BY_OWNER`, not live-activated. Activation requires the existing Vercel project owner to configure `BRAIN_RUNTIME_GITHUB_TOKEN` with fine-grained read-only Contents access to `andylitvinov-design/brain-management`. The value must never enter source, logs or durable receipts.
 
-Primary evidence:
+After credential configuration, closure requires: exact-main deployment guard, at most one material application deployment, 7/7 canonical API re-read, one later guarded runtime-source refresh that causes no deployment, and delayed independent terminal verification.
 
-- `brain-management/history/handoffs/2026-07-31-evening-delivery-closure.json`;
-- `brain-management/history/handoffs/2026-08-01-morning-system-upgrade.json`;
-- `brain-management/history/handoffs/2026-08-01-daily-dashboard-update.json`;
-- Brain Management PR #161, merge `92cec78d0ee474ef53db904ec97abe5521a5824f`;
-- dashboard publication receipt commit `1e297dfb9b0dc7bc4a327319107b27db47c706a8`.
+## Continuity and publication gaps
 
-## 5. Closed durable incident
+- Repository history has four prospective scored snapshots for Sep 13–19: Sep 13, 14, 15 and 18. Sep 16, 17 and 19 are absent; do not backfill them.
+- Live health reports only 3/7 because it is itself tied to the older Sep 15 source.
+- Morning and ranking handoffs exist for Sep 13, 14, 15, 18 and 19; Sep 16–17 are absent. Closure coverage is also incomplete.
+- The Sep 7–13 Weekly Delivery System Review exists in open PR #579, not canonical `main` or live. Live weekly publication remains at Aug 17–23.
+- `memory_sync_status` cannot be read through current `/api/data` because that endpoint fails closed. The last known sync was already stale; current durable reconciliation is not yet operationally acknowledged.
 
-The 2026-08-01 auxiliary JSON-route regression is closed.
+## Trends and effect state
 
-Before repair, `/api/needs-attention` and `/api/strategic-priorities` returned the HTML application shell. PR #161 reused existing functions to remain within the Vercel Hobby function limit, added a focused JSON-contract test, and moved canonical API readiness from `3/5` to `5/5`. The first implementation would have created 14 functions and was correctly rejected; the final implementation stayed within the 12-function budget and was live verified.
+- Sep 13–18 contains seven terminal Trend receipts. All seven re-read their assigned metric unchanged and receive zero metric credit.
+- Across the last three reconciliation windows, 32 of 32 Trend pilots produced zero assigned-metric effect.
+- Daily Strategic Priorities now blocks task `trend-task-arxiv-org-abs-2609-11918v1` because an exact denominator identity and causal transition are unavailable; `implementation_authorized=false` is the correct result.
+- The assignment still names Morning System Upgrade even though that scheduler was disabled on Sep 18. Ranking refusal has begun, but runner-level fail-closed enforcement and a valid causally eligible task are not yet proven.
 
-This incident established a reusable rule: verify body, content type and parseability, not status code alone.
+## Automation and ownership state
 
-## 6. Current operational blockers
+- Scheduler truth is nine enabled recurring automations.
+- Morning System Upgrade and Finish Trends Rotation are disabled; no enabled primary implementation owner remains.
+- Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch remain disabled; no enabled routine publisher exists.
+- Daily Strategic Priorities is active but still emits an assignment to a disabled executor.
+- Sep 19 PR inventory is 55 open, 0 ready, 39 stale, 31 nonmergeable and 13 drafts; the PR sweep merged, repaired and closed zero.
 
-- `provider_live_readiness_ratio` remains `0/4`, owned by `Owner Verification`: a current owner-session smoke and one read-only Wise or YooMoney journey are still required in EzoHata Finance.
-- Product delivery, task success and live completion remain a shared `1/4` input. A single concrete denominator item and canonical implementation repository must be selected before creating an implementation chain.
-- Public business-KPI coverage is `4/6`; EzoHata Finance is auth protected and Psihotavr produced a collector error. Visitors, target clicks and inquiries remain `NOT_INSTRUMENTED` where no real source exists.
-- A supported operational closure-write endpoint is still absent; focused repository handoffs remain the fallback.
+## Metrics and effect
 
-## 7. Important files
+- Product Delivery, Task Success and Live Completion remain `1/4`.
+- Deployment Frequency remains `1/3`; Rework remains `1/3 completed`; User Pain Recurrence remains `1/2`; Context Retry Cost remains `2/3 completed`; Provider readiness remains `0/4`; Business KPI coverage remains `4/6`.
+- Repository snapshots label publication freshness current even while canonical production fails closed. Publication freshness must be derived from canonical source age, not repository snapshot recency.
+- The runtime restoration, this capsule and all index/governance changes are `NO_DIRECT_METRIC_EFFECT`.
 
-- `index.html`, `app.js`, `styles.css`
-- `agent-productivity-ui.js`, `metrics-goals.js`, `dashboard-enhancements.js`
-- `manifest.webmanifest`, `sw.js`, `mobile-contract.json`
-- `scripts/build-mobile-release-bundle.mjs`
-- operational API files and shared snapshot routes
-- `lib/history.js`
+## Release guardrails
 
-## 8. Deployment and UI guardrails
+- One repo, one `main`, one canonical Vercel project and one canonical origin.
+- Operational data stays outside static release bundles and is read only through the guarded runtime source.
+- A 200 health/fallback route cannot override 503 operational sources.
+- Repository freshness cannot substitute for canonical production freshness.
+- Publish the newest weekly review and append prospective immutable history; never fabricate missing dates.
+- Metric assignment requires an immutable denominator event and a demonstrable numerator transition before implementation.
+- A disabled executor cannot own an active assignment.
+- Zero-effect work receives no metric, product or canonical LIVE credit.
 
-- Use one repository, one `main` branch, one Vercel project and one canonical web/PWA origin.
-- Do not require a separate mobile project or GitHub `VERCEL_TOKEN`.
-- Direct deployments require current-main source binding, a dependency-closed manifest, complete runtime routes/assets, and independent production verification.
-- Preserve the six-button UI and four Overview aggregates unless Andrey explicitly approves a new contract.
-- Never restore the `ИИ / Кошелёк / Бизнес` shell or Attention as a bottom tab.
-- Finance calculations and protected data stay in `ezohata-finance`; Brain Management exposes safe links and public status only.
+## Current blockers and next actions
 
-## 9. Environment variable names
+1. Owner activation: configure the scoped read-only runtime token, then perform the bounded exact-main activation and verify 7/7 APIs.
+2. Prove runtime separation: publish a later repository data refresh with no Vercel deployment, then complete delayed independent closure.
+3. Keep Trend implementation paused until an enabled executor receives an assignment with immutable denominator identity and runner-enforced causal eligibility.
+4. Merge or supersede PR #579 only after final-head validation so the Sep 7–13 scorecard becomes canonical; continue prospective snapshots toward 7/7.
 
-Only names may be stored; values must never enter durable memory.
+## Environment variable names
 
-- `MOBILE_LAUNCH_KEY`
-- `STATUS_CALLBACK_SECRET`
-- `MOBILE_RUNS`
-- `GH_REPO_OWNER`
-- `GH_REPO_NAME`
-- `GH_WORKFLOW_FILE`
-- `GH_WORKFLOW_REF`
-- `GH_WORKFLOW_PAT`
-- `GOOGLE_OAUTH_CLIENT_ID`
-- `GOOGLE_OAUTH_CLIENT_SECRET`
-- `GOOGLE_AUTH_SESSION_SECRET`
-- `GOOGLE_AUTH_ALLOWED_EMAILS`
-- `GOOGLE_AUTH_ALLOWED_DOMAIN`
-
-## 10. Runtime-data architecture — restored on main, activation blocked 2026-09-19
-
-Brain Management PR #607 (merge `cfb7b2d99598fb51921197ec7956df7e51022d8f`) re-applied the storage-safe runtime-data separation from PRs #597–#599 on current `main` after the PR #602 regression. It restored static-only release packaging, guarded runtime readers, lazy agent-productivity reads, data-only collection, deployable-content hashing, and a normal-suite regression guard while retaining the newer bounded pilots.
-
-The repository architecture state is now `RESTORED_ON_MAIN_BLOCKED_BY_OWNER`, not `REGRESSED_NOT_LIVE` and not `LIVE_VERIFIED`. Mobile Release Bundle #1250 passed on the repair head, and the Sep 18 repository snapshot is coherent, but canonical production still served the Sep 15 snapshot at age 95.0h with four operational APIs fail-closed on 2026-09-19.
-
-The existing Vercel project owner must configure `BRAIN_RUNTIME_GITHUB_TOKEN` with fine-grained, read-only Contents access to `andylitvinov-design/brain-management`; the value must never enter a repository or receipt. Activation then requires the exact-main single-deploy guard, at most one material application deployment, a canonical 7/7 API reread, and a subsequent guarded runtime-source update that creates no deployment. Until that sequence and delayed closure pass, production remains `BLOCKED_BY_OWNER`.
-
-## 11. Next durable actions
-
-1. Activate the restored PR #607 runtime-data path only after the scoped Vercel read credential exists; pass the exact-main deploy guard, verify 7/7 canonical APIs, then prove a guarded source refresh with no new deployment.
-2. Keep the current live contract stable while future honest daily snapshots accumulate.
-3. Select one concrete existing deliverable for the shared `1/4` delivery-conversion input; preserve one implementation owner.
-4. Complete the EzoHata Finance owner-session/read-only provider proof without copying protected finance data.
-5. Add metric-level evidence references and a supported operational closure-write path when safe.
-
-## 12. Verification status
-
-- canonical repo/branch/origin: confirmed
-- production terminal state: `BLOCKED_BY_OWNER` pending restored runtime-source activation
-- six bottom routes: confirmed
-- four Overview aggregates: confirmed
-- `/api/data`: 503 stale fail-closed on 2026-09-19; repository source is newer but not activated
-- `/api/trends`: 200 stale fallback on 2026-09-19; it must not be treated as current production evidence
-- `/api/agent-productivity`: 503 stale fail-closed on 2026-09-19
-- `/api/needs-attention`: 503 because canonical current data is unavailable
-- `/api/strategic-priorities`: 503 because canonical current data is unavailable
-- manifest shortcuts: six
-- service worker: `brain-management-v67`
-- runtime error cluster: none in the verified deployment
-- exact private finance balances: intentionally not duplicated
+Values never enter durable memory. Known names: `BRAIN_RUNTIME_GITHUB_TOKEN`, `MOBILE_LAUNCH_KEY`, `STATUS_CALLBACK_SECRET`, `MOBILE_RUNS`, `GH_REPO_OWNER`, `GH_REPO_NAME`, `GH_WORKFLOW_FILE`, `GH_WORKFLOW_REF`, `GH_WORKFLOW_PAT`, `GOOGLE_OAUTH_CLIENT_ID`, `GOOGLE_OAUTH_CLIENT_SECRET`, `GOOGLE_AUTH_SESSION_SECRET`, `GOOGLE_AUTH_ALLOWED_EMAILS`, `GOOGLE_AUTH_ALLOWED_DOMAIN`.
