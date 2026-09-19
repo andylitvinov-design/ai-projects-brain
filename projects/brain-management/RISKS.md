@@ -69,6 +69,7 @@
 - Constrained Vercel deployment storage is part of the operating constraint: operational data refreshes must use the runtime-data path after activation and must not consume application deployments.
 - A product or pilot PR must not replace the runtime-data wrappers, restore bundled operational JSON, or weaken the storage-safe Vercel configuration. PR #602 demonstrated this regression while its complete Mobile Release Bundle was red on `OPERATIONAL_SOURCE_MANIFEST_FORBIDDEN`; focused pilot tests cannot substitute for that gate.
 - If runtime separation has regressed, credential activation alone is insufficient. Reapply the tested architecture on current `main`, reconcile every operational-source timestamp, pass the complete release gate, use at most one material deployment, and then prove subsequent refreshes without deployments.
+- PR #607 restored that architecture on current `main` and passed Mobile Release Bundle #1250, but repository restoration is not activation. Preserve state `RESTORED_ON_MAIN_BLOCKED_BY_OWNER` until the scoped Vercel credential, exact-main single deployment, 7/7 canonical API reread, and a subsequent no-deployment runtime refresh are independently verified.
 
 ## Deploy Risks
 

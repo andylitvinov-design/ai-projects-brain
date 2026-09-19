@@ -102,17 +102,17 @@ Only names may be stored; values must never enter durable memory.
 - `GOOGLE_AUTH_ALLOWED_EMAILS`
 - `GOOGLE_AUTH_ALLOWED_DOMAIN`
 
-## 10. Runtime-data architecture — regression observed 2026-09-18
+## 10. Runtime-data architecture — restored on main, activation blocked 2026-09-19
 
-Brain Management PRs #597–#599 originally removed mutable operational data from the static Vercel build and added a guarded runtime GitHub source. PR #602 (merge `93265d176ded956ce098516156508cd0413e5622`) later replaced those wrappers and the storage-safe Vercel configuration with deployment-bundled operational JSON while its Mobile Release Bundle #1246 was red on `OPERATIONAL_SOURCE_MANIFEST_FORBIDDEN`.
+Brain Management PR #607 (merge `cfb7b2d99598fb51921197ec7956df7e51022d8f`) re-applied the storage-safe runtime-data separation from PRs #597–#599 on current `main` after the PR #602 regression. It restored static-only release packaging, guarded runtime readers, lazy agent-productivity reads, data-only collection, deployable-content hashing, and a normal-suite regression guard while retaining the newer bounded pilots.
 
-The durable architecture state is therefore `REGRESSED_NOT_LIVE`, not merely `MERGED_NOT_LIVE`. Current main has incoherent source timestamps and canonical operational APIs fail closed. Recovery must first reapply the tested runtime-data separation on current `main` and pass the complete release gate. The existing Vercel project owner must then configure `BRAIN_RUNTIME_GITHUB_TOKEN` with fine-grained, read-only Contents access to `andylitvinov-design/brain-management`; the value must never enter a repository or receipt.
+The repository architecture state is now `RESTORED_ON_MAIN_BLOCKED_BY_OWNER`, not `REGRESSED_NOT_LIVE` and not `LIVE_VERIFIED`. Mobile Release Bundle #1250 passed on the repair head, and the Sep 18 repository snapshot is coherent, but canonical production still served the Sep 15 snapshot at age 95.0h with four operational APIs fail-closed on 2026-09-19.
 
-Terminal proof requires at most one material application deployment for the repaired architecture, followed by a guarded runtime-source update that creates no deployment, coherent canonical API re-reads, explicit stale/missing-auth failure behavior, and an unchanged healthy application deployment. Until that sequence passes, production is not `LIVE_VERIFIED`.
+The existing Vercel project owner must configure `BRAIN_RUNTIME_GITHUB_TOKEN` with fine-grained, read-only Contents access to `andylitvinov-design/brain-management`; the value must never enter a repository or receipt. Activation then requires the exact-main single-deploy guard, at most one material application deployment, a canonical 7/7 API reread, and a subsequent guarded runtime-source update that creates no deployment. Until that sequence and delayed closure pass, production remains `BLOCKED_BY_OWNER`.
 
 ## 11. Next durable actions
 
-1. Reapply the tested runtime-data separation on current main, pass the complete release gate, then activate and verify the guarded source with a no-deployment refresh.
+1. Activate the restored PR #607 runtime-data path only after the scoped Vercel read credential exists; pass the exact-main deploy guard, verify 7/7 canonical APIs, then prove a guarded source refresh with no new deployment.
 2. Keep the current live contract stable while future honest daily snapshots accumulate.
 3. Select one concrete existing deliverable for the shared `1/4` delivery-conversion input; preserve one implementation owner.
 4. Complete the EzoHata Finance owner-session/read-only provider proof without copying protected finance data.
@@ -121,14 +121,14 @@ Terminal proof requires at most one material application deployment for the repa
 ## 12. Verification status
 
 - canonical repo/branch/origin: confirmed
-- production terminal state: `LIVE_VERIFIED`
+- production terminal state: `BLOCKED_BY_OWNER` pending restored runtime-source activation
 - six bottom routes: confirmed
 - four Overview aggregates: confirmed
-- `/api/data`: 200 JSON, 24 metrics
-- `/api/trends`: 200 JSON, ten trends, 20-day window
-- `/api/agent-productivity`: 200 JSON, seven agents
-- `/api/needs-attention`: 200 parseable JSON
-- `/api/strategic-priorities`: 200 parseable JSON
+- `/api/data`: 503 stale fail-closed on 2026-09-19; repository source is newer but not activated
+- `/api/trends`: 200 stale fallback on 2026-09-19; it must not be treated as current production evidence
+- `/api/agent-productivity`: 503 stale fail-closed on 2026-09-19
+- `/api/needs-attention`: 503 because canonical current data is unavailable
+- `/api/strategic-priorities`: 503 because canonical current data is unavailable
 - manifest shortcuts: six
 - service worker: `brain-management-v67`
 - runtime error cluster: none in the verified deployment
