@@ -77,3 +77,15 @@ The repeated continuity defect is now defined operationally:
 - refreshing `memory_sync_status` changes only durable-memory evidence: it must identify the latest accepted durable-main commit and every currently relevant open durable PR.
 
 Acceptance evidence: Brain Management PR #576 and durable PR #211. The 2026-09-13 operational repair records raw history coverage `0/7 → 1/7`, reveals the previously hidden Weekly Review lag of 21 days, and refreshes durable references from four to six open PRs. Formula version `2026-07-25-v1-preserved` and all product/business raw values remain unchanged. The repair receives zero product or business outcome credit.
+
+## Accepted observability semantics — 2026-09-20
+
+When the canonical operational source fails closed, `/api/control-plane-health` must not audit the error response as if it were the metric payload.
+
+- report one source-availability error with the upstream status, error, source timestamp and age;
+- mark every source-dependent metric, formula, assignment, priority, guardrail and memory-sync check `NOT_EVALUATED`; unavailable evidence is neither pass nor fail;
+- continue checking independent immutable-history and Weekly Delivery Review surfaces against the observation date;
+- publish assignment conflicts as unknown (`null`), not an empty verified set, while assignment inputs are unavailable;
+- never reduce source-freshness thresholds or republish an old timestamp to make the health state green.
+
+Acceptance evidence: Brain Management PR #613. Under the unchanged 2026-09-20 evidence, health classification changes from eight false architecture errors to one real source-availability error, two independent continuity warnings and sixteen blocked checks. Formula version `2026-07-25-v1-preserved`, metric values and product/business outcomes remain unchanged. This is control-plane observability only and receives zero score credit.
