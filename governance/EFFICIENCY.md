@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-30`
+Last aggregated: `2026-09-20`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -109,3 +109,24 @@ Publish the exact four denominator items behind the shared `1/4` delivery input,
 
 The system is efficient at producing and merging evidence-heavy changes but ineffective at converting them into measured product outcomes. The highest-leverage correction is not another pilot: close the existing publisher-owned cadence chain with two <=12h coherent cycles, zero recovery PRs, exact source/deploy attribution and independent canonical closure. Only after that proof window should the next implementation slot return to a concrete product/business denominator item.
 
+
+
+## Weekly delivery scorecard — 2026-09-14 through 2026-09-20
+
+| Metric | Evidence | Interpretation |
+|---|---:|---|
+| Explicit implementation/effect chains | 6 | Four Trend pilots, one recurring runtime/publication recovery and one Trends source refresh. |
+| Canonical `LIVE_VERIFIED` | 0/6 | Three pilots had live behavior with zero effect; Edge-Species was corrected to `MERGED_WAITING_DEPLOY`. |
+| Verified numeric metric gains | 0/6 | Shared delivery inputs remain 1/4; Finance remains 0/4. |
+| Product : infrastructure activity | 0 : 6 | No product or business outcome improved. |
+| Rework lower bound | 2/6 | Recurring runtime recovery and the independently corrected Edge-Species false terminal. |
+| Brain Management PR throughput | 26 created; 24 merged; 1 closed unmerged; 1 open | PR Delivery merged 0 and repaired one stale evidence branch. |
+| GitHub Actions | 41 success; 77 failure; 2 cancelled | Canary failed 13/13; runtime publication failed 25/37; delivery gates improved but remain unreliable. |
+| Immutable history | 3/7 | Missing September 16, 17, 19 and 20 identities are not inferred. |
+| Core live APIs | 2/7 HTTP 200; 5/7 HTTP 503 | Live source age reached 122.4h against the 18h limit. |
+| Carryover | 3 | Runtime freshness, Trends refresh and Finance owner verification. |
+| Portfolio PR inventory | 55 open; 0 ready | 18 owner-blocked, 19 conflicts, 3 CI repair, 11 review and 4 active; 39 older than 14 days. |
+
+### Efficiency conclusion
+
+The system reduced raw PR volume and some delivery workflows became green, but outcome efficiency remained zero. The restored runtime architecture cannot operate because its exclusive publisher is disabled and its narrow production read credential is absent. The next useful action is owner activation of that existing path, followed by two publisher-owned cycles and independent closure; another Trend pilot, validator, evidence PR or manual data bundle has zero expected delivery value.
