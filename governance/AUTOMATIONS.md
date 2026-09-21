@@ -1,6 +1,6 @@
 # Automation Registry
 
-Last reconciled: `2026-08-30`
+Last reconciled: `2026-09-20`
 
 ## Registry contract
 
@@ -82,3 +82,24 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 - Implementation may prepare a branch and tests, but PR/CI/merge evidence is accepted only from PR Delivery Sweep and terminal closure only from Evening Delivery Closure.
 - Every nonterminal reconciled chain must appear in the canonical active-chain surface or in an explicit exclusion record with owner and reason.
 
+
+
+## Scheduler and ownership reconciliation — 2026-09-20
+
+1. **Daily Dashboard Update is disabled**; its last observed run was August 28. It remains the exclusive routine publisher in the contract, so the current freshness chain has no runnable canonical executor.
+2. **Morning System Upgrade was disabled on September 18** after four current-week Trend pilots. Daily Strategic Priorities must not assign new implementation work until a canonical runnable implementation owner exists.
+3. Morning Task Sweep and Daily Strategic Priorities persisted 5/7 handoffs; PR Delivery persisted 9/13 due slots; Evening Delivery Closure persisted 4/6 due days.
+4. PR Delivery Sweep merged 0 PRs and repaired one stale evidence branch while 24 Brain Management PRs merged through other stages.
+5. Four Trend receipts used `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`. Two closure receipts used `RUNTIME_DATA_ARCHITECTURE_NEEDED` as the top-level terminal state. Both are diagnostic labels and must map to the four-state canonical enum.
+6. Edge-Species VLM demonstrates a hard false-success case: implementation self-terminalized while independent closure found the canonical endpoint HTTP 404 and correctly mapped the chain to `MERGED_WAITING_DEPLOY`.
+7. Morning Task Sweep assigned Weekly Delivery System Review / release-test owner to the freshness chain. This violates exclusive roles: Weekly Review owns evidence and durable corrections only, never implementation, release testing, publication or closure.
+8. PR #607 restored repository-owned runtime-data separation. Activation is now genuinely `BLOCKED_BY_OWNER` because the existing Production project lacks a dedicated fine-grained Contents:read credential for this repository.
+9. The existing chain `operational-source-freshness-refresh-20260818` must remain open. Do not create a dated replacement, a parallel publisher or another manual bundle.
+10. After owner activation, re-enable the existing Daily Dashboard Update as the sole routine publisher. PR Delivery owns the unchanged-head gate; Evening Delivery Closure owns the canonical terminal state.
+
+## Enforcement clarifications — 2026-09-20
+
+- An evaluator or reviewer cannot inherit implementation ownership merely because the canonical worker is disabled.
+- A missing secret or owner-only environment change maps to `BLOCKED_BY_OWNER` with the exact narrow action; the secret value must never enter GitHub evidence.
+- Scheduler enablement, credential setup, PR repair, merge and deployment are prerequisites. They receive zero effect credit until the unchanged metric input is re-read after live verification.
+- New Trend implementation is paused while the operational APIs are fail-closed and no runnable canonical implementation/publisher owner exists.
