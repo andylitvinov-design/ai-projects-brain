@@ -1,36 +1,25 @@
-# Risks - psitrends
+# Risks — PsiTrends
 
-## Critical Risks
+## Critical
 
-- Incorrect repo/live URL mapping.
+- Wrong repository chosen for public source, operations or coordination.
+- Production mutation without a fresh backup, exact before-state and rollback.
+- Public behavior treated as exact source-SHA proof.
 
-## Data Risks
+## Data and security
 
-- Unknown or stale data must stay marked as needs
-  verification.
-- Data contracts need verification before schema changes.
+- Joomla/MySQL content and live environment exports may contain sensitive data and secrets.
+- Backup bundles stay private and outside Git.
+- Privacy/analytics changes require independent review and consent verification.
 
-## Deploy Risks
+## Delivery
 
-- Cloudflare Pages project psitrends
-- Deploy source and branch need verification before
-  production work.
+- Preserve EN/RU counterpart routes and legacy content.
+- Purge only scoped caches; do not use a global Redis flush.
+- Verify desktop, genuine mobile, source artifact and rollback after release.
+- User-visible release without an assigned same-source metric receives zero dashboard effect credit.
 
-## Security Risks
+## Identity
 
-- Environment variables are names only. Values must never be
-  stored.
-- Private repo and provider data may be sensitive.
-
-## Agent/Codex Risks
-
-- Repo-to-hosting mapping is inferred from names and needs
-  verification.
-
-## Do Not Do
-
-- Do not publish secrets.
-- Do not add real environment variable values.
-- Do not invent repo, hosting, live URL, or data-flow
-  mappings.
-- Do not change production without explicit instruction.
+- `sales`, `psitrends-ops` and `psitrends-work` are one project topology, not three products.
+- Historical `psitrends.pages.dev` is not canonical production.

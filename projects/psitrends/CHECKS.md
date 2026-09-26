@@ -1,64 +1,56 @@
 # CHECKS — psitrends
 
-> Verification guide for PsiTrends project work.
+> Verification guide for the multi-repository PsiTrends project.
 
-## Agent Entry
+## Agent entry
 
-Use this project for: psitrends, PsiTrends site, psitrends.pages.dev.
+Use this project for `psitrends`, `PsiTrends`, `psitrends.com`, the public site,
+its release operations, or its acquisition/editorial coordination.
 
-## Current verification status
+## Resolve the repository by role
 
-- Repo: `andylitvinov-design/psitrends-work`.
-- Repo is private, active, not archived.
-- Live URL listed in project inventory: https://psitrends.pages.dev.
-- Root `README.md` and root `package.json` were not found during verification.
-- Cloudflare Pages deploy source still needs verification.
+- Public client/content source and release QA: `andylitvinov-design/sales`, branch
+  `codex/bootstrap-sales`.
+- Sanitized production operations, backup and rollback tooling:
+  `andylitvinov-design/psitrends-ops`.
+- Coordination, catalog, editorial and acquisition work:
+  `andylitvinov-design/psitrends-work`.
+- Canonical production: https://psitrends.com, running Joomla on Hetzner.
+- `https://psitrends.pages.dev` is historical/noncanonical evidence, not the
+  current production target.
 
-## First checks
+Do not treat an operations or coordination repository as a separate product.
 
-Before code/content changes:
+## Before a change
 
-1. Inspect repository tree.
-2. Identify whether project is static, app, or subfolder-based.
-3. Verify Cloudflare Pages deploy source.
-4. Find actual build/config files.
-5. Confirm whether live URL maps to this repo.
+1. Select the repository that owns the requested surface.
+2. Read that repository's `AGENTS.md`, README and release instructions.
+3. Record the pre-change production state and a rollback point.
+4. For content/client changes, confirm the exact source file and deployment
+   path from `sales` to Joomla.
+5. For server work, use only the sanitized procedures in `psitrends-ops`; do
+   not copy credentials, live databases, private backups or user data.
 
-## Local checks
+## Required checks
 
-Run only commands found in the repo.
-
-Do not invent:
-
-- `npm run build`
-- `npm test`
-- framework-specific commands
-
-unless confirmed by repo files.
-
-## Live checks
-
-When production is in scope:
-
-- open https://psitrends.pages.dev;
-- verify Cloudflare Pages project deploy source;
-- verify latest deployed commit/branch if accessible;
-- verify key pages after identifying project structure.
+- Verify the canonical root and representative EN/RU routes on
+  https://psitrends.com.
+- Check navigation, responsive overflow, assets, canonical URLs and hreflang
+  where the change touches them.
+- For a release, record source branch/SHA, backup reference, applied files,
+  cache purge scope, production re-read and rollback result.
+- Keep the exact currently deployed source SHA as `NEEDS_VERIFICATION` until a
+  release record or provider evidence binds it to production.
 
 ## Do not
 
-- Do not assume repo-to-live mapping is confirmed.
-- Do not invent build commands.
-- Do not change env/secrets.
-- Do not claim live behavior without Cloudflare verification.
+- Do not publish to the historical Pages alias as if it were canonical.
+- Do not invent npm/framework commands for the Joomla production site.
+- Do not change secrets, production data or financial records.
+- Do not claim a live or metric effect from a repository change without a
+  canonical production re-read and attributable source evidence.
 
 ## Report format
 
-Return:
-
-- repo tree findings;
-- framework/build findings;
-- live mapping status;
-- changed files;
-- checks run;
-- needs verification.
+Return the selected repository and role, source branch/SHA, changed files,
+checks, production evidence, rollback state and remaining verification gaps.

@@ -2,32 +2,41 @@
 
 > Architecture decisions and guardrails for PsiTrends.
 
-## Current boundary
+## Current boundary — 2026-09-26
 
-- Canonical repo candidate: `andylitvinov-design/psitrends-work`.
-- Live URL candidate: https://psitrends.pages.dev.
-- Repo-to-live mapping is not yet confirmed.
+PsiTrends is one project identity with three repositories separated by role:
 
-## Verification first
+- `andylitvinov-design/sales` is the public client/content source and release
+  QA repository; the relevant branch is `codex/bootstrap-sales`.
+- `andylitvinov-design/psitrends-ops` owns sanitized Joomla/Hetzner operations,
+  backups, release and rollback procedures.
+- `andylitvinov-design/psitrends-work` owns coordination, catalog, editorial
+  and acquisition work and is not a runnable production application.
 
-Before implementation or production claims:
+Canonical production is https://psitrends.com on Joomla/Hetzner.
+`https://psitrends.pages.dev` is a historical, noncanonical alias.
 
-- inspect repository tree;
-- identify framework/build path;
-- verify Cloudflare Pages deploy source;
-- verify whether root is intentionally empty/minimal or project lives in a subfolder.
+## Durable decisions
 
-## Build assumptions
+- The new operations repository does not create an eleventh operational
+  project identity.
+- Repository selection is task-role based; no single repository is allowed to
+  impersonate the whole project topology.
+- Production work requires a before-state, backup/rollback reference, scoped
+  application and canonical post-release re-read.
+- The exact source SHA currently deployed to production remains
+  `NEEDS_VERIFICATION`; reachable pages alone do not prove source attribution.
+- Documentation or repository topology changes are `NO_DIRECT_METRIC_EFFECT`.
 
-- No root `README.md` found during verification.
-- No root `package.json` found during verification.
-- Therefore agents must not assume npm/Next/Vite build commands.
+## Secrets and private data
 
-## Secrets
-
-- Do not store Cloudflare credentials, API keys, analytics tokens, or env values.
-- Env names only if later discovered.
+- Keep credentials, production databases, private backups and user data out of
+  all repositories and durable memory.
+- Store only sanitized procedures, paths, environment variable names and
+  evidence references.
 
 ## Main formula
 
-**PsiTrends mapping is plausible but not fully verified: verify repo tree and Cloudflare deploy source before coding or live claims.**
+**One PsiTrends identity, role-specific repositories, one canonical Joomla
+production target, and no live/effect claim without attributable production
+evidence.**

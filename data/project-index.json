@@ -1,21 +1,22 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-09-19T12:12:02Z",
+  "generated_at": "2026-09-26T12:45:00Z",
   "source": "projects.json",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
-    "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED",
+    "owner_repository_inventory_count": 31,
+    "brain_management_current_state": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_AND_PUBLISHER_BLOCKED",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
-    "run_date": "2026-09-19",
+    "run_date": "2026-09-26",
     "active_project_count": 10,
     "meaningful_memory_project_count": 21,
     "brain_management_source_generated_at": "2026-09-15T11:34:55.858Z",
-    "brain_management_source_age_hours_at_check": 96.6,
+    "brain_management_source_age_hours_at_check": 265.1,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "five operational APIs return 503 from a 96.6h source; weekly and health return stale/fallback 200; sw.js and Sep 15 manifest return 200; runtime architecture restored on main but owner activation open",
-    "trend_effect_state": "7 Sep 13-18 terminals and 32 pilots across three refresh windows produced zero assigned-metric gain; next task is blocked by causal gate",
-    "books_state": "ACTIVE_PUBLIC_LIBRARY_PARTIAL_OUTSIDE_FIXED_PRODUCTION_OVERLAY"
+    "brain_management_api_surfaces": "2/7 core APIs return 200; source age 265.1h; production deployment remains Sep 15; runtime access and one publisher are absent",
+    "trend_effect_state": "task 11918 remains blocked; PR #617 is draft/red at 539 pass / 49 fail",
+    "books_state": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL",
+    "psitrends_state": "ACTIVE_PRODUCTION_MULTI_REPO_JOOMLA_HETZNER"
   },
   "projects": [
     {
@@ -165,7 +166,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "status_summary": "STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED as of 2026-09-19. Five operational APIs return 503 from a 96.6h Sep 15 source; weekly and health are stale/fallback 200. PR #607 restored runtime separation on main, but production activation is owner-blocked. Repository history is 4/7 and PR #579 is not yet canonical.",
+      "status_summary": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_AND_PUBLISHER_BLOCKED as of 2026-09-26. Core APIs are 2/7 from a 265.1h Sep 15 source; latest production deployment remains Sep 15. PR #607 and #613 source improvements are not live; repository weekly review ends Sep 20 while live ends Aug 23.",
       "memory_files": {
         "project_md": "projects/brain-management/PROJECT.md",
         "system_map": "projects/brain-management/SYSTEM_MAP.md",
@@ -183,7 +184,7 @@
         "repo_mapping": "listed",
         "live_mapping": "listed",
         "env_status": "names listed",
-        "deploy_status": "canonical production stale fail-closed; runtime path restored on main; owner activation, no-deploy refresh proof, history and weekly publication open"
+        "deploy_status": "canonical production stale fail-closed; runtime access, fresh source, one publisher, exact-main activation and delayed no-deploy proof open"
       }
     },
     {
@@ -413,11 +414,11 @@
     {
       "name": "psitrends",
       "slug": "psitrends",
-      "purpose": "PsiTrends project.",
-      "live_url": "https://psitrends.pages.dev",
-      "repo_url": "https://github.com/andylitvinov-design/psitrends-work",
-      "hosting": "Cloudflare Pages project psitrends",
-      "status_summary": "Private related repo and Cloudflare Pages project from inventory; mapping needs verification.",
+      "purpose": "Bilingual consultation, training, workshop and archive site with preserved legacy Joomla content.",
+      "live_url": "https://psitrends.com",
+      "repo_url": "https://github.com/andylitvinov-design/sales",
+      "hosting": "Joomla on Hetzner; sales public source, psitrends-ops operations, psitrends-work coordination",
+      "status_summary": "ACTIVE_PRODUCTION_MULTI_REPO as of 2026-09-26. Historical psitrends.pages.dev is noncanonical. Related repositories remain one project identity; exact production source SHA binding remains needs verification.",
       "memory_files": {
         "project_md": "projects/psitrends/PROJECT.md",
         "system_map": "projects/psitrends/SYSTEM_MAP.md",
@@ -435,7 +436,7 @@
         "repo_mapping": "listed",
         "live_mapping": "listed",
         "env_status": "needs verification",
-        "deploy_status": "listed"
+        "deploy_status": "production topology verified; exact deployed source SHA needs verification"
       }
     },
     {
@@ -554,10 +555,10 @@
       "name": "books",
       "slug": "books",
       "purpose": "Bilingual public book and knowledge library with long-form routes and a source-backed Homeopathy remedy catalog.",
-      "live_url": "https://codex-public-book-library.vercel.app",
+      "live_url": "https://holistichouse.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/books",
       "hosting": "Canonical Vercel project codex-public-book-library (prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b); secondary books project is noncanonical",
-      "status_summary": "ACTIVE_PUBLIC_LIBRARY_PARTIAL as of 2026-09-19. Public production remains readable. Draft PR #23 is owner-review-only for sensitive private/signature flows; private persistence remains BLOCKED_BY_PROVIDER_STORAGE and the secondary books Vercel project is noncanonical.",
+      "status_summary": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL as of 2026-09-26. Deployment dpl_6kAh8pevJVHBYH8pgemsqx1YwUhL from source 1b48b556 is READY; root and /books are live. Old public-library alias redirects to Holistic House; protected journey remains owner-dependent.",
       "memory_files": {
         "project_md": "projects/books/PROJECT.md",
         "system_map": "projects/books/SYSTEM_MAP.md",
@@ -607,5 +608,5 @@
       }
     }
   ],
-  "last_inventory_update": "2026-09-19"
+  "last_inventory_update": "2026-09-26"
 }

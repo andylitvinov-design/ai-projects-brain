@@ -11,5 +11,5 @@
 - Reconciled PR #4 and aggregate PR #2 as merged.
 - Verified `codex-public-book-library` as the public production Vercel project and `codex/public-book-library` as its production source branch.
 - Verified the canonical root and public Homeopathy route at HTTP 200.
-- Kept private prescription persistence explicitly provider-storage blocked; a successful public deployment does not prove that stateful protected flow.
+- Reconciled PR #23 as merged on 2026-09-20. Its isolated Preview storage proof does not establish production storage or owner-session protected-flow readiness.
 - Downgraded the secondary `books` Vercel project to a noncanonical alias rather than a second product identity.

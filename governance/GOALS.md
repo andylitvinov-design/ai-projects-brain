@@ -1,75 +1,75 @@
 # AI System Goals
 
-Last reconciled: `2026-09-19`
+Last reconciled: `2026-09-26`
 
 ## G1 — Complete and trustworthy project memory
 
-- Outcome: every meaningful project has one discoverable identity, source mapping, status and capsule.
-- Current state: 10 fixed production-overlay identities, 21 meaningful memory records and 30 repositories. Books public production remains mapped; sensitive draft PR #23 is owner-review-only. Private storage and Psihotavr identity remain unresolved.
+- Outcome: every meaningful project has one discoverable identity, source topology, status and capsule.
+- Current state: 10 production-overlay identities, 21 meaningful records and 31 repositories. PsiTrends and Books mappings changed; Psihotavr remains unresolved.
 - Owner: Weekly Brain Refresh.
-- Next action: preserve the canonical Books public branch/provider/live mapping, resolve private storage without inferring secrets, and re-prove Psihotavr identity.
-- Success: no duplicate product identity and every uncertainty is explicit.
+- Next action: preserve the multi-repo PsiTrends topology and Holistic House canonical alias; re-prove Psihotavr separately.
+- Success: no related/ops repo is promoted into a duplicate product identity.
 
 ## G2 — Causal Trends-to-effect conversion
 
 - Outcome: a Trends task is assigned only when it can change the selected metric's immutable input.
-- Current state: seven Sep 13–18 terminals and 32/32 pilots across three refresh windows produced zero assigned-metric effect. Ranking now refuses one ineligible task, but still assigns it to disabled Morning System Upgrade.
+- Current state: task 11918 remains blocked before implementation; its queue and operational source are stale and no exact denominator identity exists.
 - Owner: Daily Strategic Priorities for binding; management-chain owner for an enabled runner.
-- Next action: require immutable `denominator_event_id`, exact numerator transition, canonical route/repo/branch and `implementation_authorized=true`; runner must fail closed otherwise.
-- Success: next accepted task is causally eligible and proves the raw change, or no implementation slot/PR/deployment is consumed.
+- Next action: keep implementation unauthorized until current source, exact denominator event and runner validation all pass.
+- Success: no PR/deployment slot is consumed for `NO_COMPATIBLE_METRIC`.
 
 ## G3 — Continuous attributable publication
 
-- Outcome: one exclusive publisher persists and publishes a coherent source before the 18h ceiling, with exact attribution.
-- Current state: canonical production serves a 96.6h Sep 15 source and all five operational APIs fail closed. Runtime separation is restored on `main` but awaits owner-scoped production activation.
-- Owner: project owner for scoped Vercel read credential; one restored publisher afterward; Evening Delivery Closure verifies.
-- Next action: exact-main activation, 7/7 reread, then a guarded runtime-source refresh that causes no deployment and delayed closure.
-- Success: repository source advances without application deployment and production remains current through the proof window.
+- Outcome: one exclusive publisher keeps a coherent canonical source within 18h with exact attribution.
+- Current state: source age 265.1h, 2/7 APIs, last production deployment Sep 15; no enabled publisher.
+- Owner: Vercel project owner for scoped read access; one restored publisher afterward; Evening Delivery Closure verifies.
+- Next action: configure access, create one fresh accepted source, activate exact main once, then prove a no-deploy refresh.
+- Success: 7/7 APIs, source <=18h and a later source update without a new Vercel deployment.
 
 ## G4 — Complete immutable operational history
 
 - Outcome: every current day has one append-only scored snapshot with stable identities.
-- Current state: current repository window is 4/7 (Sep 13, 14, 15, 18); live health is stale at 3/7. Sep 16, 17 and 19 are missing.
+- Current state: live health remains on a stale 3/7 window; Sep 14–20 weekly review also recorded 3/7.
 - Owner: metrics/history publication role; current scheduler ownership is unresolved.
-- Next action: append prospective snapshots from the exclusive publisher; never derive them retrospectively from routine receipts.
+- Next action: restore one publisher and append prospective snapshots only.
 - Success: seven consecutive current immutable days and zero history lag.
 
 ## G5 — Current weekly review publication
 
-- Outcome: canonical API exposes the newest durable weekly delivery review.
-- Current state: Sep 7–13 review exists in open PR #579; canonical `main` and live still serve Aug 17–23.
-- Owner: Weekly Delivery System Review produces; PR Delivery and publication roles persist it.
-- Next action: final-head validate PR #579, deliver it normally, then verify exact week identity on canonical live.
-- Success: durable and operational latest scorecard dates match.
+- Outcome: canonical API exposes the newest durable weekly review.
+- Current state: repository main contains Sep 14–20 through PR #614; live API still serves Aug 17–23.
+- Owner: Weekly Delivery System Review produces; PR Delivery/publication roles persist it.
+- Next action: include the current weekly record in the fresh runtime source and verify exact week identity live.
+- Success: repository and live latest scorecard dates match.
 
 ## G6 — Restore complete release-gate health
 
-- Outcome: the full canonical release gate passes without partial or tail-truncated evidence.
-- Current state: PR #607 restored the runtime architecture and passed its repository checks, but the production activation proof is incomplete; PR #579 still lacks final canonical publication.
-- Owner: named source/harness/dependency owners through PR Delivery Sweep; no single automation may absorb all domains.
-- Next action: preserve the restored static/runtime boundary, run exact-main activation once, then prove data-only refresh without a Vercel deployment.
-- Success: complete repository gate, exact production attribution, 7/7 APIs and delayed closure all agree.
+- Outcome: source, semantic validators, dependency closure, production attribution and delayed verification all agree.
+- Current state: PR #617 is draft/red at 539 pass / 49 fail and far behind main; canonical production still lacks PR #613 health semantics.
+- Owner: source/harness owners through PR Delivery Sweep.
+- Next action: semantically regenerate PR #617 on current main; do not use a mechanical rebase as acceptance.
+- Success: green unchanged-head gate, exact deployment/source attribution and delayed closure.
 
 ## G7 — Product/business outcome balance
 
-- Outcome: implementation capacity yields user or business results, not only synthetic control-plane pilots.
-- Current state: product delivery remains `1/4`; deployment frequency `1/3`; seven more pilots and 32 cumulative pilots produced zero dashboard-metric gain.
-- Owner: daily management chain after a causally valid product assignment.
-- Next action: select one existing ledger denominator item tied to a user-visible product route and carry it through production and same-metric re-read.
-- Success: unchanged product raw input moves `1/4 → 2/4`.
+- Outcome: user-facing work carries an assigned same-source effect measure.
+- Current state: Holistic House and PsiTrends shipped visible changes, but closure receipts assign no product/business metric; dashboard credit is zero.
+- Owner: daily management chain before implementation, then product owner.
+- Next action: bind one real user-visible denominator before the next product release.
+- Success: canonical same-metric reread proves a raw product/business change.
 
 ## G8 — Reconciled scheduler and actor ownership
 
-- Outcome: every operational actor maps to one enabled scheduler and one exclusive role.
-- Current state: nine tasks are enabled. Morning System Upgrade and Finish Trends Rotation are disabled; Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch remain disabled. There is no primary implementer or routine publisher.
+- Outcome: every active actor maps to one enabled scheduler and exclusive role.
+- Current state: nine management tasks enabled; primary implementer and routine publisher are absent; assignment still names disabled Morning System Upgrade.
 - Owner: scheduler/management-chain owner; Weekly Brain Refresh records durable truth.
-- Next action: after owner activation, restore exactly one routine publisher and one causality-enforcing implementation owner; remove assignments to disabled actors.
-- Success: every active assignment maps to one enabled exclusive owner and no stage is silently unowned.
+- Next action: restore exactly one publisher after activation and enable an implementation runner only after causal fail-closed enforcement.
+- Success: every active assignment maps to one enabled owner and no canonical stage is silently unowned.
 
 ## G9 — Honest provider and protected evidence
 
 - Outcome: protected provider and project identities use accepted evidence only.
-- Current state: Finance remains `0/4`; Books public production is canonical but private storage/signature flow in draft PR #23 is blocked for owner review; Psihotavr remains unresolved.
-- Owner: Owner Verification for Finance; Weekly Brain Refresh for identity reconciliation.
-- Next action: complete the owner-session read-only Finance journey, verify Books private storage only after authorized configuration, and separately resolve Psihotavr identity.
+- Current state: Finance remains `0/4`; Holistic House protected journey is owner-session dependent; Psihotavr is unresolved.
+- Owner: Owner Verification for protected journeys; Weekly Brain Refresh for identity reconciliation.
+- Next action: gather read-only owner evidence without financial/account mutation.
 - Success: no inferred provider credit, duplicate production target or guessed repository mapping.

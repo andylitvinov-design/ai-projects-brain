@@ -2,7 +2,7 @@
 
 - Repository default `codex/bootstrap-books` and public production `codex/public-book-library` may drift.
 - The secondary `books` Vercel project may be mistaken for canonical production.
-- Public route success may be incorrectly generalized to private prescription persistence while provider storage is absent or unverified.
+- Public route success may be incorrectly generalized to protected consultation/prescription persistence while production storage and owner-session behavior are unverified.
 - Medical/homeopathy content needs provenance, safety framing and publication review.
 - Large generated/content PRs require hosted checks, render verification and independent provenance/safety review.
-- Draft PR #23 touches signatures, private client links, payment/document flows and medical content; preview success is insufficient and explicit owner approval is required before production promotion.
+- PR #23 is merged, but its hosted acceptance used isolated Preview storage. Do not treat merge or current public production as proof of production storage, owner auth, private links, payments or medical-document behavior.

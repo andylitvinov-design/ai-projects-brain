@@ -2,7 +2,7 @@
 
 > Главная точка входа для человека и ИИ. Индексы маршрутизируют к каноническим durable-источникам и не копируют оперативные receipts.
 
-Last reconciled: `2026-09-19`
+Last reconciled: `2026-09-26`
 
 ## Найти проект
 
@@ -13,7 +13,7 @@ Last reconciled: `2026-09-19`
 - Capsules: `projects/<slug>/PROJECT.md`
 - Human summary: `projects.md`
 
-Текущий production overlay содержит 10 active identities; расширенный каталог содержит 21 meaningful memory record; GitHub owner inventory содержит 30 repositories. `books` сохраняет подтверждённую public-library production mapping, но остаётся вне фиксированного operational overlay; draft PR #23 с private/signature flow требует owner review и не меняет readiness private capability.
+Текущий production overlay содержит 10 active identities; расширенный каталог содержит 21 meaningful memory record; GitHub owner inventory содержит 31 repository. `psitrends-ops` учтён как operations-repo существующего PsiTrends, а не новый продукт. Books canonical live теперь `holistichouse.vercel.app`; старый `codex-public-book-library` alias перенаправляет туда.
 
 ## Управляющий контур
 
@@ -23,7 +23,7 @@ Last reconciled: `2026-09-19`
 - `governance/AUTOMATIONS.md` — scheduler-backed roles and registry conflicts.
 - `governance/EFFICIENCY.md` — immutable scorecards and current synthesis.
 - `governance/WEEKLY-LEARNINGS.md` — aggregated errors and lessons.
-- `governance/durable-root-cause-candidate-2026-09-19.json` — current machine continuation candidate.
+- `governance/durable-root-cause-candidate-2026-09-26.json` — current machine continuation candidate.
 
 `brain-management` is the operational control plane. `ai-projects-brain` is the durable source of truth.
 
@@ -49,4 +49,6 @@ Capability routing: `systems/active-skill-map.md`; screenshot/screen-recording r
 - Operational actor output without a matching enabled scheduler is attribution drift, not scheduler capacity.
 - A repository-fresh runtime snapshot does not make stale canonical production current.
 - A 200 health or fallback endpoint cannot override failed operational sources.
+- A dependency outage makes dependent checks `NOT_EVALUATED`; an error body is never a valid control-plane payload.
+- Related source, operations and coordination repositories remain one project identity unless independent product evidence proves otherwise.
 - Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.

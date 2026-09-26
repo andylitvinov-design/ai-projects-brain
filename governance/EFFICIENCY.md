@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-09-19`
+Last aggregated: `2026-09-26`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -186,7 +186,7 @@ This synthesis uses immutable receipts and current repository/live evidence. It 
 
 All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
 
-## Current-window evidence — 2026-09-13 through 2026-09-19
+## Prior reconciliation window — 2026-09-13 through 2026-09-19
 
 | Signal | Evidence | Efficiency meaning |
 |---|---:|---|
@@ -201,23 +201,58 @@ All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
 | PR inventory | 55 open; 0 ready; 39 stale; 31 nonmergeable; 13 drafts | Backlog increased from 49 while the sweep converted zero items. |
 | Books | public routes 200; PR #23 owner-review-only | Public readiness remains real; sensitive private/signature changes receive no readiness promotion. |
 
-### Latest complete review available
+### Review available at that cutoff
 
-The Sep 7–13 Weekly Delivery System Review in PR #579 counted 17 chains, 0 canonical `LIVE_VERIFIED`, 14/14 zero-effect Trends, 0 numeric or product/business gains, immutable history 1/7, and 48 Brain Management PRs created. It also recorded 158 Actions runs with 137 failures and Mobile Release Bundle at 0 successes of 67 attempts. Because the review is not on canonical `main` or live, it is evidence for learning, not proof of successful publication.
+The Sep 7–13 Weekly Delivery System Review in PR #579 counted 17 chains, 0 canonical `LIVE_VERIFIED`, 14/14 zero-effect Trends, 0 numeric or product/business gains, immutable history 1/7, and 48 Brain Management PRs created. It also recorded 158 Actions runs with 137 failures and Mobile Release Bundle at 0 successes of 67 attempts. Because the review was not on canonical `main` or live at that cutoff, it was evidence for learning, not proof of successful publication.
 
-## Efficiency trend — 2026-09-19
+### Efficiency trend at 2026-09-19
 
-- **Control improved late:** ranking finally blocks one causally unsupported task and Morning System Upgrade is disabled, but runner enforcement and a valid assignment remain unproven.
-- **Effect conversion remains zero:** seven more pilots extend the repeated sequence to 32/32 without assigned-metric gain.
-- **Architecture repair is not activation:** PR #607 restores the correct source design, while production remains stale fail-closed and owner-blocked.
-- **History improved but is incomplete:** repository coverage rose to 4/7; live health is stale and weekly publication remains weeks behind.
+- **Control improved late:** ranking blocked one causally unsupported task and Morning System Upgrade was disabled, while runner enforcement and a valid assignment remained unproven.
+- **Effect conversion remained zero:** seven more pilots extended the sequence to 32/32 without assigned-metric gain.
+- **Architecture repair was not activation:** PR #607 restored the correct source design while production remained stale fail-closed and owner-blocked.
+- **History improved but remained incomplete:** repository coverage rose to 4/7; live health was stale and weekly publication remained weeks behind.
 - **Backlog worsened:** open PRs rose 49 → 55, with 0 ready and 0 sweep conversions.
-- **Stage capacity contracted:** stopping the zero-effect executor was correct, but no replacement implementer or routine publisher is enabled.
 
-## Highest-value efficiency corrections — 2026-09-19
+All durable changes in that refresh were `NO_DIRECT_METRIC_EFFECT`.
 
-1. Activate the guarded runtime source once, then prove one data refresh with no application deployment and delayed closure.
-2. Enforce causal eligibility in both ranking and runner before restoring one implementation owner.
-3. Convert PR #579 through final-head validation and canonical publication, then accumulate the missing prospective history days.
+## Weekly delivery evidence — 2026-09-14 through 2026-09-20
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Counted delivery chains | 6 | Exact review denominator; routine receipts are excluded. |
+| Canonical `LIVE_VERIFIED` | 0/6 | No chain met terminal canonical proof. |
+| Verified numeric/product gains | 0 | Activity did not change a dashboard or product/business input. |
+| Brain Management PR activity | 26 created / 24 merged | High merge volume did not produce a current control plane. |
+| GitHub Actions | 77 failed / 120 total | Validation/rework pressure remained high. |
+| PR Delivery throughput | 0 merges / 1 repair | Most merge activity still bypassed the exclusive delivery stage. |
+| Immutable history | 3/7 | Weekly confidence remains partial. |
+| Canonical API availability | 2/7 at review cutoff | Runtime/source activation remained unresolved. |
+
+## Current-window evidence — 2026-09-21 through 2026-09-26
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Canonical API availability | 2/7 throughout | No operational recovery occurred. |
+| Live source age | 156.5h → 265.1h | The same freshness failure worsened; daily observations are not separate regressions. |
+| Latest production deployment | Sep 15 | Repository changes after Sep 15 are not active production. |
+| Health semantics | PR #613 source fixed; live old behavior | Observability improvement is unactivated and has zero operational credit. |
+| Trends replacement | PR #617, 539 pass / 49 fail | Draft/red semantic drift blocks merge and publication. |
+| Current PR inventory | 56 open; 41 stale; 31 nonmergeable; 13 drafts | Backlog worsened from 55; current sweep converted zero. |
+| Scheduler capacity | 9 management schedulers; no implementer/publisher | The two stages needed for effect and cadence are unowned. |
+| Holistic House / PsiTrends | user-visible releases verified; metric unassigned | Real product work occurred, but no same-source effect measure exists. |
+
+### Efficiency trend — 2026-09-26
+
+- **Publication efficiency worsened:** source age nearly doubled across the week and no fresh canonical cycle completed.
+- **Refusal quality improved:** PR Delivery returned the semantically invalid Trends PR instead of merging a red/stale artifact.
+- **Observability quality improved only in source:** PR #613 removes false dependency errors, but live still reports them.
+- **Product evidence and metric evidence remain disconnected:** two user-facing surfaces changed without an assigned same-source effect measure.
+- **Catalog efficiency improved:** one new related repo produced no duplicate project; PsiTrends and Books routing now points to current production.
+
+## Highest-value efficiency corrections — 2026-09-26
+
+1. Close the existing freshness chain once: scoped runtime access, fresh atomic source, exact-main activation, 7/7 APIs and delayed closure.
+2. Restore one sole publisher and prove a later data refresh with no application deployment.
+3. Regenerate PR #617 semantically and keep product implementation blocked until current evidence and denominator causality exist.
 
 All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.

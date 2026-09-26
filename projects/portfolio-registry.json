@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "last_updated": "2026-07-19T07:30:35+02:00",
+  "last_updated": "2026-09-26T12:45:00Z",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current active-project identity and routing. Verified live/GitHub/provider evidence overrides stale labels; inaccessible historical mappings are downgraded to NEEDS_VERIFICATION rather than guessed.",
   "source_priority": [
@@ -136,13 +136,13 @@
       "repo": "andylitvinov-design/brain-management",
       "live_url": "https://brain-management.vercel.app",
       "provider_project": "prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d",
-      "status": "IMPROVING",
-      "repo_reachability": "CONFIRMED_2026-09-19",
+      "status": "DEGRADED",
+      "repo_reachability": "CONFIRMED_2026-09-26",
       "evidence_refs": [
         "projects/brain-management/PROJECT.md",
-        "brain-management PR #579 history/weekly-delivery/2026-09-13.json",
-        "brain-management/history/closures/2026-09-18-evening-delivery-closure.json",
-        "canonical live re-read 2026-09-19T12:12Z",
+        "brain-management/history/weekly-delivery/2026-09-20.json",
+        "brain-management/evening-delivery-closure-current.json",
+        "canonical provider re-read 2026-09-26T12:40Z",
         "systems/dashboard-snapshot-monotonicity-contract.md",
         "automation:Dashboard Publication Watch",
         "andylitvinov-design/brain-management@cbd05c66989957713c208be5692d356d0d0c8f9a",
@@ -150,9 +150,9 @@
         "mirror-blob:661391104229f9fbfd24a812ac7d4781e86bb5f6"
       ],
       "freshness": {
-        "checked_at": "2026-09-19T12:12:02Z",
+        "checked_at": "2026-09-26T12:40:27Z",
         "source_generated_at": "2026-09-15T11:34:55.858Z",
-        "age_hours": 96.6,
+        "age_hours": 265.1,
         "max_age_hours": 18,
         "api_statuses": {
           "/api/data": 503,
@@ -165,23 +165,23 @@
         },
         "service_worker_http": 200,
         "source_parity": false,
-        "control_plane_health": "DEGRADED_8_PASS_10_FAIL_8_ERROR_2_WARNING_ON_EMPTY_UPSTREAM",
-        "immutable_history": "4/7_REPOSITORY_CURRENT_WINDOW_LIVE_VIEW_STALE_3/7",
-        "weekly_review_state": "SEP_7_13_IN_OPEN_PR_579_LIVE_STALE_AT_2026-08-23",
-        "publication_attribution": "REPOSITORY_SEP_19_VS_PRODUCTION_SEP_15",
-        "complete_release_gate": "RUNTIME_PATH_RESTORED_ON_MAIN_OWNER_ACTIVATION_UNPROVEN",
+        "control_plane_health": "OLD_FALSE_DEPENDENCY_ERRORS_8_PASS_10_FAIL_8_ERROR_2_WARNING_PR_613_NOT_LIVE",
+        "immutable_history": "LIVE_STALE_3/7; SEP_14_20_REVIEW_3/7",
+        "weekly_review_state": "SEP_14_20_ON_REPOSITORY_MAIN_LIVE_STALE_AT_2026-08-23",
+        "publication_attribution": "REPOSITORY_SEP_18_SOURCE_VS_PRODUCTION_SEP_15_DEPLOYMENT",
+        "complete_release_gate": "RUNTIME_ACCESS_FRESH_SOURCE_PUBLISHER_AND_PR_617_SEMANTIC_GATE_OPEN",
         "release_manifest_http": 200,
         "release_manifest_source_sha": "93265d176ded956ce098516156508cd0413e5622",
         "runtime_errors_7d": "NO_CURRENT_APPLICATION_ERROR_CLUSTER_CONFIRMED",
-        "marker": "STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED"
+        "marker": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_AND_PUBLISHER_BLOCKED"
       },
-      "blocker": "Owner must configure scoped read-only BRAIN_RUNTIME_GITHUB_TOKEN in the canonical Vercel project, then exact-main activation, 7/7 reread, no-deploy runtime refresh and delayed closure must pass.",
+      "blocker": "Owner must configure scoped read-only BRAIN_RUNTIME_GITHUB_TOKEN; source owners must produce one fresh atomic source; exactly one publisher must be enabled; then exact-main activation, 7/7 reread, no-deploy refresh and delayed closure must pass.",
       "legacy_live_aliases": [
         "https://brain-management.netlify.app",
         "https://brain-management.pages.dev"
       ],
       "sectors": {
-        "execution": "BLOCKED_BY_OWNER_ACTIVATION",
+        "execution": "BLOCKED_BY_OWNER_ACTIVATION_AND_NO_ENABLED_PUBLISHER",
         "reliability": "STALE_FAIL_CLOSED",
         "learning": "PARTIAL_HISTORY_AND_WEEKLY_PUBLICATION"
       }
@@ -249,8 +249,8 @@
   ],
   "repository_inventory": {
     "status": "CONFIRMED_CURRENT_OWNER_ENUMERATION",
-    "checked_at": "2026-09-19",
-    "accessible_repository_count": 30,
+    "checked_at": "2026-09-26",
+    "accessible_repository_count": 31,
     "active_project_repositories_confirmed": 9,
     "unresolved_active_identity_count": 1,
     "unresolved_active_identity": "psihotavr",
@@ -259,7 +259,7 @@
   "development_inventory": {
     "meaningful_memory_project_count": 21,
     "new_project": "books",
-    "books_state": "ACTIVE_PUBLIC_LIBRARY_PARTIAL",
+    "books_state": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL",
     "books_repo": "andylitvinov-design/books",
     "books_provider_projects": [
       "prj_f3P1jqfNPAv9lDizUn5ZYiEgjLis",
@@ -267,9 +267,15 @@
     ],
     "books_provider_identity": "CANONICAL_CODEX_PUBLIC_BOOK_LIBRARY_SECONDARY_BOOKS_PROJECT_NONCANONICAL",
     "books_public_production_branch": "codex/public-book-library",
-    "books_public_live_url": "https://codex-public-book-library.vercel.app",
-    "books_private_capability": "BLOCKED_BY_PROVIDER_STORAGE_AND_OWNER_REVIEW_PR_23",
-    "rule": "Meaningful projects may have separate public and protected capability states; public production proof does not imply private stateful readiness."
+    "books_public_live_url": "https://holistichouse.vercel.app",
+    "books_legacy_redirect_alias": "https://codex-public-book-library.vercel.app",
+    "books_private_capability": "OWNER_SESSION_VERIFICATION_REQUIRED",
+    "psitrends_state": "ACTIVE_PRODUCTION_MULTI_REPO",
+    "psitrends_live_url": "https://psitrends.com",
+    "psitrends_source_repo": "andylitvinov-design/sales",
+    "psitrends_operations_repo": "andylitvinov-design/psitrends-ops",
+    "psitrends_coordination_repo": "andylitvinov-design/psitrends-work",
+    "rule": "Meaningful projects may have separate public/protected capability states and multiple role-specific repositories; neither creates a duplicate product identity."
   },
   "provider_inventory": {
     "vercel_team": "super10",
@@ -289,15 +295,15 @@
     ]
   },
   "reconciliation": {
-    "run_date": "2026-09-19",
+    "run_date": "2026-09-26",
     "active_project_count": 10,
-    "accessible_repository_count": 30,
+    "accessible_repository_count": 31,
     "brain_management_current_state_corrected": true,
     "psihotavr_identity_downgraded": true,
     "duplicate_identity_rule": "andylitvinov-design/finance remains canonical for legacy-finance; andylitvinov-design/ezohata-incoming-ledger is reference/deprecated alias",
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "catalog_mapping_changes": 0,
-    "catalog_mapping_change": "no mapping changes; books public identity preserved, draft PR #23 kept owner-review-only, fixed production overlay unchanged"
+    "catalog_mapping_changes": 2,
+    "catalog_mapping_change": "Books canonical alias changed to Holistic House; PsiTrends changed from stale Pages/workspace mapping to verified Joomla/Hetzner multi-repo topology; fixed production overlay unchanged"
   },
-  "generated_at": "2026-09-19T12:12:02Z"
+  "generated_at": "2026-09-26T12:45:00Z"
 }

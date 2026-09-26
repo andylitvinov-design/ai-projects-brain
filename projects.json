@@ -1,21 +1,23 @@
 {
   "schema_version": "2026-04-29-project-memory-v1",
-  "last_inventory_update": "2026-09-19",
+  "last_inventory_update": "2026-09-26",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
-    "owner_repository_inventory_count": 30,
-    "brain_management_current_state": "STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED",
+    "owner_repository_inventory_count": 31,
+    "brain_management_current_state": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_AND_PUBLISHER_BLOCKED",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
     "note": "Extended project-memory schema preserved for validator compatibility; current routing authority is the active overlay and project capsules.",
-    "run_date": "2026-09-19",
+    "run_date": "2026-09-26",
     "active_project_count": 10,
     "meaningful_memory_project_count": 21,
     "brain_management_source_generated_at": "2026-09-15T11:34:55.858Z",
-    "brain_management_source_age_hours_at_check": 96.6,
+    "brain_management_source_age_hours_at_check": 265.1,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "five operational APIs return 503 from a 96.6h source; weekly and health return stale/fallback 200; sw.js and Sep 15 manifest return 200; runtime architecture restored on main but owner activation open",
-    "trend_effect_state": "7 Sep 13-18 terminals and 32 pilots across three refresh windows produced zero assigned-metric gain; next task is blocked by causal gate",
-    "books_state": "ACTIVE_PUBLIC_LIBRARY_PARTIAL_OUTSIDE_FIXED_PRODUCTION_OVERLAY"
+    "brain_management_api_surfaces": "2/7 core APIs return 200; five source-dependent surfaces fail; source age 265.1h; production deployment remains Sep 15; runtime access and one publisher are absent",
+    "trend_effect_state": "task 11918 remains blocked before implementation; PR #617 is draft/red at 539 pass / 49 fail and requires semantic regeneration",
+    "books_state": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL",
+    "psitrends_state": "ACTIVE_PRODUCTION_MULTI_REPO_JOOMLA_HETZNER",
+    "related_repository_change": "psitrends-ops added to owner inventory without creating a new product identity"
   },
   "memory_files": [
     "projects.md",
@@ -342,7 +344,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "current_status": "STALE_FAIL_CLOSED_RUNTIME_PATH_RESTORED_OWNER_ACTIVATION_BLOCKED as of 2026-09-19. Five operational APIs return 503 from source 2026-09-15T11:34:55.858Z at age 96.6h; weekly and health are stale/fallback 200. PR #607 restored guarded runtime data on main, but production activation awaits scoped owner configuration. Repository history is 4/7, live health is stale at 3/7, and the latest weekly review remains in open PR #579.",
+      "current_status": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_AND_PUBLISHER_BLOCKED as of 2026-09-26. Core APIs are 2/7 from source 2026-09-15T11:34:55.858Z at age 265.1h; production deployment remains Sep 15. PR #607 runtime separation and PR #613 health semantics exist in source but are not live. Repository weekly review ends Sep 20 while live ends Aug 23.",
       "important_files": [
         "data-current.json",
         "api/data.js",
@@ -371,14 +373,15 @@
         "GOOGLE_AUTH_ALLOWED_DOMAIN"
       ],
       "known_issues": [
-        "Canonical production serves a 96.6-hour source and five operational APIs fail closed.",
-        "Restored runtime-data architecture awaits owner-scoped Vercel credential activation and no-deploy refresh proof.",
+        "Canonical production serves a 265.1-hour source and five source-dependent APIs fail.",
+        "Restored runtime-data architecture awaits owner-scoped Vercel credential activation, one fresh atomic source and one enabled publisher.",
         "No enabled primary implementer or routine publisher exists; ranking still targets a disabled executor."
       ],
       "recent_tasks": [
         "PRs #597-#599 introduced storage-safe runtime-data separation.",
         "PR #602 regressed to deployment-bundled operational data.",
-        "PR #607 restored the guarded runtime-data architecture on main."
+        "PR #607 restored the guarded runtime-data architecture on main.",
+        "PR #613 added dependency-aware NOT_EVALUATED semantics; PR #614 published the Sep 14-20 weekly review to repository main."
       ],
       "next_actions": [
         "Owner-configure scoped read-only runtime access and prove exact-main activation with 7/7 APIs.",
@@ -799,31 +802,38 @@
     },
     {
       "name": "psitrends",
-      "purpose": "PsiTrends project.",
-      "live_url": "https://psitrends.pages.dev",
-      "repo_url": "https://github.com/andylitvinov-design/psitrends-work",
-      "hosting": "Cloudflare Pages project psitrends",
-      "current_status": "Private related repo and Cloudflare Pages project from inventory; mapping needs verification.",
+      "purpose": "Bilingual consultation, training, workshop and archive site with preserved legacy Joomla content and a modern client-first layer.",
+      "live_url": "https://psitrends.com",
+      "repo_url": "https://github.com/andylitvinov-design/sales",
+      "hosting": "Joomla on Hetzner; public source in sales, sanitized operations in psitrends-ops, coordination in psitrends-work",
+      "current_status": "ACTIVE_PRODUCTION_MULTI_REPO as of 2026-09-26. sales is the public client/content source; psitrends-ops owns sanitized release/backup operations; psitrends-work is coordination, not the runnable app. Historical psitrends.pages.dev is noncanonical.",
       "important_files": [
-        "needs verification"
+        "psitrends-client-*.html",
+        "psitrends-client.css",
+        "psitrends-client.js",
+        "andylitvinov-design/psitrends-ops/README.md"
       ],
       "env_variables": [
         "needs verification"
       ],
       "known_issues": [
-        "Repo-to-hosting mapping is inferred from names and needs verification."
+        "Public surface does not expose exact source SHA binding.",
+        "High-risk privacy/analytics and content-mutation operations require owner review."
       ],
       "recent_tasks": [
         "needs verification"
       ],
       "next_actions": [
-        "Inspect repo and Cloudflare deployment source."
+        "Preserve one source SHA -> guarded release -> live readback record.",
+        "Bind future product releases to a same-source effect measure."
       ],
       "risks": [
-        "Incorrect repo/live URL mapping."
+        "Routing work to psitrends-work instead of the role-correct source/ops repository.",
+        "Changing Joomla production without backup and rollback evidence."
       ],
       "rules_for_codex": [
-        "Treat mapping as needs verification until confirmed."
+        "Route public source to sales, production operations to psitrends-ops and coordination to psitrends-work.",
+        "Do not promote related repositories into duplicate product identities."
       ],
       "memory": {
         "state_file": "needs verification",
@@ -1012,10 +1022,10 @@
       "slug": "books",
       "name": "books",
       "purpose": "Bilingual public book and knowledge library with long-form routes and a source-backed Homeopathy remedy catalog.",
-      "live_url": "https://codex-public-book-library.vercel.app",
+      "live_url": "https://holistichouse.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/books",
       "hosting": "Canonical Vercel project codex-public-book-library (prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b); secondary books project is noncanonical",
-      "current_status": "ACTIVE_PUBLIC_LIBRARY_PARTIAL as of 2026-09-19. Repository default is codex/bootstrap-books; canonical public production source is codex/public-book-library and both checked public routes return 200. Draft PR #23 contains sensitive private/signature flows and is BLOCKED_BY_OWNER for review. Private persistence remains BLOCKED_BY_PROVIDER_STORAGE and the secondary books Vercel project is noncanonical.",
+      "current_status": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL as of 2026-09-26. Canonical source is codex/public-book-library on deployment dpl_6kAh8pevJVHBYH8pgemsqx1YwUhL, source 1b48b556. Holistic House root and /books are live; the old public-library alias redirects there. Protected consultation/client proof remains owner-dependent.",
       "important_files": [
         "projects/books/PROJECT.md",
         "projects/books/CODEX_BRIEF.md"
@@ -1025,20 +1035,20 @@
       ],
       "known_issues": [
         "Repository default and public production source branches may drift.",
-        "Private prescription storage/resource configuration is not verified and must remain fail-closed.",
+        "PR #23 is merged, but production storage/resource and owner-session behavior remain unverified and must fail closed.",
         "Medical/homeopathy changes need hosted checks, render verification, provenance and safety review."
       ],
       "recent_tasks": [
-        "PR #4 and aggregate PR #2 merged; public library and Homeopathy route are production-readable.",
-        "Private prescription work remains provider-storage blocked."
+        "Holistic House public release chain PRs #48-53 is live at exact source 1b48b556.",
+        "Public root, /books, /ru/about and /ru/client are readable; protected journey remains owner-dependent."
       ],
       "next_actions": [
         "Keep codex/public-book-library aligned with the canonical public deployment.",
-        "Provision and verify private storage only through authorized provider work.",
+        "Verify protected consultation/client flow only through an authorized owner session.",
         "Require hosted checks, provenance/safety review and exact-source production verification."
       ],
       "risks": [
-        "Secondary books Vercel alias mistaken for canonical production.",
+        "Old public-library URL or secondary books project mistaken for canonical Holistic House production.",
         "Public-route readiness generalized incorrectly to private stateful flows.",
         "Medical/homeopathy content published without provenance and safety review.",
         "Duplicate provider projects drift into separate identities."
@@ -1046,7 +1056,7 @@
       "rules_for_codex": [
         "Use codex/public-book-library and the codex-public-book-library Vercel project for public production.",
         "Do not substitute repository default codex/bootstrap-books or the secondary books Vercel project.",
-        "Treat private prescription/storage readiness separately from public-library readiness."
+        "Treat protected consultation/prescription readiness separately from public Holistic House readiness."
       ],
       "memory": {
         "state_file": "needs verification",
@@ -1118,5 +1128,5 @@
       }
     }
   ],
-  "generated_at": "2026-09-19T12:12:02Z"
+  "generated_at": "2026-09-26T12:45:00Z"
 }
