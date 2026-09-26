@@ -1,94 +1,50 @@
-# psitrends
+# PsiTrends
 
-## 1. Purpose
+## Purpose
 
-PsiTrends project / site. Exact app structure still needs verification.
+Bilingual author-led consultation, training, workshop and archive site, with preserved legacy Joomla content and a modern client-first public layer.
 
-## 2. Agent Entry
+## Canonical identity
 
-Use this project when the user mentions:
+- canonical live: https://psitrends.com
+- production platform: Joomla on Hetzner
+- public client/content source: `andylitvinov-design/sales`, default branch `codex/bootstrap-sales`
+- sanitized production operations: `andylitvinov-design/psitrends-ops`, branch `main`
+- coordination/catalog/editorial strategy: `andylitvinov-design/psitrends-work`, branch `main`
+- historical live alias: https://psitrends.pages.dev
 
-- psitrends;
-- PsiTrends site;
-- psitrends.pages.dev.
+These repositories form one project topology. `psitrends-ops` is not a second product identity, and `psitrends-work` is not the runnable production app.
 
-Read order:
+## Current verified state — 2026-09-26
 
-1. `PROJECT.md`
-2. `CHECKS.md` if present
-3. repo-local files if available
-4. Cloudflare deploy source when production is in scope
+- Canonical root returns a bilingual PsiTrends / Holistic House public experience with consultations, training, workshops, projects, About and Contact.
+- `sales` contains the current `psitrends-client-*.html`, CSS/JS, route inventory and public release QA. Recent source work restored full navigation and client sections.
+- `psitrends-ops` contains sanitized nginx/PHP/backup/release tooling and explicit production safety boundaries. It proves the Joomla/host operations role without storing live secrets.
+- `psitrends-work` explicitly describes itself as Cloud catalog/coordination and warns that it is not automatically the production source repo.
+- Production exact-commit binding is not exposed by the public surface. User-visible behavior is verified, but no product/business metric is assigned; metric credit is zero.
 
-## 3. Live URLs
+## Delivery and safety boundaries
 
-- production: https://psitrends.pages.dev
-- preview: needs verification
-- admin: needs verification
+- Use `sales` for client-first public source changes and reviewed release artifacts.
+- Use `psitrends-ops` only for sanitized infrastructure, guarded releases, backup/restore and rollback workflows.
+- Use `psitrends-work` for cross-repo routing, editorial/acquisition strategy and durable reports.
+- Production changes require a fresh private backup, exact before-state, scoped cache purge, EN/RU route verification and rollback evidence.
+- Never commit credentials, private backup bundles or live environment exports.
+- Preserve legacy routes/content unless a focused reviewed migration explicitly changes them.
 
-## 4. Repositories
+## Known open risks
 
-- canonical repo: https://github.com/andylitvinov-design/psitrends-work
-- repo visibility: private
-- repo status: active, not archived
-- default branch: `main`
-- code search index: not indexed according to GitHub inventory
-- deprecated repo: needs verification
-- related repos: needs verification
+- Production source SHA cannot be proven from the public response alone.
+- Open operations PRs include privacy/analytics and database/content mutation work that requires owner review.
+- Current public navigation/cache work may have source/live timing gaps; verify canonical live after each release.
+- Historical `psitrends.pages.dev` and old `psitrends-work` routing can misdirect agents.
 
-## 5. Hosting / Deploy
+## Next actions
 
-- provider: Cloudflare Pages
-- project name: `psitrends`
-- deploy source: needs verification
-- branch: needs verification
-- deploy rules: needs verification
+1. Keep one explicit release record linking `sales` source SHA, guarded `psitrends-ops` action, production before-state and live readback.
+2. Resolve current navigation/cache follow-ups through the existing guarded Joomla release path.
+3. Bind future user-visible work to a same-source product/business effect measure before claiming outcome credit.
 
-## 6. Current Status
+## Durable routing rule
 
-- Repo exists and is active/private.
-- Production URL is listed as Cloudflare Pages target.
-- Root `README.md` and root `package.json` were not found during verification, so project structure needs deeper repo inspection.
-
-## 7. Important Files
-
-- needs verification
-
-## 8. Environment Variable Names
-
-Only names are listed. Values must never be stored here.
-
-- needs verification
-
-## 9. Known Issues
-
-- Repo-to-hosting mapping still needs verification from Cloudflare deploy source.
-- Root README/package absent; project may have subfolder structure or static content.
-- Code search index is not enabled, so agents may need direct file inspection.
-
-## 10. Next Actions
-
-1. Inspect repository tree / root files.
-2. Verify Cloudflare Pages deploy source.
-3. Identify build/static framework if any.
-4. Add `CHECKS.md` and `DECISIONS.md` once project structure is known.
-
-## 11. Risks
-
-- Incorrect repo/live URL mapping.
-- Assuming framework/build commands that do not exist.
-- Claiming production behavior without Cloudflare verification.
-
-## 12. Rules for Codex
-
-- Treat live deploy source as `needs verification` until confirmed.
-- Do not invent build commands.
-- Do not change env/secrets.
-
-## 13. Verification Status
-
-- repo mapping: partially verified from GitHub metadata
-- live URL: listed in inventory, behavior needs verification
-- root README/package: not found
-- env status: needs verification
-- deploy source: needs verification
-- data flow: needs verification
+Mentions of PsiTrends, `psitrends.com`, Joomla client pages, historical PsiTrends routes or the three related repositories route here first. Choose the target repository by role; never treat repository accessibility or naming as proof of an independent project.

@@ -62,3 +62,12 @@ This file is the durable lifecycle registry for reusable AI-system rules. Daily 
 ## Candidate rules
 
 The remaining operational guardrails stay candidates until each has current usage evidence, a stable identifier, and regression or retirement criteria. Activating a rule solely to improve a score is forbidden.
+
+### `observability.dependency_outage_blocks_dependent_checks`
+
+- **State:** `candidate`
+- **Rule:** When a canonical source is unavailable, evaluate only independent checks. Mark every dependent check `NOT_EVALUATED`; never validate an error body as the expected dataset or manufacture downstream schema/formula failures.
+- **Current evidence:** Brain Management PR #613 changes the same Sep 20 outage from eight false architecture errors to one source error, 16 blocked checks and two independently evaluated continuity warnings.
+- **Owner:** Sunday Dashboard Review defines the check graph; Brain Management release owner activates it; Evening Delivery Closure verifies canonical behavior.
+- **Activation condition:** PR #613 semantics are visible on canonical production and a source outage regression test remains green.
+- **Regression condition:** a 4xx/5xx dependency body is audited as valid control-plane data or dependent checks emit pass/fail instead of `NOT_EVALUATED`.
