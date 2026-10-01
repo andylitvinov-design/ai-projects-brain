@@ -1,7 +1,8 @@
 # Codex Cloud Repo Mode
 
 Use this when Andrey wants Codex to run from ChatGPT web/mobile without relying
-on the local Mac host.
+on the local Mac host. For cross-project plain-language routing and phone-first
+autonomy, also apply `systems/mobile-autopilot-control-plane.md`.
 
 ## Required cloud state
 
@@ -17,6 +18,12 @@ Configure cloud environments at:
 - https://chatgpt.com/codex/settings/environments
 
 ## Target launch contracts
+
+The contracts below are examples/known targets, not the full portfolio. New active
+projects should be added from the canonical repository mapping in `projects/index.md`
+and their project capsule. Do not require Andrey to write a technical Codex prompt;
+route ordinary-language mobile requests through the mobile autopilot control plane.
+
 
 Repository: `andylitvinov-design/psihotavr`
 
@@ -55,7 +62,7 @@ For each target repo:
 4. Connect GitHub through the ChatGPT GitHub Connector or Codex GitHub App.
 5. Select the GitHub account or org `andylitvinov-design`.
 6. Grant repository access to the exact repo.
-7. Set the default/base branch to `main`.
+7. Set the default/base branch to the repository's verified canonical base branch (`main` for most projects; use the project record when different).
 8. Use a clear environment label matching the repo slug.
 9. Save the environment.
 10. In ChatGPT mobile, open Codex -> Cloud threads -> New cloud task and verify
