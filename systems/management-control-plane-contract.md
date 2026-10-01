@@ -143,3 +143,14 @@ The reusable metric-evidence contract is defined in [metric-evidence-continuity-
 
 A metric publication is structurally healthy only when the unchanged-formula chain is auditable: `raw input → measurement mode → formula text + formula version → source refs → immutable daily identity`. Missing evidence metadata is a control-plane reliability defect, not evidence of a product or business score change.
 
+## Accepted dependent-overlay semantics — 2026-09-27
+
+A compatibility, historical, or publication overlay is a dependent surface; it is not an independent source of current operational truth.
+
+- if its canonical dependency returns a non-200 status or omits the required schema, the overlay must not apply historical patches, invent a partial payload, or throw an unhandled runtime exception;
+- the overlay must return a structured fail-closed response that preserves the upstream status and error class;
+- release validation must exercise the full dependency chain against an unavailable or stale canonical source;
+- an immutable source manifest must match the exact byte count and content hash of every tracked source before tests and release; identity drift is a release-blocking control-plane defect;
+- reconciling an identity manifest to already committed content does not refresh the source timestamp, change a metric formula, or earn metric/product credit.
+
+Acceptance evidence: Brain Management PR #629. On the unchanged 2026-09-27 source evidence, `/api/data-publication-current` changes from an unhandled `500 FUNCTION_INVOCATION_FAILED` path to a structured dependency `503`; the six-file source manifest changes from `5/6` to `6/6` exact identities. Canonical source time remains `2026-09-18T18:26:12.350Z`, production snapshot time remains `2026-09-15T11:34:55.858Z`, and formula version `2026-07-25-v1-preserved` remains unchanged. This is reliability/evidence repair only and receives zero business or product outcome credit.
