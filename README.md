@@ -17,6 +17,7 @@ This repo now has a lightweight dispatcher layer so agents can quickly identify 
 - Project capsule standard: [systems/project-capsule-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/project-capsule-standard.md)
 - Claude Code prompt standard: [systems/claude-code-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/claude-code-prompt-standard.md)
 - Codex goal prompt standard: [systems/codex-goal-prompt-standard.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-goal-prompt-standard.md)
+- Mobile autopilot control plane: [systems/mobile-autopilot-control-plane.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/mobile-autopilot-control-plane.md)
 - UI audit standard: [systems/audit-ui.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-ui.md)
 - Sales audit standard: [systems/audit-sales.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-sales.md)
 - Sales audit scorecard: [systems/audit-sales-markers.md](https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/audit-sales-markers.md)
