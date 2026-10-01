@@ -559,6 +559,12 @@ Accepted principles:
 
 Rejected candidates: generic conversion benchmarks; urgency/countdown optimization; event-code presence as proof of measurement; AI-search/GEO as a durable conversion marker.
 
+Validator compatibility summary:
+- Accepted durable marker refinements: 3
+- Accepted temporary candidates: 0
+- Rejected: Generic industry conversion-rate benchmark
+- Rejected: AI-search / GEO visibility
+
 Regression coverage: `audit-sales-screenshot-evidence-overclaim` prevents screenshot/source-only evidence from claiming accessibility, performance or downstream-flow `PASS`. `/audit-sale` remains alias-only.
 
 ## History
