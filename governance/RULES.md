@@ -62,3 +62,21 @@ This file is the durable lifecycle registry for reusable AI-system rules. Daily 
 ## Candidate rules
 
 The remaining operational guardrails stay candidates until each has current usage evidence, a stable identifier, and regression or retirement criteria. Activating a rule solely to improve a score is forbidden.
+
+### `observability.dependency_outage_blocks_dependent_checks`
+
+- **State:** `candidate`
+- **Rule:** When a canonical source is unavailable, evaluate only independent checks. Mark every dependent check `NOT_EVALUATED`; never validate an error body as the expected dataset or manufacture downstream schema/formula failures.
+- **Current evidence:** Brain Management PR #613 changes the same Sep 20 outage from eight false architecture errors to one source error, 16 blocked checks and two independently evaluated continuity warnings.
+- **Owner:** Sunday Dashboard Review defines the check graph; Brain Management release owner activates it; Evening Delivery Closure verifies canonical behavior.
+- **Activation condition:** PR #613 semantics are visible on canonical production and a source outage regression test remains green.
+- **Regression condition:** a 4xx/5xx dependency body is audited as valid control-plane data or dependent checks emit pass/fail instead of `NOT_EVALUATED`.
+
+### `delivery.receipt_persistence_must_not_amplify_repair_divergence`
+
+- **State:** `candidate`
+- **Rule:** Operational receipts preserve evidence but receive zero delivery/effect credit. When repeated unchanged-state receipt merges move application `main` underneath one unresolved recovery branch, regenerate that branch once on the latest base and stop counting rebases or receipt PRs as independent progress. A receipt must never create a new recovery identity for the same unchanged blocker.
+- **Current evidence:** during Sep 21–27 Brain Management created 15 PRs and merged 12 receipt-only PRs while canonical outcomes remained 0/8 and live stayed 2/7. Through Oct 3 daily receipts continued advancing `main`; PR #629 remained full-gate red/diverged, PR #617 reached approximately 101 commits behind, and the live source aged to 432.9h.
+- **Owner:** operational receipt writers preserve immutable evidence; PR Delivery Sweep owns one latest-base repair; Daily Dashboard Update owns publication only after activation; Weekly Brain Refresh aggregates the repeated pattern.
+- **Activation condition:** two successive publication cycles persist required evidence without spawning duplicate recovery identities or invalidating an active repair branch, while the exact-head gate and delayed closure pass.
+- **Regression condition:** unchanged daily state generates another repair/receipt chain that advances application `main`, increases divergence or is counted as delivery throughput without a changed source, gate or canonical result.

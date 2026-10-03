@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "candidate_id": "trend-metric-binding-causality-gap-20260829",
+  "continuation_record_date": "2026-09-19",
+  "continuation_of": "governance/durable-root-cause-candidate-2026-09-12.json",
+  "generated_at": "2026-09-19T12:12:02Z",
+  "run_date": "2026-09-19",
+  "status": "PARTIALLY_ENFORCED_AT_RANKING_RUNNER_UNPROVEN",
+  "affected_metric": {
+    "metric_id": "live_completion_rate",
+    "raw_baseline": "1/4",
+    "score_baseline": 25,
+    "target_raw": "2/4",
+    "target_score": 50,
+    "formula_change_allowed": false
+  },
+  "root_cause": {
+    "code": "TREND_CAUSAL_GATE_ENFORCEMENT_LATE_AND_RUNNER_UNPROVEN",
+    "statement": "The causal eligibility rule was enforced only after another seven zero-effect pilots. Ranking now refuses one task without an exact denominator identity, but the assignment still targets a disabled executor and no runner-level refusal or successful causally eligible task is proven.",
+    "repeated": true,
+    "prior_candidate_partially_enforced": true
+  },
+  "evidence": {
+    "current_window": "2026-09-13 through 2026-09-19",
+    "terminal_trend_receipts": 7,
+    "zero_effect_receipts": 7,
+    "verified_metric_gains": 0,
+    "three_refresh_windows": {
+      "terminal_pilots": 32,
+      "zero_effect_receipts": 32,
+      "verified_metric_gains": 0
+    },
+    "current_assignment": {
+      "task_id": "trend-task-arxiv-org-abs-2609-11918v1",
+      "metric_id": "user_pain_recurrence_rate",
+      "raw_baseline": "1/2",
+      "target_raw": "2/2",
+      "denominator_event_id": null,
+      "implementation_authorized": false,
+      "assigned_executor": "Morning System Upgrade",
+      "executor_scheduler_state": "DISABLED_2026-09-18"
+    },
+    "live_completion_actual_effect": {
+      "raw_before": "1/4",
+      "raw_after": "1/4",
+      "score_before": 25,
+      "score_after": 25,
+      "effect_credit": 0
+    },
+    "source_refs": [
+      "brain-management/history/handoffs/2026-09-13-trend-*-terminal.json",
+      "brain-management/history/handoffs/2026-09-14-trend-*-terminal.json",
+      "brain-management/history/handoffs/2026-09-15-trend-*-terminal.json",
+      "brain-management/history/handoffs/2026-09-18-trend-*-terminal.json",
+      "brain-management/history/handoffs/2026-09-19-daily-strategic-priorities.json",
+      "https://brain-management.vercel.app/api/data",
+      "https://brain-management.vercel.app/api/strategic-priorities"
+    ]
+  },
+  "owner": {
+    "ranking_owner": "Daily Strategic Priorities",
+    "executor_enablement_owner": "management-chain owner",
+    "implementation_owner_after_valid_assignment": "one enabled causality-enforcing executor",
+    "github_delivery_owner": "PR Delivery Sweep",
+    "verification_owner": "Evening Delivery Closure"
+  },
+  "smallest_safe_corrective_action": [
+    "Keep Morning System Upgrade disabled until an assignment includes immutable denominator_event_id, exact current-to-numerator transition, canonical project/repo/branch/route and implementation_authorized=true.",
+    "Require the implementation runner to fail closed on any missing eligibility field even if ranking emitted an assignment.",
+    "Return NO_COMPATIBLE_METRIC without implementation, PR, deployment or terminal receipt when no eligible event exists."
+  ],
+  "expected_effect": {
+    "process": "Stop zero-effect work at both ranking and execution boundaries and reserve the next implementation slot for an immutable-ledger-eligible outcome.",
+    "raw_target": "The next accepted live-completion assignment is capable of moving the unchanged raw input from 1/4 to 2/4.",
+    "measurement": "Compare the next accepted assignment with the current 0/32 gain baseline and re-read the exact immutable metric after canonical production verification.",
+    "credit_policy": "No score, completion or product credit until canonical ACTUAL_EFFECT proves the raw change.",
+    "documentation_effect": "NO_DIRECT_METRIC_EFFECT"
+  },
+  "acceptance": [
+    "assignment contains immutable denominator_event_id and exact numerator transition",
+    "task names canonical project, repo, branch and production route",
+    "implementation_authorized is true before an enabled executor starts",
+    "runner independently validates all eligibility fields and fails closed otherwise",
+    "NO_COMPATIBLE_METRIC consumes no implementation, PR or deployment slot",
+    "terminal receipt re-reads the same unchanged-formula metric",
+    "zero delta remains EVALUATED_NO_EFFECT with zero credit"
+  ]
+}
