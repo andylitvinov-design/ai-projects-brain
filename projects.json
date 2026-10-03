@@ -1,19 +1,19 @@
 {
   "schema_version": "2026-04-29-project-memory-v1",
-  "last_inventory_update": "2026-09-26",
+  "last_inventory_update": "2026-10-03",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 31,
-    "brain_management_current_state": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_AND_PUBLISHER_BLOCKED",
+    "brain_management_current_state": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_REPAIR_CHURN_BLOCKED",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
     "note": "Extended project-memory schema preserved for validator compatibility; current routing authority is the active overlay and project capsules.",
-    "run_date": "2026-09-26",
+    "run_date": "2026-10-03",
     "active_project_count": 10,
     "meaningful_memory_project_count": 21,
     "brain_management_source_generated_at": "2026-09-15T11:34:55.858Z",
     "brain_management_source_age_hours_at_check": 265.1,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "2/7 core APIs return 200; five source-dependent surfaces fail; source age 265.1h; production deployment remains Sep 15; runtime access and one publisher are absent",
+    "brain_management_api_surfaces": "2/7 core APIs return 200; five source-dependent surfaces fail; live source age 432.9h and repository source age 354.1h; production deployment remains Sep 15; runtime access, PR #629 full-gate repair and one publisher are absent",
     "trend_effect_state": "task 11918 remains blocked before implementation; PR #617 is draft/red at 539 pass / 49 fail and requires semantic regeneration",
     "books_state": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL",
     "psitrends_state": "ACTIVE_PRODUCTION_MULTI_REPO_JOOMLA_HETZNER",
@@ -344,7 +344,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "current_status": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_AND_PUBLISHER_BLOCKED as of 2026-09-26. Core APIs are 2/7 from source 2026-09-15T11:34:55.858Z at age 265.1h; production deployment remains Sep 15. PR #607 runtime separation and PR #613 health semantics exist in source but are not live. Repository weekly review ends Sep 20 while live ends Aug 23.",
+      "current_status": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_REPAIR_CHURN_BLOCKED as of 2026-10-03. Core APIs are 2/7 from source 2026-09-15T11:34:55.858Z at age 432.9h; production deployment remains Sep 15. Repository source is Sep 18 and 354.1h old. PR #629 focused tests pass but its complete gate is red/diverged; repository weekly review ends Sep 27 while live ends Aug 23.",
       "important_files": [
         "data-current.json",
         "api/data.js",
@@ -373,7 +373,7 @@
         "GOOGLE_AUTH_ALLOWED_DOMAIN"
       ],
       "known_issues": [
-        "Canonical production serves a 265.1-hour source and five source-dependent APIs fail.",
+        "Canonical production serves a 432.9-hour source and five source-dependent APIs fail.",
         "Restored runtime-data architecture awaits owner-scoped Vercel credential activation, one fresh atomic source and one enabled publisher.",
         "No enabled primary implementer or routine publisher exists; ranking still targets a disabled executor."
       ],
@@ -381,7 +381,8 @@
         "PRs #597-#599 introduced storage-safe runtime-data separation.",
         "PR #602 regressed to deployment-bundled operational data.",
         "PR #607 restored the guarded runtime-data architecture on main.",
-        "PR #613 added dependency-aware NOT_EVALUATED semantics; PR #614 published the Sep 14-20 weekly review to repository main."
+        "PR #613 added dependency-aware NOT_EVALUATED semantics; repository weekly history now reaches Sep 21-27.",
+        "PR #629 makes publication-current fail closed in focused tests, but the complete gate remains red and receipt-only main churn widens divergence."
       ],
       "next_actions": [
         "Owner-configure scoped read-only runtime access and prove exact-main activation with 7/7 APIs.",
@@ -806,7 +807,7 @@
       "live_url": "https://psitrends.com",
       "repo_url": "https://github.com/andylitvinov-design/sales",
       "hosting": "Joomla on Hetzner; public source in sales, sanitized operations in psitrends-ops, coordination in psitrends-work",
-      "current_status": "ACTIVE_PRODUCTION_MULTI_REPO as of 2026-09-26. sales is the public client/content source; psitrends-ops owns sanitized release/backup operations; psitrends-work is coordination, not the runnable app. Historical psitrends.pages.dev is noncanonical.",
+      "current_status": "ACTIVE_PRODUCTION_MULTI_REPO as of 2026-10-03. sales is the public client/content source; psitrends-ops owns sanitized release/backup operations; psitrends-work is coordination, not the runnable app. Section hubs and six approved reused videos are live; exact deployed source and same-source effect remain needs verification. Historical psitrends.pages.dev is noncanonical.",
       "important_files": [
         "psitrends-client-*.html",
         "psitrends-client.css",
@@ -1025,7 +1026,7 @@
       "live_url": "https://holistichouse.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/books",
       "hosting": "Canonical Vercel project codex-public-book-library (prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b); secondary books project is noncanonical",
-      "current_status": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL as of 2026-09-26. Canonical source is codex/public-book-library on deployment dpl_6kAh8pevJVHBYH8pgemsqx1YwUhL, source 1b48b556. Holistic House root and /books are live; the old public-library alias redirects there. Protected consultation/client proof remains owner-dependent.",
+      "current_status": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL as of 2026-10-03. Canonical source remains codex/public-book-library. Public navigation, library, Maya readers, page videos and remedy catalog are live; PR #85 is merged awaiting production reread. The old public-library alias redirects to Holistic House. Protected consultation/client proof remains owner-dependent.",
       "important_files": [
         "projects/books/PROJECT.md",
         "projects/books/CODEX_BRIEF.md"
@@ -1040,7 +1041,9 @@
       ],
       "recent_tasks": [
         "Holistic House public release chain PRs #48-53 is live at exact source 1b48b556.",
-        "Public root, /books, /ru/about and /ru/client are readable; protected journey remains owner-dependent."
+        "Public root, /books, /ru/about and /ru/client are readable; protected journey remains owner-dependent.",
+        "Spanish public routes, eight page videos, one-row mobile navigation, Maya readers 4/4 and public IA/library/remedy improvements were verified in closure receipts.",
+        "Books PR #85 merged on 2026-10-03 and remains MERGED_WAITING_DEPLOY pending canonical production reread."
       ],
       "next_actions": [
         "Keep codex/public-book-library aligned with the canonical public deployment.",
@@ -1128,5 +1131,5 @@
       }
     }
   ],
-  "generated_at": "2026-09-26T12:45:00Z"
+  "generated_at": "2026-10-03T12:35:00Z"
 }

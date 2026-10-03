@@ -15,9 +15,10 @@ Bilingual author-led consultation, training, workshop and archive site, with pre
 
 These repositories form one project topology. `psitrends-ops` is not a second product identity, and `psitrends-work` is not the runnable production app.
 
-## Current verified state — 2026-09-26
+## Current verified state — 2026-10-03
 
 - Canonical root returns a bilingual PsiTrends / Holistic House public experience with consultations, training, workshops, projects, About and Contact.
+- Current closures also verified section hubs and six approved reused videos for Issue 37. These are public capability improvements, but the exact deployed source SHA and an assigned same-source product/business metric remain unproven.
 - `sales` contains the current `psitrends-client-*.html`, CSS/JS, route inventory and public release QA. Recent source work restored full navigation and client sections.
 - `psitrends-ops` contains sanitized nginx/PHP/backup/release tooling and explicit production safety boundaries. It proves the Joomla/host operations role without storing live secrets.
 - `psitrends-work` explicitly describes itself as Cloud catalog/coordination and warns that it is not automatically the production source repo.

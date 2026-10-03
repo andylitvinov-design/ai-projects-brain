@@ -2,7 +2,7 @@
 
 > Durable memory about management quality, ownership, errors, lessons and efficiency. Operational daily data remains in Brain Management.
 
-Last reconciled: `2026-09-26`
+Last reconciled: `2026-10-03`
 
 ## Canonical files
 
@@ -12,7 +12,8 @@ Last reconciled: `2026-09-26`
 - `RULES.md` — durable rules and lifecycle evidence.
 - `EFFICIENCY.md` — immutable scorecards plus clearly labelled current evidence.
 - `WEEKLY-LEARNINGS.md` — compact weekly failures, causes, fixes and reusable lessons.
-- `durable-root-cause-candidate-2026-09-26.json` — current repeated publication-freshness blocker for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-10-03.json` — current repeated publication-freshness blocker and receipt-churn reinforcement for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-09-26.json` — prior activation/publisher candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-09-19.json` — prior causal-gate continuation candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-09-12.json` — prior continuation candidate retained as historical evidence.
 - `durable-root-cause-candidate-2026-09-05.json` — prior continuation candidate retained as historical evidence.
@@ -52,6 +53,7 @@ Last reconciled: `2026-09-26`
 13. A disabled executor cannot own an active assignment.
 14. Source outage must block dependent checks as `NOT_EVALUATED`; never audit a 503 body as the control-plane dataset.
 15. Scoped runtime access and an enabled recurring publisher are separate requirements.
+16. Receipt-only merges are persistence evidence, not delivery throughput; if they repeatedly stale an active repair branch, reconcile that repair once at the latest base rather than counting repeated rebases as progress.
 
 ## Weekly cycle
 

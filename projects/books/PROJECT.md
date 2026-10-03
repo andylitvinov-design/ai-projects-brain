@@ -14,12 +14,14 @@ Build a bilingual public book and knowledge library, including long-form book ro
 - legacy redirect alias: https://codex-public-book-library.vercel.app
 - status: `ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL`
 
-## Current verified state — 2026-09-26
+## Current verified state — 2026-10-03
 
 - PR #4 merged on 2026-09-05 and the aggregate public-library PR #2 merged on 2026-09-09.
 - Vercel deployment `dpl_6kAh8pevJVHBYH8pgemsqx1YwUhL` is READY production from `codex/public-book-library` source `1b48b5560ef38399d48142665eb754466e0db279`.
 - The canonical root is now Holistic House. `/books` returns HTTP 200 with bilingual canonical metadata; the former public-library alias redirects permanently to Holistic House.
 - Root, `/ru/about`, `/ru/client` and Book 02 were independently verified in the Sep 25 closure. The public library remains part of the broader Holistic House surface.
+- Subsequent closures verified the Spanish public site, eight page-specific videos, one-row mobile navigation, expanded information architecture/library/cabinet public entry, a source-backed remedy catalog and Maya reader recovery at 4/4. Protected Cabinet/App behavior remains owner-dependent.
+- Books PR #85, which flattens the book catalog, was merged by PR Delivery on Oct 3 but remains `MERGED_WAITING_DEPLOY`; no production or metric credit is claimed before canonical reread.
 - The protected consultation/client journey still requires an owner-issued private link or admin session. Public readiness must not be used as proof of protected workflow readiness.
 - A second Vercel project `books` (`prj_f3P1jqfNPAv9lDizUn5ZYiEgjLis`, including `books-nu.vercel.app`) remains a noncanonical alias/legacy provider target.
 
@@ -40,4 +42,4 @@ Build a bilingual public book and knowledge library, including long-form book ro
 
 ## Durable routing rule
 
-Books/Holistic House is one meaningful cataloged project with a verified public production surface. It remains outside Brain Management's fixed ten-project operational overlay until that overlay is deliberately revised. The second Vercel project and old public-library URL are aliases, and protected readiness is tracked separately from public production.
+Books/Holistic House is one meaningful cataloged project with a verified public production surface. It remains outside Brain Management's fixed ten-project operational overlay until that overlay is deliberately revised. The second Vercel project and old public-library URL are aliases, protected readiness is tracked separately from public production, and a merged PR remains pending until canonical live reread.

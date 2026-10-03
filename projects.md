@@ -1,6 +1,6 @@
 # Project Memory — Current Human Catalog
 
-Last reconciled: `2026-09-26`
+Last reconciled: `2026-10-03`
 
 > Compact current catalog. Canonical active machine overlay: `projects/portfolio-registry.json`. Full accessible repository inventory: `projects.json` / `data/project-index.json`. Detailed state: project capsules.
 
@@ -20,14 +20,14 @@ Last reconciled: `2026-09-26`
 | `psitherapy` | `andylitvinov-design/report` | https://psitherapy.vercel.app | `BLOCKED`; deploy-source/auth proof incomplete. |
 | `reiki-yggdrasil` | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | `WATCH`. |
 | `codex-links` | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | `WATCH`. |
-| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_AND_PUBLISHER_BLOCKED`; 2/7 APIs, 265.1h Sep 15 source, no production deployment after Sep 15. |
+| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_REPAIR_CHURN_BLOCKED`; 2/7 APIs, 432.9h Sep 15 source, no production deployment after Sep 15. |
 | `torontotantra` | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | `WATCH`. |
 | `ai-projects-brain` | `andylitvinov-design/ai-projects-brain` | not applicable | `IMPROVING`; durable PR #193 open. |
 | `psihotavr` | `NEEDS_VERIFICATION` | historical/unverified https://psihotavr.vercel.app | `IDENTITY_UNRESOLVED`. |
 
 ## Repository inventory
 
-GitHub owner enumeration on 2026-09-26 confirms 31 accessible repositories. Nine map directly to production-overlay identities. The new `psitrends-ops` repo is a related operations source for existing PsiTrends, not a new product identity.
+GitHub owner enumeration on 2026-10-03 confirms the same 31 accessible repositories. Nine map directly to production-overlay identities. `psitrends-ops` is a related operations source for existing PsiTrends, not a new product identity.
 
 ## Active development outside the production overlay
 
@@ -38,9 +38,9 @@ GitHub owner enumeration on 2026-09-26 confirms 31 accessible repositories. Nine
 
 ## Reconciliation changes
 
-- Updated Books canonical live to Holistic House; the old public-library alias now redirects there.
-- Replaced the stale PsiTrends Pages/workspace mapping with the verified Joomla/Hetzner multi-repo topology.
-- Brain Management remains stale fail-closed: source architecture is restored, but scoped activation, one publisher, fresh source, 7/7 reread and durable sync remain incomplete.
+- Preserved Books canonical mapping and recorded new public navigation/library/Maya evidence; PR #85 is merged but remains `MERGED_WAITING_DEPLOY` until production reread.
+- Preserved the PsiTrends Joomla/Hetzner multi-repo topology and recorded new section-hub/video evidence without inventing exact deployed-source attribution.
+- Brain Management remains stale fail-closed: source architecture is restored, but scoped activation, one publisher, fresh source, 7/7 reread and durable sync remain incomplete; receipt-only main churn now also increases repair divergence.
 - Preserved Psihotavr uncertainty rather than inventing a replacement source.
 - Kept 10 production identities separate from 21 meaningful memory records and 31 accessible repositories.
 

@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-09-26`
+Last aggregated: `2026-10-03`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -254,5 +254,43 @@ All durable changes in that refresh were `NO_DIRECT_METRIC_EFFECT`.
 1. Close the existing freshness chain once: scoped runtime access, fresh atomic source, exact-main activation, 7/7 APIs and delayed closure.
 2. Restore one sole publisher and prove a later data refresh with no application deployment.
 3. Regenerate PR #617 semantically and keep product implementation blocked until current evidence and denominator causality exist.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
+
+## Weekly delivery evidence — 2026-09-21 through 2026-09-27
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Distinct chains | 8 | Canonical denominator excludes receipt-only PRs and repeated reads. |
+| Canonical `LIVE_VERIFIED` | 0/8 | No operational, product or infrastructure chain reached valid terminal closure. |
+| Numeric metric gains | 0 | Documentation, merges and visible product work did not change an assigned same-source metric. |
+| Immutable scored history | 0/7 | Repository has only two July scored files; daily handoffs and closures are not score snapshots. |
+| Actions outcomes | 6 success / 77 failure | Runtime publish was 0/53, production canary 0/13, mobile bundle 0/3 and action report 0/6. |
+| Brain PR activity | 15 created / 12 receipt-only merged | Evidence persistence dominated; outcome conversion remained zero. |
+
+## Current-window evidence — 2026-09-28 through 2026-10-03
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Live freshness | 324.6h → 432.9h | The same Sep 15 source worsened continuously while daily receipts reported the unchanged blocker. |
+| Repository source age | 354.1h | Sep 18 repository data is newer than live but also unusably stale. |
+| Core API health | 2/7 | Five source-dependent APIs fail closed; publication-current separately crashes with 500. |
+| Current PR inventory | 62 open / 48 stale / 33 nonmergeable / 21 blocked / 8 CI-failing | Backlog grew while active repair branches diverged. |
+| Deploy/terminal queue | 78 | Merge is not closure; Books PR #85 is a real current-sweep merge but awaits production reread. |
+| Current PR Delivery | 1 merged | Better than zero conversion, but no live or metric credit yet. |
+
+### Efficiency trend — 2026-10-03
+
+- **Persistence became self-reinforcing rework:** receipt-only merges preserve evidence but continuously move `main` underneath PR #629 and #617 while the operational source does not change.
+- **The owner block remains necessary but no longer sufficient as an explanation:** scoped runtime access, a fresh accepted source, a green complete gate and one enabled publisher are all independently missing.
+- **Product work exists but is unmeasured:** Holistic House/Maya/navigation/library and PsiTrends section/video improvements are visible, but none carries an assigned same-source business metric. Books PR #85 remains pending live proof.
+- **Backlog conversion improved only one stage:** PR Delivery merged one real product PR, yet the 78-item deploy/terminal queue shows the next stage is still the bottleneck.
+- **Operational truth remains unpublishable:** live weekly ends Aug 23, repository weekly reaches Sep 27 and current immutable history is 0/7.
+
+## Highest-value efficiency corrections — 2026-10-03
+
+1. Regenerate PR #629 once on current `main`, repair its full weekly/schema gate and pair it with owner activation plus one fresh atomic source.
+2. Restore one publisher and prove a no-deploy runtime refresh, seven prospective immutable snapshots and delayed independent closure before counting freshness recovery.
+3. Complete canonical production reread for Books PR #85, then use the exclusive delivery stage for one causally measured product outcome rather than another receipt-only recovery chain.
 
 All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
