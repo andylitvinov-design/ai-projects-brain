@@ -1,6 +1,6 @@
 # Automation Registry
 
-Last reconciled: `2026-08-30`
+Last reconciled: `2026-10-04`
 
 ## Registry contract
 
@@ -82,3 +82,64 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 - Implementation may prepare a branch and tests, but PR/CI/merge evidence is accepted only from PR Delivery Sweep and terminal closure only from Evening Delivery Closure.
 - Every nonterminal reconciled chain must appear in the canonical active-chain surface or in an explicit exclusion record with owner and reason.
 
+
+
+## Scheduler and ownership reconciliation — 2026-09-20
+
+1. **Daily Dashboard Update is disabled**; its last observed run was August 28. It remains the exclusive routine publisher in the contract, so the current freshness chain has no runnable canonical executor.
+2. **Morning System Upgrade was disabled on September 18** after four current-week Trend pilots. Daily Strategic Priorities must not assign new implementation work until a canonical runnable implementation owner exists.
+3. Morning Task Sweep and Daily Strategic Priorities persisted 5/7 handoffs; PR Delivery persisted 9/13 due slots; Evening Delivery Closure persisted 4/6 due days.
+4. PR Delivery Sweep merged 0 PRs and repaired one stale evidence branch while 24 Brain Management PRs merged through other stages.
+5. Four Trend receipts used `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`. Two closure receipts used `RUNTIME_DATA_ARCHITECTURE_NEEDED` as the top-level terminal state. Both are diagnostic labels and must map to the four-state canonical enum.
+6. Edge-Species VLM demonstrates a hard false-success case: implementation self-terminalized while independent closure found the canonical endpoint HTTP 404 and correctly mapped the chain to `MERGED_WAITING_DEPLOY`.
+7. Morning Task Sweep assigned Weekly Delivery System Review / release-test owner to the freshness chain. This violates exclusive roles: Weekly Review owns evidence and durable corrections only, never implementation, release testing, publication or closure.
+8. PR #607 restored repository-owned runtime-data separation. Activation is now genuinely `BLOCKED_BY_OWNER` because the existing Production project lacks a dedicated fine-grained Contents:read credential for this repository.
+9. The existing chain `operational-source-freshness-refresh-20260818` must remain open. Do not create a dated replacement, a parallel publisher or another manual bundle.
+10. After owner activation, re-enable the existing Daily Dashboard Update as the sole routine publisher. PR Delivery owns the unchanged-head gate; Evening Delivery Closure owns the canonical terminal state.
+
+## Enforcement clarifications — 2026-09-20
+
+- An evaluator or reviewer cannot inherit implementation ownership merely because the canonical worker is disabled.
+- A missing secret or owner-only environment change maps to `BLOCKED_BY_OWNER` with the exact narrow action; the secret value must never enter GitHub evidence.
+- Scheduler enablement, credential setup, PR repair, merge and deployment are prerequisites. They receive zero effect credit until the unchanged metric input is re-read after live verification.
+- New Trend implementation is paused while the operational APIs are fail-closed and no runnable canonical implementation/publisher owner exists.
+
+
+## Scheduler and ownership reconciliation — 2026-09-27
+
+1. Daily Dashboard Update remains disabled; last observed run was August 28. It is still the exclusive routine publisher, so publication currently has no runnable owner.
+2. Morning System Upgrade remains disabled; last observed run was September 18. Ranking must report the runnable-owner gap and must not silently assign implementation to the evaluator, discovery, PR Delivery or closure.
+3. Daily Strategic Priorities and Morning Task Sweep are enabled and persisted 6/7 days; September 22 is missing for both.
+4. PR Delivery Sweep is enabled and persisted 11/13 due slots, but merged 0 PRs and repaired 0. The same Trends PR #617 was returned in every available slot.
+5. Evening Delivery Closure is enabled and persisted all 6/6 due receipts. Its top-level `BLOCKED_BY_OWNER` state is canonical, but nested effect receipts still contain forbidden diagnostic terminal labels.
+6. Weekly Delivery System Review remains evaluation-only. Its scorecard and governance PR must travel through PR Delivery and independent closure and receive zero metric credit.
+7. Brain Regression Guard is disabled and must remain detection/handoff-only if re-enabled; it cannot become a parallel publisher.
+8. The existing runtime freshness chain retains one implementation owner: Daily Dashboard Update after owner credential activation. Carryover identity must not be replaced with another dated recovery chain.
+
+## Minimal enforcement correction — 2026-09-27
+
+- Before ranking any nonterminal automation-owned chain, resolve the named owner to an enabled scheduler. If resolution fails, keep the chain identity and publish a runnable-owner defect; do not transfer work to another stage.
+- A top-level or nested terminal field must use only `LIVE_VERIFIED`, `MERGED_WAITING_DEPLOY`, `BLOCKED_BY_OWNER` or `NO_SAFE_UPGRADE`. Diagnostic labels belong in a separate detail field.
+- A chain whose canonical endpoint is 404 cannot retain `LIVE_VERIFIED`; it maps to `MERGED_WAITING_DEPLOY` unless another canonical blocker applies.
+- Repeated daily handling of the same branch/PR/chain is one rework chain. Daily receipts, evidence merges and repeated portfolio observations never multiply the improvement numerator.
+- Owner credential action: add only a repository-scoped Contents:read token as `BRAIN_RUNTIME_GITHUB_TOKEN` in the existing Production project. Never record its value. Re-enable the existing publisher only after the read path succeeds.
+
+
+## Scheduler and ownership reconciliation — 2026-10-04
+
+1. Morning Task Sweep, Daily Strategic Priorities, PR Delivery Sweep and Evening Delivery Closure are enabled and achieved complete due-slot coverage.
+2. Morning System Upgrade remains disabled since September 18; ranking has no runnable canonical implementation executor.
+3. Daily Dashboard Update remains disabled since August 28; the exclusive publication lease therefore has no runnable executor.
+4. Brain Regression Guard remains disabled and must not be replaced by another parallel publisher.
+5. PR Delivery observed 61 open PRs and 0 ready; it accepted 0 merges and completed 0 repairs despite 13/13 receipts.
+6. Product implementations and merges occurred in project repositories outside the exclusive PR Delivery stage. Independent Evening Closure recovered verification, but stage separation remains breached.
+7. The runtime freshness chain retains one stable ID. Existing PR #629 is the repair vehicle; existing PR #617 is the Trends vehicle. Neither may be replaced by a dated alias.
+8. Weekly Delivery System Review remains evaluator/evidence owner only. It cannot create credentials, own implementation, publish, merge or issue terminal closure.
+
+## Minimal enforcement correction — 2026-10-04
+
+- Before implementation begins, every selected product/business chain must bind one raw baseline, one unchanged-formula target and one same-source post-live reread. If no metric can be assigned, the release may still become `LIVE_VERIFIED`, but its effect result is `NO_MEASURED_EFFECT` and credit is zero.
+- Use only four terminal states. Store `NO_MEASURED_EFFECT`, failure reason and recovery detail outside the terminal field.
+- Normalize daily receipt titles to one stable chain ID before counting weekly denominators. A renamed or expanded chain is not a new outcome unless scope, owner and metric identity are independently distinct.
+- A complete handoff is coordination evidence, not execution evidence. Enabled discovery/ranking/closure cannot compensate for disabled implementation or publication owners.
+- Runtime recovery remains `BLOCKED_BY_OWNER` at 2/7 APIs until the scoped read credential exists. After that owner action, one runnable control-plane owner must generate a fresh atomic source on current main and repair existing PR #629; enable the existing publisher only after the exact-head gate is green.
