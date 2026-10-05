@@ -15,6 +15,88 @@ Persistent longitudinal memory for the weekly `/audit-sales` portfolio review an
 
 ## Current portfolio snapshot
 
+Snapshot date: 2026-10-05.
+
+This run inspected ten scored public conversion families across clean desktop defaults and selected CTA, service, academy, client-cabinet, archive, catalogue, cart, diagnostics, login and provider-error states. The fixed browser viewport was 1363×936; mobile rendering remained unavailable and is NOT_TESTED. No form, message, order, payment, authentication or provider mutation was performed. Scores use the full 100-point denominator and remain heuristic evidence scores, never revenue or conversion-rate claims.
+
+| Project | Repo / production source | A | B | C | D | E | F | G | Total | Prior | Delta | Change | Confidence |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|---|
+| PsiTrends | andylitvinov-design/sales; psitrends.com; exact custom-domain parity to codex/bootstrap-sales remains needs verification | 19 | 18 | 13 | 18 | 8 | 6 | 2 | 84 | 82 | +2 | CHANGED_NAV_AND_ACADEMY_EVIDENCE | medium visible / medium source |
+| Holistic House | andylitvinov-design/books; holistichouse.vercel.app; codex/public-book-library@d47190dc | 19 | 17 | 12 | 17 | 8 | 6 | 0 | 79 | 72 | +7 | CHANGED_ACADEMY_CABINET_EVIDENCE | high visible / medium-high source |
+| Business Mysteries | businessmysteries.vercel.app; canonical source needs verification | 20 | 17 | 9 | 18 | 8 | 4 | 0 | 76 | 76 | 0 | UNCHANGED | medium |
+| Body Explore | bodyexplore.vercel.app; canonical source needs verification | 19 | 17 | 9 | 18 | 8 | 4 | 0 | 75 | 75 | 0 | UNCHANGED | medium |
+| Psychic Alchemy | psychicalchemy.vercel.app; canonical repo/source needs verification | 19 | 17 | 9 | 17 | 7 | 4 | 0 | 73 | 73 | 0 | UNCHANGED | medium visible / low source |
+| EzoHata clean-room | andylitvinov-design/ezohata; ezohata.vercel.app; main@93b9de97 | 18 | 15 | 7 | 19 | 6 | 7 | 0 | 72 | 72 | 0 | UNCHANGED | medium-high |
+| Toronto Tantra | andylitvinov-design/torontotantra; torontotantra.vercel.app; main@5451af0a | 18 | 15 | 10 | 16 | 8 | 4 | 0 | 71 | 74 | -3 | CHANGED_PAST_EVENT_REGRESSION | high desktop / medium overall |
+| Psitherapy | andylitvinov-design/report; psitherapy.vercel.app; main@7ebcd789 | 16 | 16 | 6 | 15 | 5 | 2 | 0 | 60 | 60 | 0 | UNCHANGED_FAILURE | medium |
+| EzoHata legacy store | ezohata.com; canonical repo/hosting source needs verification | 16 | 15 | 7 | 13 | 5 | 3 | 0 | 59 | 59 | 0 | UNCHANGED | medium visible / low source |
+| Reiki Yggdrasil | andylitvinov-design/reiki-yggdrasil; reiki-yggdrasil.vercel.app; production@b8c312ee | 10 | 9 | 5 | 8 | 4 | 2 | 0 | 38 | 38 | 0 | UNCHANGED_FAILURE | medium-low |
+
+### Verification-only / excluded from scored public-sales families
+
+| Project | Current classification | Change |
+|---|---|---|
+| Psihotavr | psihotavr.vercel.app returns DEPLOYMENT_NOT_FOUND; active/retired status and canonical source remain unproved | UNCHANGED blocker; prior 40 retained as history |
+| Books Library | former catalogue-first scorecard | SUPERSEDED by Holistic House scope; historical scores retained |
+| 2Mentalica, books-nu, PsiTrends Pages | alternate/alias evidence | NEEDS_VERIFICATION; not independently scored |
+| Brain Management, Codex Links, AI Projects Brain, MyPortal, Finance/Incoming Ledger, EzoHata Finance and legacy Finance | internal/control/owner-authenticated systems | excluded; Finance remains a critical live-readiness blocker pending PR #636, not a sales site |
+
+## 2026-10-05 portfolio audit
+
+### Sales Change Map
+
+- PsiTrends: CHANGED_NAV_AND_ACADEMY_EVIDENCE. Direct routes now cover consultations, academy, events, projects, about and contact. The Academy contains a broad structured archive and labels historical dates, prices and terms as non-current. The remaining sales gap is current availability, duration and pricing plus end-to-end qualified-lead measurement. The +2 is evidence quality, not a sales result.
+- Holistic House: CHANGED_ACADEMY_CABINET_EVIDENCE. The live Academy now exposes five learning categories with explicit unknown-availability states, while the new Cabinet offers guest tests, Google login, a private-link path and a non-diagnostic mood check-in. A read-only “Sad” selection opened a safe modal without submission. The +7 is evidence quality, not conversion evidence.
+- Toronto Tantra: CHANGED_PAST_EVENT_REGRESSION. On 2026-10-05 the root still describes Sunday, October 4 as the current event and retains an active Eventbrite registration path. Safety and facilitator framing remain strong, but a past date is again presented as actionable.
+- Business Mysteries, Body Explore, Psychic Alchemy, EzoHata clean-room and EzoHata legacy: UNCHANGED. Principal strengths and conversion leaks remain materially the same.
+- Psitherapy: UNCHANGED_FAILURE. /demo remains a login self-loop; PR #130 is not live.
+- Reiki Yggdrasil: UNCHANGED_FAILURE. /masters still exposes Failed to fetch; /shop retains a safe unavailable state; PR #504 is not live.
+- Psihotavr: UNCHANGED blocker. Production still returns DEPLOYMENT_NOT_FOUND. Candidate implementation is absent and actual metric effect remains 0.
+- Measurement: PsiTrends retains partial consented contact-click intent evidence. No scored site has proved delivery, deduplication, attribution and business-success matching end to end.
+
+### Site recommendations and prompt routes
+
+- PsiTrends — preserve the three-pillar structure, direct navigation, archive labels, testimonials, disclaimers and data-minimal contact guidance. Leaks: P1 current availability/duration/fee remains conversational; P1 custom-domain source parity is unproved; P2 qualified-lead/outcome matching is unproved. Recommend exactly: (1) prove the custom-domain source commit; (2) publish current availability, duration and fee ranges or a clear quote process; (3) add a current-workshops schedule or explicit no-date state; (4) validate payload-free contact-click → qualified-inquiry measurement. Prompt route: /delivery.
+- Holistic House — preserve the three-service structure, Academy archive boundaries, guest access, non-diagnostic framing and private-cabinet separation. Leaks: P1 price/duration/response expectations are absent; P1 Academy availability is unknown without a clear inquiry handoff; P2 guest-test and consultation outcomes are unmeasured. Recommend exactly: (1) publish verified price/duration/response facts or a clear quote process; (2) connect unknown Academy availability to a data-minimal inquiry; (3) define privacy-safe guest-test and consultation events without sensitive payloads; (4) verify the current production tree and the observed auth-refresh WATCH before treating it as a production incident. Prompt route: /delivery.
+- Business Mysteries — preserve audience segmentation, program and no-guarantee/no-financial-advice framing. Leaks: P1 date/venue/duration/fee absent; P1 proof thin; P2 contact completion unmeasured. Recommend exactly: (1) prove canonical source; (2) publish verified event facts or pending labels; (3) explain inquiry → response → registration → reserved place; (4) add only consented proof and payload-free lead/registration events. Prompt route: /delivery after source proof.
+- Body Explore — preserve fully-clothed participation, optional touch, reversible consent and non-medical framing. Leaks: P1 event facts deferred; P1 verified proof thin; P2 completion unmeasured. Recommend exactly: (1) prove canonical source; (2) surface verified event facts or pending labels; (3) explain response/reservation and request a data-minimal first message; (4) define payload-free contact and confirmed-registration events. Prompt route: /delivery after source proof.
+- Psychic Alchemy — preserve the dominant CTA, process clarity and medical disclaimer. Leaks: P1 commercial facts absent; P1 diagnosis/cause wording overstates certainty; P1 sensitive-context minimization is incomplete. Recommend exactly: (1) resolve canonical source; (2) publish verified price/duration/payment/response expectations; (3) make claims explicitly exploratory and non-diagnostic; (4) add a data-minimization notice and payload-free lead event. Prompt route: /safe.
+- EzoHata clean-room — preserve protected originals, consent controls, Telegram-first ordering, empty-cart and duplicate-submit safeguards. Leaks: P1 durable abuse protection unproved; P1 response/eligibility/fulfilment unclear; P0 health/outcome copy includes treatment-style claims. Recommend exactly: (1) implement the bounded abuse guard from issue #58; (2) clarify verified response, eligibility and fulfilment expectations; (3) qualify health/outcome copy using source-backed non-medical boundaries; (4) prove privacy-safe lead/cart event delivery without message content. Prompt route: /safe.
+- Toronto Tantra — preserve facilitator identity, program, 18+, consent and fully-clothed/optional-touch boundaries. Leaks: P0 October 4 remains “current” after the date; P1 Telegram/Eventbrite reply/payment/confirmation is unclear; P2 registration measurement is unproved. Recommend exactly: (1) replace the past event with verified upcoming facts or an explicit no-scheduled-event state; (2) explain inquiry → reply → payment → confirmed place; (3) maintain one current-events layer across root and /cuddle-therapy; (4) define payload-free registration-start and confirmed-registration events. Prompt route: /delivery.
+- Psitherapy — preserve Google auth and health-data boundaries. Leaks: P0 /demo self-loop; P1 durable specialist-request persistence unproved; P1 exact production tree and privacy evidence incomplete. Recommend exactly: (1) ship and live-verify PR #130 or equivalent; (2) reconcile the production tree; (3) prove durable request save before success; (4) clarify the pre-login deliverable and exclude health answers/identifiers from analytics. Prompt route: /safe.
+- EzoHata legacy — preserve catalogue records, current prices and working policy/contact routes. Leaks: P0 health/outcome claims need review; P1 the catalogue obscures a beginner path; P1 checkout persistence is unproved. Recommend exactly: (1) prove canonical source; (2) evidence-review claims and separate education from medical implications; (3) establish one beginner path; (4) clarify fulfilment/refund/support and verify one non-purchasing cart state. Prompt route: /safe.
+- Reiki Yggdrasil — preserve public/private separation and RLS/provider boundaries. Leaks: P0 /masters raw error; P1 no dominant public journey; P1 canonical and 2Mentalica sources diverge. Recommend exactly: (1) ship/live-verify PR #504; (2) select one primary public journey; (3) show value/access/next step before login; (4) reconcile aliases and add adoption measurement only after journey proof. Prompt route: /planner.
+
+### Ready Codex prompts
+
+- PsiTrends /delivery: Prove psitrends.com source parity, then publish verified availability/duration/fee ranges or a clear quote process per pillar, add a current-workshops or no-date state, and validate payload-free contact-click → qualified-inquiry events. Preserve the three-pillar structure, archive labels, testimonials, disclaimers and data-minimal messaging.
+- Holistic House /delivery: On codex/public-book-library, publish verified consultation price/duration/response expectations or an explicit quote process, connect unknown Academy availability to a data-minimal inquiry, and define privacy-safe guest-test/consultation events. Preserve guest access, private-cabinet separation and non-diagnostic boundaries; verify current production and do not submit personal data.
+- Business Mysteries /delivery: First prove canonical repo and production source; then publish verified date/venue/duration/fee or pending labels, explain inquiry → response → registration → reserved place, and add only consented proof plus payload-free lead events. Preserve no-guarantee/no-financial-advice framing.
+- Body Explore /delivery: First prove canonical production source; then surface verified event facts or pending labels, explain response/reservation, add a data-minimal first-message instruction and payload-free contact/registration events. Preserve fully-clothed participation, optional touch, reversible consent and non-medical framing.
+- Psychic Alchemy /safe: Resolve canonical source, publish verified price/duration/payment/response expectations, make diagnosis/cause wording exploratory and non-diagnostic, and add a privacy/data-minimization notice plus payload-free lead events. Preserve process clarity and the medical disclaimer.
+- EzoHata /safe: Implement the bounded issue #58 abuse guard, clarify verified response/eligibility/fulfilment, qualify treatment-style copy with source-backed non-medical boundaries, and prove payload-free lead/cart events. Preserve protected originals, consent controls, Telegram-first ordering and duplicate-submit safeguards; do not submit a lead/order.
+- Toronto Tantra /delivery: Replace the past October 4 current-event state with verified upcoming facts or an explicit no-scheduled-event state, explain inquiry → reply → payment → confirmed place, maintain one current-events layer across / and /cuddle-therapy, and define payload-free registration-start/confirmed-registration events. Preserve all consent, 18+, fully-clothed and optional-touch boundaries.
+- Psitherapy /safe: Ship and live-verify PR #130 or equivalent, reconcile the production tree, prove durable specialist-request persistence before success copy, and clarify the pre-login deliverable without analytics containing health answers or identifiers. Preserve Google auth.
+- EzoHata legacy /safe: Prove canonical source, review health/outcome claims against evidence, create one beginner starting path, and clarify fulfilment/refund/support while verifying one non-purchasing cart state. Preserve catalogue records, prices and working policy/contact routes.
+- Reiki Yggdrasil /planner: Plan shipping/live verification of PR #504, select one primary public journey, show value/access/next step before login, and reconcile canonical production with 2Mentalica before adding adoption measurement. Do not alter RLS, roles, storage or provider configuration.
+
+### Provider/live blockers and verification matrix
+
+PASS: all ten scored roots rendered at 1363×936 without horizontal overflow; PsiTrends root/academy/events and Holistic House root/services/academy/client paths were inspected; Holistic guest mood dialog opened without submission; EzoHata diagnostics and empty cart retained safe defaults; current production metadata was captured where accessible.
+FAIL: Toronto past October 4 event remains current/actionable; Psitherapy /demo self-loop; Reiki /masters raw provider error; Psihotavr 404.
+WATCH: Holistic House recorded two AuthRefreshDiscardedError events on a non-current or unconfirmed deployment, not enough to claim a production incident; Finance/Incoming Ledger remains a critical readiness blocker pending PR #636; source parity remains unresolved for Business Mysteries, Body Explore, Psychic Alchemy, EzoHata legacy and PsiTrends custom domain.
+NOT_TESTED: rendered mobile; full keyboard/focus/target-size matrix; Telegram/WhatsApp/Eventbrite completion; form/order/payment submission; authenticated/wrong-role flows; RLS/provider persistence; field Core Web Vitals; analytics delivery, deduplication, attribution and business-outcome matching.
+
+### Effect Bridge reconciliation
+
+Exactly one candidate remains: metric_id business_growth_outcomes, baseline 4/6 and score 66.7. Psihotavr still returns DEPLOYMENT_NOT_FOUND, no implementation is present and actual effect remains 0. The smallest safe change remains proving active/retired state and canonical repo/domain/provider/branch/commit; only if active may the exact verified production mapping and public CTA be restored. Conditional accepted collector evidence could change 4/6 to 5/6 and 66.7 to 83.3; retirement or failed source proof yields 0. This effect is not inferred from heuristic sales scores.
+
+### Sales Audit Intelligence
+
+NO_MARKER_CHANGE. Version 1.1 remains current. No singular-mode scorecard, memory, validator or automation was created.
+
+## Historical snapshot — 2026-09-28
+
 Snapshot date: 2026-09-28.
 
 This run inspected ten scored public conversion families across their clean desktop defaults and selected CTA, service, archive, catalogue, cart, form, error and alias states. No form, message, order, payment, authentication or provider mutation was performed. The browser's fixed desktop viewport was 1363×936; mobile rendering and reliable broad keyboard traversal were unavailable and remain NOT_TESTED. Scores use the full 100-point denominator and are heuristic evidence scores, never revenue or conversion-rate claims.
