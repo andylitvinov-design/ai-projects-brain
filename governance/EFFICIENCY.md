@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-30`
+Last aggregated: `2026-10-04`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -109,3 +109,67 @@ Publish the exact four denominator items behind the shared `1/4` delivery input,
 
 The system is efficient at producing and merging evidence-heavy changes but ineffective at converting them into measured product outcomes. The highest-leverage correction is not another pilot: close the existing publisher-owned cadence chain with two <=12h coherent cycles, zero recovery PRs, exact source/deploy attribution and independent canonical closure. Only after that proof window should the next implementation slot return to a concrete product/business denominator item.
 
+
+
+## Weekly delivery scorecard — 2026-09-14 through 2026-09-20
+
+| Metric | Evidence | Interpretation |
+|---|---:|---|
+| Explicit implementation/effect chains | 6 | Four Trend pilots, one recurring runtime/publication recovery and one Trends source refresh. |
+| Canonical `LIVE_VERIFIED` | 0/6 | Three pilots had live behavior with zero effect; Edge-Species was corrected to `MERGED_WAITING_DEPLOY`. |
+| Verified numeric metric gains | 0/6 | Shared delivery inputs remain 1/4; Finance remains 0/4. |
+| Product : infrastructure activity | 0 : 6 | No product or business outcome improved. |
+| Rework lower bound | 2/6 | Recurring runtime recovery and the independently corrected Edge-Species false terminal. |
+| Brain Management PR throughput | 26 created; 24 merged; 1 closed unmerged; 1 open | PR Delivery merged 0 and repaired one stale evidence branch. |
+| GitHub Actions | 41 success; 77 failure; 2 cancelled | Canary failed 13/13; runtime publication failed 25/37; delivery gates improved but remain unreliable. |
+| Immutable history | 3/7 | Missing September 16, 17, 19 and 20 identities are not inferred. |
+| Core live APIs | 2/7 HTTP 200; 5/7 HTTP 503 | Live source age reached 122.4h against the 18h limit. |
+| Carryover | 3 | Runtime freshness, Trends refresh and Finance owner verification. |
+| Portfolio PR inventory | 55 open; 0 ready | 18 owner-blocked, 19 conflicts, 3 CI repair, 11 review and 4 active; 39 older than 14 days. |
+
+### Efficiency conclusion
+
+The system reduced raw PR volume and some delivery workflows became green, but outcome efficiency remained zero. The restored runtime architecture cannot operate because its exclusive publisher is disabled and its narrow production read credential is absent. The next useful action is owner activation of that existing path, followed by two publisher-owned cycles and independent closure; another Trend pilot, validator, evidence PR or manual data bundle has zero expected delivery value.
+
+
+## Weekly delivery scorecard — 2026-09-21 through 2026-09-27
+
+| Metric | Evidence | Interpretation |
+|---|---:|---|
+| Distinct implementation/effect chains | 8 | Four product/business and four infrastructure/control/research chains, deduplicated across daily receipts. |
+| Canonical `LIVE_VERIFIED` | 0/8 | No chain met source, artifact, canonical live and independent closure gates. |
+| Verified numeric metric gains | 0/8 | Shared delivery inputs remain 1/4; Finance remains 0/4. |
+| Rework lower bound | 3/8 | Runtime freshness loop, repeated PR #617 delivery loop, and Edge-Species terminal-state churn. |
+| Brain Management PR throughput | 15 created; 12 merged; 3 open | All 12 merges were operational receipts; PR Delivery merged 0 and repaired 0. |
+| GitHub Actions | 6 success; 77 failure | Runtime publication 0/53, canary 0/13, mobile bundle 0/3; only health sync was 6/6. |
+| Immutable scored history | 0/7 | Missing days are not inferred from rolling inputs or handoffs. |
+| Current production data | 2/7 APIs; source age 290.5h | `/api/data` and `/api/trends` return 503; `/api/data-publication-current` returns 500. |
+| Handoffs | ranking 6/7; discovery 6/7; PR Delivery 11/13; closure 6/6 due | Evidence cadence is substantially better than delivery conversion. |
+| Canonical active carryover | 3 | Runtime freshness, Trends refresh and Finance provider proof. |
+| Portfolio PR inventory | 56 open; 0 ready | 20 owner-blocked, 19 conflict repair, 3 CI repair, 11 review, 3 active; 41 older than 14 days. |
+
+### Efficiency conclusion
+
+The system is now efficient at producing immutable receipts but ineffective at performing the work those receipts describe. Twelve receipt-only merges and eleven rereads of one unchanged blocked PR produced no live or metric gain. The smallest safe intervention is not another implementation or evidence loop: it is the single owner credential activation that makes the already-defined exclusive publisher runnable. Until that action occurs, the exact safe state is `BLOCKED_BY_OWNER` with denominator 2/7 APIs, not a replacement recovery chain.
+
+
+## Weekly delivery scorecard — 2026-09-28 through 2026-10-04
+
+| Metric | Evidence | Interpretation |
+|---|---:|---|
+| Normalized implementation/effect chains | 21 | 27 daily labels minus six aliases/evolutions. |
+| Canonical `LIVE_VERIFIED` | 13/21 | Independent production behavior exists; no-effect is recorded as diagnostic detail. |
+| Verified numeric metric gains | 0/21 | None of the 13 live releases had an assigned same-source metric. |
+| Product/business live conversion | 13/18 | Product delivery materially improved from prior weeks. |
+| Infrastructure live conversion | 0/3 | Freshness, Trends and Edge-Species remain nonterminal. |
+| Rework lower bound | 8/21 | Runtime, Trends and six multi-PR/alias product chains required repeated handling. |
+| Brain Management PR throughput | 13 created; 13 merged | Every merge was an operational receipt with zero product/effect credit. |
+| GitHub Actions | 6 success; 73 failure | Runtime publication 0/47, canary 0/13, mobile bundle 0/5. |
+| Immutable scored history | 0/7 | Complete handoffs do not substitute for scored daily identity. |
+| Handoff coverage | ranking 7/7; discovery 7/7; PR Delivery 13/13; closure 6/6 due | Coordination is reliable; implementation/publication ownership is not. |
+| Current production | 2/7 APIs; source age 458.5h | Data and Trends fail closed; publication endpoint returns 500. |
+| PR portfolio | 61 open; 0 ready | 20 owner-blocked, 19 conflict repair, 7 CI repair, 12 review, 3 active; 49 stale. |
+
+### Efficiency conclusion
+
+The system has moved from “high activity, no product delivery” to “substantial product delivery, no measured effect.” That is real progress in release conversion but not in outcome conversion. The next efficiency gain is to make a same-source metric mandatory before implementation starts while closing the existing runtime publication blocker. More receipt volume or unmeasured releases would increase activity without improving management truth.
