@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "candidate_id": "preassigned-effect-metric-gate-not-enforced-across-product-releases-20261010",
+  "generated_at": "2026-10-10T12:45:00Z",
+  "run_date": "2026-10-10",
+  "status": "REPEATED_BLOCKER_EXPANDED_FROM_PILOTS_TO_PRODUCT_RELEASES",
+  "affected_metric": {
+    "metric_id": "product_delivery_rate",
+    "published_raw_value": "1/4",
+    "published_score": 25,
+    "published_source_generated_at": "2026-09-18T18:26:12.350Z",
+    "observed_raw_baseline": "13/18 product/business chains reached canonical live in the latest complete weekly review, but verified numeric gains remained 0/21; 17 Holistic House product classes in the 2026-10-09 closure had no assigned same-source outcome metric",
+    "conditional_target_raw": "1/4 -> 2/4 only after one named existing denominator item enters the numerator under the unchanged formula",
+    "formula_change_allowed": false
+  },
+  "root_cause": {
+    "code": "PREASSIGNED_EFFECT_METRIC_GATE_NOT_ENFORCED_ACROSS_PRODUCT_RELEASES",
+    "statement": "The management chain can select, implement, merge, deploy and independently verify user-facing product work without first binding that work to an immutable denominator event, current raw baseline source and exact same-source transition. Live capability therefore cannot enter a dashboard numerator and is repeatedly recorded as zero measured effect.",
+    "repeated": true,
+    "prior_scope": "Trends pilots repeatedly reached live without causal eligibility",
+    "expanded_scope_confirmed": "The same omission now affects high-throughput Holistic House product delivery"
+  },
+  "evidence": {
+    "latest_complete_review": {
+      "week_start": "2026-09-28",
+      "week_end": "2026-10-04",
+      "normalized_chains": 21,
+      "canonical_live_verified": "13/21",
+      "product_or_business_chains": 18,
+      "product_or_business_live_verified": "13/18",
+      "verified_numeric_metric_gains": "0/21",
+      "rework_lower_bound": "8/21"
+    },
+    "current_closure": {
+      "generated_at": "2026-10-10T00:10:00Z",
+      "holistic_house_exact_live_source": "df9f5dcb3754840dad91cfc9150e47bed2b7658c",
+      "holistic_house_production_deployment": "dpl_2v8wUAassBMwRTU5UTLbGfiCmSZu",
+      "deduplicated_product_classes": 17,
+      "assigned_same_source_metrics": 0,
+      "metric_credit": 0,
+      "protected_flow_state": "BLOCKED_BY_OWNER"
+    },
+    "published_metric_source": {
+      "generated_at": "2026-09-18T18:26:12.350Z",
+      "product_delivery_rate": "1/4",
+      "limitation": "Published source is stale; durable memory preserves the raw baseline without calculating a new daily metric."
+    },
+    "source_refs": [
+      "brain-management/history/weekly-delivery/2026-10-04.json",
+      "brain-management/evening-delivery-closure-current.json",
+      "brain-management/data-current.json",
+      "https://github.com/andylitvinov-design/books/commit/df9f5dcb3754840dad91cfc9150e47bed2b7658c",
+      "https://vercel.com/super10/codex-public-book-library/2v8wUAassBMwRTU5UTLbGfiCmSZu"
+    ]
+  },
+  "owner": {
+    "eligibility_gate_owner": "Daily Strategic Priorities",
+    "measurement_contract_owner": "selected product implementation and release owner",
+    "delivery_owner": "PR Delivery Sweep",
+    "verification_owner": "Evening Delivery Closure",
+    "ranking_consumer": "Daily Strategic Priorities"
+  },
+  "smallest_safe_corrective_action": [
+    "Before the next product assignment, select exactly one existing immutable denominator event that the proposed change can add, complete or reclassify.",
+    "Persist the unchanged metric formula, current raw baseline source, exact expected transition, instrumentation owner and canonical reread path before implementation begins.",
+    "Require the implementation runner and PR Delivery Sweep to fail closed when the denominator event or same-source measurement path is absent.",
+    "Return NO_COMPATIBLE_METRIC instead of fabricating a metric binding; the product owner may then explicitly authorize capability-only work with zero expected metric credit.",
+    "After live verification, require Evening Delivery Closure to reread the exact same source and formula before the numerator or score can change.",
+    "Do not grant retrospective metric credit to the 17 already-live uninstrumented product classes."
+  ],
+  "expected_effect": {
+    "raw_target": "one named existing product-delivery denominator item enters the numerator after a future eligible release",
+    "metric_target": "conditional product_delivery_rate 1/4 -> 2/4",
+    "measurement": "preassigned baseline event plus canonical same-source reread after exact-source live verification",
+    "credit_policy": "Assignment, instrumentation, PR, merge, deployment, route availability and documentation receive zero metric credit. Count only the observed unchanged-formula numerator transition.",
+    "documentation_effect": "NO_DIRECT_METRIC_EFFECT"
+  },
+  "acceptance": [
+    "one immutable denominator_event_id exists before implementation",
+    "the proposed change can causally transition that exact event",
+    "current raw baseline source and unchanged formula are persisted",
+    "measurement and verification owners are named",
+    "final live source identity is attributable",
+    "canonical same-source reread proves the numerator transition",
+    "no retrospective credit is assigned to uninstrumented releases"
+  ]
+}

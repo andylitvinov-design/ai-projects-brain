@@ -116,6 +116,14 @@
 - Ranking refusal alone is insufficient. The implementation runner must repeat
   the causal check and fail closed, and an assignment must not name a disabled
   executor.
+- The same failure now affects product delivery, not only Trends pilots. In the
+  Sep 28–Oct 4 review, 13/18 product/business chains reached live while 0/21
+  normalized chains produced numeric gain; the Oct 9 closure groups 17
+  Holistic House product classes without assigned same-source metrics.
+- Before any product implementation, require one immutable denominator-event
+  id, current raw baseline source, exact transition the change can cause,
+  measurement owner and canonical reread path. If no compatible metric exists,
+  return `NO_COMPATIBLE_METRIC`; never grant retrospective credit after live.
 
 ## Security Risks
 

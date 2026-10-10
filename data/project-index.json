@@ -1,20 +1,20 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-10-03T12:35:00Z",
+  "generated_at": "2026-10-10T12:45:00Z",
   "source": "projects.json",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 31,
-    "brain_management_current_state": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_REPAIR_CHURN_BLOCKED",
+    "brain_management_current_state": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_EFFECT_BINDING_BLOCKED",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
-    "run_date": "2026-10-03",
+    "run_date": "2026-10-10",
     "active_project_count": 10,
     "meaningful_memory_project_count": 21,
     "brain_management_source_generated_at": "2026-09-15T11:34:55.858Z",
-    "brain_management_source_age_hours_at_check": 265.1,
+    "brain_management_source_age_hours_at_check": 598.9,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "2/7 core APIs return 200; live source age 432.9h and repository source age 354.1h; production deployment remains Sep 15; runtime access, PR #629 full-gate repair and one publisher are absent",
-    "trend_effect_state": "task 11918 remains blocked; PR #617 is draft/red at 539 pass / 49 fail",
+    "brain_management_api_surfaces": "2/7 core APIs return 200; live source age 598.9h and repository source age 520.6h; production deployment remains Sep 15; runtime access, fresh source and one publisher are absent",
+    "trend_effect_state": "task 11918 remains blocked; current-base replacement PR #649 lacks an accepted complete final-head gate",
     "books_state": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL",
     "psitrends_state": "ACTIVE_PRODUCTION_MULTI_REPO_JOOMLA_HETZNER"
   },
@@ -166,7 +166,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "status_summary": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_REPAIR_CHURN_BLOCKED as of 2026-10-03. Core APIs are 2/7 from source 2026-09-15T11:34:55.858Z at age 432.9h; production deployment remains Sep 15. Repository source is Sep 18 and 354.1h old. PR #629 focused tests pass but its complete gate is red/diverged; repository weekly review ends Sep 27 while live ends Aug 23.",
+      "status_summary": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_EFFECT_BINDING_BLOCKED as of 2026-10-10. Core APIs are 2/7 from source 2026-09-15T11:34:55.858Z at age 598.9h; production deployment remains Sep 15. Repository source is Sep 18 and 520.6h old. PR #629 is current-base but red on stale source; repository weekly review ends Oct 4 while live ends Aug 23.",
       "memory_files": {
         "project_md": "projects/brain-management/PROJECT.md",
         "system_map": "projects/brain-management/SYSTEM_MAP.md",
@@ -558,7 +558,7 @@
       "live_url": "https://holistichouse.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/books",
       "hosting": "Canonical Vercel project codex-public-book-library (prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b); secondary books project is noncanonical",
-      "status_summary": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL as of 2026-10-03. Canonical source remains codex/public-book-library. Public navigation, library, Maya readers, page videos and remedy catalog are live; PR #85 is merged awaiting production reread. The old public-library alias redirects to Holistic House. Protected consultation/client proof remains owner-dependent.",
+      "status_summary": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL as of 2026-10-10. Canonical source remains codex/public-book-library; production dpl_2v8wUAassBMwRTU5UTLbGfiCmSZu is READY from exact source df9f5dcb3754840dad91cfc9150e47bed2b7658c. Public release groups are verified; protected consultation/client proof remains owner-dependent and product metric effect is unassigned.",
       "memory_files": {
         "project_md": "projects/books/PROJECT.md",
         "system_map": "projects/books/SYSTEM_MAP.md",
@@ -608,5 +608,5 @@
       }
     }
   ],
-  "last_inventory_update": "2026-10-03"
+  "last_inventory_update": "2026-10-10"
 }

@@ -294,3 +294,45 @@ All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
 3. Complete canonical production reread for Books PR #85, then use the exclusive delivery stage for one causally measured product outcome rather than another receipt-only recovery chain.
 
 All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
+
+## Weekly delivery evidence — 2026-09-28 through 2026-10-04
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Normalized chains | 21 | Twenty-seven receipt labels collapse to 21 stable chains. |
+| Canonical live | 13/21 | Live-delivery conversion recovered, driven by user-facing product work. |
+| Product/business live | 13/18 | Real product throughput occurred. |
+| Verified numeric gains | 0/21 | No release had a valid same-source effect reread. |
+| Rework lower bound | 8/21 | Repair and reconciliation remain a large share of execution. |
+| Immutable scored history | 0/7 | The completed week still has no scored daily identities. |
+| Actions outcomes | 6 success / 73 failure | Runtime publish was 0/47, canary 0/13 and Mobile Release Bundle 0/5. |
+| Brain PR activity | 13 created / 13 receipt-only merged | Operational persistence created no product or metric credit. |
+
+## Current-window evidence — 2026-10-05 through 2026-10-10
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Live freshness | 598.9h | The same Sep 15 source remains the controlling failure. |
+| Repository source age | 520.6h | Repository source is newer than live but still invalid for publication. |
+| Core API health | 2/7 | Five operational surfaces fail closed; publication-current remains 500. |
+| Immutable history | 3/7 | Partial continuity improvement, not a complete current week. |
+| Current PR inventory | 60 open / 46 stale / 33 nonmergeable / 7 CI-failing | Backlog shrank slightly but remains structurally blocked. |
+| Current PR Delivery | 2 branch repairs / 0 merges | Tree-safe current-base repair improved readiness without claiming throughput. |
+| Holistic House production | exact source `df9f5dcb…` READY | The temporary deploy-capacity gap is closed for the current public branch. |
+| Product/effect binding | 17 product classes without assigned metric | Live product throughput still cannot enter a dashboard numerator. |
+
+### Efficiency trend — 2026-10-10
+
+- **Delivery conversion improved, effect conversion did not:** 13 product/business chains are live, but zero of 21 chains produced an assigned-metric gain.
+- **Tree-safe PR repair is a confirmed process improvement:** PRs #629 and #649 were rebuilt from current base with task-only diffs and zero lag. This reduces false reconciliation, but is not a metric gain.
+- **Publication failure continues to dominate control-plane truth:** source age reached 598.9h and weekly live remains Aug 17–23 even as daily receipts accumulate.
+- **History recovery is partial:** 3/7 current scored days is better evidence coverage, not completion.
+- **Backlog pressure eased only marginally:** open PRs moved 61 → 60 versus the last complete review; no current-sweep merge occurred.
+
+## Highest-value efficiency corrections — 2026-10-10
+
+1. Finish the existing runtime publication chain with fresh source, green exact-head gate, scoped activation and one sole publisher; do not create another parallel repair.
+2. Enforce preassigned effect eligibility on one product chain before implementation so the next live result can be measured instead of retroactively narrated.
+3. Continue prospective scored snapshots from 3/7 to 7/7 and publish the Sep 28–Oct 4 review without backfilling missing days.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.

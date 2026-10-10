@@ -63,6 +63,15 @@ This file is the durable lifecycle registry for reusable AI-system rules. Daily 
 
 The remaining operational guardrails stay candidates until each has current usage evidence, a stable identifier, and regression or retirement criteria. Activating a rule solely to improve a score is forbidden.
 
+### `measurement.preassigned_denominator_event_gate`
+
+- **State:** `candidate`
+- **Rule:** Before product or Trends implementation begins, the assignment must name one existing immutable denominator event, the unchanged metric formula, a current raw baseline source, the exact transition the implementation can cause, a measurement owner and the canonical same-source reread path. If no compatible event exists, return `NO_COMPATIBLE_METRIC`; capability-only work may proceed only with explicit zero expected metric credit.
+- **Current evidence:** the Sep 28–Oct 4 review delivered 13/18 product/business chains to live while verified numeric gains remained 0/21. The Oct 9 closure groups 17 Holistic House product classes whose acquisition, learning, assessment or conversion metrics were not assigned before release. Earlier Trends windows showed the same failure across 32 consecutive zero-effect pilots.
+- **Owner:** Daily Strategic Priorities enforces eligibility; the selected implementation/release owner supplies the event and instrumentation; PR Delivery Sweep preserves the contract; Evening Delivery Closure performs the unchanged-formula reread.
+- **Activation condition:** two consecutive assignments either pass with a valid preassigned denominator event and terminal same-source reread or fail closed as `NO_COMPATIBLE_METRIC`, with no retrospective credit.
+- **Regression condition:** implementation, merge, deployment or `LIVE_VERIFIED` occurs without the preassigned event/source/transition contract and is later narrated as metric effect.
+
 ### `observability.dependency_outage_blocks_dependent_checks`
 
 - **State:** `candidate`

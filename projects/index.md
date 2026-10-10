@@ -11,7 +11,7 @@
 5. Do not promote backup/bootstrap/diagnostic repositories into the active portfolio.
 6. Keep uncertainty explicit as `NEEDS_VERIFICATION`.
 
-## Active portfolio — reconciled 2026-10-03
+## Active portfolio — reconciled 2026-10-10
 
 | project_id | Canonical repo | Production | Durable state |
 |---|---|---|---|
@@ -21,20 +21,20 @@
 | `psitherapy` | `andylitvinov-design/report` | https://psitherapy.vercel.app | `BLOCKED` — deploy-source/auth proof incomplete. |
 | `reiki-yggdrasil` | `andylitvinov-design/reiki-yggdrasil` | https://reiki-yggdrasil.vercel.app | `WATCH`. |
 | `codex-links` | `andylitvinov-design/codex-links` | https://codex-links.pages.dev | `WATCH`. |
-| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_REPAIR_CHURN_BLOCKED` — 2/7 APIs, 432.9h Sep 15 source, no production deployment after Sep 15. |
+| `brain-management` | `andylitvinov-design/brain-management` | https://brain-management.vercel.app | `DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_EFFECT_BINDING_BLOCKED` — 2/7 APIs, 598.9h Sep 15 source, no production deployment after Sep 15. |
 | `torontotantra` | `andylitvinov-design/torontotantra` | https://torontotantra.vercel.app | `WATCH`. |
 | `ai-projects-brain` | `andylitvinov-design/ai-projects-brain` | not applicable | `IMPROVING`; durable reconciliation PR #193. |
 | `psihotavr` | `NEEDS_VERIFICATION` | historical https://psihotavr.vercel.app | `IDENTITY_UNRESOLVED`. |
 
 ## Repository inventory
 
-Owner enumeration on 2026-10-03 confirms the same 31 accessible repositories. Production-overlay identities remain 10. The extended catalog has 21 meaningful memory records. `psitrends-ops` is a related operations repo, not a new identity. Psihotavr remains unresolved.
+Owner enumeration on 2026-10-10 confirms the same 31 accessible repositories. Production-overlay identities remain 10. The extended catalog has 21 meaningful memory records. `psitrends-ops` is a related operations repo, not a new identity. Psihotavr remains unresolved.
 
 ## Development / verification routing
 
 | Wording | Route | State |
 |---|---|---|
-| books, Holistic House, book library, книги | `projects/books/PROJECT.md` | `ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL`; public navigation/library/Maya recovery expanded, PR #85 awaits production reread, protected journey remains owner-dependent. |
+| books, Holistic House, book library, книги | `projects/books/PROJECT.md` | `ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL`; exact branch head `df9f5dcb…` is production, public release groups are verified, protected journey remains owner-dependent. |
 | PsiTrends, psitrends.com, psitrends-ops, psitrends-work | `projects/psitrends/PROJECT.md` | one multi-repo Joomla/Hetzner project; section hubs and six approved videos are live, exact deployed source and same-source effect remain open. |
 
 The connected provider exposes both `books` and `codex-public-book-library`. Route both to one Books identity; `codex-public-book-library` is the canonical project and `holistichouse.vercel.app` is its canonical alias.

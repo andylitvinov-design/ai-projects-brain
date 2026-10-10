@@ -1,60 +1,37 @@
-# AI System Governance Index
+# Governance Index
 
-> Durable memory about management quality, ownership, errors, lessons and efficiency. Operational daily data remains in Brain Management.
+Last reconciled: `2026-10-10`
 
-Last reconciled: `2026-10-03`
+## Current durable routing
 
-## Canonical files
+- `CURRENT.md` — confirmed system state, boundaries, sync and next actions.
+- `GOALS.md` — outcomes, owners and success criteria.
+- `AUTOMATIONS.md` — scheduler-backed roles and ownership defects.
+- `EFFICIENCY.md` — immutable weekly scorecards plus current-window synthesis.
+- `WEEKLY-LEARNINGS.md` — aggregated errors, improvements and reusable rules.
+- `RULES.md` — active durable governance rules.
+- `durable-root-cause-candidate-2026-10-10.json` — current machine-readable continuation candidate for Daily Strategic Priorities.
 
-- `CURRENT.md` — confirmed current state, sync and strategic blockers.
-- `GOALS.md` — active outcomes, owner, next action and success definition.
-- `AUTOMATIONS.md` — scheduler-backed roles, operational-registry conflicts and overlap boundaries.
-- `RULES.md` — durable rules and lifecycle evidence.
-- `EFFICIENCY.md` — immutable scorecards plus clearly labelled current evidence.
-- `WEEKLY-LEARNINGS.md` — compact weekly failures, causes, fixes and reusable lessons.
-- `durable-root-cause-candidate-2026-10-03.json` — current repeated publication-freshness blocker and receipt-churn reinforcement for Daily Strategic Priorities.
-- `durable-root-cause-candidate-2026-09-26.json` — prior activation/publisher candidate retained as historical evidence.
-- `durable-root-cause-candidate-2026-09-19.json` — prior causal-gate continuation candidate retained as historical evidence.
-- `durable-root-cause-candidate-2026-09-12.json` — prior continuation candidate retained as historical evidence.
-- `durable-root-cause-candidate-2026-09-05.json` — prior continuation candidate retained as historical evidence.
-- `durable-root-cause-candidate-2026-08-29.json` — prior causal-binding candidate retained as historical evidence.
-- `durable-root-cause-candidate-2026-08-22.json` — prior candidate retained as historical evidence.
-- `durable-root-cause-candidate-2026-08-15.json` — prior candidate retained as historical evidence.
-
-## Source boundary
+## Authority boundary
 
 - `brain-management` owns current operational metrics, snapshots, assignments, chains, collectors and publication receipts.
-- `ai-projects-brain/governance` owns durable synthesis, accepted rules, catalog state, ownership corrections and cross-week lessons.
-- Routine receipts are referenced, not copied.
-- An operational assignment name is not runnable capacity without enabled scheduler evidence.
+- `ai-projects-brain` owns durable catalog, mappings, governance, lessons, goals and indexes.
+- Weekly Brain Refresh is the only canonical durable reconciler. Operational receipts and overlapping governance PRs are evidence inputs, not additional registries.
 
-## Evidence precedence
+## Current invariants
 
-1. Current verified canonical live behavior and source timestamps.
-2. Current GitHub/provider/deployment identity.
-3. Immutable Brain Management history and receipts.
-4. Durable capsule/governance state.
-5. Routing/index metadata.
+1. Verified current provider/live evidence overrides historical labels.
+2. A 200 fallback or health route cannot override failed operational sources.
+3. Missing daily scored history is never reconstructed from routine receipts.
+4. Enabled scheduler evidence is required for runnable ownership.
+5. Merge, READY, HTTP 200, report or evaluated pilot is not metric gain.
+6. Product/effect credit requires a preassigned immutable denominator event and same-source canonical reread.
+7. Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.
 
-## Layer rules
+## Read order
 
-1. `CURRENT.md` contains only current evidence; history belongs in weekly learnings.
-2. Missing evidence remains `NEEDS_VERIFICATION`.
-3. Merge, READY, HTTP 200, report or evaluated pilot is not metric gain.
-4. Immediate recovery is not terminal until required delayed/independent closure completes.
-5. A zero-effect Trends task is `EVALUATED_NO_EFFECT`, never `DONE`.
-6. The effect postprocessor must run after collector refresh and before release; canonical live is the acceptance surface.
-7. Operational assignment names must resolve to enabled schedulers or explicit owner-only state.
-8. Documentation/index work is `NO_DIRECT_METRIC_EFFECT`.
-9. Metric binding requires a ledger-eligible denominator item and causal eligibility.
-10. Enabled finite schedules without remaining occurrences are not runnable capacity.
-11. Repository-fresh runtime data does not override stale canonical production.
-12. Health/fallback HTTP 200 cannot override failed operational dependencies.
-13. A disabled executor cannot own an active assignment.
-14. Source outage must block dependent checks as `NOT_EVALUATED`; never audit a 503 body as the control-plane dataset.
-15. Scoped runtime access and an enabled recurring publisher are separate requirements.
-16. Receipt-only merges are persistence evidence, not delivery throughput; if they repeatedly stale an active repair branch, reconcile that repair once at the latest base rather than counting repeated rebases as progress.
-
-## Weekly cycle
-
-Weekly Brain Refresh reconciles durable catalog/governance/indexes. Weekly Delivery System Review supplies execution-quality evidence. Sunday Dashboard Review supplies metric/control-plane architecture evidence. Missing full-week data is never manufactured from rolling fields.
+1. `CURRENT.md`.
+2. `AUTOMATIONS.md` and `GOALS.md`.
+3. Latest section in `WEEKLY-LEARNINGS.md` and `EFFICIENCY.md`.
+4. Current durable root-cause candidate.
+5. Relevant project capsule and fresh operational/provider evidence.

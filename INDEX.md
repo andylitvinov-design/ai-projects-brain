@@ -2,7 +2,7 @@
 
 > Главная точка входа для человека и ИИ. Индексы маршрутизируют к каноническим durable-источникам и не копируют оперативные receipts.
 
-Last reconciled: `2026-10-03`
+Last reconciled: `2026-10-10`
 
 ## Найти проект
 
@@ -13,7 +13,7 @@ Last reconciled: `2026-10-03`
 - Capsules: `projects/<slug>/PROJECT.md`
 - Human summary: `projects.md`
 
-Текущий production overlay содержит 10 active identities; расширенный каталог содержит 21 meaningful memory record; GitHub owner inventory содержит 31 repository. Новых project identities нет. `psitrends-ops` остаётся operations-repo существующего PsiTrends. Books/Holistic House и PsiTrends получили новые public capabilities, но защищённые потоки и same-source metric effect не доказаны.
+Текущий production overlay содержит 10 active identities; расширенный каталог содержит 21 meaningful memory record; GitHub owner inventory содержит 31 repository. Новых project identities нет. `psitrends-ops` остаётся operations-repo существующего PsiTrends. Holistic House теперь подтверждён на exact production source `df9f5dcb…`; защищённый поток и same-source metric effect не доказаны.
 
 ## Управляющий контур
 
@@ -23,7 +23,7 @@ Last reconciled: `2026-10-03`
 - `governance/AUTOMATIONS.md` — scheduler-backed roles and registry conflicts.
 - `governance/EFFICIENCY.md` — immutable scorecards and current synthesis.
 - `governance/WEEKLY-LEARNINGS.md` — aggregated errors and lessons.
-- `governance/durable-root-cause-candidate-2026-10-03.json` — current machine continuation candidate.
+- `governance/durable-root-cause-candidate-2026-10-10.json` — current machine continuation candidate.
 
 `brain-management` is the operational control plane. `ai-projects-brain` is the durable source of truth.
 

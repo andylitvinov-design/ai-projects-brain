@@ -1,11 +1,11 @@
 # AI System Goals
 
-Last reconciled: `2026-10-03`
+Last reconciled: `2026-10-10`
 
 ## G1 — Complete and trustworthy project memory
 
 - Outcome: every meaningful project has one discoverable identity, source topology, status and capsule.
-- Current state: 10 production-overlay identities, 21 meaningful records and 31 repositories. Mappings are stable; Books/Holistic House and PsiTrends public capability evidence advanced; Psihotavr remains unresolved.
+- Current state: 10 production-overlay identities, 21 meaningful records and 31 repositories. Mappings are stable; Holistic House exact production source is confirmed; Psihotavr remains unresolved.
 - Owner: Weekly Brain Refresh.
 - Next action: preserve the multi-repo PsiTrends topology and Holistic House canonical alias; re-prove Psihotavr separately.
 - Success: no related/ops repo is promoted into a duplicate product identity.
@@ -21,7 +21,7 @@ Last reconciled: `2026-10-03`
 ## G3 — Continuous attributable publication
 
 - Outcome: one exclusive publisher keeps a coherent canonical source within 18h with exact attribution.
-- Current state: live source age 432.9h, repository source age 354.1h, 2/7 APIs, last production deployment Sep 15; no enabled publisher.
+- Current state: live source age 598.9h, repository source age 520.6h, 2/7 APIs, last production deployment Sep 15; no enabled publisher.
 - Owner: Vercel project owner for scoped read access; one restored publisher afterward; Evening Delivery Closure verifies.
 - Next action: configure access, create one fresh accepted source, activate exact main once, then prove a no-deploy refresh.
 - Success: 7/7 APIs, source <=18h and a later source update without a new Vercel deployment.
@@ -29,7 +29,7 @@ Last reconciled: `2026-10-03`
 ## G4 — Complete immutable operational history
 
 - Outcome: every current day has one append-only scored snapshot with stable identities.
-- Current state: current repository window is 0/7; live health remains on an unrelated stale 3/7 window.
+- Current state: the current operational window has recovered to 3/7, but four scored days are still missing and cannot be reconstructed from receipts.
 - Owner: metrics/history publication role; current scheduler ownership is unresolved.
 - Next action: restore one publisher and append prospective snapshots only.
 - Success: seven consecutive current immutable days and zero history lag.
@@ -37,7 +37,7 @@ Last reconciled: `2026-10-03`
 ## G5 — Current weekly review publication
 
 - Outcome: canonical API exposes the newest durable weekly review.
-- Current state: repository weekly history contains Sep 21–27; live API still serves Aug 17–23. Durable PR #217 overlaps canonical PR #193 and must be reconciled rather than becoming a second registry.
+- Current state: repository weekly history contains Sep 28–Oct 4; live API still serves Aug 17–23. Overlapping durable PRs remain evidence inputs rather than parallel registries.
 - Owner: Weekly Delivery System Review produces; PR Delivery/publication roles persist it.
 - Next action: include the current weekly record in the fresh runtime source and verify exact week identity live.
 - Success: repository and live latest scorecard dates match.
@@ -45,23 +45,23 @@ Last reconciled: `2026-10-03`
 ## G6 — Restore complete release-gate health
 
 - Outcome: source, semantic validators, dependency closure, production attribution and delayed verification all agree.
-- Current state: PR #629 focused tests pass 7/7 but the complete gate is red and its base diverges; PR #617 is draft/red at 539 pass / 49 fail and approximately 101 commits behind main; canonical production still lacks PR #613 health semantics.
+- Current state: PR #629 is now a current-base task-only diff but its exact-head Bundle is honestly red on stale source; replacement PR #649 is current-base but lacks an accepted complete final-head gate; canonical production still lacks dependency-aware health semantics.
 - Owner: source/harness owners through PR Delivery Sweep.
-- Next action: regenerate PR #629 once on current main and repair the full schema/release gate, then semantically regenerate PR #617; mechanical rebase is not acceptance.
+- Next action: create one fresh accepted source and take PR #629 through the complete unchanged-head gate; run an accepted final-head gate on PR #649 before any merge and close superseded PR #617 only afterward.
 - Success: green unchanged-head gate, exact deployment/source attribution and delayed closure.
 
 ## G7 — Product/business outcome balance
 
 - Outcome: user-facing work carries an assigned same-source effect measure.
-- Current state: Holistic House navigation/library/Maya improvements and PsiTrends section/video improvements are live, and Books PR #85 is merged awaiting deploy; no same-source product/business metric is assigned, so dashboard credit is zero.
+- Current state: 13/18 product/business chains were live in the latest complete review and 17 Holistic House product classes were grouped in the Oct 9 closure, but verified numeric gains remained 0/21 because no same-source metric was assigned before release.
 - Owner: daily management chain before implementation, then product owner.
-- Next action: bind one real user-visible denominator before the next product release.
+- Next action: bind one immutable user-visible denominator event, current baseline source and exact expected transition before the next product assignment; otherwise return `NO_COMPATIBLE_METRIC`.
 - Success: canonical same-metric reread proves a raw product/business change.
 
 ## G8 — Reconciled scheduler and actor ownership
 
 - Outcome: every active actor maps to one enabled scheduler and exclusive role.
-- Current state: nine management tasks enabled out of twelve total enabled automations; primary implementer and routine publisher are absent; assignment still names disabled Morning System Upgrade.
+- Current state: nine recurring management tasks enabled out of thirteen total enabled automations; three feedback collectors and one finite Holistic release attempt do not add management capacity. Primary implementer and routine publisher remain absent.
 - Owner: scheduler/management-chain owner; Weekly Brain Refresh records durable truth.
 - Next action: restore exactly one publisher after activation and enable an implementation runner only after causal fail-closed enforcement.
 - Success: every active assignment maps to one enabled owner and no canonical stage is silently unowned.

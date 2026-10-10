@@ -13,7 +13,7 @@ This is maintenance of canonical memory, not a broad rewrite.
 ## Schedule
 
 - Weekly, Saturday morning.
-- Timezone: Europe/Paris.
+- Timezone: America/Toronto.
 - Preferred scheduler: ChatGPT Automations.
 
 ## Inputs
