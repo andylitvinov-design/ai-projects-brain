@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "candidate_id": "runtime-data-activation-owner-block-and-publisher-capacity-gap-20260926",
+  "generated_at": "2026-09-26T12:45:00Z",
+  "run_date": "2026-09-26",
+  "status": "REPEATED_BLOCKER_UNRESOLVED",
+  "affected_metric": {
+    "metric_id": "publication_freshness",
+    "published_raw_value": "current; canonical sources reconciled 2026-09-18",
+    "published_score": 100,
+    "observed_raw_baseline": "canonical source age 265.1h against 18h; 2/7 core APIs HTTP 200",
+    "target_raw": "canonical source age <=18h and 7/7 coherent APIs",
+    "formula_change_allowed": false
+  },
+  "root_cause": {
+    "code": "RUNTIME_DATA_ACTIVATION_OWNER_BLOCK_AND_PUBLISHER_CAPACITY_GAP",
+    "statement": "The storage-safe runtime path is restored in repository source, but canonical production lacks scoped repository-read access, no fresh accepted atomic source exists, and no enabled routine publisher owns recurring refresh. Source code repair alone therefore cannot recover publication freshness.",
+    "repeated": true,
+    "first_durable_owner_block_recorded": "2026-09-19"
+  },
+  "evidence": {
+    "observation_window": "2026-09-20 through 2026-09-26",
+    "canonical_live": {
+      "checked_at": "2026-09-26T12:40:27Z",
+      "source_generated_at": "2026-09-15T11:34:55.858Z",
+      "source_age_hours": 265.1,
+      "freshness_limit_hours": 18,
+      "core_api_http_200": "2/7",
+      "api_statuses": {
+        "/api/data": 503,
+        "/api/strategic-priorities": 503,
+        "/api/agent-productivity": 503,
+        "/api/needs-attention": 503,
+        "/api/trends": 503,
+        "/api/control-plane-health": 200,
+        "/api/weekly-delivery-system-review": 200
+      },
+      "production_deployment_id": "dpl_6rYMy6EN8ociQvWdUEydJxvFXNpp",
+      "production_deployment_created_at": "2026-09-15T11:45:27Z",
+      "health_semantics": "OLD_FALSE_DEPENDENCY_ERRORS_PR_613_NOT_LIVE",
+      "weekly_live_week_end": "2026-08-23"
+    },
+    "repository": {
+      "data_source_generated_at": "2026-09-18T18:26:12.350Z",
+      "runtime_separation": "RESTORED_BY_PR_607",
+      "dependency_aware_health": "IMPLEMENTED_BY_PR_613_NOT_DEPLOYED",
+      "weekly_review_week_end": "2026-09-20",
+      "trends_replacement_pr": 617,
+      "trends_gate": "539_PASS_49_FAIL_DRAFT_SEMANTIC_REGENERATION_REQUIRED"
+    },
+    "scheduler": {
+      "enabled_management_automations": 9,
+      "daily_dashboard_update": "DISABLED",
+      "brain_regression_guard": "DISABLED",
+      "brain_data_freshness_watch": "DISABLED",
+      "routine_publisher": "NONE_ENABLED"
+    },
+    "source_refs": [
+      "https://brain-management.vercel.app/api/data",
+      "https://brain-management.vercel.app/api/control-plane-health",
+      "https://brain-management.vercel.app/api/weekly-delivery-system-review",
+      "brain-management/evening-delivery-closure-current.json",
+      "brain-management/history/weekly-delivery/2026-09-20.json",
+      "https://github.com/andylitvinov-design/brain-management/pull/613",
+      "https://github.com/andylitvinov-design/brain-management/pull/614",
+      "https://github.com/andylitvinov-design/brain-management/pull/617"
+    ]
+  },
+  "owner": {
+    "credential_activation_owner": "Brain Management Vercel project owner",
+    "source_regeneration_owner": "ChatGPT Trends collector owner plus operational source owner",
+    "publication_owner_after_activation": "exactly one enabled Daily Dashboard Update scheduler",
+    "github_delivery_owner": "PR Delivery Sweep",
+    "verification_owner": "Evening Delivery Closure"
+  },
+  "smallest_safe_corrective_action": [
+    "Configure BRAIN_RUNTIME_GITHUB_TOKEN with repository-scoped Contents:read access on the canonical Vercel project without exposing its value.",
+    "Regenerate one fresh atomic operational and Trends source on current main; preserve the honest 12/16 Trends denominator unless fresh collection proves change.",
+    "Run one bounded exact-main activation deployment only after the unchanged-head release gate is green and PR #613 semantics are present.",
+    "Restore exactly one scheduler-backed routine publisher and prove one later guarded source refresh without a new application deployment.",
+    "Require delayed Evening Delivery Closure to verify source identity, 7/7 APIs, history/weekly freshness and deployment attribution."
+  ],
+  "expected_effect": {
+    "raw_target": "publication source age <=18h; 7/7 coherent APIs; current weekly review; later source refresh visible without deployment",
+    "metric_target": "publication_freshness reflects canonical source evidence rather than the stale published 100 score",
+    "measurement": "canonical provider reread immediately after activation and again after the later publisher cycle",
+    "credit_policy": "No freshness, completion or product credit until canonical and delayed rereads prove the unchanged-formula raw target.",
+    "documentation_effect": "NO_DIRECT_METRIC_EFFECT"
+  },
+  "acceptance": [
+    "scoped runtime credential exists without secret disclosure",
+    "fresh atomic source is younger than 18 hours",
+    "complete release gate is green on the exact unchanged head",
+    "PR #613 NOT_EVALUATED semantics are live",
+    "all seven canonical APIs are coherent HTTP 200 JSON",
+    "one enabled publisher owns recurring refresh",
+    "a later data refresh changes source identity without a new deployment",
+    "current immutable history and weekly review are exposed",
+    "Evening Delivery Closure verifies the delayed state independently"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-15T13:05:00Z",
+  "status": "CANDIDATE_FOR_DAILY_STRATEGIC_PRIORITIES",
+  "id": "DRC-20260815-CAPABILITY-CONTEXT-OMITTED",
+  "affected_metric": "publication_freshness",
+  "evidence_refs": [
+    "andylitvinov-design/brain-management@9c79b048fb72fe7d19c3533edca422f74f85c648",
+    "andylitvinov-design/brain-management@20f362ac2c3f97d4406a17f3e06ea92e0d47b692",
+    "andylitvinov-design/brain-management@75f0d3b3ada3e69120066f4650c38cc8fd57e8e7",
+    "brain-management/history/handoffs/2026-08-15-daily-strategic-priorities.json",
+    "brain-management/history/handoffs/2026-08-15-morning-system-upgrade.json",
+    "canonical live re-read 2026-08-15T13:03Z"
+  ],
+  "raw_baseline": {
+    "source_generated_at": "2026-08-11T06:08:23.510Z",
+    "source_age_hours": 102.9,
+    "freshness_limit_hours": 18,
+    "fresh_required_api_surfaces": "0/5",
+    "api_statuses": {
+      "/api/data": 503,
+      "/api/trends": 503,
+      "/api/agent-productivity": 503,
+      "/api/strategic-priorities": 503,
+      "/api/needs-attention": 200
+    },
+    "service_worker_http": 404,
+    "source_parity": false,
+    "last_published_score_claim": 100,
+    "score_claim_validity": "INVALID_STALE_CLAIM"
+  },
+  "durable_root_cause_candidate": "CAPABILITY_CONTEXT_OMITTED",
+  "root_cause": "Daily Strategic Priorities treated GitHub Actions billing/spending as the exhaustive publication path and omitted the already verified connected direct Vercel production capability, so it rejected publication_freshness and emitted no consumable assignment.",
+  "owner": "Daily Strategic Priorities",
+  "smallest_safe_corrective_action": "Add a required current capability snapshot to ranking input. Re-evaluate publication_freshness, then either emit one complete single-owner assignment with explicit lease transfer or preserve a blocker supported by current evidence.",
+  "expected_effect": {
+    "pipeline_state": "PIPELINE_BROKEN -> EXECUTABLE_ASSIGNMENT_OR_EVIDENCE_BACKED_BLOCKER",
+    "target_raw_input": "source <=18h; 5/5 correct fresh JSON APIs; sw.js 200; source/artifact parity true",
+    "metric_score_effect": "No direct gain from the documentation or handoff repair; publication_freshness becomes creditable only after canonical LIVE_VERIFIED."
+  },
+  "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
+  "anti_gaming": "Do not change the formula, fabricate an assignment, duplicate Brain Regression Guard ownership or credit deployment before canonical verification."
+}

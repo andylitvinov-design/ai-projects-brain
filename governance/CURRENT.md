@@ -1,46 +1,69 @@
 # Current AI System State
 
-Last weekly refresh: `2026-08-01`
+Last weekly refresh: `2026-10-10`
 
 ## Operating model
 
-- `ai-projects-brain` is the durable source of truth for project catalog, project state, governance, automation ownership, lessons and indexes.
-- `brain-management` is the operational control plane for current metrics, immutable snapshots, assignments, chains, collectors and dashboard/API publication.
-- ChatGPT Automations collect and execute bounded stages. They must not create parallel registries, duplicate implementation ownership, or independent metric definitions.
+- `ai-projects-brain` is the durable source of truth for catalog, mappings, governance, goals, automation ownership, lessons and indexes.
+- `brain-management` is the operational control plane for current metrics, immutable receipts, assignments, chains, collectors and dashboard/API publication.
+- Weekly Brain Refresh aggregates durable evidence only; it does not calculate daily metrics, publish live data or implement product work.
 
 ## Current health
 
 | Area | Status | Evidence / next action |
 |---|---|---|
-| Brain Management operational control plane | healthy / LIVE_VERIFIED | Canonical Vercel production has real HTML, six approved routes, four Overview aggregates, 24 metrics, 5/5 JSON APIs, ten Trends, seven agent cards, six manifest shortcuts and no verified runtime-error cluster. |
-| Durable source-of-truth boundary | healthy | Runtime receipts remain in Brain Management; durable catalog and governance changes remain here. |
-| Active portfolio routing | reconciled for the ten-project overlay | `projects/portfolio-registry.json` and `projects/index.md` now agree, including the Brain Management Vercel mapping and the canonical `finance` repository for legacy finance. |
-| Complete accessible repository inventory | needs verification | Connector discovery did not provide a complete owner-wide enumeration. Do not promote unverified backup or experimental repositories into the active portfolio. |
-| Legacy human/machine indexes | partial | `projects.md`, `projects.json`, and `data/project-index.json` remain continuity sources requiring bounded field-by-field reconciliation. |
-| Automation ownership | healthy | Current daily chain has zero concurrent implementation-owner conflicts; discovery, ranking, implementation, PR hygiene, publication and closure remain separate. |
-| Weekly review freshness | due | Latest Weekly Delivery System Review and Sunday Dashboard Review cover the week ending 2026-07-26. Their next scheduled runs should supply the next full weekly denominators. |
-| Search/navigation | improved | Current aliases and canonical repo/live mappings are present in the active registry and routing index. |
+| Brain Management | `DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_EFFECT_BINDING_BLOCKED` | Accepted live probe on 2026-10-10 10:31 UTC: 2/7 core APIs return 200, five return 503, and publication-current returns 500. Canonical source is `2026-09-15T11:34:55.858Z`, age 598.9h; newest production deployment remains `dpl_6rYMy6EN8ociQvWdUEydJxvFXNpp` from Sep 15. |
+| Runtime-data architecture | restored on `main`, not activated | Repository source is `2026-09-18T18:26:12.350Z`, age 520.6h at the latest ranking. Production still lacks scoped read access and one runnable sole publisher. |
+| Publication repair | current-base, honestly red | PR #629 is reconciled to current `main` with a task-only seven-file diff and zero branch lag. Its exact-head Mobile Release Bundle correctly fails on stale operational data; this is not release acceptance. |
+| Trends replacement | current-base, gate missing | PR #649 preserves ten ranked items, task 11918 and terminal continuity on a task-only three-file diff, but no accepted complete final-head gate exists. Canonical queue remains stale. |
+| Immutable history | current window `3/7` | This is partial recovery from `0/7`, not a complete week. Routine handoff receipts are not substituted for missing scored snapshots. |
+| Weekly review publication | repository Sep 28–Oct 4; live Aug 17–23 | Latest complete repository review has 21 normalized chains, 13 live, zero numeric gains and 0/7 scored days; live publication remains stale. |
+| Scheduler registry | `9 ENABLED` recurring management roles; no implementer or publisher | Thirteen automations are enabled overall: nine management, three unrelated feedback collectors and one finite Holistic House release attempt. The one-shot task is not recurring capacity. |
+| Delivery backlog | 60 open; 0 current-sweep merges | Oct 10 inventory: 46 stale, 33 nonmergeable and 7 CI-failing. PR Delivery repaired two current-base branches but produced no merge or metric effect. |
+| Product/effect conversion | real live delivery, zero measured gain | Latest complete review has 13/18 product/business chains live and 0/21 numeric gains. Oct 9 closure groups 17 Holistic House product classes, but no same-source outcome metric was assigned before release. |
+| Project catalog | 31 repos; mappings stable | Ten production-overlay identities and 21 meaningful records remain. Psihotavr stays unresolved. |
+| Memory sync | stale claim, current sync unproven | Repository `data-current.json` says `CURRENT_SOURCE_RECONCILED`, but its source is Sep 18 and canonical `/api/data` fails closed. |
+| Durable boundary | preserved | Documentation/catalog/index changes only: `NO_DIRECT_METRIC_EFFECT`. |
 
-## Confirmed current operational state
+## Weekly operational synthesis
 
-- Brain Management `/api/data` generated `2026-08-01T06:06:00Z` and reports overall `70.1`, efficiency `63.7`, business `72.5`, self-development `77.2`.
-- Public business-KPI evidence improved from no accepted source to `4/6` applicable projects without changing the formula.
-- The auxiliary API contract moved from `3/5` to `5/5` parseable JSON endpoints and reached `LIVE_VERIFIED`.
-- Rule lifecycle reached `3 active/9` from `2 active/9`.
-- Morning reconciliation removed four duplicate or terminal chains.
-- PR hygiene reduced the verified open-PR inventory from 46 to 36 in one run: three focused documentation PRs merged and seven obsolete/superseded PRs closed.
+- The Sep 28–Oct 4 Weekly Delivery System Review counted 21 normalized chains, 13/21 canonical live results, 13/18 product/business live results, zero verified numeric gains, rework at least 8/21 and immutable history 0/7.
+- Brain Management produced 13 receipt-only merges and 79 Actions runs; 73 runs failed. Runtime publication was 0/47, canary 0/13 and Mobile Release Bundle 0/5.
+- Current Oct 10 evidence improves scored history to 3/7 and reduces the owner-wide PR inventory to 60, but the control plane remains 2/7 and the production source is 598.9h old.
+- PR Delivery correctly rebuilt PRs #629 and #649 from the current base tree instead of treating a merge parent as proof of content parity. #629 remains red for the right reason; #649 still lacks accepted validation.
+- Holistic House recovered from the temporary deploy-capacity constraint: production `dpl_2v8wUAassBMwRTU5UTLbGfiCmSZu` is READY from exact branch head `df9f5dcb…`, with public acquisition, academy and assessment routes independently re-read. Protected `/en/app` remains owner-session dependent.
+- Product throughput and effect throughput are now visibly separate. Shipping 13 product/business chains to live did not change a dashboard metric because no immutable denominator event and same-source outcome measure were assigned before implementation.
 
-## Current strategic blockers
+## Catalog reconciliation
 
-1. EzoHata Finance provider/live readiness is `0/4` and genuinely `BLOCKED_BY_OWNER`; it needs a current owner-session smoke and one read-only Wise or YooMoney journey.
-2. Product delivery, task success and live completion remain a shared `1/4` input. One exact denominator item and canonical implementation repository must be selected before work begins.
-3. Psihotavr remains `NEEDS_VERIFICATION`; its current public collector failed and its live/source/retirement state is not fully proven.
-4. Metric-level source references, honest seven-day history coverage and a supported operational closure-write path remain improvement areas; do not fabricate missing history.
+- GitHub owner inventory remains 31 repositories; the fixed production overlay remains ten identities and the extended memory catalog remains 21 records.
+- Books remains one project identity on `andylitvinov-design/books`, production branch `codex/public-book-library`, Vercel project `prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b` and canonical alias https://holistichouse.vercel.app.
+- PsiTrends remains one Joomla/Hetzner project across `sales`, `psitrends-ops` and `psitrends-work`; no duplicate identity was created.
+- Psihotavr remains `IDENTITY_UNRESOLVED`; no replacement source or provider target was inferred.
 
-## Current priorities
+## Durable root-cause candidate
 
-1. Preserve Brain Management's verified production contract and source/deploy parity.
-2. Convert one real product deliverable from the shared `1/4` denominator to live evidence under one owner.
-3. Complete the owner-only EzoHata Finance read-only verification.
-4. Reconcile legacy project indexes field by field without replacing the canonical active overlay.
-5. Continue accumulating honest immutable snapshots and metric-level evidence.
+Canonical machine record: `governance/durable-root-cause-candidate-2026-10-10.json`.
+
+- code: `PREASSIGNED_EFFECT_METRIC_GATE_NOT_ENFORCED_ACROSS_PRODUCT_RELEASES`
+- affected metric: `product_delivery_rate`
+- raw baseline: last accepted published value `1/4`; latest complete review shipped 13/18 product/business chains live while verified numeric gains remained `0/21`; 17 Holistic House product classes in the Oct 9 closure lacked assigned same-source metrics
+- owner: Daily Strategic Priorities enforces eligibility; the product/release owner provides the measurable event; Evening Delivery Closure performs the unchanged-formula reread
+- smallest safe correction: before the next product assignment, require one immutable denominator event, current baseline source, exact expected transition and canonical reread path; return `NO_COMPATIBLE_METRIC` when no valid mapping exists
+- expected effect: one future eligible live release can enter one named numerator; `1/4 → 2/4` is conditional and receives no credit until the same-source canonical reread proves it
+
+## Sync status
+
+- durable catalog: `RECONCILED_IN_PR_193_2026-10-10`
+- operational control plane: `DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_EFFECT_BINDING_BLOCKED`
+- memory boundary: `PRESERVED`
+- scheduler registry: `9_ENABLED_RECURRING_MANAGEMENT_NO_PRIMARY_IMPLEMENTER_NO_ROUTINE_PUBLISHER`
+- immutable history: `3/7_CURRENT_WINDOW`
+- weekly publication: `SEP_28_OCT_4_ON_REPOSITORY_MAIN; LIVE_STALE_AT_2026-08-23`
+- durable direct metric effect: `NO_DIRECT_METRIC_EFFECT`
+
+## Next three highest-value actions
+
+1. Configure scoped runtime read access, generate one fresh atomic source and take PR #629 through a complete green unchanged-head gate before exact-main activation and a 7/7 canonical reread.
+2. Restore exactly one scheduler-backed publisher, prove a later no-deployment source refresh and accumulate seven prospective immutable snapshots before delayed closure.
+3. Enforce the preassigned effect-metric gate on one concrete product chain before implementation; do not grant retrospective metric credit to already-live uninstrumented releases.

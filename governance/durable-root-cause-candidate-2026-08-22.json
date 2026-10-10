@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-22T12:05:00Z",
+  "status": "CANDIDATE_FOR_DAILY_STRATEGIC_PRIORITIES",
+  "id": "DRC-20260822-TREND-ZERO-EFFECT-DONE-REGRESSION",
+  "affected_metric": "product_delivery_rate",
+  "evidence_refs": [
+    "https://github.com/andylitvinov-design/brain-management/pull/396",
+    "https://github.com/andylitvinov-design/brain-management/pull/400",
+    "https://brain-management.vercel.app/api/trends",
+    "https://brain-management.vercel.app/api/data",
+    "canonical live re-read 2026-08-22T12:02Z"
+  ],
+  "raw_baseline": {
+    "product_delivery_rate": {
+      "raw": "1/4",
+      "score": 25,
+      "weekly_delta_points": 0
+    },
+    "canonical_trends_queue_total": 10,
+    "zero_effect_tasks_marked_done": 5,
+    "incorrect_terminal_label": "LIVE_VERIFIED_NO_EFFECT_EXPLAINED",
+    "required_zero_effect_state": "EVALUATED_NO_EFFECT",
+    "verified_live_metric_gain_tasks": 0,
+    "canonical_source_generated_at": "2026-08-22T11:57:34.985Z"
+  },
+  "durable_root_cause_candidate": "TREND_ZERO_EFFECT_DONE_REGRESSION",
+  "root_cause": "The Trends effect contract was merged in PR #396, but a later refresh/release cycle regenerated and published the queue without preserving the effect-postprocessor invariant. Canonical live again labels five zero-effect pilots DONE, so evaluated experiments suppress truthful implementation conversion while the bound product metric remains 1/4.",
+  "owner": "Daily Strategic Priorities",
+  "execution_owner_if_ranked": "Morning System Upgrade",
+  "smallest_safe_corrective_action": "Make the effect postprocessor a mandatory final step after every Trends refresh and before release. Fail the release when any task is DONE without VERIFIED_LIVE_METRIC_GAIN or LIVE_VERIFIED_WITH_EFFECT; publish zero-effect tasks as EVALUATED_NO_EFFECT with zero credit and select the next executable metric-bound task under one owner.",
+  "expected_effect": {
+    "pipeline_state": "ZERO_EFFECT_DONE_REGRESSION -> TRUTHFUL_EFFECT_BOUND_QUEUE",
+    "raw_queue_effect": "5 incorrectly DONE zero-effect items -> 5 EVALUATED_NO_EFFECT items; 0 fake implementation credit",
+    "next_assignment_effect": "One executable task has a concrete project, unchanged-formula metric, raw baseline, target and same-metric terminal re-read.",
+    "metric_effect": "No numeric metric gain from this documentation or semantic correction. product_delivery_rate may change only after a real canonical live outcome moves the raw numerator."
+  },
+  "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
+  "anti_gaming": "Do not rewrite the formula, relabel an evaluated pilot as implementation, count PR/deploy status, or create a second implementation owner."
+}

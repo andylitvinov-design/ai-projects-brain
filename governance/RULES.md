@@ -62,3 +62,30 @@ This file is the durable lifecycle registry for reusable AI-system rules. Daily 
 ## Candidate rules
 
 The remaining operational guardrails stay candidates until each has current usage evidence, a stable identifier, and regression or retirement criteria. Activating a rule solely to improve a score is forbidden.
+
+### `measurement.preassigned_denominator_event_gate`
+
+- **State:** `candidate`
+- **Rule:** Before product or Trends implementation begins, the assignment must name one existing immutable denominator event, the unchanged metric formula, a current raw baseline source, the exact transition the implementation can cause, a measurement owner and the canonical same-source reread path. If no compatible event exists, return `NO_COMPATIBLE_METRIC`; capability-only work may proceed only with explicit zero expected metric credit.
+- **Current evidence:** the Sep 28–Oct 4 review delivered 13/18 product/business chains to live while verified numeric gains remained 0/21. The Oct 9 closure groups 17 Holistic House product classes whose acquisition, learning, assessment or conversion metrics were not assigned before release. Earlier Trends windows showed the same failure across 32 consecutive zero-effect pilots.
+- **Owner:** Daily Strategic Priorities enforces eligibility; the selected implementation/release owner supplies the event and instrumentation; PR Delivery Sweep preserves the contract; Evening Delivery Closure performs the unchanged-formula reread.
+- **Activation condition:** two consecutive assignments either pass with a valid preassigned denominator event and terminal same-source reread or fail closed as `NO_COMPATIBLE_METRIC`, with no retrospective credit.
+- **Regression condition:** implementation, merge, deployment or `LIVE_VERIFIED` occurs without the preassigned event/source/transition contract and is later narrated as metric effect.
+
+### `observability.dependency_outage_blocks_dependent_checks`
+
+- **State:** `candidate`
+- **Rule:** When a canonical source is unavailable, evaluate only independent checks. Mark every dependent check `NOT_EVALUATED`; never validate an error body as the expected dataset or manufacture downstream schema/formula failures.
+- **Current evidence:** Brain Management PR #613 changes the same Sep 20 outage from eight false architecture errors to one source error, 16 blocked checks and two independently evaluated continuity warnings.
+- **Owner:** Sunday Dashboard Review defines the check graph; Brain Management release owner activates it; Evening Delivery Closure verifies canonical behavior.
+- **Activation condition:** PR #613 semantics are visible on canonical production and a source outage regression test remains green.
+- **Regression condition:** a 4xx/5xx dependency body is audited as valid control-plane data or dependent checks emit pass/fail instead of `NOT_EVALUATED`.
+
+### `delivery.receipt_persistence_must_not_amplify_repair_divergence`
+
+- **State:** `candidate`
+- **Rule:** Operational receipts preserve evidence but receive zero delivery/effect credit. When repeated unchanged-state receipt merges move application `main` underneath one unresolved recovery branch, regenerate that branch once on the latest base and stop counting rebases or receipt PRs as independent progress. A receipt must never create a new recovery identity for the same unchanged blocker.
+- **Current evidence:** during Sep 21–27 Brain Management created 15 PRs and merged 12 receipt-only PRs while canonical outcomes remained 0/8 and live stayed 2/7. Through Oct 3 daily receipts continued advancing `main`; PR #629 remained full-gate red/diverged, PR #617 reached approximately 101 commits behind, and the live source aged to 432.9h.
+- **Owner:** operational receipt writers preserve immutable evidence; PR Delivery Sweep owns one latest-base repair; Daily Dashboard Update owns publication only after activation; Weekly Brain Refresh aggregates the repeated pattern.
+- **Activation condition:** two successive publication cycles persist required evidence without spawning duplicate recovery identities or invalidating an active repair branch, while the exact-head gate and delayed closure pass.
+- **Regression condition:** unchanged daily state generates another repair/receipt chain that advances application `main`, increases divergence or is counted as delivery throughput without a changed source, gate or canonical result.

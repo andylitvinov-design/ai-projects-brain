@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-08-30`
+Last aggregated: `2026-10-03`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -109,3 +109,230 @@ Publish the exact four denominator items behind the shared `1/4` delivery input,
 
 The system is efficient at producing and merging evidence-heavy changes but ineffective at converting them into measured product outcomes. The highest-leverage correction is not another pilot: close the existing publisher-owned cadence chain with two <=12h coherent cycles, zero recovery PRs, exact source/deploy attribution and independent canonical closure. Only after that proof window should the next implementation slot return to a concrete product/business denominator item.
 
+## Current-window evidence — 2026-08-31 through 2026-09-05
+
+This is a six-day synthesis, not a complete weekly scorecard. Missing Sep 6 evidence and missing immutable snapshots are not inferred.
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Trend terminal pilots | 13 | High implementation/deployment activity. |
+| Verified assigned-metric gains | 0/13 | Every pilot re-read the bound metric unchanged. |
+| Metric distribution | live completion 5; user pain 3; rework 3; context retry 2 | The failure spans four bindings, not one bad task. |
+| Canonical top-level terminal labels | 0/13 | All receipts still use noncanonical `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`. |
+| Independent closure receipts due through Sep 4 | 5/5 present | Persistence improved, but results were 1 `DEPLOYMENT_PENDING` and 4 `NO_SAFE_UPGRADE`; 0 canonical LIVE closure. |
+| Immutable history | 1/7 | Unchanged; six dates are missing. |
+| Product Delivery / Task Success / Live Completion | `1/4 / 1/4 / 1/4` | No conversion improvement. |
+| Deployment frequency | `1/3` | Repeated pilot deployment did not become product publication credit. |
+| PR inventory | `42 → 49`, 0 ready | Backlog grew seven while ready throughput stayed zero. |
+| Stale/nonmergeable PRs | 34 / 28 | Review, conflict and owner queues dominate. |
+| Sep 3–5 agent-productivity window | 3 reports, 0 live upgrades, 0 metric points, 5 regressions detected/recovered | Reactive recovery is active but produces no measured outcome. |
+| Freshness continuity | 23.0h and 4/7 APIs failed closed before Sep 5 refresh; later 1.3h and 7/7 | Recovery is real but cadence is not yet durable. |
+| Runtime errors | 0 in seven-day query | Runtime stability is not the current blocker. |
+| Latest Vercel inventory page | 20 production deployments, including 2 ERROR | Deployment volume is rework/activity evidence, not effect. |
+
+## Efficiency trend
+
+- **Effect conversion worsened:** eight zero-effect Trend pilots in the Aug 24–30 scorecard became thirteen more in six days, with no dashboard-metric gain.
+- **Semantic honesty is partial:** queue state now uses `EVALUATED_NO_EFFECT`, but top-level receipts still violate the canonical enum.
+- **Continuity remains reactive:** repeated daily recovery restores current live behavior, but source age still crosses the terminal limit and history remains 1/7.
+- **Stage separation remains weak:** current PR Delivery throughput is zero while implementation and recovery actors merge/deploy directly.
+- **Backlog worsened:** open PRs increased from 42 to 49 and ready items remained zero.
+- **Catalog search improved:** Books is now discoverable with explicit branch/provider/live uncertainty and no false production promotion.
+
+## Highest-value efficiency corrections
+
+1. Enforce the causal denominator gate before the next Trends implementation; stop consuming slots for tasks that cannot change the selected immutable input.
+2. Restore one scheduler-backed routine publisher, reuse one freshness chain and prove two <=12h cycles plus delayed closure and 7/7 history accumulation.
+3. Partition and repair the complete release gate by owner, then use PR Delivery Sweep to convert one real product PR to ready/merged/live evidence.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
+
+## Current-window evidence — 2026-09-06 through 2026-09-12
+
+This synthesis uses immutable receipts and current repository/live evidence. It is not a complete weekly scorecard because immutable scored history is 0/7 and the weekly scorecard endpoint remains stale.
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Trend terminal pilots | 12 | Implementation/deployment activity remained high. |
+| Verified assigned-metric gains | 0/12 | Every same-metric re-read was unchanged. |
+| Metric distribution | live completion 5; rework 4; context retry 2; user pain 1 | The causal failure spans four metrics again. |
+| Canonical top-level terminal labels | 0/12 | Every receipt still uses noncanonical `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`. |
+| Current Trends queue | 10 READY | Rotation recovered discovery capacity, but causal eligibility is not proven. |
+| Immutable history | 0/7 | Worse than 1/7; no scored day may be inferred from operational receipts. |
+| Product Delivery / Task Success / Live Completion | `1/4 / 1/4 / 1/4` | No conversion improvement. |
+| Brain Management PR activity | 36 created; 35 merged; 1 open | High churn produced zero verified metric gains. |
+| Portfolio PR inventory | 49 open; 0 ready | Flat versus Sep 5; 35 stale and 27 nonmergeable. |
+| PR Delivery Sweep throughput | 0 merged / 0 repaired | Exclusive delivery stage remains bypassed. |
+| Freshness continuity | 71h and 4/7 APIs failed closed before Sep 12 refresh; later 0.8h and 7/7 | Immediate recovery is real, routine cadence is not. |
+| Operational handoff coverage | Morning main files missing Sep 6, 7, 11; Closure main files only Sep 7–8 | Scheduler execution is not canonical persistence proof. |
+| Weekly review freshness | live/repository ends Aug 23 | Weekly learning output is not reaching the operational source. |
+| Runtime errors | one recurring `url.parse()` deprecation warning on `/api/hobby-snapshots` | Low-severity runtime debt; not the current delivery blocker. |
+| Books | public catalog LIVE; private persistence provider-blocked | A real user-visible surface improved, but no dashboard metric was assigned and no metric credit is claimed. |
+
+## Efficiency trend
+
+- **Effect conversion remains zero:** 25 consecutive Trends pilots across the last two refresh windows produced no assigned-metric gain.
+- **PR activity is not throughput:** 36 new Brain Management PRs and 35 merges left the owner-wide open inventory at 49 and the ready queue at zero.
+- **Continuity worsened:** immutable history fell from 1/7 to 0/7 and multiple stage receipts are absent from canonical main.
+- **Reactive publication scaled poorly:** source age expanded from the prior 23h failure to 71h before recovery.
+- **Discovery recovered without execution quality:** the queue rotated to ten READY items, but the first assignment still lacks immutable denominator-event causality.
+- **Catalog truth improved:** Books public production is now mapped without falsely claiming private storage readiness or a dashboard gain.
+
+## Highest-value efficiency corrections — 2026-09-12
+
+1. Enforce the immutable denominator-event gate before consuming any of the ten new Trends tasks.
+2. Restore one scheduler-backed publisher and prove two <=12h cycles, exact live attribution, 7/7 snapshots and delayed independent closure.
+3. Stop merging zero-effect pilot/terminal pairs outside PR Delivery; use one causally eligible product chain and one canonical terminal receipt.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
+
+## Prior reconciliation window — 2026-09-13 through 2026-09-19
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Trend terminal pilots | 7 | All seven completed before the implementation scheduler was disabled. |
+| Verified assigned-metric gains | 0/7; 0/32 across three windows | The repeated causal-binding failure remains the dominant learning signal. |
+| Next ranked task | `implementation_authorized=false` | Ranking now refuses missing denominator identity, a partial control improvement with no metric credit. |
+| Immutable history | repository 4/7; live view stale at 3/7 | Prospective persistence improved from 0/7, but continuity and live sync remain incomplete. |
+| Canonical operational APIs | 0/5 | Data, Trends, productivity, needs-attention and priorities fail closed from a 96.6h source. |
+| Repository/live source split | Sep 19 repository vs Sep 15 production | Runtime architecture is repaired in source but not activated for production. |
+| Weekly review | Sep 7–13 in open PR #579; live/main Aug 17–23 | Review execution is not canonical publication. |
+| Scheduler capacity | 9 enabled; no implementer or publisher | Disabling uncontrolled pilots reduced churn risk but left two exclusive stages unowned. |
+| PR inventory | 55 open; 0 ready; 39 stale; 31 nonmergeable; 13 drafts | Backlog increased from 49 while the sweep converted zero items. |
+| Books | public routes 200; PR #23 owner-review-only | Public readiness remains real; sensitive private/signature changes receive no readiness promotion. |
+
+### Review available at that cutoff
+
+The Sep 7–13 Weekly Delivery System Review in PR #579 counted 17 chains, 0 canonical `LIVE_VERIFIED`, 14/14 zero-effect Trends, 0 numeric or product/business gains, immutable history 1/7, and 48 Brain Management PRs created. It also recorded 158 Actions runs with 137 failures and Mobile Release Bundle at 0 successes of 67 attempts. Because the review was not on canonical `main` or live at that cutoff, it was evidence for learning, not proof of successful publication.
+
+### Efficiency trend at 2026-09-19
+
+- **Control improved late:** ranking blocked one causally unsupported task and Morning System Upgrade was disabled, while runner enforcement and a valid assignment remained unproven.
+- **Effect conversion remained zero:** seven more pilots extended the sequence to 32/32 without assigned-metric gain.
+- **Architecture repair was not activation:** PR #607 restored the correct source design while production remained stale fail-closed and owner-blocked.
+- **History improved but remained incomplete:** repository coverage rose to 4/7; live health was stale and weekly publication remained weeks behind.
+- **Backlog worsened:** open PRs rose 49 → 55, with 0 ready and 0 sweep conversions.
+
+All durable changes in that refresh were `NO_DIRECT_METRIC_EFFECT`.
+
+## Weekly delivery evidence — 2026-09-14 through 2026-09-20
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Counted delivery chains | 6 | Exact review denominator; routine receipts are excluded. |
+| Canonical `LIVE_VERIFIED` | 0/6 | No chain met terminal canonical proof. |
+| Verified numeric/product gains | 0 | Activity did not change a dashboard or product/business input. |
+| Brain Management PR activity | 26 created / 24 merged | High merge volume did not produce a current control plane. |
+| GitHub Actions | 77 failed / 120 total | Validation/rework pressure remained high. |
+| PR Delivery throughput | 0 merges / 1 repair | Most merge activity still bypassed the exclusive delivery stage. |
+| Immutable history | 3/7 | Weekly confidence remains partial. |
+| Canonical API availability | 2/7 at review cutoff | Runtime/source activation remained unresolved. |
+
+## Current-window evidence — 2026-09-21 through 2026-09-26
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Canonical API availability | 2/7 throughout | No operational recovery occurred. |
+| Live source age | 156.5h → 265.1h | The same freshness failure worsened; daily observations are not separate regressions. |
+| Latest production deployment | Sep 15 | Repository changes after Sep 15 are not active production. |
+| Health semantics | PR #613 source fixed; live old behavior | Observability improvement is unactivated and has zero operational credit. |
+| Trends replacement | PR #617, 539 pass / 49 fail | Draft/red semantic drift blocks merge and publication. |
+| Current PR inventory | 56 open; 41 stale; 31 nonmergeable; 13 drafts | Backlog worsened from 55; current sweep converted zero. |
+| Scheduler capacity | 9 management schedulers; no implementer/publisher | The two stages needed for effect and cadence are unowned. |
+| Holistic House / PsiTrends | user-visible releases verified; metric unassigned | Real product work occurred, but no same-source effect measure exists. |
+
+### Efficiency trend — 2026-09-26
+
+- **Publication efficiency worsened:** source age nearly doubled across the week and no fresh canonical cycle completed.
+- **Refusal quality improved:** PR Delivery returned the semantically invalid Trends PR instead of merging a red/stale artifact.
+- **Observability quality improved only in source:** PR #613 removes false dependency errors, but live still reports them.
+- **Product evidence and metric evidence remain disconnected:** two user-facing surfaces changed without an assigned same-source effect measure.
+- **Catalog efficiency improved:** one new related repo produced no duplicate project; PsiTrends and Books routing now points to current production.
+
+## Highest-value efficiency corrections — 2026-09-26
+
+1. Close the existing freshness chain once: scoped runtime access, fresh atomic source, exact-main activation, 7/7 APIs and delayed closure.
+2. Restore one sole publisher and prove a later data refresh with no application deployment.
+3. Regenerate PR #617 semantically and keep product implementation blocked until current evidence and denominator causality exist.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
+
+## Weekly delivery evidence — 2026-09-21 through 2026-09-27
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Distinct chains | 8 | Canonical denominator excludes receipt-only PRs and repeated reads. |
+| Canonical `LIVE_VERIFIED` | 0/8 | No operational, product or infrastructure chain reached valid terminal closure. |
+| Numeric metric gains | 0 | Documentation, merges and visible product work did not change an assigned same-source metric. |
+| Immutable scored history | 0/7 | Repository has only two July scored files; daily handoffs and closures are not score snapshots. |
+| Actions outcomes | 6 success / 77 failure | Runtime publish was 0/53, production canary 0/13, mobile bundle 0/3 and action report 0/6. |
+| Brain PR activity | 15 created / 12 receipt-only merged | Evidence persistence dominated; outcome conversion remained zero. |
+
+## Current-window evidence — 2026-09-28 through 2026-10-03
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Live freshness | 324.6h → 432.9h | The same Sep 15 source worsened continuously while daily receipts reported the unchanged blocker. |
+| Repository source age | 354.1h | Sep 18 repository data is newer than live but also unusably stale. |
+| Core API health | 2/7 | Five source-dependent APIs fail closed; publication-current separately crashes with 500. |
+| Current PR inventory | 62 open / 48 stale / 33 nonmergeable / 21 blocked / 8 CI-failing | Backlog grew while active repair branches diverged. |
+| Deploy/terminal queue | 78 | Merge is not closure; Books PR #85 is a real current-sweep merge but awaits production reread. |
+| Current PR Delivery | 1 merged | Better than zero conversion, but no live or metric credit yet. |
+
+### Efficiency trend — 2026-10-03
+
+- **Persistence became self-reinforcing rework:** receipt-only merges preserve evidence but continuously move `main` underneath PR #629 and #617 while the operational source does not change.
+- **The owner block remains necessary but no longer sufficient as an explanation:** scoped runtime access, a fresh accepted source, a green complete gate and one enabled publisher are all independently missing.
+- **Product work exists but is unmeasured:** Holistic House/Maya/navigation/library and PsiTrends section/video improvements are visible, but none carries an assigned same-source business metric. Books PR #85 remains pending live proof.
+- **Backlog conversion improved only one stage:** PR Delivery merged one real product PR, yet the 78-item deploy/terminal queue shows the next stage is still the bottleneck.
+- **Operational truth remains unpublishable:** live weekly ends Aug 23, repository weekly reaches Sep 27 and current immutable history is 0/7.
+
+## Highest-value efficiency corrections — 2026-10-03
+
+1. Regenerate PR #629 once on current `main`, repair its full weekly/schema gate and pair it with owner activation plus one fresh atomic source.
+2. Restore one publisher and prove a no-deploy runtime refresh, seven prospective immutable snapshots and delayed independent closure before counting freshness recovery.
+3. Complete canonical production reread for Books PR #85, then use the exclusive delivery stage for one causally measured product outcome rather than another receipt-only recovery chain.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
+
+## Weekly delivery evidence — 2026-09-28 through 2026-10-04
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Normalized chains | 21 | Twenty-seven receipt labels collapse to 21 stable chains. |
+| Canonical live | 13/21 | Live-delivery conversion recovered, driven by user-facing product work. |
+| Product/business live | 13/18 | Real product throughput occurred. |
+| Verified numeric gains | 0/21 | No release had a valid same-source effect reread. |
+| Rework lower bound | 8/21 | Repair and reconciliation remain a large share of execution. |
+| Immutable scored history | 0/7 | The completed week still has no scored daily identities. |
+| Actions outcomes | 6 success / 73 failure | Runtime publish was 0/47, canary 0/13 and Mobile Release Bundle 0/5. |
+| Brain PR activity | 13 created / 13 receipt-only merged | Operational persistence created no product or metric credit. |
+
+## Current-window evidence — 2026-10-05 through 2026-10-10
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Live freshness | 598.9h | The same Sep 15 source remains the controlling failure. |
+| Repository source age | 520.6h | Repository source is newer than live but still invalid for publication. |
+| Core API health | 2/7 | Five operational surfaces fail closed; publication-current remains 500. |
+| Immutable history | 3/7 | Partial continuity improvement, not a complete current week. |
+| Current PR inventory | 60 open / 46 stale / 33 nonmergeable / 7 CI-failing | Backlog shrank slightly but remains structurally blocked. |
+| Current PR Delivery | 2 branch repairs / 0 merges | Tree-safe current-base repair improved readiness without claiming throughput. |
+| Holistic House production | exact source `df9f5dcb…` READY | The temporary deploy-capacity gap is closed for the current public branch. |
+| Product/effect binding | 17 product classes without assigned metric | Live product throughput still cannot enter a dashboard numerator. |
+
+### Efficiency trend — 2026-10-10
+
+- **Delivery conversion improved, effect conversion did not:** 13 product/business chains are live, but zero of 21 chains produced an assigned-metric gain.
+- **Tree-safe PR repair is a confirmed process improvement:** PRs #629 and #649 were rebuilt from current base with task-only diffs and zero lag. This reduces false reconciliation, but is not a metric gain.
+- **Publication failure continues to dominate control-plane truth:** source age reached 598.9h and weekly live remains Aug 17–23 even as daily receipts accumulate.
+- **History recovery is partial:** 3/7 current scored days is better evidence coverage, not completion.
+- **Backlog pressure eased only marginally:** open PRs moved 61 → 60 versus the last complete review; no current-sweep merge occurred.
+
+## Highest-value efficiency corrections — 2026-10-10
+
+1. Finish the existing runtime publication chain with fresh source, green exact-head gate, scoped activation and one sole publisher; do not create another parallel repair.
+2. Enforce preassigned effect eligibility on one product chain before implementation so the next live result can be measured instead of retroactively narrated.
+3. Continue prospective scored snapshots from 3/7 to 7/7 and publish the Sep 28–Oct 4 review without backfilling missing days.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
