@@ -97,3 +97,10 @@
 - **Still open:** canonical management carryover remains runtime freshness, Trends refresh and Finance provider verification. After normalization, eight total chains remain nonterminal: four `BLOCKED_BY_OWNER` and four `MERGED_WAITING_DEPLOY`.
 - **Next-week priority:** continue `operational-source-freshness-refresh-20260818`. The owner supplies the repository-scoped Contents:read credential; Daily Strategic Priorities assigns one runnable control-plane/release-test owner to generate a fresh atomic source and update existing PR #629; the existing publisher is enabled only after the exact head is green.
 - **Credit rule:** credential setup, assignment, PR repair, merge, deployment, reports and documentation receive zero metric credit. Actual effect requires delayed canonical API, freshness and attribution evidence.
+
+
+### PR reconciliation tree integrity — 2026-10-10
+
+- A merge commit is not proof that a PR branch safely absorbed the base branch: a commit can name current `main` as a second parent while retaining the stale branch tree and therefore delete or roll back newer operational receipts.
+- Safe reconciliation must build the resulting tree from the current canonical base and overlay only the PR task scope, update the existing ref with an expected-head lease, then re-read the exact base…head diff. The post-reconciliation diff must contain only task files, be zero commits behind, and preserve all base-only receipts before CI or merge is considered.
+- Apply this invariant to every automated conflict/base repair; parent topology, mergeability, and a green check are insufficient when the resulting tree has not been verified.
