@@ -165,3 +165,19 @@ The fail-closed rule applies to release tests as well as production handlers.
 - These test repairs preserve source timestamps, formulas, metric values, and product/business credit. They only prevent stale evidence from being normalized into success and prevent valid current schemas from being rejected as old ones.
 
 Acceptance evidence remains Brain Management PR #629. Its 2026-10-04 rerun exposed and repaired both stale-test classes while preserving the `2026-07-25-v1-preserved` formula version.
+
+## Proposed runtime activation precondition — 2026-10-11 (candidate)
+
+A restored runtime-data code path is not an active publisher and does not make operational data current. Before a control-plane application release may claim publication recovery:
+
+- the canonical production project must have the documented scoped, read-only runtime source credential configured; only the variable name and a non-secret configuration receipt may be persisted;
+- exactly one current runtime publisher identity and owner must be recorded and active;
+- one fresh atomic source set must pass exact manifest identity and the unchanged freshness limits before the application release gate can turn green;
+- the complete release gate must pass on the unchanged final head; tests that fail because the source is stale are valid safety evidence and must not be bypassed, clock-shifted, or satisfied by timestamp-only republishing;
+- a code-only deployment, receipt-only base reconciliation, or source-manifest repair must not change metric values, promote a governance rule, or receive product/business outcome credit;
+- after the single material application deployment, canonical recovery requires 7/7 structured API responses and a subsequent guarded source-only update that creates no application deployment.
+
+Candidate evidence: on 2026-10-11 canonical production still returned 2/7 core APIs with HTTP 200 and 5/7 with structured stale-source 503 responses; the accepted production snapshot remained `2026-09-15T11:34:55.858Z` (625.3 hours old), while the dependent publication overlay still returned HTTP 500. Brain Management PR #629 verified the exact six-file manifest but its unchanged-head Mobile Release Bundle #1272 correctly failed on `STALE_OPERATIONAL_DATA` from the `2026-09-18T18:26:12.350Z` repository source. The missing activation inputs are the scoped production runtime credential, an active sole publisher, and a fresh atomic source—not a weaker formula or another deployment.
+
+This proposal preserves formula version `2026-07-25-v1-preserved`, all raw business/product inputs, and immutable history. It remains candidate until the activation sequence and delayed closure are live-verified; `rule_lifecycle` must not be increased for this proposal.
+
