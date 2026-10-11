@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-10-04`
+Last aggregated: `2026-10-11`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -173,3 +173,27 @@ The system is now efficient at producing immutable receipts but ineffective at p
 ### Efficiency conclusion
 
 The system has moved from “high activity, no product delivery” to “substantial product delivery, no measured effect.” That is real progress in release conversion but not in outcome conversion. The next efficiency gain is to make a same-source metric mandatory before implementation starts while closing the existing runtime publication blocker. More receipt volume or unmeasured releases would increase activity without improving management truth.
+
+
+## Weekly delivery scorecard — 2026-10-05 through 2026-10-11
+
+| Metric | Evidence | Interpretation |
+|---|---:|---|
+| Normalized implementation/effect chains | 25 | 21 product/business and four infrastructure/control/research classes; the late 11 October cohort is one pending class. |
+| Canonical `LIVE_VERIFIED` | 17/25 | Exact-source public behavior retained independent closure; late releases still await closure. |
+| Verified numeric metric gains | 0/25 | No live product class had a preassigned same-source outcome metric. |
+| Product/business live conversion | 17/21 | Delivery conversion improved, but effect conversion did not. |
+| Infrastructure live conversion | 0/4 | Freshness, Trends, Edge Species and the unauthorized Trend task remain nonterminal. |
+| Noncanonical receipt labels | 42/77 | 27 no-effect variants and 15 deployment-pending labels require canonical mapping. |
+| Duplicate/alias classes collapsed | 125 | Cumulative marker rose 425→550; this is non-additive overhead, not improvement. |
+| Brain Management PR throughput | 18 created; 17 merged; 1 open | The 17 merges are receipt-only; the open Trends PR carries zero credit. |
+| Holistic House PR throughput | 197 created; 154 merged; 35 closed unmerged; 8 open | Very high delivery activity with no assigned outcome gain. |
+| Brain GitHub Actions | 6 success; 78 failure; 1 cancelled | Publication, canary and bundle gates remain predominantly red. |
+| PR Delivery | 12/13 receipts; 0 accepted merges; 15 repair/reconciliation actions | The exclusive delivery stage is active but bypassed. |
+| Current-week immutable history | 0/7 | Old September identities reported by production do not satisfy this week. |
+| Current Brain production | 2/7 APIs; source age 626.5h; publication HTTP 500 | First broken boundary remains operational source → API. |
+| Canonical management carryover | 3 | Freshness, Trends and Finance IDs persisted. |
+
+### Efficiency conclusion
+
+The system now moves product code to exact-source production quickly, but its management efficiency is still zero because output is not connected to outcome evidence and the control plane cannot publish current data. The next useful unit of work is not another product batch or receipt reconciliation. It is the owner-gated activation of the existing publication path, followed by one fresh source, a green unchanged-head PR #629 gate, PR Delivery merge and delayed independent 7/7 verification.
