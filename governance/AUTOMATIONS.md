@@ -1,6 +1,6 @@
 # Automation Registry
 
-Last reconciled: `2026-10-04`
+Last reconciled: `2026-10-11`
 
 ## Registry contract
 
@@ -143,3 +143,23 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 - Normalize daily receipt titles to one stable chain ID before counting weekly denominators. A renamed or expanded chain is not a new outcome unless scope, owner and metric identity are independently distinct.
 - A complete handoff is coordination evidence, not execution evidence. Enabled discovery/ranking/closure cannot compensate for disabled implementation or publication owners.
 - Runtime recovery remains `BLOCKED_BY_OWNER` at 2/7 APIs until the scoped read credential exists. After that owner action, one runnable control-plane owner must generate a fresh atomic source on current main and repair existing PR #629; enable the existing publisher only after the exact-head gate is green.
+
+
+## Scheduler and ownership reconciliation — 2026-10-11
+
+1. Morning Task Sweep, Daily Strategic Priorities, PR Delivery Sweep and Evening Delivery Closure are enabled. Morning System Upgrade and Daily Dashboard Update are absent from the enabled scheduler set.
+2. Current-week persistence is discovery 7/7, ranking 7/7, PR Delivery 12/13 due slots and closure 6/6 due completed days. Current-week immutable scored history is still 0/7.
+3. Three canonical management carryover IDs persisted and duplicate owner count remained zero, but the freshness implementation label does not resolve to an enabled scheduler. A named role without a runnable scheduler is not an owner.
+4. PR Delivery recorded 15 repair/reconciliation actions but accepted zero merges. Seventeen Brain receipt merges and 154 Books product merges occurred outside the exclusive delivery stage.
+5. Daily Dashboard Update remains the only allowed routine publisher. Do not create a replacement automation; enable the existing publisher only after the owner credential exists, a fresh atomic source is committed, PR #629 is current-main safe and its exact head is green.
+6. Evening Closure remained independent and complete, but nested effect receipts still emitted 42 noncanonical terminal labels. Receipt writers must separate `terminal_state` from `effect_detail`.
+7. Exact-source product deployment without a preassigned same-source outcome metric may be `LIVE_VERIFIED`, but it must carry `NO_MEASURED_EFFECT` detail and zero metric credit. Protected flows require owner-authenticated end-to-end evidence.
+8. Weekly Delivery System Review remains evaluation/evidence only. Brain Management PR #666 and this governance proposal receive zero improvement credit and must pass through PR Delivery and independent review.
+
+## Minimal enforcement correction — 2026-10-11
+
+- Ranking must resolve every automation-owned nonterminal chain to an enabled scheduler ID before authorizing implementation. If it cannot, preserve the chain and publish `BLOCKED_BY_OWNER` or `NO_SAFE_UPGRADE` with the exact denominator.
+- PR Delivery acceptance is mandatory for merge credit. External implementation merges may be observed, but they remain delivery-boundary violations until independently closed.
+- Terminal fields accept only `LIVE_VERIFIED`, `MERGED_WAITING_DEPLOY`, `BLOCKED_BY_OWNER` or `NO_SAFE_UPGRADE`. `NO_MEASURED_EFFECT`, test failure and deployment detail belong in separate fields.
+- Daily aliases, renamed receipts and repeated base reconciliations must normalize to one stable chain ID before weekly counting.
+- The next recovery candidate reuses `operational-source-freshness-refresh-20260818`; success is 7/7 APIs, structured publication JSON, source age <=6 hours, one green unchanged-head PR #629 gate, two publisher observations <=12 hours apart and delayed independent closure.
