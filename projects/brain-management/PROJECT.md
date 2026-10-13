@@ -133,3 +133,12 @@ The existing Vercel project owner must configure `BRAIN_RUNTIME_GITHUB_TOKEN` wi
 - service worker: `brain-management-v67`
 - runtime error cluster: none in the verified deployment
 - exact private finance balances: intentionally not duplicated
+
+## 13. Publisher activation progress — source current, production still blocked 2026-10-13
+
+Brain Management `main` now contains the scheduled refresh, runtime-data publication and production-canary workflow chain. The first accepted cycle produced fresh atomic sources at `2026-10-13T05:37:55.827Z`: Refresh Operational Data run #2 succeeded, Publish Runtime Data run #207 succeeded, and source/runtime commits `76bec283a840e5c508a9666257342d6a1c0989f7` and `9192b0cd5dd051c96bf84aca13f513e375786280` reached `main`.
+
+This is not `LIVE_VERIFIED`. Production Canary runs #811 and #812 failed on the production-contract step. At the 2026-10-13 10:30 UTC terminal reread, the canonical APIs still served the September snapshot: `/api/data` and `/api/trends` returned HTTP 503 at age 670.9h, `/api/data-publication-current` returned HTTP 500, and control-plane health remained `DEGRADED` with immutable history 3/7. The durable state is therefore `FRESH_SOURCE_ON_MAIN_PRODUCTION_CANARY_FAILED_BLOCKED_BY_OWNER`.
+
+Next owner remains the Brain Management Vercel project owner together with the source/release-test owner: provide the configured read-only runtime source path, reconcile the existing fail-closed overlay PR on current `main`, obtain a green unchanged-head release gate, and prove the canonical 7/7 API reread plus two consecutive publisher intervals before terminal closure. No source commit, workflow success or merge alone receives metric credit.
+
