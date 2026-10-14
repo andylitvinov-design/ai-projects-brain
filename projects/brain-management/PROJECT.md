@@ -142,3 +142,13 @@ This is not `LIVE_VERIFIED`. Production Canary runs #811 and #812 failed on the 
 
 Next owner remains the Brain Management Vercel project owner together with the source/release-test owner: provide the configured read-only runtime source path, reconcile the existing fail-closed overlay PR on current `main`, obtain a green unchanged-head release gate, and prove the canonical 7/7 API reread plus two consecutive publisher intervals before terminal closure. No source commit, workflow success or merge alone receives metric credit.
 
+
+## 14. Trends queue continuity regression — repair held 2026-10-14
+
+The Oct 14 scheduled source refresh reached `main` at commits `518b05d333510b47233da3ac996e142e53f4c584` and `48021f120fa90921e78df6033ae5946311255b08`, but regenerated `trends-data.json` as ten `READY` implementation rows owned by Morning System Upgrade. That projection omits the preserved task `trend-task-arxiv-org-abs-2609-11918v1` lease, its eight terminal records and the explicit `implementation_authorized=false` gate from the accepted Oct 13 Strategic handoff. Collection remains discovery; it cannot create execution authority or terminate/reassign the existing lease.
+
+Brain Management PR #674 is the current bounded repair. Its branch separates the ten discoveries from the durable implementation queue, restores task 11918 plus terminal history, and adds a compact runtime artifact proof. It is not merge-ready: exact head `d76ce9b312890407bd1f26cbca6a550391d3cc89` is 11 commits behind and 12 ahead of current `main`, has no exact-head hosted workflow result, and the PR itself holds the main merge until the collector/publication scope is explicitly cleared. PR #675 was merged only into the #674 feature branch and is not a canonical-main release.
+
+Production is still the first broken boundary. On the 2026-10-14 10:34 UTC reread, only 2/7 core APIs returned HTTP 200; `/api/data` and `/api/trends` remained fail-closed on the Sep 15 snapshot at about 695.0h age, `/api/data-publication-current` returned HTTP 500, and immutable history remained 3/7. The durable state is `FRESH_SOURCE_QUEUE_CONTINUITY_REGRESSED_PRODUCTION_BLOCKED_BY_OWNER`.
+
+Next owner remains the Brain Management source/release-test owner for a current-main, unchanged-head repair of #674; the Vercel project owner must then provide the scoped read-only runtime credential and publication activation. Terminal proof still requires the canonical 7/7 API reread, the preserved sole lease with no competing assignments, two publisher intervals within 12h, immutable history 7/7, and delayed closure. Source refresh, branch CI, feature-branch merge, main merge, deployment or queue generation alone receives zero metric credit.
