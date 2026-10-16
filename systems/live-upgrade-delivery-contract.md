@@ -1,7 +1,7 @@
 # Live Upgrade Delivery Contract
 
 Status: active canonical contract.
-Last updated: 2026-08-09.
+Last updated: 2026-08-23.
 
 ## Purpose
 
@@ -57,21 +57,30 @@ Across a rolling window, infrastructure/harness/dashboard upgrades may not excee
 
 A meta-upgrade requires evidence of a repeated failure class, production risk or material delivery bottleneck. Cosmetic dashboard, receipt, schema or prompt changes do not qualify by themselves.
 
+## Delivery-stage ownership
+
+The control-plane stages are exclusive:
+
+1. Morning Task Sweep owns discovery, reconciliation, deduplication and readiness evidence.
+2. Daily Strategic Priorities owns ranking and publishes one implementation assignment.
+3. Morning System Upgrade owns implementation of that assignment and focused pre-delivery validation.
+4. PR Delivery Sweep owns delivery branch, PR, CI, review/mergeability and merge reachability.
+5. Daily Dashboard Update owns operational snapshot and dashboard publication.
+6. Evening Delivery Closure owns independent live verification, terminal classification and recovery handoff.
+
+An evidence-only PR may be persisted by the stage that generated the evidence, but it is not a delivered upgrade and receives no product, deployment, completion or metric credit. Product/runtime delivery PRs must pass through PR Delivery Sweep. No stage may take over another stage merely because it can call the same connector.
+
 ## Morning responsibilities
 
-Morning System Upgrade is the primary delivery stage:
+Morning System Upgrade is the primary implementation stage:
 
-1. read the persisted ledger and previous Evening handoff;
-2. consume Task Sweep findings;
-3. score candidates and select at most three;
-4. finish carryover first;
-5. implement the smallest safe change;
-6. validate locally or through available project checks;
-7. create or reuse the remote PR automatically;
-8. merge when project policy permits;
-9. identify the matching production deploy;
-10. verify the actual user/operational behavior on live;
-11. persist evidence and carryover.
+1. read the persisted ledger, current ranking assignment and previous Evening handoff;
+2. consume exactly one assigned chain and preserve carryover identity;
+3. implement the smallest safe change;
+4. validate locally or through available project checks;
+5. persist the implementation branch/commit and hand GitHub reachability to PR Delivery Sweep;
+6. record a candidate effect, baseline and required live re-read;
+7. never self-issue final `LIVE_VERIFIED`, merge a product/runtime delivery PR, publish the dashboard or replace the independent closure owner.
 
 A morning run is not required to modify harness/docs/schema. It may return `NO_SAFE_UPGRADE` when no safe useful work exists.
 
@@ -122,6 +131,15 @@ Before a direct deployment can advance beyond `MERGED_WAITING_DEPLOY`:
 Emergency recovery may restore production behavior before source parity is closed. In that case the operational record may use a non-terminal diagnostic state such as `LIVE_BEHAVIOR_VERIFIED_SOURCE_PARITY_OPEN`, but the chain must not enter terminal `LIVE_VERIFIED` until the exact recovery source or a repository-owned reproducible manifest/build output is persisted or attributable to canonical source and the parity gate above is re-run successfully. Build-time generated or refreshed operational data that is not persisted in canonical source counts as unresolved source parity even when every live API is healthy.
 
 A closure receipt cannot waive this gate by stating that an emergency artifact is not byte-for-byte equivalent to the standard release. Behavior recovery and source parity are separate proofs; a source-parity recovery chain closes only when both are proven.
+
+## Independent closure and immutable-build gate
+
+1. The implementation owner may persist a candidate-effect receipt, but must not self-issue final terminal `LIVE_VERIFIED`. Until Evening Delivery Closure accepts the exact artifact, the canonical state is `MERGED_WAITING_DEPLOY`; richer progress belongs in diagnostic or `effect_state` fields.
+2. Top-level `terminal_state` is restricted to `LIVE_VERIFIED`, `MERGED_WAITING_DEPLOY`, `BLOCKED_BY_OWNER` or `NO_SAFE_UPGRADE`. Labels such as `PIPELINE_BROKEN`, `LIVE_VERIFIED_WITH_EFFECT`, `LIVE_VERIFIED_NO_EFFECT_EXPLAINED`, `DEPLOYMENT_PENDING` and `LIVE_BEHAVIOR_VERIFIED_SOURCE_PARITY_OPEN` are diagnostic/effect states only.
+3. Release preparation must not silently mutate tracked operational source after checkout. If collectors refresh data, the exact source or a repository-owned reconstructible manifest must be committed before the production build.
+4. The closure verifier compares canonical source SHA, persisted source identity, artifact manifest/hash, deploy source SHA and production evidence. Healthy behavior built from unattributed source remains `MERGED_WAITING_DEPLOY`.
+5. Follow-up assignment, packaging, guard and receipt repairs stay inside the original `chain_id`; they do not create additional upgrade or metric credit.
+6. A scheduler run is not publication-cadence proof. Each claimed publisher cycle must emit one coherent source plus artifact/deploy attribution, and recurring freshness closure requires a delayed re-read after the former failure window.
 
 A repeated omission from a direct-deploy bundle is a delivery failure class. The recovery must update the repository-owned manifest or build process and add a regression check; another manual one-off bundle is not a durable correction.
 
