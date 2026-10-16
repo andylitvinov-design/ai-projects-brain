@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="theme-color" content="#16334f"/><meta name="description" content="AI Council — независимые бесплатные ИИ и единый общий ответ."/>
 <meta name="color-scheme" content="light"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://openrouter.ai; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://openrouter.ai; img-src 'self' data: https://s.wordpress.com https://s0.wp.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
 <title>AI Council — совместный интеллект</title>
 <link rel="icon" href="./icon.svg" type="image/svg+xml"/><link rel="manifest" href="./manifest.webmanifest"/><link rel="stylesheet" href="./styles.css"/>
 </head>
@@ -25,7 +25,12 @@
     <div class="eyebrow"><span>✳</span> <span data-i18n="eyebrow">ВАШ НЕЗАВИСИМЫЙ СОВЕТ ЭКСПЕРТОВ</span></div>
     <h1 data-i18n="hero">Один вопрос.<br><em>Несколько точек зрения.</em></h1>
     <p class="hero-description" data-i18n="heroDesc">Три бесплатных ИИ независимо изучают ваш вопрос. Четвёртый объединяет идеи в короткий план действий.</p>
-    <div class="examples" id="examples">
+    <section id="auditPanel" class="audit-panel" aria-label="Site-wide AI audit">
+  <div class="audit-panel-head"><div class="audit-symbol">⌕</div><div class="audit-panel-copy"><strong data-i18n="auditTitle">Аудит сайта по ссылке</strong><small data-i18n="auditDescription">Публичные страницы, SEO, контент, снимки страниц и независимые заключения ИИ</small></div></div>
+  <div class="audit-input-row"><input type="url" id="siteUrl" value="https://holistichouse.vercel.app" aria-label="Адрес сайта"/><button class="primary-button audit-launch" id="auditSiteButton" data-i18n="auditStart">Проверить сайт полностью</button></div>
+  <div id="siteAuditStatus" class="audit-status" aria-live="polite"><span data-i18n="auditLimit">Начинаем с открытых страниц Holistic House. Закрытые кабинеты и формы не проверяются.</span></div>
+ </section>
+ <div class="examples" id="examples">
      <button class="example" data-prompt="Какие 5 улучшений сделают https://holistichouse.vercel.app более понятным новым посетителям? Не утверждайте, что открывали сайт, если нет содержимого страницы. Предложите проверяемые гипотезы.">✦ <span data-i18n="example1">Как улучшить Holistic House?</span><span class="example-arrow">↗</span></button>
      <button class="example" data-prompt="Сравните два подхода к монетизации маркетплейса услуг: комиссия с заказов 20% и подписка для мастеров. Сделайте рекомендации для небольшого проекта.">◈ <span data-i18n="example2">Сравнить бизнес-идеи</span><span class="example-arrow">↗</span></button>
      <button class="example" data-prompt="Предложите компактный мобильный дизайн экрана результатов психологического теста: шкалы, краткая оценка, кнопка получить рекомендации через кабинет. Составьте критерии приёмки.">▣ <span data-i18n="example3">Оценить мобильный UX</span><span class="example-arrow">↗</span></button>
