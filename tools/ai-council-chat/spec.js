@@ -101,7 +101,8 @@
     const tasks=(s.match(/(?:^|\n)###\s*(?:T-\d+|Задача\s*\d+|Task\s*\d+)/gi)||[]).length;
     const acceptance=(s.match(/критери|провер|acceptance|test|PASS|FAIL/gi)||[]).length;
     const haveURLs=(r.siteAudit?.summary?.html_pages_checked||0)>0;
-    return {unique_urls:unique,tasks,acceptance,weak:s.length<1500||tasks<2||acceptance<3||(haveURLs&&unique<1)};
+    const truncated=s.includes('[OUTPUT LIMIT:');
+    return {unique_urls:unique,tasks,acceptance,truncated,weak:truncated||s.length<1500||tasks<2||acceptance<3||(haveURLs&&unique<1)};
   }
   function withEvidence(s,r){
     if(!r.evidenceAppendix)return s;
@@ -110,7 +111,8 @@
   }
   async function generate(){
     if(!round||working)return;
-    const xs=sources(round);if(!xs.length){showStatus(L('noAnswers'),true);return;}
+    const target=round;
+    const xs=sources(target);if(!xs.length){showStatus(L('noAnswers'),true);return;}
     if(!key){showStatus(L('modelBlocked'),true);openSettings();return;}
     working=true;buildBtn.disabled=true;buildBtn.textContent=L('loading');showStatus(L('loading'));
     try{
@@ -119,19 +121,19 @@
       // Keep old/spec edits until a successful replacement.
       const draft=await modelRequest(state.models[3],[
         {role:'system',content:instructions(currentLocale()==='ru')},
-        {role:'user',content:modelInput(round)}
+        {role:'user',content:modelInput(target)}
       ],{maxTokens:5300,temperature:0.16,timeoutMs:150000});
-      const composed=withEvidence(draft,round);
-      round.tz=composed;round.tzVersion=2;round.tzGeneratedAt=new Date().toISOString();
-      round.tzSourceModels=xs.map(x=>x.model);round.tzQuality=assessDraft(draft,round);persist();
-      editor.value=composed;updateCounter();
-      showStatus(round.tzQuality.weak?L('weak'):L('done'),round.tzQuality.weak);
+      const composed=withEvidence(draft,target);
+      target.tz=composed;target.tzVersion=2;target.tzGeneratedAt=new Date().toISOString();
+      target.tzSourceModels=xs.map(x=>x.model);target.tzQuality=assessDraft(draft,target);persist();
+      if(round===target){editor.value=composed;updateCounter();showStatus(target.tzQuality.weak?L('weak'):L('done'),target.tzQuality.weak);}
       // Refresh "edit spec" state in the chat, not the dialog.
       renderMessages();
     }catch(e){showStatus(L('failed')+String(e?.message||e).slice(0,240)+' '+L('fallback'),true);}
     finally{working=false;buildBtn.disabled=false;buildBtn.textContent=L('regenerate');}
   }
   function open(r){
+    if(working && round && round!==r){if(!modal.open)modal.showModal();showStatus(L('loading'));return;}
     if(!modal)createUI();round=r;editor.value=r.tz||sourceDraft(r);updateCounter();
     document.getElementById('specTitle').textContent=L('title');document.getElementById('specSubtitle').textContent=L('sub');
     document.getElementById('specNotice').textContent=L('requests');
