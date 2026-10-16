@@ -36,7 +36,7 @@ let connectionStatus='unverified',connectionMessage='';
 let freeModels=[],modelLoadedAt=0,busy=false;
 function persist(){try{localStorage.setItem(STORE,JSON.stringify({lang:state.lang,threads:state.threads,active:state.active,models:state.models}));localStorage.setItem(SETTINGS_STORE,JSON.stringify({lang:state.lang,models:state.models,remember:state.remember}));}catch{}}
 function persistValidatedKey(){if(key&&connectionStatus==='valid'&&state.remember){try{localStorage.setItem(PERSIST_KEY,key);}catch{}}}
-function setRemember(remember){state.remember=!!remember;if(!state.remember){try{localStorage.removeItem(PERSIST_KEY);}catch{}}else persistValidatedKey();persist();renderConnection();}
+function setRemember(remember){state.remember=!!remember;if(!state.remember){try{localStorage.removeItem(PERSIST_KEY);}catch{}}else persistValidatedKey();globalThis.AICouncilExternalProviders?.syncRemember(state.remember);persist();renderConnection();}
 function escapeFilename(s){return s.replace(/[^a-z0-9_-]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,40)||'council';}
 function node(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
 function hide(n,yes){n.classList.toggle('hidden',!!yes);}
@@ -91,7 +91,7 @@ async function loadModels(force=false){if(!force&&freeModels.length&&Date.now()-
   if(!response.ok)throw new Error('HTTP '+response.status);const data=await response.json();
   const found=(data.data||[]).filter(x=>x&&typeof x.id==='string'&&x.id.endsWith(':free')&&x.pricing&&x.pricing.prompt!==null&&x.pricing.prompt!==undefined&&x.pricing.completion!==null&&x.pricing.completion!==undefined&&Number(x.pricing.prompt)===0&&Number(x.pricing.completion)===0);
   if(!found.length)throw new Error(t('noModels'));
-  freeModels=found.sort((a,b)=>(a.name||a.id).localeCompare(b.name||b.id));modelLoadedAt=Date.now();
+  freeModels=[...found.sort((a,b)=>(a.name||a.id).localeCompare(b.name||b.id)),...(globalThis.AICouncilExternalProviders?.models()||[])];modelLoadedAt=Date.now();
   // Preserve explicit model choices even when provider lists change.
   // Replacing an unavailable model without consent would silently alter the panel.
   persist();fillModelSelects();
@@ -121,6 +121,10 @@ async function finishOAuth(){const params=new URLSearchParams(location.search),c
 async function readInputKey(){const s=el('apiKey').value.trim();if(!/^sk-or-/i.test(s)){setError(state.lang==='ru'?'Введите ключ OpenRouter, начинающийся с sk-or-':'Paste an OpenRouter key starting with sk-or-');return;}key=s;sessionStorage.setItem(KEY_STORE,s);try{localStorage.removeItem(PERSIST_KEY);}catch{}el('apiKey').value='';setError('');renderAll();if(await verifyConnection())closeSettings();}
 function timeoutFetch(url,options,time=85000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),time);return fetch(url,{...options,signal:controller.signal}).finally(()=>clearTimeout(timer));}
 async function modelRequest(model,messages,options={}){if(!freeModels.some(x=>x.id===model))throw new Error(t('staleModel'));
+ // Direct providers are *opt-in*: each user must connect an explicitly free-tier account first.
+ if(globalThis.AICouncilExternalProviders?.ids?.includes(model)){
+   return globalThis.AICouncilExternalProviders.call(model,messages,options);
+ }
  const maxTokens=Math.max(800,Math.min(5500,Number(options.maxTokens)||2300));
  const temperature=Number.isFinite(options.temperature)?options.temperature:0.3;
  countCall();
@@ -152,5 +156,7 @@ async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)re
   persistRound();
  }catch(err){setError(err.message||t('sendFailed'));}finally{busy=false;el('sendButton').disabled=false;renderSidebar();}}
 function bind(){el('newThread').onclick=()=>{if(busy)return;state.active=null;persist();renderAll();el('question').value='';closeSidebar();};el('menuButton').onclick=openSidebar;el('closeSidebar').onclick=closeSidebar;el('overlay').onclick=closeSidebar;['settingsButton','topSettings','connectBannerButton'].forEach(id=>el(id).onclick=openSettings);el('closeSettings').onclick=closeSettings;el('doneSettings').onclick=closeSettings;el('oauthButton').onclick=()=>startOAuth().catch(e=>setError(e.message));el('saveKey').onclick=()=>readInputKey().catch(e=>setError(e.message));el('verifyConnection').onclick=()=>verifyConnection();el('rememberDevice').onchange=e=>setRemember(e.target.checked);el('recommendedModels').onclick=applyRecommended;el('apiKey').addEventListener('keydown',e=>{if(e.key==='Enter')readInputKey();});el('disconnect').onclick=()=>{key='';connectionStatus='unverified';connectionMessage='';sessionStorage.removeItem(KEY_STORE);try{localStorage.removeItem(PERSIST_KEY);}catch{}renderAll();};el('langButton').onclick=()=>{state.lang=state.lang==='ru'?'en':'ru';persist();renderAll();};for(let i=0;i<4;i++)el('model'+i).onchange=e=>{state.models[i]=e.target.value;persist();};el('sendButton').onclick=ask;el('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});el('question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,180)+'px';});document.querySelectorAll('.example').forEach(b=>{b.onclick=()=>{el('question').value=b.dataset.prompt;el('question').focus();if(!key)openSettings();};});el('settingsDialog').addEventListener('click',e=>{if(e.target===el('settingsDialog'))closeSettings();});}
-async function init(){bind();persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();}catch{}renderAll();if(!key&&new URLSearchParams(location.search).get('connect')==='1')openSettings();}
+async function init(){bind();
+ globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang});
+ persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();}catch{}renderAll();if(!key&&new URLSearchParams(location.search).get('connect')==='1')openSettings();}
 init();
