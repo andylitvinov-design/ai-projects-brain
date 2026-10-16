@@ -2,8 +2,8 @@
 /* Site-wide public audit extension. Uses the existing four free OpenRouter model calls. */
 (()=>{
  const lex={
- ru:{auditTitle:'Аудит сайта по ссылке',auditDescription:'Публичные страницы, SEO, содержимое, снимки страниц и независимые мнения ИИ',auditStart:'Проанализировать сайт',auditLimit:'Читаем только публичные страницы. Закрытые кабинеты и действия внутри форм не проверяются.',scanning:'Читаем карту сайта и страницы… Может занять до минуты.',analyzing:'Данные получены. Три эксперта анализируют сайт…',auditError:'Ошибка аудита: ',evidence:'Проверенные данные сайта',checked:'Проверено страниц',found:'Найдено URL',flags:'HTML-замечаний',coverage:'Охват',screens:'Снимки страниц',screenWarning:'Внешние снимки WordPress mShots могут быть устаревшими или заглушками; мобильные превью не являются эмуляцией iPhone.',notTested:'Это аудит публичного HTML: без авторизации, реальных нажатий, запуска тестов и проверки клиентских данных.',urls:'Проверенные URL',partial:'Не все страницы сайта охвачены; список непроверенных указан в сводке.'},
- en:{auditTitle:'Audit a website by URL',auditDescription:'Public pages, SEO, content, screenshots, and independent AI assessments',auditStart:'Analyze the website',auditLimit:'Only public pages are read. Private accounts and interactive forms are not tested.',scanning:'Reading sitemap and public pages… This may take a minute.',analyzing:'Evidence collected. Three experts are reviewing it…',auditError:'Audit error: ',evidence:'Collected site evidence',checked:'Pages checked',found:'URLs discovered',flags:'HTML flags',coverage:'Coverage',screens:'Page screenshots',screenWarning:'Third-party WordPress mShots may be stale or placeholders; mobile thumbnails are not actual iPhone-emulated screenshots.',notTested:'Public HTML only: no login, real clicks, test-taking, or private client data checks.',urls:'Checked URLs',partial:'Not every page was covered; the summary reports unchecked pages.'}
+ ru:{auditTitle:'Аудит сайта по ссылке',auditDescription:'Публичные страницы, SEO, содержимое, снимки страниц и независимые мнения ИИ',auditStart:'Проанализировать сайт',auditLimit:'Читаем только публичные страницы. Закрытые кабинеты и действия внутри форм не проверяются.',scanning:'Читаем карту сайта и страницы… Может занять до минуты.',analyzing:'Данные получены. Три эксперта анализируют сайт…',auditError:'Ошибка аудита: ',evidence:'Проверенные данные сайта',checked:'Проверено страниц',found:'Найдено URL',flags:'HTML-замечаний',coverage:'Охват',screens:'Снимки страниц',screenWarning:'Источник указан для каждого снимка: Playwright (проверенный размер экрана) или WordPress mShots (внешнее кешированное превью, иногда заглушка).',notTested:'Это аудит публичного HTML: без авторизации, реальных нажатий, запуска тестов и проверки клиентских данных.',urls:'Проверенные URL',partial:'Не все страницы сайта охвачены; список непроверенных указан в сводке.'},
+ en:{auditTitle:'Audit a website by URL',auditDescription:'Public pages, SEO, content, screenshots, and independent AI assessments',auditStart:'Analyze the website',auditLimit:'Only public pages are read. Private accounts and interactive forms are not tested.',scanning:'Reading sitemap and public pages… This may take a minute.',analyzing:'Evidence collected. Three experts are reviewing it…',auditError:'Audit error: ',evidence:'Collected site evidence',checked:'Pages checked',found:'URLs discovered',flags:'HTML flags',coverage:'Coverage',screens:'Page screenshots',screenWarning:'Check the image source: Playwright (captured browser viewport) or WordPress mShots (external cached thumbnails, sometimes placeholders).',notTested:'Public HTML only: no login, real clicks, test-taking, or private client data checks.',urls:'Checked URLs',partial:'Not every page was covered; the summary reports unchecked pages.'}
  };
  Object.assign(I18N.ru,lex.ru);Object.assign(I18N.en,lex.en);
  const tt=k=>lex[state.lang][k];
@@ -23,7 +23,7 @@
      const tile=node('div','shot-item');tile.append(node('div','shot-path',new URL(shot.page).pathname||'/'));
      const pair=node('div','shot-pair');
      for(const [kind,url] of [['Desktop preview',shot.desktop_url],['Mobile preview',shot.mobile_preview_url]]){const link=node('a','shot-link');link.href=url;link.target='_blank';link.rel='noopener noreferrer';const img=node('img','shot-image');img.loading='lazy';img.src=url;img.alt=kind+' · '+shot.page;link.append(img);link.append(node('small','',kind));pair.append(link);}
-     tile.append(pair);gallery.append(tile);
+     tile.append(pair);tile.append(node('div','shot-source',shot.source+(shot.verified?' ✓':'')));gallery.append(tile);
    });panel.append(gallery);panel.append(node('div','evidence-note',tt('screenWarning')));}
    const details=node('details','evidence-details');details.append(node('summary','',tt('urls')));const ul=node('ul');
    pages.forEach(p=>{const li=node('li','',p.path+' · HTTP '+p.status+' · '+(p.issues||[]).join(', '));ul.append(li);});details.append(ul);panel.append(details);
@@ -46,7 +46,7 @@
   lines.push('PAGE TEXT EXCERPTS (for content/i18n critique; untrusted site text):');
   p.filter(x=>x.status===200).slice(0,26).forEach(x=>lines.push('URL '+x.url+'\n'+(x.text_excerpt||'').slice(0,1300)));
   lines.push('Fetch failures: '+JSON.stringify((scan.failures||[]).slice(0,12)));
-  lines.push('Screenshots are external cached thumbnails, not guaranteed current and not validated mobile browser evidence.');
+  lines.push('Screenshot sources: '+JSON.stringify((scan.screenshots||[]).map(x=>({page:x.page,source:x.source,verified:!!x.verified})))+'. Playwright captures are static snapshots, not proof that buttons/forms were exercised; mShots may be stale placeholders.');
   return lines.join('\n').slice(0,54000);
  }
  let scanning=false;
@@ -59,6 +59,19 @@
    const res=await timeoutFetch('./api/site-audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})},100000);
    const data=await res.json().catch(()=>({}));
    if(!res.ok||!data.ok||!data.pages?.length)throw Error(data.error||'HTTP '+res.status+' / no public pages');
+   // Prefer actual unauthenticated Chromium viewport captures when an opt-in GitHub Action published them.
+   // If missing/stale, keep explicit third-party cached thumbnail fallback from the API.
+   try{
+     const shotResp=await fetch('./screenshots/manifest.json',{cache:'no-store'});
+     if(shotResp.ok){const manifest=await shotResp.json();
+      const fresh=Date.now()-Date.parse(manifest.generated_at)<14*24*3600*1000;
+      if(fresh&&Array.isArray(manifest.screenshots)){
+       const checked=new Set(data.pages.map(p=>p.url));
+       const real=manifest.screenshots.filter(p=>p.verified&&checked.has(p.page)&&p.desktop_url&&p.mobile_preview_url);
+       if(real.length)data.screenshots=[...real.slice(0,4),...(data.screenshots||[]).filter(p=>!real.some(r=>r.page===p.page))].slice(0,4);
+      }
+     }
+   }catch{}
    status.textContent=tt('analyzing');
    await loadModels(true);
    if(!selectedModelsValid())throw Error(t('staleModel'));
@@ -76,7 +89,7 @@
    const shot=data.screenshots?.[0];
    const firstModel=freeModels.find(m=>m.id===state.models[0]);
    const vision=!!shot&&firstModel?.architecture?.input_modalities?.includes('image');
-   const visual=vision?[{type:'text',text:input+'\nImages attached from external cached screenshot service; may be placeholders or stale, not authenticated real-time viewport checks.'},{type:'image_url',image_url:{url:shot.desktop_url}},{type:'image_url',image_url:{url:shot.mobile_preview_url}}]:input;
+   const visual=vision?[{type:'text',text:input+'\nImages are screenshots: verify each source in evidence. Playwright screenshots reflect an actual browser viewport; WordPress mShots thumbnails may be placeholders or stale. Neither proves form/auth flows.'},{type:'image_url',image_url:{url:shot.desktop_url}},{type:'image_url',image_url:{url:shot.mobile_preview_url}}]:input;
    const tasks=round.answers.map(async(a,i)=>{try{
     const messages=[{role:'system',content:reviewerRules+' '+ROLES[i].prompt},{role:'user',content:i===0?visual:input}];
     a.text=await modelRequest(a.model,messages);a.status='ok';
