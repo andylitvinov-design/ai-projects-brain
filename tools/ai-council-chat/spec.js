@@ -4,12 +4,14 @@
  */
 (function(global){
   const dict={
-    ru:{title:'Техническое задание',sub:'Подробный документ на основе исходных ответов всех рецензентов',generate:'Углубить через ИИ',regenerate:'Пересобрать ТЗ',copy:'Скопировать всё',download:'Скачать .md',share:'Поделиться',select:'Выделить весь текст',close:'Закрыть',copied:'Весь текст ТЗ скопирован',copyFail:'Автокопирование недоступно. Нажмите «Выделить весь текст» и скопируйте вручную.',edited:'Изменения сохранены в истории чата',loading:'Формирую конкретное ТЗ из всех ответов, замечаний и проверенных URL…',preparing:'Временная подборка исходных материалов (не готовое ТЗ). ИИ формирует структурированные задачи…',failed:'Не удалось сформировать ИИ-ТЗ: ',fallback:'Показаны все исходные позиции. Проверьте подключение и попробуйте «Пересобрать ТЗ».',done:'ИИ-ТЗ сформировано. Можно отредактировать, скопировать, скачать или поделиться.',weak:'Получилось недостаточно конкретно: проверьте документ и нажмите «Пересобрать ТЗ».',saved:'Сохранено в этой беседе',format:'Markdown · можно редактировать',requests:'Один дополнительный бесплатный запрос на создание ТЗ',source:'Источники',noAnswers:'Ответов рецензентов пока нет; нельзя создавать ТЗ из пустоты.',modelBlocked:'Для улучшенного ТЗ нужен бесплатный агрегатор и действующий ключ OpenRouter.',closeWarning:'ТЗ сохраняется в этом разговоре. Чтобы не потерять его при очистке браузера, скачайте файл.',errorNoClipboard:'Ваш браузер не разрешил копирование.'},
-    en:{title:'Technical specification',sub:'Detailed implementation brief based on every original expert opinion',generate:'Develop with AI',regenerate:'Rebuild specification',copy:'Copy full text',download:'Download .md',share:'Share',select:'Select all text',close:'Close',copied:'Full specification copied',copyFail:'Clipboard access was denied. Use “Select all text” and copy manually.',edited:'Edits saved to the chat history',loading:'Building a detailed implementation spec from each reviewer and verified URLs…',preparing:'Temporary collection of source opinions (not yet a finished specification). AI is structuring tasks…',failed:'Could not generate AI specification: ',fallback:'Original evidence preserved. Check your connection and choose “Rebuild specification”.',done:'Detailed specification ready. Edit, copy, download or share it.',weak:'The draft still lacks specific actionable details. Review or choose “Rebuild specification”.',saved:'Saved in this conversation',format:'Editable Markdown',requests:'One extra free API call for specification generation',source:'Sources',noAnswers:'No reviewer answers available. Cannot build a specification without evidence.',modelBlocked:'A free synthesis model and a working OpenRouter connection are required.',closeWarning:'The spec is saved in this conversation. Download it before clearing browser data.',errorNoClipboard:'Your browser blocked clipboard access.'}
+    ru:{title:'Техническое задание',sub:'Подробный документ на основе исходных ответов всех рецензентов',generate:'Углубить через ИИ',regenerate:'Пересобрать ТЗ',copy:'Скопировать всё',download:'Скачать .md',share:'Поделиться',select:'Выделить весь текст',close:'Закрыть',copied:'Весь текст ТЗ скопирован',copyFail:'Автокопирование недоступно. Нажмите «Выделить весь текст» и скопируйте вручную.',edited:'Изменения сохранены в истории чата',loading:'Формирую конкретное ТЗ из всех ответов, замечаний и проверенных URL…',preparing:'Временная подборка исходных материалов (не готовое ТЗ). ИИ формирует структурированные задачи…',failed:'Не удалось сформировать ИИ-ТЗ: ',fallback:'Показаны все исходные позиции. Проверьте подключение и попробуйте «Пересобрать ТЗ».',done:'ИИ-ТЗ сформировано. Можно отредактировать, скопировать, скачать или поделиться.',weak:'Получилось недостаточно конкретно: проверьте документ и нажмите «Пересобрать ТЗ».',saved:'Сохранено в этой беседе',format:'Markdown · можно редактировать',requests:'Один дополнительный бесплатный запрос на создание ТЗ',source:'Источники',noAnswers:'Ответов рецензентов пока нет; нельзя создавать ТЗ из пустоты.',modelBlocked:'Для улучшенного ТЗ нужен бесплатный агрегатор и действующий ключ OpenRouter.',closeWarning:'ТЗ сохраняется в этом разговоре. Чтобы не потерять его при очистке браузера, скачайте файл.',errorNoClipboard:'Ваш браузер не разрешил копирование.',proposal:'Вариант ИИ (текущий текст сохранён)',proposalSaved:'Текущий текст сохранён. Новый вариант ИИ доступен ниже для просмотра и отдельного применения.',applyProposal:'Заменить текущий текст вариантом ИИ'},
+    en:{title:'Technical specification',sub:'Detailed implementation brief based on every original expert opinion',generate:'Develop with AI',regenerate:'Rebuild specification',copy:'Copy full text',download:'Download .md',share:'Share',select:'Select all text',close:'Close',copied:'Full specification copied',copyFail:'Clipboard access was denied. Use “Select all text” and copy manually.',edited:'Edits saved to the chat history',loading:'Building a detailed implementation spec from each reviewer and verified URLs…',preparing:'Temporary collection of source opinions (not yet a finished specification). AI is structuring tasks…',failed:'Could not generate AI specification: ',fallback:'Original evidence preserved. Check your connection and choose “Rebuild specification”.',done:'Detailed specification ready. Edit, copy, download or share it.',weak:'The draft still lacks specific actionable details. Review or choose “Rebuild specification”.',saved:'Saved in this conversation',format:'Editable Markdown',requests:'One extra free API call for specification generation',source:'Sources',noAnswers:'No reviewer answers available. Cannot build a specification without evidence.',modelBlocked:'A free synthesis model and a working OpenRouter connection are required.',closeWarning:'The spec is saved in this conversation. Download it before clearing browser data.',errorNoClipboard:'Your browser blocked clipboard access.',proposal:'AI proposal (current text preserved)',proposalSaved:'Your current text is preserved. The new AI proposal is available below to review and apply separately.',applyProposal:'Replace current text with AI proposal'}
   };
   const L=id=>(dict[state.lang]||dict.ru)[id];
-  let round=null, working=false;
-  let modal,editor,status,buildBtn,copyBtn;
+  let round=null, working=false, activeGeneration=null, viewRevision=0;
+  // An input event counts even when the user returns to the original text.
+  const editRevisions=new WeakMap();
+  let modal,editor,status,buildBtn,copyBtn,proposalPanel,proposalEditor,proposalTitle,applyProposalBtn;
   function text(id,cls,value){const n=document.createElement('div');if(id)n.id=id;if(cls)n.className=cls;if(value!==undefined)n.textContent=value;return n;}
   function btn(id,cls,value){const b=document.createElement('button');b.type='button';b.id=id;b.className=cls;b.textContent=value;return b;}
   function currentLocale(){return state.lang==='en'?'en':'ru';}
@@ -23,7 +25,12 @@
     header.append(heading,close);modal.append(header);
     const notice=text('specNotice','spec-notice',L('requests'));modal.append(notice);
     status=text('specStatus','spec-status');status.setAttribute('role','status');modal.append(status);
-    editor=document.createElement('textarea');editor.id='specEditor';editor.className='spec-editor';editor.spellcheck=true;editor.setAttribute('aria-label',L('title'));editor.addEventListener('input',()=>{if(round){round.tz=editor.value;round.tzVersion=2;persist();status.textContent=L('edited');updateCounter();}});modal.append(editor);
+    editor=document.createElement('textarea');editor.id='specEditor';editor.className='spec-editor';editor.spellcheck=true;editor.setAttribute('aria-label',L('title'));editor.addEventListener('input',()=>{if(round){markEdited(round);round.tz=editor.value;round.tzVersion=2;persist();showStatus(L('edited'));updateCounter();}});modal.append(editor);
+    proposalPanel=document.createElement('details');proposalPanel.id='specProposal';proposalPanel.className='spec-footer';proposalPanel.hidden=true;
+    proposalTitle=document.createElement('summary');proposalTitle.id='specProposalTitle';proposalTitle.textContent=L('proposal');
+    proposalEditor=document.createElement('textarea');proposalEditor.id='specProposalEditor';proposalEditor.className='spec-editor';proposalEditor.readOnly=true;proposalEditor.setAttribute('aria-label',L('proposal'));
+    applyProposalBtn=btn('specApplyProposal','spec-action',L('applyProposal'));applyProposalBtn.onclick=applyProposal;
+    proposalPanel.append(proposalTitle,proposalEditor,applyProposalBtn);modal.append(proposalPanel);
     const footer=text('','spec-footer');const row=text('','spec-actions');const row2=text('','spec-actions');
     buildBtn=btn('specBuild','spec-primary',L('generate'));buildBtn.onclick=()=>generate();
     copyBtn=btn('specCopy','spec-action',L('copy'));copyBtn.onclick=()=>copyAll();
@@ -33,7 +40,29 @@
     row.append(buildBtn,copyBtn,download);row2.append(share,select);footer.append(row,row2);
     const hint=text('specHint','spec-hint',L('closeWarning'));footer.append(hint);modal.append(footer);
     modal.addEventListener('click',e=>{if(e.target===modal)modal.close();});
+    modal.addEventListener('close',()=>{viewRevision++;});
     document.body.append(modal);updateCounter();
+  }
+  function markEdited(r){editRevisions.set(r,(editRevisions.get(r)||0)+1);}
+  function syncBuildButton(){
+    buildBtn.disabled=working;
+    buildBtn.textContent=working&&activeGeneration===round?L('loading'):L(round?.tzVersion===2||round?.tzProposal?'regenerate':'generate');
+  }
+  function showProposal(){
+    const proposal=round?.tzProposal;
+    proposalPanel.hidden=!proposal;proposalPanel.open=false;
+    proposalTitle.textContent=L('proposal');proposalEditor.setAttribute('aria-label',L('proposal'));
+    proposalEditor.value=proposal?.text||'';applyProposalBtn.textContent=L('applyProposal');
+  }
+  function saveSpec(target,proposal){
+    target.tz=proposal.text;target.tzVersion=2;target.tzGeneratedAt=proposal.generatedAt;
+    target.tzSourceModels=proposal.sourceModels;target.tzQuality=proposal.quality;target.tzProviderEvidence=proposal.providerEvidence;delete target.tzProposal;
+  }
+  function applyProposal(){
+    if(!round?.tzProposal)return;
+    markEdited(round);saveSpec(round,round.tzProposal);editor.value=round.tz;
+    updateCounter();showProposal();syncBuildButton();persist();renderMessages();
+    showStatus(round.tzQuality.weak?L('weak'):L('done'),round.tzQuality.weak);
   }
   function updateCounter(){if(!editor||!round)return;let words=editor.value.trim().split(/\s+/).filter(Boolean).length;editor.dataset.words=String(words);}
   function showStatus(message,error=false){status.textContent=message;status.classList.toggle('spec-error',error);status.classList.toggle('spec-success',!error&&!!round?.tz&&round?.tzVersion===2&&!working);}
@@ -41,7 +70,7 @@
     const byModel=(r.answers||[]).filter(a=>a.status==='ok'&&a.text?.trim());
     return byModel.map((a,i)=>({model:a.model||'Reviewer '+(i+1),answer:a.text.trim()}));
   }
-  function canGenerate(){return !!key && Array.isArray(freeModels) && freeModels.some(m=>m.id===state.models[3]);}
+  function canGenerate(){return !!key && !globalThis.AICouncilExternalProviders?.ids?.includes(state.models[3]) && Array.isArray(freeModels) && freeModels.some(m=>m.id===state.models[3]);}
   // Existing spec is never discarded on an error. Not model output: source-only working material.
   function sourceDraft(r){
     const ru=currentLocale()==='ru',yes=ru?'Источники и исходные замечания':'Sources and original reviewer findings';
@@ -111,38 +140,47 @@
   }
   async function generate(){
     if(!round||working)return;
-    const target=round;
+    const target=round,revision=editRevisions.get(target)||0,initialText=target.tz,initialView=viewRevision;
     const xs=sources(target);if(!xs.length){showStatus(L('noAnswers'),true);return;}
     if(!key){showStatus(L('modelBlocked'),true);openSettings();return;}
-    working=true;buildBtn.disabled=true;buildBtn.textContent=L('loading');showStatus(L('loading'));
+    working=true;activeGeneration=target;syncBuildButton();showStatus(L('loading'));
     try{
       await loadModels(true);
       if(!canGenerate())throw Error(L('modelBlocked'));
       // Keep old/spec edits until a successful replacement.
+      let providerEvidence;
       const draft=await modelRequest(state.models[3],[
         {role:'system',content:instructions(currentLocale()==='ru')},
         {role:'user',content:modelInput(target)}
-      ],{maxTokens:5300,temperature:0.16,timeoutMs:150000});
-      const composed=withEvidence(draft,target);
-      target.tz=composed;target.tzVersion=2;target.tzGeneratedAt=new Date().toISOString();
-      target.tzSourceModels=xs.map(x=>x.model);target.tzQuality=assessDraft(draft,target);persist();
-      if(round===target){editor.value=composed;updateCounter();showStatus(target.tzQuality.weak?L('weak'):L('done'),target.tzQuality.weak);}
+      ],{maxTokens:5300,temperature:0.16,timeoutMs:150000,onResponseEvidence:e=>{providerEvidence=e;}});
+      const verificationNote=providerEvidence?.billing_verified===false?'\n\n## '+(currentLocale()==='ru'?'Проверка провайдера':'Provider verification')+'\n\n'+(currentLocale()==='ru'?'Прямой API: бесплатный тариф подтверждён пользователем; стоимость аккаунта и идентичность фактически ответившей модели не проверены.':'Direct API: user-attested free tier; account billing and the reported model identity are unverified.')+'\n'+JSON.stringify(providerEvidence,null,2)+'\n':'';
+      const composed=withEvidence(draft,target)+verificationNote;
+      const proposal={text:composed,generatedAt:new Date().toISOString(),sourceModels:xs.map(x=>x.model),providerEvidence,quality:assessDraft(draft,target)};
+      const sameView=round===target&&viewRevision===initialView&&modal.open;
+      const unchanged=(editRevisions.get(target)||0)===revision&&target.tz===initialText;
+      // A late response is a separate persisted proposal, never a replacement for newer edits.
+      if(sameView&&unchanged)saveSpec(target,proposal);else target.tzProposal=proposal;
+      persist();
+      if(round===target&&modal.open){
+        showProposal();
+        if(sameView&&unchanged){editor.value=composed;updateCounter();showStatus(proposal.quality.weak?L('weak'):L('done'),proposal.quality.weak);}
+        else showStatus(L('proposalSaved'));
+      }
       // Refresh "edit spec" state in the chat, not the dialog.
       renderMessages();
-    }catch(e){showStatus(L('failed')+String(e?.message||e).slice(0,240)+' '+L('fallback'),true);}
-    finally{working=false;buildBtn.disabled=false;buildBtn.textContent=L('regenerate');}
+    }catch(e){if(round===target&&modal.open)showStatus(L('failed')+String(e?.message||e).slice(0,240)+' '+L('fallback'),true);}
+    finally{working=false;activeGeneration=null;syncBuildButton();}
   }
   function open(r){
-    if(working && round && round!==r){if(!modal.open)modal.showModal();showStatus(L('loading'));return;}
-    if(!modal)createUI();round=r;editor.value=r.tz||sourceDraft(r);updateCounter();
+    if(!modal)createUI();round=r;viewRevision++;editor.value=typeof r.tz==='string'?r.tz:sourceDraft(r);updateCounter();showProposal();
     document.getElementById('specTitle').textContent=L('title');document.getElementById('specSubtitle').textContent=L('sub');
-    document.getElementById('specNotice').textContent=L('requests');
+    document.getElementById('specNotice').textContent=(typeof directBillingNote==='function'&&directBillingNote(state.models[3]))||L('requests');
     document.getElementById('specHint').textContent=L('closeWarning');
     document.getElementById('specCopy').textContent=L('copy');document.getElementById('specDownload').textContent=L('download');document.getElementById('specShare').textContent=L('share');document.getElementById('specSelect').textContent=L('select');
-    buildBtn.textContent=r.tzVersion===2?L('regenerate'):L('generate');
-    showStatus(r.tzVersion===2?L('saved'):L('preparing'));
+    syncBuildButton();
+    showStatus(r.tzProposal?L('proposalSaved'):working&&activeGeneration===r?L('loading'):r.tzVersion===2?L('saved'):L('preparing'));
     if(!modal.open)modal.showModal();
-    if(r.tzVersion!==2 && !working)void generate();
+    if(r.tzVersion!==2 && !r.tzProposal && !working)void generate();
   }
   function selectAll(){
     editor.focus();editor.select();editor.setSelectionRange(0,editor.value.length);

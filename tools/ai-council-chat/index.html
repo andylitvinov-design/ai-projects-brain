@@ -18,7 +18,7 @@
 </aside>
 <div id="overlay" class="overlay hidden"></div>
 <main class="main">
- <header class="topbar"><div class="top-left"><button id="menuButton" class="icon-button menu" aria-label="Открыть меню">☰</button><span class="top-logo">✳</span><div><b>AI Council</b><small data-i18n="subtitle">Несколько взглядов. Один вывод.</small></div></div><div class="top-actions"><span class="free-pill"><span class="free-dot"></span> FREE</span><button id="langButton" class="lang-button" aria-label="Change language">EN</button><button id="topSettings" class="icon-button" title="Настройки">⚙</button></div></header>
+ <header class="topbar"><div class="top-left"><button id="menuButton" class="icon-button menu" aria-label="Открыть меню">☰</button><span class="top-logo">✳</span><div><b>AI Council</b><small data-i18n="subtitle">Несколько взглядов. Один вывод.</small></div></div><div class="top-actions"><span class="free-pill"><span class="free-dot"></span> <span id="costBadgeText">FREE</span></span><button id="langButton" class="lang-button" aria-label="Change language">EN</button><button id="topSettings" class="icon-button" title="Настройки">⚙</button></div></header>
  <div class="content-scroll" id="contentScroll">
   <div class="content-inner">
   <section id="welcome" class="welcome">
@@ -61,8 +61,8 @@
 <div class="selector"><label for="model3" data-i18n="synthesizer">Агрегатор · общий вывод</label><div class="role-description" data-i18n="hintSynth">Рекомендуем: Nemotron 3 Ultra — глубокая сводная (возможны задержки)</div><select id="model3"></select></div>
 <div id="modelStatus" class="small muted" role="status"></div>
 <section class="external-panel" aria-label="Дополнительные модели">
-  <div class="dialog-section-title">Gemini и Mistral — отдельный бесплатный API</div>
-  <p class="external-explain">OpenRouter не предоставляет эти мощные модели бесплатно. Можно добавить свой ключ <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a> (Gemini 3.8 Flash) или <a href="https://console.mistral.ai/" target="_blank" rel="noopener noreferrer">Mistral Studio</a> (Mistral Small 4) из бесплатного проекта. Подключение не меняет выбранные модели автоматически.</p>
+  <div class="dialog-section-title">Gemini и Mistral — настройка сохранена, генерация заблокирована</div>
+  <p class="external-explain">OpenRouter не предоставляет эти мощные модели бесплатно. Можно добавить свой ключ <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a> (Gemini 3.8 Flash) или <a href="https://console.mistral.ai/" target="_blank" rel="noopener noreferrer">Mistral Studio</a> (Mistral Small 4) из бесплатного проекта. Подключение проверяет только доступ ключа. Генерация через эти API заблокирована в строгом бесплатном режиме: нет проверяемого подтверждения нулевой стоимости. Модели OpenRouter не меняются автоматически.</p>
   <div class="external-provider">
     <strong>Google Gemini 3.8 Flash</strong><span class="provider-free-tag">Google AI Studio Free Tier</span>
     <input id="geminiDirectKey" type="password" autocomplete="off" spellcheck="false" placeholder="Gemini API key"/>
@@ -73,16 +73,18 @@
   <div class="external-provider">
     <strong>Mistral Small 4</strong><span class="provider-free-tag">Mistral Experiment / Free Tier</span>
     <input id="mistralDirectKey" type="password" autocomplete="off" spellcheck="false" placeholder="Mistral API key"/>
-    <label><input type="checkbox" id="mistralFreeConfirm"/> Я подтверждаю: ключ относится к бесплатному тарифу Mistral Experiment.</label>
+    <label><input type="checkbox" id="mistralFreeConfirm"/> Я подтверждаю: ключ относится к бесплатному режиму Mistral / Experiment, платное использование (PAYG) отключено.</label>
     <div class="provider-controls"><button type="button" id="mistralDirectConnect" class="outline-button">Подключить Mistral</button><button type="button" id="mistralDirectDisconnect" class="link-button">Отключить</button></div>
     <div id="mistralDirectStatus" class="provider-status" role="status">Не подключён</div>
   </div>
-  <p class="provider-danger">Важно: приложение может проверить ключ, но не может определить, подключена ли оплата в аккаунте Google/Mistral. Выбирай только бесплатный проект. Эти ключи хранятся в твоём браузере, не на нашем сервере. Muse Wonder в бесплатный режим не включён: через OpenRouter он платный.</p>
+  <p class="provider-danger">Важно: приложение проверяет доступ ключа, но не подтверждает нулевую стоимость ответа или отсутствие оплаты в аккаунте Google/Mistral. Одной галочки о бесплатном тарифе недостаточно. Прямые модели нельзя использовать в автоматическом Совете до появления проверяемого подтверждения нулевой стоимости. Выбирай только бесплатный проект. Эти ключи хранятся в твоём браузере, не на нашем сервере. Muse Wonder в бесплатный режим не включён: через OpenRouter он платный.</p>
 </section><div class="dialog-foot"><span data-i18n="privacy">История и выбор моделей сохраняются в этом браузере. При включении «Запомнить» API-ключ тоже остаётся на этом устройстве.</span><button id="doneSettings" class="primary-button" data-i18n="done">Готово</button></div>
 </dialog>
 <script src="./quality.js" defer></script>
 <script src="./external-providers.js" defer></script>
+<script src="./safety.js" defer></script>
 <script src="./app.js" defer></script>
+<script src="./audit-evidence.js" defer></script>
 <script src="./audit.js" defer></script>
 <script src="./spec.js" defer></script>
 </body></html>

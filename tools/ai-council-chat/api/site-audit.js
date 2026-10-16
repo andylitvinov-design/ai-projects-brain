@@ -122,7 +122,9 @@ export async function POST(request){
   for(const issue of p.issues)issueCounts[issue]=(issueCounts[issue]||0)+1;
   if(p.status>=400)issueCounts.http_error=(issueCounts.http_error||0)+1;
  }
- const screenshots=sorted.filter(u=>pages.some(p=>p.url===u&&p.status===200)).slice(0,4).map(u=>({page:u,desktop_url:screen(u,1280,850),mobile_preview_url:screen(u,390,844),source:'WordPress.com mShots',verified:false,warning:'External cached thumbnail; mobile preview is not device-emulated browser QA. May show placeholder.'}));
+ const screenshotPages=sorted.filter(u=>pages.some(p=>p.url===u&&p.status===200));
+ const home=screenshotPages.find(u=>/^\/(?:en|ru|es)?\/?$/.test(new URL(u).pathname)),service=screenshotPages.find(u=>/\/services(?:\/|$)/.test(new URL(u).pathname));
+ const screenshots=[home,service,...screenshotPages].filter((u,i,a)=>u&&a.indexOf(u)===i).slice(0,4).map(u=>({page:u,desktop_url:screen(u,1280,850),mobile_preview_url:screen(u,390,844),source:'WordPress.com mShots',verified:false,warning:'External cached thumbnail; mobile preview is not device-emulated browser QA. May show placeholder.'}));
  const info={target:site,host:HOST,created_at:new Date().toISOString(), elapsed_ms:Date.now()-start,sitemap_urls:sitemap.length,discovered_public_pages:indexed.length,html_pages_checked:pages.length, failed_pages:failures.length,unreviewed_public_pages:Math.max(0,indexed.length-take.length),scope_limit:MAX_PAGES,coverage_note:'Read-only public HTML; no logged-in journeys, real user interaction, JS runtime checks or device-accurate screenshots. Technical findings reflect retrieved HTML, not verified rendered DOM.',locales:langs,categories,issue_counts:issueCounts,sitemap_errors:sitemapErrors};
  return Response.json({ok:true,summary:info,pages,failures,screenshots},{headers:{'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 }
