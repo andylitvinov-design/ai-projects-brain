@@ -43,5 +43,7 @@ jobs:
             echo "No changed screenshots"
           else
             git commit -m "chore(ai-council): refresh public browser screenshots [skip ci]"
+            git fetch origin main
+            git rebase origin/main
             git push origin HEAD:main
           fi
