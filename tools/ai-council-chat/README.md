@@ -46,3 +46,21 @@ Related architecture: https://github.com/andylitvinov-design/ai-projects-brain/i
 Default reviewer roster: Nemotron 3.5 Super VL (UX), Dots3-Note Preview (independent product critique), Cohere North Mini Code (engineering), Nemotron 3 Super (synthesis). Selected for role fit, independent reviewer providers, benchmark/reliability trade-offs and free access. Not a claim that any individual model is best in all circumstances. Nemotron 3 Ultra free was excluded from automatic default because the provider's observed availability was unstable on this date. Model selection is stored separately in `ai-council-settings-v2`; existing manually customized choices are retained, and stale models are not silently swapped. If a model is no longer free/available, choose manually or press **Use recommended models**. First migration upgrades only the exact original default quartet. Verify new-free API prices before each request.
 
 Security trade-off: persistence means keeping a bearer token in localStorage, readable by same-origin scripts and potentially by anyone with access to an unlocked device/browser profile. This is explicitly opt-in/opt-out and documented in the settings UI; not appropriate for shared/public devices. Browser storage isn't shared between ChatGPT's in-app browser and regular Safari. For higher security in a future version, consider passphrase-encrypted persistent storage or backend-managed HttpOnly sessions.
+
+## 2026-10-16: Evidence-first review quality v2
+
+User feedback: original reviews and especially the fourth synthesizer were vague and too short.
+
+Root causes verified in source: global `max_tokens:1100` cap on all four models, unconstrained short output, 54-page evidence dump shared across all reviewers, and synthesis instructions to summarize only 3–5 general ideas. These design limitations—not just model choice—were suppressing concrete findings.
+
+V2 changes:
+- Added `quality.js`: deterministic, versioned reviewer + synthesizer contracts. Each reviewer must support its own 4–6 findings with actual URL, observed evidence vs hypothesis, audience impact, exact fix, priority, acceptance test; don't invent defects if evidence is thin.
+- Each reviewer receives a role-specific **shortlisted evidence bundle** instead of undifferentiated 54-page wall of text. Technical model receives route/SEO matrix; design gets page copy and selected screenshots; product sees services/Academy/offer excerpts.
+- Increased maximum response budgets to **3000 tokens/reviewer**, **4900 tokens/synthesizer** for site audits (previous 1100 for all); regular chat to 2700/4300. This is still **four free-model calls**, same number of requests, but larger output can be slower or hit provider token caps.
+- Synthesizer is instructed NOT to delete minority findings; produce 6–12 distinct route-specific issues where evidence warrants, each with acceptance tests, and do not replace detailed issues with vague slogans.
+- Audit displays a **deterministic HTML evidence appendix** grouped by flags with actual fetched URLs and candidate fixes, independent of model prose. These are HTML-heuristic findings, not guaranteed browser bugs. A visible specificity indicator counts URL references and verification markers.
+- Preserves original reviewer outputs in local browser history/export and explicitly marks untested logged-in journeys and click behavior.
+- Does not silently change user's selected models or use paid fallbacks.
+- No model calls have been made with a real OpenRouter key from this environment. Live user acceptance is still required to validate quality.
+
+Regression smoke performed on 2026-10-16: `quality.js`, `app.js`, `audit.js` parsed successfully. In-memory synthetic evidence verified scoped prompts, checked-URL appendix, and weak/strong specificity scoring. Public deployed HTML / quality.js returned 200 when last checked.
