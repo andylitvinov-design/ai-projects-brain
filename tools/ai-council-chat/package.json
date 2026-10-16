@@ -1,0 +1,10 @@
+{
+  "name": "ai-council-chat",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Static AI council plus public-site audit API; no paid models",
+  "engines": {
+    "node": ">=20"
+  }
+}
