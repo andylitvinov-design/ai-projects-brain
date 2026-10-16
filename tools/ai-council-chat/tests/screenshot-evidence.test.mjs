@@ -21,7 +21,7 @@ function jpegHeaderFixture(width, height, marker = 0xc0) {
 
 function captureHarness(overrides = {}) {
   const stored = new Map(), calls = [], closed = [];
-  const requestedUrl = SITE_ORIGIN + '/en/services';
+  const requestedUrl = overrides.requestedUrl || SITE_ORIGIN + '/en/services';
   const files = {
     async rm(filePath) { calls.push(['remove', filePath]); stored.delete(filePath); },
     async writeFile(filePath, bytes, options) {
@@ -76,7 +76,7 @@ function captureHarness(overrides = {}) {
       };
     }
   };
-  const run = () => capturePageEvidence(browser, { requestedUrl, slug: 'en-services', out: '/memory-only', files, now: () => '2026-10-16T23:00:00.000Z' });
+  const run = () => capturePageEvidence(browser, { requestedUrl, slug: overrides.slug || 'en-services', out: '/memory-only', files, now: () => '2026-10-16T23:00:00.000Z' });
   return { run, stored, calls, closed };
 }
 
@@ -278,4 +278,36 @@ test('pending and incomplete manifests retain failed pages and cannot claim comp
   const failedManifest = buildManifest([failedPage]);
   assert.equal(failedManifest.screenshots.length, 1, 'failures are visible, rather than silently dropped');
   assert.equal(failedManifest.verified_pages, 0);
+});
+
+
+test('only the exact English home alias may canonicalize back to the public root', () => {
+  for (const requested of ['/en', '/en/']) {
+    validatePageIdentity(SITE_ORIGIN + requested, SITE_ORIGIN + '/', 200);
+    for (const final of ['/ru', '/es', '/en/services', '/login', '/?private=1', '/#fragment']) {
+      assert.throws(() => validatePageIdentity(SITE_ORIGIN + requested, SITE_ORIGIN + final, 200));
+    }
+    assert.throws(() => validatePageIdentity(SITE_ORIGIN + requested, 'https://example.com/', 200));
+    for (const status of [null, 301, 308, 404, 500]) {
+      assert.throws(() => validatePageIdentity(SITE_ORIGIN + requested, SITE_ORIGIN + '/', status));
+    }
+  }
+  for (const requested of ['/ru', '/es', '/en/services', '/en/academy', '/en/about']) {
+    assert.throws(() => validatePageIdentity(SITE_ORIGIN + requested, SITE_ORIGIN + '/', 200));
+  }
+});
+
+test('English home capture records the genuine canonical URL and verifies both viewport files', async () => {
+  const harness = captureHarness({ requestedUrl: SITE_ORIGIN + '/en', slug: 'en', finalUrl: SITE_ORIGIN + '/' });
+  const evidence = await harness.run();
+  assert.equal(evidence.verified, true);
+  assert.equal(evidence.page, SITE_ORIGIN + '/en');
+  assert.equal(harness.stored.size, 2);
+  for (const [mode, capture] of Object.entries(evidence.captures)) {
+    assert.equal(capture.requested_url, SITE_ORIGIN + '/en');
+    assert.equal(capture.final_url, SITE_ORIGIN + '/');
+    assert.equal(capture.verified, true);
+    assert.deepEqual(capture.viewport, VIEWPORTS[mode]);
+    assert.ok(capture.url.startsWith(ASSET_ORIGIN + '/screenshots/en-' + mode + '-'));
+  }
 });

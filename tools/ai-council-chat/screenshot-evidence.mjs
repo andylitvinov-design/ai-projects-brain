@@ -75,7 +75,10 @@ export function validatePageIdentity(requestedUrl, finalUrl, httpStatus) {
   }
   if (!CAPTURE_PAGES.some(([route]) => route === requestedPath)) throw new Error('Screenshot route is outside the public capture list');
   const homeRedirect = requestedPath === '/' && /^\/(en|ru|es)$/.test(finalPath);
-  if (finalPath !== requestedPath && !homeRedirect) throw new Error('Screenshot redirected to a different public page: ' + finalPath);
+  // Holistic House canonicalizes the English home alias /en to /. Keep this
+  // exception exact: localized/service/private/off-site redirects still fail.
+  const englishHomeCanonical = requestedPath === '/en' && finalPath === '/';
+  if (finalPath !== requestedPath && !homeRedirect && !englishHomeCanonical) throw new Error('Screenshot redirected to a different public page: ' + finalPath);
 }
 
 export function validateViewport(mode, viewport, deviceScaleFactor) {

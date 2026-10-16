@@ -9,7 +9,7 @@ const ROUTE='/academy/reiki/tantra-reiki/free-initiation';
 const out=path.resolve('test-results/tantra-mobile-evidence');
 const expectedSource=/^[a-f0-9]{40}$/.test(process.env.TANTRA_SOURCE_SHA||'')?process.env.TANTRA_SOURCE_SHA:null;
 await fs.mkdir(out,{recursive:true});
-const report={captured_at:new Date().toISOString(),target:'live public production',host:HOST,expected_source_sha:expectedSource,actual_runtime_source_sha:null,source_note:expectedSource?'Expected SHA is an operator-supplied hint, not runtime proof. Pair with independent Vercel deployment readbacks before and after capture.':'No source SHA supplied. Bound this live capture with independent Vercel deployment readbacks before and after capture; the public DOM does not prove the runtime SHA.',scope:'EN/RU/ES top and choices at 320/390/430x844. Detailed sections, keyboard states and end-scroll reachability at 390px. No form submission, video playback or external contact link activation.',pages:[]};
+const report={captured_at:new Date().toISOString(),target:'live public production',host:HOST,expected_source_sha:expectedSource,actual_runtime_source_sha:null,source_note:expectedSource?'Expected SHA is an operator-supplied hint, not runtime proof. Pair with independent Vercel deployment readbacks before and after capture.':'No source SHA supplied. Bound this live capture with independent Vercel deployment readbacks before and after capture; the public DOM does not prove the runtime SHA.',scope:'EN/RU/ES top and choices at 320/390/430x844. Detailed sections, settled touch/keyboard chooser visibility, keyboard states and end-scroll reachability at 390px. No form submission, video playback or external contact link activation.',pages:[]};
 let browser;
 function check(entry,name,pass,observed){entry.checks.push({name,pass:!!pass,observed});}
 async function geometry(page){return page.evaluate(()=>{
@@ -22,6 +22,54 @@ async function geometry(page){return page.evaluate(()=>{
   small_control_candidates:[...document.querySelectorAll('main button,main a,main summary')].filter(visible).filter(e=>{const r=e.getBoundingClientRect();return r.width<24||r.height<24}).slice(0,40).map(describe)};
  });}
 async function focused(page){return page.evaluate(()=>{const e=document.activeElement,s=getComputedStyle(e);return {tag:e.tagName,id:e.id||null,channel:e.getAttribute('data-contact-channel'),outline_style:s.outlineStyle,outline_width:s.outlineWidth,outline_color:s.outlineColor,box_shadow:s.boxShadow}});}
+// Read-only viewport/hit-test diagnostics. Do not scroll or focus inside these.
+function contactVisibilityInPage(panelId) {
+ const panel=document.getElementById(panelId),button=document.getElementById('apply-free');
+ const vv=window.visualViewport;
+ const viewport={left:vv?.offsetLeft||0,top:vv?.offsetTop||0,width:vv?.width||window.innerWidth,height:vv?.height||window.innerHeight};
+ viewport.right=viewport.left+viewport.width;viewport.bottom=viewport.top+viewport.height;
+ const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom}};
+ const describe=e=>e?{tag:e.tagName,id:e.id||null,channel:e.getAttribute('data-contact-channel')}:null;
+ const channels=[...(panel?.querySelectorAll('a[data-contact-channel]')||[])].map(a=>{
+  const r=rect(a),inViewport=r.width>0&&r.height>0&&r.x>=viewport.left&&r.y>=viewport.top&&r.right<=viewport.right&&r.bottom<=viewport.bottom;
+  const inset=Math.min(10,r.width/4,r.height/4);
+  const points=[[r.x+r.width/2,r.y+r.height/2],[r.x+inset,r.y+inset],[r.right-inset,r.y+inset],[r.x+inset,r.bottom-inset],[r.right-inset,r.bottom-inset]];
+  const hit_tests=points.map(([x,y])=>{const hit=document.elementFromPoint(x,y);return {x,y,unobscured:!!hit&&(hit===a||a.contains(hit)),hit:describe(hit)}});
+  return {channel:a.getAttribute('data-contact-channel'),rect:r,fully_in_viewport:inViewport,center_unobscured:hit_tests[0].unobscured,all_sample_points_unobscured:hit_tests.every(p=>p.unobscured),hit_tests};
+ });
+ return {viewport,scroll_y:window.scrollY,scroll_height:document.documentElement.scrollHeight,button:button?rect(button):null,panel:panel?rect(panel):null,channels};
+}
+async function settleChooser(page,panelId) {
+ return page.evaluate(async id=>{
+  const started=performance.now(),scrollBefore=window.scrollY;let previous='',stableFrames=0;
+  while(performance.now()-started<2500){
+   // A background/stalled animation clock must report unresolved positioning,
+   // rather than keep the evidence job waiting indefinitely.
+   const framesArrived=await new Promise(resolve=>{
+    const timer=setTimeout(()=>resolve(false),Math.min(300,Math.max(1,2500-(performance.now()-started))));
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{clearTimeout(timer);resolve(true)}));
+   });
+   if(!framesArrived)return {stable:false,reason:'animation-frame-timeout',elapsed_ms:Math.round(performance.now()-started),scroll_before:scrollBefore,scroll_after:window.scrollY};
+   const panel=document.getElementById(id),els=[document.getElementById('apply-free'),panel,...(panel?.querySelectorAll('a[data-contact-channel]')||[])].filter(Boolean);
+   const signature=JSON.stringify([window.scrollY,...els.flatMap(e=>{const r=e.getBoundingClientRect();return [r.x,r.y,r.width,r.height].map(n=>Math.round(n*10)/10)})]);
+   stableFrames=signature===previous?stableFrames+1:0;previous=signature;
+   if(stableFrames>=5&&performance.now()-started>=250)return {stable:true,elapsed_ms:Math.round(performance.now()-started),scroll_before:scrollBefore,scroll_after:window.scrollY};
+  }
+  return {stable:false,elapsed_ms:Math.round(performance.now()-started),scroll_before:scrollBefore,scroll_after:window.scrollY};
+ },panelId);
+}
+async function recordContactState(page,entry,label,panelId) {
+ const settled=await settleChooser(page,panelId),visibility=await page.evaluate(contactVisibilityInPage,panelId);
+ const focus=await focused(page);entry.contact_states ||= [];
+ entry.contact_states.push({label,settled,visibility,focus});
+ check(entry,label+':position-settled',settled.stable,settled);
+ for(const channel of ['whatsapp','telegram']){
+  const item=visibility.channels.find(c=>c.channel===channel);
+  check(entry,label+':'+channel+'-fully-within-viewport-and-sampled-unobscured',!!item&&item.fully_in_viewport&&item.all_sample_points_unobscured,item||null);
+ }
+ await snap(page,entry,label);
+ return focus;
+}
 async function snap(page,entry,label,selector){
  if(selector)await page.locator(selector).first().scrollIntoViewIfNeeded({timeout:8000});
  const evidence=await geometry(page),bytes=await page.screenshot({type:'jpeg',quality:78,fullPage:false,animations:'disabled'}),dimensions=jpegDimensions(bytes);
@@ -64,16 +112,25 @@ try{
     entry.summary_focus=await focused(page);check(entry,'summary-focus-visible',parseFloat(entry.summary_focus.outline_width)>0&&entry.summary_focus.outline_style!=='none',entry.summary_focus);
     await summary.press('Enter');check(entry,'summary-enter-expands',await details.evaluate(e=>e.open));await snap(page,entry,'questions-expanded');
     await summary.press('Space');check(entry,'summary-space-collapses',!(await details.evaluate(e=>e.open)));
-    const order=page.locator('#apply-free');if(await order.getAttribute('type')!=='button')throw Error('Contact control is not the expected non-submit button');await order.scrollIntoViewIfNeeded();await order.focus();await order.press('Enter');
+    const order=page.locator('#apply-free');if(await order.getAttribute('type')!=='button')throw Error('Contact control is not the expected non-submit button');await order.scrollIntoViewIfNeeded();
+    entry.contact_before_touch=await geometry(page);await order.tap();
     check(entry,'chooser-expanded',await order.getAttribute('aria-expanded')==='true');const panelId=await order.getAttribute('aria-controls');
     const panel=page.locator('[id='+JSON.stringify(panelId)+']');await panel.waitFor({state:'visible'});
     entry.contact_links=await panel.locator('a').evaluateAll(links=>links.map(a=>({channel:a.getAttribute('data-contact-channel'),href:a.href,text:a.textContent.trim()})));
     check(entry,'both-contact-channels-present',entry.contact_links.some(x=>x.channel==='whatsapp')&&entry.contact_links.some(x=>x.channel==='telegram'));
-    // Focus only. Never activate the external contact anchors or send a message.
-    await order.focus();await page.keyboard.press('Tab');entry.contact_focus=await focused(page);
+    // No corrective scroll/focus after opening: record where the site's touch handler leaves the links.
+    await recordContactState(page,entry,'contact-touch-open-settled',panelId);
+    // Reset the same non-submit chooser, then test keyboard opening independently.
+    await order.tap();check(entry,'chooser-touch-closes',await order.getAttribute('aria-expanded')==='false');
+    await order.scrollIntoViewIfNeeded();await order.focus();entry.contact_before_keyboard=await geometry(page);
+    await order.press('Enter');await panel.waitFor({state:'visible'});
+    check(entry,'chooser-keyboard-expands',await order.getAttribute('aria-expanded')==='true');
+    await recordContactState(page,entry,'contact-keyboard-open-settled',panelId);
+    // Tab only, without refocusing the button or scrolling the links into view.
+    // Never activate external contact anchors or send a message.
+    await page.keyboard.press('Tab');entry.contact_focus=await recordContactState(page,entry,'contact-open-focus',panelId);
     check(entry,'tab-reaches-whatsapp',entry.contact_focus.channel==='whatsapp',entry.contact_focus);
     check(entry,'contact-focus-visible',parseFloat(entry.contact_focus.outline_width)>0&&entry.contact_focus.outline_style!=='none',entry.contact_focus);
-    await snap(page,entry,'contact-open-focus');
     await page.evaluate(()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));
     await page.waitForFunction(()=>window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-2,null,{timeout:3000}).catch(()=>{});
     const bottom=await snap(page,entry,'bottom');
