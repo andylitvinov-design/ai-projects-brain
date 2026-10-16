@@ -41,6 +41,7 @@
 </div>
 <dialog id="settingsDialog" class="settings-dialog"><div class="dialog-head"><div><div class="eyebrow">AI COUNCIL</div><h2 data-i18n="dialogTitle">Подключение и модели</h2></div><button id="closeSettings" class="icon-button" aria-label="Закрыть">✕</button></div><p data-i18n="dialogDesc">Подключите бесплатный OpenRouter. Для сравнения используются только модели с ценой $0 за запрос.</p>
 <div id="connectionState" class="connection-state"></div>
+<div class="verification-row"><button type="button" id="verifyConnection" class="outline-button" data-i18n="verify">Проверить подключение</button><span id="verificationResult" role="status" class="verification-result"></span></div>
 <button id="oauthButton" class="primary-button wide">↗ <span data-i18n="oauth">Подключить через OpenRouter</span></button>
 <div class="separate"><span data-i18n="or">или вставьте личный API-ключ</span></div>
 <div class="key-row"><input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="sk-or-v1-..."/><button id="saveKey" class="outline-button" data-i18n="saveKey">Применить</button></div><div class="inline-help"><a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener noreferrer" data-i18n="getKey">Получить бесплатный ключ ↗</a><button id="disconnect" class="link-button" data-i18n="disconnect">Отключить</button></div>
