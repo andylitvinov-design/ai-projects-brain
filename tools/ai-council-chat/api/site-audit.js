@@ -4,7 +4,7 @@
  */
 const ROOT='https://holistichouse.vercel.app';
 const HOST='holistichouse.vercel.app';
-const MAX_PAGES=54, MAX_SITEMAP=500, TIMEOUT=7500, MAX_HTML=430000;
+const MAX_PAGES=54, MAX_SITEMAP=1800, TIMEOUT=7500, MAX_HTML=430000;
 const SKIP=/(?:^|\/)(?:api|app|account|cabinet|dashboard|profile|login|signin|signup|register|checkout|admin|auth|client|results|privacy-settings)(?:\/|$)/i;
 const SEED=['/','/en','/ru','/es','/en/services','/ru/services','/es/services','/en/academy','/en/about','/en/app','/en/academy/reiki/yggdrasil/basic-course'];
 const strip=s=>String(s||'').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<svg\b[^>]*>[\s\S]*?<\/svg>/gi,' ');
@@ -100,7 +100,18 @@ export async function POST(request){
  // First crawl home if no sitemap, then use discovered links as a limited fallback.
  if(sitemap.length<3){try{const a=await getSafe(ROOT+'/');if(a.content_type.includes('html'))linkURLs(a.text,ROOT+'/').forEach(u=>urls.add(u));}catch{}}
  const indexed=[...urls].filter(Boolean),sorted=indexed.sort((a,b)=>rank(b)-rank(a)||a.localeCompare(b));
- const take=sorted.slice(0,MAX_PAGES);const pages=[],failures=[];
+ // Stratify the first pass so 600+ remedy pages cannot crowd out EN/RU/ES or service/academy/test routes.
+ const take=[],added=new Set();
+ const include=url=>{if(url&&!added.has(url)&&take.length<MAX_PAGES){take.push(url);added.add(url);}};
+ SEED.map(p=>safePath(ROOT+p)).filter(Boolean).forEach(include);
+ const areas=['services','academy','homeopathy/remedies','tests','books','about'];
+ for(const locale of ['en','ru','es'])for(const area of areas){
+  sorted.filter(u=>new URL(u).pathname.startsWith('/'+locale+'/'+area)).slice(0,2).forEach(include);
+ }
+ for(const area of ['services','academy','homeopathy/remedies','tests','books','about']){
+  sorted.filter(u=>new URL(u).pathname.includes('/'+area)).slice(0,3).forEach(include);
+ }
+ sorted.forEach(include);const pages=[],failures=[];
  for(let off=0;off<take.length;off+=6){
   const batch=await Promise.allSettled(take.slice(off,off+6).map(async url=>{const st=Date.now();const r=await getSafe(url);if(!r.content_type.includes('html'))throw Error('not_html_'+r.status);return normalizePage(url,r.text,r.status,Date.now()-st);}));
   batch.forEach((v,i)=>{if(v.status==='fulfilled')pages.push(v.value);else failures.push({url:take[off+i],error:String(v.reason?.message||v.reason).slice(0,100)});});
