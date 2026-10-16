@@ -64,3 +64,16 @@ V2 changes:
 - No model calls have been made with a real OpenRouter key from this environment. Live user acceptance is still required to validate quality.
 
 Regression smoke performed on 2026-10-16: `quality.js`, `app.js`, `audit.js` parsed successfully. In-memory synthetic evidence verified scoped prompts, checked-URL appendix, and weak/strong specificity scoring. Public deployed HTML / quality.js returned 200 when last checked.
+
+## 2026-10-16: Specification editor v2 — fix copy and substance
+
+Previous `Create TZ` behavior was **not actually AI-generated**: a local `makeSpec()` simply concatenated question + fourth model's synthesis + generic acceptance checks; it had no dedicated copy/export action for the resulting document.
+
+Now `spec.js` opens a dedicated editable Markdown editor and, on explicit user request, sends **one additional request to the selected free synthesis model** with full individual successful reviewer answers, original synthesis, site-audit coverage, and deterministic HTML evidence appendix. It requests a precise implementation backlog with page URLs, observed vs hypothesis status, visitor impact, step-by-step changes, reviewer provenance, priorities, acceptance tests and implementation order; it flags weak/truncated outputs rather than silently declaring them sufficient.
+
+- Controls: **Copy full text**, **Download Markdown**, **Share** (native device share sheet where supported), **Select all text** (for browsers that deny clipboard), **Rebuild specification**.
+- Inline editing is persisted to the same browser-local conversation; reopening an existing v2 document does not incur another model call. Regeneration is explicit; the previous document is retained if the call fails.
+- Copy uses native Clipboard API and falls back to selecting the textarea + `document.execCommand('copy')`. No account sync, GitHub publish, or server-side storage of user conversation.
+- Source appendix of observed HTML flags and URLs is appended deterministically so important evidence cannot be lost in model synthesis.
+- Old generic TZ documents are preserved and upgraded on next Create TZ action; the new model requires a personal OpenRouter connection and an available free model, consuming **one** free request.
+- Regression tests: `node --test tools/ai-council-chat/tests/spec.test.mjs`. GitHub Actions workflow `AI Council specification tests` verified success on 2026-10-16. A live end-to-end user-owned OpenRouter model call has not been performed in this ChatGPT session.
