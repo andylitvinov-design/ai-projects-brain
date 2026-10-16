@@ -1,13 +1,25 @@
 name: AI Council browser screenshots
 on:
   workflow_dispatch:
+    inputs:
+      capture_tantra_evidence:
+        description: 'Artifact-only public Free Tantra mobile evidence (no submissions)'
+        type: boolean
+        default: false
+      tantra_source_sha:
+        description: 'Optional independently verified live Holistic House source SHA'
+        type: string
+        required: false
   push:
     paths:
       - '.github/workflows/ai-council-screenshots.yml'
+      - 'tools/ai-council-chat/capture-screenshots.mjs'
+      - 'tools/ai-council-chat/screenshot-evidence.mjs'
+      - 'tools/ai-council-chat/capture-tantra-mobile.mjs'
 permissions:
-  contents: write
+  contents: read
 concurrency:
-  group: ai-council-screenshots
+  group: ai-council-screenshots-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   capture:
@@ -16,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -29,21 +41,22 @@ jobs:
         working-directory: tools/ai-council-chat
         run: node capture-screenshots.mjs
       - name: Save evidence as artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ai-council-browser-screenshots
           path: tools/ai-council-chat/screenshots/
           retention-days: 14
-      - name: Commit latest public screenshots
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tools/ai-council-chat/screenshots/
-          if git diff --cached --quiet; then
-            echo "No changed screenshots"
-          else
-            git commit -m "chore(ai-council): refresh public browser screenshots [skip ci]"
-            git fetch origin main
-            git rebase origin/main
-            git push origin HEAD:main
-          fi
+      - name: Capture optional public Free Tantra mobile evidence
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.capture_tantra_evidence) || (github.event_name == 'push' && github.ref_type == 'branch' && github.ref_name != 'main' && github.event.deleted != true && contains(github.event.head_commit.message, '[capture-tantra]')))
+        working-directory: tools/ai-council-chat
+        env:
+          TANTRA_SOURCE_SHA: ${{ github.event_name == 'workflow_dispatch' && inputs.tantra_source_sha || '' }}
+        run: node capture-tantra-mobile.mjs
+      - name: Save separate Free Tantra evidence artifact
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.capture_tantra_evidence) || (github.event_name == 'push' && github.ref_type == 'branch' && github.ref_name != 'main' && github.event.deleted != true && contains(github.event.head_commit.message, '[capture-tantra]')))
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-free-tantra-mobile-evidence
+          path: tools/ai-council-chat/test-results/tantra-mobile-evidence/
+          retention-days: 14

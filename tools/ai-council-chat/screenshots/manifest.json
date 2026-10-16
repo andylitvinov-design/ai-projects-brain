@@ -9,63 +9,74 @@
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/home-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/home-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     },
     {
       "page": "https://holistichouse.vercel.app/en",
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/en-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/en-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     },
     {
       "page": "https://holistichouse.vercel.app/ru",
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/ru-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/ru-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     },
     {
       "page": "https://holistichouse.vercel.app/es",
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/es-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/es-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     },
     {
       "page": "https://holistichouse.vercel.app/en/services",
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/en-services-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/en-services-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     },
     {
       "page": "https://holistichouse.vercel.app/ru/services",
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/ru-services-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/ru-services-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     },
     {
       "page": "https://holistichouse.vercel.app/es/services",
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/es-services-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/es-services-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     },
     {
       "page": "https://holistichouse.vercel.app/en/academy",
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/en-academy-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/en-academy-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     },
     {
       "page": "https://holistichouse.vercel.app/en/about",
       "desktop_url": "https://ai-council-chat.vercel.app/screenshots/en-about-desktop.jpg",
       "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/en-about-mobile.jpg",
       "source": "Playwright Chromium",
-      "verified": true
+      "verified": false,
+      "warning": "Legacy capture dimensions unverified; must be regenerated."
     }
-  ]
+  ],
+  "schema_version": 1,
+  "verification_note": "Legacy captures had an incorrect Playwright viewport. Not valid device evidence. Regenerate with schema_version 2 before marking verified."
 }
