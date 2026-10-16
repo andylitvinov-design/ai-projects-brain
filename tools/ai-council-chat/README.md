@@ -77,3 +77,24 @@ Now `spec.js` opens a dedicated editable Markdown editor and, on explicit user r
 - Source appendix of observed HTML flags and URLs is appended deterministically so important evidence cannot be lost in model synthesis.
 - Old generic TZ documents are preserved and upgraded on next Create TZ action; the new model requires a personal OpenRouter connection and an available free model, consuming **one** free request.
 - Regression tests: `node --test tools/ai-council-chat/tests/spec.test.mjs`. GitHub Actions workflow `AI Council specification tests` verified success on 2026-10-16. A live end-to-end user-owned OpenRouter model call has not been performed in this ChatGPT session.
+
+## 2026-10-16: More powerful model composition without automatic billing
+
+**Live OpenRouter API inventory inspected on 2026-10-16:** its named free endpoints include Google **Gemma 4**, NVIDIA **Nemotron 3 Ultra**, Poolside **Laguna S 2.1**, Cohere North Mini Code, Dots3 Note, and others. The free endpoint inventory does **not** include Gemini, Meta Muse or Mistral under :free IDs. Do not imply Gemma = Gemini or swap to paid endpoints.
+
+**New recommended OpenRouter FREE preset (explicit Apply recommended button for existing users):**
+1. UX/visual: `nvidia/nemotron-3.5-super-vl:free`
+2. Product strategy/copy: `google/gemma-4-31b-it:free`
+3. Coding reviewer: `poolside/laguna-s-2.1:free` (temporary provider listing; scheduled expiry 2026-10-31, so users must switch later)
+4. Detailed synthesizer: `nvidia/nemotron-3-ultra-550b-a55b:free` (reasoning is powerful but availability/latency may be worse than Nemotron 3 Super)
+
+This choice is an evidence-based *candidate*, not a validated objective best benchmark. No human-reviewed A/B testing of these four against the previous roster is yet available. Prior manual choices continue to be stored and cannot be overridden without using **Apply recommended models**.
+
+**Optional direct providers, separate from OpenRouter**:
+- Real **Gemini 3.8 Flash** through Google AI Studio. The official **Free Tier** API price is zero if the user's Google AI project is on the Free tier and has no paid billing. The user must create/paste their own Google API key, affirm the free account, and explicitly select Gemini from a model dropdown.
+- Real **Mistral Small 4** through Mistral Studio **Experiment/free** plan. The user must confirm their plan is free, supply its own key and explicitly choose the model. Access varies by account. The app checks authorization/model access, not the account's billing configuration.
+- Meta **Muse Wonder / Muse Spark Open** are **not** enabled, because the API endpoints on OpenRouter are priced above $0. No automatic paid fallback. Muse cannot be used on the strict zero-extra-cost route here.
+
+**Billing and privacy caveat:** the app cannot determine whether a provider account's billing is enabled. It only gates direct access on the user's explicit free-plan attestation; a user with a billed project could still incur provider charges. To eliminate that risk entirely, stay on named `:free` OpenRouter models. Provider keys are transmitted directly from browser to Google's or Mistral's HTTPS API, never to our server; they are saved in sessionStorage, or in browser localStorage only when Remember this device is turned on (unencrypted!). Do not submit client health records or other sensitive documents; free-tier providers may use requests for model improvement under their own policies.
+
+**Verification limitations:** Direct Google/Mistral browser authorization and content generation cannot be end-to-end tested without the user's provider keys. Cross-origin request restrictions may apply; any CORS/401/429 error is displayed, without fabricated results or paid fallback. Synthetic provider fetch tests and Vercel deployment availability should be checked separately.
