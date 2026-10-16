@@ -1,0 +1,23 @@
+name: AI Council specification tests
+on:
+  push:
+    paths:
+      - 'tools/ai-council-chat/spec.js'
+      - 'tools/ai-council-chat/tests/spec.test.mjs'
+      - '.github/workflows/ai-council-spec-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check spec module syntax
+        run: node --check tools/ai-council-chat/spec.js
+      - name: Run specification regression tests
+        run: node --test tools/ai-council-chat/tests/spec.test.mjs
