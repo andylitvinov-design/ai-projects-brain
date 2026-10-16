@@ -1,0 +1,43 @@
+name: AI Council Free mocked browser checks
+on:
+  pull_request:
+    paths:
+      - 'tools/ai-council-free/**'
+      - '.github/workflows/ai-council-free-browser.yml'
+permissions:
+  contents: read
+concurrency:
+  group: council-free-browser-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    # Standard hosted runners are free for public repositories; fail closed if private.
+    if: github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: tools/ai-council-free/browser-tests
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Existing deterministic tests
+        run: node --test ../tests/*.test.mjs
+      - name: Install pinned test-only tooling
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Install official Chromium and WebKit
+        run: npx --no-install playwright install --with-deps chromium webkit
+      - name: Mock-only browser checks (no API key or external inference)
+        run: npm test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: council-free-browser-proof
+          path: |
+            tools/ai-council-free/browser-tests/playwright-report/
+            tools/ai-council-free/browser-tests/test-results/
+          retention-days: 3

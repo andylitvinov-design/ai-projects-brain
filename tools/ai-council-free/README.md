@@ -1,6 +1,6 @@
 # AI Council Free: mobile static app
 
-One responsive HTML file, no runtime dependencies or backend. Existing app: https://ai-council-free-super10.vercel.app . This prepared change is not deployed.
+One responsive HTML file, no runtime dependencies or backend. Existing app: https://ai-council-free-super10.vercel.app . At 2026-10-16 19:53 UTC the public team alias serves guard build `dpl_N6nSc9MoGX73eCpppjS7SoSyc7md` (Vercel target `staging`), HTML SHA256 `1ffc69976a86d5398ebeb769c51e77832fa3821e2769ef0d7652238c27262890`. The staging creation unexpectedly moved that alias. The short alias https://ai-council-free.vercel.app still serves older `dpl_G8UqzcxLVZp6kKU2HZ6LPGiMeFiP`, SHA256 `ef8e4d1366a54da4b323189e3a4c2b43cc7d5e95ca723056c38f98713d41ebd5`. Actual HTTP bytes verified both mappings. The later manual-only export fix is prepared but not yet deployed; do not infer publication from a commit or staging label.
 
 ## Workflow
 
@@ -36,3 +36,14 @@ Serve `tools/ai-council-free/` as a static directory. For local inspection only:
     python3 -m http.server 8080 --bind 127.0.0.1 --directory tools/ai-council-free
 
 Existing Vercel project: `prj_EvFvW1xtTwGbXv5HCljFV9FsYf0r` / `ai-council-free`. Existing deployment source files are `src/index.html` and `src/README.md`; preserve the existing static deployment configuration. PR235's automatic `ai-council-chat` preview belongs to another project and does not verify this app. Preview review is required before production promotion. No credentials needed for mock tests or static preview checks.
+
+
+## Proposed PR-only browser checks
+
+`browser-tests/` contains test-only official Playwright tooling pinned to 1.63.0. The app still has no runtime dependencies. Chromium and WebKit each run at widths 320, 390 and 1280; this is responsive engine coverage, not physical iPhone Safari proof. Every external browser request is intercepted: the catalog is synthetic, Authorization and inference requests fail the test, and only localhost GETs can reach a network server. No credentials are entered. The synthetic catalog response explicitly allows the localhost origin through its CORS header; this does not verify live OpenRouter CORS. Checks cover real ancestor visibility, manual Markdown download, escaped markup, consent changes, catalog filtering, zero call count and horizontal overflow. Screenshots/trace are synthetic test artifacts only.
+
+Workflow `.github/workflows/ai-council-free-browser.yml` is PR-only/path-filtered, read-only permissions, one worker, no retries, 10-minute job bound, 3-day artifacts and no deployment. Repository API verified `private:false`, `visibility:public` on 2026-10-16 20:00 UTC. Standard GitHub-hosted runners are free for public repositories (https://docs.github.com/en/billing/concepts/product-billing/github-actions). The workflow uses standard `ubuntu-24.04` and skips if the repository is private. No larger runners, paid service, billing setting, repository variable or credential is required. No workflow run or six-viewport pass is claimed yet.
+
+Official setup: https://playwright.dev/docs/ci . From `tools/ai-council-free/browser-tests`, use `npm ci --ignore-scripts`, `npx --no-install playwright install --with-deps chromium webkit`, then `npm test`. Existing offline checks remain `node --test tools/ai-council-free/tests/*.test.mjs` from repository root. Browser tooling installation is development-only.
+
+Local browser installation attempt (2026-10-16 20:00 UTC): official Playwright 1.63.0 requested Chromium from cdn.playwright.dev into `/tmp`; the download was 0 MiB/corrupt (ZIP end-of-directory signature missing). Its automatic retries were interrupted. No alternative mirror or security bypass was attempted, and no six-viewport browser pass is claimed. Test discovery succeeds; the proposed public-repository CI is the remaining engine-validation route.

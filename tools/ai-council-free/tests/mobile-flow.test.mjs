@@ -9,8 +9,9 @@ const catalog=ids.map(id=>({id,name:id,pricing:{prompt:'0',completion:'0'}}));
 // Minimal DOM contract double: exercises the actual shipped inline event handlers.
 // This is not a substitute for real Safari layout/browser QA.
 class Element{
- constructor(tag='div'){this.tagName=tag;this.value='';this.checked=false;this.disabled=false;this.textContent='';this.children=[];this.events={};this.attrs={};this.style={};this.classList={toggle(){}};}
- append(...children){this.children.push(...children);}
+ constructor(tag='div'){this.tagName=tag;this.value='';this.checked=false;this.disabled=false;this.textContent='';this.children=[];this.events={};this.attrs={};this.style={};this.classes=new Set();this.classList={toggle:(name,on)=>{if(on===undefined)on=!this.classes.has(name);if(on)this.classes.add(name);else this.classes.delete(name);},contains:name=>this.classes.has(name)};}
+ append(...children){children.forEach(child=>child.parent=this);this.children.push(...children);}
+ isVisible(){return !this.classes.has('hidden')&&(!this.parent||this.parent.isVisible());}
  replaceChildren(...children){this.children=[...children];}
  add(child){this.children.push(child);}
  setAttribute(k,v){this.attrs[k]=v;}
@@ -20,6 +21,16 @@ class Element{
 }
 async function setup({failId,failStatus=503,storageBlocked=false}={}){
  const elements=Object.fromEntries([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>[m[1],new Element()]));
+ // Parse the shipped HTML hierarchy, so hidden ancestors affect visibility.
+ const stack=[];const voidTags=new Set(['input','meta','link','br','hr','img']);
+ for(const match of html.split('<script>')[0].matchAll(/<(\/?)(([a-z][a-z0-9]*))\b([^>]*)>/gi)){
+  const [,closing,tag,,attrs]=match;
+  if(closing){if(stack.at(-1)?.tag===tag)stack.pop();continue;}
+  const id=attrs.match(/\bid="([^"]+)"/)?.[1];const el=id?elements[id]:new Element(tag);
+  el.classes=new Set((attrs.match(/\bclass="([^"]*)"/)?.[1]??'').split(/\s+/).filter(Boolean));
+  el.parent=stack.at(-1)?.el;
+  if(!voidTags.has(tag)&&!attrs.endsWith('/'))stack.push({tag,el});
+ }
  const walk=el=>[el,...el.children.flatMap(walk)];
  const modelBoxes=()=>walk(elements.modelOptions).filter(el=>Object.hasOwn(el.attrs,'data-model'));
  const document={getElementById:id=>elements[id],createElement:t=>new Element(t),body:new Element(),querySelectorAll(q){return [...new Set(q.split(',').flatMap(sel=>sel.startsWith('#')?[elements[sel.slice(1)]].filter(Boolean):sel==='[data-model]:checked'?modelBoxes().filter(el=>el.checked):sel==='[data-model]'?modelBoxes():[]))];}};
@@ -63,4 +74,19 @@ test('enabling synthesis after Off summarizes existing answers with only one cal
 });
 test('refreshing catalog preserves explicit synthesis Off and clears consent',async()=>{
  const {elements}=await setup();elements.synthModel.value='';await elements.refreshModels.emit('click');assert.equal(elements.synthModel.value,'');assert.equal(elements.consent.checked,false);
+});
+
+test('manual-only exports become visible through actual HTML ancestors, stale summary stays hidden',async()=>{
+ const {elements,calls,ui}=await setup();
+ assert.equal(elements.copyReport.isVisible(),false);assert.equal(elements.downloadReport.isVisible(),false);
+ elements.apiKey.value='';elements.museAnswer.value='Synthetic UI fixture, not a generated model answer';ui.addMuse();
+ assert.equal(elements.copyReport.isVisible(),true);assert.equal(elements.downloadReport.isVisible(),true);
+ assert.equal(elements.summaryText.isVisible(),false);assert.equal(ui.getState().summary,'');assert.equal(calls.length,0);
+ assert.match(ui.report(),/Synthetic UI fixture/);
+});
+test('adding Muse after a summary clears stale summary and leaves exports visible',async()=>{
+ const {elements,ui,calls}=await setup();await ui.ask();assert.ok(ui.getState().summary);
+ elements.museAnswer.value='Synthetic changed manual fixture';const before=calls.length;ui.addMuse();
+ assert.equal(ui.getState().summary,'');assert.equal(elements.summaryText.isVisible(),false);
+ assert.equal(elements.copyReport.isVisible(),true);assert.equal(calls.length,before);
 });
