@@ -31,3 +31,28 @@
 .verified-appendix{border:1px solid #d5e6ed;border-radius:13px;background:#fafcfd;padding:14px 16px}
 .verified-appendix summary{font-size:12px;font-weight:740;color:#204f60;cursor:pointer;line-height:1.5}
 .verified-appendix-text{white-space:pre-wrap;overflow-wrap:anywhere;font:11px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;color:#405d6d;max-height:460px;overflow:auto;margin:12px 0 0}
+
+/* AI Council specification editor */
+.spec-open-button{border-color:#b0dad7;background:#eaf7f4;color:#087f80;font-weight:740}
+.spec-saved-hint{font-size:11px;color:#718b98;border-top:1px solid #e2eeee;padding:9px 16px;line-height:1.5}
+.spec-dialog{width:min(960px,calc(100vw - 28px));max-height:calc(100dvh - 36px);border:1px solid #cedfe7;border-radius:17px;padding:0;background:white;color:#1a344a;box-shadow:0 24px 75px #13364c55}
+.spec-dialog::backdrop{background:#112c45aa}
+.spec-header{padding:19px 23px 12px;display:flex;align-items:start;justify-content:space-between;gap:20px}
+.spec-eyebrow{font-size:10px;font-weight:800;color:#0099ac;letter-spacing:1.5px;margin-bottom:7px}
+.spec-heading h2{margin:0 0 4px;font-size:23px;line-height:1.2;color:#16334f}
+.spec-subtitle{font-size:12px;line-height:1.4;color:#7893a1}
+.spec-close{width:34px;height:34px;border:1px solid #e0e9ef;background:#fff;border-radius:9px;font-size:22px;line-height:1;color:#6e8290;flex-shrink:0}
+.spec-notice{font-size:11px;color:#618395;background:#eef7f8;padding:9px 22px;border-top:1px solid #e1eff1;border-bottom:1px solid #e1eff1}
+.spec-status{font-size:12px;line-height:1.5;padding:12px 22px 8px;color:#58768b;min-height:42px;overflow-wrap:anywhere}
+.spec-status.spec-error{color:#ad453f}.spec-status.spec-success{color:#138878}
+textarea.spec-editor{display:block;width:calc(100% - 44px);min-width:0;margin:0 22px;min-height:200px;height:clamp(280px,50dvh,550px);max-height:52dvh;resize:vertical;padding:17px;border:1px solid #dce8ef;border-radius:11px;line-height:1.7;font:12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;color:#2a4d61;background:#fbfdfd;white-space:pre-wrap;overflow-wrap:anywhere;box-sizing:border-box;flex:none}
+textarea.spec-editor:focus{outline:2px solid #7dc1c7;outline-offset:1px}
+.spec-footer{padding:14px 22px 18px}
+.spec-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.spec-primary,.spec-action{border:1px solid #c9e4e8;border-radius:9px;padding:10px 13px;font-size:12px;font-weight:650;line-height:1.3;white-space:normal;text-align:center}
+.spec-primary{background:#0099ac;border-color:#0099ac;color:white}
+.spec-primary:disabled{opacity:.55;cursor:wait}
+.spec-action{background:white;color:#34697c}.spec-action:hover{border-color:#0099ac}
+#specCopy{border-color:#0a8b9d;color:#007d8e;font-weight:780}
+.spec-hint{margin-top:8px;font-size:10px;color:#849da9;line-height:1.5}
+@media(max-width:760px){.spec-dialog{width:calc(100vw - 12px);max-height:calc(100dvh - 14px);border-radius:12px}.spec-header{padding:15px 15px 10px}.spec-heading h2{font-size:19px}.spec-notice{padding:8px 15px}.spec-status{padding:10px 15px 7px}.spec-footer{padding:10px 13px 14px}textarea.spec-editor{width:calc(100% - 26px);margin:0 13px;font-size:12px;height:45dvh;max-height:52dvh;padding:12px}.spec-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.spec-primary,.spec-action{width:100%;padding:11px 8px}#specBuild{grid-column:1 / -1}.spec-hint{font-size:10px}}
