@@ -58,11 +58,11 @@ function renderMessages(){const wrap=el('messages');wrap.replaceChildren();const
  if(round.synthesisStatus==='ok'){const actions=node('div','synth-actions');
  const cp=node('button','action-button','⧉  '+t('copy'));cp.onclick=()=>copyText(round.synthesis);actions.append(cp);
  const ex=node('button','action-button','↓  '+t('export'));ex.onclick=()=>exportRound(round);actions.append(ex);
- const tz=node('button','action-button','▤  '+t('tz'));tz.onclick=()=>{round.tz=makeSpec(round);persist();renderMessages();};actions.append(tz);
- synth.append(actions);if(round.tz){const txt=node('div','synth-text');txt.style.borderTop='1px solid #e4efef';txt.textContent=round.tz;synth.append(txt);}}
+ const tz=node('button','action-button spec-open-button','▤  '+(state.lang==='ru'?(round.tzVersion===2?'Открыть ТЗ':'Сформировать подробное ТЗ'):(round.tzVersion===2?'Open specification':'Generate detailed specification')));
+ tz.onclick=()=>{if(globalThis.AICouncilSpec?.open)globalThis.AICouncilSpec.open(round);else setError('Document editor is unavailable. Reload the page.');};actions.append(tz);
+ synth.append(actions);if(round.tz){const hint=node('div','spec-saved-hint',state.lang==='ru'?'▤ ТЗ сохранено в этом диалоге. Откройте редактор, чтобы скопировать, скачать или исправить.':'▤ Specification saved to this conversation. Open the editor to copy, download, or revise.');synth.append(hint);}}
  block.append(synth);wrap.append(block);
  });}
-function makeSpec(round){return t('draftLabel')+'\n\n'+(state.lang==='ru'?'Задача: ':'Goal: ')+round.question+'\n\n'+(state.lang==='ru'?'Рекомендации экспертов:\n':'Reviewer recommendations:\n')+round.synthesis+'\n\n'+(state.lang==='ru'?'Критерии проверки:\n- Убедиться, что предложенные изменения подтверждены исходными данными.\n- Проверить на мобильном и компьютере.\n- Проверить основной пользовательский сценарий.\n- Не публиковать без проверки.\n':'Acceptance checks:\n- Verify changes against source evidence.\n- Test mobile and desktop.\n- Verify primary user journey.\n- Do not publish without review.\n');}
 async function copyText(s){try{await navigator.clipboard.writeText(s);setError(t('copied'));setTimeout(()=>setError(''),1500);}catch{setError(t('copyFailed'));}}
 function exportRound(r){const content='# '+r.question+'\n\n'+(r.answers||[]).map((a,i)=>'## '+formatName(a.model)+'\n\n'+(a.text||a.error||'')+'\n').join('\n')+'\n## '+t('synth')+'\n\n'+(r.synthesis||r.synthesisError||'')+'\n'+(r.tz?'\n## '+t('draftLabel')+'\n'+r.tz:'');const b=new Blob([content],{type:'text/markdown;charset=utf-8'}),url=URL.createObjectURL(b),a=node('a');a.href=url;a.download='AI-Council-'+escapeFilename(r.question)+'.md';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
 function openSidebar(){el('sidebar').classList.add('open');hide(el('overlay'),false);}
