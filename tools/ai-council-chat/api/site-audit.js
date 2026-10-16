@@ -18,8 +18,15 @@ function safePath(raw){
 }
 function linkURLs(html,base){const urls=[];for(const m of html.matchAll(/<a\b[^>]*\bhref\s*=\s*["']([^"'#]+)["']/gi)){const v=safePath(decode(m[1]));if(v&&!urls.includes(v))urls.push(v);}return urls;}
 function pick(html,rx){return decode((html.match(rx)||[])[1]||'').trim().replace(/\s+/g,' ').slice(0,500);}
-function meta(html,name,attr='name'){const tags=html.match(/<meta\b[^>]*>/gi)||[];for(const tag of tags){if(!new RegExp('\\b'+attr+'\\s*=\\s*["\\']'+name+'["\\']','i').test(tag))continue;const m=tag.match(/\bcontent\s*=\s*["']([^"']*)["']/i);if(m)return decode(m[1]).trim().slice(0,600);}return '';}
-function getLinks(html,rel){return(html.match(/<link\b[^>]*>/gi)||[]).filter(s=>new RegExp('\\brel\\s*=\\s*["\\']'+rel+'["\\']','i').test(s));}
+function meta(html,name){
+ const tags=html.match(/<meta\b[^>]*>/gi)||[];
+ for(const tag of tags){const n=tag.match(/\bname\s*=\s*["']([^"']+)["']/i);if(!n||n[1].toLowerCase()!==name.toLowerCase())continue;
+  const m=tag.match(/\bcontent\s*=\s*["']([^"']*)["']/i);if(m)return decode(m[1]).trim().slice(0,600);}
+ return '';
+}
+function getLinks(html,rel){
+ return (html.match(/<link\b[^>]*>/gi)||[]).filter(tag=>{const m=tag.match(/\brel\s*=\s*["']([^"']+)["']/i);return m&&m[1].toLowerCase()===rel.toLowerCase();});
+}
 function bodyText(html){const withSpace=strip(html).replace(/<\/(?:p|h[1-6]|li|section|article|div|br|main|button|a)>/gi,' $& ');let body=(withSpace.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)||[])[1]||withSpace;return decode(body.replace(/<[^>]+>/g,' ')).replace(/\s+/g,' ').trim().slice(0,2350);}
 function normalizePage(url,html,status,elapsedMs){
  const clean=strip(html), headings=[...clean.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].map(x=>decode(x[1].replace(/<[^>]*>/g,' ')).replace(/\s+/g,' ').trim()).filter(Boolean).slice(0,8);
@@ -81,7 +88,7 @@ export async function POST(request){
  const now=Date.now();if(now-lastScanAt<12000)return Response.json({error:'please_wait_12_seconds'}, {status:429});lastScanAt=now;
  let input;try{input=await request.json();}catch{return Response.json({error:'invalid_json'}, {status:400});}
  if(!input||typeof input.url!=='string'||input.url.length>300)return Response.json({error:'invalid_target'}, {status:400});
- const site=safePath(input.url);if(!site)return Response.json({error:'only_public_holistichouse_vercel_app_pages_supported'}, {status:400});
+ const rawUrl=input.url.trim();const site=safePath(/^https?:\/\//i.test(rawUrl)?rawUrl:'https://'+rawUrl);if(!site)return Response.json({error:'only_public_holistichouse_vercel_app_pages_supported'}, {status:400});
  const start=Date.now();let sitemap=[],sitemapErrors=[];
  try{
   const roots=await fetchSitemap(ROOT+'/sitemap.xml');
