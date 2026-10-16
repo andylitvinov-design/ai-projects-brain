@@ -34,6 +34,16 @@
    const th=current();if(!th?.rounds)return;
    const blocks=[...el('messages').querySelectorAll('article.round')];
    th.rounds.forEach((round,i)=>{if(round.siteAudit&&blocks[i]){const bubble=blocks[i].querySelector('.user-bubble');if(bubble)bubble.after(renderEvidence(round.siteAudit));
+    if(round.synthesisQuality && round.synthesisStatus==='ok'){
+      const box=blocks[i].querySelector('.synthesis');
+      if(box){const q=round.synthesisQuality;
+        const line=node('div','review-specificity',
+          (state.lang==='ru'?'Конкретность итога: ':'Specificity check: ')+
+          q.unique_urls+' URL · '+q.verification_markers+' '+(state.lang==='ru'?'упоминаний проверок':'verification markers')+
+          (!q.adequate?(state.lang==='ru'?' · низкая конкретика — см. фактическое приложение':' · weak specificity — see factual appendix'):''));
+        box.append(line);
+      }
+    }
     if(round.evidenceAppendix){const synthesis=blocks[i].querySelector('.synthesis');
       if(synthesis){const facts=node('details','verified-appendix');const heading=node('summary','',state.lang==='ru'?'Факты HTML-проверки: URL и конкретные исправления':'HTTP/HTML findings: URLs and specific fixes');
        facts.append(heading);facts.append(node('pre','verified-appendix-text',round.evidenceAppendix));synthesis.after(facts);}
