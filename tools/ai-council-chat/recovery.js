@@ -78,4 +78,4 @@
  const previous=renderMessages;
  renderMessages=function(){previous();render();};
  g.AICouncilQuotaRecovery={available,currentFailure,switchModels,retry,restoreModels};
-})();
+})(globalThis);
