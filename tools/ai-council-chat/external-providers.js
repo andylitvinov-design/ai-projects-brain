@@ -77,7 +77,7 @@
    let url,config;
    if(provider==='gemini'){
     url='https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent';
-    config={method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':state.gemini.key},body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:user}]}],generationConfig:{temperature:temp,maxOutputTokens:max}}),signal:ctl.signal};
+    config={method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':state.gemini.key},body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:user}]}],generationConfig:{maxOutputTokens:max}}),signal:ctl.signal};
    }else{
     url='https://api.mistral.ai/v1/chat/completions';
     config={method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+state.mistral.key},body:JSON.stringify({model:P.mistral.model,messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:max,temperature:temp}),signal:ctl.signal};
