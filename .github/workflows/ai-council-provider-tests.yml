@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'tools/ai-council-chat/external-providers.js'
+      - 'tools/ai-council-chat/api/nvidia-chat.js'
+      - 'tools/ai-council-chat/tests/nvidia-relay.test.mjs'
       - 'tools/ai-council-chat/tests/direct-providers.test.mjs'
       - '.github/workflows/ai-council-provider-tests.yml'
   workflow_dispatch:
@@ -20,4 +22,5 @@ jobs:
       - name: Validate provider module
         run: node --check tools/ai-council-chat/external-providers.js
       - name: Verify no paid model use without explicit connection and user-managed free tier
-        run: node --test tools/ai-council-chat/tests/direct-providers.test.mjs
+        run: node --test tools/ai-council-chat/tests/direct-providers.test.mjs tools/ai-council-chat/tests/nvidia-relay.test.mjs
+
