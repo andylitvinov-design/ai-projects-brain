@@ -125,7 +125,12 @@
      persistRound();
    },{maxTokens:3000,temperature:0.24,timeoutMs:120000,language:state.lang});
    const successes=round.answers.filter(a=>a.status==='ok');
-   if(!successes.length){round.synthesisStatus='error';round.synthesisError=t('allFail');persistRound();return;}
+   const health=globalThis.AICouncilReviewHealth;
+   if(!health?.ready(round)){
+     round.synthesisStatus='partial';
+     round.synthesis=health?.partialText(round)||(state.lang==='ru'?'Аудит не завершён':'Incomplete audit');
+     persistRound();return;
+   }
    const opinions=successes.map((a,i)=>'REVIEWER '+a.model+(a.sharedRequest?' (one provider shared between role sections; NOT independent models)':'')+'; detail quality '+JSON.stringify(a.specificity)+':\n'+a.text.slice(0,12000)).join('\n\n');
    try{
     round.synthesis=await modelRequest(state.models[3],[{role:'system',content:Quality.synthesisPrompt(state.lang,true)},{role:'user',content:'TASK:\n'+q+'\nSCAN SUMMARY: '+JSON.stringify(data.summary).slice(0,2800)+'\n\nDETERMINISTIC HTTP/HTML FINDINGS (candidate fixes to validate):\n'+appendix.slice(0,8500)+'\n\nFULL REVIEWER FINDINGS:\n'+opinions}],{maxTokens:4900,temperature:0.17,timeoutMs:130000});
