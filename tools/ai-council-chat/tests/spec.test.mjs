@@ -31,7 +31,7 @@ function harness(){
     '\n### T-02 — Кнопка заявки\nURL: https://holistichouse.vercel.app/ru/services\nКритерии проверки: кнопка ведёт в форму.\n'+
     'Риски, конкретные изменения, тестирование. '.repeat(70);
   const func=new Function('globalThis','state','document','navigator','key','freeModels','persist','loadModels','modelRequest','renderMessages','openSettings','setTimeout',src+';return globalThis.AICouncilSpec;');
-  const core=func({},state,document,navigator,'test-user-key',freeModels,()=>{persisted++;},async()=>{},async()=>{requested++;return response},()=>{},()=>{},setTimeout);
+  const core=func({AICouncilReviewHealth:{ready:r=>r.answers.filter(a=>a.status==='ok').length>=2}},state,document,navigator,'test-user-key',freeModels,()=>{persisted++;},async()=>{},async()=>{requested++;return response},()=>{},()=>{},setTimeout);
   const round={question:'Проверка услуг Holistic House',answers:[{status:'ok',model:'UX Expert',text:'Observed H1 issue at /en/services and exact route https://holistichouse.vercel.app/en/services.'},{status:'ok',model:'Technical Reviewer',text:'Examine canonical and locales; do not assume broken forms.'}],synthesis:'Prioritize H1 and forms.',evidenceAppendix:'Multiple H1: https://holistichouse.vercel.app/en/services',siteAudit:{summary:{html_pages_checked:54,discovered_public_pages:605,unreviewed_public_pages:551},pages:[{path:'/en/services',issues:['multiple_h1']}]}};
   return {core,ids,round,get saved(){return persisted},get requests(){return requested},get copied(){return clipboardText}};
 }
@@ -61,4 +61,16 @@ test('weak, placeholder and truncated drafts are not marked good',()=>{
   const h=harness();
   assert.equal(h.core.assessDraft('# General improvements',h.round).weak,true);
   assert.equal(h.core.assessDraft('### T-01 test [OUTPUT LIMIT: truncated] '+('x'.repeat(2000)),h.round).weak,true);
+});
+
+test('incomplete audit opens its original sources without auto-spending a new synthesis call',async()=>{
+ const h=harness();
+ h.round.answers=[{status:'ok',model:'Gemini',text:'Page observations by one model'},
+ {status:'error',model:'Mistral',error:'Rate limit exceeded'}];
+ h.core.open(h.round);
+ await new Promise(resolve=>setTimeout(resolve,0));
+ assert.equal(h.requests,0,'single-model source should never trigger automatic paid/free model generation');
+ assert.equal(h.round.tzVersion,undefined);
+ assert.match(h.ids.get('specEditor').value,/Page observations by one model/);
+ assert.match(h.ids.get('specStatus').textContent,/неполный аудит/);
 });
