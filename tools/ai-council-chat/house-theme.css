@@ -632,3 +632,8 @@ textarea.spec-editor:focus { outline: 2px solid #9b7056; }
 .recovery-panel small{font-size:11px;line-height:1.65;display:block;color:#866953}
 .usage{font-size:10px;color:#846f5d}
 @media(max-width:760px){.recovery-panel{padding:13px;margin:4px 0 17px}.recovery-actions{display:grid;grid-template-columns:1fr}.recovery-btn{width:100%}}
+
+.quota-footer-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:864px;margin:0 auto 10px;padding:8px 11px;border:1px solid #ddc3b2;border-radius:11px;background:#fff9f4;color:#945347;font-size:11px;font-weight:690;line-height:1.4}
+.quota-footer-banner.hidden{display:none}
+.quota-footer-banner .recovery-btn{min-height:32px;padding:6px 9px;font-size:10px;flex-shrink:0;width:auto}
+@media(max-width:760px){.quota-footer-banner{font-size:10px;margin-bottom:8px}.quota-footer-banner .recovery-btn{max-width:55%;font-size:10px;padding:6px 8px}}
