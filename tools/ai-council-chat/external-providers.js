@@ -7,14 +7,15 @@
 (function(g){
  const P={
   gemini:{name:'Google Gemini 3.8 Flash',id:'google-direct/gemini-3.8-flash:free-tier',model:'gemini-3.8-flash',keyStore:'ai-council-gemini-key',confirm:'ai-council-gemini-free-verified',link:'https://aistudio.google.com/apikey'},
-  mistral:{name:'Mistral Small 4',id:'mistral-direct/mistral-small-2603:experiment',model:'mistral-small-2603',keyStore:'ai-council-mistral-key',confirm:'ai-council-mistral-experiment-verified',link:'https://console.mistral.ai/'}
+  mistral:{name:'Mistral Small 4',id:'mistral-direct/mistral-small-2603:experiment',model:'mistral-small-2603',keyStore:'ai-council-mistral-key',confirm:'ai-council-mistral-experiment-verified',link:'https://console.mistral.ai/'},
+  nvidia:{name:'DeepSeek V4.1 Flash (NVIDIA NIM trial)',id:'nvidia-direct/deepseek-v4.1-flash:trial',model:'deepseek-ai/deepseek-v4.1-flash',keyStore:'ai-council-nvidia-nim-key',confirm:'ai-council-nvidia-trial-confirmed',link:'https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/playground'}
  };
- const state={gemini:{key:'',confirmed:false,status:''},mistral:{key:'',confirmed:false,status:''}};
+ const state={gemini:{key:'',confirmed:false,status:''},mistral:{key:'',confirmed:false,status:''},nvidia:{key:'',confirmed:false,status:''}};
  let setup,signal,settings;
  function getSaved(p){const store=P[p];const remember=setup?.getRemember?.()||false;return sessionStorage.getItem(store.keyStore)||(remember?localStorage.getItem(store.keyStore)||'':'');}
  function read(){for(const p of Object.keys(P)){state[p].key=getSaved(p);state[p].confirmed=localStorage.getItem(P[p].confirm)==='true';}}
  function valid(p){return !!state[p].key&&state[p].confirmed;}
- function models(){return Object.keys(P).filter(valid).map(p=>({id:P[p].id,name:P[p].name+(p==='gemini'?' · AI Studio Free Tier':' · Experiment Free Tier'),pricing:{prompt:'0',completion:'0'},architecture:{input_modalities:['text'],output_modalities:['text']},provider:p,freeProviderMode:'user-confirmed'}));}
+ function models(){return Object.keys(P).filter(valid).map(p=>({id:P[p].id,name:P[p].name+(p==='gemini'?' · AI Studio Free Tier':p==='mistral'?' · Experiment Free Tier':' · NVIDIA NIM free trial (limited)'),pricing:{prompt:'0',completion:'0'},architecture:{input_modalities:['text'],output_modalities:['text']},provider:p,freeProviderMode:'user-confirmed'}));}
  function render(){for(const p of Object.keys(P)){const d=document.getElementById(p+'DirectStatus'),checkbox=document.getElementById(p+'FreeConfirm'),disconnect=document.getElementById(p+'DirectDisconnect');
   if(checkbox)checkbox.checked=state[p].confirmed;
   if(disconnect)disconnect.disabled=!state[p].key;
@@ -32,13 +33,27 @@
   const d=await res.json();if(!Array.isArray(d.data))throw Error('Invalid Mistral API response');
   if(!d.data.some(m=>m.id===P.mistral.model))throw Error('Model not accessible in this Mistral account');
  }finally{clearTimeout(tid);}}
+ async function verifyNvidia(raw){
+  // NVIDIA NIM trial free endpoint uses OpenAI-compatible POST; tiny challenge
+  // verifies model access instead of trusting a key that merely exists.
+  const ctl=new AbortController(),tid=setTimeout(()=>ctl.abort(),22000);
+  try {
+    const res=await fetch('https://integrate.api.nvidia.com/v1/chat/completions',{
+      method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+raw},
+      body:JSON.stringify({model:P.nvidia.model,messages:[{role:'user',content:'Say OK.'}],max_tokens:24,stream:false}),signal:ctl.signal
+    });
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok)throw Error(String(data.error?.message||data.detail||data.message||'HTTP '+res.status).slice(0,190));
+    if(!Array.isArray(data.choices)||!data.choices.length)throw Error('NVIDIA NIM model did not return a completion');
+  }finally{clearTimeout(tid);}
+ }
  async function connect(p){
   const input=document.getElementById(p+'DirectKey'),raw=input?.value.trim(),ok=document.getElementById(p+'FreeConfirm')?.checked;
   if(!raw){signal?.(settings?.lang?.()==='en'?'Paste your API key.':'Вставьте API-ключ '+P[p].name);return;}
   if(!ok){signal?.(settings?.lang?.()==='en'?'First confirm that the key belongs to a free-tier project with no paid billing.':'Сначала подтвердите, что ключ принадлежит бесплатному проекту без платного биллинга.');return;}
   state[p].status=settings?.lang?.()==='en'?'Checking provider key…':'Проверяю ключ…';render();
   try{
-   if(p==='gemini')await verifyGemini(raw);else await verifyMistral(raw);
+   if(p==='gemini')await verifyGemini(raw);else if(p==='mistral')await verifyMistral(raw);else await verifyNvidia(raw);
    state[p].key=raw;state[p].confirmed=true;localStorage.setItem(P[p].confirm,'true');sessionStorage.setItem(P[p].keyStore,raw);
    if(setup?.getRemember?.())localStorage.setItem(P[p].keyStore,raw);
    else localStorage.removeItem(P[p].keyStore);
@@ -78,9 +93,12 @@
    if(provider==='gemini'){
     url='https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent';
     config={method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':state.gemini.key},body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:user}]}],generationConfig:{maxOutputTokens:max}}),signal:ctl.signal};
-   }else{
+   }else if(provider==='mistral'){
     url='https://api.mistral.ai/v1/chat/completions';
     config={method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+state.mistral.key},body:JSON.stringify({model:P.mistral.model,messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:max,temperature:temp}),signal:ctl.signal};
+   }else{
+    url='https://integrate.api.nvidia.com/v1/chat/completions';
+    config={method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+state.nvidia.key},body:JSON.stringify({model:P.nvidia.model,messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:max,stream:false,temperature:1,top_p:0.95}),signal:ctl.signal};
    }
    const res=await fetch(url,config),o=await res.json().catch(()=>({}));
    if(!res.ok)throw Error(String(o.error?.message||o.message||'Provider error HTTP '+res.status).slice(0,250));
