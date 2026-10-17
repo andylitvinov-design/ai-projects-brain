@@ -22,7 +22,8 @@
  function models(){return Object.keys(P).filter(valid).map(p=>({id:P[p].id,name:P[p].name+(p==='gemini'?' · AI Studio Free Tier':p==='mistral'?' · Experiment Free Tier':' · NVIDIA NIM free trial (limited)'),pricing:{prompt:'0',completion:'0'},architecture:{input_modalities:['text'],output_modalities:['text']},provider:p,freeProviderMode:'user-confirmed'}));}
  function render(){const checked=document.getElementById('nvidiaProxyConsent');if(checked)checked.checked=nvidiaRelayConsent;
  for(const p of Object.keys(P)){const d=document.getElementById(p+'DirectStatus'),checkbox=document.getElementById(p+'FreeConfirm'),disconnect=document.getElementById(p+'DirectDisconnect');
-  if(checkbox)checkbox.checked=state[p].confirmed;
+  // Do not erase a freshly checked free-tier consent box when showing an error.
+  if(checkbox && state[p].confirmed)checkbox.checked=true;
   if(disconnect)disconnect.disabled=!state[p].key;
   if(d){d.textContent=state[p].key?(state[p].status||(settings?.lang?.()==='en'?'Connected (only usable if free-tier checkbox is confirmed)':'Ключ подключён; для использования подтвердите бесплатный тариф')):(settings?.lang?.()==='en'?'Not connected':'Не подключён');}
  }}
@@ -80,6 +81,7 @@
  async function disconnect(p){
   state[p].key='';state[p].confirmed=false;state[p].status='';
   sessionStorage.removeItem(P[p].keyStore);localStorage.removeItem(P[p].keyStore);localStorage.removeItem(P[p].confirm);
+  const freeBox=document.getElementById(p+'FreeConfirm');if(freeBox)freeBox.checked=false;
   if(p==='nvidia'){nvidiaRelayConsent=false;localStorage.removeItem(RELAY_STORE);}
   await refresh();
  }
