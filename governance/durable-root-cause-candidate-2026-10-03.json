@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "candidate_id": "runtime-data-activation-block-reinforced-by-receipt-only-main-churn-20261003",
+  "generated_at": "2026-10-03T12:35:00Z",
+  "run_date": "2026-10-03",
+  "status": "REPEATED_BLOCKER_WORSENING",
+  "affected_metric": {
+    "metric_id": "publication_freshness",
+    "published_raw_value": "current; canonical sources reconciled 2026-09-18",
+    "published_score": 100,
+    "observed_raw_baseline": "canonical live source age 432.9h against 18h; repository source age 354.1h; 2/7 core APIs HTTP 200; immutable scored history 0/7",
+    "target_raw": "canonical source age <=18h, 7/7 coherent APIs, current weekly review and seven prospective immutable days",
+    "formula_change_allowed": false
+  },
+  "root_cause": {
+    "code": "RUNTIME_DATA_ACTIVATION_BLOCK_REINFORCED_BY_RECEIPT_ONLY_MAIN_CHURN",
+    "statement": "Canonical production still lacks scoped runtime-read activation and an enabled sole publisher. Meanwhile unchanged-state operational receipts continue to merge into application main, moving the base underneath PR #629 and PR #617 without refreshing the atomic source. This converts evidence persistence into repair-branch divergence and backlog growth while publication freshness continues to worsen.",
+    "repeated": true,
+    "first_durable_owner_block_recorded": "2026-09-19",
+    "churn_reinforcement_first_confirmed": "2026-10-03"
+  },
+  "evidence": {
+    "observation_window": "2026-09-27 through 2026-10-03",
+    "canonical_live": {
+      "checked_at": "2026-10-03T12:29:00Z",
+      "source_generated_at": "2026-09-15T11:34:55.858Z",
+      "source_age_hours": 432.9,
+      "freshness_limit_hours": 18,
+      "core_api_http_200": "2/7",
+      "api_statuses": {
+        "/api/data": 503,
+        "/api/strategic-priorities": 503,
+        "/api/agent-productivity": 503,
+        "/api/needs-attention": 503,
+        "/api/trends": 503,
+        "/api/control-plane-health": 200,
+        "/api/weekly-delivery-system-review": 200,
+        "/api/data-publication-current": 500
+      },
+      "production_deployment_id": "dpl_6rYMy6EN8ociQvWdUEydJxvFXNpp",
+      "production_deployment_created_at": "2026-09-15T11:45:27Z",
+      "health_semantics": "OLD_FALSE_DEPENDENCY_ERRORS_PR_613_NOT_LIVE",
+      "weekly_live_week_end": "2026-08-23"
+    },
+    "repository": {
+      "data_source_generated_at": "2026-09-18T18:26:12.350Z",
+      "data_source_age_hours": 354.1,
+      "immutable_scored_history_files": 2,
+      "current_window_immutable_history": "0/7",
+      "weekly_review_week_end": "2026-09-27",
+      "publication_overlay_pr": 629,
+      "publication_overlay_gate": "RED; focused tests 7/7 but full weekly-delivery/schema gate fails and branch diverges behind receipt-only main",
+      "trends_replacement_pr": 617,
+      "trends_gate": "DRAFT; 539_PASS_49_FAIL; approximately 101 commits behind main"
+    },
+    "weekly_execution": {
+      "distinct_chains": 8,
+      "canonical_live_verified": "0/8",
+      "numeric_metric_gains": 0,
+      "product_or_business_live_verified": 0,
+      "actions_success": 6,
+      "actions_failure": 77,
+      "runtime_publish_success": "0/53",
+      "production_canary_success": "0/13",
+      "mobile_bundle_success": "0/3",
+      "brain_prs_created": 15,
+      "brain_receipt_only_prs_merged": 12
+    },
+    "scheduler": {
+      "enabled_total": 12,
+      "enabled_management_automations": 9,
+      "daily_dashboard_update": "DISABLED",
+      "brain_regression_guard": "DISABLED",
+      "brain_data_freshness_watch": "DISABLED",
+      "morning_system_upgrade": "DISABLED",
+      "routine_publisher": "NONE_ENABLED",
+      "primary_implementer": "NONE_ENABLED"
+    },
+    "backlog": {
+      "open_prs": 62,
+      "stale_prs": 48,
+      "nonmergeable_prs": 33,
+      "blocked_prs": 21,
+      "ci_failing_prs": 8,
+      "waiting_deploy_or_terminal": 78,
+      "current_sweep_merges": 1,
+      "current_sweep_merge_note": "Books PR #85 merged and awaits canonical production reread; no metric credit"
+    },
+    "source_refs": [
+      "https://brain-management.vercel.app/api/data",
+      "https://brain-management.vercel.app/api/control-plane-health",
+      "https://brain-management.vercel.app/api/weekly-delivery-system-review",
+      "https://brain-management.vercel.app/api/data-publication-current",
+      "brain-management/evening-delivery-closure-current.json",
+      "brain-management/history/weekly-delivery/2026-09-27.json",
+      "https://github.com/andylitvinov-design/brain-management/pull/629",
+      "https://github.com/andylitvinov-design/brain-management/pull/617"
+    ]
+  },
+  "owner": {
+    "credential_activation_owner": "Brain Management Vercel project owner",
+    "repair_regeneration_owner": "Brain Management control-plane and release-test owner",
+    "publication_owner_after_activation": "exactly one enabled Daily Dashboard Update scheduler",
+    "github_delivery_owner": "PR Delivery Sweep",
+    "verification_owner": "Evening Delivery Closure",
+    "ranking_consumer": "Daily Strategic Priorities"
+  },
+  "smallest_safe_corrective_action": [
+    "Configure BRAIN_RUNTIME_GITHUB_TOKEN with repository-scoped Contents:read access on the canonical Vercel project without exposing its value.",
+    "Regenerate PR #629 once on current main, include the weekly-delivery/schema repair needed by the full gate, and do not treat focused 7/7 tests as release acceptance.",
+    "Regenerate one fresh atomic operational source, require the exact unchanged-head gate, then perform one bounded exact-main activation.",
+    "Restore exactly one scheduler-backed Daily Dashboard Update publisher and prove one later source refresh without an application deployment.",
+    "Persist unchanged daily operational evidence without spawning a new recovery identity or claiming throughput; if receipt-only main movement invalidates an active repair branch, reconcile once at the latest base instead of repeating rebase churn.",
+    "Require delayed Evening Delivery Closure to verify source identity, 7/7 APIs, current weekly review, seven prospective history days and deployment attribution."
+  ],
+  "expected_effect": {
+    "raw_target": "publication source age <=18h; 7/7 coherent APIs; data-publication overlay no longer 500; current weekly review; seven prospective immutable days; later source refresh visible without deployment",
+    "metric_target": "publication_freshness reflects canonical source evidence rather than the stale published 100 score",
+    "measurement": "canonical provider reread immediately after activation and after the later publisher cycle; repository gate on the exact unchanged head",
+    "credit_policy": "No freshness, completion, product or throughput credit until canonical and delayed rereads prove the unchanged-formula raw target.",
+    "documentation_effect": "NO_DIRECT_METRIC_EFFECT"
+  },
+  "acceptance": [
+    "scoped runtime credential exists without secret disclosure",
+    "PR #629 is regenerated on current main and the complete release gate is green",
+    "fresh atomic source is younger than 18 hours",
+    "PR #613 NOT_EVALUATED semantics are live",
+    "all seven canonical APIs are coherent HTTP 200 JSON",
+    "data-publication-current returns structured state instead of 500",
+    "one enabled publisher owns recurring refresh",
+    "a later data refresh changes source identity without a new deployment",
+    "current weekly review and seven prospective immutable days are exposed",
+    "Evening Delivery Closure verifies the delayed state independently"
+  ]
+}
