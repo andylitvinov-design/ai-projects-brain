@@ -1,11 +1,11 @@
 {
-  "name": "AI Council — Free Multi-AI Chat",
+  "name": "AI Council — Holistic House",
   "short_name": "AI Council",
-  "description": "One question, independent free AI opinions, one combined action plan",
+  "description": "Independent AI reviews for Holistic House, with a practical combined plan",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#16334f",
+  "background_color": "#f8f4ec",
+  "theme_color": "#f8f4ec",
   "icons": [
     {
       "src": "./icon.svg",
