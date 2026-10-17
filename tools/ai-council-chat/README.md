@@ -131,3 +131,18 @@ Free trial and no payment method should be verified **on the NVIDIA account**, n
 Automated Chromium run [38998475549](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/38998475549) proved direct NVIDIA fetch fails with `Failed to fetch` / browser CORS while Google and Mistral reach their API. Added a fixed-host/fixed-model JSON-only serverless relay (`api/nvidia-chat.js`), explicit second consent checkbox, origin allowlist, token-format/size/message restrictions, no caching/logging or provider key persistence, sanitized provider error reporting (401/403 = key/model permissions, 402 = trial or billing issue, 429 = rate limit). Fixed checkbox resetting after a failed consent attempt. Original browser-only key privacy promise is **not** valid for this opt-in DeepSeek connection; the user must decide whether to accept the new, clearly disclosed server-transit trade-off. Existing Gemini/Mistral/OpenRouter flows stay browser-direct.
 
 Testing: `node --test tools/ai-council-chat/tests/direct-providers.test.mjs tools/ai-council-chat/tests/nvidia-relay.test.mjs` and corresponding GitHub Actions. Actual end-to-end NVIDIA authorization requires the user's own key and a free trial with permission to use this particular model. Public API readiness alone does not verify that user's credential. Trial mode may be revoked without warning.
+
+## 2026-10-16/17: OpenRouter free quota 429 recovery
+
+Customer screenshot showed free Gemma and Poolside 429 while UI displayed "7 · 50/day". **This local usage count is NOT account-wide OpenRouter quota**. OpenRouter's free account limit and individual provider load/rate limits can reject calls regardless of local browser count or other applications' usage (https://openrouter.ai/pricing).
+
+Fix:
+- Browser now labels only `Локально: N`, not `N / 50`; upstream 429 error details are kept (redacting any `sk-or-` tokens) and a 10-minute OpenRouter cool-off prevents immediate futile retries.
+- `recovery.js` adds an actionable explanation after a failed review and a **persistent compact mobile alert above the composer** so the user does not need to scroll through three failed review cards.
+- A **USER-CLICKED** model switch is offered only if BOTH user-approved direct Gemini and Mistral keys are confirmed. The reviewed panel becomes [Gemini, Mistral, Mistral, Gemini] (three specialized reviews from only **two distinct model families**, with Gemini synthesizer); no provider requests are sent during switching. Users explicitly click Retry Audit to rerun, leaving previous failed round intact. Backup of previous four model selections can be restored.
+- If only one or neither direct key is connected, Settings is offered, not an automatic paid or incomplete fallback.
+- Plain chats and site audits can now use the user-approved direct providers even without a connected OpenRouter key (previously blocked by the OpenRouter-only login gate).
+- Direct Gemini and Mistral currently receive public site HTML/text for audits; screenshots are displayed but are **not** delivered as vision input via these direct adapters. Do not claim vision review.
+- This does not bypass those providers' own free tier quotas; their billing/availability cannot be verified from the app.
+
+Verification: GitHub Actions workflow `AI Council 429 Recovery` run https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/39000632899 completed SUCCESS. Production Vercel deployment READY; `/`, `/recovery.js`, `/house-theme.css` returned HTTP 200. An authenticated user-side free-tier review is still necessary to confirm successful provider responses.
