@@ -61,6 +61,17 @@ function renderMessages(){const wrap=el('messages');wrap.replaceChildren();const
  const block=node('article','round');const b=node('div','user-bubble');b.append(node('div','round-meta',t('yours')+' · '+t('run')+' '+(index+1)));b.append(node('div','',round.question));block.append(b);
  const grid=node('div','review-grid');(round.answers||[]).forEach((ans,i)=>{const card=node('div','review-card');const head=node('div','review-head');head.append(node('div','avatar',String(i+1)));const name=node('div');name.append(node('b','',formatName(ans.model)));name.append(node('small','',ROLES[i][state.lang]+(ans.sharedRequest?(state.lang==='ru'?' · один общий вызов':' · shared model call'):'')));head.append(name);card.append(head);const body=node('div','review-body');if(ans.status==='pending'){body.classList.add('pending','loading-bubble');body.textContent=t('loading');}else if(ans.status==='error'){body.classList.add('error');body.textContent=t('error')+ans.error;}else body.textContent=ans.text||t('noAnswer');card.append(body);grid.append(card);});block.append(grid);
  const synth=node('section','synthesis');synth.append(node('div','synth-head','✳  '+t('synth')));const st=node('div','synth-text');st.textContent=round.synthesisStatus==='pending'?t('synthLoading'):(round.synthesisStatus==='error'?t('synthError')+round.synthesisError:(round.synthesis||t('noAnswer')));if(round.synthesisStatus==='pending')st.classList.add('loading-bubble');synth.append(st);
+ if(round.synthesisStatus==='error'||round.synthesisStatus==='partial'){
+   const warning=node('div','incomplete-archive',state.lang==='ru'?
+     '⚠ Незавершённый запуск. Ошибки сохранены как исторический результат. Скопируй источники или создай новый запрос после восстановления лимитов.':
+     '⚠ Incomplete past run. Provider errors are preserved for reference. Export the sources or start a fresh check after quota recovery.');
+   synth.append(warning);
+   const actions=node('div','synth-actions');
+   const ex=node('button','action-button','↓  '+t('export'));ex.onclick=()=>exportRound(round);actions.append(ex);
+   const src=node('button','action-button',state.lang==='ru'?'▤  Сохранить исходные материалы':'▤  Save source material');
+   src.onclick=()=>{if(globalThis.AICouncilSpec?.open)globalThis.AICouncilSpec.open(round);};actions.append(src);
+   synth.append(actions);
+ }
  if(round.synthesisStatus==='ok'){const actions=node('div','synth-actions');
  const cp=node('button','action-button','⧉  '+t('copy'));cp.onclick=()=>copyText(round.synthesis);actions.append(cp);
  const ex=node('button','action-button','↓  '+t('export'));ex.onclick=()=>exportRound(round);actions.append(ex);
@@ -168,7 +179,13 @@ async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)re
    const specific=globalThis.AICouncilQuality?.reviewerPrompt(i,state.lang,false)||base+' '+ROLES[i].prompt;
    return [{role:'system',content:specific},{role:'user',content:context+'Current question:\n'+q}];
   },modelRequest,persistRound,{maxTokens:2700,temperature:0.3,language:state.lang});
-  const ok=round.answers.filter(x=>x.status==='ok');if(!ok.length){round.synthesisStatus='error';round.synthesisError=t('allFail');persistRound();return;}
+  const ok=round.answers.filter(x=>x.status==='ok');
+  const health=globalThis.AICouncilReviewHealth;
+  if(!health?.ready(round)){
+   round.synthesisStatus='partial';
+   round.synthesis=health?.partialText(round)||(state.lang==='ru'?'Нет независимых ответов для сводной':'No independent answers for synthesis');
+   persistRound();return;
+  }
   const detail=ok.map(x=>'MODEL '+x.model+(x.sharedRequest?' (shared model call, NOT an independent AI provider)':'')+':\n'+x.text.slice(0,5600)).join('\n\n');
   try{round.synthesis=await modelRequest(state.models[3],[{role:'system',content:globalThis.AICouncilQuality?.synthesisPrompt(state.lang,false)||'Combine independent reviews. Preserve each concrete detail, differences and verification.'},{role:'user',content:'Original question:\n'+q+'\n\nIndependent model responses:\n'+detail}],{maxTokens:4300,temperature:0.2});round.synthesisStatus='ok';}catch(e){round.synthesisStatus='error';round.synthesisError=e.message||'Unknown error';}
   persistRound();
