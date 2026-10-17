@@ -10,12 +10,14 @@ function harness(){
  for(const p of ['gemini','mistral','nvidia'])for(const suffix of ['DirectKey','FreeConfirm','DirectStatus','DirectDisconnect','DirectConnect']){
    els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null});
  }
+ els.set('nvidiaProxyConsent',{checked:false,onchange:null});
  const document={getElementById:x=>els.get(x)};
  const fetch=async(url,opts)=>{
   requests.push({url,opts});
   if(url.endsWith('models/gemini-3.8-flash'))return {ok:true,json:async()=>({name:'models/gemini-3.8-flash'})};
   if(url.endsWith('/models'))return {ok:true,json:async()=>({data:[{id:'mistral-small-2603'}]})};
   if(url.includes('generateContent'))return {ok:true,json:async()=>({candidates:[{content:{parts:[{text:'Gemini analysis: concrete findings and acceptance tests'}]}}]})};
+  if(url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:'NVIDIA DeepSeek: precise technical review'}}]})};
   if(url.includes('chat/completions'))return {ok:true,json:async()=>({choices:[{message:{content:'Review: exact URLs and tests'}}]})};
   return {ok:false,status:404,json:async()=>({})};
  };
@@ -58,23 +60,37 @@ test('direct Mistral is gated by free-tier affirmation and uses Mistral API only
  await h.els.get('mistralDirectDisconnect').onclick();assert.equal(h.api.models().length,0);
 });
 
-test('NVIDIA NIM DeepSeek provider only appears after explicit trial affirmation and model challenge',async()=>{
+test('NVIDIA DeepSeek is gated by free-trial AND proxy transit consent; requests never call blocked NVIDIA CORS directly',async()=>{
  const h=harness();
- h.els.get('nvidiaDirectKey').value='nvapi-test';
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
  await h.els.get('nvidiaDirectConnect').onclick();
  assert.equal(h.api.models().length,0,'NVIDIA trial must not silently activate');
  h.els.get('nvidiaFreeConfirm').checked=true;
  await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.api.models().length,0,'CORS relay must not activate without user consent');
+ assert.equal(h.requests.length,0);
+ h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
  assert.equal(h.api.models().length,1);
  assert.equal(h.api.models()[0].id,'nvidia-direct/deepseek-v4.1-flash:trial');
- assert.ok(h.requests.some(r=>r.url==='https://integrate.api.nvidia.com/v1/chat/completions'));
- const answer=await h.api.call('nvidia-direct/deepseek-v4.1-flash:trial',[{role:'system',content:'Critique independently'},{role:'user',content:'Audit Holistic House from verified public URL evidence'}],{maxTokens:1500});
- assert.match(answer,/Review: exact URLs/);
- const req=h.requests.at(-1);
- assert.equal(req.url,'https://integrate.api.nvidia.com/v1/chat/completions');
- assert.equal(req.opts.headers.Authorization,'Bearer nvapi-test');
- assert.match(req.opts.body,/deepseek-ai\/deepseek-v4.1-flash/);
+ assert.ok(h.requests.some(r=>r.url==='./api/nvidia-chat'));
+ const a=h.requests[0];
+ const body=JSON.parse(a.opts.body);
+ assert.equal(body.consent,true);
+ assert.equal(body.apiKey,'nvapi-123456789abcdef');
+ assert.equal(body.probe,true);
+ assert.ok(h.requests.every(x=>!x.url.includes('integrate.api.nvidia.com')));
+ const answer=await h.api.call('nvidia-direct/deepseek-v4.1-flash:trial',[{role:'system',content:'Critique independently'},{role:'user',content:'Audit Holistic House with URL evidence'}],{maxTokens:1500});
+ assert.match(answer,/NVIDIA DeepSeek/);
+ assert.equal(h.requests.at(-1).url,'./api/nvidia-chat');
+ assert.ok(JSON.parse(h.requests.at(-1).opts.body).messages.some(m=>m.content.includes('Holistic House')));
+ h.els.get('nvidiaProxyConsent').checked=false;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ assert.equal(h.api.models().length,0,'Revoking relay consent immediately disables DeepSeek');
+ await assert.rejects(()=>h.api.call('nvidia-direct/deepseek-v4.1-flash:trial',[{role:'user',content:'hi'}]),/not connected/);
  await h.els.get('nvidiaDirectDisconnect').onclick();
  assert.equal(h.api.models().length,0);
  assert.equal(h.localStorage.getItem('ai-council-nvidia-nim-key'),null);
+ assert.equal(h.localStorage.getItem('ai-council-nvidia-relay-consent'),null);
 });
