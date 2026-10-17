@@ -145,7 +145,7 @@
     buildBtn.textContent=r.tzVersion===2?L('regenerate'):L('generate');
     showStatus(r.tzVersion===2?L('saved'):L('preparing'));
     if(!modal.open)modal.showModal();
-    const complete=g.AICouncilReviewHealth?.ready(r);
+    const complete=global.AICouncilReviewHealth?.ready(r);
     if(r.tzVersion!==2 && !complete){
       showStatus(state.lang==='ru'?
         '⚠ Это неполный аудит: меньше двух независимых ответов. Показаны исходные материалы. Можешь их скопировать или вручную запросить ТЗ, но оно не будет многомодельным.':
