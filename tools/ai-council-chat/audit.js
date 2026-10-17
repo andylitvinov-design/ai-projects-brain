@@ -95,7 +95,7 @@
    let th=current();
    if(!th){th={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),title:state.lang==='ru'?'Аудит Holistic House':'Holistic House audit',rounds:[],created:Date.now()};state.threads.push(th);state.active=th.id;}
    const context=historyContext(th);
-   const round={question:q,answers:state.models.slice(0,3).map(model=>({model,status:'pending',text:'',error:''})),synthesisStatus:'pending',synthesis:'',synthesisError:'',siteAudit:pack(data),created:Date.now()};
+   const round={question:q,answers:state.models.slice(0,3).map(model=>({model,status:'pending',text:'',error:''})),synthesisModel:state.models[3],synthesisStatus:'pending',synthesis:'',synthesisError:'',siteAudit:pack(data),created:Date.now()};
    th.rounds.push(round);persist();renderAll();scrollBottom();busy=true;
    const Quality=globalThis.AICouncilQuality;
    if(!Quality)throw new Error('Review quality module not loaded');
@@ -116,15 +116,17 @@
      {type:'image_url',image_url:{url:s.desktop_url}},
      {type:'image_url',image_url:{url:s.mobile_preview_url}}
    ])]:scopedInputs[0];
-   const tasks=round.answers.map(async(a,i)=>{try{
-    const messages=[{role:'system',content:Quality.reviewerPrompt(i,state.lang,true)},{role:'user',content:i===0?visual:scopedInputs[i]}];
-    a.text=await modelRequest(a.model,messages,{maxTokens:3000,temperature:0.24,timeoutMs:120000});a.status='ok';
-    a.specificity=Quality.scoreSpecificity(a.text);
-   }catch(e){a.status='error';a.error=String(e.message||e);}persistRound();});
-   await Promise.allSettled(tasks);
+   if(!globalThis.AICouncilReviewBatch)throw Error('Review batch module missing. Reload the page.');
+   await globalThis.AICouncilReviewBatch.run(round.answers,(a,i)=>[
+    {role:'system',content:Quality.reviewerPrompt(i,state.lang,true)},
+    {role:'user',content:i===0?visual:scopedInputs[i]}
+   ],modelRequest,()=>{
+     round.answers.filter(a=>a.status==='ok').forEach(a=>{a.specificity=Quality.scoreSpecificity(a.text);});
+     persistRound();
+   },{maxTokens:3000,temperature:0.24,timeoutMs:120000,language:state.lang});
    const successes=round.answers.filter(a=>a.status==='ok');
    if(!successes.length){round.synthesisStatus='error';round.synthesisError=t('allFail');persistRound();return;}
-   const opinions=successes.map((a,i)=>'REVIEWER '+a.model+'; detail quality '+JSON.stringify(a.specificity)+':\n'+a.text.slice(0,12000)).join('\n\n');
+   const opinions=successes.map((a,i)=>'REVIEWER '+a.model+(a.sharedRequest?' (one provider shared between role sections; NOT independent models)':'')+'; detail quality '+JSON.stringify(a.specificity)+':\n'+a.text.slice(0,12000)).join('\n\n');
    try{
     round.synthesis=await modelRequest(state.models[3],[{role:'system',content:Quality.synthesisPrompt(state.lang,true)},{role:'user',content:'TASK:\n'+q+'\nSCAN SUMMARY: '+JSON.stringify(data.summary).slice(0,2800)+'\n\nDETERMINISTIC HTTP/HTML FINDINGS (candidate fixes to validate):\n'+appendix.slice(0,8500)+'\n\nFULL REVIEWER FINDINGS:\n'+opinions}],{maxTokens:4900,temperature:0.17,timeoutMs:130000});
     round.synthesisStatus='ok';round.synthesisQuality=Quality.scoreSpecificity(round.synthesis);
