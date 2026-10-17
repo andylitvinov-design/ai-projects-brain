@@ -55,8 +55,17 @@
   const b=document.createElement('button');b.type='button';b.className='recovery-btn '+(variant||'');b.textContent=title;b.onclick=fn;return b;
  }
  function render(){
-  const r=currentFailure(),wrap=el('messages');
+  const r=currentFailure(),wrap=el('messages'),footer=el('quotaFooterBanner');
+  if(footer){footer.replaceChildren();footer.classList.toggle('hidden',!r);}
   if(!r||!wrap)return;
+  if(footer){
+   const info=document.createElement('span');info.textContent=state.lang==='ru'?'OpenRouter 429: лимит бесплатных запросов':'OpenRouter 429: free tier limit';
+   const {gemini,mistral}=available();
+   const directSelected=gemini&&mistral&&state.models.every(id=>[gemini.id,mistral.id].includes(id));
+   const action=makeButton(!gemini||!mistral?str('connect'):directSelected?(r.siteAudit?str('retry'):str('manual')):str('switch'),
+     ()=>{if(!gemini||!mistral)openSettings();else if(directSelected)retry(r);else switchModels();},'recovery-primary');
+   footer.append(info,action);
+  }
   const panel=document.createElement('section');panel.className='recovery-panel';panel.id='quotaRecoveryPanel';panel.setAttribute('role','alert');
   const title=document.createElement('strong');title.className='recovery-title';title.textContent='⚠ '+str('title');panel.append(title);
   const body=document.createElement('p');body.className='recovery-description';body.textContent=str('body');panel.append(body);
