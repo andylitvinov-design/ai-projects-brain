@@ -110,6 +110,10 @@
  async function call(model,messages,options={}){
   const provider=Object.keys(P).find(k=>P[k].id===model);
   if(!provider||!valid(provider))throw Error('External free-tier provider not connected');
+  const cooldownKey='ai-council-provider-cooldown-'+provider;
+  const backoffUntil=Number(sessionStorage.getItem(cooldownKey)||0);
+  if(Date.now()<backoffUntil)throw Error((provider==='mistral'?'Mistral':provider==='gemini'?'Gemini':'NVIDIA')+
+    ': rate limit reached earlier. Additional requests are paused briefly in this browser. Wait for your provider quota to recover or choose another model.');
   const max=Math.max(250,Math.min(5000,Number(options.maxTokens)||2700));
   const temp=typeof options.temperature==='number'?options.temperature:.2;
   const {system,user}=flatten(messages);
@@ -131,7 +135,16 @@
     return text.trim();
    }
    const res=await fetch(url,config),o=await res.json().catch(()=>({}));
-   if(!res.ok)throw Error(String(o.error?.message||o.message||'Provider error HTTP '+res.status).slice(0,250));
+   if(!res.ok){
+    if(res.status===429){
+     // No automatic retries and no automatic paid fallback. This is only a local protective pause;
+     // the actual free-tier account quota might reset much later.
+     sessionStorage.setItem(cooldownKey,String(Date.now()+5*60*1000));
+     throw Error((provider==='mistral'?'Mistral':provider==='gemini'?'Gemini':'NVIDIA')+
+       ' 429: Rate limit exceeded (free-tier account/provider). No automatic retries. Wait for quota reset or select another model.');
+    }
+    throw Error(String(o.error?.message||o.message||'Provider error HTTP '+res.status).slice(0,250));
+   }
    const answer=provider==='gemini'?(o.candidates||[]).flatMap(x=>x.content?.parts||[]).map(x=>x.text||'').join('\n').trim():
       String(o.choices?.[0]?.message?.content||'').trim();
    if(!answer)throw Error('Provider returned no text: finish_reason='+JSON.stringify(o.candidates?.[0]?.finishReason||o.choices?.[0]?.finish_reason||null));
