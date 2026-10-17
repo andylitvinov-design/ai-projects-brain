@@ -146,3 +146,21 @@ Fix:
 - This does not bypass those providers' own free tier quotas; their billing/availability cannot be verified from the app.
 
 Verification: GitHub Actions workflow `AI Council 429 Recovery` run https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/39000632899 completed SUCCESS. Production Vercel deployment READY; `/`, `/recovery.js`, `/house-theme.css` returned HTTP 200. An authenticated user-side free-tier review is still necessary to confirm successful provider responses.
+
+## 2026-10-17: Mistral Free Tier 429 after switching from OpenRouter
+
+User's iPhone screens showed TWO simultaneous `mistral-direct/mistral-small-2603:experiment` reviewer failures (`Rate limit exceeded`) and a STALE "OpenRouter 429" footer. The two role slots used the exact same Mistral model, so sending both independently duplicated API usage and could hit a request/concurrency limit. The failure is attributable to **Mistral**, not the earlier OpenRouter limit.
+
+Implemented:
+- `review-batch.js` coordinates reviewer calls, grouping identical model IDs per round. In the Gemini/Mistral/Mistral configuration, Mistral now receives **one** multi-role prompt, requiring clearly separated `<<<COUNCIL_ROLE_2>>>` and `<<<COUNCIL_ROLE_3>>>` sections. The UI marks both responses as a **shared model call**, not as two independent model providers. If the model cannot separate sections, the second card explicitly reports that no independent response was obtained. No hidden extra provider requests.
+- Both `audit.js` and `app.js` use grouped calls. The aggregator receives "shared model call" provenance rather than double counting reviewer agreement.
+- Every round records `synthesisModel` so 429 errors can be attributed to the actual provider whose model failed, even after model selection changes.
+- `recovery.js` detects OpenRouter, Mistral, Gemini, NVIDIA, or mixed rate-limit failures by model ID. For Mistral 429, the footer and alert say **Mistral**, offer Settings, and **do not** offer the redundant "Switch to Gemini+Mistral" action or an immediate automatic retry.
+- Direct Mistral API HTTP 429 now triggers a 5-minute browser-local protective cooldown with no automatic provider retry or paid fallback. The account's actual free-tier quota may reset MUCH later; the cooldown is not a quota-reset prediction.
+- Counters explicitly say `OpenRouter локально: N`, not `N of N` for all providers; direct API calls are **not** included in that OpenRouter counter.
+- Simplified oversized mobile error cards.
+- No user settings or past individual reviews overwritten. Old rate-limit error messages remain in history for auditability.
+
+CI: `AI Council 429 Recovery` run https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/39030396088 succeeded (11 tests, including single call for duplicate Mistral roles and honest attribution); updated direct provider `429` cooldown tests run https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/39030499619 succeeded.
+
+IMPORTANT LIMIT: We cannot reset the user's Mistral free tier nor verify the actual quota without their provider account. A new real analysis may still fail until the provider restores quota. If only Gemini is available, user may explicitly assign Gemini to every role; grouped calls mean one model handles three perspectives plus a separate Gemini synthesis request, but this is **not independent multi-model review**. Never imply otherwise.
