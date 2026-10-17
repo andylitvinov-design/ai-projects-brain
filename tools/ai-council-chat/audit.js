@@ -66,7 +66,7 @@
  let scanning=false;
  async function runAudit(){
   if(busy||scanning)return;
-  if(!key){openSettings();return;}
+  if(!key&&!globalThis.AICouncilExternalProviders?.models()?.length){openSettings();return;}
   const btn=el('auditSiteButton'),status=el('siteAuditStatus'),url=el('siteUrl').value.trim();
   scanning=true;btn.disabled=true;el('sendButton').disabled=true;status.textContent=tt('scanning');setError('');
   try{
