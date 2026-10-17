@@ -1,0 +1,40 @@
+name: AI Council NVIDIA relay smoke
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/ai-council-nvidia-relay-smoke.yml'
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check opt-in relay and invalid-key error handling (no real key used)
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          const endpoint='https://ai-council-chat.vercel.app/api/nvidia-chat';
+          const r=await fetch(endpoint,{
+            method:'POST',
+            headers:{Origin:'https://ai-council-chat.vercel.app','Content-Type':'application/json'},
+            body:JSON.stringify({consent:true,apiKey:'nvapi-invalid-test-key-123456789',model:'deepseek-ai/deepseek-v4.1-flash',
+              messages:[{role:'user',content:'Return OK'}],max_tokens:64,probe:true})
+          });
+          const j=await r.json();
+          console.log(JSON.stringify({status:r.status,error:j.error||null,upstream_status:j.upstream_status||null,ok:j.ok||false}));
+          assert.ok([400,401,402,403,429,502,503].includes(r.status),'invalid key must never succeed');
+          assert.ok(!JSON.stringify(j).includes('nvapi-'),'response must not leak a secret');
+          assert.match(r.headers.get('cache-control')||'',/no-store/);
+          const bad=await fetch(endpoint,{
+            method:'POST',headers:{Origin:'https://evil.invalid','Content-Type':'application/json'},
+            body:JSON.stringify({consent:true,apiKey:'nvapi-invalid-test-key-123456789',model:'deepseek-ai/deepseek-v4.1-flash',
+              messages:[{role:'user',content:'Return OK'}],max_tokens:64})
+          });
+          assert.equal(bad.status,403,'foreign website must be rejected');
+          NODE
