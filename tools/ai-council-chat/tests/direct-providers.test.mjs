@@ -11,11 +11,13 @@ function harness(options={}){
    els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null});
  }
  els.set('nvidiaProxyConsent',{checked:false,onchange:null});
+ els.set('geminiQuickCheck',{disabled:false,onclick:null});
  const document={getElementById:x=>els.get(x)};
  const fetch=async(url,opts)=>{
   requests.push({url,opts});
   if(url.endsWith('models/gemini-3.8-flash'))return {ok:true,json:async()=>({name:'models/gemini-3.8-flash'})};
   if(url.endsWith('/models'))return {ok:true,json:async()=>({data:[{id:'mistral-small-2603'}]})};
+  if(options.geminiNetworkFail&&url.includes('generateContent'))throw Error('Load failed');
   if(url.includes('generateContent'))return {ok:true,json:async()=>({candidates:[{content:{parts:[{text:'Gemini analysis: concrete findings and acceptance tests'}]}}]})};
   if(url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:'NVIDIA DeepSeek: precise technical review'}}]})};
   if(options.mistralRateLimit&&url==='https://api.mistral.ai/v1/chat/completions')
@@ -108,4 +110,24 @@ test('direct Mistral 429 enters local cooldown rather than burning more API requ
  await assert.rejects(()=>h.api.call(id,msg),/rate limit reached earlier/);
  assert.equal(h.requests.length,before,'no second Mistral HTTP request during cooldown');
  assert.ok(Number(h.sessionStorage.getItem('ai-council-provider-cooldown-mistral'))>Date.now());
+});
+
+test('Gemini quick answer check uses one small explicit provider request',async()=>{
+ const h=harness();
+ h.els.get('geminiDirectKey').value='test-gemini-key';
+ h.els.get('geminiFreeConfirm').checked=true;
+ await h.els.get('geminiDirectConnect').onclick();
+ const count=h.requests.length;
+ await h.els.get('geminiQuickCheck').onclick();
+ assert.equal(h.requests.length,count+1);
+ assert.equal(h.els.get('geminiQuickCheck').disabled,false);
+ assert.match(h.els.get('geminiDirectStatus').textContent,/Gemini успешно ответил/);
+});
+test('Gemini Load failed is diagnosed as a browser network failure, not a rejected API key',async()=>{
+ const h=harness({geminiNetworkFail:true});
+ h.els.get('geminiDirectKey').value='test-gemini-key';
+ h.els.get('geminiFreeConfirm').checked=true;
+ await h.els.get('geminiDirectConnect').onclick();
+ await assert.rejects(()=>h.api.call('google-direct/gemini-3.8-flash:free-tier',[{role:'user',content:'Test'}]),
+  /Google Gemini: network request failed.*NOT a confirmed bad API key/);
 });
