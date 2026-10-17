@@ -49,7 +49,7 @@ function useCount(){const day=dateStr(),old=safeJson(localStorage.getItem('ai-co
 function countCall(){const count=useCount()+1;try{localStorage.setItem('ai-council-requests',JSON.stringify({day:dateStr(),count}));}catch{}updateUsage();}
 function updateUsage(){
  const count=useCount(),lang=state.lang,limited=Date.now()<openRouterBackoffUntil;
- el('usageCount').textContent=(lang==='ru'?'Локально: ':'Local: ')+count+(limited?' · OpenRouter 429':'');
+ el('usageCount').textContent=(lang==='ru'?'OpenRouter локально: ':'OpenRouter local: ')+count+(limited?' · 429':'');
  el('usageCount').title=lang==='ru'?'Только запросы из этого браузера; квота OpenRouter общая для всего аккаунта и других приложений.':'Only this browser’s OpenRouter requests; real account quotas also include other clients.';
 }
 function setError(s){el('globalError').textContent=s;hide(el('globalError'),!s);}
