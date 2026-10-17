@@ -108,3 +108,20 @@ Scope: sidebar, header, welcome, site-audit input, example cards, question compo
 **Important:** This is a presentation-only override. Preserve original element IDs, JS hooks, free-model rules, key-storage choice, user history and direct-provider logic when changing the UI. Avoid replacing/reimplementing `app.js`, `audit.js`, `spec.js`, or `external-providers.js` just to change the theme. For future design updates, edit `house-theme.css` and maintain the existing stylesheet load order.
 
 Static integrity checks confirmed required DOM IDs, CSS brace balance, CSP, PWA JSON and local style source; Vercel preview returned HTTP 200 for the new HTML/CSS. These checks do not substitute for a browser screenshot inspection or a live real-key OpenRouter test.
+
+## 2026-10-16: Optional DeepSeek through NVIDIA NIM free API trial
+
+The current OpenRouter `/api/v1/models` inventory does **not** list a live DeepSeek `:free` model, though some historical model pages still say free. The official DeepSeek API is billed per token, so it is not suitable for the strict no-additional-spend default.
+
+However, NVIDIA NIM currently offers a **free trial endpoint** for `deepseek-ai/deepseek-v4.1-flash` at https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/playground, under NVIDIA API Trial Terms. This is limited trial availability, **NOT permanent free service or an OpenRouter free model**.
+
+AI Council now has a dedicated opt-in DeepSeek field under Settings → additional providers:
+1. User signs in to NVIDIA Build and obtains an API key for the trial endpoint without activating billing. Keep it private.
+2. User pastes the key into the NVIDIA/DeepSeek field and explicitly confirms no paid plan/billing. One small 24-token model challenge checks access. Key is stored in browser sessionStorage (or localStorage only when "Remember" enabled). **Our Vercel server never receives it.**
+3. If the challenge succeeds, a `nvidia-direct/deepseek-v4.1-flash:trial` choice appears in each reviewer/aggregator dropdown, without changing existing choices.
+4. Calls go directly to `https://integrate.api.nvidia.com/v1/chat/completions` using model `deepseek-ai/deepseek-v4.1-flash`. If trial credits run out, show a real error; no paid fallback.
+5. Recommended initial use: swap the technical reviewer temporarily from Mistral to DeepSeek; keep Gemini as the final synthesizer and Nemotron VL for UX; compare actual evidence-based results before making permanent choices.
+
+NVIDIA trial capacity, terms, model availability, and browser CORS behavior may change. Official NVIDIA model docs: https://docs.api.nvidia.com/nim/reference/nvidia-deepseek-v4_1-flash and https://docs.api.nvidia.com/nim/re/reference/nvidia-deepseek-v4_1-flash-infer. Test this from the user's own device before stating that live requests work.
+
+Free trial and no payment method should be verified **on the NVIDIA account**, not inferred from the UI. Never send private health/client records to third-party models.
