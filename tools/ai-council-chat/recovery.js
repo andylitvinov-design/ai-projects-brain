@@ -11,6 +11,27 @@
  };
  const str=k=>(view[state.lang]||view.ru)[k]||k;
  const has429=a=>/(\b429\b|rate limit|лимит бесплатн|free quota|quota exceeded|too many requests)/i.test(String(a||''));
+ function sourceForModel(model){const id=String(model||'');
+   if(id.startsWith('mistral-direct/'))return 'mistral';
+   if(id.startsWith('google-direct/'))return 'gemini';
+   if(id.startsWith('nvidia-direct/'))return 'nvidia';
+   return 'openrouter';
+ }
+ function sourceForRound(round){
+   const failed=(round?.answers||[]).filter(a=>has429(a.error)).map(a=>sourceForModel(a.model));
+   if(has429(round?.synthesisError))failed.push(sourceForModel(round.synthesisModel||state.models[3]));
+   const set=[...new Set(failed)];
+   return set.length===1?set[0]:set.length>1?'mixed':null;
+ }
+ function providerText(kind,label){
+   const ru=state.lang==='ru';
+   const name={mistral:'Mistral',gemini:'Gemini',nvidia:'NVIDIA DeepSeek',openrouter:'OpenRouter',mixed:ru?'Несколько API':'Multiple APIs'}[kind]||'API';
+   if(label==='title')return ru?name+': лимит запросов (429)':name+': request limit (429)';
+   if(label==='body')return ru?
+    'Это ограничение '+name+' или бесплатного тарифного плана. Текущий аудит неполный. Не повторяй сразу: дождись обновления лимита либо выбери другую подключённую модель в настройках. Одновременные вызовы одного провайдера теперь объединяются в один запрос.':
+    'The '+name+' provider/free-tier request limit was reached. This audit is incomplete. Do not immediately retry; wait for the quota reset or choose a different connected model. Duplicate roles now use one shared API call.';
+   return ru?'Настроить модели':'Change models';
+ }
  function available(){
   const connected=g.AICouncilExternalProviders?.models?.()||[];
   return {gemini:connected.find(x=>x.id==='google-direct/gemini-3.8-flash:free-tier'),
@@ -56,23 +77,35 @@
  }
  function render(){
   const r=currentFailure(),wrap=el('messages'),footer=el('quotaFooterBanner');
+  const kind=r?sourceForRound(r):null;
   if(footer){footer.replaceChildren();footer.classList.toggle('hidden',!r);}
   if(!r||!wrap)return;
   if(footer){
-   const info=document.createElement('span');info.textContent=state.lang==='ru'?'OpenRouter 429: лимит бесплатных запросов':'OpenRouter 429: free tier limit';
+   const info=document.createElement('span');info.textContent=kind==='openrouter'?
+     (state.lang==='ru'?'OpenRouter 429: лимит бесплатных запросов':'OpenRouter 429: free tier limit'):
+     providerText(kind,'title');
    const {gemini,mistral}=available();
    const directSelected=gemini&&mistral&&state.models.every(id=>[gemini.id,mistral.id].includes(id));
-   const action=makeButton(!gemini||!mistral?str('connect'):directSelected?(r.siteAudit?str('retry'):str('manual')):str('switch'),
-     ()=>{if(!gemini||!mistral)openSettings();else if(directSelected)retry(r);else switchModels();},'recovery-primary');
+   const action=kind!=='openrouter'
+     ?makeButton(providerText(kind,'action'),()=>openSettings(),'recovery-primary')
+     :makeButton(!gemini||!mistral?str('connect'):directSelected?(r.siteAudit?str('retry'):str('manual')):str('switch'),
+       ()=>{if(!gemini||!mistral)openSettings();else if(directSelected)retry(r);else switchModels();},'recovery-primary');
    footer.append(info,action);
   }
   const panel=document.createElement('section');panel.className='recovery-panel';panel.id='quotaRecoveryPanel';panel.setAttribute('role','alert');
-  const title=document.createElement('strong');title.className='recovery-title';title.textContent='⚠ '+str('title');panel.append(title);
-  const body=document.createElement('p');body.className='recovery-description';body.textContent=str('body');panel.append(body);
+  const title=document.createElement('strong');title.className='recovery-title';title.textContent='⚠ '+(kind==='openrouter'?str('title'):providerText(kind,'title'));panel.append(title);
+  const body=document.createElement('p');body.className='recovery-description';body.textContent=kind==='openrouter'?str('body'):providerText(kind,'body');panel.append(body);
   const count=document.createElement('p');count.className='recovery-vision-warning';count.textContent=str('vis');panel.append(count);
   const row=document.createElement('div');row.className='recovery-actions';panel.append(row);
   const {gemini,mistral}=available();
-  if(gemini&&mistral){
+  if(kind!=='openrouter'){
+   row.append(makeButton(providerText(kind,'action'),()=>openSettings(),'recovery-primary'));
+   const note=document.createElement('small');
+   note.textContent=state.lang==='ru'?
+     'Сводная, если появилась, опирается только на успешно ответившие модели. Проверь в каждой карточке, что действительно было оценено.':
+     'Any synthesis is based only on successful reviewer responses; check individual cards for coverage.';
+   panel.append(note);
+  }else if(gemini&&mistral){
    row.append(makeButton(str('switch'),switchModels,'recovery-primary'));
    row.append(makeButton(r?.siteAudit?str('retry'):str('manual'),()=>retry(r),'recovery-secondary'));
    const selected=state.models.every(id=>[gemini.id,mistral.id].includes(id));
@@ -86,5 +119,5 @@
  }
  const previous=renderMessages;
  renderMessages=function(){previous();render();};
- g.AICouncilQuotaRecovery={available,currentFailure,switchModels,retry,restoreModels};
+ g.AICouncilQuotaRecovery={available,currentFailure,sourceForRound,switchModels,retry,restoreModels};
 })(globalThis);
