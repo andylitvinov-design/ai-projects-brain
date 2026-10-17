@@ -62,7 +62,7 @@ test('provider-only questions/audits are not blocked by empty OpenRouter key',()
  assert.match(audit,/!key&&!globalThis\.AICouncilExternalProviders\?\.models\(\)\?\.length/);
 });
 test('no misleading 50/day local quota and browser-side backoff after 429',()=>{
- assert.ok(app.includes('Локально: '));
+ assert.ok(app.includes('OpenRouter локально: '));
  assert.ok(!app.includes("useCount()+' · 50/day¹'"));
  assert.match(app,/openRouterBackoffUntil=Date\.now\(\)\+10\*60\*1000/);
 });
