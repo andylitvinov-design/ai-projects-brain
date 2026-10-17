@@ -5,7 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {dirname,join} from 'node:path';
 const moduleText=readFileSync(join(dirname(fileURLToPath(import.meta.url)),'..','external-providers.js'),'utf-8');
 function store(){const m=new Map();return {getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k)}}
-function harness(){
+function harness(options={}){
  const sessionStorage=store(),localStorage=store(),els=new Map(),requests=[];
  for(const p of ['gemini','mistral','nvidia'])for(const suffix of ['DirectKey','FreeConfirm','DirectStatus','DirectDisconnect','DirectConnect']){
    els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null});
@@ -18,6 +18,8 @@ function harness(){
   if(url.endsWith('/models'))return {ok:true,json:async()=>({data:[{id:'mistral-small-2603'}]})};
   if(url.includes('generateContent'))return {ok:true,json:async()=>({candidates:[{content:{parts:[{text:'Gemini analysis: concrete findings and acceptance tests'}]}}]})};
   if(url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:'NVIDIA DeepSeek: precise technical review'}}]})};
+  if(options.mistralRateLimit&&url==='https://api.mistral.ai/v1/chat/completions')
+    return {ok:false,status:429,json:async()=>({message:'Rate limit exceeded'})};
   if(url.includes('chat/completions'))return {ok:true,json:async()=>({choices:[{message:{content:'Review: exact URLs and tests'}}]})};
   return {ok:false,status:404,json:async()=>({})};
  };
@@ -93,4 +95,17 @@ test('NVIDIA DeepSeek is gated by free-trial AND proxy transit consent; requests
  assert.equal(h.api.models().length,0);
  assert.equal(h.localStorage.getItem('ai-council-nvidia-nim-key'),null);
  assert.equal(h.localStorage.getItem('ai-council-nvidia-relay-consent'),null);
+});
+
+test('direct Mistral 429 enters local cooldown rather than burning more API requests',async()=>{
+ const h=harness({mistralRateLimit:true});
+ h.els.get('mistralDirectKey').value='mistral-free-key';
+ h.els.get('mistralFreeConfirm').checked=true;
+ await h.els.get('mistralDirectConnect').onclick();
+ const id='mistral-direct/mistral-small-2603:experiment',msg=[{role:'user',content:'Check exact services page'}];
+ await assert.rejects(()=>h.api.call(id,msg),/Mistral 429/);
+ const before=h.requests.length;
+ await assert.rejects(()=>h.api.call(id,msg),/rate limit reached earlier/);
+ assert.equal(h.requests.length,before,'no second Mistral HTTP request during cooldown');
+ assert.ok(Number(h.sessionStorage.getItem('ai-council-provider-cooldown-mistral'))>Date.now());
 });
