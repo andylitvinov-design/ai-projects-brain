@@ -97,7 +97,18 @@
   for(const p of Object.keys(P)){
    const b=document.getElementById(p+'DirectConnect'),d=document.getElementById(p+'DirectDisconnect');
    if(b)b.onclick=()=>connect(p);if(d)d.onclick=()=>disconnect(p);
-  }render();
+  }
+  const checkGemini=document.getElementById('geminiQuickCheck');
+  if(checkGemini)checkGemini.onclick=async()=>{
+    if(!valid('gemini')){state.gemini.status='Сначала подключи действующий ключ Gemini в этом браузере.';render();return;}
+    checkGemini.disabled=true;state.gemini.status='Проверяю небольшой реальный ответ Gemini…';render();
+    try{
+      const response=await call(P.gemini.id,[{role:'user',content:'Reply with one word: OK'}],{maxTokens:90,timeoutMs:18000});
+      state.gemini.status='✓ Gemini успешно ответил: '+response.slice(0,100);
+    }catch(e){state.gemini.status='⚠ '+String(e?.message||e).slice(0,380);}
+    finally{checkGemini.disabled=false;render();}
+  };
+  render();
  }
  function flatten(messages){
   const system=[],user=[];
@@ -134,7 +145,14 @@
     if(!text?.trim())throw Error('NVIDIA DeepSeek returned no text');
     return text.trim();
    }
-   const res=await fetch(url,config),o=await res.json().catch(()=>({}));
+   let res;
+   try{res=await fetch(url,config);}
+   catch(err){
+     const source=provider==='gemini'?'Google Gemini':provider==='mistral'?'Mistral':'NVIDIA';
+     if(err?.name==='AbortError')throw Error(source+': timeout — provider did not respond within '+Math.ceil((Number(options.timeoutMs)||115000)/1000)+' seconds. Try a shorter prompt or later.');
+     throw Error(source+': network request failed (Load failed / Failed to fetch). This is NOT a confirmed bad API key. Open AI Council in regular Safari, check connectivity and use the small provider test in Settings. '+String(err?.message||'').slice(0,90));
+   }
+   const o=await res.json().catch(()=>({}));
    if(!res.ok){
     if(res.status===429){
      // No automatic retries and no automatic paid fallback. This is only a local protective pause;
