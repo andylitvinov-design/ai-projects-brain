@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'tools/ai-council-chat/spec.js'
+      - 'tools/ai-council-chat/review-health.js'
       - 'tools/ai-council-chat/tests/spec.test.mjs'
       - '.github/workflows/ai-council-spec-tests.yml'
   workflow_dispatch:
