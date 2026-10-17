@@ -66,3 +66,23 @@ test('no misleading 50/day local quota and browser-side backoff after 429',()=>{
  assert.ok(!app.includes("useCount()+' · 50/day¹'"));
  assert.match(app,/openRouterBackoffUntil=Date\.now\(\)\+10\*60\*1000/);
 });
+
+test('Mistral free-tier 429 is attributed to Mistral rather than OpenRouter',()=>{
+ const h=setup();
+ const round=h.th.rounds[0];
+ round.answers=[{model:'google-direct/gemini-3.8-flash:free-tier',status:'ok',text:'Gemini response'},
+ {model:'mistral-direct/mistral-small-2603:experiment',status:'error',error:'Rate limit exceeded'},
+ {model:'mistral-direct/mistral-small-2603:experiment',status:'error',error:'Rate limit exceeded'}];
+ round.synthesisModel='google-direct/gemini-3.8-flash:free-tier';
+ round.synthesisError='';
+ assert.equal(h.api.sourceForRound(round),'mistral');
+ assert.equal(h.api.currentFailure(),round);
+});
+test('mixed OpenRouter and direct-provider limits are not mislabeled as OpenRouter only',()=>{
+ const h=setup();
+ const round=h.th.rounds[0];
+ round.answers=[{model:'google/gemma-4-31b-it:free',status:'error',error:'HTTP 429'},
+ {model:'mistral-direct/mistral-small-2603:experiment',status:'error',error:'Rate limit exceeded'}];
+ round.synthesisError='';
+ assert.equal(h.api.sourceForRound(round),'mixed');
+});
