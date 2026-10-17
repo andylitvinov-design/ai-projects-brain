@@ -117,11 +117,17 @@ However, NVIDIA NIM currently offers a **free trial endpoint** for `deepseek-ai/
 
 AI Council now has a dedicated opt-in DeepSeek field under Settings → additional providers:
 1. User signs in to NVIDIA Build and obtains an API key for the trial endpoint without activating billing. Keep it private.
-2. User pastes the key into the NVIDIA/DeepSeek field and explicitly confirms no paid plan/billing. One small 24-token model challenge checks access. Key is stored in browser sessionStorage (or localStorage only when "Remember" enabled). **Our Vercel server never receives it.**
+2. User pastes the key into NVIDIA/DeepSeek and confirms both free trial status **and explicit consent to send the key transiently through AI Council's Vercel relay**. A small 128-token trial request verifies the model. Key is in browser sessionStorage (or localStorage with Remember). **Vercel processes the key transiently per call, but does not persist or log it in application code.** This is a security trade-off disclosed before opt-in; do not use on shared machines.
 3. If the challenge succeeds, a `nvidia-direct/deepseek-v4.1-flash:trial` choice appears in each reviewer/aggregator dropdown, without changing existing choices.
-4. Calls go directly to `https://integrate.api.nvidia.com/v1/chat/completions` using model `deepseek-ai/deepseek-v4.1-flash`. If trial credits run out, show a real error; no paid fallback.
+4. After explicit consent, calls go browser → same-origin `/api/nvidia-chat` → fixed `https://integrate.api.nvidia.com/v1/chat/completions`, always with model `deepseek-ai/deepseek-v4.1-flash`. No paid fallback. Without relay consent, DeepSeek is not activated. NVIDIA's hosted API is not browser CORS-compatible; the former direct-fetch implementation failed.
 5. Recommended initial use: swap the technical reviewer temporarily from Mistral to DeepSeek; keep Gemini as the final synthesizer and Nemotron VL for UX; compare actual evidence-based results before making permanent choices.
 
 NVIDIA trial capacity, terms, model availability, and browser CORS behavior may change. Official NVIDIA model docs: https://docs.api.nvidia.com/nim/reference/nvidia-deepseek-v4_1-flash and https://docs.api.nvidia.com/nim/re/reference/nvidia-deepseek-v4_1-flash-infer. Test this from the user's own device before stating that live requests work.
 
 Free trial and no payment method should be verified **on the NVIDIA account**, not inferred from the UI. Never send private health/client records to third-party models.
+
+### 2026-10-16: NVIDIA connection hotfix
+
+Automated Chromium run [38998475549](https://github.com/andylitvinov-design/ai-projects-brain/actions/runs/38998475549) proved direct NVIDIA fetch fails with `Failed to fetch` / browser CORS while Google and Mistral reach their API. Added a fixed-host/fixed-model JSON-only serverless relay (`api/nvidia-chat.js`), explicit second consent checkbox, origin allowlist, token-format/size/message restrictions, no caching/logging or provider key persistence, sanitized provider error reporting (401/403 = key/model permissions, 402 = trial or billing issue, 429 = rate limit). Fixed checkbox resetting after a failed consent attempt. Original browser-only key privacy promise is **not** valid for this opt-in DeepSeek connection; the user must decide whether to accept the new, clearly disclosed server-transit trade-off. Existing Gemini/Mistral/OpenRouter flows stay browser-direct.
+
+Testing: `node --test tools/ai-council-chat/tests/direct-providers.test.mjs tools/ai-council-chat/tests/nvidia-relay.test.mjs` and corresponding GitHub Actions. Actual end-to-end NVIDIA authorization requires the user's own key and a free trial with permission to use this particular model. Public API readiness alone does not verify that user's credential. Trial mode may be revoked without warning.
