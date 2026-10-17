@@ -34,6 +34,7 @@ let key=sessionStorage.getItem(KEY_STORE)||(state.remember?localStorage.getItem(
 if(key)sessionStorage.setItem(KEY_STORE,key);
 let connectionStatus='unverified',connectionMessage='';
 let freeModels=[],modelLoadedAt=0,busy=false;
+let openRouterBackoffUntil=Number(sessionStorage.getItem('ai-council-openrouter-backoff-until')||0);
 function persist(){try{localStorage.setItem(STORE,JSON.stringify({lang:state.lang,threads:state.threads,active:state.active,models:state.models}));localStorage.setItem(SETTINGS_STORE,JSON.stringify({lang:state.lang,models:state.models,remember:state.remember}));}catch{}}
 function persistValidatedKey(){if(key&&connectionStatus==='valid'&&state.remember){try{localStorage.setItem(PERSIST_KEY,key);}catch{}}}
 function setRemember(remember){state.remember=!!remember;if(!state.remember){try{localStorage.removeItem(PERSIST_KEY);}catch{}}else persistValidatedKey();globalThis.AICouncilExternalProviders?.syncRemember(state.remember);persist();renderConnection();}
@@ -46,11 +47,15 @@ function formatName(id){const m=freeModels.find(x=>x.id===id);return m?(m.name||
 function dateStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function useCount(){const day=dateStr(),old=safeJson(localStorage.getItem('ai-council-requests'),{day,count:0});return old.day===day?old.count||0:0;}
 function countCall(){const count=useCount()+1;try{localStorage.setItem('ai-council-requests',JSON.stringify({day:dateStr(),count}));}catch{}updateUsage();}
-function updateUsage(){el('usageCount').textContent=t('dayCount')+useCount()+' · 50/day¹';}
+function updateUsage(){
+ const count=useCount(),lang=state.lang,limited=Date.now()<openRouterBackoffUntil;
+ el('usageCount').textContent=(lang==='ru'?'Локально: ':'Local: ')+count+(limited?' · OpenRouter 429':'');
+ el('usageCount').title=lang==='ru'?'Только запросы из этого браузера; квота OpenRouter общая для всего аккаунта и других приложений.':'Only this browser’s OpenRouter requests; real account quotas also include other clients.';
+}
 function setError(s){el('globalError').textContent=s;hide(el('globalError'),!s);}
-function renderLang(){document.documentElement.lang=state.lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const v=t(n.dataset.i18n);if(n.dataset.i18n==='hero')n.innerHTML=v;else n.textContent=v;});el('langButton').textContent=state.lang==='ru'?'EN':'RU';el('question').placeholder=t('placeholder');el('statusText').textContent=t('status');updateUsage();el('brandSubtitle').textContent=state.lang==='ru'?'Совет независимых ИИ':'Independent AI council';}
+function renderLang(){document.documentElement.lang=state.lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const v=t(n.dataset.i18n);if(n.dataset.i18n==='hero')n.innerHTML=v;else n.textContent=v;});el('langButton').textContent=state.lang==='ru'?'EN':'RU';el('question').placeholder=t('placeholder');el('statusText').textContent=state.lang==='ru'?'До 4 запросов к выбранным ИИ · без платного автоперехода':'Up to 4 calls to selected AIs · no paid fallback';updateUsage();el('brandSubtitle').textContent=state.lang==='ru'?'Совет независимых ИИ':'Independent AI council';}
 function renderSidebar(){const list=el('threadList');list.replaceChildren();if(!state.threads.length){list.append(node('div','small muted',t('empty')));return;}state.threads.slice().reverse().forEach(th=>{const row=node('button','thread-button'+(state.active===th.id?' active':''));row.type='button';row.append(node('span','', '▤'));row.append(node('span','thread-title',th.title));const del=node('button','thread-delete','×');del.title=t('delete');del.type='button';del.onclick=ev=>{ev.stopPropagation();if(busy)return;state.threads=state.threads.filter(x=>x.id!==th.id);if(state.active===th.id)state.active=null;persist();renderAll();};row.append(del);row.onclick=()=>{if(busy)return;state.active=th.id;persist();renderAll();closeSidebar();};list.append(row);});}
-function renderAll(){renderLang();renderSidebar();const th=current();hide(el('welcome'),!!(th&&th.rounds&&th.rounds.length));hide(el('connectBanner'),!!key);renderMessages();renderConnection();}
+function renderAll(){renderLang();renderSidebar();const th=current();hide(el('welcome'),!!(th&&th.rounds&&th.rounds.length));hide(el('connectBanner'),!!key||!!globalThis.AICouncilExternalProviders?.models()?.length);renderMessages();renderConnection();}
 function scrollBottom(){requestAnimationFrame(()=>{const s=el('contentScroll');s.scrollTop=s.scrollHeight;});}
 function renderMessages(){const wrap=el('messages');wrap.replaceChildren();const th=current();if(!th||!th.rounds)return;th.rounds.forEach((round,index)=>{
  const block=node('article','round');const b=node('div','user-bubble');b.append(node('div','round-meta',t('yours')+' · '+t('run')+' '+(index+1)));b.append(node('div','',round.question));block.append(b);
@@ -121,15 +126,27 @@ async function finishOAuth(){const params=new URLSearchParams(location.search),c
 async function readInputKey(){const s=el('apiKey').value.trim();if(!/^sk-or-/i.test(s)){setError(state.lang==='ru'?'Введите ключ OpenRouter, начинающийся с sk-or-':'Paste an OpenRouter key starting with sk-or-');return;}key=s;sessionStorage.setItem(KEY_STORE,s);try{localStorage.removeItem(PERSIST_KEY);}catch{}el('apiKey').value='';setError('');renderAll();if(await verifyConnection())closeSettings();}
 function timeoutFetch(url,options,time=85000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),time);return fetch(url,{...options,signal:controller.signal}).finally(()=>clearTimeout(timer));}
 async function modelRequest(model,messages,options={}){if(!freeModels.some(x=>x.id===model))throw new Error(t('staleModel'));
- // Direct providers are *opt-in*: each user must connect an explicitly free-tier account first.
+ // Direct-provider calls never pass through OpenRouter and use only user-approved free-tier accounts.
  if(globalThis.AICouncilExternalProviders?.ids?.includes(model)){
    return globalThis.AICouncilExternalProviders.call(model,messages,options);
+ }
+ if(Date.now()<openRouterBackoffUntil){
+   throw new Error(state.lang==='ru'?
+      '429 OpenRouter: предыдущий запрос упёрся в лимит. Не повторяем платные/бесплатные вызовы автоматически. Используй подключённые Gemini/Mistral или подожди.':
+      '429 OpenRouter: quota/rate limit was reached. Calls paused temporarily; use connected Gemini/Mistral or wait.');
  }
  const maxTokens=Math.max(800,Math.min(5500,Number(options.maxTokens)||2300));
  const temperature=Number.isFinite(options.temperature)?options.temperature:0.3;
  countCall();
  let res;try{res=await timeoutFetch(API+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':location.origin,'X-OpenRouter-Title':'AI Council Chat'},body:JSON.stringify({model,messages,max_tokens:maxTokens,temperature,stream:false})},Number(options.timeoutMs)||115000);}catch(e){if(e.name==='AbortError')throw new Error('Timeout: model response took too long');throw new Error(e.message||'Network error');}
- const out=await res.json().catch(()=>({}));if(!res.ok){let hint=out.error?.message||('HTTP '+res.status);if(res.status===401)hint='401: '+(state.lang==='ru'?'Неверный/просроченный ключ':'Invalid/expired API key');if(res.status===402)hint='402: '+(state.lang==='ru'?'Ограничение баланса OpenRouter':'OpenRouter balance restriction');if(res.status===429)hint='429: '+(state.lang==='ru'?'Лимит бесплатных запросов исчерпан':'Free rate limit reached');throw new Error(String(hint).slice(0,280));}
+ const out=await res.json().catch(()=>({}));if(!res.ok){let hint=out.error?.message||('HTTP '+res.status);if(res.status===401)hint='401: '+(state.lang==='ru'?'Неверный/просроченный ключ':'Invalid/expired API key');if(res.status===402)hint='402: '+(state.lang==='ru'?'Ограничение баланса OpenRouter':'OpenRouter balance restriction');if(res.status===429){
+   // This rate-limit is imposed by the OpenRouter account/provider, not the local-browser request counter.
+   openRouterBackoffUntil=Date.now()+10*60*1000;
+   sessionStorage.setItem('ai-council-openrouter-backoff-until',String(openRouterBackoffUntil));
+   updateUsage();
+   const details=String(out.error?.message||'').replace(/sk-or-[a-zA-Z0-9_-]{5,}/g,'[redacted]').slice(0,170);
+   hint='429 OpenRouter: '+(state.lang==='ru'?'лимит аккаунта или бесплатного провайдера (локальный счётчик не отражает общую квоту). ':'account/provider free-tier quota (local count is not your account balance). ')+details;
+  }throw new Error(String(hint).slice(0,280));}
  const msg=out.choices?.[0]?.message;let text=typeof msg?.content==='string'?msg.content:Array.isArray(msg?.content)?msg.content.filter(x=>x.type==='text').map(x=>x.text).join('\n'):'';
  if(!text&&msg?.reasoning)text=String(msg.reasoning).slice(0,2500);
  if(!text.trim())throw new Error('Empty model response');
@@ -137,7 +154,7 @@ async function modelRequest(model,messages,options={}){if(!freeModels.some(x=>x.
  return text.trim();}
 function historyContext(th){return (th.rounds||[]).slice(-3).map(r=>'Question: '+r.question.slice(0,2000)+'\nCombined response: '+(r.synthesis||'').slice(0,2400)).join('\n\n').slice(0,8000);}
 function persistRound(){persist();renderMessages();scrollBottom();}
-async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)return;if(!key){openSettings();return;}
+async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)return;if(!key&&!globalThis.AICouncilExternalProviders?.models()?.length){openSettings();return;}
  busy=true;el('sendButton').disabled=true;setError('');
  try{
   await loadModels(true);
