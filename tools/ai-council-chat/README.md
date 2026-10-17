@@ -98,3 +98,13 @@ This choice is an evidence-based *candidate*, not a validated objective best ben
 **Billing and privacy caveat:** the app cannot determine whether a provider account's billing is enabled. It only gates direct access on the user's explicit free-plan attestation; a user with a billed project could still incur provider charges. To eliminate that risk entirely, stay on named `:free` OpenRouter models. Provider keys are transmitted directly from browser to Google's or Mistral's HTTPS API, never to our server; they are saved in sessionStorage, or in browser localStorage only when Remember this device is turned on (unencrypted!). Do not submit client health records or other sensitive documents; free-tier providers may use requests for model improvement under their own policies.
 
 **Verification limitations:** Direct Google/Mistral browser authorization and content generation cannot be end-to-end tested without the user's provider keys. Cross-origin request restrictions may apply; any CORS/401/429 error is displayed, without fabricated results or paid fallback. Synthetic provider fetch tests and Vercel deployment availability should be checked separately.
+
+## 2026-10-16: Holistic House visual identity
+
+AI Council uses `house-theme.css` after the legacy `styles.css` to match the production Holistic House visual language: warm cream (#f8f4ec), parchment cards (#fffaf4), dark umber (#493d31), terracotta accent (#855139), serif editorial headings and discreet sand borders. The app has a coordinated lighthouse SVG app icon and PWA colors, rather than the previous blue/teal UI.
+
+Scope: sidebar, header, welcome, site-audit input, example cards, question composer, three expert cards, fourth synthesis, evidence sections, model/connection settings and the editable specification dialog. Mobile styling includes single-column reviews, comfortable touch targets and safe-area padding; reduced-motion preferences are respected. The Holistic House wordmark links to the main site in a new tab.
+
+**Important:** This is a presentation-only override. Preserve original element IDs, JS hooks, free-model rules, key-storage choice, user history and direct-provider logic when changing the UI. Avoid replacing/reimplementing `app.js`, `audit.js`, `spec.js`, or `external-providers.js` just to change the theme. For future design updates, edit `house-theme.css` and maintain the existing stylesheet load order.
+
+Static integrity checks confirmed required DOM IDs, CSS brace balance, CSP, PWA JSON and local style source; Vercel preview returned HTTP 200 for the new HTML/CSS. These checks do not substitute for a browser screenshot inspection or a live real-key OpenRouter test.
