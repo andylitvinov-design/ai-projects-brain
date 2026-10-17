@@ -1,0 +1,18 @@
+{
+  "name": "AI Council — Holistic House",
+  "short_name": "AI Council",
+  "description": "Independent AI reviews for Holistic House, with a practical combined plan",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fbf7ef",
+  "theme_color": "#fbf7ef",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "ru"
+}

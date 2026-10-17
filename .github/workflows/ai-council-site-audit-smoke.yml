@@ -1,0 +1,43 @@
+name: AI Council real crawl smoke test
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/ai-council-site-audit-smoke.yml'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Probe live site audit endpoint
+        env:
+          AUDIT_URL: 'https://ai-council-chat.vercel.app/api/site-audit'
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          const controller=new AbortController();
+          const timer=setTimeout(()=>controller.abort(),125000);
+          let response;
+          try {
+            response=await fetch(process.env.AUDIT_URL,{
+              method:'POST',
+              headers:{'Content-Type':'application/json','Origin':'https://ai-council-chat.vercel.app'},
+              body:JSON.stringify({url:'https://holistichouse.vercel.app'}),
+              signal:controller.signal
+            });
+          } finally {clearTimeout(timer);}
+          const body=await response.json();
+          console.log(JSON.stringify({http:response.status,ok:body.ok,summary:body.summary,example_pages:body.pages?.slice(0,5).map(x=>({url:x.url,status:x.status,issues:x.issues})),failed:body.failures?.slice(0,5)},null,2));
+          assert.equal(response.status,200,'Site scan HTTP status');
+          assert.equal(body.ok,true,'Site scan success');
+          assert.ok(body.summary?.discovered_public_pages>=40,'Sitemap or public-link discovery');
+          assert.ok(body.pages?.length>=8,'At least 8 pages fetched');
+          assert.ok(body.screenshots?.length>=1,'Screenshot preview references');
+          assert.ok(body.pages.every(x=>x.url.startsWith('https://holistichouse.vercel.app/')),'Host boundary');
+          NODE

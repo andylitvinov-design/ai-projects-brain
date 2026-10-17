@@ -116,3 +116,18 @@ Create recurring automations only when the user asks for that cadence. Keep each
 The target experience is:
 
 **Andrey speaks or types one ordinary sentence on the phone -> ChatGPT routes it -> cloud/connected agents perform the safe implementation workflow -> Andrey receives the finished PR/preview/live result or one precise unavoidable approval request.**
+
+
+## Codex Cloud launch visibility
+
+Whenever a plain-language request is actually dispatched into a Codex Cloud task, tell Andrey immediately and explicitly:
+
+`Запущено в Codex Cloud: <project>`
+
+Do not use that phrase for ordinary ChatGPT discussion, direct GitHub connector edits, read-only checks, or planning that did not create a Codex Cloud task.
+
+When the Codex Cloud task reaches a terminal result, report:
+
+`Codex Cloud готов: <short result>`
+
+If it fails or is blocked, say so explicitly instead of implying completion. This launch/completion notice is the user's allowance-visibility boundary.

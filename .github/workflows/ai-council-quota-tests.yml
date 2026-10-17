@@ -1,0 +1,34 @@
+name: AI Council 429 Recovery
+on:
+  push:
+    paths:
+      - 'tools/ai-council-chat/app.js'
+      - 'tools/ai-council-chat/audit.js'
+      - 'tools/ai-council-chat/recovery.js'
+      - 'tools/ai-council-chat/review-batch.js'
+      - 'tools/ai-council-chat/review-health.js'
+      - 'tools/ai-council-chat/tests/review-health.test.mjs'
+      - 'tools/ai-council-chat/tests/review-batch.test.mjs tools/ai-council-chat/tests/review-health.test.mjs'
+      - 'tools/ai-council-chat/tests/quota-recovery.test.mjs'
+      - '.github/workflows/ai-council-quota-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate browser scripts
+        run: |
+          node --check tools/ai-council-chat/app.js
+          node --check tools/ai-council-chat/audit.js
+          node --check tools/ai-council-chat/recovery.js
+          node --check tools/ai-council-chat/review-batch.js
+          node --check tools/ai-council-chat/review-health.js
+      - name: Test quota recovery
+        run: node --test tools/ai-council-chat/tests/quota-recovery.test.mjs tools/ai-council-chat/tests/review-batch.test.mjs

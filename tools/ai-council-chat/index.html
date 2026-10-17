@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#fbf7ef"/><meta name="description" content="AI Council — независимые бесплатные ИИ и единый общий ответ."/>
+<meta name="color-scheme" content="light"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://openrouter.ai https://generativelanguage.googleapis.com https://api.mistral.ai https://integrate.api.nvidia.com; img-src 'self' data: https://s.wordpress.com https://s0.wp.com https://holistichouse.vercel.app; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
+<title>AI Council | Holistic House</title>
+<link rel="icon" href="./icon.svg" type="image/svg+xml"/><link rel="manifest" href="./manifest.webmanifest"/><link rel="stylesheet" href="./styles.css"/><link rel="stylesheet" href="./house-theme.css"/>
+</head>
+<body>
+<div class="app-shell">
+<aside id="sidebar" class="sidebar">
+ <div class="brand"><div class="logo" aria-hidden="true"><img src="./icon.svg" alt=""/></div><div class="brand-copy"><a class="brand-house" href="https://holistichouse.vercel.app" target="_blank" rel="noopener noreferrer">Holistic House</a><strong>AI Council</strong><span id="brandSubtitle">Совет независимых ИИ</span></div><button id="closeSidebar" class="icon-button sidebar-close" aria-label="Закрыть">✕</button></div>
+ <button class="new-button" id="newThread">＋ <span data-i18n="new">Новый диалог</span></button>
+ <div class="sidebar-label" data-i18n="history">ИСТОРИЯ</div><div id="threadList" class="thread-list"></div>
+ <div class="side-bottom"><div class="free-mark"><span class="free-dot"></span><span data-i18n="free">Только бесплатные модели</span></div><button id="settingsButton" class="settings-link">⚙ <span data-i18n="settings">Модели и подключение</span></button><a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer" class="small-link">OpenRouter ↗</a></div>
+</aside>
+<div id="overlay" class="overlay hidden"></div>
+<main class="main">
+ <header class="topbar"><div class="top-left"><button id="menuButton" class="icon-button menu" aria-label="Открыть меню">☰</button><span class="top-logo" aria-hidden="true"><img src="./icon.svg" alt=""/></span><div><span class="top-house">Holistic House</span><b>AI Council</b><small data-i18n="subtitle">Несколько взглядов. Один вывод.</small></div></div><div class="top-actions"><span class="free-pill"><span class="free-dot"></span> FREE</span><button id="langButton" class="lang-button" aria-label="Change language">EN</button><button id="topSettings" class="icon-button" title="Настройки">⚙</button></div></header>
+ <div class="content-scroll" id="contentScroll">
+  <div class="content-inner">
+  <section id="welcome" class="welcome">
+    <div class="welcome-hero">
+      <div class="welcome-intro">
+        <div class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span><span data-i18n="eyebrow">HOLISTIC HOUSE · AI COUNCIL</span></div>
+        <h1 data-i18n="hero">Одна задача.<br><em>Несколько ИИ.</em></h1>
+        <p class="hero-description" data-i18n="heroDesc">Получите независимый разбор сайта, идеи или дизайна и соберите конкретное ТЗ для улучшений.</p>
+        <div class="welcome-roles" aria-label="UX, Product and Engineering"><span>UX</span><span>PRODUCT</span><span>TECH</span><span class="roles-separator" aria-hidden="true">→</span><span class="role-outcome">PLAN</span></div>
+      </div>
+      <div class="welcome-photo" aria-hidden="true">
+        <img src="https://holistichouse.vercel.app/images/holistic-house/hero-olive-incense.webp" loading="eager" decoding="async" alt=""/>
+        <div class="welcome-photo-overlay"><span>03</span><span class="overlay-arrow">→</span><span>01</span></div>
+      </div>
+    </div>
+    <section id="auditPanel" class="audit-panel" aria-label="Site-wide AI audit">
+  <div class="audit-panel-head"><div class="audit-symbol" aria-hidden="true">↗</div><div class="audit-panel-copy"><strong data-i18n="auditTitle">Аудит сайта по ссылке</strong><small data-i18n="auditDescription">Публичные страницы, SEO, контент, снимки страниц и независимые заключения ИИ</small></div></div>
+  <div class="audit-input-row"><input type="url" id="siteUrl" value="https://holistichouse.vercel.app" aria-label="Адрес сайта"/><button class="primary-button audit-launch" id="auditSiteButton" data-i18n="auditStart">Проверить сайт полностью</button></div>
+  <div id="siteAuditStatus" class="audit-status" aria-live="polite"><span data-i18n="auditLimit">Начинаем с открытых страниц Holistic House. Закрытые кабинеты и формы не проверяются.</span></div>
+ </section>
+ <div class="examples" id="examples">
+     <button class="example" data-prompt="Какие 5 улучшений сделают https://holistichouse.vercel.app более понятным новым посетителям? Не утверждайте, что открывали сайт, если нет содержимого страницы. Предложите проверяемые гипотезы."><span class="example-number">01</span><span data-i18n="example1">Как улучшить Holistic House?</span><span class="example-arrow">↗</span></button>
+     <button class="example" data-prompt="Сравните два подхода к монетизации маркетплейса услуг: комиссия с заказов 20% и подписка для мастеров. Сделайте рекомендации для небольшого проекта."><span class="example-number">02</span><span data-i18n="example2">Сравнить бизнес-идеи</span><span class="example-arrow">↗</span></button>
+     <button class="example" data-prompt="Предложите компактный мобильный дизайн экрана результатов психологического теста: шкалы, краткая оценка, кнопка получить рекомендации через кабинет. Составьте критерии приёмки."><span class="example-number">03</span><span data-i18n="example3">Оценить мобильный UX</span><span class="example-arrow">↗</span></button>
+    </div>
+    <div id="connectBanner" class="connect-banner"><div class="connect-symbol">⌁</div><div class="connect-copy"><b data-i18n="startFree">Начните бесплатно</b><small data-i18n="startDesc">Подключите OpenRouter — без оплаты и подписок. Ваш ключ не сохраняется на сервере.</small></div><button class="primary-button connect-btn" id="connectBannerButton" data-i18n="connect">Подключить</button></div>
+  </section>
+  <div id="messages" class="messages" aria-live="polite"></div>
+  <div id="globalError" class="global-error hidden" role="alert"></div>
+  </div>
+ </div>
+ <footer class="composer-area"><div id="quotaFooterBanner" class="quota-footer-banner hidden" role="status"></div><div class="composer-wrap"><div id="statusLine" class="status-line"><span class="free-dot"></span><span id="statusText">3 эксперта + 1 агрегатор · 4 бесплатных запроса</span><span id="usageCount" class="usage"></span></div><div class="composer"><textarea id="question" rows="2" maxlength="12000" placeholder="Задайте вопрос совету ИИ…"></textarea><button id="sendButton" class="send-button" aria-label="Отправить"><span>➤</span></button></div><div class="composer-tip"><span data-i18n="tip">Enter — отправить · Shift+Enter — новая строка</span><span data-i18n="disclaimer">Не отправляйте приватные данные клиентов</span></div></div></footer>
+</main>
+</div>
+<dialog id="settingsDialog" class="settings-dialog"><div class="dialog-head"><div><div class="eyebrow">HOLISTIC HOUSE · AI COUNCIL</div><h2 data-i18n="dialogTitle">Подключение и модели</h2></div><button id="closeSettings" class="icon-button" aria-label="Закрыть">✕</button></div><p data-i18n="dialogDesc">Подключите бесплатный OpenRouter. Для сравнения используются только модели с ценой $0 за запрос.</p>
+<div id="connectionState" class="connection-state"></div>
+<label class="remember-setting"><input id="rememberDevice" type="checkbox"/><span data-i18n="remember">Запомнить вход на этом устройстве</span></label>
+<p class="privacy-warning" data-i18n="rememberHelp">Ключ сохраняется в памяти браузера без шифрования. Включайте только на личном устройстве; на общем — выключите. Браузер ChatGPT и Safari могут хранить разные подключения.</p>
+<div class="verification-row"><button type="button" id="verifyConnection" class="outline-button" data-i18n="verify">Проверить подключение</button><span id="verificationResult" role="status" class="verification-result"></span></div>
+<button id="oauthButton" class="primary-button wide">↗ <span data-i18n="oauth">Подключить через OpenRouter</span></button>
+<div class="separate"><span data-i18n="or">или вставьте личный API-ключ</span></div>
+<div class="key-row"><input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="sk-or-v1-..."/><button id="saveKey" class="outline-button" data-i18n="saveKey">Применить</button></div><div class="inline-help"><a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener noreferrer" data-i18n="getKey">Получить бесплатный ключ ↗</a><button id="disconnect" class="link-button" data-i18n="disconnect">Отключить</button></div>
+<div class="separator"></div><div class="model-heading"><div class="dialog-section-title" data-i18n="reviewersTitle">Модели-рецензенты</div><button type="button" id="recommendedModels" class="outline-button recommend-button" data-i18n="recommended">Применить рекомендуемый состав</button></div>
+<p class="recommended-note" data-i18n="recommendedNote">Выбраны по назначению и доступности, а не по случайному порядку каталога. Ваш ручной выбор сохраняется.</p><p class="small" data-i18n="reviewersHint">Каждая модель получает ваш вопрос независимо. Список автоматически обновляется.</p>
+<div class="model-cost-notice">Бесплатные варианты OpenRouter: Gemma 4, Nemotron, Poolside. Это не Gemini, Muse или Mistral. Для настоящего Gemini нужен отдельный бесплатный API Google; Muse Wonder платный.</div>
+<div class="model-grid"><div class="selector"><label for="model0" data-i18n="reviewer1">Эксперт 1 · UX</label><div class="role-description" data-i18n="hintUX">Рекомендуем: Nemotron 3.5 VL — анализ открытых страниц и скриншотов</div><select id="model0"></select></div>
+<div class="selector"><label for="model1" data-i18n="reviewer2">Эксперт 2 · продукт</label><div class="role-description" data-i18n="hintProduct">Рекомендуем: Google Gemma 4 31B — стратегия и ясность (не Gemini)</div><select id="model1"></select></div>
+<div class="selector"><label for="model2" data-i18n="reviewer3">Эксперт 3 · техника</label><div class="role-description" data-i18n="hintTech">Рекомендуем: Poolside Laguna S 2.1 — сильная кодовая модель (до 31 октября)</div><select id="model2"></select></div>
+<div class="selector"><label for="model3" data-i18n="synthesizer">Агрегатор · общий вывод</label><div class="role-description" data-i18n="hintSynth">Рекомендуем: Nemotron 3 Ultra — глубокая сводная (возможны задержки)</div><select id="model3"></select></div>
+</div>
+<div id="modelStatus" class="small muted" role="status"></div>
+<section class="external-panel" aria-label="Дополнительные модели">
+  <div class="dialog-section-title">Gemini, Mistral и DeepSeek — отдельные подключения</div>
+  <p class="external-explain">OpenRouter не предоставляет эти мощные модели бесплатно. Можно добавить свой ключ <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a> (Gemini 3.8 Flash) или <a href="https://console.mistral.ai/" target="_blank" rel="noopener noreferrer">Mistral Studio</a> (Mistral Small 4) из бесплатного проекта. Подключение не меняет выбранные модели автоматически.</p>
+  <div class="external-provider">
+    <strong>Google Gemini 3.8 Flash</strong><span class="provider-free-tag">Google AI Studio Free Tier</span>
+    <input id="geminiDirectKey" type="password" autocomplete="off" spellcheck="false" placeholder="Gemini API key"/>
+    <label><input type="checkbox" id="geminiFreeConfirm"/> Я подтверждаю: ключ из бесплатного проекта без платного биллинга.</label>
+    <div class="provider-controls"><button type="button" id="geminiDirectConnect" class="outline-button">Подключить Gemini</button><button type="button" id="geminiDirectDisconnect" class="link-button">Отключить</button></div>
+    <div id="geminiDirectStatus" class="provider-status" role="status">Не подключён</div>
+    <button type="button" id="geminiQuickCheck" class="outline-button provider-quick-test">Проверить реальный ответ Gemini (1 запрос)</button>
+  </div>
+  <div class="external-provider">
+    <strong>Mistral Small 4</strong><span class="provider-free-tag">Mistral Experiment / Free Tier</span>
+    <input id="mistralDirectKey" type="password" autocomplete="off" spellcheck="false" placeholder="Mistral API key"/>
+    <label><input type="checkbox" id="mistralFreeConfirm"/> Я подтверждаю: ключ относится к бесплатному тарифу Mistral Experiment.</label>
+    <div class="provider-controls"><button type="button" id="mistralDirectConnect" class="outline-button">Подключить Mistral</button><button type="button" id="mistralDirectDisconnect" class="link-button">Отключить</button></div>
+    <div id="mistralDirectStatus" class="provider-status" role="status">Не подключён</div>
+  </div>
+  <div class="external-provider">
+    <strong>DeepSeek V4.1 Flash</strong><span class="provider-free-tag">NVIDIA NIM · Free Trial (лимит)</span>
+    <p class="external-explain">Доступен как бесплатный пробный API NVIDIA — это не постоянный бесплатный тариф DeepSeek. <a href="https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/playground" target="_blank" rel="noopener noreferrer">Получить ключ NVIDIA ↗</a>. При подключении выполняется один маленький тестовый запрос.</p>
+    <input id="nvidiaDirectKey" type="password" autocomplete="off" spellcheck="false" placeholder="NVIDIA NIM API key (nvapi-…)"/>
+    <label><input type="checkbox" id="nvidiaFreeConfirm"/> Я подтверждаю, что использую только бесплатный пробный API NVIDIA, без платной подписки или подключения оплаты.</label>
+    <label class="nvidia-proxy-consent"><input type="checkbox" id="nvidiaProxyConsent"/> <strong>Разрешаю передавать мой ключ NVIDIA через защищённый сервер AI Council только на время запроса.</strong> NVIDIA блокирует прямые запросы из браузера (CORS). Сервер не сохраняет ключ, но технически получает его при каждом запросе. На общих устройствах не включать.</label>
+    <p class="provider-status nvidia-diagnostic">Для NVIDIA обязателен именно API-ключ из <a href="https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/build" target="_blank" rel="noopener noreferrer">NVIDIA Build → Get API Key</a>, обычно начинается с <code>nvapi-</code>. Не вставляй сюда токен DeepSeek, OpenRouter или NGC.</p>
+    <div class="provider-controls"><button type="button" id="nvidiaDirectConnect" class="outline-button">Подключить DeepSeek</button><button type="button" id="nvidiaDirectDisconnect" class="link-button">Отключить</button></div>
+    <div id="nvidiaDirectStatus" class="provider-status" role="status">Не подключён</div>
+  </div>
+  <p class="provider-danger">Важно: приложение может проверить ключ, но не может определить, подключена ли оплата в аккаунте Google/Mistral/NVIDIA. Выбирай только бесплатный или пробный проект без оплаты. Ключи Google/Mistral отправляются напрямую провайдерам. Ключ NVIDIA с твоего согласия проходит через сервер AI Council во время запроса и там не сохраняется. Muse Wonder в бесплатный режим не включён: через OpenRouter он платный.</p>
+</section><div class="dialog-foot"><span data-i18n="privacy">История и выбор моделей сохраняются в этом браузере. При включении «Запомнить» API-ключ тоже остаётся на этом устройстве.</span><button id="doneSettings" class="primary-button" data-i18n="done">Готово</button></div>
+</dialog>
+<script src="./quality.js" defer></script>
+<script src="./external-providers.js" defer></script>
+<script src="./review-health.js" defer></script>
+<script src="./review-batch.js" defer></script>
+<script src="./app.js" defer></script>
+<script src="./audit.js" defer></script>
+<script src="./spec.js" defer></script>
+<script src="./recovery.js" defer></script>
+</body></html>

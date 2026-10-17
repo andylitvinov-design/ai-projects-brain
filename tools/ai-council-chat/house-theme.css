@@ -1,0 +1,395 @@
+/* AI Council · Holistic House modern edition
+   Based on the current Holistic House photography-led public hero, serif wordmark,
+   near-white cards and burgundy (#742c42) primary actions. Design-only layer:
+   existing IDs, scripts, providers, history and safety controls stay unchanged. */
+:root{
+  --hh-bg:#fbf7ef;--hh-ink:#352b24;--hh-muted:#685b50;--hh-paper:#fffdfa;
+  --hh-warm:#f6eddf;--hh-border:#e5d9cd;--hh-clay:#945838;--hh-wine:#742c42;
+  --hh-wine-hover:#612238;--hh-sage:#356b56;--hh-shadow:0 12px 30px rgba(67,43,30,.065);
+  --navy:var(--hh-ink);--teal:var(--hh-wine);--light:var(--hh-bg);
+  --ink:var(--hh-ink);--muted:var(--hh-muted);--border:var(--hh-border);--green:var(--hh-sage);
+  --white:var(--hh-paper);--shadow:var(--hh-shadow);color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--hh-bg);color:var(--hh-ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#865039}
+a:hover{color:#612d3f}
+button,input,select,textarea{font-family:inherit}
+button,select{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #b68c76;outline-offset:3px}
+::selection{background:#ebd8d6;color:#432b2e}
+.app-shell{display:flex;min-height:480px;height:100dvh;overflow:hidden;background:var(--hh-bg)}
+.main{min-width:0;flex:1;display:flex;flex-direction:column;background:var(--hh-bg)}
+.hidden{display:none!important}
+
+/* Minimal workspace rail: no ornamental blocks, only a clear brand and history. */
+.sidebar{width:238px;flex:0 0 238px;min-height:0;display:flex;flex-direction:column;gap:0;background:#fdfaf5;border-right:1px solid #e9dfd5;padding:25px 15px 18px}
+.brand{display:flex;gap:10px;align-items:center;min-width:0;padding:0 5px 24px;border-bottom:1px solid #e9dfd5}
+.logo{display:grid;place-items:center;width:42px;height:42px;flex-shrink:0;background:none;border-radius:12px;box-shadow:none;overflow:hidden}
+.logo img{display:block;width:100%;height:100%}
+.brand-copy{min-width:0;flex:1}
+.brand .brand-house{display:block;width:fit-content;color:var(--hh-ink);font:400 21px/1.08 "Iowan Old Style",Baskerville,Georgia,serif;letter-spacing:-.045em;text-decoration:none;white-space:nowrap}
+.brand .brand-house:hover{color:var(--hh-wine)}
+.brand strong{display:block;color:var(--hh-clay);font:700 10px/1.6 Arial,Helvetica,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
+.brand span#brandSubtitle{display:none}
+.sidebar-close{display:none!important}
+.new-button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:23px;padding:10px 13px;border:1px solid var(--hh-wine);border-radius:999px;background:var(--hh-wine);color:#fffaf8;font-size:12px;font-weight:700;box-shadow:0 5px 14px rgba(116,44,66,.14);text-align:center}
+.new-button:hover{background:var(--hh-wine-hover);border-color:var(--hh-wine-hover)}
+.sidebar-label{font-size:10px;letter-spacing:.16em;font-weight:700;margin:28px 11px 11px;color:#9b8877}
+.thread-list{flex:1;min-height:0;overflow:auto}
+.thread-button{display:flex;align-items:center;gap:8px;width:100%;min-height:42px;margin:2px 0;padding:10px 11px;border:0;border-radius:10px;background:transparent;color:#6b584b;text-align:left;font-size:12px;line-height:1.5}
+.thread-button:hover,.thread-button.active{background:#f3e8dd;color:#67354a}
+.thread-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.thread-delete{border:0;background:transparent;color:#a68b77;font-size:16px;padding:3px 6px}
+.thread-delete:hover{color:#a02d47}
+.side-bottom{display:grid;gap:12px;margin-top:10px;padding:18px 8px 0;border-top:1px solid #e7ddd1}
+.free-mark{display:flex;align-items:center;gap:8px;font-size:11px;color:#58725f}
+.free-dot{display:inline-block;flex-shrink:0;width:7px;height:7px;border-radius:50%;background:#4b8a6d;box-shadow:0 0 0 3px rgba(75,138,109,.11)}
+.settings-link{display:flex;align-items:center;gap:8px;min-height:38px;padding:0;border:0;background:transparent;color:#664b40;text-align:left;font-size:12px;font-weight:600}
+.settings-link:hover{color:var(--hh-wine)}
+.small-link{color:#917d6d;text-decoration:none;font-size:11px}
+
+/* House-like slim navigation: sophisticated typography and wine accents. */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;height:72px;flex:0 0 72px;padding:0 clamp(20px,3.8vw,47px);background:rgba(251,247,239,.96);border-bottom:1px solid #e9dfd5}
+.top-left{display:flex;align-items:center;gap:12px;min-width:0}
+.top-left>div{min-width:0}
+.top-house{display:block;color:#976852;font:600 9px/1.3 Arial,Helvetica,sans-serif;letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px}
+.top-left b{display:block;color:var(--hh-ink);font:400 22px/1.08 "Iowan Old Style",Baskerville,Georgia,serif;letter-spacing:-.02em;white-space:nowrap}
+.top-left small{color:#918376;display:none}
+.top-logo{display:none}
+.top-logo img{display:block;width:34px;height:34px}
+.top-actions{display:flex;align-items:center;gap:11px}
+.free-pill{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;background:#f2f6ee;border:1px solid #dce7d9;color:#52745e;border-radius:999px;font-size:10px;letter-spacing:.06em;font-weight:800}
+.lang-button{min-height:37px;padding:7px 13px;border:1px solid #ddd2c7;border-radius:999px;background:#fffdf9;color:#765442;font-size:11px;font-weight:800}
+.lang-button:hover{background:#f5eae0}
+.icon-button{display:inline-grid;place-items:center;min-width:38px;min-height:38px;padding:7px;border:0;border-radius:999px;background:transparent;color:#785c4e;font-size:17px;line-height:1}
+.icon-button:hover{background:#f1e7dd;color:var(--hh-wine)}
+.menu{display:none}
+
+/* Welcome: same photographic split hero architecture as the current HH homepage. */
+.content-scroll{flex:1;min-height:0;overflow-y:auto;scroll-behavior:smooth}
+.content-inner{max-width:1160px;margin:0 auto;padding:28px clamp(20px,3.9vw,45px) 52px}
+.welcome{max-width:1040px;margin:0 auto}
+.welcome::before,.welcome::after{display:none!important}
+.welcome-hero{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);min-height:290px;overflow:hidden;isolation:isolate;border:1px solid #eaded1;border-radius:22px;background:#f6eddf}
+.welcome-intro{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;min-width:0;padding:38px clamp(26px,3.6vw,48px) 35px}
+.eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 15px;color:#8b5339;font-size:10px;font-weight:700;letter-spacing:.18em;line-height:1.4;text-transform:uppercase}
+.eyebrow-line{display:block;flex-shrink:0;width:24px;height:1px;background:#a76c4f}
+.welcome h1{position:relative;z-index:1;max-width:680px;margin:0 0 17px;color:#352b24;font:400 clamp(39px,4.3vw,59px)/1.04 "Iowan Old Style",Baskerville,"Palatino Linotype",Georgia,serif;letter-spacing:-.038em;text-wrap:balance}
+.welcome h1 em{color:var(--hh-wine);font-style:normal;font-weight:400}
+.hero-description{max-width:440px;margin:0;color:#645950;font-size:14px;line-height:1.65}
+.welcome-roles{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:24px;line-height:1.3}
+.welcome-roles span{padding:5px 8px;border:1px solid rgba(116,44,66,.18);border-radius:999px;background:rgba(255,251,247,.64);color:#755d52;font-size:9px;font-weight:800;letter-spacing:.04em}
+.welcome-roles .roles-separator{padding:5px 6px;background:transparent;border:0;color:#86665c}
+.welcome-roles .role-outcome{background:var(--hh-wine);border-color:var(--hh-wine);color:#fff}
+.welcome-photo{position:relative;z-index:1;min-height:290px;overflow:hidden;background:linear-gradient(140deg,#cbb49b,#785345)}
+.welcome-photo img{display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:center 50%;opacity:.93}
+.welcome-photo::before{position:absolute;z-index:1;inset:0;content:"";background:linear-gradient(90deg,#f6eddf 0,rgba(246,237,223,.66) 12%,rgba(246,237,223,.03) 44%),linear-gradient(0deg,rgba(38,29,24,.35),transparent 45%)}
+.welcome-photo-overlay{position:absolute;z-index:2;right:23px;bottom:22px;display:flex;align-items:center;gap:15px;padding:11px 17px;border:1px solid rgba(255,255,255,.4);border-radius:999px;background:rgba(255,252,245,.92);color:#693b45;box-shadow:0 8px 24px rgba(35,25,22,.16);backdrop-filter:blur(7px)}
+.welcome-photo-overlay span{font:400 23px/1 "Iowan Old Style",Baskerville,Georgia,serif}
+.welcome-photo-overlay .overlay-arrow{font:400 14px/1 Arial,Helvetica,sans-serif;opacity:.65}
+
+/* Primary action: audit without a separate oversized marketing banner. */
+.audit-panel{position:relative;z-index:2;margin:16px 0 0;padding:20px 23px 18px;border:1px solid #e6d9ca;border-radius:18px;background:#fffdf9;box-shadow:var(--hh-shadow)}
+.audit-panel-head{display:flex;align-items:center;gap:12px;margin-bottom:15px}
+.audit-symbol{display:grid;place-items:center;flex:0 0 43px;width:43px;height:43px;border-radius:13px;background:#f8eced;color:var(--hh-wine);font-size:23px;font-family:Georgia,serif}
+.audit-panel-copy{flex:1;min-width:0}
+.audit-panel-copy strong{display:block;color:#342922;font:400 23px/1.22 "Iowan Old Style",Baskerville,Georgia,serif;letter-spacing:-.02em;margin-bottom:3px}
+.audit-panel-copy small{display:block;color:#796d61;font-size:12px;line-height:1.45}
+.audit-input-row{display:flex;align-items:stretch;gap:10px}
+.audit-input-row input{flex:1;min-width:0;min-height:50px;padding:11px 16px;border:1px solid #dcd0c4;border-radius:999px;background:#fff;color:#3d3029;font-size:14px;outline:none}
+.audit-input-row input:focus{border-color:#a8697b;box-shadow:0 0 0 3px rgba(116,44,66,.11)}
+.primary-button,.outline-button{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:43px;padding:10px 19px;border-radius:999px;font-size:12px;font-weight:700;line-height:1.3;white-space:normal}
+.primary-button{background:var(--hh-wine);border:1px solid var(--hh-wine);color:#fffaf8;box-shadow:0 4px 13px rgba(116,44,66,.11)}
+.primary-button:hover{background:var(--hh-wine-hover);border-color:var(--hh-wine-hover)}
+.primary-button:disabled{opacity:.55;cursor:wait}
+.outline-button{background:#fffefa;border:1px solid #bca593;color:#754334}
+.outline-button:hover{background:#f7efe6;border-color:#96745a}
+.audit-launch{flex-shrink:0;min-width:192px;min-height:50px;padding-inline:23px;font-size:13px}
+.audit-status{min-height:0;margin-top:9px;color:#968579;font-size:10px;line-height:1.45}
+.examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}
+.example{position:relative;display:flex;align-items:center;flex-direction:row;gap:11px;min-height:54px;padding:12px 13px;border:1px solid #e8dcd0;border-radius:12px;background:#fffcf8;color:#664f43;box-shadow:0 1px 4px rgba(76,54,42,.025);font-size:12px;line-height:1.4;text-align:left;transition:background .18s,border-color .18s,transform .18s}
+.example:hover{background:#fff;border-color:#b88b8a;transform:translateY(-1px)}
+.example-number{display:grid;place-items:center;flex:0 0 27px;width:27px;height:27px;border-radius:9px;background:#f4ebe4;color:#915e43;font:700 10px/1 Arial,Helvetica,sans-serif}
+.example span[data-i18n]{flex:1;min-width:0}
+.example-arrow{position:static;flex-shrink:0;margin-left:auto;color:#955b70;font-size:16px}
+.connect-banner{display:flex;align-items:center;gap:12px;flex-wrap:nowrap;margin-top:13px;padding:13px 16px;border:1px solid #e5d6ca;border-radius:14px;background:#f3e8e1}
+.connect-symbol{display:grid;place-items:center;flex:0 0 35px;width:35px;height:35px;background:#fff7f3;border-radius:50%;color:#90576b;font-size:19px}
+.connect-copy{flex:1;min-width:0}
+.connect-copy b{display:block;color:#583643;margin-bottom:3px;font-size:12px}
+.connect-copy small{display:block;color:#816f68;font-size:11px;line-height:1.55}
+.connect-btn{flex-shrink:0}
+
+/* Persistent message composer on a stable, modern footer. */
+.composer-area{flex:0 0 auto;padding:12px clamp(15px,3.5vw,36px) max(13px,env(safe-area-inset-bottom));border-top:1px solid #e9dfd5;background:rgba(255,253,249,.97);box-shadow:0 -4px 22px rgba(65,43,35,.03)}
+.composer-wrap{max-width:1040px;margin:0 auto}
+.status-line{display:flex;align-items:center;gap:8px;margin:0 4px 8px;color:#85766b;font-size:10px;line-height:1.4}
+.usage{margin-left:auto;color:#88776a;font-size:10px}
+.composer{display:flex;align-items:end;gap:12px;min-height:55px;padding:7px 8px 7px 17px;border:1px solid #ddd0c2;border-radius:18px;background:#fff;box-shadow:0 4px 15px rgba(70,44,35,.05)}
+.composer:focus-within{border-color:#b57d8e;box-shadow:0 0 0 3px rgba(116,44,66,.09)}
+.composer textarea{flex:1;min-width:0;max-height:180px;resize:none;outline:0;border:0;padding:10px 0;background:transparent;color:#3e3129;font-size:14px;line-height:1.55}
+.composer textarea::placeholder{color:#a49488}
+.send-button{display:grid;place-items:center;flex:0 0 41px;width:41px;height:41px;border:0;border-radius:13px;background:var(--hh-wine);color:#fff;font-size:18px}
+.send-button:hover{background:var(--hh-wine-hover)}
+.send-button:disabled{background:#c8bbc0;cursor:wait}
+.composer-tip{display:flex;justify-content:space-between;gap:10px;padding:8px 5px 0;color:#a09084;font-size:9px;line-height:1.35}
+
+/* Response stage: airy expert cards, one clear editorial consensus. */
+.messages{display:flex;flex-direction:column;gap:30px}
+.round{display:flex;flex-direction:column;gap:14px}
+.user-bubble{margin-left:auto;max-width:800px;padding:16px 19px;border:1px solid #ebd6db;border-radius:16px 16px 5px 16px;background:#faf1f3;color:#4b3640;font-size:13px;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap}
+.round-meta{color:#8e7568;font-size:10px;letter-spacing:.13em;font-weight:800;text-transform:uppercase}
+.review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.review-card{min-width:0;overflow:hidden;border:1px solid #e6dbd2;border-radius:16px;background:#fffefa;box-shadow:0 4px 16px rgba(67,43,30,.045)}
+.review-head{display:flex;align-items:center;gap:10px;min-height:65px;padding:13px 15px;border-bottom:1px solid #efe5dc;background:#fbf7f2}
+.avatar{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:11px;background:#f6e9ef;color:#9c4c68;font-size:12px;font-weight:800}
+.review-card:nth-child(2) .avatar{background:#f2ebe0;color:#886142}
+.review-card:nth-child(3) .avatar{background:#eaf0e9;color:#47725a}
+.review-head b{display:block;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#46382f;font-size:12px}
+.review-head small{display:block;margin-top:3px;color:#978779;font-size:10px}
+.review-body{max-height:495px;overflow:auto;padding:17px 16px;color:#53483f;font-size:13px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere;scrollbar-color:#cbb8ae transparent}
+.review-body.pending{color:#978579}
+.review-body.error{color:#a03c47}
+.synthesis{overflow:hidden;border:1px solid #eadbd5;border-radius:18px;background:#fffdf9;box-shadow:var(--hh-shadow)}
+.synth-head{display:flex;align-items:center;gap:10px;padding:17px 20px;background:var(--hh-wine);color:#fff9f9;font-size:14px;font-weight:750}
+.synth-text{padding:21px 22px;color:#44372f;font-size:13px;line-height:1.84;overflow-wrap:anywhere;white-space:pre-wrap}
+.synth-actions{display:flex;flex-wrap:wrap;gap:9px;padding:13px 19px;border-top:1px solid #ecdfd6;background:#fffaf5}
+.action-button{min-height:40px;padding:10px 14px;border:1px solid #daccbd;border-radius:999px;background:#fffdf8;color:#795540;font-size:11px;font-weight:650}
+.action-button:hover{background:#f5e9e0;border-color:#b89b8b}
+.action-button:disabled{opacity:.55}
+.spec-open-button{border-color:var(--hh-wine);background:var(--hh-wine);color:#fff;font-weight:700}
+.spec-open-button:hover{background:var(--hh-wine-hover);color:#fff}
+.review-specificity{padding:10px 17px;border-top:1px solid #eee4dc;color:#796a61;font-size:11px;line-height:1.5}
+.spec-saved-hint{border-top:1px solid #eee4dc;padding:9px 16px;color:#837065;font-size:11px}
+.global-error{max-width:100%;margin:13px 0;padding:13px 15px;border:1px solid #efc9c6;border-radius:12px;background:#fff5f4;color:#9b4248;font-size:12px}
+.loading-bubble{animation:pulse 1.4s infinite alternate}
+@keyframes pulse{to{opacity:.44}}
+
+/* Site evidence: compact data without fake badges or saturation. */
+.site-evidence,.verified-appendix{overflow:hidden;border:1px solid #e7dbd1;border-radius:16px;background:#fffefa;color:#483a31}
+.evidence-title{padding:13px 16px;border-bottom:1px solid #ede4dc;color:#49372d;font-size:12px;font-weight:800}
+.evidence-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:14px}
+.evidence-metric{padding:13px 8px;border:1px solid #eee4db;border-radius:12px;background:#fdf9f5;text-align:center}
+.evidence-metric b{display:block;color:var(--hh-wine);font:400 25px/1.2 Georgia,serif}
+.evidence-metric small{display:block;margin-top:4px;color:#8b796d;font-size:10px;line-height:1.4}
+.evidence-coverage,.evidence-note{color:#8b7b70;font-size:11px;line-height:1.5}
+.evidence-issues{display:flex;flex-wrap:wrap;gap:7px;padding:0 15px 13px}
+.issue-chip{padding:6px 10px;border:1px solid #e6d8cf;border-radius:999px;background:#fbf4ee;color:#7b5a4c;font-size:10px}
+.evidence-subtitle{padding:10px 15px 7px;color:#4b392f;font-size:12px;font-weight:700}
+.evidence-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:0 14px}
+.shot-item{min-width:0;padding:9px;border:1px solid #e8ddd2;border-radius:12px;background:#fffdf9}
+.shot-path{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0 0 9px;color:#7e6d60;font-size:10px}
+.shot-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.shot-link{min-width:0;text-decoration:none;font-size:10px}
+.shot-image{width:100%;height:104px;object-fit:cover;object-position:top;border:1px solid #eee1d7;border-radius:6px;background:#f4eae0}
+.shot-link small{color:#8a786b;font-size:9px}
+.evidence-details{padding:11px 15px;border-top:1px solid #eee4dc;color:#785f50;font-size:11px}
+.evidence-details summary{font-weight:700;cursor:pointer}
+.evidence-details ul{padding-left:18px;max-height:240px;overflow:auto}
+.evidence-details li{margin:6px 0;overflow-wrap:anywhere}
+.verified-appendix{padding:14px 16px}
+.verified-appendix summary{color:#754b3a;font-size:12px;font-weight:750;cursor:pointer}
+.verified-appendix-text{max-height:460px;overflow:auto;margin-top:12px;color:#56483e;font:11px/1.7 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* Settings: a compact control room, not a wall of unrelated boxes. */
+.overlay{display:none}
+.settings-dialog,.spec-dialog{color:var(--hh-ink);background:#fffefa;border:1px solid #ddd0c4;border-radius:20px;box-shadow:0 25px 90px rgba(35,24,22,.21)}
+.settings-dialog{width:min(94vw,730px);max-height:min(92dvh,960px);overflow:auto;padding:27px 30px}
+.settings-dialog::backdrop,.spec-dialog::backdrop{background:rgba(36,24,24,.55);backdrop-filter:blur(2px)}
+.dialog-head{display:flex;align-items:start;justify-content:space-between;gap:15px}
+.dialog-head .eyebrow{margin-bottom:9px}
+.dialog-head h2{margin:0;color:#3e3029;font:400 31px/1.18 "Iowan Old Style",Baskerville,Georgia,serif;letter-spacing:-.025em}
+.settings-dialog p{margin:10px 0 14px;color:#837369;font-size:12px;line-height:1.65}
+.connection-state{margin:10px 0;color:#52745e;font-size:12px}
+.wide{width:100%}
+.remember-setting{display:flex;align-items:center;gap:9px;margin:12px 0 0;color:#55463d;font-size:12px;font-weight:600}
+.remember-setting input,.external-provider label input{width:16px;height:16px;flex-shrink:0;accent-color:var(--hh-wine)}
+.settings-dialog .privacy-warning{margin:6px 0 12px;font-size:11px;line-height:1.5;color:#8f8075}
+.verification-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 15px}
+.verification-row .outline-button{font-size:11px}
+.verification-result{color:#84776b;font-size:11px;line-height:1.5}
+.verification-result.verified{color:#387251}
+.verification-result.invalid{color:#ac4b52}
+.separate{display:flex;align-items:center;gap:10px;margin:17px 0;color:#9b8b80;font-size:11px}
+.separate:before,.separate:after{content:"";flex:1;height:1px;background:#eee5db}
+.key-row{display:flex;gap:9px}
+.key-row input,.selector select,.external-provider>input{min-width:0;min-height:45px;border:1px solid #ded0c4;border-radius:11px;background:white;color:#514138;padding:11px 12px;font-size:13px}
+.key-row input{flex:1}
+.inline-help{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;font-size:11px}
+.link-button{min-height:35px;padding:4px 0;border:0;background:transparent;color:#885c55;font-size:11px}
+.separator{height:1px;background:#ebe0d5;margin:22px 0}
+.model-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.dialog-section-title{color:#40342d;font-size:14px;font-weight:700}
+.recommend-button{padding:10px 14px;white-space:normal;font-size:11px}
+.settings-dialog .recommended-note{color:#847267;font-size:11px;margin:10px 0}
+.settings-dialog .small{font-size:11px!important}
+.model-cost-notice{padding:10px 13px;margin:11px 0 14px;border:1px solid #f0e1d7;border-radius:12px;background:#fbf4ef;color:#806f65;font-size:11px;line-height:1.55}
+.model-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.selector{min-width:0;margin:0;padding:13px;border:1px solid #e9ddd1;border-radius:13px;background:#fdf9f5}
+.selector label{display:block;margin-bottom:7px;color:#4d382e;font-size:12px;font-weight:700}
+.role-description{margin-bottom:9px;color:#8c7b6e;font-size:11px;line-height:1.45}
+.selector select{width:100%;font-size:12px}
+#modelStatus{white-space:pre-line;color:#836f62}
+.external-panel{margin-top:18px;padding:17px;border:1px solid #e9dcd1;border-radius:15px;background:#fbf8f3}
+.external-panel .dialog-section-title{margin-bottom:9px}
+.external-explain{font-size:11px!important;line-height:1.6!important;color:#806f61!important;margin:5px 0 13px!important}
+.external-provider{margin:10px 0;padding:14px;border:1px solid #e8dfd7;border-radius:13px;background:#fffefa}
+.external-provider strong{display:inline-block;margin-right:8px;color:#4b3931;font-size:12px}
+.provider-free-tag{display:inline-block;padding:5px 9px;border-radius:999px;background:#eaf2e9;color:#53745e;font-size:10px;font-weight:700}
+.external-provider>input{display:block;width:100%;margin:11px 0 10px}
+.external-provider label{display:flex;align-items:start;gap:8px;color:#6a584d;font-size:11px;line-height:1.5}
+.provider-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:11px}
+.provider-controls .outline-button{padding:9px 13px;font-size:11px}
+.provider-status{margin-top:9px;color:#806c60;font-size:10px;line-height:1.55;overflow-wrap:anywhere}
+.external-panel .provider-danger{margin:14px 0 0!important;color:#92555e!important;font-size:10px!important;line-height:1.65!important}
+.dialog-foot{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:19px;padding-top:17px;border-top:1px solid #eee4dc}
+.dialog-foot span{flex:1;color:#9b8b80;font-size:10px;line-height:1.5}
+
+/* Full-size editable specification and unclipped copy/export controls. */
+.spec-dialog{width:min(970px,calc(100vw - 24px));max-height:calc(100dvh - 26px);overflow:auto;padding:0}
+.spec-header{display:flex;align-items:start;justify-content:space-between;gap:18px;padding:21px 24px 14px}
+.spec-eyebrow{margin-bottom:7px;color:#985c43;font-size:10px;font-weight:800;letter-spacing:.14em}
+.spec-heading h2{margin:0 0 4px;color:#3f2f28;font:400 30px/1.2 "Iowan Old Style",Baskerville,Georgia,serif}
+.spec-subtitle{color:#89786c;font-size:12px;line-height:1.5}
+.spec-close{display:grid;place-items:center;flex-shrink:0;width:36px;height:36px;border:1px solid #e5d7cb;border-radius:50%;background:#fffdfa;color:#856d61;font-size:20px}
+.spec-notice{padding:10px 24px;border-block:1px solid #f0e4db;background:#fbf4ee;color:#776257;font-size:11px}
+.spec-status{min-height:44px;padding:11px 24px 8px;color:#736358;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.spec-status.spec-error{color:#ab4650}
+.spec-status.spec-success{color:#326d55}
+textarea.spec-editor{display:block;box-sizing:border-box;flex:none;width:calc(100% - 48px);min-width:0;min-height:200px;height:clamp(280px,50dvh,550px);max-height:52dvh;margin:0 24px;padding:17px;border:1px solid #e4d7cb;border-radius:13px;background:#fffdfa;color:#483c35;font:12px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;resize:vertical;white-space:pre-wrap;overflow-wrap:anywhere}
+textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
+.spec-footer{padding:15px 24px 19px}
+.spec-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:9px}
+.spec-primary,.spec-action{min-height:44px;padding:10px 16px;border:1px solid #d9c7bc;border-radius:999px;background:#fffefa;color:#7c523e;font-size:12px;font-weight:700;line-height:1.3;white-space:normal;text-align:center}
+.spec-primary{border-color:var(--hh-wine);background:var(--hh-wine);color:white}
+.spec-primary:disabled{opacity:.5;cursor:wait}
+.spec-action:hover{background:#f9efe9;border-color:#bd919c}
+#specCopy{border-color:var(--hh-wine);color:var(--hh-wine);font-weight:800}
+.spec-hint{margin-top:8px;color:#928277;font-size:10px;line-height:1.5}
+
+/* Rate limit recovery remains visible and actionable. */
+.recovery-panel{margin:8px 0 20px;padding:16px 17px;border:1px solid #eac5cd;border-radius:14px;background:#fff7f7;box-shadow:0 5px 18px rgba(85,42,53,.04)}
+.recovery-title{display:block;color:#893b50;font-size:14px;line-height:1.4}
+.recovery-description{margin:8px 0;color:#6c514f;font-size:12px;line-height:1.6}
+.recovery-vision-warning{margin:7px 0;color:#94736c;font-size:11px;line-height:1.6}
+.recovery-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 9px}
+.recovery-btn{min-height:42px;padding:9px 13px;border:1px solid #dabec4;border-radius:999px;background:#fff;color:#6c3f4b;font-size:12px;font-weight:700;line-height:1.4;text-align:center}
+.recovery-btn.recovery-primary{border-color:var(--hh-wine);background:var(--hh-wine);color:white}
+.recovery-btn:focus-visible{outline:3px solid #b57d8e}
+.recovery-panel small{display:block;color:#8b6d68;font-size:11px;line-height:1.65}
+.quota-footer-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:1040px;margin:0 auto 9px;padding:8px 12px;border:1px solid #ead2d4;border-radius:11px;background:#fff6f7;color:#8e4656;font-size:11px;font-weight:700;line-height:1.45}
+.quota-footer-banner .recovery-btn{flex-shrink:0;width:auto;min-height:32px;padding:6px 10px;font-size:10px}
+
+/* Tablet & phone: first screen remains useful without tiny cards or clipped inputs. */
+@media(max-width:1110px){
+  .sidebar{width:216px;flex-basis:216px}
+  .content-inner{padding:24px 25px 44px}
+  .review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .review-card:nth-child(3){grid-column:1/-1}
+  .welcome-intro{padding:30px 29px}
+  .welcome h1{font-size:clamp(37px,4.4vw,49px)}
+}
+@media(max-width:760px){
+  .app-shell{height:100dvh;min-height:0}
+  .sidebar{position:fixed;z-index:30;inset:0 auto 0 0;width:min(84vw,300px);flex-basis:auto;transform:translateX(-105%);transition:transform .2s;background:#fffdf7;box-shadow:9px 0 32px rgba(56,36,31,.18);padding:22px 17px max(18px,env(safe-area-inset-bottom))}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-close{display:inline-grid!important;margin-left:auto}
+  .overlay{display:block;position:fixed;inset:0;z-index:20;background:rgba(40,30,27,.49)}
+  .menu{display:inline-grid}
+  .top-logo{display:inline-flex;flex-shrink:0}
+  .topbar{height:62px;flex-basis:62px;padding:0 12px;gap:8px}
+  .top-left{gap:7px}
+  .top-house{font-size:8px;margin-bottom:3px}
+  .top-left b{font-size:17px}
+  .top-actions{gap:5px}
+  .free-pill{padding:7px 9px;font-size:9px}
+  .lang-button{min-height:34px;padding:7px 9px}
+  .top-actions .icon-button{min-height:35px;min-width:35px}
+  .content-inner{padding:16px 13px 28px}
+  .welcome-hero{grid-template-columns:minmax(0,1fr) minmax(0,.53fr);min-height:220px;border-radius:18px}
+  .welcome-intro{padding:25px 6px 23px 19px}
+  .eyebrow{gap:7px;margin-bottom:12px;font-size:8px;letter-spacing:.11em}
+  .eyebrow-line{width:15px}
+  .welcome h1{font-size:clamp(29px,7.9vw,37px);line-height:1.06;letter-spacing:-.034em;margin-bottom:12px}
+  .hero-description{font-size:11px;line-height:1.5}
+  .welcome-roles{gap:3px;margin-top:12px}
+  .welcome-roles span{padding:4px 6px;font-size:8px}
+  .welcome-photo{min-height:220px}
+  .welcome-photo img{object-position:center}
+  .welcome-photo::before{background:linear-gradient(90deg,#f6eddf 0,rgba(246,237,223,.43) 28%,transparent 68%),linear-gradient(0deg,rgba(41,25,26,.19),transparent 45%)}
+  .welcome-photo-overlay{right:9px;bottom:11px;gap:8px;padding:7px 11px}
+  .welcome-photo-overlay span{font-size:16px}
+  .welcome-photo-overlay .overlay-arrow{font-size:10px}
+  .audit-panel{margin-top:12px;padding:15px;border-radius:16px}
+  .audit-panel-head{gap:10px;margin-bottom:12px}
+  .audit-symbol{width:37px;height:37px;flex-basis:37px;font-size:20px}
+  .audit-panel-copy strong{font-size:21px}
+  .audit-panel-copy small{font-size:11px;line-height:1.4}
+  .audit-input-row{flex-direction:column;gap:8px}
+  .audit-input-row input{min-height:47px;width:100%;font-size:16px}
+  .audit-launch{width:100%;min-height:47px}
+  .audit-status{font-size:10px}
+  .examples{display:flex;gap:8px;margin:12px -13px 0;padding:0 13px 3px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .examples::-webkit-scrollbar{display:none}
+  .example{flex:0 0 min(74vw,270px);min-height:51px;padding:11px 12px;scroll-snap-align:start;font-size:11px}
+  .connect-banner{gap:9px;margin-top:11px;padding:11px 12px}
+  .connect-symbol{width:32px;height:32px;flex-basis:32px}
+  .connect-copy b{font-size:11px}
+  .connect-copy small{font-size:10px;line-height:1.4}
+  .connect-btn{padding:10px 12px;font-size:11px}
+  .review-grid{grid-template-columns:minmax(0,1fr)}
+  .review-card:nth-child(3){grid-column:auto}
+  .review-body{max-height:none;font-size:12px}
+  .messages{gap:24px}
+  .synth-text{padding:17px;font-size:12px}
+  .synth-head{padding:14px 17px}
+  .composer-area{padding:9px 10px max(9px,env(safe-area-inset-bottom))}
+  .composer{min-height:53px;padding:6px 7px 6px 14px}
+  .composer textarea{font-size:16px}
+  .composer-tip{font-size:9px}
+  .composer-tip span:last-child{display:none}
+  .status-line{font-size:10px;margin-bottom:7px}
+  .settings-dialog{width:calc(100vw - 18px);max-height:90dvh;padding:20px 16px;border-radius:16px}
+  .dialog-head h2{font-size:27px}
+  .key-row input,.selector select,.external-provider>input{font-size:16px}
+  .model-grid{grid-template-columns:minmax(0,1fr)}
+  .model-heading{align-items:start}
+  .dialog-foot{align-items:stretch;flex-direction:column}
+  .dialog-foot button{width:100%}
+  .spec-dialog{width:calc(100vw - 10px);max-height:calc(100dvh - 12px);border-radius:13px}
+  .spec-header{padding:15px 15px 10px}
+  .spec-heading h2{font-size:24px}
+  .spec-notice{padding:9px 15px}
+  .spec-status{padding:10px 15px 7px}
+  textarea.spec-editor{width:calc(100% - 26px);margin:0 13px;padding:12px;font-size:12px;height:45dvh;max-height:52dvh}
+  .spec-footer{padding:11px 13px 15px}
+  .spec-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .spec-primary,.spec-action{width:100%;padding:10px 8px}
+  #specBuild{grid-column:1/-1}
+  .recovery-panel{padding:13px;margin:4px 0 17px}
+  .recovery-actions{display:grid;grid-template-columns:1fr}
+  .recovery-btn{width:100%}
+  .quota-footer-banner{font-size:10px;margin-bottom:8px}
+  .quota-footer-banner .recovery-btn{max-width:50%;font-size:10px;padding:5px 7px}
+  .evidence-gallery{grid-template-columns:1fr}
+}
+@media(max-width:380px){
+  .topbar .free-pill{display:none}
+  .top-house{display:none}
+  .top-logo img{width:30px;height:30px}
+  .welcome-hero{grid-template-columns:minmax(0,1fr) 34%}
+  .welcome h1{font-size:29px}
+  .welcome-roles span{font-size:7px}
+  .connect-symbol{display:none}
+  .connect-btn{min-height:39px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+/* Later provider-error compactness rule retained from concurrent main. */
+/* Keep failed reviewer responses small: the reason belongs in the error text, not a large empty card. */
+.review-card:has(.review-body.error){box-shadow:none}
+.review-card:has(.review-body.error) .review-head{padding:10px 12px}
+.review-card .review-body.error{padding:11px 13px;font-size:12px;line-height:1.5;max-height:none}
+@media(max-width:760px){.review-grid{gap:8px}.review-card:has(.review-body.error){border-radius:12px}.review-card:has(.review-body.error) .review-head{padding:9px 12px}.review-card .review-body.error{padding:10px 12px}}

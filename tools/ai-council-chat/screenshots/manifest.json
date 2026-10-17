@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-10-16T19:44:28.631Z",
+  "capture_engine": "Playwright Chromium",
+  "device_viewport_desktop": "1440x900",
+  "device_viewport_mobile": "390x844",
+  "screenshots": [
+    {
+      "page": "https://holistichouse.vercel.app/",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/home-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/home-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    },
+    {
+      "page": "https://holistichouse.vercel.app/en",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/en-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/en-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    },
+    {
+      "page": "https://holistichouse.vercel.app/ru",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/ru-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/ru-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    },
+    {
+      "page": "https://holistichouse.vercel.app/es",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/es-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/es-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    },
+    {
+      "page": "https://holistichouse.vercel.app/en/services",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/en-services-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/en-services-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    },
+    {
+      "page": "https://holistichouse.vercel.app/ru/services",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/ru-services-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/ru-services-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    },
+    {
+      "page": "https://holistichouse.vercel.app/es/services",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/es-services-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/es-services-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    },
+    {
+      "page": "https://holistichouse.vercel.app/en/academy",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/en-academy-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/en-academy-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    },
+    {
+      "page": "https://holistichouse.vercel.app/en/about",
+      "desktop_url": "https://ai-council-chat.vercel.app/screenshots/en-about-desktop.jpg",
+      "mobile_preview_url": "https://ai-council-chat.vercel.app/screenshots/en-about-mobile.jpg",
+      "source": "Playwright Chromium",
+      "verified": true
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+name: AI Council provider browser CORS checks
+on:
+  push:
+    paths:
+      - '.github/workflows/ai-council-provider-cors.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test runtime
+        working-directory: tools/ai-council-chat
+        run: |
+          npm install --no-save --package-lock=false playwright@1.57.0
+          npx playwright install --with-deps chromium
+      - name: Verify browser CORS access with dummy non-secret keys
+        working-directory: tools/ai-council-chat
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          const browser=await chromium.launch({headless:true});
+          const page=await browser.newPage();
+          await page.goto('https://ai-council-chat.vercel.app/',{waitUntil:'domcontentloaded'});
+          const results=await page.evaluate(async()=>{
+            const cases=[
+              ['google','https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash',{'x-goog-api-key':'invalid-probe-key'}],
+              ['mistral','https://api.mistral.ai/v1/models',{Authorization:'Bearer invalid-probe-key'}],
+              ['nvidia-deepseek','https://integrate.api.nvidia.com/v1/chat/completions',{Authorization:'Bearer invalid-probe-key','Content-Type':'application/json'}]
+            ];
+            const out=[];
+            for(const [name,url,headers] of cases){
+              try{const r=await fetch(url,{headers});out.push({name,network:'reachable',status:r.status})}
+              catch(e){out.push({name,network:'cors_or_network_blocked',error:String(e.message||e).slice(0,160)})}
+            }
+            return out;
+          });
+          console.log(JSON.stringify(results,null,2));
+          await browser.close();
+          if(results.every(r=>r.network!=='reachable'))process.exitCode=1;
+          NODE
