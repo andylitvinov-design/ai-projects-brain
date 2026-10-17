@@ -41,7 +41,10 @@
     const byModel=(r.answers||[]).filter(a=>a.status==='ok'&&a.text?.trim());
     return byModel.map((a,i)=>({model:a.model||'Reviewer '+(i+1),answer:a.text.trim()}));
   }
-  function canGenerate(){return !!key && Array.isArray(freeModels) && freeModels.some(m=>m.id===state.models[3]);}
+  function canGenerate(){const id=state.models[3];
+    const direct=globalThis.AICouncilExternalProviders?.models()?.some(m=>m.id===id);
+    return !!(key||direct) && Array.isArray(freeModels) && freeModels.some(m=>m.id===id);
+  }
   // Existing spec is never discarded on an error. Not model output: source-only working material.
   function sourceDraft(r){
     const ru=currentLocale()==='ru',yes=ru?'Источники и исходные замечания':'Sources and original reviewer findings';
@@ -113,7 +116,7 @@
     if(!round||working)return;
     const target=round;
     const xs=sources(target);if(!xs.length){showStatus(L('noAnswers'),true);return;}
-    if(!key){showStatus(L('modelBlocked'),true);openSettings();return;}
+    if(!key&&!globalThis.AICouncilExternalProviders?.models()?.length){showStatus(L('modelBlocked'),true);openSettings();return;}
     working=true;buildBtn.disabled=true;buildBtn.textContent=L('loading');showStatus(L('loading'));
     try{
       await loadModels(true);
@@ -142,7 +145,12 @@
     buildBtn.textContent=r.tzVersion===2?L('regenerate'):L('generate');
     showStatus(r.tzVersion===2?L('saved'):L('preparing'));
     if(!modal.open)modal.showModal();
-    if(r.tzVersion!==2 && !working)void generate();
+    const complete=g.AICouncilReviewHealth?.ready(r);
+    if(r.tzVersion!==2 && !complete){
+      showStatus(state.lang==='ru'?
+        '⚠ Это неполный аудит: меньше двух независимых ответов. Показаны исходные материалы. Можешь их скопировать или вручную запросить ТЗ, но оно не будет многомодельным.':
+        '⚠ This audit has fewer than two independent answers. Source material is shown. You may copy it or explicitly generate a single-model draft.');
+    }else if(r.tzVersion!==2 && !working)void generate();
   }
   function selectAll(){
     editor.focus();editor.select();editor.setSelectionRange(0,editor.value.length);
