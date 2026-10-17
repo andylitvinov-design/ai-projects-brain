@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="theme-color" content="#f8f4ec"/><meta name="description" content="AI Council — независимые бесплатные ИИ и единый общий ответ."/>
 <meta name="color-scheme" content="light"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://openrouter.ai https://generativelanguage.googleapis.com https://api.mistral.ai; img-src 'self' data: https://s.wordpress.com https://s0.wp.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://openrouter.ai https://generativelanguage.googleapis.com https://api.mistral.ai https://integrate.api.nvidia.com; img-src 'self' data: https://s.wordpress.com https://s0.wp.com; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
 <title>AI Council | Holistic House</title>
 <link rel="icon" href="./icon.svg" type="image/svg+xml"/><link rel="manifest" href="./manifest.webmanifest"/><link rel="stylesheet" href="./styles.css"/><link rel="stylesheet" href="./house-theme.css"/>
 </head>
@@ -61,7 +61,7 @@
 <div class="selector"><label for="model3" data-i18n="synthesizer">Агрегатор · общий вывод</label><div class="role-description" data-i18n="hintSynth">Рекомендуем: Nemotron 3 Ultra — глубокая сводная (возможны задержки)</div><select id="model3"></select></div>
 <div id="modelStatus" class="small muted" role="status"></div>
 <section class="external-panel" aria-label="Дополнительные модели">
-  <div class="dialog-section-title">Gemini и Mistral — отдельный бесплатный API</div>
+  <div class="dialog-section-title">Gemini, Mistral и DeepSeek — отдельные подключения</div>
   <p class="external-explain">OpenRouter не предоставляет эти мощные модели бесплатно. Можно добавить свой ключ <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a> (Gemini 3.8 Flash) или <a href="https://console.mistral.ai/" target="_blank" rel="noopener noreferrer">Mistral Studio</a> (Mistral Small 4) из бесплатного проекта. Подключение не меняет выбранные модели автоматически.</p>
   <div class="external-provider">
     <strong>Google Gemini 3.8 Flash</strong><span class="provider-free-tag">Google AI Studio Free Tier</span>
@@ -77,7 +77,15 @@
     <div class="provider-controls"><button type="button" id="mistralDirectConnect" class="outline-button">Подключить Mistral</button><button type="button" id="mistralDirectDisconnect" class="link-button">Отключить</button></div>
     <div id="mistralDirectStatus" class="provider-status" role="status">Не подключён</div>
   </div>
-  <p class="provider-danger">Важно: приложение может проверить ключ, но не может определить, подключена ли оплата в аккаунте Google/Mistral. Выбирай только бесплатный проект. Эти ключи хранятся в твоём браузере, не на нашем сервере. Muse Wonder в бесплатный режим не включён: через OpenRouter он платный.</p>
+  <div class="external-provider">
+    <strong>DeepSeek V4.1 Flash</strong><span class="provider-free-tag">NVIDIA NIM · Free Trial (лимит)</span>
+    <p class="external-explain">Доступен как бесплатный пробный API NVIDIA — это не постоянный бесплатный тариф DeepSeek. <a href="https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/playground" target="_blank" rel="noopener noreferrer">Получить ключ NVIDIA ↗</a>. При подключении выполняется один маленький тестовый запрос.</p>
+    <input id="nvidiaDirectKey" type="password" autocomplete="off" spellcheck="false" placeholder="NVIDIA NIM API key (nvapi-…)"/>
+    <label><input type="checkbox" id="nvidiaFreeConfirm"/> Я подтверждаю, что использую только бесплатный пробный API NVIDIA, без платной подписки или подключения оплаты.</label>
+    <div class="provider-controls"><button type="button" id="nvidiaDirectConnect" class="outline-button">Подключить DeepSeek</button><button type="button" id="nvidiaDirectDisconnect" class="link-button">Отключить</button></div>
+    <div id="nvidiaDirectStatus" class="provider-status" role="status">Не подключён</div>
+  </div>
+  <p class="provider-danger">Важно: приложение может проверить ключ, но не может определить, подключена ли оплата в аккаунте Google/Mistral/NVIDIA. Выбирай только бесплатный или пробный проект без оплаты. Эти ключи хранятся в твоём браузере, не на нашем сервере. Muse Wonder в бесплатный режим не включён: через OpenRouter он платный.</p>
 </section><div class="dialog-foot"><span data-i18n="privacy">История и выбор моделей сохраняются в этом браузере. При включении «Запомнить» API-ключ тоже остаётся на этом устройстве.</span><button id="doneSettings" class="primary-button" data-i18n="done">Готово</button></div>
 </dialog>
 <script src="./quality.js" defer></script>
