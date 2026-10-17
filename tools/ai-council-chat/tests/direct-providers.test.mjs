@@ -7,7 +7,7 @@ const moduleText=readFileSync(join(dirname(fileURLToPath(import.meta.url)),'..',
 function store(){const m=new Map();return {getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k)}}
 function harness(){
  const sessionStorage=store(),localStorage=store(),els=new Map(),requests=[];
- for(const p of ['gemini','mistral'])for(const suffix of ['DirectKey','FreeConfirm','DirectStatus','DirectDisconnect','DirectConnect']){
+ for(const p of ['gemini','mistral','nvidia'])for(const suffix of ['DirectKey','FreeConfirm','DirectStatus','DirectDisconnect','DirectConnect']){
    els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null});
  }
  const document={getElementById:x=>els.get(x)};
@@ -16,7 +16,7 @@ function harness(){
   if(url.endsWith('models/gemini-3.8-flash'))return {ok:true,json:async()=>({name:'models/gemini-3.8-flash'})};
   if(url.endsWith('/models'))return {ok:true,json:async()=>({data:[{id:'mistral-small-2603'}]})};
   if(url.includes('generateContent'))return {ok:true,json:async()=>({candidates:[{content:{parts:[{text:'Gemini analysis: concrete findings and acceptance tests'}]}}]})};
-  if(url.includes('chat/completions'))return {ok:true,json:async()=>({choices:[{message:{content:'Mistral technical review: exact URLs and tests'}}]})};
+  if(url.includes('chat/completions'))return {ok:true,json:async()=>({choices:[{message:{content:'Review: exact URLs and tests'}}]})};
   return {ok:false,status:404,json:async()=>({})};
  };
  const globalThis={};
@@ -53,7 +53,28 @@ test('direct Mistral is gated by free-tier affirmation and uses Mistral API only
  const h=harness();h.els.get('mistralDirectKey').value='mistral-key';h.els.get('mistralFreeConfirm').checked=true;await h.els.get('mistralDirectConnect').onclick();
  assert.equal(h.api.models()[0].id,'mistral-direct/mistral-small-2603:experiment');
  const msg=await h.api.call('mistral-direct/mistral-small-2603:experiment',[{role:'system',content:'Be specific'},{role:'user',content:'Fix /en/services'}]);
- assert.match(msg,/Mistral technical review/);
+ assert.match(msg,/Review: exact URLs/);
  assert.equal(h.requests.at(-1).url,'https://api.mistral.ai/v1/chat/completions');
  await h.els.get('mistralDirectDisconnect').onclick();assert.equal(h.api.models().length,0);
+});
+
+test('NVIDIA NIM DeepSeek provider only appears after explicit trial affirmation and model challenge',async()=>{
+ const h=harness();
+ h.els.get('nvidiaDirectKey').value='nvapi-test';
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.api.models().length,0,'NVIDIA trial must not silently activate');
+ h.els.get('nvidiaFreeConfirm').checked=true;
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.api.models().length,1);
+ assert.equal(h.api.models()[0].id,'nvidia-direct/deepseek-v4.1-flash:trial');
+ assert.ok(h.requests.some(r=>r.url==='https://integrate.api.nvidia.com/v1/chat/completions'));
+ const answer=await h.api.call('nvidia-direct/deepseek-v4.1-flash:trial',[{role:'system',content:'Critique independently'},{role:'user',content:'Audit Holistic House from verified public URL evidence'}],{maxTokens:1500});
+ assert.match(answer,/Review: exact URLs/);
+ const req=h.requests.at(-1);
+ assert.equal(req.url,'https://integrate.api.nvidia.com/v1/chat/completions');
+ assert.equal(req.opts.headers.Authorization,'Bearer nvapi-test');
+ assert.match(req.opts.body,/deepseek-ai\/deepseek-v4.1-flash/);
+ await h.els.get('nvidiaDirectDisconnect').onclick();
+ assert.equal(h.api.models().length,0);
+ assert.equal(h.localStorage.getItem('ai-council-nvidia-nim-key'),null);
 });
