@@ -71,6 +71,10 @@
 
 ## Runtime Data Activation Risks
 
+- A current repository source is not proof that the runtime consumer is active. On 2026-10-17 repository source was about 2.4h old with five prospective daily snapshots, while canonical production still served the Sep 15 source at age 768.9h, five operational APIs returned 503 and publication-current returned 500.
+- Do not create another refresh producer to solve this failure. Reuse the current atomic manifest, assign exactly one enabled runtime consumer, require exact-source 7/7 parity, then prove a second no-deploy refresh and independent terminal closure.
+- An old terminal receipt cannot close the repair while Evening Delivery Closure is disabled. Runnable scheduler ownership must exist at verification time.
+
 - The runtime-data architecture merged in Brain Management PRs #597–#599 is not live merely because its code reached `main`. Until the existing Vercel project has `BRAIN_RUNTIME_GITHUB_TOKEN` configured with fine-grained, read-only Contents access to `andylitvinov-design/brain-management`, the guarded operator must remain fail-closed.
 - Never persist the token value in a repository, handoff, log excerpt, or durable-memory receipt. Store only the variable name and the minimum access contract.
 - Activation proof requires one operator run that changes the runtime source without creating a Vercel deployment, a canonical API re-read of that source, explicit stale/missing-auth failure behavior, and evidence that the application deployment stayed unchanged. A merge receipt or a routine data-only redeploy is insufficient.

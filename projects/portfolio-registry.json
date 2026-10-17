@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "last_updated": "2026-10-10T12:45:00Z",
+  "last_updated": "2026-07-19T07:30:35+02:00",
   "status": "canonical_active_portfolio_overlay",
   "purpose": "Current active-project identity and routing. Verified live/GitHub/provider evidence overrides stale labels; inaccessible historical mappings are downgraded to NEEDS_VERIFICATION rather than guessed.",
   "source_priority": [
@@ -136,23 +136,24 @@
       "repo": "andylitvinov-design/brain-management",
       "live_url": "https://brain-management.vercel.app",
       "provider_project": "prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d",
-      "status": "DEGRADED",
-      "repo_reachability": "CONFIRMED_2026-10-10",
+      "status": "IMPROVING",
+      "repo_reachability": "CONFIRMED_2026-10-17",
       "evidence_refs": [
         "projects/brain-management/PROJECT.md",
         "brain-management/history/weekly-delivery/2026-09-27.json",
         "brain-management/evening-delivery-closure-current.json",
-        "accepted canonical live observation 2026-10-10T10:31Z",
+        "accepted canonical live observation 2026-10-17T12:29Z",
         "systems/dashboard-snapshot-monotonicity-contract.md",
         "automation:Dashboard Publication Watch",
         "andylitvinov-design/brain-management@cbd05c66989957713c208be5692d356d0d0c8f9a",
         "canonical-blob:b2797fda54d3d5d5d6ff47b2aca9f89ce543a040",
-        "mirror-blob:661391104229f9fbfd24a812ac7d4781e86bb5f6"
+        "mirror-blob:661391104229f9fbfd24a812ac7d4781e86bb5f6",
+        "andylitvinov-design/brain-management@86c15a9c35f9d5043a67665b1a078777887ab835"
       ],
       "freshness": {
-        "checked_at": "2026-10-10T10:31:25Z",
+        "checked_at": "2026-10-17T12:29:00Z",
         "source_generated_at": "2026-09-15T11:34:55.858Z",
-        "age_hours": 598.9,
+        "age_hours": 768.9,
         "max_age_hours": 18,
         "api_statuses": {
           "/api/data": 503,
@@ -166,24 +167,24 @@
         "service_worker_http": 200,
         "source_parity": false,
         "control_plane_health": "OLD_FALSE_DEPENDENCY_ERRORS_8_PASS_10_FAIL_8_ERROR_2_WARNING_PR_613_NOT_LIVE",
-        "immutable_history": "CURRENT_OPERATIONAL_WINDOW_3/7",
-        "weekly_review_state": "SEP_28_OCT_4_ON_REPOSITORY_MAIN_LIVE_STALE_AT_2026-08-23",
-        "publication_attribution": "REPOSITORY_SEP_18_SOURCE_VS_PRODUCTION_SEP_15_DEPLOYMENT",
-        "complete_release_gate": "RUNTIME_ACCESS_FRESH_SOURCE_PUBLISHER_PR_629_STALE_SOURCE_GATE_AND_PR_649_ACCEPTED_FINAL_HEAD_GATE_OPEN",
+        "immutable_history": "REPOSITORY_CURRENT_WINDOW_5/7_LIVE_HEALTH_3/7",
+        "weekly_review_state": "OCT_5_11_ON_REPOSITORY_MAIN_LIVE_STALE_AT_2026-08-23",
+        "publication_attribution": "REPOSITORY_OCT_17_SOURCE_VS_PRODUCTION_SEP_15_DEPLOYMENT",
+        "complete_release_gate": "FRESH_SOURCE_EXISTS_RUNTIME_CONSUMER_PUBLICATION_STATE_7_OF_7_AND_TERMINAL_CLOSURE_OPEN",
         "release_manifest_http": 200,
         "release_manifest_source_sha": "93265d176ded956ce098516156508cd0413e5622",
         "runtime_errors_7d": "NO_CURRENT_APPLICATION_ERROR_CLUSTER_CONFIRMED",
-        "marker": "DEGRADED_STALE_FAIL_CLOSED_OWNER_ACTIVATION_PUBLISHER_AND_EFFECT_BINDING_BLOCKED"
+        "marker": "DEGRADED_FRESH_SOURCE_NOT_CONSUMED_RUNTIME_PUBLICATION_AND_CLOSURE_UNOWNED"
       },
-      "blocker": "Owner must configure scoped read-only BRAIN_RUNTIME_GITHUB_TOKEN; source owners must produce one fresh atomic source so current-base PR #629 can pass the complete gate; exactly one publisher must be enabled; then exact-main activation, 7/7 reread, no-deploy refresh and delayed closure must pass.",
+      "blocker": null,
       "legacy_live_aliases": [
         "https://brain-management.netlify.app",
         "https://brain-management.pages.dev"
       ],
       "sectors": {
-        "execution": "BLOCKED_BY_OWNER_ACTIVATION_AND_NO_ENABLED_PUBLISHER",
-        "reliability": "STALE_FAIL_CLOSED",
-        "learning": "PARTIAL_HISTORY_AND_WEEKLY_PUBLICATION"
+        "execution": "PASS",
+        "reliability": "PASS",
+        "learning": "PASS"
       }
     },
     {
@@ -249,7 +250,7 @@
   ],
   "repository_inventory": {
     "status": "CONFIRMED_CURRENT_OWNER_ENUMERATION",
-    "checked_at": "2026-10-10",
+    "checked_at": "2026-10-17",
     "accessible_repository_count": 31,
     "active_project_repositories_confirmed": 9,
     "unresolved_active_identity_count": 1,
@@ -270,8 +271,8 @@
     "books_public_live_url": "https://holistichouse.vercel.app",
     "books_legacy_redirect_alias": "https://codex-public-book-library.vercel.app",
     "books_private_capability": "OWNER_SESSION_VERIFICATION_REQUIRED",
-    "books_verified_production_deployment": "dpl_2v8wUAassBMwRTU5UTLbGfiCmSZu",
-    "books_verified_production_source": "df9f5dcb3754840dad91cfc9150e47bed2b7658c",
+    "books_verified_production_deployment": "dpl_C42NWymgx4Lhuz1X2NsCjPTTchcb",
+    "books_verified_production_source": "a205ee44354694d5db2cfa4d06e5734c9637124f",
     "psitrends_state": "ACTIVE_PRODUCTION_MULTI_REPO",
     "psitrends_live_url": "https://psitrends.com",
     "psitrends_source_repo": "andylitvinov-design/sales",
@@ -297,7 +298,7 @@
     ]
   },
   "reconciliation": {
-    "run_date": "2026-10-10",
+    "run_date": "2026-10-17",
     "active_project_count": 10,
     "accessible_repository_count": 31,
     "brain_management_current_state_corrected": true,
@@ -307,5 +308,5 @@
     "catalog_mapping_changes": 0,
     "catalog_mapping_change": "No mapping change; Holistic House exact production source advanced and protected/effect evidence remains separate while the fixed production overlay stayed unchanged"
   },
-  "generated_at": "2026-10-10T12:45:00Z"
+  "generated_at": "2026-10-17T12:45:00Z"
 }

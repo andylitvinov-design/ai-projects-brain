@@ -1,6 +1,6 @@
 # Automation Registry
 
-Last reconciled: `2026-10-10`
+Last reconciled: `2026-10-17`
 
 ## Registry contract
 
@@ -8,40 +8,42 @@ Scheduler evidence, operational actor identity and exclusive ownership must agre
 
 ## Current scheduler truth
 
-- Thirteen automations are enabled overall; nine are recurring management roles.
+- Thirteen automations are enabled overall; eight are recurring management roles.
+- Enabled management roles: Morning Task Sweep, PR Delivery Sweep, Daily Strategic Priorities, Weekly Brain Refresh, Sunday Dashboard Review, Weekly Delivery System Review, Weekly Live Safe Sweep and Portfolio Sales Audit.
+- Evening Delivery Closure is now disabled. Its latest completed run and persisted receipt do not establish current terminal capacity.
+- `Расширение базы психотестов` and `Holistic House: ежедневное ТЗ` are product/research routines. The latter had no completed run at reconciliation time. Neither is a Brain publisher or terminal closer.
 - `New Feedback Alert`, `Sync Heart Healing Responses` and `Sync Sep27 Feedback` are unrelated collectors and excluded from management capacity.
-- `Публикация подбора тестов` is an enabled finite Holistic House release attempt with no completed run evidence at reconciliation time. It is product-release work, not a recurring management publisher.
-- Enabled recurring management roles: Morning Task Sweep, PR Delivery Sweep, Daily Strategic Priorities, Evening Delivery Closure, Weekly Brain Refresh, Sunday Dashboard Review, Weekly Delivery System Review, Weekly Live Safe Sweep and Portfolio Sales Audit.
-- Morning System Upgrade, Finish Trends Rotation, Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch remain disabled.
-- Result: discovery, ranking, PR inspection, closure and weekly review have schedulers; primary implementation and routine Brain publication do not.
+- Morning System Upgrade, Daily Dashboard Update, Brain Regression Guard and Brain Data Freshness Watch remain disabled.
+- Result: discovery, ranking, PR inspection and weekly review have schedulers; primary implementation, routine Brain publication and independent terminal closure do not.
 
 ## Canonical management chain
 
 | Automation | Exclusive role | Current health | Current evidence / next action |
 |---|---|---|---|
-| Morning Task Sweep | discovery, carryover and readiness | active | Oct 10 handoff keeps two PR-delivery chains and one owner-only provider proof; verified metric gains remain zero. |
-| PR Delivery Sweep | PR/branch/CI/review/merge stage | active; repairs only | Oct 10 repaired PRs #629 and #649 to zero-behind task-only trees; merged 0. Inventory is 60 open, 46 stale, 33 nonmergeable and 7 CI-failing. |
-| Daily Strategic Priorities | ranking only | active; fail-closed | Ranks publication recovery first. Task 11918 remains unauthorized because production, queue freshness and denominator identity are unavailable. |
-| Morning System Upgrade | one implementation owner | `DISABLED` | Must not be counted as runnable capacity or receive new implementation work. |
-| Daily Dashboard Update | metrics, history and atomic publication | `DISABLED / UNASSIGNED` | No routine publisher exists. Activation requires scoped runtime access and a green exact-head release path first. |
-| Evening Delivery Closure | independent verification and terminal closure | active | Oct 9 closure independently confirms Brain 2/7, Holistic exact-source public production and protected owner boundary. |
-| Weekly Delivery System Review | execution-quality evaluator | active | Latest complete review is Sep 28–Oct 4: 21 chains, 13 live, zero numeric gains and 0/7 scored history. |
-| Sunday Dashboard Review | metric/control-plane architecture | active | Source-side dependency semantics exist, but live publication remains on the old degraded model. |
+| Morning Task Sweep | discovery, carryover and readiness | active | Oct 17: 0 ready for PR delivery, 2 owner-blocked, 1 no-safe-action and 22 pipeline-incomplete; verified gains remain zero. |
+| PR Delivery Sweep | PR/branch/CI/review/merge stage | active; no conversion | Oct 17: 90 open, 76 owner-blocked, 51 conflicted, 46 stale, 29 CI-failing and 35 drafts; merged/repaired/closed 0. |
+| Daily Strategic Priorities | ranking only | active; fail-closed | Preserves task 11918 with `implementation_authorized=false`; emits no executable assignment while production and denominator causality are unproven. |
+| Morning System Upgrade | one implementation owner | `DISABLED` | Must not be counted as runnable capacity or receive implementation work. |
+| Daily Dashboard Update | metrics, history and atomic publication | `DISABLED / UNASSIGNED` | Source producer is active elsewhere, but no recurring consumer owns runtime publication of the fresh manifest. |
+| Evening Delivery Closure | independent verification and terminal closure | `DISABLED` | Last run/receipt is Oct 13. Re-enable or assign exactly one terminal owner before claiming independent closure. |
+| Weekly Delivery System Review | execution-quality evaluator | active | Latest complete review is Oct 5–11: 25 chains, 17 live, zero numeric gains. |
+| Sunday Dashboard Review | metric/control-plane architecture | active; output persistence gap | Scheduler ran Oct 11, but no separate current durable output was accessible. Scheduler metadata alone is not review evidence. |
 | Weekly Brain Refresh | durable reconciler | active | Owns catalog/governance/index reconciliation only; no operational, product or scheduler mutation. |
 
 ## Ownership defects
 
-1. **Assigned-to-disabled executor:** task 11918 still names Morning System Upgrade while implementation remains unauthorized.
-2. **No routine publisher:** Daily Dashboard Update is disabled; repeated handoffs do not establish publication cadence.
-3. **One-shot/recurring confusion:** a finite Holistic House release automation cannot fill the missing Brain publisher role.
-4. **Product/effect ownership gap:** 17 Holistic product classes reached the closure ledger without a preassigned same-source metric owner.
-5. **Durable overlap:** open governance PRs #193, #211, #221 and #225 contain overlapping evidence. PR #193 remains the canonical Weekly Brain Refresh registry until reviewed; the others are inputs, not parallel authorities.
+1. **Producer/consumer split:** automated repository source refresh is active, but no enabled publisher consumes the atomic manifest into canonical runtime.
+2. **No terminal closer:** Evening Delivery Closure is disabled, so independent terminal verification has no enabled scheduler owner.
+3. **Assigned-to-disabled executor:** task 11918 still names Morning System Upgrade while implementation remains unauthorized.
+4. **Capability/management confusion:** product research and Holistic House audit schedules do not fill publication or closure roles.
+5. **Durable overlap:** open governance PRs remain inputs, but PR #193 is the canonical Weekly Brain Refresh branch until reviewed.
 
 ## Durable rules
 
 - One chain, one implementation owner and one terminal verifier.
 - A disabled scheduler cannot own executable work.
-- A finite exhausted or one-shot schedule is not recurring capacity.
+- A source producer is not a publication consumer; repository freshness is not canonical freshness.
+- Product/research schedules are not management publication capacity.
 - Operational actor labels without matching scheduler evidence are attribution drift.
 - Publication activation and publication cadence are separate proofs.
 - A product assignment requires an immutable denominator event and same-source measurement owner before implementation.

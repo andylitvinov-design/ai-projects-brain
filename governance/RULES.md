@@ -88,4 +88,11 @@ The remaining operational guardrails stay candidates until each has current usag
 - **Current evidence:** during Sep 21–27 Brain Management created 15 PRs and merged 12 receipt-only PRs while canonical outcomes remained 0/8 and live stayed 2/7. Through Oct 3 daily receipts continued advancing `main`; PR #629 remained full-gate red/diverged, PR #617 reached approximately 101 commits behind, and the live source aged to 432.9h.
 - **Owner:** operational receipt writers preserve immutable evidence; PR Delivery Sweep owns one latest-base repair; Daily Dashboard Update owns publication only after activation; Weekly Brain Refresh aggregates the repeated pattern.
 - **Activation condition:** two successive publication cycles persist required evidence without spawning duplicate recovery identities or invalidating an active repair branch, while the exact-head gate and delayed closure pass.
+
+## Source producer is not a publication consumer
+
+- **Rule:** A fresh repository source, manifest or `READY_FOR_PRODUCTION` receipt proves producer health only. Publication freshness requires one enabled runtime consumer, canonical exact-source parity, a structured publication-state response and independent terminal closure.
+- **Current evidence:** on 2026-10-17 repository source was about 2.4h old and prospective history reached 5/7, while canonical production still served the Sep 15 source at age 768.9h, exposed only 2/7 APIs, and returned HTTP 500 from publication-current. Evening Delivery Closure was disabled.
+- **Owner:** one enabled runtime publication consumer owns activation/cadence; one enabled independent closer owns terminal proof; Weekly Brain Refresh records the boundary without publishing data.
+- **Activation condition:** 7/7 APIs share the exact manifest identity, publication-current returns HTTP 200, a second source refresh appears within 12h without an application deployment, and delayed closure passes.
 - **Regression condition:** unchanged daily state generates another repair/receipt chain that advances application `main`, increases divergence or is counted as delivery throughput without a changed source, gate or canonical result.

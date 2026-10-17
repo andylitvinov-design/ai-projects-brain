@@ -336,3 +336,42 @@ All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
 3. Continue prospective scored snapshots from 3/7 to 7/7 and publish the Sep 28–Oct 4 review without backfilling missing days.
 
 All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.
+
+## Weekly delivery evidence — 2026-10-05 through 2026-10-11
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Stable chains | 25 | Repeated receipts are normalized before conversion analysis. |
+| Canonical live | 17/25 | Product availability improved. |
+| Product/business live | 17/21 | Real product output exists. |
+| Verified numeric gains | 0/25 | No live result proved an unchanged-formula metric transition. |
+| Brain PR activity | 18 created / 17 receipt-only merged | Merge volume did not restore runtime publication. |
+| Brain Actions | 6 success / 78 failure / 1 cancelled | Automation reliability remains poor. |
+
+## Current-window evidence — 2026-10-12 through 2026-10-17
+
+| Signal | Evidence | Efficiency meaning |
+|---|---:|---|
+| Repository source | about 2.4h old at check | Producer continuity is now working. |
+| Canonical source | 768.9h old | The publication consumer is the controlling bottleneck. |
+| Core API health | 2/7; publication-current 500 | Production truth remains unavailable. |
+| Immutable history | repository 5/7; live health 3/7 | Continuity improved without parity. |
+| PR inventory | 90 open / 76 owner-blocked / 51 conflicted / 46 stale | Backlog and ownership pressure worsened. |
+| Current PR Delivery | 0 merge / 0 repair / 0 close | The current sweep converted no work. |
+| Holistic House production | exact source `a205ee44…` READY | Public product stage advanced; no metric effect is inferred. |
+
+### Efficiency trend — 2026-10-17
+
+- **The bottleneck moved downstream:** source generation recovered, so further source-refresh work would duplicate capacity. Runtime consumption, attribution and terminal closure now dominate.
+- **Continuity improved only on repository main:** five prospective daily snapshots are valuable evidence, but production parity and a complete seven-day window remain open.
+- **Activity still fails to become measured effect:** 17 live results and 17 receipt-only Brain merges produced zero numeric gains.
+- **Backlog pressure increased sharply:** open PRs moved 60 → 90 in one week while the current sweep converted none.
+- **Public product delivery continues:** Holistic House exact production advanced, but protected journeys and a preassigned effect metric remain separate gates.
+
+## Highest-value efficiency corrections — 2026-10-17
+
+1. Stop creating source-refresh alternatives; assign one consumer to the existing atomic manifest and prove 7/7 exact-source production.
+2. Restore one independent terminal closer and require a second <=12h no-deploy refresh before closing freshness recovery.
+3. Reduce the 90-PR inventory by resolving the owner-blocked publication chain first, then accept only causally measurable product work.
+
+All durable changes in this refresh are `NO_DIRECT_METRIC_EFFECT`.

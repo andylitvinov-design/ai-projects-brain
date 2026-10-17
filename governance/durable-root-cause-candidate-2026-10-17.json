@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "candidate_id": "fresh-source-producer-active-runtime-publication-consumer-closure-owner-absent-20261017",
+  "generated_at": "2026-10-17T12:45:00Z",
+  "run_date": "2026-10-17",
+  "status": "REPEATED_BLOCKER_REFINED_TO_PRODUCER_CONSUMER_BREAK",
+  "affected_metric": {
+    "metric_id": "publication_freshness",
+    "published_raw_value": "100 / current in repository source",
+    "observed_raw_baseline": "repository source age about 2.4h at canonical check; production source age 768.9h; core APIs 2/7; publication-current HTTP 500; repository immutable history 5/7 and live health history 3/7",
+    "conditional_target_raw": "canonical source age <=6h; 7/7 coherent APIs; publication-current HTTP 200; exact manifest/source identity; second <=12h refresh without application deployment",
+    "formula_change_allowed": false
+  },
+  "root_cause": {
+    "code": "FRESH_SOURCE_PRODUCER_ACTIVE_BUT_RUNTIME_PUBLICATION_CONSUMER_AND_CLOSURE_OWNER_ABSENT",
+    "statement": "The repository source producer now regenerates current atomic operational data, but no enabled routine publication consumer makes that manifest canonical and Evening Delivery Closure is disabled. Fresh source therefore accumulates on main while production remains on the Sep 15 source and independent terminal verification has no runnable owner.",
+    "repeated": true,
+    "prior_scope": "Earlier candidates identified missing fresh source, scoped activation and one publisher.",
+    "refinement": "Fresh source and prospective history now exist; the remaining repeated blocker is the producer-to-runtime consumer boundary plus missing terminal ownership."
+  },
+  "evidence": {
+    "repository_source": {
+      "generated_at": "2026-10-17T10:03:30.883Z",
+      "manifest_generated_at": "2026-10-17T10:03:34.904Z",
+      "latest_observed_source_commit": "d8f2545fa9af9a7bc909a526d031cff5926a754a",
+      "state": "READY_FOR_PRODUCTION",
+      "immutable_history": "5/7 for Oct 11-17; Oct 11-12 absent"
+    },
+    "canonical_production": {
+      "checked_at": "2026-10-17T12:29:00Z",
+      "deployment_id": "dpl_6rYMy6EN8ociQvWdUEydJxvFXNpp",
+      "deployment_created_at": "2026-09-15T11:45:27.910Z",
+      "source_generated_at": "2026-09-15T11:34:55.858Z",
+      "source_age_hours": 768.9,
+      "core_api_health": "2/7",
+      "api_statuses": {
+        "/api/data": 503,
+        "/api/trends": 503,
+        "/api/agent-productivity": 503,
+        "/api/strategic-priorities": 503,
+        "/api/needs-attention": 503,
+        "/api/control-plane-health": 200,
+        "/api/weekly-delivery-system-review": 200,
+        "/api/data-publication-current": 500
+      }
+    },
+    "ownership": {
+      "enabled_management_automations": 8,
+      "daily_dashboard_update": "DISABLED",
+      "evening_delivery_closure": "DISABLED",
+      "last_persisted_closure": "2026-10-13",
+      "new_product_or_research_schedules_are_management_publishers": false
+    },
+    "source_refs": [
+      "brain-management/data-current.json",
+      "brain-management/operational-source-manifest.json",
+      "brain-management/daily-dashboard-update-result.json",
+      "brain-management/history/daily/2026-10-17.json",
+      "https://brain-management.vercel.app/api/data",
+      "https://brain-management.vercel.app/api/control-plane-health",
+      "https://brain-management.vercel.app/api/data-publication-current"
+    ]
+  },
+  "owner": {
+    "assignment_owner": "Daily Strategic Priorities",
+    "publication_owner": "exactly one enabled Brain Management runtime publication consumer",
+    "verification_owner": "exactly one enabled independent terminal closure scheduler",
+    "ranking_consumer": "Daily Strategic Priorities"
+  },
+  "smallest_safe_corrective_action": [
+    "Reuse the already-current atomic operational-source manifest; do not create another source-refresh mechanism.",
+    "Assign exactly one enabled runtime publication consumer with the minimum scoped read path needed to make the manifest canonical without an application deployment.",
+    "Require publication-current to return structured HTTP 200 state and all seven canonical APIs to expose the exact same manifest/source identity.",
+    "Prove a second source refresh within 12 hours with no new application deployment.",
+    "Re-enable or assign exactly one independent terminal closer and require delayed same-source closure."
+  ],
+  "expected_effect": {
+    "raw_target": "canonical source age <=6h, 7/7 APIs, publication-current HTTP 200, then a second <=12h no-deploy refresh",
+    "metric_target": "publication_freshness becomes evidence-backed rather than repository-only",
+    "measurement": "canonical API and publication-state reread bound to the exact repository manifest and unchanged production deployment",
+    "credit_policy": "Repository generation, documentation, assignment, enablement and deployment receive zero metric credit. Count only canonical exact-source evidence after independent closure.",
+    "documentation_effect": "NO_DIRECT_METRIC_EFFECT"
+  },
+  "acceptance": [
+    "one enabled runtime publication consumer exists",
+    "one enabled independent terminal closer exists",
+    "publication-current returns structured HTTP 200 state",
+    "all seven canonical APIs expose one exact source identity",
+    "canonical source age is <=6h at initial closure",
+    "a second source refresh appears within 12h without a new application deployment",
+    "repository and live immutable-history identities agree",
+    "no documentation-only metric credit is assigned"
+  ]
+}

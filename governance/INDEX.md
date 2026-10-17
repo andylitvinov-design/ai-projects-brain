@@ -1,6 +1,6 @@
 # Governance Index
 
-Last reconciled: `2026-10-10`
+Last reconciled: `2026-10-17`
 
 ## Current durable routing
 
@@ -10,7 +10,7 @@ Last reconciled: `2026-10-10`
 - `EFFICIENCY.md` — immutable weekly scorecards plus current-window synthesis.
 - `WEEKLY-LEARNINGS.md` — aggregated errors, improvements and reusable rules.
 - `RULES.md` — active durable governance rules.
-- `durable-root-cause-candidate-2026-10-10.json` — current machine-readable continuation candidate for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-10-17.json` — current machine-readable continuation candidate for Daily Strategic Priorities.
 
 ## Authority boundary
 

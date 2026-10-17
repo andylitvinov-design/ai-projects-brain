@@ -7,3 +7,4 @@
 - Large generated/content PRs require hosted checks, render verification and independent provenance/safety review.
 - PR #23 is merged, but its hosted acceptance used isolated Preview storage. Do not treat merge or current public production as proof of production storage, owner auth, private links, payments or medical-document behavior.
 - High public-release throughput can still produce zero measurable effect when acquisition, learning, assessment or consultation events are not assigned before implementation. Require an immutable denominator event and same-source reread; do not infer conversion from route availability.
+- Daily audit and hourly test-research schedules are Books/Holistic House capabilities, not new projects and not substitutes for Brain Management publication or terminal-closure ownership.

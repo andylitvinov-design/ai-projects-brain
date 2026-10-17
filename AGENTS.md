@@ -6,6 +6,7 @@ Before working in this repository, read and apply the shared project-brain rules
 - `https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/agent-rules.md`
 - `https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-project-workflow.md`
 - `https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/codex-cloud-repo-mode.md` when working on ChatGPT Codex Cloud repository setup or mobile/cloud launch routing
+- `https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/mobile-autopilot-control-plane.md` for plain-language phone/web implementation requests across projects
 
 Default mode: work autonomously for safe read-only, docs, diagnosis, planning, branch, patch, validation, and PR work. Ask only before risky actions: secrets/env changes, deletion, merge to `main`, production deploy, financial/account/access changes, irreversible changes, or broad rewrites.
 
@@ -25,8 +26,9 @@ Before changing project memory or system rules, read:
 4. `systems/agent-rules.md`
 5. `systems/codex-project-workflow.md`
 6. `systems/codex-cloud-repo-mode.md` when the task mentions Codex Cloud, cloud threads, mobile Codex, GitHub Connector, or cloud environments
-7. the relevant `projects/<slug>/PROJECT.md`
-8. relevant `CODEX_BRIEF.md`, `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, or `RISKS.md` when present
+7. `systems/mobile-autopilot-control-plane.md` when Andrey gives a plain-language implementation request from ChatGPT web/mobile
+8. the relevant `projects/<slug>/PROJECT.md`
+9. relevant `CODEX_BRIEF.md`, `SYSTEM_MAP.md`, `DATA_SCHEMA.md`, or `RISKS.md` when present
 
 ## Default mode
 
