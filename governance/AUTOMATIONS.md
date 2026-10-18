@@ -1,6 +1,6 @@
 # Automation Registry
 
-Last reconciled: `2026-10-11`
+Last reconciled: `2026-10-18`
 
 ## Registry contract
 
@@ -163,3 +163,24 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 - Terminal fields accept only `LIVE_VERIFIED`, `MERGED_WAITING_DEPLOY`, `BLOCKED_BY_OWNER` or `NO_SAFE_UPGRADE`. `NO_MEASURED_EFFECT`, test failure and deployment detail belong in separate fields.
 - Daily aliases, renamed receipts and repeated base reconciliations must normalize to one stable chain ID before weekly counting.
 - The next recovery candidate reuses `operational-source-freshness-refresh-20260818`; success is 7/7 APIs, structured publication JSON, source age <=6 hours, one green unchanged-head PR #629 gate, two publisher observations <=12 hours apart and delayed independent closure.
+
+
+## Scheduler and ownership reconciliation — 2026-10-18
+
+1. Morning Task Sweep and Daily Strategic Priorities persisted 7/7 handoffs; PR Delivery persisted 12/13 due slots; Evening Delivery Closure persisted only 1/6 due days.
+2. The three canonical management carryover IDs persisted and duplicate implementation-owner creation remained zero.
+3. Morning System Upgrade remains unavailable for new implementation. Task 11918 correctly stays `implementation_authorized=false`.
+4. Repository source publication is active through GitHub workflows, but the canonical production runtime consumer is not active: zero production environment variables, zero production deployments and 2/7 core APIs.
+5. Daily Dashboard Update remains the exclusive routine publisher identity. A GitHub workflow that prepares source bytes does not inherit dashboard publication or terminal-closure authority.
+6. PR Delivery accepted zero merges and completed zero repairs while 23 Brain Management merges occurred during the week. Receipt persistence is not acceptance.
+7. Evening Closure must be restored as an independent runnable stage before later product or infrastructure activity can receive terminal credit.
+8. Brain Management PR #691 is the focused control-plane correction: source refresh must publish `SOURCE_READY_AWAITING_RUNTIME_ACTIVATION`, clear alias verification and fail closed on deployability until production evidence exists.
+9. Weekly Delivery System Review remains evaluation/evidence only. PR #692 and this governance proposal receive zero improvement credit.
+
+## Minimal enforcement correction — 2026-10-18
+
+- Treat source publisher and runtime consumer as two required identities under one publication chain. Source freshness on GitHub cannot set `canonical_alias_verified`, `safe_to_deploy` or `LIVE_VERIFIED`.
+- Publication closure requires one current canonical deployment plus one later guarded source-only refresh that changes no application deployment.
+- If Evening Closure coverage is missing, later merges and live observations remain nonterminal regardless of implementation claims.
+- Repeated source-refresh commits and duplicate daily aliases remain one recovery chain and one denominator.
+- Continue `operational-source-freshness-refresh-20260818`; do not create a replacement automation or recovery-chain alias.
