@@ -1,0 +1,56 @@
+name: Holistic House Gemini audit → Telegram
+
+on:
+  schedule:
+    # After the existing 09:00 America/Toronto ChatGPT audit. Timezone includes DST.
+    - cron: '15 9 * * *'
+      timezone: 'America/Toronto'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/daily-gemini-telegram.yml'
+      - 'tools/ai-council-chat/scripts/daily-gemini-telegram.mjs'
+      - 'tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs'
+
+concurrency:
+  group: holistic-house-daily-gemini-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate script and run offline security tests
+        run: |
+          node --check tools/ai-council-chat/scripts/daily-gemini-telegram.mjs
+          node --test tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs
+
+  audit-and-send:
+    # Owner opt-in: no automatic paid API calls or Telegram sends until activated.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.GEMINI_TELEGRAM_ENABLED == 'true'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate or reuse daily Gemini audit, archive to GitHub issue, deliver to Telegram
+        run: node tools/ai-council-chat/scripts/daily-gemini-telegram.mjs run
