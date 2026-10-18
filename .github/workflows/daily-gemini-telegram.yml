@@ -34,7 +34,8 @@ jobs:
           node --test tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs
 
   audit-and-send:
-    if: github.event_name != 'pull_request'
+    # Owner opt-in: no automatic paid API calls or Telegram sends until activated.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.GEMINI_TELEGRAM_ENABLED == 'true'
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10

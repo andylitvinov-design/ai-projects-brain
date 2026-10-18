@@ -157,7 +157,7 @@ function promptFor(evidence) {
   ].join('\n');
 }
 
-async function getGeminiReview(evidence) {
+export async function getGeminiReview(evidence) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) throw new Error('Missing secret GEMINI_API_KEY');
   const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + MODEL + ':generateContent';
@@ -165,12 +165,15 @@ async function getGeminiReview(evidence) {
     method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
     signal: AbortSignal.timeout(70000),
     body: JSON.stringify({ contents: [{ parts: [{ text: promptFor(evidence) }] }],
-      generationConfig: { temperature: 0.2, maxOutputTokens: 3800 } }),
+      generationConfig: { thinkingConfig: { thinkingLevel: 'low' }, maxOutputTokens: 6000 } }),
   });
   if (!resp.ok) throw new Error('Gemini API returned HTTP ' + resp.status + ' (no paid fallback)');
   const result = await resp.json();
-  const content = (result.candidates || []).flatMap(x => x.content?.parts || [])
-    .map(x => x.text || '').join('\n').trim();
+  const candidate = result.candidates?.[0];
+  if (!candidate || candidate.finishReason !== 'STOP') {
+    throw new Error('Gemini returned incomplete response: ' + (candidate?.finishReason || 'missing_finish_reason'));
+  }
+  const content = (candidate.content?.parts || []).map(x => x.text || '').join('\n').trim();
   if (content.length < 220) throw new Error('Gemini response too short/incomplete; no report sent');
   return content;
 }
