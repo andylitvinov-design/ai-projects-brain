@@ -175,8 +175,6 @@ async function getGeminiReview(evidence) {
   return content;
 }
 
-async function exists(path) { try { await access(path); return true; } catch { return false; } }
-const reportName = date => date + '-gemin
 /**
  * Archive full public report as a GitHub issue comment rather than git commits.
  * This avoids triggering a Vercel build/deployment for each daily report.
