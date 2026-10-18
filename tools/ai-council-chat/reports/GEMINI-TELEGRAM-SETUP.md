@@ -1,39 +1,34 @@
-# Holistic House — Gemini → Telegram (ежедневный аудит)
+# Holistic House — ежедневные отчёты Gemini в Telegram
 
-## Назначение
+Решение **без дополнительных ежедневных Git-коммитов и Vercel-деплоев**.
 
-Дополнение к существующему аудиту ChatGPT в 09:00 America/Toronto. GitHub Actions ежедневно в **09:15 America/Toronto** (DST-aware) выполняет независимый запрос **Gemini 3.8 Flash**, сохраняет публичное техническое ТЗ и отправляет полный Markdown-файл в Telegram-бота.
+## Как работает
 
-- Копия отчёта: tools/ai-council-chat/reports/YYYY-MM-DD-gemini-audit.md
-- Проверенные HTTP/HTML-данные: tools/ai-council-chat/reports/evidence/YYYY-MM-DD-gemini.json
-- Последняя версия: tools/ai-council-chat/reports/GEMINI-LATEST.md
-- Отметка об отправке: tools/ai-council-chat/reports/delivery/YYYY-MM-DD-telegram.json
+- Расписание GitHub Actions: ежедневно **09:15 America/Toronto** (DST-aware), после существующего аудита ChatGPT в 09:00.
+- Анонимный HTML/HTTP-аудит до 24 публичных EN/RU/ES страниц и sitemap. Личный кабинет, закрытые URL, API, формы и реальная браузерная скорость не проверяются. Это **не** полноценный Lighthouse/UX browser audit.
+- **Один** запрос Gemini Developer API модели **gemini-3.8-flash** в день Торонто. На Paid Tier может стоить денег, поэтому нужно подтвердить Free Tier.
+- Отчёт и фактический JSON-архив сохраняются одним комментарием за дату в [GitHub Issue #242](https://github.com/andylitvinov-design/ai-projects-brain/issues/242). Комментарии не запускают сборку Vercel.
+- Полный Markdown-отчёт отправляется в Telegram Bot API как вложение (.md) со ссылкой на комментарий архива.
+- После успешного ответа Telegram Bot API тот же GitHub-комментарий помечается как доставленный. Повторный запуск не вызывает второй раз Gemini и не отправляет уже помеченный отчёт. Система пробует повторно отправить до трёх недоставленных отчётов за последние 7 дней.
 
-Существующие ChatGPT-отчёты и их LATEST.md **не изменяются**. Максимум 24 анонимные публичные страницы EN/RU/ES, включая ключевые маршруты и выборку sitemap. Без личного кабинета, API/private, платежей, редактирования сайта, Vercel cron, платного fallback и просмотра персональных данных. Время HTTP-заголовков не равно загрузке страницы; полноценные browser/SEO/UX/Web Vitals проверки остаются за другими аудитами.
+Отдельные ChatGPT-отчёты и их LATEST.md не изменяются.
 
-## Перед запуском: три GitHub Actions Secrets
+## Однократное безопасное подключение
 
-Владелец должен выполнить эти действия самостоятельно; **секреты не отправлять в ChatGPT и не коммитить в репозиторий**.
+Владелец должен добавить эти секреты самостоятельно — **не присылать токены в переписку, GitHub Issue или код**.
 
-1. Получить Gemini API key в [Google AI Studio](https://aistudio.google.com/apikey). **Проверить**, что проект Google использует именно API Free Tier, а не Paid Tier. У модели gemini-3.8-flash есть бесплатные квоты, но на Paid Tier вызовы могут тарифицироваться. Скрипт не может узнать/изменить настройки биллинга Google.
-2. Создать или выбрать Telegram-бота в [@BotFather](https://t.me/BotFather), получить BOT TOKEN (секрет), затем открыть бота и отправить ему /start. Получить числовой chat ID из Telegram getUpdates с использованием токена только приватно. Для группы добавить бота и разрешить доставку.
-3. Создать три **Repository Secrets** по адресу [GitHub Actions secrets](https://github.com/andylitvinov-design/ai-projects-brain/settings/secrets/actions):
-   - GEMINI_API_KEY — ключ Google AI Studio
-   - TELEGRAM_BOT_TOKEN — секрет Telegram BotFather
-   - TELEGRAM_CHAT_ID — числовой ID личного или группового чата
+1. [Google AI Studio](https://aistudio.google.com/apikey) — создать API key для Gemini Developer API. Сначала проверить, что Google API project действительно **Free Tier**, а не Paid Tier. Сам скрипт **не может отключить биллинг** Google; при ошибках квоты нет платного fallback.
+2. [Telegram @BotFather](https://t.me/BotFather) — создать/выбрать бота, получить BOT TOKEN. Написать боту /start со своего аккаунта, чтобы он мог отвечать. Выяснить числовой Telegram chat ID через Bot API getUpdates только приватно. Для группы добавить бота с правом отправлять сообщения.
+3. Открыть [GitHub Actions Secrets](https://github.com/andylitvinov-design/ai-projects-brain/settings/secrets/actions) и создать **Repository Secrets**:
+   - GEMINI_API_KEY — ключ Google AI Studio;
+   - TELEGRAM_BOT_TOKEN — секрет Telegram-бота;
+   - TELEGRAM_CHAT_ID — числовой ID Telegram-чата.
+   Эфемерный GITHUB_TOKEN выдаётся самим GitHub Actions; вручную создавать его не нужно.
+4. Проверить и слить [PR #241](https://github.com/andylitvinov-design/ai-projects-brain/pull/241) в default branch main. **Только после merge GitHub включает cron**. Запустить один ручной Actions → Holistic House Gemini audit → Telegram → Run workflow.
+5. Проверить реальное сообщение с Markdown-документом в Telegram, ссылку на GitHub Issue #242 и отметку доставки в комментарии. До этой проверки не утверждать, что рассылка работает.
 
-## Активация
+## Ошибки и ограничения
 
-После проверки PR и Google Free Tier **слить PR в default branch main**. До merge расписание не выполняется: GitHub Actions расписание запускает workflow только из default branch. Запустить вручную Actions → Holistic House Gemini audit → Telegram → Run workflow и убедиться, что действительно пришло сообщение с .md вложением. До такого подтверждения отправка НЕ считается настроенной или протестированной.
+Если не хватает любого секрета, workflow останавливается без вызова Gemini. При 403/429/5xx Gemini нет платного fallback и нет автоматического цикла повторных генераций. Ошибка отправки Telegram сохраняет оригинальный отчёт в GitHub и не помечает доставку — возможна безопасная повторная попытка. Если Telegram отправил файл, а обновление комментария GitHub упало, может возникнуть повторная отправка при следующем запуске (проверить логи). Секреты, chat IDs и Telegram message IDs не записываются в issue. Публичные данные сайта в открытом GitHub Issue могут содержать только публичный текст, поэтому никакие защищённые страницы не читаются.
 
-## Поведение при сбоях
-
-- Нет секретов: работа останавливается до вызова Gemini/Telegram.
-- Gemini HTTP 429/403/ошибка: нет платного переключения модели, ложного отчёта или спама повторами.
-- Не удалось отправить: созданный отчёт остаётся в GitHub без отметки о доставке; максимум три неприсланных отчёта повторно отправятся при следующем успешном запуске.
-- Повторный запуск в тот же день не пересоздаёт отчёт и не расходует второй API вызов; доставленные отчёты отмечаются и пропускаются.
-- Точная минута 09:15 — целевая, GitHub может задержать запуск.
-- Для записи отчётов в main GitHub Actions требуется разрешение contents:write; если main запрещает Actions push, workflow завершится до отправки, потребуется отдельное санкционированное изменение публикации архива.
-- Коммиты отчётов имеют маркер [skip ci], но реальное поведение автосборок стороннего хостинга нужно проверять отдельно.
-
-Политика стоимости: не включать платные модели и планы без отдельного разрешения; не добавлять новые Vercel deployment и не создавать дублирующие ChatGPT scheduled tasks.
+Github Actions cron может стартовать немного позже 09:15. Единственные ежедневные сетевые операции — HTTP-скан, один Gemini API вызов и GitHub issue / Telegram Bot API. Никаких новых Git-коммитов или Vercel-деплоев из-за архива Gemini.

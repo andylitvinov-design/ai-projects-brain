@@ -39,56 +39,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      contents: write
+      contents: read
+      issues: write
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Require separately configured credentials
-        run: |
-          if [ -z "$GEMINI_API_KEY" ] || [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
-            echo '::error::Configure GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID in GitHub Actions secrets. No audit was sent.'
-            exit 1
-          fi
-      - name: Public HTTP evidence + one Gemini analysis per Toronto day
-        run: node tools/ai-council-chat/scripts/daily-gemini-telegram.mjs prepare
-      - name: Save versioned public report in GitHub (not Vercel)
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'holistic-house-audit[bot]'
-          git config user.email 'holistic-house-audit@users.noreply.github.com'
-          git add tools/ai-council-chat/reports/GEMINI-LATEST.md
-          git add tools/ai-council-chat/reports/*-gemini-audit.md
-          git add tools/ai-council-chat/reports/evidence/*-gemini.json
-          if ! git diff --cached --quiet; then
-            git commit -m "docs: daily Gemini public audit $(TZ=America/Toronto date +%F) [skip ci]"
-            for attempt in 1 2 3; do
-              if git pull --rebase origin main && git push origin HEAD:main; then break; fi
-              if [ "$attempt" -eq 3 ]; then exit 1; fi
-              sleep 2
-            done
-          fi
-      - name: Deliver original Gemini report as a Telegram document
-        run: node tools/ai-council-chat/scripts/daily-gemini-telegram.mjs deliver
-      - name: Record successful Telegram delivery without secrets
-        shell: bash
-        run: |
-          set -euo pipefail
-          git add tools/ai-council-chat/reports/delivery/*-telegram.json
-          if ! git diff --cached --quiet; then
-            git commit -m "docs: record Telegram Gemini audit delivery [skip ci]"
-            for attempt in 1 2 3; do
-              if git pull --rebase origin main && git push origin HEAD:main; then break; fi
-              if [ "$attempt" -eq 3 ]; then exit 1; fi
-              sleep 2
-            done
-          fi
+      - name: Generate or reuse daily Gemini audit, archive to GitHub issue, deliver to Telegram
+        run: node tools/ai-council-chat/scripts/daily-gemini-telegram.mjs run

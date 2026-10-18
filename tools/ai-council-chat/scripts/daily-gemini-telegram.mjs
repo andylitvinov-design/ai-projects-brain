@@ -5,12 +5,10 @@
  * browser profiles, private content, or paid-provider fallback.
  * This script deliberately never writes the existing ChatGPT audit/LATEST files.
  */
-import { readFile, writeFile, mkdir, readdir, access } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 export const SITE = 'https://holistichouse.vercel.app';
 export const MODEL = 'gemini-3.8-flash';
-const REPORTS = resolve('tools/ai-council-chat/reports');
 const MAX_PAGES = 24;
 const MAX_BODY_CHARS = 180_000;
 const MAX_EVIDENCE_CHARS = 31_000;
@@ -178,79 +176,120 @@ async function getGeminiReview(evidence) {
 }
 
 async function exists(path) { try { await access(path); return true; } catch { return false; } }
-const reportName = date => date + '-gemini-audit.md';
-const reportPath = date => resolve(REPORTS, reportName(date));
-const receiptPath = date => resolve(REPORTS, 'delivery', date + '-telegram.json');
-const reportLink = date => 'https://github.com/andylitvinov-design/ai-projects-brain/blob/main/tools/ai-council-chat/reports/' + reportName(date);
+const reportName = date => date + '-gemin
+/**
+ * Archive full public report as a GitHub issue comment rather than git commits.
+ * This avoids triggering a Vercel build/deployment for each daily report.
+ */
+const REPO = 'andylitvinov-design/ai-projects-brain';
+const ISSUE = 242;
+const auditMarker = date => '<!-- HH-GEMINI-AUDIT:' + date + ' -->';
+const sentMarker = date => '<!-- HH-TELEGRAM-SENT:' + date + ' -->';
 
-export async function prepare(date = torontoDate()) {
-  await mkdir(resolve(REPORTS, 'evidence'), { recursive: true });
-  if (await exists(reportPath(date))) {
-    console.log('Gemini report already exists for ' + date + '; skipping generation');
-    return;
-  }
-  if (!process.env.GEMINI_API_KEY) throw new Error('Missing secret GEMINI_API_KEY');
-  const evidence = await collectEvidence(date);
-  const review = await getGeminiReview(evidence);
-  const header = '# Holistic House — Gemini audit — ' + date + '\n\n' +
-    '**Модель:** ' + MODEL + ' · **Время:** ' + evidence.checked_at_utc + '\n\n' +
-    '**Охват:** ' + evidence.pages.length + ' анонимных URL; из sitemap обнаружено ' + evidence.scope.sitemap_discovered + '. ' +
-    'Это HTTP/HTML-аудит без браузерной проверки, закрытых страниц и реальных Web Vitals. ' +
-    'Рекомендации Gemini не равны доказанным дефектам — сверяйте с фактами.\n\n' +
-    '[Структурированные факты](evidence/' + date + '-gemini.json)\n\n---\n\n';
-  await writeFile(resolve(REPORTS, 'evidence', date + '-gemini.json'), JSON.stringify(evidence, null, 2) + '\n');
-  await writeFile(reportPath(date), header + review + '\n');
-  await writeFile(resolve(REPORTS, 'GEMINI-LATEST.md'),
-    '# Последний Gemini-аудит Holistic House\n\n**' + date + '** · ' + MODEL + '\n\n' +
-    '[' + reportName(date) + '](' + reportName(date) + ') · [набор фактов](evidence/' + date + '-gemini.json)\n\n' +
-    'Оригинальные ежедневные отчёты ChatGPT и их LATEST.md сохраняются отдельно.\n');
-  console.log('Saved independently generated Gemini audit for ' + date + ', ' + evidence.pages.length + ' URLs');
+async function github(path, method = 'GET', payload) {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) throw new Error('Missing ephemeral GitHub Actions GITHUB_TOKEN');
+  const response = await fetch('https://api.github.com/repos/' + REPO + path, {
+    method, signal: AbortSignal.timeout(20000),
+    headers: {
+      'accept': 'application/vnd.github+json',
+      'authorization': 'Bearer ' + token,
+      'x-github-api-version': '2022-11-28',
+      ...(payload ? { 'content-type': 'application/json' } : {}),
+    },
+    ...(payload ? { body: JSON.stringify(payload) } : {}),
+  });
+  if (!response.ok) throw new Error('GitHub archive returned HTTP ' + response.status);
+  return response.json();
 }
 
-async function postTelegram(date, markdown) {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chat = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chat) throw new Error('Missing Telegram secrets TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID');
+async function recentAudits() {
+  const since = new Date(Date.now() - 7 * 86400000).toISOString();
+  const found = [];
+  for (let page = 1; page <= 5; page++) {
+    const list = await github('/issues/' + ISSUE + '/comments?per_page=100&page=' + page +
+      '&since=' + encodeURIComponent(since));
+    if (!Array.isArray(list)) throw new Error('Invalid GitHub issue-comment response');
+    found.push(...list.filter(item => item.user?.login === 'github-actions[bot]' &&
+      /<!-- HH-GEMINI-AUDIT:\d{4}-\d{2}-\d{2} -->/.test(item.body || '')));
+    if (list.length < 100) break;
+  }
+  return found;
+}
+
+function reportContent(comment) {
+  const prefixless = (comment.body || '').replace(/^<!-- HH-GEMINI-AUDIT:\d{4}-\d{2}-\d{2} -->\s*/, '');
+  return prefixless.split('<!-- HH-GEMINI-EVIDENCE -->')[0].trim();
+}
+
+async function telegram(date, markdown, url) {
+  const token = process.env.TELEGRAM_BOT_TOKEN, chat = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chat) throw new Error('Missing Telegram bot credentials');
   const form = new FormData();
   form.set('chat_id', chat);
-  form.set('document', new Blob([markdown], { type: 'text/markdown; charset=utf-8' }), reportName(date));
-  form.set('caption', '🔎 Holistic House · Gemini · ' + date + '\n' +
-    'Полный ежедневный отчёт во вложении. GitHub: ' + reportLink(date));
-  const response = await fetch('https://api.telegram.org/bot' + token + '/sendDocument', {
+  form.set('document', new Blob([markdown], { type: 'text/markdown; charset=utf-8' }),
+    date + '-gemini-audit.md');
+  form.set('caption', '🔎 Holistic House — Gemini — ' + date +
+    '\nПолный ежедневный отчёт во вложении.\nАрхив: ' + url);
+  const result = await fetch('https://api.telegram.org/bot' + token + '/sendDocument', {
     method: 'POST', body: form, signal: AbortSignal.timeout(30000),
   });
-  if (!response.ok) throw new Error('Telegram API returned HTTP ' + response.status);
-  const data = await response.json();
-  if (data.ok !== true) throw new Error('Telegram API rejected report');
+  if (!result.ok) throw new Error('Telegram Bot API returned HTTP ' + result.status);
+  if ((await result.json()).ok !== true) throw new Error('Telegram did not accept the document');
 }
 
-export async function deliver() {
-  await mkdir(resolve(REPORTS, 'delivery'), { recursive: true });
-  const pending = (await readdir(REPORTS)).filter(x => /^\d{4}-\d{2}-\d{2}-gemini-audit\.md$/.test(x))
-    .sort().reverse();
-  let count = 0;
-  for (const name of pending) {
-    if (count >= 3) break;
-    const date = name.slice(0, 10);
-    if (await exists(receiptPath(date))) continue;
-    const markdown = await readFile(reportPath(date), 'utf8');
-    await postTelegram(date, markdown);
-    await writeFile(receiptPath(date), JSON.stringify({
-      date_toronto: date, channel: 'telegram', delivery_status: 'sent',
-      sent_at_utc: new Date().toISOString(),
-    }, null, 2) + '\n');
-    console.log('Telegram accepted audit for ' + date);
-    count++;
+export async function runDaily() {
+  if (process.env.GITHUB_REPOSITORY && process.env.GITHUB_REPOSITORY !== REPO) {
+    throw new Error('Wrong repository; refusing to publish elsewhere');
   }
-  if (!count) console.log('No unsent Gemini reports to deliver');
+  for (const key of ['GEMINI_API_KEY', 'TELEGRAM_BOT_TOKEN', 'TELEGRAM_CHAT_ID', 'GITHUB_TOKEN']) {
+    if (!process.env[key]) throw new Error('Missing required secret: ' + key);
+  }
+  const date = torontoDate();
+  const previous = await recentAudits();
+  let today = previous.find(item => (item.body || '').includes(auditMarker(date)));
+  if (!today) {
+    const evidence = await collectEvidence(date);
+    const review = await getGeminiReview(evidence);
+    const report = '# Holistic House — независимый аудит Gemini за ' + date + '\n\n' +
+      '**Модель:** ' + MODEL + '\n' +
+      '**Проверено публичных URL:** ' + evidence.pages.length +
+      ' из карты сайта обнаружено ' + evidence.scope.sitemap_discovered + '.\n' +
+      '**Способ:** анонимный HTTP/HTML; не было снимков, кликов, приватного кабинета или Web Vitals.\n\n' +
+      review + '\n';
+    const full = JSON.stringify(evidence, null, 2);
+    const limited = full.length > 40000 ? full.slice(0, 40000) + '\n[JSON evidence truncated]' : full;
+    const fence = String.fromCharCode(96).repeat(3);
+    const commentBody = auditMarker(date) + '\n\n' + report +
+      '\n\n<!-- HH-GEMINI-EVIDENCE -->\n\n<details><summary>Public HTTP evidence (JSON)</summary>\n\n' +
+      fence + 'json\n' + limited + '\n' + fence + '\n\n</details>\n';
+    if (commentBody.length > 65000) throw new Error('GitHub report is too large; refused to publish');
+    today = await github('/issues/' + ISSUE + '/comments', 'POST', { body: commentBody });
+    console.log('Gemini audit archived to ' + today.html_url);
+  } else {
+    console.log('Existing Gemini audit for ' + date + ': no second Gemini call');
+  }
+
+  const byId = new Map([...previous, today].map(x => [x.id, x]));
+  const pending = [...byId.values()].filter(item => {
+    const match = (item.body || '').match(/<!-- HH-GEMINI-AUDIT:(\d{4}-\d{2}-\d{2}) -->/);
+    return match && !(item.body || '').includes(sentMarker(match[1]));
+  }).sort((a, b) => b.created_at.localeCompare(a.created_at)).slice(0, 3);
+  for (const item of pending) {
+    const reportDate = item.body.match(/<!-- HH-GEMINI-AUDIT:(\d{4}-\d{2}-\d{2}) -->/)[1];
+    await telegram(reportDate, reportContent(item), item.html_url);
+    const updated = item.body + '\n\n' + sentMarker(reportDate) +
+      '\n**Telegram:** успешно отправлено ' + new Date().toISOString() + ' UTC (Bot API).\n';
+    await github('/issues/comments/' + item.id, 'PATCH', { body: updated });
+    console.log('Telegram accepted report ' + reportDate + '; archive delivery marked');
+  }
+  if (!pending.length) console.log('No pending Telegram delivery');
 }
 
 if (process.argv[1] && import.meta.url === new URL('file://' + resolve(process.argv[1])).href) {
-  const mode = process.argv[2];
   try {
-    if (mode === 'prepare') await prepare();
-    else if (mode === 'deliver') await deliver();
-    else throw new Error('Usage: node daily-gemini-telegram.mjs prepare|deliver');
+    if (process.argv[2] !== 'run') throw new Error('Usage: node daily-gemini-telegram.mjs run');
+    await runDaily();
   } catch (error) {
     console.error('Daily Gemini Telegram audit: ' + error.message);
     process.exitCode = 1;
