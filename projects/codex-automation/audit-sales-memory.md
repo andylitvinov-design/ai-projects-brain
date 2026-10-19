@@ -15,31 +15,166 @@ Persistent longitudinal memory for the weekly `/audit-sales` portfolio review an
 
 ## Current portfolio snapshot
 
-Snapshot date: 2026-10-05.
+Snapshot date: 2026-10-19.
 
-This run inspected ten scored public conversion families across clean desktop defaults and selected CTA, service, academy, client-cabinet, archive, catalogue, cart, diagnostics, login and provider-error states. The fixed browser viewport was 1363×936; mobile rendering remained unavailable and is NOT_TESTED. No form, message, order, payment, authentication or provider mutation was performed. Scores use the full 100-point denominator and remain heuristic evidence scores, never revenue or conversion-rate claims.
+Evidence class: rendered desktop at 1363×936 plus provider/GitHub source metadata where available. Mobile, real Telegram/WhatsApp delivery, form submission, payment, authenticated persistence, analytics delivery/deduplication, and field Core Web Vitals remain \`NOT_TESTED\`. No product code, provider settings, user data, messages, orders, or payments were changed.
 
-| Project | Repo / production source | A | B | C | D | E | F | G | Total | Prior | Delta | Change | Confidence |
-|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|---|
-| PsiTrends | andylitvinov-design/sales; psitrends.com; exact custom-domain parity to codex/bootstrap-sales remains needs verification | 19 | 18 | 13 | 18 | 8 | 6 | 2 | 84 | 82 | +2 | CHANGED_NAV_AND_ACADEMY_EVIDENCE | medium visible / medium source |
-| Holistic House | andylitvinov-design/books; holistichouse.vercel.app; codex/public-book-library@d47190dc | 19 | 17 | 12 | 17 | 8 | 6 | 0 | 79 | 72 | +7 | CHANGED_ACADEMY_CABINET_EVIDENCE | high visible / medium-high source |
-| Business Mysteries | businessmysteries.vercel.app; canonical source needs verification | 20 | 17 | 9 | 18 | 8 | 4 | 0 | 76 | 76 | 0 | UNCHANGED | medium |
-| Body Explore | bodyexplore.vercel.app; canonical source needs verification | 19 | 17 | 9 | 18 | 8 | 4 | 0 | 75 | 75 | 0 | UNCHANGED | medium |
-| Psychic Alchemy | psychicalchemy.vercel.app; canonical repo/source needs verification | 19 | 17 | 9 | 17 | 7 | 4 | 0 | 73 | 73 | 0 | UNCHANGED | medium visible / low source |
-| EzoHata clean-room | andylitvinov-design/ezohata; ezohata.vercel.app; main@93b9de97 | 18 | 15 | 7 | 19 | 6 | 7 | 0 | 72 | 72 | 0 | UNCHANGED | medium-high |
-| Toronto Tantra | andylitvinov-design/torontotantra; torontotantra.vercel.app; main@5451af0a | 18 | 15 | 10 | 16 | 8 | 4 | 0 | 71 | 74 | -3 | CHANGED_PAST_EVENT_REGRESSION | high desktop / medium overall |
-| Psitherapy | andylitvinov-design/report; psitherapy.vercel.app; main@7ebcd789 | 16 | 16 | 6 | 15 | 5 | 2 | 0 | 60 | 60 | 0 | UNCHANGED_FAILURE | medium |
-| EzoHata legacy store | ezohata.com; canonical repo/hosting source needs verification | 16 | 15 | 7 | 13 | 5 | 3 | 0 | 59 | 59 | 0 | UNCHANGED | medium visible / low source |
-| Reiki Yggdrasil | andylitvinov-design/reiki-yggdrasil; reiki-yggdrasil.vercel.app; production@b8c312ee | 10 | 9 | 5 | 8 | 4 | 2 | 0 | 38 | 38 | 0 | UNCHANGED_FAILURE | medium-low |
+| Rank | Site | A | B | C | D | E | F | G | Total | Delta | Change label |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| 1 | Holistic House | 20 | 19 | 14 | 18 | 10 | 6 | 0 | **87** | +8 | CHANGED_PRICE_EVENT_COURSE_PROOF |
+| 2 | PsiTrends | 20 | 18 | 12 | 18 | 10 | 6 | 0 | **84** | 0 | UNCHANGED |
+| 3 | Business Mysteries | 20 | 17 | 9 | 18 | 8 | 4 | 0 | **76** | 0 | UNCHANGED |
+| 4 | Body Explore | 19 | 17 | 9 | 18 | 8 | 4 | 0 | **75** | 0 | UNCHANGED |
+| 5 | Psychic Alchemy | 19 | 17 | 9 | 17 | 7 | 4 | 0 | **73** | 0 | UNCHANGED |
+| 6 | EzoHata clean-room | 18 | 15 | 7 | 19 | 6 | 7 | 0 | **72** | 0 | UNCHANGED |
+| 7 | Toronto Tantra | 17 | 19 | 10 | 14 | 7 | 4 | 0 | **71** | 0 | UNCHANGED_STALE_EVENT |
+| 8 | Psitherapy | 16 | 16 | 6 | 15 | 5 | 2 | 0 | **60** | 0 | UNCHANGED_FAILURE |
+| 9 | EzoHata legacy | 16 | 15 | 7 | 13 | 5 | 3 | 0 | **59** | 0 | UNCHANGED |
+| 10 | Reiki Yggdrasil | 10 | 9 | 5 | 8 | 4 | 2 | 0 | **38** | 0 | UNCHANGED_FAILURE |
 
-### Verification-only / excluded from scored public-sales families
+Scores remain heuristic evidence scores, not revenue or conversion-rate evidence. Category G remains 0/5 across the portfolio because event delivery, deduplication, attribution, and linkage to an actual business outcome were not proven.
 
-| Project | Current classification | Change |
-|---|---|---|
-| Psihotavr | psihotavr.vercel.app returns DEPLOYMENT_NOT_FOUND; active/retired status and canonical source remain unproved | UNCHANGED blocker; prior 40 retained as history |
-| Books Library | former catalogue-first scorecard | SUPERSEDED by Holistic House scope; historical scores retained |
-| 2Mentalica, books-nu, PsiTrends Pages | alternate/alias evidence | NEEDS_VERIFICATION; not independently scored |
-| Brain Management, Codex Links, AI Projects Brain, MyPortal, Finance/Incoming Ledger, EzoHata Finance and legacy Finance | internal/control/owner-authenticated systems | excluded; Finance remains a critical live-readiness blocker pending PR #636, not a sales site |
+Verification-only: Psihotavr remained \`404 DEPLOYMENT_NOT_FOUND\` on 2026-10-19 and is not scored until active/retired state is proven.
+
+Excluded from public-sales scoring: Brain Management, Codex Links, MyPortal, AI Projects Brain, Incoming Ledger, new EzoHata Finance, and legacy Finance. They are internal, owner-authenticated, infrastructure, or operational surfaces. New and legacy Finance remain separate.
+
+## 2026-10-19 portfolio audit
+
+### Sales Change Map
+
+- **Holistic House — CHANGED_PRICE_EVENT_COURSE_PROOF:** paid session prices and duration are explicit; free-vs-paid paths are separated; a confirmed 2026-10-25 Toronto event is published; free course paths and consented testimonials are stronger.
+- **Toronto Tantra — UNCHANGED_STALE_EVENT:** production still presents the 2026-10-04 event as current.
+- **Psitherapy — UNCHANGED_FAILURE:** \`/demo\` still loops to the same login surface.
+- **Reiki Yggdrasil — UNCHANGED_FAILURE:** \`/masters\` still exposes \`Failed to fetch\`.
+- **Psihotavr — UNCHANGED_FAILURE:** expected production remains a Vercel deployment-not-found response.
+- All other scored sites are **UNCHANGED** at the available evidence level.
+
+### Site records
+
+#### Holistic House — 87/100, medium-high confidence
+
+- Mapping: \`andylitvinov-design/books\`; production \`https://holistichouse.vercel.app\`; Vercel project \`codex-public-book-library\`; \`codex/public-book-library@70d4a702\`.
+- Audience / offer / action: adults seeking guidance, self-checks, courses, events, or a private session; start free, open a course, or ask about a paid session.
+- Preserve: clear free/paid architecture, €50/30-minute and €100/60-minute pricing, verified event facts, consented testimonials with limitations, non-medical boundaries, and guest/private-state separation.
+- Top leaks: P1 Academy card/landing naming is inconsistent; P1 paid contact CTAs lack an expected response time; P2 no end-to-end proof connects free review, course start, or contact to an owner-confirmed business outcome.
+- Ranked recommendations: 1) use the owner-approved Reiki Practitioner course name everywhere; 2) add a verified response-time/availability expectation near paid CTAs; 3) add a concise data-minimization/privacy note beside the free situation request; 4) validate payload-free funnel events through an owner-confirmed booking.
+- Measurement gap: no proven delivery/deduplication/attribution; never place situation, wellbeing, contact, drawing, or message content in analytics.
+- Verification / boundaries: desktop roots, services, events, Academy, free review, and course landing observed; mobile, submission, private progress, and downstream booking not tested. Do not alter testimonials, consent, health disclaimers, prices, or event facts without source evidence.
+- Ready prompt: \`/delivery — In andylitvinov-design/books, unify the owner-approved “Free Course Reiki Practitioner: Study & Initiation” name across Academy cards, course landing and buttons; add verified response-time copy at paid contact CTAs; place a data-minimal privacy note beside the free review; define payload-free free_review_start, course_start, contact_open and owner-confirmed booked-session events. Preserve current prices, verified event facts, testimonials/limitations, non-medical boundaries, and guest/private separation. Verify desktop/mobile, keyboard/focus, no-results/error states, source SHA, STATE.md and LOG.md; do not submit personal data or book a session.\`
+
+#### PsiTrends — 84/100, medium visible / low source confidence
+
+- Mapping: \`https://psitrends.com\`; Pages alternate \`https://psitrends.pages.dev\`; canonical repo/source remains \`NEEDS_VERIFICATION\`.
+- Audience / offer / action: English/Russian visitors seeking personal or business consultation, training, or workshops; contact by Telegram/WhatsApp.
+- Preserve: three-pillar architecture, bilingual entry points, testimonials, no-guarantee disclaimer, and consent-first analytics.
+- Top leaks: P1 no current workshop schedule; P1 exact fees and availability are deferred; P2 qualified-lead and booking outcomes are not proven.
+- Ranked recommendations: 1) prove canonical source/domain; 2) publish only verified current workshop facts or a clear unavailable state; 3) show a verified fee range or explicit quote process; 4) define payload-free contact and owner-confirmed booking events.
+- Measurement gap: consent seam exists, but event delivery, deduplication, and qualified outcome linkage are unproven.
+- Verification / boundaries: desktop root observed; mobile, contact completion, consent persistence, and analytics delivery not tested. Preserve disclaimers and do not invent outcomes or urgency.
+- Ready prompt: \`/planner — Resolve the canonical PsiTrends repo and production surface, then plan verified workshop availability, fee/quote expectations, response time, and payload-free contact-to-owner-confirmed-booking measurement. Preserve the bilingual three-pillar structure, testimonials, consent-first analytics and no-guarantee language; do not add claims, scarcity or send messages.\`
+
+#### Business Mysteries — 76/100, medium confidence
+
+- Mapping: \`https://businessmysteries.vercel.app\`; canonical repo/source \`NEEDS_VERIFICATION\`.
+- Audience / offer / action: owners, team leaders, and freelancers; Telegram/WhatsApp inquiry.
+- Preserve: clear audience segmentation, program structure, and no financial/outcome guarantees.
+- Top leaks: P1 date/venue/duration/fee absent; P1 proof remains thin; P2 inquiry-to-reservation completion is not measured.
+- Ranked recommendations: 1) prove canonical source; 2) publish verified event facts or pending labels; 3) explain inquiry → response → registration → reserved place; 4) add only consented proof and payload-free funnel events.
+- Measurement gap: contact links do not prove inquiry, registration, payment, or attendance.
+- Verification / boundaries: desktop root and on-site destinations observed; mobile and external-message completion not tested. Do not add financial guarantees or invented testimonials.
+- Ready prompt: \`/delivery — First prove the Business Mysteries canonical repository and production source. Then publish verified date, venue, duration and fee or explicit pending states, explain inquiry-to-reserved-place mechanics, add only consented proof, and define payload-free contact and confirmed-registration events. Preserve exploratory/no-guarantee framing; verify desktop/mobile and do not send messages.\`
+
+#### Body Explore — 75/100, medium confidence
+
+- Mapping: \`https://bodyexplore.vercel.app\`; canonical repo/source \`NEEDS_VERIFICATION\`.
+- Audience / offer / action: adults exploring embodied connection; Telegram/WhatsApp inquiry.
+- Preserve: fully clothed participation, optional touch, reversible consent, and non-sexual/non-medical boundaries.
+- Top leaks: P1 event facts remain deferred; P1 verified facilitator/event proof is limited; P2 response/reservation completion is not measured.
+- Ranked recommendations: 1) prove source parity; 2) surface verified facts or pending labels; 3) explain response and reservation steps; 4) add data-minimal contact guidance and payload-free confirmation events.
+- Measurement gap: contact clicks are not confirmed inquiries or registrations.
+- Verification / boundaries: desktop root observed; mobile, message delivery, and registration not tested. Do not weaken consent or optional-participation language.
+- Ready prompt: \`/delivery — Prove Body Explore production source, surface verified event facts or explicit pending labels, explain response/reservation mechanics, add a data-minimal first-message instruction, and define payload-free contact and confirmed-registration events. Preserve fully-clothed, optional-touch, reversible-consent and non-medical boundaries; verify desktop/mobile and do not send messages.\`
+
+#### Psychic Alchemy — 73/100, medium visible / low source confidence
+
+- Mapping: \`https://psychicalchemy.vercel.app\`; canonical repo/source \`NEEDS_VERIFICATION\`.
+- Audience / offer / action: Russian-speaking support clients; describe a situation in Telegram.
+- Preserve: single CTA, understandable four-step process, and existing medical disclaimer.
+- Top leaks: P1 price/duration/payment/response time absent; P1 diagnosis/cause wording is overly determinate; P1 no data-minimization notice precedes sensitive context sharing.
+- Ranked recommendations: 1) resolve source; 2) publish verified commercial expectations; 3) make causal/diagnostic wording explicitly exploratory; 4) minimize requested first-message data and define payload-free events.
+- Measurement gap: no proven inquiry or booked-session event; sensitive content must be excluded from analytics.
+- Verification / boundaries: desktop root observed; mobile, Telegram completion, and provider delivery not tested. Do not claim diagnosis, treatment, or outcomes.
+- Ready prompt: \`/planner — Resolve the Psychic Alchemy canonical repo, then plan verified price, duration, payment and response expectations; exploratory non-diagnostic wording; a data-minimization notice before Telegram; and payload-free lead events without health/message content. Preserve the clear process and disclaimer; do not invent clinical evidence or send messages.\`
+
+#### EzoHata clean-room — 72/100, medium-high confidence
+
+- Mapping: \`andylitvinov-design/ezohata\`; production \`https://ezohata.vercel.app\`; \`main@93b9de97\`.
+- Audience / offer / action: catalogue buyers and diagnostic leads; cart/Telegram order or diagnostics request.
+- Preserve: protected originals, taxonomy, prices, consent controls, Telegram-first ordering, and duplicate-submit safeguards.
+- Top leaks: P1 health/outcome-style catalogue copy needs evidence-safe framing; P1 diagnostics price/response/eligibility remains unclear; P2 lead/order delivery and analytics are unproven.
+- Ranked recommendations: 1) review claims without silently rewriting protected originals; 2) publish verified diagnostics expectations; 3) clarify fulfilment/post-order steps; 4) prove payload-free catalogue/cart/lead events.
+- Measurement gap: cart state exists, but order/lead success and deduplication were not tested.
+- Verification / boundaries: desktop catalogue and empty cart observed; no order or lead submitted; mobile/provider persistence not tested. Do not alter protected records or submit a real order.
+- Ready prompt: \`/safe — In andylitvinov-design/ezohata, review visible health/outcome copy against evidence while preserving protected originals, publish verified diagnostics price/response/eligibility or pending states, clarify fulfilment, and prove payload-free catalogue, cart, lead and order-success events. Verify desktop/mobile, empty/invalid/persisted cart and provider boundaries; do not submit a lead or order.\`
+
+#### Toronto Tantra — 71/100, medium confidence
+
+- Mapping: \`andylitvinov-design/torontotantra\`; production \`https://torontotantra.vercel.app\`; \`main@e1629f2\`.
+- Audience / offer / action: Toronto adults; Eventbrite or Telegram registration.
+- Preserve: price/program, facilitator identity, 18+, fully-clothed, consent, optional-touch, and non-sexual framing.
+- Top leaks: P0 production labels the past 2026-10-04 event as current; P1 contact/payment/confirmation sequence is unclear; P2 registration measurement is unproven.
+- Ranked recommendations: 1) publish the already prepared stale-event unavailable state after verification; 2) show only verified current event facts; 3) explain contact → payment → confirmed place; 4) define payload-free CTA and owner-confirmed registration events.
+- Measurement gap: Eventbrite/Telegram destinations do not prove registration or attendance.
+- Verification / boundaries: desktop \`/\` and \`/cuddle-therapy\` observed; mobile/external completion not tested. Do not weaken consent/safety copy or invent dates.
+- Ready prompt: \`/delivery — Live-verify and ship the bounded stale-event state for Toronto Tantra, publish only verified current event facts, explain Telegram/Eventbrite-to-confirmed-place mechanics, and define payload-free CTA plus owner-confirmed-registration events. Preserve 18+, fully-clothed, optional-touch, reversible-consent and non-sexual boundaries; verify desktop/mobile and do not register or send a message.\`
+
+#### Psitherapy — 60/100, medium confidence
+
+- Mapping: \`andylitvinov-design/report\`; production \`https://psitherapy.vercel.app\`; Vercel \`main@7ebcd789\`.
+- Audience / offer / action: self-analysis and specialist support; authenticated cabinet.
+- Preserve: Google authentication boundary and privacy-sensitive handling.
+- Top leaks: P0 \`/demo\` remains a login self-loop; P1 specialist-request persistence is unproven; P1 pre-login deliverable and health/AI privacy evidence remain incomplete.
+- Ranked recommendations: 1) live-verify the existing bounded demo fix; 2) prove durable request persistence before success copy; 3) make pre-login deliverable concrete; 4) keep health answers and identifiers out of analytics.
+- Measurement gap: no proven persisted specialist request or user outcome.
+- Verification / boundaries: desktop logged-out \`/demo\` observed; authentication, health-data entry, persistence, and mobile not tested. Do not authenticate or enter health data.
+- Ready prompt: \`/safe — In andylitvinov-design/report, live-verify the bounded /demo self-loop fix, prove specialist-request persistence before success copy, clarify the pre-login deliverable, and keep health answers, identifiers and report content out of analytics. Preserve Google auth; verify logged-out/mobile/error states without authenticating or entering health data.\`
+
+#### EzoHata legacy — 59/100, medium visible / low source confidence
+
+- Mapping: \`https://ezohata.com\`; canonical repo/provider \`NEEDS_VERIFICATION\`.
+- Audience / offer / action: broad catalogue shoppers; cart/Telegram purchase path.
+- Preserve: catalogue records, current prices, and working policy/contact routes.
+- Top leaks: P0 strong health/guarantee/outcome claims require evidence review; P1 catalogue lacks a clear beginner path; P1 checkout persistence/completion is unproven.
+- Ranked recommendations: 1) resolve canonical source; 2) separate educational/esoteric copy from medical implications; 3) define one beginner starting path; 4) clarify deliverable, fulfilment, refund and support.
+- Measurement gap: no proven checkout success or deduplicated order event.
+- Verification / boundaries: desktop root observed; cart/payment/message completion and mobile not tested. Do not change catalogue records or prices without source evidence.
+- Ready prompt: \`/safe — Resolve the canonical source for ezohata.com, review health/guarantee/outcome claims against evidence, separate educational/esoteric descriptions from medical implications, establish one beginner path, and clarify fulfilment/refund/support. Preserve catalogue records, current prices and working routes; test only a non-purchasing cart state.\`
+
+#### Reiki Yggdrasil — 38/100, medium-low confidence
+
+- Mapping: \`andylitvinov-design/reiki-yggdrasil\`; production \`https://reiki-yggdrasil.vercel.app\`; \`production@b8c312ee\`.
+- Audience / offer / action: master discovery, course access, profile, or shop; dominant journey remains unresolved.
+- Preserve: RLS, roles, storage, public/private boundaries, and safe shop-unavailable state.
+- Top leaks: P0 \`/masters\` exposes \`Failed to fetch\`; P1 multiple competing journeys; P1 canonical production and 2Mentalica alias diverge.
+- Ranked recommendations: 1) ship/live-verify the prepared friendly masters error; 2) choose one primary journey; 3) explain pre-auth value/access/next step; 4) reconcile the alternate alias before adding measurement.
+- Measurement gap: no proven adoption event tied to a selected journey.
+- Verification / boundaries: desktop \`/masters\` and \`/shop\` observed; authenticated roles, RLS/storage, mobile, and provider state not tested. Do not change RLS, roles, storage, or aliases during planning.
+- Ready prompt: \`/planner — For andylitvinov-design/reiki-yggdrasil, plan shipping and live verification of the existing friendly /masters error, select one primary public journey, expose value/access/next step before login, and reconcile canonical production with 2Mentalica. Preserve RLS, roles, storage and public/private boundaries; add adoption events only after the journey is proven.\`
+
+### Cross-site patterns and blockers
+
+- Practical decision facts and response/reservation mechanics remain weaker than program descriptions.
+- Telegram/WhatsApp/Eventbrite links do not prove inquiry, registration, payment, or attendance.
+- Consent and non-medical copy are durable trust assets and must be preserved.
+- Source parity remains unresolved for PsiTrends, Business Mysteries, Body Explore, Psychic Alchemy, and EzoHata legacy.
+- Mobile, authenticated/provider paths, field performance, and end-to-end analytics remain blocked or not tested.
+- Marker schema remains v1.1; \`NO_MARKER_CHANGE\`.
+
+### Effect Bridge reconciliation
+
+Exactly one candidate remains active: restore Psihotavr only after proving it is an active commercial project. On 2026-10-19 the expected production URL still returned \`404 DEPLOYMENT_NOT_FOUND\`; Brain Management reread \`business_growth_outcomes\` at 4/6 (66.7), so implementation is absent and actual effect is 0. Conditional effect remains 4/6 → 5/6 and 66.7 → 83.3 only after active-state proof and live recovery. If retired or source cannot be proven, effect is 0 and the denominator is not changed.
+
+Single portfolio next action: prove Psihotavr active/retired state before any deployment change.
 
 ## 2026-10-05 portfolio audit
 
