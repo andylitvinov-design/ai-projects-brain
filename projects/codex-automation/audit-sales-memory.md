@@ -22,7 +22,7 @@ Evidence class: rendered desktop at 1363×936 plus provider/GitHub source metada
 | Rank | Site | A | B | C | D | E | F | G | Total | Delta | Change label |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
 | 1 | Holistic House | 20 | 19 | 14 | 18 | 10 | 6 | 0 | **87** | +8 | CHANGED_PRICE_EVENT_COURSE_PROOF |
-| 2 | PsiTrends | 20 | 18 | 12 | 18 | 10 | 6 | 0 | **84** | 0 | UNCHANGED |
+| 2 | PsiTrends | 19 | 18 | 13 | 18 | 8 | 6 | 2 | **84** | 0 | UNCHANGED |
 | 3 | Business Mysteries | 20 | 17 | 9 | 18 | 8 | 4 | 0 | **76** | 0 | UNCHANGED |
 | 4 | Body Explore | 19 | 17 | 9 | 18 | 8 | 4 | 0 | **75** | 0 | UNCHANGED |
 | 5 | Psychic Alchemy | 19 | 17 | 9 | 17 | 7 | 4 | 0 | **73** | 0 | UNCHANGED |
@@ -32,7 +32,7 @@ Evidence class: rendered desktop at 1363×936 plus provider/GitHub source metada
 | 9 | EzoHata legacy | 16 | 15 | 7 | 13 | 5 | 3 | 0 | **59** | 0 | UNCHANGED |
 | 10 | Reiki Yggdrasil | 10 | 9 | 5 | 8 | 4 | 2 | 0 | **38** | 0 | UNCHANGED_FAILURE |
 
-Scores remain heuristic evidence scores, not revenue or conversion-rate evidence. Category G remains 0/5 across the portfolio because event delivery, deduplication, attribution, and linkage to an actual business outcome were not proven.
+Scores remain heuristic evidence scores, not revenue or conversion-rate evidence. Category G remains 0/5 except PsiTrends at 2/5 for partial consent/measurement evidence; no site proved event delivery, deduplication, attribution, and linkage to an actual business outcome.
 
 Verification-only: Psihotavr remained `404 DEPLOYMENT_NOT_FOUND` on 2026-10-19 and is not scored until active/retired state is proven.
 
