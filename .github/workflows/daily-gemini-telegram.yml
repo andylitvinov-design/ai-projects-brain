@@ -1,8 +1,8 @@
-name: Holistic House Gemini audit → Telegram
+name: Holistic House daily AI Council → Telegram
 
 on:
   schedule:
-    # After the existing 09:00 America/Toronto ChatGPT audit. Timezone includes DST.
+    # One existing daily job at 09:15 Toronto local time (DST-aware).
     - cron: '15 9 * * *'
       timezone: 'America/Toronto'
   workflow_dispatch:
@@ -10,7 +10,10 @@ on:
     paths:
       - '.github/workflows/daily-gemini-telegram.yml'
       - 'tools/ai-council-chat/scripts/daily-gemini-telegram.mjs'
+      - 'tools/ai-council-chat/scripts/daily-council-providers.mjs'
+      - 'tools/ai-council-chat/scripts/daily-multi-ai-telegram.mjs'
       - 'tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs'
+      - 'tools/ai-council-chat/tests/daily-multi-ai-telegram.test.mjs'
 
 concurrency:
   group: holistic-house-daily-gemini-${{ github.ref }}
@@ -25,32 +28,50 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate script and run offline security tests
+      - name: Validate both legacy and multi-model offline contracts
         run: |
           node --check tools/ai-council-chat/scripts/daily-gemini-telegram.mjs
-          node --test tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs
+          node --check tools/ai-council-chat/scripts/daily-council-providers.mjs
+          node --check tools/ai-council-chat/scripts/daily-multi-ai-telegram.mjs
+          node --test tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs tools/ai-council-chat/tests/daily-multi-ai-telegram.test.mjs
 
   audit-and-send:
-    # Owner opt-in: no automatic paid API calls or Telegram sends until activated.
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.GEMINI_TELEGRAM_ENABLED == 'true'
+    # One mutually exclusive delivery path, always off until owner opt-in.
+    if: >-
+      github.event_name != 'pull_request' && github.ref == 'refs/heads/main' &&
+      (vars.COUNCIL_DAILY_TELEGRAM_ENABLED == 'true' || vars.GEMINI_TELEGRAM_ENABLED == 'true')
     needs: validate
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     permissions:
       contents: read
       issues: write
     env:
+      COUNCIL_DAILY_TELEGRAM_ENABLED: ${{ vars.COUNCIL_DAILY_TELEGRAM_ENABLED }}
+      GEMINI_FREE_TIER_CONFIRMED: ${{ vars.GEMINI_FREE_TIER_CONFIRMED }}
+      MISTRAL_EXPERIMENT_CONFIRMED: ${{ vars.MISTRAL_EXPERIMENT_CONFIRMED }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Generate or reuse daily Gemini audit, archive to GitHub issue, deliver to Telegram
-        run: node tools/ai-council-chat/scripts/daily-gemini-telegram.mjs run
+      - name: Archive daily reports and send one Telegram document to owner
+        run: |
+          if [ "$COUNCIL_DAILY_TELEGRAM_ENABLED" = "true" ]; then
+            node tools/ai-council-chat/scripts/daily-multi-ai-telegram.mjs
+          else
+            node tools/ai-council-chat/scripts/daily-gemini-telegram.mjs run
+          fi
