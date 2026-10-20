@@ -50,9 +50,13 @@ export function cleanArchivedReport(comment){
 }
 function checkSettings(env){
   if(env.GITHUB_REPOSITORY&&env.GITHUB_REPOSITORY!==REPO)throw Error('Wrong repository');
-  for(const key of ['GITHUB_TOKEN','TELEGRAM_BOT_TOKEN','TELEGRAM_CHAT_ID'])
+  const archiveOnly=env.COUNCIL_DELIVERY_MODE==='archive_only';
+  const required=archiveOnly?['GITHUB_TOKEN']:
+    ['GITHUB_TOKEN','TELEGRAM_BOT_TOKEN','TELEGRAM_CHAT_ID'];
+  for(const key of required)
     if(!env[key])throw Error('Missing private setting '+key);
-  if(!/^-?\d{1,20}$/.test(env.TELEGRAM_CHAT_ID))throw Error('Numeric Telegram chat ID required');
+  if(!archiveOnly&&!/^-?\d{1,20}$/.test(env.TELEGRAM_CHAT_ID))
+    throw Error('Numeric Telegram chat ID required');
 }
 async function github(path,method,body,env,fetcher){
   const res=await fetcher('https://api.github.com/repos/'+REPO+path,{
@@ -114,6 +118,10 @@ export async function runDailyCouncil({env=process.env,fetcher=fetch,collect=col
     today=await github('/issues/'+ISSUE+'/comments','POST',{body},env,fetcher);
     console.log('Archived public Council report: '+today.html_url);
   }else console.log('Daily Council archive reused; no repeated provider calls');
+  // GitHub Actions never receives a BotFather token. The HH Vercel cron picks
+  // this public archive up later and forwards it through the central Telegram hub.
+  if(env.COUNCIL_DELIVERY_MODE==='archive_only')
+    return {date,status:'archived_only'};
   const rows=new Map([...existing,today].filter(Boolean).map(x=>[x.id,x]));
   const pending=[...rows.values()].filter(x=>{
     const dateMatch=String(x.body||'').match(/<!-- HH-COUNCIL-DAILY:(\d{4}-\d{2}-\d{2}) -->/);
