@@ -79,6 +79,7 @@ function renderMessages(){const wrap=el('messages');wrap.replaceChildren();const
  tz.onclick=()=>{if(globalThis.AICouncilSpec?.open)globalThis.AICouncilSpec.open(round);else setError('Document editor is unavailable. Reload the page.');};actions.append(tz);
  synth.append(actions);if(round.tz){const hint=node('div','spec-saved-hint',state.lang==='ru'?'▤ ТЗ сохранено в этом диалоге. Откройте редактор, чтобы скопировать, скачать или исправить.':'▤ Specification saved to this conversation. Open the editor to copy, download, or revise.');synth.append(hint);}}
  block.append(synth);wrap.append(block);
+ globalThis.AICouncilTelegram?.enhanceRound(block,round,{lang:state.lang,save:persist,rerender:renderMessages});
  });}
 async function copyText(s){try{await navigator.clipboard.writeText(s);setError(t('copied'));setTimeout(()=>setError(''),1500);}catch{setError(t('copyFailed'));}}
 function exportRound(r){const content='# '+r.question+'\n\n'+(r.answers||[]).map((a,i)=>'## '+formatName(a.model)+'\n\n'+(a.text||a.error||'')+'\n').join('\n')+'\n## '+t('synth')+'\n\n'+(r.synthesis||r.synthesisError||'')+'\n'+(r.tz?'\n## '+t('draftLabel')+'\n'+r.tz:'');const b=new Blob([content],{type:'text/markdown;charset=utf-8'}),url=URL.createObjectURL(b),a=node('a');a.href=url;a.download='AI-Council-'+escapeFilename(r.question)+'.md';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
