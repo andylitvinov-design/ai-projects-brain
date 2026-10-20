@@ -46,6 +46,7 @@
         return {status:'chooser'}; // Native share resolving is NOT proof of Telegram delivery.
       }catch(error){if(error?.name==='AbortError')return {status:'cancelled'};}
     }
+    if(text.length>MAX_LINK_TEXT)return {status:'too_long'}; // No opaque OS text-length truncation without file share.
     if(typeof navigator!=='undefined' && typeof navigator.share==='function'){
       try{await navigator.share({title,text});return {status:'chooser'};}
       catch(error){if(error?.name==='AbortError')return {status:'cancelled'};}
