@@ -41,10 +41,9 @@ jobs:
           node --test tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs tools/ai-council-chat/tests/daily-multi-ai-telegram.test.mjs
 
   audit-and-send:
-    # One mutually exclusive delivery path, always off until owner opt-in.
-    if: >-
-      github.event_name != 'pull_request' && github.ref == 'refs/heads/main' &&
-      (vars.COUNCIL_DAILY_TELEGRAM_ENABLED == 'true' || vars.GEMINI_TELEGRAM_ENABLED == 'true')
+    # Archive-only automatic public audit. No BotFather credentials in GitHub.
+    # Actual Telegram delivery is performed by Holistic House Vercel after this run.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -52,14 +51,12 @@ jobs:
       contents: read
       issues: write
     env:
-      COUNCIL_DAILY_TELEGRAM_ENABLED: ${{ vars.COUNCIL_DAILY_TELEGRAM_ENABLED }}
+      COUNCIL_DELIVERY_MODE: archive_only
       GEMINI_FREE_TIER_CONFIRMED: ${{ vars.GEMINI_FREE_TIER_CONFIRMED }}
       MISTRAL_EXPERIMENT_CONFIRMED: ${{ vars.MISTRAL_EXPERIMENT_CONFIRMED }}
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
@@ -68,10 +65,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Archive daily reports and send one Telegram document to owner
-        run: |
-          if [ "$COUNCIL_DAILY_TELEGRAM_ENABLED" = "true" ]; then
-            node tools/ai-council-chat/scripts/daily-multi-ai-telegram.mjs
-          else
-            node tools/ai-council-chat/scripts/daily-gemini-telegram.mjs run
-          fi
+      - name: Archive one public Council audit; owner Telegram delivery runs from HH
+        run: node tools/ai-council-chat/scripts/daily-multi-ai-telegram.mjs
