@@ -101,6 +101,7 @@
       if(!value){notify(ru?'Вставь ответ Muse перед сохранением.':'Paste the Muse response first.');return;}
       round.museManual=value;
       options.save?.();
+      void maybeAutoSend(round,options.save);
       options.rerender?.();
     });
     panel.append(saveBtn);
@@ -118,8 +119,13 @@
     if((round.answers||[]).some(a=>a.status==='ok')||round.museManual){
       synth.append(action(ru?'↗ Telegram · весь отчёт':'↗ Telegram · full report',
         ()=>dispatch('AI Council — full report',reportMarkdown(round))));
+      synth.append(action(ru?'Отправить ботом в мой чат':'Send via my Telegram bot',
+        ()=>void maybeAutoSend(round,options.save,true,notify)));
     }
-    const status=el('div','telegram-share-status');status.setAttribute('role','status');synth.append(status);
+    const status=el('div','telegram-share-status');status.setAttribute('role','status');
+    status.textContent=round.telegramBotError?'Ошибка отправки ботом: '+round.telegramBotError:
+      round.telegramBotBaseAccepted?'Telegram Bot API принял отправку '+round.telegramBotBaseAccepted+' UTC.':'';
+    synth.append(status);
   }
 
   // Optional, owner-gated serverless Telegram Bot API delivery. Disabled until explicitly
