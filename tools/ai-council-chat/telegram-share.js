@@ -121,5 +121,130 @@
     }
     const status=el('div','telegram-share-status');status.setAttribute('role','status');synth.append(status);
   }
-  global.AICouncilTelegram={redact,reportMarkdown,telegramUrl,share,enhanceRound};
+
+  // Optional, owner-gated serverless Telegram Bot API delivery. Disabled until explicitly
+  // configured on the existing Vercel project. No bot token or access key is persisted here.
+  let ownerAccessKey='', autoEnabled=false;
+  const inFlight=new WeakSet();
+  function acceptedAnswers(round){
+    return (Array.isArray(round?.answers)?round.answers:[]).filter(a=>a.status==='ok'&&String(a.text||'').trim());
+  }
+  function complete(round){
+    return !!round && (round.answers||[]).every(a=>a.status!=='pending') &&
+      round.synthesisStatus!=='pending' && acceptedAnswers(round).length>0;
+  }
+  function sources(round){
+    const list=acceptedAnswers(round).map(x=>String(x.model||'unknown'));
+    if(round?.museManual)list.push('manual:muse');
+    return list.slice(0,6);
+  }
+  async function relay(body){
+    const key=ownerAccessKey;
+    if(key.length<32)throw new Error('First enter your private Telegram relay access key in settings.');
+    const response=await fetch('./api/telegram-deliver',{
+      method:'POST',redirect:'error',credentials:'omit',cache:'no-store',referrerPolicy:'no-referrer',
+      headers:{'content-type':'application/json','x-council-telegram-access':key},
+      body:JSON.stringify(body),signal:AbortSignal.timeout(22000)
+    });
+    const data=await response.json().catch(()=>null);
+    if(!response.ok || data?.ok!==true){
+      const status=response.status;
+      if(status===401||status===403){autoEnabled=false;throw new Error('Owner Telegram access denied ('+status+'). Check the access key and allowed site domain.');}
+      if(status===503)throw new Error('Telegram Bot API delivery is not enabled/configured on the Vercel server.');
+      if(status===413)throw new Error('Report too large for Telegram relay.');
+      throw new Error('Telegram Bot API delivery failed (HTTP '+status+').');
+    }
+    return data;
+  }
+  function connected(){return ownerAccessKey.length>=32;}
+  async function maybeAutoSend(round,save,manual=false,onStatus=()=>{}){
+    if(!manual&&!autoEnabled)return;
+    if(!connected()){onStatus('Настрой ключ отправки Telegram в параметрах.');return;}
+    if(!complete(round)){if(manual)onStatus('Нет завершённых ответов для отправки.');return;}
+    if(inFlight.has(round)){if(manual)onStatus('Предыдущая отправка ещё выполняется.');return;}
+    const hasMuse=typeof round.museManual==='string'&&round.museManual.trim();
+    let type='base';
+    if(round.telegramBotBaseAccepted){
+      if(hasMuse && round.telegramBotMuseSentText!==round.museManual)type='muse';
+      else if(!manual)return;
+    }
+    const attempt=type==='base'?'base':'muse:'+round.museManual;
+    if(!manual && round.telegramBotLastAttempt===attempt)return; // No background retry storms.
+    const text=type==='muse'?'# Личный Muse — ручной ответ\n\nВопрос: '+String(round.question||'')+'\n\n'+round.museManual:reportMarkdown(round);
+    if(text.length>88000){onStatus('Отчёт длиннее лимита Telegram Bot API. Используй файл/экспорт.');return;}
+    round.telegramBotLastAttempt=attempt;
+    save?.();
+    inFlight.add(round);
+    onStatus('Отправляем отчёт боту Telegram…');
+    try{
+      await relay({mode:'report',title:type==='muse'?'Manual Muse reply':'AI Council replies',
+        markdown:redact(text),sources:type==='muse'?['manual:muse']:sources(round)});
+      if(type==='base'){
+        round.telegramBotBaseAccepted=new Date().toISOString();
+        if(hasMuse)round.telegramBotMuseSentText=round.museManual;
+      }else round.telegramBotMuseSentText=round.museManual;
+      round.telegramBotError='';
+      save?.();
+      onStatus('Telegram Bot API принял документ. Прочтение в чате нужно проверить.');
+    }catch(error){
+      round.telegramBotError=String(error?.message||'Delivery failed').slice(0,200);
+      save?.();
+      onStatus('Не отправлено: '+round.telegramBotError+' При необходимости нажми «Ботом в мой чат» повторно.');
+    }finally{inFlight.delete(round);}
+  }
+  function setupBotPanel(){
+    const settings=document.getElementById('settingsDialog');
+    if(!settings||document.getElementById('councilTelegramBotSettings'))return;
+    const panel=document.createElement('section');panel.id='councilTelegramBotSettings';
+    panel.className='external-provider telegram-bot-settings';
+    const heading=document.createElement('h3');heading.textContent='Telegram · мой личный бот';panel.append(heading);
+    const help=document.createElement('p');help.className='small muted';
+    help.textContent='Дополнительная прямая доставка: после настройки владельцем Telegram Bot API и ключа доступа на сервере Vercel. Сам токен бота сюда НЕ вводи.';
+    panel.append(help);
+    const label=document.createElement('label');label.htmlFor='councilTelegramAccess';
+    label.textContent='Ключ доступа AI Council (не Telegram bot token)';
+    panel.append(label);
+    const input=document.createElement('input');input.type='password';input.id='councilTelegramAccess';
+    input.autocomplete='off';input.spellcheck=false;input.placeholder='Твой отдельный ключ доступа (32+ символа)';
+    input.addEventListener('input',()=>{
+      ownerAccessKey=input.value.trim();autoEnabled=false;box.checked=false;
+      status.textContent=connected()?'Ключ введён только в памяти этой вкладки. Проверь серверное подключение.':'Введи ключ доступа; не токен бота.';
+    });
+    panel.append(input);
+    const checkLabel=document.createElement('label');checkLabel.className='rowlabel';
+    const box=document.createElement('input');box.type='checkbox';box.id='councilTelegramAuto';
+    box.addEventListener('change',()=>{
+      if(box.checked&&!connected()){box.checked=false;status.textContent='Сначала введи ключ доступа.';}
+      autoEnabled=box.checked && connected();
+      if(autoEnabled)status.textContent='Автодоставка включена для НОВЫХ публичных ответов в этой открытой вкладке. Никакие старые беседы не отправлены.';
+    });
+    const checkText=document.createElement('span');
+    checkText.textContent='Автоматически отправлять новые публичные ответы в мой Telegram, когда я работаю в AI Council';
+    checkLabel.append(box,checkText);panel.append(checkLabel);
+    const danger=document.createElement('p');danger.className='small muted';
+    danger.textContent='Не отправляй медицинские, клиентские, персональные и секретные данные. Это не синхронизация сторонних аккаунтов Mistral/Gemini/Muse. При закрытой вкладке ответы не генерируются.';
+    panel.append(danger);
+    const test=document.createElement('button');test.type='button';test.className='outline-button';
+    test.textContent='Проверить подключение (без отправки)';
+    test.addEventListener('click',async()=>{
+      test.disabled=true;status.textContent='Проверяем защищённый канал…';
+      try{const r=await relay({mode:'probe'});status.textContent=r.configured?
+        'Доступ к серверу подтверждён. Реальная доставка Telegram не проверялась.':
+        'Подключение не подтверждено.';}
+      catch(e){status.textContent=String(e?.message||'Ошибка подключения');}
+      finally{test.disabled=false;}
+    });
+    panel.append(test);
+    const status=document.createElement('p');status.className='telegram-share-status';
+    status.id='councilTelegramBotStatus';status.setAttribute('role','status');
+    status.textContent='По умолчанию выключено. Никаких автоматических сообщений.';
+    panel.append(status);
+    const anchor=settings.querySelector('.dialog-foot');
+    if(anchor)settings.insertBefore(panel,anchor);else settings.append(panel);
+  }
+  if(typeof document!=='undefined'){
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setupBotPanel,{once:true});
+    else setupBotPanel();
+  }
+    global.AICouncilTelegram={redact,reportMarkdown,telegramUrl,share,enhanceRound,maybeAutoSend};
 })(globalThis);
