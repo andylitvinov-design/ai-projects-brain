@@ -165,7 +165,7 @@ async function modelRequest(model,messages,options={}){if(!freeModels.some(x=>x.
  if(out.choices?.[0]?.finish_reason==='length')text+='\n\n[OUTPUT LIMIT: response was truncated. Detailed verified evidence remains available in the original site evidence panel.]';
  return text.trim();}
 function historyContext(th){return (th.rounds||[]).slice(-3).map(r=>'Question: '+r.question.slice(0,2000)+'\nCombined response: '+(r.synthesis||'').slice(0,2400)).join('\n\n').slice(0,8000);}
-function persistRound(){persist();renderMessages();scrollBottom();}
+function persistRound(){persist();renderMessages();scrollBottom();const last=current()?.rounds?.at(-1);if(last)void globalThis.AICouncilTelegram?.maybeAutoSend(last,persist);}
 async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)return;if(!key&&!globalThis.AICouncilExternalProviders?.models()?.length){openSettings();return;}
  busy=true;el('sendButton').disabled=true;setError('');
  try{
