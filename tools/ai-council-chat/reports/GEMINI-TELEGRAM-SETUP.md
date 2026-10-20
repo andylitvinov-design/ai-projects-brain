@@ -1,3 +1,8 @@
+> **Обновлено 2026-10-20:** этот файл описывает **legacy Gemini-only** режим. Новый объединённый
+> ежедневный Council с Mistral, Gemini, явным Muse MANUAL_ONLY и техническим ТЗ описан в
+> [DAILY-MULTI-AI-TELEGRAM-SETUP.md](./DAILY-MULTI-AI-TELEGRAM-SETUP.md). Оба режима используют
+> один и тот же cron 09:15 America/Toronto, новый включается через `COUNCIL_DAILY_TELEGRAM_ENABLED=true`.
+> Ни новый, ни старый режим не считается LIVE без реальной проверки Telegram Bot API.
 # Holistic House — ежедневные отчёты Gemini в Telegram
 
 **СТАТУС ПО УМОЛЧАНИЮ: выключено.** Владелец должен подтвердить, что ключ Google AI Studio относится к проекту **Free Tier**, добавить секреты и явно включить переменную `GEMINI_TELEGRAM_ENABLED=true`. Это защищает от автоматического обращения к платному Google API до разрешения.
