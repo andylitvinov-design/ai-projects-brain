@@ -1,53 +1,34 @@
-# System Map - psitrends
+# System Map — PsiTrends
 
-## 1. High-level Flow
+## Public flow
 
-[INPUT] PsiTrends project.
+`andylitvinov-design/sales` client/content source → reviewed package → guarded Joomla release → Hetzner production → https://psitrends.com
 
-↓
+## Operations flow
 
-[PROCESSING] needs verification
+`andylitvinov-design/psitrends-ops` → sanitized nginx/PHP/backup/release tooling → private before-state and rollback → scoped production action → live readback.
 
-↓
+## Coordination flow
 
-[STORAGE] needs verification
+`andylitvinov-design/psitrends-work` stores shared routing/editorial/acquisition instructions. It is not the runnable site source.
 
-↓
+## Runtime
 
-[OUTPUT] https://psitrends.pages.dev
+- Joomla
+- separate nginx, PHP, MySQL and Redis containers
+- EN/RU client-first pages plus preserved legacy routes
+- secrets and live environment exports remain outside Git
 
-## 2. Main Actors
+## Critical paths
 
-- user
-- admin
-- provider
-- backend
-- external APIs
-- needs verification
+- fresh private backup and exact before-state
+- source SHA and reviewed release artifact
+- scoped cache purge
+- EN/RU desktop/mobile route verification
+- rollback checkpoint
 
-## 3. Data Flow
+## Open verification
 
-needs verification
-
-## 4. Runtime Flow
-
-Private related repo and Cloudflare Pages project from
-inventory; mapping needs verification.
-
-## 5. Deploy Flow
-
-https://github.com/andylitvinov-design/psitrends-work ->
-Cloudflare Pages project psitrends ->
-https://psitrends.pages.dev. Exact deploy source needs
-verification.
-
-## 6. Critical Paths
-
-- needs verification
-
-## 7. Unknowns
-
-- Exact deploy source: needs verification
-- Current live behavior: needs verification
-- Data flow details not listed in inventory: needs
-  verification
+- exact source SHA currently active on production
+- current state of high-risk privacy/analytics and content-mutation PRs
+- same-source product/business effect measurement

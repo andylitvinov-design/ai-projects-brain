@@ -13,7 +13,7 @@ This is maintenance of canonical memory, not a broad rewrite.
 ## Schedule
 
 - Weekly, Saturday morning.
-- Timezone: Europe/Paris.
+- Timezone: America/Toronto.
 - Preferred scheduler: ChatGPT Automations.
 
 ## Inputs
@@ -51,6 +51,10 @@ Update:
 - `governance/WEEKLY-LEARNINGS.md` with failures, root causes, recurring patterns, fixes, open risks, and reusable rules.
 
 Separate facts from recommendations. A documented automation is not assumed active unless scheduler evidence exists.
+
+Treat source generation, runtime publication and terminal closure as separate capabilities. A fresh repository artifact or `READY_FOR_PRODUCTION` receipt proves producer health only; it does not prove canonical freshness, consumer ownership or independent closure.
+
+When a repeated blocker materially depresses a dashboard metric, emit one current machine-readable `durable_root_cause_candidate` with affected metric, evidence, raw baseline, owner, smallest safe correction and conditional expected effect. Superseded candidates remain history; indexes point only to the current candidate.
 
 ## Phase C — Search and navigation index refresh
 
