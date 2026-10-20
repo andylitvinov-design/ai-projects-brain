@@ -42,7 +42,8 @@ jobs:
 
   audit-and-send:
     # Archive-only automatic public audit. No BotFather credentials in GitHub.
-    # Actual Telegram delivery is performed by Holistic House Vercel after this run.
+    # Actual Gemini/Mistral inference and Telegram delivery occur in Holistic House
+    # Vercel; provider keys must never be placed in this public GitHub workflow.
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: validate
     runs-on: ubuntu-latest
@@ -52,11 +53,6 @@ jobs:
       issues: write
     env:
       COUNCIL_DELIVERY_MODE: archive_only
-      GEMINI_FREE_TIER_CONFIRMED: ${{ vars.GEMINI_FREE_TIER_CONFIRMED }}
-      MISTRAL_EXPERIMENT_CONFIRMED: ${{ vars.MISTRAL_EXPERIMENT_CONFIRMED }}
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
-      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4

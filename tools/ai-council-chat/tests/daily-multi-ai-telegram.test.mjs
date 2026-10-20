@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {reviewGemini,reviewMistral,verifyFreeMistral,chooseFreeMistral,observedTasks,generateSpec} from '../scripts/daily-council-providers.mjs';
-import {runDailyCouncil,makeDailyReport,cleanArchivedReport} from '../scripts/daily-multi-ai-telegram.mjs';
+import {runDailyCouncil,makeDailyReport,cleanArchivedReport,compactPublicEvidence} from '../scripts/daily-multi-ai-telegram.mjs';
 import {torontoDate} from '../scripts/daily-gemini-telegram.mjs';
 
 const evidence={source:'https://holistichouse.vercel.app',date_toronto:'2026-10-19',
@@ -201,3 +201,22 @@ test('central archive-only mode needs no Telegram secrets and emits no Bot API r
   assert.equal(calls.scan,1)
   assert.equal(calls.telegram,0)
 })
+
+test('daily public archive JSON is valid and never raw-truncated',()=>{
+  const items=Array.from({length:24},(_,i)=>({
+    url:'https://holistichouse.vercel.app/en/services/'+i,
+    status:200,lang:'en',flags:['missing_h1_in_server_html'],
+    description:'D'.repeat(250),title:'T'.repeat(280),
+    public_text_excerpt:'X'.repeat(950),
+    secret_field_not_allowed:'should never appear',
+  }));
+  const compact=compactPublicEvidence({...evidence,pages:items});
+  const json=JSON.stringify(compact,null,2);
+  const parsed=JSON.parse(json);
+  assert.equal(parsed.pages.length,24);
+  assert.equal(parsed.source,'https://holistichouse.vercel.app');
+  assert.equal(parsed.pages[23].public_text_excerpt.length,195);
+  assert.equal(parsed.pages[23].description.length,195);
+  assert.doesNotMatch(json,/secret_field_not_allowed|should never appear|\[truncated\]/);
+  assert.ok(json.length<36000);
+});

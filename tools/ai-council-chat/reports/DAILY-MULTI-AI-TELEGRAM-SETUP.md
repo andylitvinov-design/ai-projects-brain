@@ -1,3 +1,23 @@
+## 2026-10-20: genuine independent Gemini/Mistral inference moved to ONE HH Vercel project
+
+**Source of truth for all provider keys and the existing owner Telegram bot:** [Holistic House Vercel Production environment variables](https://vercel.com/super10/codex-public-book-library/settings/environment-variables). The existing bot has already been paired and accepted one Telegram test. DO NOT request or copy its bot token/private chat ID to GitHub or AI Council Vercel.
+
+**GitHub Actions now runs archive-only with NO provider secrets:** scans public HTML/HTTP (24 URLs or fewer), writes a verified-source public JSON bundle and deterministic technical task draft to [Issue #242](https://github.com/andylitvinov-design/ai-projects-brain/issues/242). No Gemini/Mistral API call is made in GitHub. New JSON is compact but complete and parseable, unlike the earlier 10,000-character truncation. GitHub's source report correctly says models NOT_AVAILABLE because it deliberately does not call them.
+
+**Actual model responses and Telegram delivery** happen in the existing Holistic House server-side Council cron at **21:00 UTC** (17:00 EDT / 16:00 EST), moved later to avoid GitHub queue delays. The server reads the verified GitHub public evidence and runs the two independent model reviews concurrently, then appends the original deterministic HTML/HTTP tech spec in ONE .md attachment sent via owner bot. Genuine models are named only if the respective verified provider response arrives. The report is cached in the existing private forced-RLS day receipt before Telegram send; no duplicate provider requests on delivery retry.
+
+**Only three Vercel variables required to activate real AI responses:**
+
+- `HH_COUNCIL_GEMINI_API_KEY` (Sensitive, Production) from [Google AI Studio](https://aistudio.google.com/apikey) with a confirmed **Free Tier** project.
+- `HH_COUNCIL_GEMINI_FREE_TIER_CONFIRMED=true` (Plain, Production), set true **only** when owner has verified project/account Free Tier. Never infer from API key presence; Google may bill paid projects.
+- `HH_COUNCIL_OPENROUTER_API_KEY` (Sensitive, Production) from [OpenRouter](https://openrouter.ai/settings/keys). Uses only `mistralai/*:free` current zero-priced models with explicit `max_price=0` + `allow_fallbacks=false` + `usage.cost===0`; no paid Mistral API.
+
+No paid models, automatic fallback, client data, diagnosis, private test records or bot credentials are involved. Gemini/Mistral key setup is **not completed** until the owner provides keys securely. If absent, Telegram receives an honest public-only HTML draft, not fake AI analysis. To request an immediate verified archived daily report after setup, sign in to [HH /admin/telegram-setup](https://holistichouse.vercel.app/admin/telegram-setup) and click **Send Gemini + Mistral audit now**, which shares the same durable day receipt with the cron and cannot create duplicates.
+
+Previous steps below describing model API secrets in GitHub and old 15:00 UTC Council schedule are **superseded**.
+
+---
+
 # Holistic House Telegram — один сервис для подключения бота
 
 Статус: **код обновляется, реальная доставка @Andydotbot ещё не проверена**.

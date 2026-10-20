@@ -11,6 +11,27 @@ const REPO='andylitvinov-design/ai-projects-brain',ISSUE=242;
 const marker=date=>'<!-- HH-COUNCIL-DAILY:'+date+' -->';
 const delivered=date=>'<!-- HH-COUNCIL-TELEGRAM-SENT:'+date+' -->';
 const legacySent=date=>'<!-- HH-TELEGRAM-SENT:'+date+' -->';
+// Always archive a fully parseable, bounded JSON evidence bundle.
+// Never slice raw JSON in half; the downstream HH model reviewer needs each
+// actual checked public URL, status, meta tag and excerpt for grounded TZs.
+export function compactPublicEvidence(evidence){
+  return {
+    source:evidence?.source, date_toronto:evidence?.date_toronto,
+    checked_at_utc:evidence?.checked_at_utc,
+    method:'anonymous public HTML/HTTP; no browser, health records, login or Web Vitals',
+    scope:evidence?.scope,
+    pages:(Array.isArray(evidence?.pages)?evidence.pages:[]).slice(0,24).map(p=>({
+      url:p.url,status:p.status,redirect:p.redirect,
+      title:String(p.title||'').slice(0,150),
+      description:String(p.description||'').slice(0,195),
+      canonical:String(p.canonical||'').slice(0,180),
+      lang:String(p.lang||'').slice(0,12),
+      h1_count:p.h1_count,
+      flags:Array.isArray(p.flags)?p.flags.slice(0,8):[],
+      public_text_excerpt:String(p.public_text_excerpt||'').slice(0,195),
+    }))
+  };
+}
 const caveat='Анонимные HTTP/HTML проверки; нет скриншотов, кликов, клиентского кабинета, настоящих Core Web Vitals или конверсий.';
 const muse='MANUAL_ONLY: личный Muse не имеет подтверждённого внешнего API. Его ответ можно вручную вставить в AI Council и отправить в Telegram; Muse Spark API — другая (платная) модель.';
 function status(x){return x.status==='ok'?'OK · '+x.model:
@@ -109,7 +130,7 @@ export async function runDailyCouncil({env=process.env,fetcher=fetch,collect=col
     const [gemini,mistral]=await Promise.all([reviewGemini(evidence,env,fetcher),reviewMistral(evidence,env,fetcher)]);
     const spec=await generateSpec(evidence,gemini,mistral,env,fetcher);
     const report=makeDailyReport({date,evidence,gemini,mistral,spec});
-    const json=JSON.stringify(evidence,null,2),short=json.length>10000?json.slice(0,10000)+'\n[truncated]':json;
+    const short=JSON.stringify(compactPublicEvidence(evidence),null,2);
     const fence=String.fromCharCode(96).repeat(3);
     const body=marker(date)+'\n\n'+report+'\n\n<!-- HH-COUNCIL-EVIDENCE -->\n\n'+
       '<details><summary>Public HTTP evidence JSON</summary>\n\n'+fence+'json\n'+
