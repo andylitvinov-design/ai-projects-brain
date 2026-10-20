@@ -188,3 +188,44 @@ Redesigned `house-theme.css` as one modern override following `styles.css`, with
 RU/EN editorial copy is kept in `app.js` and `audit.js`, not hardcoded into elements that are overwritten on language switch. No model endpoint, quota, storage, provider consent, script IDs, export, or response-generating logic was altered. `model-grid` is presentation-only. Photo is decorative and never submitted to an AI model.
 
 Verification: 16 static source-integrity checks passed (including required IDs, language coverage, CSS structure, scripts, model wiring, CSP, mobile and PWA); preview returned 200 for HTML, JS, CSS, icon and manifest; live public botanical photo returned HTTP 200. A real device screenshot review and authenticated model test were **not** performed and must not be reported as done.
+
+## 2026-10-19: Telegram delivery of Gemini, Mistral and manual Muse replies
+
+Two **separate, opt-in** delivery paths are implemented in the existing `ai-council-chat` app.
+
+### A. Native Telegram sharing, no server configuration
+
+- Every actually successful reviewer response (including direct Gemini and direct Mistral **only if the owner has connected those providers**) gets **↗ Telegram** with real model attribution. Errors/unavailable models are never presented as genuine answers.
+- A full Markdown report includes the original question, all independently returned answers, explicitly pasted personal Muse response, the actual synthesis (where available), and the saved specification.
+- **Personal Muse** stays a manual import because access to the owner's external personal Muse chat API is unverified. Import persists with that AI Council round in browser-local history. Existing model synthesis is *not* retroactively updated.
+- On supported phones, native device sharing sends a Markdown file through the OS share sheet. The user chooses **Telegram**, recipient and confirms sending. Desktop short-text fallback opens `https://t.me/share/url`; long content is not silently truncated, and the user must export/attach Markdown if native file sharing is unavailable.
+- Native share opening does **not** prove the recipient got/read the message.
+
+### B. Owner-authorized Bot API delivery (strictly OFF until Vercel setup)
+
+On the **existing** AI Council Chat Vercel project, configure the following **server-side environment variables** only after approving the release and securely preparing credentials:
+
+| Variable | Purpose |
+|---|---|
+| `COUNCIL_TELEGRAM_ACCESS_KEY` | Independent random high-entropy owner access key (minimum 32 characters), **not the bot token**; never commit or paste into GitHub/ChatGPT |
+| `COUNCIL_TELEGRAM_ENABLED` | Must be exactly `true` to permit sends; unset/false denies requests |
+| `TELEGRAM_BOT_TOKEN` | Secret Bot API token for the owner's bot from @BotFather |
+| `TELEGRAM_CHAT_ID` | Private owner chat ID **fixed server side**; caller cannot select recipient |
+
+Steps: open Telegram chat with the bot and send `/start`; configure only the authorized project's Vercel environment via its protected settings. On the deployed AI Council site, open **Settings → Telegram · мой личный бот**, enter the **independent access key** (kept *only in current tab memory*), then use **Проверить подключение (без отправки)**. That only verifies authentication + configured environment, not actual Bot API acceptance. Press **Отправить ботом в мой чат** in a completed AI Council round for the first actual test. Only an HTTP success from Telegram Bot API is treated as *accepted*, not recipient read/delivery.
+
+Optionally, check **Автоматически отправлять новые публичные ответы** in the same settings. This sends *newly completed rounds* to the configured chat **only while the AI Council browser tab is working**, with all actual model answers + synthesis as a single Markdown attachment; a subsequently manually added Muse reply is sent as an explicitly manual follow-up. No uncontrolled auto-retries on failures; the user may retry explicitly. Old rounds are not automatically replayed. An error never becomes an invented model answer.
+
+The API route `api/telegram-deliver.js` enforces exact known origins, a constant-time owner access-key check, opt-in env, payload limit, strict one-recipient routing, timeout and failure-safe status. It never accepts client-supplied chat IDs and does not expose bot secrets or client records. It is not a generic anonymous Telegram relay. No new database or billing service required.
+
+**Privacy:** Only public/non-sensitive material may be submitted. Never send client names, health records, identity documents, passwords or secrets to the AI providers *or* Telegram. Basic token-shape redaction is a backup, not a guarantee. The access key is distinct from any Gemini, Mistral or Telegram key.
+
+**Separate existing daily Gemini audit:** `.github/workflows/daily-gemini-telegram.yml` / Issue #242 uses **GitHub Actions secrets and opt-in `GEMINI_TELEGRAM_ENABLED=true`**, not Vercel variables. The schedule can work with the user's phone/Mac off **only after these Github settings are configured and real delivery is verified**. It does not currently schedule a Mistral/Muse API audit. Personal Muse does not have verified background API access.
+
+### Verification and rollout gates
+
+- `node --check tools/ai-council-chat/telegram-share.js`
+- `node --check tools/ai-council-chat/api/telegram-deliver.js`
+- `node --test tools/ai-council-chat/tests/telegram-share.test.mjs tools/ai-council-chat/tests/telegram-deliver.test.mjs`
+- Mock-only PR CI proves code path and security checks, **not** real Telegram acceptance, iPhone Safari share UI, live provider calls, Vercel env setup or production delivery.
+- Follow normal branch/PR/review/merge + verified correct Vercel project, then one explicit owner test. No silent production deployment, account/billing or secret changes.
