@@ -28,7 +28,7 @@
     }
     if(round?.tz)out.push('## Техническое задание','',String(round.tz),'');
     out.push('Источники: только реальные ответы, полученные в AI Council, и явно вставленный пользователем Muse.','');
-    return redact(out.join('\n')).slice(0,MAX_REPORT);
+    return redact(out.join('\n'));
   }
   function telegramUrl(text){
     const safe=redact(text);
@@ -36,11 +36,12 @@
     return 'https://t.me/share/url?text='+encodeURIComponent(safe);
   }
   async function share(title,body,ru){
-    const text=redact(body).slice(0,MAX_REPORT);
+    const text=redact(body);
+    if(text.length>MAX_REPORT)return {status:'too_long'};
     if(!text.trim())return {status:'empty'};
     const file=(typeof File==='function')?new File([text],'ai-council-report.md',{type:'text/markdown'}):null;
     if(file && typeof navigator!=='undefined' && typeof navigator.share==='function' &&
-       typeof navigator.canShare==='function' && navigator.canShare({files:[file]})){
+       typeof navigator.canShare==='function' && (()=>{try{return navigator.canShare({files:[file]});}catch{return false;}})()){
       try{await navigator.share({title,files:[file],text:ru?'AI Council — файл с реальными ответами':'AI Council — real responses attached'});
         return {status:'chooser'}; // Native share resolving is NOT proof of Telegram delivery.
       }catch(error){if(error?.name==='AbortError')return {status:'cancelled'};}
