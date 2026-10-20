@@ -1,5 +1,28 @@
 # Holistic House — ежедневный AI Council (Gemini + Mistral + Muse) → @Andydotbot
 
+## Прямая настройка на iPhone (20 октября 2026)
+
+**Подтверждено:** владелец уже отправлял /start боту Dot. Не надо создавать нового бота или автоматически сбрасывать его токен. Все ссылки ниже ведут к существующим аккаунтам, однако права владельца требуются для доступа.
+
+1. **BotFather / токен:** https://t.me/BotFather → отправить `/mybots` → выбрать **@Andydotbot** → **API Token** → **Copy**. Не нажимать **Revoke** и не публиковать токен в ChatGPT, GitHub, issue, SMS или screenshots.
+2. **Ваш numeric chat ID:** https://t.me/userinfobot → Start → скопировать только номер **Id** своего аккаунта, открытого как @AndyTherapist. Это сторонний справочный бот, он не должен получать токен BotFather. Альтернатива — защищённый read-only Bot API preflight через уже настроенный сервер, без стороннего бота.
+3. **Первое защищённое хранилище:** https://vercel.com/super10/codex-public-book-library/settings/environment-variables → Add:
+   - `HH_PRACTICE_TG_BOT_TOKEN` = **скопированный BotFather Token**;
+   - `HH_PRACTICE_TG_CHAT_ID` = **скопированный цифровой Id**;
+   - Environment: **Production**, скрытый тип **Encrypted/Sensitive**, без `NEXT_PUBLIC_`. `HH_PRACTICE_TG_ENABLED=false` уже предусмотрен до подтверждения. После сохранения нужно новое Production deployment, этим занимается интеграционный оператор.
+4. **Совет ИИ / отдельный Vercel:** https://vercel.com/super10/ai-council-chat/settings/environment-variables → те же значения под именами `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. Отдельный `COUNCIL_TELEGRAM_ACCESS_KEY` в этом окружении уже создаётся безопасным оператором; не заменять его BotFather token! Переключатель `COUNCIL_TELEGRAM_ENABLED=false` сохраняется до подтверждения Bot API.
+5. **Ежедневный аудит GitHub Actions:** https://github.com/andylitvinov-design/ai-projects-brain/settings/secrets/actions → New repository secret с **теми же** значениями `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`. Это другое защищённое хранилище: Vercel не передаёт значения в GitHub автоматически. Ключи `GEMINI_API_KEY` / `OPENROUTER_API_KEY` добавлять отдельно только после проверки бесплатного проекта/API и лимитов.
+6. **Флаги GitHub:** https://github.com/andylitvinov-design/ai-projects-brain/settings/variables/actions → `COUNCIL_DAILY_TELEGRAM_ENABLED=true` **только когда Telegram идентичность и бесплатные ключи проверены**. Альтернатива Gemini-only — `GEMINI_TELEGRAM_ENABLED`, не запускать две рассылки одновременно.
+
+### Почему AI Council probe безопаснее
+
+Кнопка **«Проверить подключение (без отправки)»** в https://ai-council-chat.vercel.app, после ввода отдельного 32+-символьного owner access key, вызывает официальный Telegram Bot API: `getMe`, `getChat` и `getWebhookInfo`. Сервер проверяет **@Andydotbot** и **private chat @AndyTherapist** по числовому ID. Проверка работает даже когда `COUNCIL_TELEGRAM_ENABLED=false`. Она не читает старые сообщения, не вызывает getUpdates, не меняет webhook, не отправляет документ и не возвращает числовой ID/токен браузеру. Неверный бот/чат блокирует реальную доставку. Наличие webhook не мешает исходящей отправке и не означает его разрешение менять.
+
+Для ручной отправки владелец может показать сохранённый `COUNCIL_TELEGRAM_ACCESS_KEY` в разрешённом Vercel UI и скопировать в настройки AI Council; он хранится только в памяти открытой вкладки и не должен быть публичным. Реальное получение сообщения подтверждается отдельно после Bot API sendDocument.
+
+---
+
+
 **Состояние:** реализация в `ai-projects-brain`. Telegram LIVE не подтверждён без реального Bot API сообщения. Не добавлять API-ключи в GitHub Issues, чаты, код или файлы отчётов.
 
 ## Одна существующая автоматизация
