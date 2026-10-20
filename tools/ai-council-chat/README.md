@@ -188,3 +188,19 @@ Redesigned `house-theme.css` as one modern override following `styles.css`, with
 RU/EN editorial copy is kept in `app.js` and `audit.js`, not hardcoded into elements that are overwritten on language switch. No model endpoint, quota, storage, provider consent, script IDs, export, or response-generating logic was altered. `model-grid` is presentation-only. Photo is decorative and never submitted to an AI model.
 
 Verification: 16 static source-integrity checks passed (including required IDs, language coverage, CSS structure, scripts, model wiring, CSP, mobile and PWA); preview returned 200 for HTML, JS, CSS, icon and manifest; live public botanical photo returned HTTP 200. A real device screenshot review and authenticated model test were **not** performed and must not be reported as done.
+
+## 2026-10-19: Telegram sharing of AI Council replies
+
+This app supports **user-initiated** sharing, not automatic bot messages:
+
+- Each successfully returned reviewer reply has its own **↗ Telegram** button, attributed to the real provider/model (including direct Gemini or direct Mistral when the user's own free/Experiment account is connected).
+- **↗ Telegram · full report** collects the original question, independently returned replies, explicitly pasted personal Muse text, and any previous synthesis/specification.
+- **Add personal Muse reply (manual)** saves actual pasted Muse content to the current conversation in browser history. It never impersonates a live Muse API. Existing synthesis is explicitly labelled as excluding Muse when pasted afterward; no extra free/paid API calls happen.
+- On mobile, native device sharing prefers a Markdown file, so long replies can be shared without silent truncation. Choose Telegram and recipient in the OS share sheet; sending is not confirmed by the website.
+- Desktop fallback uses Telegram's official `t.me/share/url` handoff only for short text. Long text produces a warning instead of silently losing content; use existing **Export .md** then attach it in Telegram.
+- No Bot API token or chat ID in browser code, no server-side persistence, no open relay/proxy, no Telegram permission granted, no automatic publication.
+- Only share public/non-sensitive review material. The frontend redacts common provider key formats as a precaution, not as a privacy guarantee.
+
+**Automatic scheduled delivery remains a separate opt-in system**: `.github/workflows/daily-gemini-telegram.yml` + issue #242, requiring verified owner-supplied repository secrets and `GEMINI_TELEGRAM_ENABLED=true`. It is NOT proof that individual browser conversations are automatically forwarded. Personal Muse has no verified external API here. A secure automatic browser-to-Telegram push would need authenticated owner access and server-side Bot API credentials; do not expose those credentials or silently activate production.
+
+Offline regression command: `node --test tools/ai-council-chat/tests/telegram-share.test.mjs`.
