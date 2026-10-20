@@ -402,3 +402,11 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
 .muse-manual-text{white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto;margin:10px 0}
 .telegram-share-status{font-size:12px;line-height:1.5;color:#71646a;margin-top:8px}
 .review-card>.action-button,.muse-manual-saved>.action-button{margin-top:9px}
+
+.telegram-bot-settings{margin-top:16px;padding:14px;border:1px solid #e7dcd7;border-radius:12px;background:#fdfbf9}
+.telegram-bot-settings h3{font-size:14px;margin:0 0 8px}
+.telegram-bot-settings label:not(.rowlabel){font-size:12px;font-weight:650;display:block;margin:10px 0 5px}
+.telegram-bot-settings input[type=password]{display:block;width:100%;min-width:0;padding:10px 12px;border-radius:8px;border:1px solid #ded4cf}
+.telegram-bot-settings .rowlabel{display:flex;align-items:flex-start;gap:8px;margin:12px 0}
+.telegram-bot-settings .rowlabel input{margin-top:3px;flex-shrink:0}
+.telegram-bot-settings button{max-width:100%;white-space:normal}
