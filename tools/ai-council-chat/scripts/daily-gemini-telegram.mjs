@@ -111,7 +111,7 @@ export function pickAuditUrls(sitemap = '') {
   return { urls: [...urls].slice(0, MAX_PAGES), sitemap_discovered: found.length };
 }
 
-async function collectEvidence(date) {
+export async function collectEvidence(date) {
   let sitemap = ''; let sitemapStatus = 'not_checked';
   try {
     const response = await getText(SITE + '/sitemap.xml');
