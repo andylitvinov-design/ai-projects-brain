@@ -167,3 +167,37 @@ test('legacy same-day sent marker prevents double push after switching workflow 
   const result=await runDailyCouncil({env,fetcher:async()=>apiJson([old]),
     collect:async()=>{throw Error('Should not scan')}});assert.equal(result.status,'already_sent_legacy');
 });
+
+test('central archive-only mode needs no Telegram secrets and emits no Bot API requests',async()=>{
+  const date=torontoDate(),saved=[],calls={archive:0,scan:0,telegram:0}
+  const env={GITHUB_TOKEN:'offline-github-token',
+    COUNCIL_DELIVERY_MODE:'archive_only',
+    GITHUB_REPOSITORY:'andylitvinov-design/ai-projects-brain'}
+  const fetcher=async(url,init={})=>{
+    const endpoint=String(url)
+    if(endpoint.includes('/issues/242/comments?'))return apiJson(saved)
+    if(endpoint.endsWith('/issues/242/comments')&&init.method==='POST'){
+      calls.archive++
+      const {body}=JSON.parse(init.body)
+      const item={id:765,body,user:{login:'github-actions[bot]'},
+        created_at:new Date().toISOString(),
+        html_url:'https://github.com/andylitvinov-design/ai-projects-brain/issues/242#issuecomment-765'}
+      saved.push(item)
+      return apiJson(item,201)
+    }
+    if(endpoint.includes('api.telegram.org'))calls.telegram++
+    throw Error('Unexpected central archive-only request '+endpoint)
+  }
+  const collect=async()=>{calls.scan++;return {...evidence,date_toronto:date}}
+  const first=await runDailyCouncil({env,fetcher,collect})
+  assert.equal(first.status,'archived_only')
+  assert.equal(calls.telegram,0)
+  assert.equal(calls.archive,1)
+  assert.equal(calls.scan,1)
+  assert.match(saved[0].body,/Muse.*MANUAL_ONLY|Личный Muse/)
+  const second=await runDailyCouncil({env,fetcher,collect})
+  assert.equal(second.status,'archived_only')
+  assert.equal(calls.archive,1)
+  assert.equal(calls.scan,1)
+  assert.equal(calls.telegram,0)
+})
