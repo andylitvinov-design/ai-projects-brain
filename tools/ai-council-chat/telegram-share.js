@@ -158,7 +158,7 @@
       const status=response.status;
       if(status===401||status===403){autoEnabled=false;throw new Error('Owner Telegram access denied ('+status+'). Check the access key and allowed site domain.');}
       if(status===422)throw new Error('Telegram bot or private owner account is not verified. Check @Andydotbot and @AndyTherapist before enabling sends.');
-      if(status===503)throw new Error('Telegram Bot API delivery is not enabled/configured on the Vercel server.');
+      if(status===503)throw new Error('Telegram gateway in Holistic House is not yet configured or enabled. Add the bot token/chat ID only in Holistic House Vercel.');
       if(status===413)throw new Error('Report too large for Telegram relay.');
       throw new Error('Telegram Bot API delivery failed (HTTP '+status+').');
     }
