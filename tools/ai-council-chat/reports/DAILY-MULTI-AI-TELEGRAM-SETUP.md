@@ -48,6 +48,9 @@
 
 Отсутствующие секреты Telegram блокируют доставку; наличие `@username` не заменяет numeric chat ID.
 
+**Вместе со статистикой кабинета мастера:** можно использовать один и тот же бот `@Andydotbot` и один и тот же числовой `chat_id` для ежедневного AI Council и My Practice. Но это ДВА защищённых места настройки: GitHub Actions Secrets (AI Council) и Vercel Production env проекта `codex-public-book-library` (`HH_PRACTICE_TG_BOT_TOKEN`, `HH_PRACTICE_TG_CHAT_ID`, `HH_PRACTICE_TG_ENABLED`). Секреты не синхронизируются автоматически и не должны храниться в коде. Настраивать и проверять каждую доставку отдельно.
+
+
 ## Проверка без расходов и реальных провайдеров
 
 ```bash
