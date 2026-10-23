@@ -1,10 +1,14 @@
 # Последний аудит Holistic House / VS Lab
 
-**Дата:** 2026-10-19 · **America/Toronto**. Доказательный read-only **ChatGPT (GPT-6)** аудит по exact source текущего Vercel deployment, GitHub issues/PR и Vercel READY alias; **Gemini/Mistral не запрашивались**. Реальный live HTTP/DOM/скриншоты/Web Vitals и GSC/GA4 сегодня не проверены (GSC Wizard: subscription_required).
+**Дата:** 2026-10-23 · **America/Toronto**. Доказательный **read-only ChatGPT (GPT-6)** обзор production routing, публичных EN/RU/ES страниц, GitHub issues/PR, SEO, Vercel и Metricool. **Gemini/Mistral не запрашивались**.
 
-- [Полный аудит и ТЗ за 2026-10-19](2026-10-19-audit.md)
-- [Точный implementation brief за 2026-10-19](2026-10-19-chatgpt-prompt.md)
-- [Предыдущий аудит 2026-10-18](2026-10-18-audit.md)
-- [Gemini→Telegram setup](GEMINI-TELEGRAM-SETUP.md) — активация не подтверждена
+- [Полный аудит + статус VERIFIED/HYPOTHESIS/NOT_TESTED за 2026-10-23](2026-10-23-audit.md)
+- [Приоритетное ТЗ / ChatGPT prompt за 2026-10-23](2026-10-23-chatgpt-prompt.md)
+- [Предыдущий аудит за 2026-10-22](2026-10-22-audit.md)
+- [Архив/очередь Telegram в issue #242](https://github.com/andylitvinov-design/ai-projects-brain/issues/242)
 
-**Ключевая дельта:** public tests hub EN/RU/ES + sitemap теперь находятся в коде exact deployed SHA, но live не проверено; найден P1 ES CTA путь `/es/client` вместо прямого тестового маршрута (SOURCE, live effect NOT_TESTED); P2 ES OG locale и RU client tests title. Отдельный продукт VS Lab = NEEDS_VERIFICATION. Не создавались производственные релизы, платные вызовы, дубликаты задач. Доставку Gmail проверять отдельно по Sent перед отправкой.
+**Production:** https://holistichouse.vercel.app · andylitvinov-design/books@8477d67f64f0353e7ba744c1967f296e75a2f713 · codex/public-book-library · Vercel READY, не равно E2E. Public extractor прочитал EN/RU/ES главные, services, tests, Academy, free review, robots/sitemap (684 записей). /services, /tests, /academy без locale вернули 404 через extractor. Реальный браузер E2E, Google индексирование, Core Web Vitals, CRM и платежи НЕ ПРОВЕРЕНЫ.
+
+**Топ-3:** P1 приоритет urgent safety над оффером (books PR #1531 OPEN); P1 реальная consented CRM заявка не равна клику (issues #990/#985); P2 независимая проверка canonical/OG/hreflang EN/RU/ES на тестовых landing (на ES services и tests metadata extractor не вернул canonical/OG; НЕ доказанное отсутствие тегов). VS Lab NEEDS_VERIFICATION. GSC Wizard BLOCKED subscription_required. Metricool YouTube 148 подписчиков за 2026-10-23 (не лиды).
+
+**Доставка:** Gmail запрещён; единственный маршрут — идентифицируемый комментарий YYYY-MM-DD в issue #242 и имеющийся серверный cron 21:00 UTC. Наличие GitHub-комментария **не означает** подтвержденную Telegram-доставку; проверять ее отдельно.
