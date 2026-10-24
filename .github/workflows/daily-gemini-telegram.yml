@@ -1,0 +1,65 @@
+name: Holistic House daily AI Council → Telegram
+
+on:
+  schedule:
+    # One existing daily job at 09:15 Toronto local time (DST-aware).
+    - cron: '15 9 * * *'
+      timezone: 'America/Toronto'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/daily-gemini-telegram.yml'
+      - 'tools/ai-council-chat/scripts/daily-gemini-telegram.mjs'
+      - 'tools/ai-council-chat/scripts/daily-council-providers.mjs'
+      - 'tools/ai-council-chat/scripts/daily-multi-ai-telegram.mjs'
+      - 'tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs'
+      - 'tools/ai-council-chat/tests/daily-multi-ai-telegram.test.mjs'
+
+concurrency:
+  group: holistic-house-daily-gemini-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate both legacy and multi-model offline contracts
+        run: |
+          node --check tools/ai-council-chat/scripts/daily-gemini-telegram.mjs
+          node --check tools/ai-council-chat/scripts/daily-council-providers.mjs
+          node --check tools/ai-council-chat/scripts/daily-multi-ai-telegram.mjs
+          node --test tools/ai-council-chat/tests/daily-gemini-telegram.test.mjs tools/ai-council-chat/tests/daily-multi-ai-telegram.test.mjs
+
+  audit-and-send:
+    # Archive-only automatic public audit. No BotFather credentials in GitHub.
+    # Actual Gemini/Mistral inference and Telegram delivery occur in Holistic House
+    # Vercel; provider keys must never be placed in this public GitHub workflow.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: write
+    env:
+      COUNCIL_DELIVERY_MODE: archive_only
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Archive one public Council audit; owner Telegram delivery runs from HH
+        run: node tools/ai-council-chat/scripts/daily-multi-ai-telegram.mjs

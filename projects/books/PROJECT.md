@@ -14,15 +14,15 @@ Build a bilingual public book and knowledge library, including long-form book ro
 - legacy redirect alias: https://codex-public-book-library.vercel.app
 - status: `ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL`
 
-## Current verified state — 2026-10-17
+## Current verified state — 2026-10-24
 
 - PR #4 merged on 2026-09-05 and the aggregate public-library PR #2 merged on 2026-09-09.
-- Vercel deployment `dpl_C42NWymgx4Lhuz1X2NsCjPTTchcb` is READY production from `codex/public-book-library` exact source `a205ee44354694d5db2cfa4d06e5734c9637124f`.
+- Vercel deployment `dpl_CiJnxZL26K1Ve5p1mSrwDbd8EtV6` is READY production from `codex/public-book-library` exact source `b48de275d5770e9fa1e58b337a740e8621f6a873`.
 - The canonical root is now Holistic House. `/books` returns HTTP 200 with bilingual canonical metadata; the former public-library alias redirects permanently to Holistic House.
 - Root, `/ru/about`, `/ru/client` and Book 02 were independently verified in the Sep 25 closure. The public library remains part of the broader Holistic House surface.
 - Subsequent closures verified the Spanish public site, eight page-specific videos, one-row mobile navigation, expanded information architecture/library/cabinet public entry, a source-backed remedy catalog and Maya reader recovery at 4/4. Protected Cabinet/App behavior remains owner-dependent.
 - The prior PR #85 deploy gap is closed by current exact-source production. Oct 9 closure independently verified public acquisition/services, Academy/Reiki, Temple Studies and the 72-test public catalog at the branch head.
-- Canonical `/en`, `/en/tests`, `/en/services` and `/en/academy` all reread HTTP 200 and identify the same deployment. Product capability is real; no same-source acquisition, learning, assessment or conversion metric gain is inferred.
+- Canonical root, `/en`, `/en/services` and `/en/tests` all reread HTTP 200 and identify the same deployment. Product capability is real; no same-source acquisition, learning, assessment or conversion metric gain is inferred.
 - The protected consultation/client journey still requires an owner-issued private link or admin session. Public readiness must not be used as proof of protected workflow readiness.
 - A second Vercel project `books` (`prj_f3P1jqfNPAv9lDizUn5ZYiEgjLis`, including `books-nu.vercel.app`) remains a noncanonical alias/legacy provider target.
 

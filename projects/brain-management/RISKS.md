@@ -71,6 +71,9 @@
 
 ## Runtime Data Activation Risks
 
+- Producer health is also time-bound. On 2026-10-24 the last repository manifest was already about 114 hours old, current-window repository history was 2/7 and canonical production was 937.2 hours old. Do not preserve a prior-week `producer healthy` conclusion without a current scheduler and output.
+- A repository snapshot may self-report `CURRENT_SOURCE_RECONCILED`, alias verification or safe deployment while production is stale. Those fields are assertions to verify, never terminal evidence.
+- Reusing PR #691 is safe only after rebuilding its result from current main, preserving base-only continuity records and passing both exact-head gates. A merge-parent topology that deletes newer evidence is not reconciliation.
 - A current repository source is not proof that the runtime consumer is active. On 2026-10-17 repository source was about 2.4h old with five prospective daily snapshots, while canonical production still served the Sep 15 source at age 768.9h, five operational APIs returned 503 and publication-current returned 500.
 - Do not create another refresh producer to solve this failure. Reuse the current atomic manifest, assign exactly one enabled runtime consumer, require exact-source 7/7 parity, then prove a second no-deploy refresh and independent terminal closure.
 - An old terminal receipt cannot close the repair while Evening Delivery Closure is disabled. Runnable scheduler ownership must exist at verification time.

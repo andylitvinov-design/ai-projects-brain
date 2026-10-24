@@ -1,0 +1,39 @@
+{
+  "schema_version": "2026-08-15-durable-root-cause-candidate-v1",
+  "generated_at": "2026-10-24T12:45:00Z",
+  "candidate_id": "PUBLICATION_RECOVERY_CHAIN_HAS_NO_RUNNABLE_END_TO_END_OWNER",
+  "status": "OPEN_FOR_DAILY_STRATEGIC_PRIORITIES",
+  "affected_metric": "publication_freshness",
+  "evidence": [
+    "Canonical production reread on 2026-10-24 returned 503 for /api/data, /api/trends, /api/agent-productivity, /api/needs-attention and /api/strategic-priorities from source 2026-09-15T11:34:55.858Z at age 937.2h.",
+    "Canonical /api/data-publication-current returned HTTP 500; /api/control-plane-health was HTTP 200 but DEGRADED and evaluated only 3/7 old live history records.",
+    "Repository source generation stopped after 2026-10-19T18:32:51.145Z and current-week immutable repository history is 2/7, missing 2026-10-20 through 2026-10-24.",
+    "Brain Management PR #691 is behind current main, conflicting, deletes continuity records and fails both exact-head release gates.",
+    "No enabled primary implementation, routine publication or independent closure scheduler currently owns the complete recovery sequence."
+  ],
+  "raw_baseline": {
+    "canonical_source_generated_at": "2026-09-15T11:34:55.858Z",
+    "canonical_source_age_hours": 937.2,
+    "canonical_core_api_success": "2/7",
+    "canonical_publication_endpoint": "HTTP_500",
+    "repository_source_generated_at": "2026-10-19T18:32:51.145Z",
+    "repository_source_age_hours": 114.2,
+    "repository_current_week_history": "2/7",
+    "production_deployment_date": "2026-09-15",
+    "verified_numeric_metric_gain": 0
+  },
+  "owner": {
+    "ranking_owner": "Daily Strategic Priorities",
+    "required_resolution": "Preserve operational-source-freshness-refresh-20260818 and resolve exactly one enabled implementation/publication executor; keep independent terminal closure separate."
+  },
+  "smallest_safe_corrective_action": "Repair existing PR #691 on current main without deleting continuity records, pass both unchanged-head release gates, have the owner add only the scoped production read credential, perform one canonical deployment, then prove one source-only refresh within 12 hours and obtain delayed independent closure.",
+  "expected_effect": {
+    "conditional_target": "publication source age <=6h, 7/7 structured core APIs, /api/data-publication-current HTTP 200, exact source/artifact/deployment attribution and a later <=12h source refresh without a new application deployment",
+    "credit_rule": "Credential setup, assignment, PR repair, merge, deployment, receipts and documentation are NO_DIRECT_METRIC_EFFECT. Credit remains zero until the delayed canonical reread proves the unchanged-formula raw input."
+  },
+  "routing": {
+    "consumer": "Daily Strategic Priorities scan",
+    "stable_chain_id": "operational-source-freshness-refresh-20260818",
+    "do_not_create": "A dated replacement chain, parallel publisher or self-closing recovery worker"
+  }
+}

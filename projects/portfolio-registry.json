@@ -137,12 +137,12 @@
       "live_url": "https://brain-management.vercel.app",
       "provider_project": "prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d",
       "status": "IMPROVING",
-      "repo_reachability": "CONFIRMED_2026-10-17",
+      "repo_reachability": "CONFIRMED_2026-10-24",
       "evidence_refs": [
         "projects/brain-management/PROJECT.md",
         "brain-management/history/weekly-delivery/2026-09-27.json",
         "brain-management/evening-delivery-closure-current.json",
-        "accepted canonical live observation 2026-10-17T12:29Z",
+        "accepted canonical live observation 2026-10-24T12:45Z",
         "systems/dashboard-snapshot-monotonicity-contract.md",
         "automation:Dashboard Publication Watch",
         "andylitvinov-design/brain-management@cbd05c66989957713c208be5692d356d0d0c8f9a",
@@ -151,9 +151,9 @@
         "andylitvinov-design/brain-management@86c15a9c35f9d5043a67665b1a078777887ab835"
       ],
       "freshness": {
-        "checked_at": "2026-10-17T12:29:00Z",
+        "checked_at": "2026-10-24T12:45:00Z",
         "source_generated_at": "2026-09-15T11:34:55.858Z",
-        "age_hours": 768.9,
+        "age_hours": 937.2,
         "max_age_hours": 18,
         "api_statuses": {
           "/api/data": 503,
@@ -166,15 +166,15 @@
         },
         "service_worker_http": 200,
         "source_parity": false,
-        "control_plane_health": "OLD_FALSE_DEPENDENCY_ERRORS_8_PASS_10_FAIL_8_ERROR_2_WARNING_PR_613_NOT_LIVE",
-        "immutable_history": "REPOSITORY_CURRENT_WINDOW_5/7_LIVE_HEALTH_3/7",
-        "weekly_review_state": "OCT_5_11_ON_REPOSITORY_MAIN_LIVE_STALE_AT_2026-08-23",
-        "publication_attribution": "REPOSITORY_OCT_17_SOURCE_VS_PRODUCTION_SEP_15_DEPLOYMENT",
-        "complete_release_gate": "FRESH_SOURCE_EXISTS_RUNTIME_CONSUMER_PUBLICATION_STATE_7_OF_7_AND_TERMINAL_CLOSURE_OPEN",
+        "control_plane_health": "DEGRADED_8_PASS_10_FAIL_8_ERROR_2_WARNING_EMPTY_INPUT_NOT_SUCCESS",
+        "immutable_history": "REPOSITORY_CURRENT_WINDOW_2/7_LIVE_HEALTH_OLD_3/7",
+        "weekly_review_state": "OCT_12_18_ON_REPOSITORY_MAIN_LIVE_STALE_AT_2026-08-23",
+        "publication_attribution": "REPOSITORY_OCT_19_SOURCE_VS_PRODUCTION_SEP_15_DEPLOYMENT",
+        "complete_release_gate": "REPOSITORY_SOURCE_STALE_RUNTIME_CONSUMER_ABSENT_PR_691_RED_AND_TERMINAL_CLOSURE_ABSENT",
         "release_manifest_http": 200,
         "release_manifest_source_sha": "93265d176ded956ce098516156508cd0413e5622",
-        "runtime_errors_7d": "NO_CURRENT_APPLICATION_ERROR_CLUSTER_CONFIRMED",
-        "marker": "DEGRADED_FRESH_SOURCE_NOT_CONSUMED_RUNTIME_PUBLICATION_AND_CLOSURE_UNOWNED"
+        "runtime_errors_7d": "NOT_QUERIED_2026-10-24",
+        "marker": "DEGRADED_SOURCE_STALE_RUNTIME_CONSUMER_AND_CLOSURE_ABSENT"
       },
       "blocker": null,
       "legacy_live_aliases": [
@@ -250,7 +250,7 @@
   ],
   "repository_inventory": {
     "status": "CONFIRMED_CURRENT_OWNER_ENUMERATION",
-    "checked_at": "2026-10-17",
+    "checked_at": "2026-10-24",
     "accessible_repository_count": 31,
     "active_project_repositories_confirmed": 9,
     "unresolved_active_identity_count": 1,
@@ -271,8 +271,8 @@
     "books_public_live_url": "https://holistichouse.vercel.app",
     "books_legacy_redirect_alias": "https://codex-public-book-library.vercel.app",
     "books_private_capability": "OWNER_SESSION_VERIFICATION_REQUIRED",
-    "books_verified_production_deployment": "dpl_C42NWymgx4Lhuz1X2NsCjPTTchcb",
-    "books_verified_production_source": "a205ee44354694d5db2cfa4d06e5734c9637124f",
+    "books_verified_production_deployment": "dpl_CiJnxZL26K1Ve5p1mSrwDbd8EtV6",
+    "books_verified_production_source": "b48de275d5770e9fa1e58b337a740e8621f6a873",
     "psitrends_state": "ACTIVE_PRODUCTION_MULTI_REPO",
     "psitrends_live_url": "https://psitrends.com",
     "psitrends_source_repo": "andylitvinov-design/sales",
@@ -298,7 +298,7 @@
     ]
   },
   "reconciliation": {
-    "run_date": "2026-10-17",
+    "run_date": "2026-10-24",
     "active_project_count": 10,
     "accessible_repository_count": 31,
     "brain_management_current_state_corrected": true,
@@ -306,7 +306,7 @@
     "duplicate_identity_rule": "andylitvinov-design/finance remains canonical for legacy-finance; andylitvinov-design/ezohata-incoming-ledger is reference/deprecated alias",
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
     "catalog_mapping_changes": 0,
-    "catalog_mapping_change": "No mapping change; Holistic House exact production source advanced and protected/effect evidence remains separate while the fixed production overlay stayed unchanged"
+    "catalog_mapping_change": "No mapping change; Holistic House exact production source advanced, Brain producer/consumer/closure state regressed, and protected/effect evidence remains separate while the fixed production overlay stayed unchanged"
   },
-  "generated_at": "2026-10-17T12:45:00Z"
+  "generated_at": "2026-10-24T12:45:00Z"
 }

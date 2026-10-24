@@ -1,20 +1,20 @@
 {
   "schema_version": "project-index-v1",
-  "generated_at": "2026-10-17T12:45:00Z",
+  "generated_at": "2026-10-24T12:45:00Z",
   "source": "projects.json",
   "current_reconciliation": {
     "active_overlay": "projects/portfolio-registry.json",
     "owner_repository_inventory_count": 31,
-    "brain_management_current_state": "DEGRADED_FRESH_SOURCE_NOT_CONSUMED_RUNTIME_PUBLICATION_AND_CLOSURE_UNOWNED",
+    "brain_management_current_state": "DEGRADED_SOURCE_STALE_RUNTIME_CONSUMER_AND_CLOSURE_ABSENT",
     "psihotavr_identity": "IDENTITY_UNRESOLVED",
-    "run_date": "2026-10-17",
+    "run_date": "2026-10-24",
     "active_project_count": 10,
     "meaningful_memory_project_count": 21,
     "brain_management_source_generated_at": "2026-09-15T11:34:55.858Z",
-    "brain_management_source_age_hours_at_check": 768.9,
+    "brain_management_source_age_hours_at_check": 937.2,
     "direct_metric_effect": "NO_DIRECT_METRIC_EFFECT",
-    "brain_management_api_surfaces": "2/7 core APIs return 200; live source age 768.9h while repository source is current; production deployment remains Sep 15; one runtime consumer and one terminal closer are absent",
-    "trend_effect_state": "task 11918 remains blocked; revalidation is current but the implementation queue is Sep 11 and has no current-window source items",
+    "brain_management_api_surfaces": "2/7 core APIs return 200; live source age 937.2h, repository source stopped Oct 19, production remains Sep 15, and implementation/publication/closure ownership is absent",
+    "trend_effect_state": "task 11918 remains blocked; Trends stopped Oct 19 and the implementation queue is Sep 11 with no current-window source items",
     "books_state": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL",
     "psitrends_state": "ACTIVE_PRODUCTION_MULTI_REPO_JOOMLA_HETZNER"
   },
@@ -166,7 +166,7 @@
       "live_url": "https://brain-management.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/brain-management",
       "hosting": "Vercel project brain-management (prj_Kxg8n2tZcjzlmkQxW1E0XkpCp64d)",
-      "status_summary": "DEGRADED_FRESH_SOURCE_NOT_CONSUMED_RUNTIME_PUBLICATION_AND_CLOSURE_UNOWNED as of 2026-10-17. Core APIs are 2/7 from source 2026-09-15T11:34:55.858Z at age 768.9h; production deployment remains Sep 15. Repository source is current at 2026-10-17T10:03:30.883Z with history 5/7, but publication-current is 500 and no enabled runtime consumer or terminal closer closes canonical parity.",
+      "status_summary": "DEGRADED_SOURCE_STALE_RUNTIME_CONSUMER_AND_CLOSURE_ABSENT as of 2026-10-24. Core APIs are 2/7 from source 2026-09-15T11:34:55.858Z at age 937.2h; production deployment remains Sep 15. Repository source stopped at 2026-10-19T18:32:51.145Z with history 2/7, publication-current is 500 and no enabled implementation, publication or closure scheduler owns the full chain.",
       "memory_files": {
         "project_md": "projects/brain-management/PROJECT.md",
         "system_map": "projects/brain-management/SYSTEM_MAP.md",
@@ -558,7 +558,7 @@
       "live_url": "https://holistichouse.vercel.app",
       "repo_url": "https://github.com/andylitvinov-design/books",
       "hosting": "Canonical Vercel project codex-public-book-library (prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b); secondary books project is noncanonical",
-      "status_summary": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL as of 2026-10-17. Canonical source remains codex/public-book-library; production dpl_C42NWymgx4Lhuz1X2NsCjPTTchcb is READY from exact source a205ee44354694d5db2cfa4d06e5734c9637124f. Representative public routes identify the same deployment; protected consultation/client proof remains owner-dependent and product metric effect is unassigned.",
+      "status_summary": "ACTIVE_HOLISTIC_HOUSE_PUBLIC_PRODUCTION_PROTECTED_FLOW_PARTIAL as of 2026-10-24. Canonical source remains codex/public-book-library; production dpl_CiJnxZL26K1Ve5p1mSrwDbd8EtV6 is READY from exact source b48de275d5770e9fa1e58b337a740e8621f6a873. Representative public routes identify the same deployment; protected consultation/client proof remains owner-dependent and product metric effect is unassigned.",
       "memory_files": {
         "project_md": "projects/books/PROJECT.md",
         "system_map": "projects/books/SYSTEM_MAP.md",
@@ -608,5 +608,5 @@
       }
     }
   ],
-  "last_inventory_update": "2026-10-17"
+  "last_inventory_update": "2026-10-24"
 }

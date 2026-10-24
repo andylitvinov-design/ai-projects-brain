@@ -1,6 +1,6 @@
 # Governance Index
 
-Last reconciled: `2026-10-17`
+Last reconciled: `2026-10-24`
 
 ## Current durable routing
 
@@ -10,7 +10,7 @@ Last reconciled: `2026-10-17`
 - `EFFICIENCY.md` — immutable weekly scorecards plus current-window synthesis.
 - `WEEKLY-LEARNINGS.md` — aggregated errors, improvements and reusable rules.
 - `RULES.md` — active durable governance rules.
-- `durable-root-cause-candidate-2026-10-17.json` — current machine-readable continuation candidate for Daily Strategic Priorities.
+- `durable-root-cause-candidate-2026-10-24.json` — current machine-readable continuation candidate for Daily Strategic Priorities.
 
 ## Authority boundary
 
@@ -27,6 +27,7 @@ Last reconciled: `2026-10-17`
 5. Merge, READY, HTTP 200, report or evaluated pilot is not metric gain.
 6. Product/effect credit requires a preassigned immutable denominator event and same-source canonical reread.
 7. Documentation/index changes are `NO_DIRECT_METRIC_EFFECT`.
+8. A previously healthy source producer must be re-proven in the current window; historical cadence is not durable ownership.
 
 ## Read order
 

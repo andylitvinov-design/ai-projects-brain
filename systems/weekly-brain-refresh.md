@@ -54,6 +54,8 @@ Separate facts from recommendations. A documented automation is not assumed acti
 
 Treat source generation, runtime publication and terminal closure as separate capabilities. A fresh repository artifact or `READY_FOR_PRODUCTION` receipt proves producer health only; it does not prove canonical freshness, consumer ownership or independent closure.
 
+Re-prove all three capabilities in the current reconciliation window. A producer, consumer or closer that was healthy in a prior week is not current ownership evidence if its scheduler or current output is absent.
+
 When a repeated blocker materially depresses a dashboard metric, emit one current machine-readable `durable_root_cause_candidate` with affected metric, evidence, raw baseline, owner, smallest safe correction and conditional expected effect. Superseded candidates remain history; indexes point only to the current candidate.
 
 ## Phase C — Search and navigation index refresh
