@@ -7,7 +7,7 @@
 - [Предыдущий аудит 2026-10-24](2026-10-24-audit.md)
 - [Telegram canonical queue #242](https://github.com/andylitvinov-design/ai-projects-brain/issues/242)
 
-**Production VERIFIED metadata:** https://holistichouse.vercel.app → andylitvinov-design/books@78cae80995439223b6169de4d87cedda686f9f3b · ref codex/public-book-library · Vercel dpl_7G51ycp4t6LNHa3dHLuL8DVBpk1M READY. Новый deployment f18af... во время проверки BUILDING (не production). Это не live HTTP/E2E.
+**Production VERIFIED metadata:** https://holistichouse.vercel.app → andylitvinov-design/books@2a77392fc21a2527d8fc93df076e37abda29f742 · ref codex/public-book-library · Vercel dpl_32RT3r3fS5mG3MTTtjk1buybUnXm READY. В ходе аудита alias сначала был на 78ca..., затем на 2a77...; f18af... был BUILDING только в раннем снимке (не тогдашний alias). Это не live HTTP/E2E.
 
 **NEW:** sitemap extractor 622 URL против 689 вчера (-67), гипотеза динамического/cached расхождения, нужен raw XML. ES canonical/OG/hreflang **реализованы в deployed source** `app/es/services/page.tsx` и `lib/spanish-metadata.ts`, но live raw HTML не проверен. Metricool YouTube 149 подписчиков за неполный 2026-10-25 против 148 вчера — не лиды.
 
