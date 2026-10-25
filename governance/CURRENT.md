@@ -1,46 +1,70 @@
 # Current AI System State
 
-Last weekly refresh: `2026-08-01`
+Last weekly refresh: `2026-10-24`
 
 ## Operating model
 
-- `ai-projects-brain` is the durable source of truth for project catalog, project state, governance, automation ownership, lessons and indexes.
-- `brain-management` is the operational control plane for current metrics, immutable snapshots, assignments, chains, collectors and dashboard/API publication.
-- ChatGPT Automations collect and execute bounded stages. They must not create parallel registries, duplicate implementation ownership, or independent metric definitions.
+- `ai-projects-brain` is the durable source of truth for catalog, mappings, governance, goals, automation ownership, lessons and indexes.
+- `brain-management` is the operational control plane for current metrics, immutable receipts, assignments, chains, collectors and dashboard/API publication.
+- Weekly Brain Refresh aggregates durable evidence only; it does not calculate daily metrics, publish live data or implement product work.
 
 ## Current health
 
 | Area | Status | Evidence / next action |
 |---|---|---|
-| Brain Management operational control plane | healthy / LIVE_VERIFIED | Canonical Vercel production has real HTML, six approved routes, four Overview aggregates, 24 metrics, 5/5 JSON APIs, ten Trends, seven agent cards, six manifest shortcuts and no verified runtime-error cluster. |
-| Durable source-of-truth boundary | healthy | Runtime receipts remain in Brain Management; durable catalog and governance changes remain here. |
-| Active portfolio routing | reconciled for the ten-project overlay | `projects/portfolio-registry.json` and `projects/index.md` now agree, including the Brain Management Vercel mapping and the canonical `finance` repository for legacy finance. |
-| Complete accessible repository inventory | needs verification | Connector discovery did not provide a complete owner-wide enumeration. Do not promote unverified backup or experimental repositories into the active portfolio. |
-| Legacy human/machine indexes | partial | `projects.md`, `projects.json`, and `data/project-index.json` remain continuity sources requiring bounded field-by-field reconciliation. |
-| Automation ownership | healthy | Current daily chain has zero concurrent implementation-owner conflicts; discovery, ranking, implementation, PR hygiene, publication and closure remain separate. |
-| Weekly review freshness | due | Latest Weekly Delivery System Review and Sunday Dashboard Review cover the week ending 2026-07-26. Their next scheduled runs should supply the next full weekly denominators. |
-| Search/navigation | improved | Current aliases and canonical repo/live mappings are present in the active registry and routing index. |
+| Brain Management | `DEGRADED_SOURCE_STALE_RUNTIME_CONSUMER_AND_CLOSURE_ABSENT` | Canonical probe on 2026-10-24 12:45 UTC: five operational APIs return 503; health and weekly review return 200; publication-current returns 500. Live source is `2026-09-15T11:34:55.858Z`, age 937.2h. |
+| Repository source | producer stopped after 19 October | Last atomic data source is `2026-10-19T18:23:04.422Z`; manifest is `2026-10-19T18:32:51.145Z`. It is also stale now and still falsely says alias verified / safe to deploy. |
+| Runtime publication | consumer/activation absent | Production remains `dpl_6rYMy6EN8ociQvWdUEydJxvFXNpp` from 15 September. PR #691 is 32 commits behind, conflicting and red on both exact-head gates. |
+| Immutable history | current week repository `2/7`; live health `3/7` old identities | Repository has Oct 18–19 only for the Oct 18–24 window; Oct 20–24 are absent. Missing days are not inferred. |
+| Weekly review publication | repository Oct 12–18; live Aug 17–23 | Latest repository review has 7 chains, 1/7 canonical live and 0/7 numeric gains. Canonical API remains two months behind. |
+| Scheduler registry | `8 ENABLED` recurring management roles; no implementer, publisher or terminal closer | Fourteen automations are enabled overall. Morning System Upgrade, Daily Dashboard Update and Evening Delivery Closure are not enabled. |
+| Delivery backlog | 185 open; 0 ready | Oct 24 inventory: 146 owner-blocked, 160 conflicting/unknown, 123 CI-failing, 83 stale and 101 drafts. Current sweep merged/repaired/closed zero. |
+| Product/effect conversion | high merge volume, zero measured gain | Current receipt observed 130 external merges in one interval and five more by the next run; unchanged Product Delivery, Task Success and Live Completion stay `1/4`. |
+| Trends | implementation queue stale | Queue source is Sep 11, 0/10 items are in the current window, and task 11918 remains leased but unauthorized. |
+| Project catalog | 31 repos; mappings stable | Ten production-overlay identities and 21 meaningful records remain. Psihotavr stays unresolved. |
+| Holistic House / Books | exact-source public production current; protected state partial | `dpl_CiJnxZL26K1Ve5p1mSrwDbd8EtV6` is READY from exact source `b48de275d5770e9fa1e58b337a740e8621f6a873`; root, `/en`, `/en/services` and `/en/tests` return 200. |
+| Memory sync | conflicting self-report | Repository source says `CURRENT_SOURCE_RECONCILED`, but it is stale and not consumed by canonical production. Durable memory records the conflict instead of accepting the label. |
+| Durable boundary | preserved | Documentation/catalog/index changes only: `NO_DIRECT_METRIC_EFFECT`. |
 
-## Confirmed current operational state
+## Weekly operational synthesis
 
-- Brain Management `/api/data` generated `2026-08-01T06:06:00Z` and reports overall `70.1`, efficiency `63.7`, business `72.5`, self-development `77.2`.
-- Public business-KPI evidence improved from no accepted source to `4/6` applicable projects without changing the formula.
-- The auxiliary API contract moved from `3/5` to `5/5` parseable JSON endpoints and reached `LIVE_VERIFIED`.
-- Rule lifecycle reached `3 active/9` from `2 active/9`.
-- Morning reconciliation removed four duplicate or terminal chains.
-- PR hygiene reduced the verified open-PR inventory from 46 to 36 in one run: three focused documentation PRs merged and seven obsolete/superseded PRs closed.
+- The Oct 12–18 scorecard counted seven stable chains, `1/7` canonical live, `0/7` numeric gains, history `6/7`, PR Delivery `12/13` and Evening Closure `1/6`.
+- The source producer then regressed: the last source/history commit is 19 October, so the current Oct 18–24 window has only two repository snapshots.
+- Canonical production did not improve: core APIs remain `2/7`, the source aged to 937.2h, publication-current remains 500 and no deployment followed 15 September.
+- The existing correction PR #691 is not an executable repair: it is 32 commits behind, conflicting, deletes 4,090 lines of Trends evidence and fails both required exact-head gates.
+- PR backlog expanded from 99 in the latest weekly review to 185 on Oct 24; 131 open PRs are in Books. High merge/PR activity still produced zero verified dashboard-metric effect.
+- Holistic House public production is current at exact branch head `b48de275…`; protected flows and same-source outcome effects remain unverified.
 
-## Current strategic blockers
+## Catalog reconciliation
 
-1. EzoHata Finance provider/live readiness is `0/4` and genuinely `BLOCKED_BY_OWNER`; it needs a current owner-session smoke and one read-only Wise or YooMoney journey.
-2. Product delivery, task success and live completion remain a shared `1/4` input. One exact denominator item and canonical implementation repository must be selected before work begins.
-3. Psihotavr remains `NEEDS_VERIFICATION`; its current public collector failed and its live/source/retirement state is not fully proven.
-4. Metric-level source references, honest seven-day history coverage and a supported operational closure-write path remain improvement areas; do not fabricate missing history.
+- GitHub owner inventory remains 31 repositories; the fixed production overlay remains ten identities and the extended memory catalog remains 21 records.
+- Books remains one project identity on `andylitvinov-design/books`, production branch `codex/public-book-library`, Vercel project `prj_4jAwcx6lrKyUKZ3R9vgC5xwwyC0b` and canonical alias https://holistichouse.vercel.app.
+- Enabled Holistic House audit/speed/research, Vercel-cost and feedback routines are capabilities within existing projects, not new project identities or management publishers.
+- Psihotavr remains `IDENTITY_UNRESOLVED`; no replacement source or provider target was inferred.
 
-## Current priorities
+## Durable root-cause candidate
 
-1. Preserve Brain Management's verified production contract and source/deploy parity.
-2. Convert one real product deliverable from the shared `1/4` denominator to live evidence under one owner.
-3. Complete the owner-only EzoHata Finance read-only verification.
-4. Reconcile legacy project indexes field by field without replacing the canonical active overlay.
-5. Continue accumulating honest immutable snapshots and metric-level evidence.
+Canonical machine record: `governance/durable-root-cause-candidate-2026-10-24.json`.
+
+- code: `PUBLICATION_RECOVERY_CHAIN_HAS_NO_RUNNABLE_END_TO_END_OWNER`
+- affected metric: `publication_freshness`
+- raw baseline: repository source age about 114.4h at the first Oct 24 operational check; production source age 937.2h at independent reread; core APIs 2/7; publication-current HTTP 500; current repository history 2/7
+- owner: Daily Strategic Priorities must preserve the existing chain and resolve exactly one enabled release/publisher executor; owner action and independent closure remain separate gates
+- smallest safe correction: repair existing PR #691 on current main without deleting continuity evidence, pass both unchanged-head gates, activate the scoped runtime read path, perform one canonical deployment and one later no-deploy refresh, then independently close
+- expected effect: canonical source age `<=6h`, 7/7 APIs, publication-current 200 and a later `<=12h` no-deploy refresh are conditional targets; no metric credit before canonical reread
+
+## Sync status
+
+- durable catalog: `RECONCILED_IN_PR_193_2026-10-24`
+- operational control plane: `DEGRADED_SOURCE_STALE_RUNTIME_CONSUMER_AND_CLOSURE_ABSENT`
+- memory boundary: `PRESERVED`
+- scheduler registry: `8_ENABLED_RECURRING_MANAGEMENT_NO_PRIMARY_IMPLEMENTER_NO_ROUTINE_PUBLISHER_NO_ENABLED_TERMINAL_CLOSER`
+- immutable history: `REPOSITORY_CURRENT_WEEK_2/7; LIVE_HEALTH_OLD_3/7`
+- weekly publication: `OCT_12_18_ON_REPOSITORY_MAIN; LIVE_STALE_AT_2026-08-23`
+- durable direct metric effect: `NO_DIRECT_METRIC_EFFECT`
+
+## Next three highest-value actions
+
+1. Reconcile existing PR #691 onto current main without losing Trends/history continuity and make both exact-head gates green; do not create a competitor PR.
+2. Assign exactly one enabled release/publisher executor, apply the owner-only scoped runtime credential, then prove one deployment plus one source-only refresh within 12 hours.
+3. Restore one enabled independent terminal closer and accumulate seven new prospective immutable snapshots; never backfill missing Oct 20–24 days.

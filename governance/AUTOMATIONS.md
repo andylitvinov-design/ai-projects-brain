@@ -1,6 +1,6 @@
 # Automation Registry
 
-Last reconciled: `2026-10-18`
+Last reconciled: `2026-10-24`
 
 ## Registry contract
 
@@ -184,3 +184,22 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 - If Evening Closure coverage is missing, later merges and live observations remain nonterminal regardless of implementation claims.
 - Repeated source-refresh commits and duplicate daily aliases remain one recovery chain and one denominator.
 - Continue `operational-source-freshness-refresh-20260818`; do not create a replacement automation or recovery-chain alias.
+
+## Scheduler and ownership reconciliation — 2026-10-24
+
+1. Fourteen automations are enabled. Eight are recurring management roles: Sunday Dashboard Review, Daily Strategic Priorities, Morning Task Sweep, Weekly Brain Refresh, Weekly Delivery System Review, Weekly Live Safe Sweep, PR Delivery Sweep and Portfolio Sales Audit.
+2. Six other enabled schedules are project, feedback, research or cost capabilities. They do not fill missing management roles.
+3. Morning System Upgrade, Daily Dashboard Update and Evening Delivery Closure are not enabled. The system therefore has discovery, ranking, review and PR observation, but no runnable primary implementer, routine publisher or independent terminal closer.
+4. Repository source generation also stopped after 19 October. A GitHub producer that ran last week cannot be treated as a durable publisher this week without current scheduler and output evidence.
+5. The canonical production boundary remains broken: 2/7 core APIs, source age 937.2h, publication HTTP 500 and a September 15 deployment. Repository history for the current window is only 2/7.
+6. Existing PR #691 is not a safe activation vehicle in its current form: it is behind current main, conflicting, deletes continuity records and fails both exact-head release gates.
+7. PR Delivery observed 185 open PRs, 0 ready, 146 owner-blocked and 123 CI-failing; the morning sweep merged, repaired and closed zero. External merge volume is not delivery-stage acceptance.
+8. Keep the stable publication chain and repair the existing PR. Do not route ownership to a reviewer, detector, project capability or this durable reconciler.
+
+## Minimal enforcement correction — 2026-10-24
+
+- Resolve every required stage to a currently enabled scheduler and current output before declaring a chain executable.
+- Treat repository producer, production runtime consumer and independent closer as three separately evidenced capabilities under one stable chain.
+- A stale or conflicting activation PR must be rebuilt from current main while preserving base-only continuity records; parent topology and a green partial check are insufficient.
+- Publication success requires one current deployment, 7/7 structured APIs, exact attribution, one later source-only refresh within 12 hours and delayed independent closure.
+- The current candidate is `PUBLICATION_RECOVERY_CHAIN_HAS_NO_RUNNABLE_END_TO_END_OWNER`; all prerequisite work remains zero-effect until canonical delayed reread.

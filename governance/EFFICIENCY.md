@@ -1,6 +1,6 @@
 # AI System Efficiency
 
-Last aggregated: `2026-10-18`
+Last aggregated: `2026-10-24`
 
 Efficiency is evaluated from real closure, verification, context/tool discipline, durable-memory quality and automation ownership. It must never be improved by skipping auth, security, data protection, tests, accessibility or production verification.
 
@@ -219,3 +219,22 @@ The system now moves product code to exact-source production quickly, but its ma
 ### Efficiency conclusion
 
 The system recovered source generation and most immutable capture, but stopped at the repository boundary. The highest-value unit is now a single activation proof: scoped runtime consumer, one canonical deployment, one subsequent source-only refresh and independent closure. New Trend implementation, more receipt PRs or another recovery alias have lower expected value and zero effect credit.
+
+## Current-window checkpoint — 2026-10-19 through 2026-10-24
+
+This is a partial-window reconciliation, not a replacement weekly scorecard.
+
+| Signal | Current evidence | Durable interpretation |
+|---|---:|---|
+| Canonical Brain APIs | 2/7 | Five source-dependent surfaces fail closed; health/weekly fallbacks do not prove freshness. |
+| Production source age | 937.2h | The September 15 deployment still serves the operational snapshot. |
+| Repository producer | Last manifest 2026-10-19 | The producer itself has now stopped; prior-week recovery was not durable. |
+| Current-window immutable history | 2/7 | October 20–24 are missing and are not backfilled. |
+| PR portfolio | 185 open; 0 ready | 146 owner-blocked, 123 CI-failing and 160 conflicting/unknown. |
+| PR Delivery current sweep | 0 merge; 0 repair; 0 close | Observation persists, but delivery conversion remains zero. |
+| Current product/task/live metrics | 1/4 each | No verified numerator change. |
+| Brain source/runtime recovery | 5 regressions detected and recovered in repository receipts | Recovery activity produced 0 upgrades and 0 metric points. |
+
+### Efficiency conclusion
+
+The bottleneck has expanded from an absent production consumer to an ownerless end-to-end chain: producer cadence, runtime consumption, safe PR delivery and independent closure are all incomplete. The smallest useful unit is one repaired existing activation chain through delayed canonical reread. Additional source receipts, recovery aliases, documentation or external merges are `NO_DIRECT_METRIC_EFFECT`.

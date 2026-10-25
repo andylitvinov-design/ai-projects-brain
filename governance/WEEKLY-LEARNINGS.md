@@ -133,3 +133,13 @@
 - **Still open:** `operational-source-freshness-refresh-20260818`, `chatgpt-trends-refresh-current` and Finance provider verification retain their stable identities. Task 11918 remains unauthorized while production and queue consumption are broken.
 - **Highest-leverage next action:** configure the scoped production read credential, accept PR #691 through PR Delivery, perform one canonical deployment from current main, then prove one no-deployment source refresh within 12 hours and obtain delayed Evening Closure. Success is 7/7 structured APIs, source age ≤6 hours, exact source/artifact/deploy attribution and rolling history 7/7.
 - **Credit rule:** source generation, credential setup, PR #691/#692, merge, deployment, receipts and documentation receive zero improvement credit until the delayed canonical raw-input reread succeeds.
+
+### Current-window learning — 2026-10-24
+
+- **Regression:** repository source production stopped after 19 October, so the previous distinction “healthy producer, absent consumer” is no longer current. Canonical production remains 2/7 with a 937.2-hour source and publication HTTP 500.
+- **Repeated root cause:** the stable publication chain has no runnable end-to-end ownership. Discovery, ranking and review schedules exist, but primary implementation, routine publication and independent closure do not resolve to enabled schedulers.
+- **Delivery defect:** PR #691 is behind current main, conflicting, deletes continuity records and fails both exact-head gates. Reusing an existing PR is correct only when its resulting tree is rebuilt from current main and preserves base-only evidence.
+- **Efficiency signal:** the current PR portfolio reached 185 open with 0 ready; the current sweep performed no merge, repair or close. Product/task/live remain 1/4, so throughput and recovery activity receive zero metric credit.
+- **Reusable rule:** re-prove producer cadence, consumer activation and terminal closure independently in every reconciliation window. Historical health at any one boundary cannot stand in for current evidence at another.
+- **Current candidate:** `PUBLICATION_RECOVERY_CHAIN_HAS_NO_RUNNABLE_END_TO_END_OWNER` preserves `operational-source-freshness-refresh-20260818` and requires one safe PR repair, one deployment, one later no-deploy refresh and independent closure.
+- **Credit rule:** every change in this durable PR is `NO_DIRECT_METRIC_EFFECT`; conditional metric effect begins only after delayed canonical reread.
