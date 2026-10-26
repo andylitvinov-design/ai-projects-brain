@@ -1,18 +1,14 @@
-# Последний аудит Holistic House / VS Lab
+# Последний доказательный аудит Holistic House / VS Lab
 
-**Дата:** 2026-10-25 · America/Toronto. Доказательный read-only ChatGPT (GPT-6) аудит. Gemini/Mistral **не запрашивались**.
+**Дата:** 2026-10-26 (America/Toronto). Автор: ChatGPT (GPT-6); **Gemini/Mistral не запрашивались**.
 
-- [Полный аудит 2026-10-25](2026-10-25-audit.md)
-- [Русское приоритетное ТЗ 2026-10-25](2026-10-25-chatgpt-prompt.md)
-- [Предыдущий аудит 2026-10-24](2026-10-24-audit.md)
-- [Telegram canonical queue #242](https://github.com/andylitvinov-design/ai-projects-brain/issues/242)
+- [Полный аудит 2026-10-26](2026-10-26-audit.md)
+- [Приоритетное русское ТЗ 2026-10-26](2026-10-26-chatgpt-prompt.md)
+- [Сравнение с 2026-10-25](2026-10-25-audit.md)
+- [Канонический публичный архив/очередь Telegram #242](https://github.com/andylitvinov-design/ai-projects-brain/issues/242)
 
-**Production VERIFIED metadata:** https://holistichouse.vercel.app → andylitvinov-design/books@2a77392fc21a2527d8fc93df076e37abda29f742 · ref codex/public-book-library · Vercel dpl_32RT3r3fS5mG3MTTtjk1buybUnXm READY. В ходе аудита alias сначала был на 78ca..., затем на 2a77...; f18af... был BUILDING только в раннем снимке (не тогдашний alias). Это не live HTTP/E2E.
+**VERIFIED Vercel metadata:** https://holistichouse.vercel.app → repo \`andylitvinov-design/books\`, branch \`codex/public-book-library\`, deployed SHA \`2ef7dcf03ef08f99ef2c15764500e05c3f850090\`, READY \`dpl_6wNuN8iXCyefqJfn8RcnjJueEWLr\`; это не HTTP/E2E. AI Council https://ai-council-chat.vercel.app → \`ai-projects-brain/main@3aa09e5651cd23e41fad30f40bad5f23e44e6ed1\`, READY, не подтверждение AI/Telegram.
 
-**NEW:** sitemap extractor 622 URL против 689 вчера (-67), гипотеза динамического/cached расхождения, нужен raw XML. ES canonical/OG/hreflang **реализованы в deployed source** `app/es/services/page.tsx` и `lib/spanish-metadata.ts`, но live raw HTML не проверен. Metricool YouTube 149 подписчиков за неполный 2026-10-25 против 148 вчера — не лиды.
+**С 2026-10-25:** merged [report save CTA PR #1491](https://github.com/andylitvinov-design/books/pull/1491), E2E ещё NOT_TESTED; merged [free wizard PR #2079](https://github.com/andylitvinov-design/books/pull/2079), feature-gated и real intake NOT_TESTED. [Paid CTA PR #2117](https://github.com/andylitvinov-design/books/pull/2117) OPEN/DRAFT: deployed source всё ещё не передаёт selected label; [safety PR #1531](https://github.com/andylitvinov-design/books/pull/1531) OPEN/DRAFT; consented CRM [#990](https://github.com/andylitvinov-design/books/issues/990) не проверен live. Sitemap extractor 622 → **619**, raw XML и индексация НЕ проверены. Metricool YouTube 149 (как вчера), не лиды. GSC Wizard BLOCKED subscription_required. VS Lab NEEDS_VERIFICATION. Новых deploy/продаж/оплат/рекламы/AI-видео не запускали, PII нет.
 
-**Топ-3:** P1 подтвердить sitemap delta, P1 safety [books PR #1531](https://github.com/andylitvinov-design/books/pull/1531) (OPEN/DRAFT, не live), P1 consented lead [issues #990/#985](https://github.com/andylitvinov-design/books/issues/990). Save report [PR #1491](https://github.com/andylitvinov-design/books/pull/1491) OPEN, не проверено E2E. VS Lab NEEDS_VERIFICATION. GSC Wizard ранее BLOCKED subscription_required.
-
-**Telegram:** только один проверенный авторский комментарий даты в issue #242 — очередь для существующего cron в 21:00 UTC. Наличие комментария не доказывает доставку (Bot API accepted и приватный receipt отдельно). Gmail выключен. Без платных моделей/AI-видео/деплоев/секретов/клиентских данных.
-
-**Дополнительный routing snapshot за 2026-10-25:** после первого аудита Vercel canonical alias перешёл на `books@0f019fe673a0ebf65df4582ae4508892ea433694` (`codex/public-book-library`, `dpl_EoRcjH9wwNMGQHGAqZzMVQGFasQQ`, READY). Исходный SHA `2a77392...` выше — прежний snapshot. Важные 4 audited source blob совпадают; живые HTTP/E2E не проверены. Один авторский комментарий за дату уже есть: [#242 comment 6400107973](https://github.com/andylitvinov-design/ai-projects-brain/issues/242#issuecomment-6400107973); дублировать нельзя.
+**Топ-3:** P0 исправить выбранный €50/€100 CTA (#2117); P1 urgent-first safety (#1531); P1 протестировать единственную consented заявку→CRM→report (#990/#2079). **Telegram:** only verified GitHub comment #242, если он существует; реальная отправка может быть подтверждена только Bot API accepted и private receipt, недоступными в этом аудитe. Gmail не используется.
