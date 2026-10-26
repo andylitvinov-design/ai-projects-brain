@@ -33,7 +33,7 @@ test('reports identify independent providers and only real completed answers',()
 });
 test('does not accidentally include common provider or Telegram tokens',()=>{
   const {api}=createSandbox();
-  const secret='sk-or-v1-abcdefghijklmnopqrstuvwxyz09876';
+  const secret=['sk-or-v1-', 'synthetic-test-canary-0123456789abcdef'].join('');
   const bot='123456789:ABCDabcd0123456789EFGHijkl';
   const doc=api.reportMarkdown({question:'check '+secret,answers:[{model:'mistral',status:'ok',text:bot}]});
   assert.doesNotMatch(doc,/sk-or-v1-/);
