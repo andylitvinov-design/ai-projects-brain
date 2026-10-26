@@ -219,3 +219,25 @@ The system now moves product code to exact-source production quickly, but its ma
 ### Efficiency conclusion
 
 The system recovered source generation and most immutable capture, but stopped at the repository boundary. The highest-value unit is now a single activation proof: scoped runtime consumer, one canonical deployment, one subsequent source-only refresh and independent closure. New Trend implementation, more receipt PRs or another recovery alias have lower expected value and zero effect credit.
+
+## Weekly delivery scorecard — 2026-10-19 through 2026-10-25
+
+| Metric | Evidence | Interpretation |
+|---|---:|---|
+| Stable active management chains | 3 | Finance product/business; publication freshness and Trends infrastructure/control. |
+| Canonical `LIVE_VERIFIED` | 0/3 | No current-week Evening Closure receipt exists. |
+| Verified numeric metric gains | 0/3 | Product Delivery/Task Success/Live Completion remain 1/4; Finance remains 0/4. |
+| Product : infrastructure/control | 1 : 2 | Terminal success mix is 0 : 0. |
+| Rework lower bound | 1/3 | PR #691 was replaced by #701 inside the same unresolved freshness chain. |
+| Immutable history | 1/7 | October 20–25 are missing and not inferred. |
+| Handoff coverage | discovery 7/7; ranking 7/7; PR Delivery 12/13; closure 0/6 | Coordination exists, but implementation/publication/acceptance are not runnable end to end. |
+| Brain PR throughput | 8 created; 8 merged during week; 1 open | Seven of eight Brain merges bypassed PR Delivery; all received zero effect credit. |
+| Portfolio PR Delivery | 4 accepted merges; 0 verified effects | Current portfolio: 226 open, 181 owner-blocked, 202 conflicted, 165 CI-failing. |
+| Brain GitHub Actions | 189 total; 20 success; 88 failure; 79 skipped; 2 cancelled | Mobile Release Bundle succeeded 0/9; Production Canary 0/73. |
+| Duplicate/evidence markers | 682 → 836 | 154 raw aliases map to three persistent chains. |
+| Canonical production | 2/7 core APIs; source age 962.5h; publication HTTP 500 | Repository source and runtime artifact still do not reach production. |
+
+### Efficiency conclusion
+
+PR Delivery throughput improved from zero to four accepted merges, but the full delivery system remains effect-zero because implementation, routine publication and independent closure are not simultaneously runnable. The next useful unit is one end-to-end freshness-chain proof on PR #701. Additional product merges, receipt PRs or recovery aliases only enlarge the unverified queue.
+

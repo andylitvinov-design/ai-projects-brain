@@ -184,3 +184,23 @@ Every recurring automation record must identify its scheduler, exclusive role, c
 - If Evening Closure coverage is missing, later merges and live observations remain nonterminal regardless of implementation claims.
 - Repeated source-refresh commits and duplicate daily aliases remain one recovery chain and one denominator.
 - Continue `operational-source-freshness-refresh-20260818`; do not create a replacement automation or recovery-chain alias.
+
+## Scheduler and ownership reconciliation — 2026-10-25
+
+1. Morning Task Sweep and Daily Strategic Priorities are enabled and persisted 7/7 handoffs. PR Delivery Sweep is enabled and persisted 12/13 due receipts.
+2. Morning System Upgrade is absent, Daily Dashboard Update is absent, and Evening Delivery Closure is disabled. Owner labels therefore do not resolve to a runnable end-to-end chain.
+3. The three canonical carryover IDs persisted and duplicate implementation-chain creation remained zero. The raw evidence-alias counter nevertheless grew by 154.
+4. PR Delivery accepted four portfolio merges, including one Brain Management evidence merge, but seven of eight Brain Management merges still bypassed its exclusive stage. No accepted merge produced a verified raw metric effect.
+5. Canonical production has zero current-week deployments and zero production environment variables. Repository source publication does not inherit runtime-consumer, dashboard-publisher or closure authority.
+6. PR #701 supersedes conflicted PR #691 without creating a new chain. Its bounded runtime proof is green; its Mobile Release Bundle is red because two repository tests expect HTTP 200 where stale fixtures must fail closed with HTTP 503.
+7. All 12 current-week PR Delivery receipts use noncanonical diagnostic `terminal_state` values. Diagnostics must move to a separate field; terminal fields accept only `LIVE_VERIFIED`, `MERGED_WAITING_DEPLOY`, `BLOCKED_BY_OWNER` or `NO_SAFE_UPGRADE`.
+8. Weekly Delivery System Review remains evaluation/evidence only. Brain Management PR #702 and this governance proposal receive zero improvement credit.
+
+## Minimal enforcement correction — 2026-10-25
+
+- Before assignment, every automation-owned nonterminal chain must resolve its implementation, publication and closure owners to enabled runnable executors; otherwise ranking must publish `RUNNABLE_OWNER_GAP` and withhold implementation authorization.
+- Fail-closed contract tests must derive the expected HTTP status from fixture freshness: stale sources expect structured 503, while current validated sources expect 200. A repair must not weaken production fail-closed behavior merely to satisfy a stale 200 assertion.
+- PR Delivery receipts must keep workflow outcome in a diagnostic field and use the canonical terminal enum only when the chain actually terminates.
+- Continue `operational-source-freshness-refresh-20260818` on PR #701. Do not create another branch, automation or recovery-chain alias.
+- Independent closure must be enabled before merge/deploy activity can receive terminal or metric credit.
+
