@@ -140,3 +140,14 @@ Purpose: persist evidence-backed PR-stage reconciliation across recurring sweeps
 1. `brain-management` — recover/observe the single direct post-merge publisher for `0959d725016512af0ac68838cab165c3d2315db3`; require matching Netlify deploy, public snapshot, receipt, required assets and clean portfolio behavior.
 2. `codex-links` — reconcile issue #174 into one smallest fresh-main authorization PR only if a valid remote branch appears; otherwise keep `NO_SAFE_UPGRADE` and do not revive stale PR #163.
 3. `ezohata` — keep PR #41 `BLOCKED_BY_OWNER`; recheck only after production Google provider activation and genuine owner/non-owner auth evidence.
+
+
+## 2026-10-26 — hard safe auto-merge enforcement
+
+Standing owner-approved rule for PR Delivery Sweep:
+
+- Never finish a run with a PR classified as `READY_TO_MERGE`. If the safe merge gate passes on the same verified head SHA, squash-merge it in that run without asking for another owner confirmation.
+- The safe gate remains strict: canonical repository/base, focused in-scope diff, non-draft PR, no unresolved required review changes, green required checks (or documented deterministic validation when no required checks exist), mergeable state, and unchanged verified head SHA.
+- The rule never overrides protected scopes: secrets/credentials, auth-policy changes, destructive migrations, financial/account mutations, ambiguous product decisions, or unverified data repairs remain blocked for owner/release evidence.
+- After every successful merge, re-inventory open PRs because stacked/dependent PRs can become mergeable; continue until no additional safe candidate remains.
+- Merge throughput is not a product outcome: merge != deploy != `LIVE_VERIFIED`; live and metric credit require their own exact-SHA production evidence.
