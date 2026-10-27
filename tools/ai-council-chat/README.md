@@ -245,3 +245,13 @@ OpenCode offers two free model identifiers: `opencode/glm-5.3-flash-free` and `o
 **Safety / deployment:** This code performs no OpenCode API calls and asks for no OpenCode key, never uses paid fallbacks, never accesses client records, and retains data in the browser's existing conversation storage. Never paste clients' health information, private messages, account/payment data, secrets or tokens into externally hosted models. A manual paste does not establish the model identity or prove site testing. Canonical current Git-linked app is `super10/ai-council-chat` (domain `https://ai-council-chat.vercel.app`, repository `andylitvinov-design/ai-projects-brain`, main branch). Do not confuse it with the separate older `ai-council-free` project. Merge triggers a new production build, but READY, exact SHA/aliases, browser behavior and actual OpenCode model replies still require independent verification.
 
 Offline CI: `node --check tools/ai-council-chat/opencode-manual.js` and `node --test tools/ai-council-chat/tests/opencode-manual.test.mjs`. User-side OpenCode account, 375px phone UI, real response imports and separate Vercel production deployment must be verified independently.
+
+## 2026-10-27: DeepSeek V4.1 provider resilience and explicit reviewer selection
+
+The existing NVIDIA NIM deepseek-ai/deepseek-v4.1-flash free-trial BYOK route remains the only DeepSeek transport. No paid API, new secret, new account, or automatic provider switch was added.
+
+- The model registry keeps already connected and consented Gemini/Mistral/NVIDIA direct providers available when OpenRouter's separate free-model catalog errors, times out, or has no $0 models. OpenRouter-only choices are marked unavailable, never silently replaced. Requests still require an eligible explicitly selected provider.
+- After a real nonempty NVIDIA model response in the opt-in connection probe, the owner can press **Назначить техэкспертом / Use as engineering reviewer** in Settings. Only expert #3 changes; other reviewers and the synthesizer are preserved. Pressing this button costs no API calls.
+- Empty NVIDIA completions are now errors rather than success-looking placeholder answers; trial entitlement is never claimed without a real text response. HTTP 429/402 and revoked transit consent still fail closed.
+- Regression coverage: no OpenRouter catalog + verified external models, reject paid pseudo-free catalog entries, explicit click model selection, no-text probe and relay responses, unchanged key consent/cooldown boundaries.
+- Live NVIDIA entitlement and actual multi-model iPhone round still require the owner's optional trial key in the personal browser. Do not place the key in GitHub, ChatGPT, or Vercel environment variables.
