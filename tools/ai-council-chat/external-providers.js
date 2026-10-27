@@ -16,7 +16,7 @@
  const ENGINEERING_PREFERENCE_STORE='ai-council-deepseek-engineering-preferred-v1';
  const state={gemini:{key:'',confirmed:false,status:''},mistral:{key:'',confirmed:false,status:''},nvidia:{key:'',confirmed:false,status:'',probe:null}};
  let nvidiaRelayConsent=false;
- let nvidiaProbeBusy=false,nvidiaNextProbeAt=0;
+ let nvidiaProbeBusy=false,nvidiaNextProbeAt=0,nvidiaConnectBusy=false;
  let setup,signal,settings;
  function getSaved(p){const store=P[p];const remember=setup?.getRemember?.()||false;return sessionStorage.getItem(store.keyStore)||(remember?localStorage.getItem(store.keyStore)||'':'');}
  function read(){nvidiaRelayConsent=localStorage.getItem(RELAY_STORE)==='true';
@@ -25,12 +25,34 @@
  function models(){return Object.keys(P).filter(valid).map(p=>({id:P[p].id,name:P[p].name+(p==='gemini'?' · AI Studio Free Tier':p==='mistral'?' · Experiment Free Tier':' · NVIDIA NIM free trial (limited)'),pricing:{prompt:'0',completion:'0'},architecture:{input_modalities:['text'],output_modalities:['text']},provider:p,freeProviderMode:'user-confirmed'}));}
  function render(){const checked=document.getElementById('nvidiaProxyConsent');if(checked)checked.checked=nvidiaRelayConsent;
   const assign=document.getElementById('nvidiaUseTechnical');
-  if(assign){assign.disabled=!valid('nvidia');assign.textContent=settings?.lang?.()==='en'?'Use as engineering reviewer':'Назначить техэкспертом';}
+  const connectedNvidia=valid('nvidia'),selectedNvidia=connectedNvidia&&setup?.isEngineeringModel?.(P.nvidia.id)===true;
+  if(assign){assign.disabled=!connectedNvidia;assign.hidden=!connectedNvidia||selectedNvidia;
+    assign.textContent=settings?.lang?.()==='en'?'Use as engineering reviewer':'Назначить экспертом №3';}
+  const role=document.getElementById('nvidiaRoleStatus');
+  if(role){role.dataset.connected=String(connectedNvidia);
+    role.textContent=connectedNvidia?
+      (selectedNvidia?(settings?.lang?.()==='en'?'✓ DeepSeek selected as technical expert #3':'✓ DeepSeek выбран техническим экспертом №3'):
+        (settings?.lang?.()==='en'?'✓ NVIDIA connected · select it as expert #3':'✓ NVIDIA подключён · назначьте экспертом №3')):
+      (settings?.lang?.()==='en'?'○ DeepSeek not connected · OpenRouter is separate':'○ DeepSeek не подключён · OpenRouter работает отдельно');}
+  const connectButton=document.getElementById('nvidiaDirectConnect'),disconnectNvidia=document.getElementById('nvidiaDirectDisconnect');
+  if(connectButton){connectButton.hidden=connectedNvidia;connectButton.disabled=nvidiaConnectBusy;connectButton.textContent=
+    settings?.lang?.()==='en'?'Connect and verify DeepSeek':'Подключить и проверить DeepSeek';}
+  if(disconnectNvidia)disconnectNvidia.hidden=!state.nvidia.key; // Allow deletion even after relay consent is revoked.
  for(const p of Object.keys(P)){const d=document.getElementById(p+'DirectStatus'),checkbox=document.getElementById(p+'FreeConfirm'),disconnect=document.getElementById(p+'DirectDisconnect');
   // Do not erase a freshly checked free-tier consent box when showing an error.
   if(checkbox && state[p].confirmed)checkbox.checked=true;
   if(disconnect)disconnect.disabled=!state[p].key;
-  if(d){d.textContent=state[p].status||(state[p].key?(settings?.lang?.()==='en'?'Connected (only usable if free-tier checkbox is confirmed)':'Ключ подключён; для использования подтвердите бесплатный тариф'):(settings?.lang?.()==='en'?'Not connected':'Не подключён'));}
+  if(d){
+    const fallback=valid(p)?
+      (settings?.lang?.()==='en'?'✓ Key saved; current provider response not rechecked.':'✓ Ключ сохранён; текущий ответ модели не проверялся.'):
+      state[p].key?
+        (p==='nvidia'&&!nvidiaRelayConsent?
+          (settings?.lang?.()==='en'?'Relay consent is off. DeepSeek calls are disabled.':'Согласие на передачу ключа выключено. DeepSeek не используется.'):
+          (settings?.lang?.()==='en'?'Key saved; confirm the free tier.':'Ключ сохранён; подтвердите бесплатный тариф.')):
+        (settings?.lang?.()==='en'?'Not connected':'Не подключён');
+    d.textContent=state[p].status||fallback;
+    if(p==='nvidia')d.dataset.state=String(d.textContent).startsWith('⚠')?'error':String(d.textContent).startsWith('✓')?'success':'idle';
+  }
  }}
  async function refresh(){render();try{await setup?.refresh?.();}catch{}}
  async function verifyGemini(raw){const ctl=new AbortController(),tid=setTimeout(()=>ctl.abort(),18000);try{
@@ -69,10 +91,17 @@
  }
  async function connect(p){
   const input=document.getElementById(p+'DirectKey'),raw=input?.value.trim(),ok=document.getElementById(p+'FreeConfirm')?.checked;
-  if(!raw){signal?.(settings?.lang?.()==='en'?'Paste your API key.':'Вставьте API-ключ '+P[p].name);return;}
-  if(!ok){signal?.(settings?.lang?.()==='en'?'First confirm that the key belongs to a free-tier project with no paid billing.':'Сначала подтвердите, что ключ принадлежит бесплатному проекту без платного биллинга.');return;}
-  if(p==='nvidia'&&!nvidiaRelayConsent){state.nvidia.status='⚠ Отметь согласие на защищённую передачу ключа через сервер AI Council.';render();return;}
-  state[p].status=settings?.lang?.()==='en'?'Checking provider key…':'Проверяю ключ…';render();
+  // Keep every NVIDIA setup error inside the visible settings card, not behind its modal.
+  function missing(message){if(p==='nvidia'){state.nvidia.status='⚠ '+message;render();}
+    else signal?.(message);}
+  if(p==='nvidia'&&nvidiaConnectBusy)return;
+  if(!raw){missing(settings?.lang?.()==='en'?'Step 2: copy the nvapi-… key from NVIDIA Build and paste it here.':'Шаг 2: нажмите Generate API Key на NVIDIA, скопируйте nvapi-… и вставьте сюда.');input?.focus?.();return;}
+  if(p==='nvidia'&&!/^nvapi-[a-z0-9._-]{12,512}$/i.test(raw)){
+    missing(settings?.lang?.()==='en'?'The key must be an NVIDIA Build key starting with nvapi-…':'Это должен быть ключ NVIDIA Build, начинающийся с nvapi-…');input?.focus?.();return;}
+  if(!ok){missing(settings?.lang?.()==='en'?'Step 3: confirm free NVIDIA trial access with no paid billing.':'Шаг 3: отметьте бесплатный пробный режим NVIDIA без платного биллинга.');return;}
+  if(p==='nvidia'&&!nvidiaRelayConsent){missing(settings?.lang?.()==='en'?'Step 3: allow transient key transfer through AI Council for this request.':'Шаг 3: разрешите передачу ключа через AI Council на время запроса.');return;}
+  if(p==='nvidia')nvidiaConnectBusy=true;
+  state[p].status=settings?.lang?.()==='en'?'Checking one real provider answer…':'Проверяю один реальный ответ модели…';render();
   try{
    if(p==='gemini')await verifyGemini(raw);else if(p==='mistral')await verifyMistral(raw);else {await verifyNvidia(raw);state.nvidia.probe={ok:true,at:Date.now()};}
    state[p].key=raw;state[p].confirmed=true;localStorage.setItem(P[p].confirm,'true');sessionStorage.setItem(P[p].keyStore,raw);
@@ -86,6 +115,7 @@
    // technical reviewer without requiring another click or model API call.
    if(p==='nvidia')preferDeepSeekEngineering(true);
   }catch(e){state[p].status='⚠ '+String(e?.message||e).slice(0,180);render();}
+  finally{if(p==='nvidia'){nvidiaConnectBusy=false;render();}}
  }
  async function disconnect(p){
   state[p].key='';state[p].confirmed=false;state[p].status='';
@@ -143,6 +173,25 @@
    const b=document.getElementById(p+'DirectConnect'),d=document.getElementById(p+'DirectDisconnect');
    if(b)b.onclick=()=>connect(p);if(d)d.onclick=()=>disconnect(p);
   }
+  const pasteNvidia=document.getElementById('nvidiaPasteKey');
+  if(pasteNvidia)pasteNvidia.onclick=async()=>{
+    const input=document.getElementById('nvidiaDirectKey');
+    try{
+      // Clipboard access only follows this explicit user gesture. Never auto-read it.
+      const pasted=String(await g.navigator?.clipboard?.readText?.()||'').trim();
+      if(!/^nvapi-[a-z0-9._-]{12,512}$/i.test(pasted))throw Error('No NVIDIA Build key in clipboard.');
+      if(input)input.value=pasted; // Password input masks the secret. No network call.
+      state.nvidia.status=settings?.lang?.()==='en'?
+        'Key pasted. Confirm free trial and relay consent below, then press Connect.':
+        'Ключ вставлен. Отметьте оба подтверждения ниже, затем нажмите «Подключить».';
+      render();
+    }catch{
+      state.nvidia.status=settings?.lang?.()==='en'?
+        'Automatic paste unavailable. Tap and hold the key field, then choose Paste.':
+        'Автовставка недоступна. Нажмите и удерживайте поле ключа, затем выберите «Вставить».';
+      render();input?.focus?.();
+    }
+  };
   const useTechnical=document.getElementById('nvidiaUseTechnical');
   if(useTechnical)useTechnical.onclick=()=>{
     if(!valid('nvidia'))return;

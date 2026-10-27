@@ -121,3 +121,29 @@ test('DeepSeek status distinguishes a fresh successful provider probe from saved
  assert.match(app,/Test · 1 call/);
  assert.match(app,/probeNvidia/);
 });
+
+test('NVIDIA setup is a single column three-step form with explicit consent and iPhone tap targets',()=>{
+ assert.match(html,/id="nvidiaProvider"/);
+ assert.match(html,/<span class="nvidia-step-title">Получить и скопировать ключ<\/span>/);
+ assert.match(html,/<label for="nvidiaDirectKey" class="nvidia-step-title">Вставить ключ сюда<\/label>/);
+ assert.match(html,/id="nvidiaPasteKey"/);
+ assert.match(html,/id="nvidiaFreeConfirm"/);
+ assert.match(html,/id="nvidiaProxyConsent"/);
+ assert.match(html,/class="nvidia-checkbox-row"><input[^>]+><span>/);
+ assert.doesNotMatch(html,/class="nvidia-proxy-consent"/,'old unwrapped strong/text consent broke into two columns');
+ assert.match(css,/\.nvidia-provider \.nvidia-checkbox-row\{display:grid;grid-template-columns:21px minmax\(0,1fr\)/);
+ assert.match(css,/\.nvidia-connect\{width:100%;min-height:48px/);
+ assert.match(css,/@media\(max-width:350px\)/);
+ assert.match(html,/href="https:\/\/build\.nvidia\.com\/deepseek-ai\/deepseek-v4\.1-flash\/build"/);
+ assert.match(html,/id="nvidiaSetupShortcut"/);
+ assert.match(html,/id="openNvidiaSetup"/);
+});
+test('Model count describes selected models, not provider availability or verified replies',()=>{
+ assert.doesNotMatch(app,/доступны по настройкам/);
+ assert.match(app,/выбраны/);
+ assert.match(app,/function renderNvidiaShortcut\(/);
+ assert.match(app,/function openNvidiaSetup\(/);
+ assert.match(app,/const connectMode=new URLSearchParams\(location.search\)\.get\('connect'\)/);
+ assert.match(app,/if\(connectMode==='deepseek'\)openNvidiaSetup\(\)/);
+ assert.match(app,/isEngineeringModel:id=>state.models\[2\]===id/);
+});
