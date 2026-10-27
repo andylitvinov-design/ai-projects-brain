@@ -277,3 +277,21 @@ test('A verified DeepSeek connection visibly becomes technical expert #3',async(
  assert.equal(h.els.get('nvidiaDirectConnect').hidden,true,'no duplicate connect on confirmed account');
  assert.equal(h.requests.length,1,'one real provider check only');
 });
+
+
+test('Previously saved NVIDIA key can be deleted even after relay consent was revoked',async()=>{
+ const localStorage=store();
+ localStorage.setItem('ai-council-nvidia-nim-key','nvapi-123456789abcdef');
+ localStorage.setItem('ai-council-nvidia-trial-confirmed','true');
+ localStorage.setItem('ai-council-nvidia-relay-consent','true');
+ const h=harness({localStorage});
+ assert.equal(h.api.valid('nvidia'),true);
+ h.els.get('nvidiaProxyConsent').checked=false;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ assert.equal(h.api.valid('nvidia'),false);
+ assert.equal(h.els.get('nvidiaDirectDisconnect').hidden,false,'disconnect must stay usable when consent is off');
+ await h.els.get('nvidiaDirectDisconnect').onclick();
+ assert.equal(localStorage.getItem('ai-council-nvidia-nim-key'),null);
+ assert.equal(localStorage.getItem('ai-council-nvidia-trial-confirmed'),null);
+ assert.equal(h.requests.length,0,'revocation and removal never contact NVIDIA');
+});
