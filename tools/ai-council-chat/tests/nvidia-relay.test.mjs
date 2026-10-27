@@ -52,3 +52,17 @@ test('Provider rejects invalid key cleanly; no raw provider error/key is disclos
   assert.equal(JSON.stringify(v).includes('nvapi-'),false);
  }finally{globalThis.fetch=orig;}
 });
+
+
+test('An empty NVIDIA completion is an upstream error, never a verified dummy answer',async()=>{
+ const old=globalThis.fetch;
+ globalThis.fetch=async()=>Response.json({choices:[{message:{content:''},finish_reason:'length'}]});
+ try{
+  const r=await POST(makeRequest(validBody()));
+  const value=await r.json();
+  assert.equal(r.status,502);
+  assert.match(value.error,/no textual completion/);
+  assert.equal(value.choices,undefined);
+  assert.equal(JSON.stringify(value).includes('nvapi-'),false);
+ }finally{globalThis.fetch=old;}
+});
