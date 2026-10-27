@@ -158,6 +158,8 @@ function renderLang(){document.documentElement.lang=state.lang;document.querySel
  el('quickPromptsTitle').textContent=state.lang==='ru'?'Запустить запрос:':'Run a request:';
  el('modelStatusToggle').textContent=state.lang==='ru'?'Состав ▾':'Models ▾';
  el('modelStatusSettings').textContent=state.lang==='ru'?'Изменить модели':'Change models';
+ el('modelMiniRoles').setAttribute('aria-label',state.lang==='ru'?'Статусы выбранных моделей':'Selected model statuses');
+ document.querySelector('.quick-prompts')?.setAttribute('aria-label',state.lang==='ru'?'Быстрые запросы к совету ИИ':'One-tap AI Council suggestions');
  el('modelStatusDisclaimer').textContent=state.lang==='ru'?
    '«Ключ сохранён» не означает, что модель работает. Реальный ответ подтверждается только завершённым запросом. OpenCode — отдельный ручной режим.':
    'A saved key does not prove the model currently responds. Only a completed request confirms a reply. OpenCode is manual-only.';
