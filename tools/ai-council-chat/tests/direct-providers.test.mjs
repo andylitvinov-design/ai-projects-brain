@@ -6,7 +6,7 @@ import {dirname,join} from 'node:path';
 const moduleText=readFileSync(join(dirname(fileURLToPath(import.meta.url)),'..','external-providers.js'),'utf-8');
 function store(){const m=new Map();return {getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k)}}
 function harness(options={}){
- const sessionStorage=store(),localStorage=store(),els=new Map(),requests=[];
+ const sessionStorage=options.sessionStorage||store(),localStorage=options.localStorage||store(),els=new Map(),requests=[];
  for(const p of ['gemini','mistral','nvidia'])for(const suffix of ['DirectKey','FreeConfirm','DirectStatus','DirectDisconnect','DirectConnect']){
    els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null});
  }
@@ -80,9 +80,13 @@ test('NVIDIA DeepSeek is gated by free-trial AND proxy transit consent; requests
  await h.els.get('nvidiaDirectConnect').onclick();
  assert.equal(h.api.models().length,1);
  assert.equal(h.api.models()[0].id,'nvidia-direct/deepseek-v4.1-flash:trial');
- assert.equal(h.els.get('nvidiaUseTechnical').disabled,false,'explicit assign action enabled after verification');
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial'],'verified DeepSeek becomes the technical reviewer automatically');
+ assert.equal(h.localStorage.getItem('ai-council-deepseek-engineering-preferred-v1'),'applied');
+ assert.equal(h.els.get('nvidiaUseTechnical').disabled,false,'explicit manual assign remains possible');
+ const beforeManual=h.requests.length;
  await h.els.get('nvidiaUseTechnical').onclick();
- assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial']);
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial','nvidia-direct/deepseek-v4.1-flash:trial']);
+ assert.equal(h.requests.length,beforeManual,'manual model selection never calls the API');
  assert.match(h.els.get('nvidiaDirectStatus').textContent,/экспертом №3/);
  assert.ok(h.requests.some(r=>r.url==='./api/nvidia-chat'));
  const a=h.requests[0];
@@ -103,6 +107,7 @@ test('NVIDIA DeepSeek is gated by free-trial AND proxy transit consent; requests
  assert.equal(h.api.models().length,0);
  assert.equal(h.localStorage.getItem('ai-council-nvidia-nim-key'),null);
  assert.equal(h.localStorage.getItem('ai-council-nvidia-relay-consent'),null);
+ assert.equal(h.localStorage.getItem('ai-council-deepseek-engineering-preferred-v1'),null);
 });
 
 test('NVIDIA cannot be marked connected when the provider returns no real text',async()=>{
@@ -118,6 +123,36 @@ test('NVIDIA cannot be marked connected when the provider returns no real text',
  assert.deepEqual(h.chosen,[],'no silent model selection');
  assert.match(h.els.get('nvidiaDirectStatus').textContent,/реальный текстовый ответ/);
  assert.equal(h.localStorage.getItem('ai-council-nvidia-nim-key'),null);
+});
+test('Saved NVIDIA opt-in auto-assigns reviewer #3 once without making a new API request',async()=>{
+ const sessionStorage=store(),localStorage=store();
+ localStorage.setItem('ai-council-nvidia-nim-key','nvapi-123456789abcdef');
+ localStorage.setItem('ai-council-nvidia-trial-confirmed','true');
+ localStorage.setItem('ai-council-nvidia-relay-consent','true');
+ const h=harness({sessionStorage,localStorage});
+ assert.equal(h.api.models().length,1,'confirmed saved DeepSeek key is recognized locally');
+ assert.equal(h.api.preferDeepSeekEngineering(),true);
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial']);
+ assert.equal(h.requests.length,0,'restore must not secretly spend a provider call');
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/сейчас не перепроверялся/);
+ assert.equal(localStorage.getItem('ai-council-deepseek-engineering-preferred-v1'),'applied');
+ assert.equal(h.api.preferDeepSeekEngineering(),false);
+ const reload=harness({sessionStorage,localStorage});
+ assert.equal(reload.api.preferDeepSeekEngineering(),false,'never overwrite a later manual choice');
+ assert.deepEqual(reload.chosen,[]);
+ assert.equal(reload.requests.length,0);
+});
+test('NVIDIA consent and saved key are both prerequisites for automatic expert selection',async()=>{
+ const sessionStorage=store(),localStorage=store();
+ localStorage.setItem('ai-council-nvidia-nim-key','nvapi-123456789abcdef');
+ localStorage.setItem('ai-council-nvidia-trial-confirmed','true');
+ const h=harness({sessionStorage,localStorage});
+ assert.equal(h.api.preferDeepSeekEngineering(),false);
+ assert.deepEqual(h.chosen,[]);
+ assert.equal(localStorage.getItem('ai-council-deepseek-engineering-preferred-v1'),null);
+ localStorage.setItem('ai-council-nvidia-relay-consent','true');
+ const h2=harness({sessionStorage,localStorage});
+ assert.equal(h2.api.preferDeepSeekEngineering(),true);
 });
 test('direct Mistral 429 enters local cooldown rather than burning more API requests',async()=>{
  const h=harness({mistralRateLimit:true});
