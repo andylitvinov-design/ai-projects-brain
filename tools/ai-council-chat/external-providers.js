@@ -14,8 +14,9 @@
  const RELAY_STORE='ai-council-nvidia-relay-consent';
  // One-time per-browser owner preference; later manual model changes are respected.
  const ENGINEERING_PREFERENCE_STORE='ai-council-deepseek-engineering-preferred-v1';
- const state={gemini:{key:'',confirmed:false,status:''},mistral:{key:'',confirmed:false,status:''},nvidia:{key:'',confirmed:false,status:''}};
+ const state={gemini:{key:'',confirmed:false,status:''},mistral:{key:'',confirmed:false,status:''},nvidia:{key:'',confirmed:false,status:'',probe:null}};
  let nvidiaRelayConsent=false;
+ let nvidiaProbeBusy=false,nvidiaNextProbeAt=0;
  let setup,signal,settings;
  function getSaved(p){const store=P[p];const remember=setup?.getRemember?.()||false;return sessionStorage.getItem(store.keyStore)||(remember?localStorage.getItem(store.keyStore)||'':'');}
  function read(){nvidiaRelayConsent=localStorage.getItem(RELAY_STORE)==='true';
@@ -63,6 +64,7 @@
   try{
    const data=await nvidiaViaRelay(raw,[{role:'user',content:'Answer with one word: OK'}],256,ctl.signal,true);
    if(data.ok!==true||!String(data.choices?.[0]?.message?.content||'').trim())throw Error('NVIDIA не вернула реальный текстовый ответ DeepSeek. Доступ пока не подтверждён.');
+   return String(data.choices[0].message.content).trim();
   }finally{clearTimeout(tid);}
  }
  async function connect(p){
@@ -72,7 +74,7 @@
   if(p==='nvidia'&&!nvidiaRelayConsent){state.nvidia.status='⚠ Отметь согласие на защищённую передачу ключа через сервер AI Council.';render();return;}
   state[p].status=settings?.lang?.()==='en'?'Checking provider key…':'Проверяю ключ…';render();
   try{
-   if(p==='gemini')await verifyGemini(raw);else if(p==='mistral')await verifyMistral(raw);else await verifyNvidia(raw);
+   if(p==='gemini')await verifyGemini(raw);else if(p==='mistral')await verifyMistral(raw);else {await verifyNvidia(raw);state.nvidia.probe={ok:true,at:Date.now()};}
    state[p].key=raw;state[p].confirmed=true;localStorage.setItem(P[p].confirm,'true');sessionStorage.setItem(P[p].keyStore,raw);
    if(setup?.getRemember?.())localStorage.setItem(P[p].keyStore,raw);
    else localStorage.removeItem(P[p].keyStore);
@@ -89,9 +91,31 @@
   state[p].key='';state[p].confirmed=false;state[p].status='';
   sessionStorage.removeItem(P[p].keyStore);localStorage.removeItem(P[p].keyStore);localStorage.removeItem(P[p].confirm);
   const freeBox=document.getElementById(p+'FreeConfirm');if(freeBox)freeBox.checked=false;
-  if(p==='nvidia'){nvidiaRelayConsent=false;localStorage.removeItem(RELAY_STORE);localStorage.removeItem(ENGINEERING_PREFERENCE_STORE);}
+  if(p==='nvidia'){nvidiaRelayConsent=false;state.nvidia.probe=null;localStorage.removeItem(RELAY_STORE);localStorage.removeItem(ENGINEERING_PREFERENCE_STORE);}
   await refresh();
  }
+ // One explicit owner click sends one short free-trial generation using the saved key.
+ // The status is transient and never contains the key or private prompt data.
+ async function probeNvidia(){
+   if(!valid('nvidia'))throw Error('DeepSeek is not connected or relay consent has been withdrawn.');
+   const now=Date.now();
+   if(nvidiaProbeBusy||now<nvidiaNextProbeAt)throw Error('NVIDIA test already running or cooling down. Wait before another trial request.');
+   nvidiaProbeBusy=true;nvidiaNextProbeAt=now+30000;
+   state.nvidia.status=settings?.lang?.()==='en'?'Checking a real DeepSeek response (one trial request)…':'Проверяю реальный ответ DeepSeek (один пробный запрос)…';render();
+   try{
+     const answer=await verifyNvidia(state.nvidia.key);
+     state.nvidia.probe={ok:true,at:Date.now()};
+     state.nvidia.status=settings?.lang?.()==='en'?'✓ DeepSeek returned actual text via NVIDIA.':'✓ DeepSeek реально ответил через NVIDIA.';
+     render();setup?.onProbe?.();
+     return {ok:true,text:answer};
+   }catch(e){
+     const reason=String(e?.message||e).slice(0,200);
+     state.nvidia.probe={ok:false,at:Date.now(),error:reason};
+     state.nvidia.status='⚠ '+reason;render();setup?.onProbe?.();
+     throw e;
+   }finally{nvidiaProbeBusy=false;}
+ }
+ function probeStatus(provider){return provider==='nvidia'?(state.nvidia.probe?{...state.nvidia.probe}:null):null;}
  function preferDeepSeekEngineering(verifiedNow=false){
    if(!valid('nvidia'))return false;
    try{if(localStorage.getItem(ENGINEERING_PREFERENCE_STORE)==='applied')return false;}catch{}
@@ -200,5 +224,5 @@
    return answer;
   }finally{clearTimeout(tid);}
  }
- g.AICouncilExternalProviders={init,models,call,syncRemember,valid,preferDeepSeekEngineering,ids:Object.values(P).map(x=>x.id)};
+ g.AICouncilExternalProviders={init,models,call,syncRemember,valid,preferDeepSeekEngineering,probeNvidia,probeStatus,ids:Object.values(P).map(x=>x.id)};
 })(globalThis);
