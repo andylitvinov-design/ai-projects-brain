@@ -497,3 +497,64 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
  .topbar .free-pill{display:none}
 }
 @media(prefers-reduced-motion:reduce){.quick-prompt{scroll-behavior:auto;transition:none}}
+
+
+/* NVIDIA DeepSeek BYOK onboarding — one readable column on 320–430px iPhones.
+   Consent text must not split into parallel flex fragments around <strong>. */
+.nvidia-shortcut{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:0 0 8px;padding:8px 10px;border:1px solid #e4d4c4;border-radius:11px;background:#faf3e9;color:#654c41;font-size:12px;line-height:1.35}
+.nvidia-shortcut[hidden]{display:none!important}
+.nvidia-shortcut span{flex:1;min-width:0;overflow-wrap:anywhere}
+.nvidia-shortcut button{flex:0 0 auto;min-height:40px;padding:8px 11px;border:1px solid #b18c83;border-radius:9px;background:#fff9f3;color:#704152;font-size:12px;font-weight:750}
+.nvidia-shortcut button:focus-visible,.nvidia-provider button:focus-visible,.nvidia-provider a:focus-visible,.nvidia-provider summary:focus-visible{outline:3px solid #8d5266;outline-offset:2px}
+.nvidia-provider{scroll-margin-top:16px;overflow-wrap:anywhere}
+.nvidia-provider-title{display:flex;flex-wrap:wrap;align-items:center;gap:6px 9px}
+.nvidia-provider .nvidia-provider-title strong{margin:0;font-size:17px;line-height:1.35}
+.nvidia-provider .provider-free-tag{font-size:11px}
+.settings-dialog .nvidia-connection-intro{font-size:13px;line-height:1.55;margin:9px 0 5px}
+.nvidia-provider .nvidia-connection-intro strong{display:inline;margin:0;font-size:inherit}
+.nvidia-role-status{margin:10px 0 3px;padding:9px 11px;border-radius:9px;background:#f8f0e6;color:#765142;font-size:12px;font-weight:750;line-height:1.4}
+.nvidia-role-status[data-connected="true"]{background:#eaf2e9;color:#386b4a}
+.nvidia-steps{list-style:none;display:flex;flex-direction:column;margin:8px 0 12px;padding:0}
+.nvidia-step{display:grid;grid-template-columns:27px minmax(0,1fr);gap:9px;padding:12px 0;border-top:1px solid #ece0d4;min-width:0}
+.nvidia-step:first-child{border-top:0}
+.nvidia-step-num{display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:#f4ebe3;color:#815446;font-size:12px;font-weight:800}
+.nvidia-step-body{min-width:0;overflow-wrap:anywhere}
+.nvidia-provider .nvidia-step-title{display:block;min-width:0;color:#48372f;font-size:14px;font-weight:780;line-height:1.4;margin:2px 0 4px}
+.settings-dialog .nvidia-step-body p{margin:4px 0 9px;font-size:12px;line-height:1.55;color:#7c6c61}
+.nvidia-step-body p strong{display:inline;margin:0;font-size:inherit;color:#49382e}
+.nvidia-key-link{display:inline-flex;align-items:center;gap:5px;min-height:39px;padding:6px 11px;border:1px solid #d9c6b8;border-radius:8px;background:#fffcf8;color:#83513f;font-size:12px;font-weight:700;text-underline-offset:3px}
+.nvidia-key-row{display:flex;align-items:stretch;gap:7px;min-width:0;margin:9px 0 0}
+.nvidia-key-row input{flex:1 1 auto;min-width:0;width:100%;height:45px;border:1px solid #d9c6b8;border-radius:10px;background:#fff;color:#44352e;padding:9px 10px;font-size:16px}
+.nvidia-key-row button{flex:0 0 auto;min-width:78px;min-height:45px;padding:9px 12px;border:1px solid #bda69a;border-radius:10px;background:#fffaf5;color:#784359;font-size:12px;font-weight:750}
+.nvidia-provider .nvidia-checkbox-row{display:grid;grid-template-columns:21px minmax(0,1fr);align-items:start;gap:11px;margin:12px 0;padding:0;font-size:13px;line-height:1.55;color:#594940;white-space:normal}
+.nvidia-provider .nvidia-checkbox-row input{width:21px;height:21px;margin:1px 0 0;min-width:21px;flex:none;accent-color:var(--hh-wine)}
+.nvidia-provider .nvidia-checkbox-row span{display:block;min-width:0;overflow-wrap:anywhere}
+.nvidia-provider .nvidia-checkbox-row strong{display:inline!important;margin:0;font-size:inherit;font-weight:750;color:inherit;white-space:normal}
+.nvidia-privacy-details{margin:9px 0;padding:9px 11px;border:1px solid #efe3da;border-radius:9px;background:#fffcf8}
+.nvidia-privacy-details summary{cursor:pointer;color:#725a51;font-size:12px;font-weight:700}
+.settings-dialog .nvidia-privacy-details p{margin:9px 0 0;font-size:12px;line-height:1.55;color:#72645d}
+.nvidia-action-row{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:10px}
+.nvidia-action-row .nvidia-connect{width:100%;min-height:48px;padding:12px 15px;border-radius:12px;font-size:14px;font-weight:800}
+.nvidia-action-row .outline-button{min-height:42px;padding:9px 12px;font-size:12px}
+.nvidia-action-row .link-button{min-height:38px;padding:7px 5px;font-size:12px}
+.nvidia-action-row [hidden]{display:none!important}
+.nvidia-provider .nvidia-connect-status{padding:9px 11px;border-radius:9px;background:#f8f4ef;color:#675951;min-height:39px;font-size:12px;line-height:1.45}
+.nvidia-provider .nvidia-connect-status[data-state="error"]{background:#fff0f2;color:#9b4052}
+.nvidia-provider .nvidia-connect-status[data-state="success"]{background:#eaf4e9;color:#34704e}
+@media(max-width:760px){
+ .settings-dialog{width:calc(100vw - 16px);max-width:100%;max-height:calc(100dvh - 18px);overflow-x:hidden;padding:17px 13px;border-radius:15px}
+ .external-panel{padding:12px 9px}
+ .nvidia-provider{padding:13px 11px}
+ .nvidia-role-status{font-size:12px}
+ .nvidia-provider .nvidia-checkbox-row{font-size:13px;line-height:1.5}
+ .nvidia-key-row input{font-size:16px}
+ .nvidia-step-body p{overflow-wrap:anywhere}
+ .nvidia-shortcut{font-size:11px;padding:6px 9px;gap:7px}
+ .nvidia-shortcut button{min-height:40px;padding:7px 10px}
+}
+@media(max-width:350px){
+ .nvidia-step{grid-template-columns:24px minmax(0,1fr);gap:7px}
+ .nvidia-step-num{width:24px;height:24px}
+ .nvidia-provider .nvidia-checkbox-row{grid-template-columns:20px minmax(0,1fr);gap:8px}
+ .nvidia-key-row button{min-width:67px;padding:8px;font-size:11px}
+}
