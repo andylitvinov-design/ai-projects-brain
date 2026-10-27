@@ -84,3 +84,14 @@ test('Explicit DeepSeek selection only changes engineering reviewer after verifi
  assert.equal(active.filled,1);
  assert.equal(active.chooseEngineeringModel('paid/anything'),false);
 });
+
+
+test('AI Council startup restores a consented DeepSeek expert only after registry loads',()=>{
+ const start=source.indexOf('async function init(){');
+ assert.ok(start>=0,'app initializer must exist');
+ const init=source.slice(start);
+ assert.match(init,/await loadModels\(\);globalThis\.AICouncilExternalProviders\?\.preferDeepSeekEngineering\?\.\(\)/,
+   'startup must first load the active model registry, then apply the one-time preference');
+ assert.match(init,/catch\{\}renderAll\(\)/,
+   'initialization must retain the previous degraded-mode rendering flow');
+});
