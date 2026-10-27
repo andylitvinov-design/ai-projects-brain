@@ -229,3 +229,19 @@ The API route `api/telegram-deliver.js` enforces exact known origins, a constant
 - `node --test tools/ai-council-chat/tests/telegram-share.test.mjs tools/ai-council-chat/tests/telegram-deliver.test.mjs`
 - Mock-only PR CI proves code path and security checks, **not** real Telegram acceptance, iPhone Safari share UI, live provider calls, Vercel env setup or production delivery.
 - Follow normal branch/PR/review/merge + verified correct Vercel project, then one explicit owner test. No silent production deployment, account/billing or secret changes.
+
+## 2026-10-26: GLM 5.3 Flash Free and DeepSeek V4.1 Flash Free via OpenCode (manual bridge)
+
+OpenCode offers two free model identifiers: `opencode/glm-5.3-flash-free` and `opencode/deepseek-v4.1-flash-free`. The `-free` suffix matters. Its free inference is available **within OpenCode** and does not provide an unrestricted zero-cost API for third-party websites. The availability is temporary and may change. Official docs: https://opencode.ai/docs/models/ and https://opencode.ai/.
+
+**How the bridge works:**
+
+1. Type a public-only question in the AI Council composer and click **OpenCode Free · manual**. A browser-local discussion is created with no OpenRouter, Google, NVIDIA or OpenCode inference request.
+2. Expand the OpenCode manual section in the discussion. Choose GLM 5.3 Flash Free or DeepSeek V4.1 Flash Free, copy the evidence-aware prompt and run it in the OpenCode application with the matching model selected.
+3. Paste each **real** answer into its corresponding field and save. Responses are strictly marked `manual:opencode` and are **not** API-authenticated.
+4. After both independent responses are saved, copy the prepared synthesis prompt, ask the selected OpenCode model to compare them, and paste its real synthesis. Existing automatic synthesis is not silently recomputed.
+5. Existing Markdown export, Telegram report text and technical-specification source material include the manually imported and explicitly attributed answers.
+
+**Safety / deployment:** This code performs no OpenCode API calls and asks for no OpenCode key, never uses paid fallbacks, never accesses client records, and retains data in the browser's existing conversation storage. Never paste clients' health information, private messages, account/payment data, secrets or tokens into externally hosted models. A manual paste does not establish the model identity or prove site testing. The public `super10/ai-council-free` Vercel project is separate from the GitHub source; merging the PR alone is not proof that the site was redeployed.
+
+Offline CI: `node --check tools/ai-council-chat/opencode-manual.js` and `node --test tools/ai-council-chat/tests/opencode-manual.test.mjs`. User-side OpenCode account, 375px phone UI, real response imports and separate Vercel production deployment must be verified independently.
