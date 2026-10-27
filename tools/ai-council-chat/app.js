@@ -293,7 +293,6 @@ function chooseEngineeringModel(id){
     !freeModels.some(m=>m.id===id))return false;
  state.models[2]=id;persist();fillModelSelects();
  el('modelStatus').textContent=state.lang==='ru'?'DeepSeek назначен техническим экспертом':'DeepSeek selected as engineering reviewer';
- renderModelStatus();
  return true;
 }
 async function startOAuth(){setError('');if(!window.crypto||!crypto.subtle){setError('Secure HTTPS is required for login.');return;}
