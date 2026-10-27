@@ -12,6 +12,8 @@
   nvidia:{name:'DeepSeek V4.1 Flash (NVIDIA NIM trial)',id:'nvidia-direct/deepseek-v4.1-flash:trial',model:'deepseek-ai/deepseek-v4.1-flash',keyStore:'ai-council-nvidia-nim-key',confirm:'ai-council-nvidia-trial-confirmed',link:'https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/playground'}
  };
  const RELAY_STORE='ai-council-nvidia-relay-consent';
+ // One-time per-browser owner preference; later manual model changes are respected.
+ const ENGINEERING_PREFERENCE_STORE='ai-council-deepseek-engineering-preferred-v1';
  const state={gemini:{key:'',confirmed:false,status:''},mistral:{key:'',confirmed:false,status:''},nvidia:{key:'',confirmed:false,status:''}};
  let nvidiaRelayConsent=false;
  let setup,signal,settings;
@@ -78,14 +80,31 @@
     (settings?.lang?.()==='en'?'✓ NVIDIA DeepSeek trial key verified through consented AI Council relay.':'✓ NVIDIA DeepSeek подключён. Пробный ключ проверен через защищённый ретранслятор.'):
     (settings?.lang?.()==='en'?'Key verified. Free-tier billing must be managed in provider account.':'Ключ проверен. Бесплатность проекта нужно контролировать в кабинете провайдера.');
    await refresh();
+   // Connection required a genuine nonempty text response; apply owner's preferred
+   // technical reviewer without requiring another click or model API call.
+   if(p==='nvidia')preferDeepSeekEngineering(true);
   }catch(e){state[p].status='⚠ '+String(e?.message||e).slice(0,180);render();}
  }
  async function disconnect(p){
   state[p].key='';state[p].confirmed=false;state[p].status='';
   sessionStorage.removeItem(P[p].keyStore);localStorage.removeItem(P[p].keyStore);localStorage.removeItem(P[p].confirm);
   const freeBox=document.getElementById(p+'FreeConfirm');if(freeBox)freeBox.checked=false;
-  if(p==='nvidia'){nvidiaRelayConsent=false;localStorage.removeItem(RELAY_STORE);}
+  if(p==='nvidia'){nvidiaRelayConsent=false;localStorage.removeItem(RELAY_STORE);localStorage.removeItem(ENGINEERING_PREFERENCE_STORE);}
   await refresh();
+ }
+ function preferDeepSeekEngineering(verifiedNow=false){
+   if(!valid('nvidia'))return false;
+   try{if(localStorage.getItem(ENGINEERING_PREFERENCE_STORE)==='applied')return false;}catch{}
+   const chosen=setup?.chooseEngineeringModel?.(P.nvidia.id)===true;
+   if(!chosen)return false; // Catalog/provider not ready. Do not record an unsuccessful choice.
+   try{localStorage.setItem(ENGINEERING_PREFERENCE_STORE,'applied');}catch{}
+   state.nvidia.status=settings?.lang?.()==='en'?
+     (verifiedNow?'✓ DeepSeek verified and automatically assigned engineering reviewer #3.':
+       '✓ DeepSeek set as engineering reviewer #3 from saved consent. NVIDIA access not rechecked this visit.'):
+     (verifiedNow?'✓ DeepSeek проверен и автоматически назначен техническим экспертом №3.':
+       '✓ DeepSeek назначен техническим экспертом №3 по сохранённому согласию. Доступ NVIDIA сейчас не перепроверялся.');
+   render();
+   return true;
  }
  function syncRemember(remember){for(const p of Object.keys(P)){if(!remember)localStorage.removeItem(P[p].keyStore);else if(valid(p))localStorage.setItem(P[p].keyStore,state[p].key);}}
  function init(config){setup=config;settings=config;signal=config.error||(()=>{});read();
@@ -104,6 +123,7 @@
   if(useTechnical)useTechnical.onclick=()=>{
     if(!valid('nvidia'))return;
     const selected=setup?.chooseEngineeringModel?.(P.nvidia.id)===true;
+    if(selected)try{localStorage.setItem(ENGINEERING_PREFERENCE_STORE,'applied');}catch{}
     state.nvidia.status=selected?
       (settings?.lang?.()==='en'?'✓ DeepSeek is now engineering reviewer #3. No request sent.':'✓ DeepSeek назначен экспертом №3 по технике. Запрос не отправлялся.'):
       (settings?.lang?.()==='en'?'DeepSeek not selectable. Check current model catalog.':'DeepSeek не удалось выбрать. Проверь список моделей.');
@@ -180,5 +200,5 @@
    return answer;
   }finally{clearTimeout(tid);}
  }
- g.AICouncilExternalProviders={init,models,call,syncRemember,valid,ids:Object.values(P).map(x=>x.id)};
+ g.AICouncilExternalProviders={init,models,call,syncRemember,valid,preferDeepSeekEngineering,ids:Object.values(P).map(x=>x.id)};
 })(globalThis);
