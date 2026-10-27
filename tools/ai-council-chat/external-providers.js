@@ -27,7 +27,7 @@
   // Do not erase a freshly checked free-tier consent box when showing an error.
   if(checkbox && state[p].confirmed)checkbox.checked=true;
   if(disconnect)disconnect.disabled=!state[p].key;
-  if(d){d.textContent=state[p].key?(state[p].status||(settings?.lang?.()==='en'?'Connected (only usable if free-tier checkbox is confirmed)':'Ключ подключён; для использования подтвердите бесплатный тариф')):(settings?.lang?.()==='en'?'Not connected':'Не подключён');}
+  if(d){d.textContent=state[p].status||(state[p].key?(settings?.lang?.()==='en'?'Connected (only usable if free-tier checkbox is confirmed)':'Ключ подключён; для использования подтвердите бесплатный тариф'):(settings?.lang?.()==='en'?'Not connected':'Не подключён'));}
  }}
  async function refresh(){render();try{await setup?.refresh?.();}catch{}}
  async function verifyGemini(raw){const ctl=new AbortController(),tid=setTimeout(()=>ctl.abort(),18000);try{
