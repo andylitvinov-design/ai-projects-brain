@@ -31,7 +31,7 @@
  }
  function synthesis(round){
   const record=round?.openCodeSynthesis;
-  if(!record||!valid(record.model)||typeof record.text!=='string'||!record.text.trim())return null;
+  if(entries(round).length<2||!record||!valid(record.model)||typeof record.text!=='string'||!record.text.trim())return null;
   return {model:record.model,text:record.text.trim().slice(0,MAX_REPLY),source:'manual:opencode'};
  }
  function makePrompt(round,modelId,kind='review'){
@@ -102,18 +102,19 @@
    const text=input.value.trim();if(!text){status.textContent=t.missing;return;}
    if(!round.openCodeManual||typeof round.openCodeManual!=='object'||Array.isArray(round.openCodeManual))round.openCodeManual={};
    round.openCodeManual[select.value]={text:text.slice(0,MAX_REPLY),source:'manual:opencode',savedAt:new Date().toISOString()};
+   delete round.openCodeSynthesis; // Never keep a stale comparison after either source changes.
    options.save?.();options.rerender?.();
   }));
   if(entries(round).some(x=>x.model===select.value)){
    controls.append(button(t.clear,()=>{
-    delete round.openCodeManual[select.value];options.save?.();options.rerender?.();
+    delete round.openCodeManual[select.value];delete round.openCodeSynthesis;options.save?.();options.rerender?.();
    }));
   }
   panel.append(controls,status);
   entries(round).forEach(r=>{
    const card=element('div','muse-manual-saved');
    card.append(element('strong','',r.name+' · '+t.saved),element('div','muse-manual-text',r.text));
-   card.append(button(t.clear,()=>{delete round.openCodeManual[r.model];options.save?.();options.rerender?.();}));
+   card.append(button(t.clear,()=>{delete round.openCodeManual[r.model];delete round.openCodeSynthesis;options.save?.();options.rerender?.();}));
    panel.append(card);
   });
   if(entries(round).length>=2){
