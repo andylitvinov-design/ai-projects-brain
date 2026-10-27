@@ -40,9 +40,9 @@
   <div id="siteAuditStatus" class="audit-status" aria-live="polite"><span data-i18n="auditLimit">Начинаем с открытых страниц Holistic House. Закрытые кабинеты и формы не проверяются.</span></div>
  </section>
  <div class="examples" id="examples">
-     <button class="example" data-prompt="Какие 5 улучшений сделают https://holistichouse.vercel.app более понятным новым посетителям? Не утверждайте, что открывали сайт, если нет содержимого страницы. Предложите проверяемые гипотезы."><span class="example-number">01</span><span data-i18n="example1">Как улучшить Holistic House?</span><span class="example-arrow">↗</span></button>
-     <button class="example" data-prompt="Сравните два подхода к монетизации маркетплейса услуг: комиссия с заказов 20% и подписка для мастеров. Сделайте рекомендации для небольшого проекта."><span class="example-number">02</span><span data-i18n="example2">Сравнить бизнес-идеи</span><span class="example-arrow">↗</span></button>
-     <button class="example" data-prompt="Предложите компактный мобильный дизайн экрана результатов психологического теста: шкалы, краткая оценка, кнопка получить рекомендации через кабинет. Составьте критерии приёмки."><span class="example-number">03</span><span data-i18n="example3">Оценить мобильный UX</span><span class="example-arrow">↗</span></button>
+     <button class="example" data-quick-id="home" data-prompt="Какие 5 улучшений сделают https://holistichouse.vercel.app более понятным новым посетителям? Не утверждайте, что открывали сайт, если нет содержимого страницы. Предложите проверяемые гипотезы."><span class="example-number">01</span><span data-i18n="example1">Как улучшить Holistic House?</span><span class="example-arrow">↗</span></button>
+     <button class="example" data-quick-id="business" data-prompt="Сравните два подхода к монетизации маркетплейса услуг: комиссия с заказов 20% и подписка для мастеров. Сделайте рекомендации для небольшого проекта."><span class="example-number">02</span><span data-i18n="example2">Сравнить бизнес-идеи</span><span class="example-arrow">↗</span></button>
+     <button class="example" data-quick-id="mobile" data-prompt="Предложите компактный мобильный дизайн экрана результатов психологического теста: шкалы, краткая оценка, кнопка получить рекомендации через кабинет. Составьте критерии приёмки."><span class="example-number">03</span><span data-i18n="example3">Оценить мобильный UX</span><span class="example-arrow">↗</span></button>
     </div>
     <div id="connectBanner" class="connect-banner"><div class="connect-symbol">⌁</div><div class="connect-copy"><b data-i18n="startFree">Начните бесплатно</b><small data-i18n="startDesc">Подключите OpenRouter — без оплаты и подписок. Ваш ключ не сохраняется на сервере.</small></div><button class="primary-button connect-btn" id="connectBannerButton" data-i18n="connect">Подключить</button></div>
   </section>
@@ -50,7 +50,46 @@
   <div id="globalError" class="global-error hidden" role="alert"></div>
   </div>
  </div>
- <footer class="composer-area"><div id="quotaFooterBanner" class="quota-footer-banner hidden" role="status"></div><div class="composer-wrap"><div id="statusLine" class="status-line"><span class="free-dot"></span><span id="statusText">3 эксперта + 1 агрегатор · 4 бесплатных запроса</span><span id="usageCount" class="usage"></span></div><div class="composer"><textarea id="question" rows="2" maxlength="12000" placeholder="Задайте вопрос совету ИИ…"></textarea><button id="sendButton" class="send-button" aria-label="Отправить"><span>➤</span></button></div><div class="opencode-entry"><button id="openCodeStart" type="button" class="outline-button">OpenCode Free · вручную</button><small>GLM 5.3 / DeepSeek V4.1 · $0 в OpenCode</small></div><div class="composer-tip"><span data-i18n="tip">Enter — отправить · Shift+Enter — новая строка</span><span data-i18n="disclaimer">Не отправляйте приватные данные клиентов</span></div></div></footer>
+ <footer class="composer-area">
+  <div id="quotaFooterBanner" class="quota-footer-banner hidden" role="status"></div>
+  <div class="composer-wrap">
+    <details id="modelStatusPanel" class="model-status-panel">
+      <summary class="model-status-summary">
+        <span class="model-status-heading"><span class="model-status-dot" aria-hidden="true"></span><strong id="modelStatusHeadline">Модели · проверяем доступность</strong></span>
+        <span class="model-status-toggle" id="modelStatusToggle">Состав ▾</span>
+        <span id="modelMiniRoles" class="model-mini-roles" aria-label="Статусы выбранных моделей"></span>
+      </summary>
+      <div id="modelStatusGrid" class="model-status-grid" role="list" aria-live="polite"></div>
+      <div class="model-status-foot">
+        <div id="statusLine" class="status-line"><span id="statusText">До 4 запросов · без платного автоперехода</span><span id="usageCount" class="usage"></span></div>
+        <p id="modelStatusDisclaimer" class="model-disclaimer">«Ключ сохранён» не означает, что модель ответит. Ответ подтверждается только завершённым запросом.</p>
+        <button id="modelStatusSettings" class="model-status-settings" type="button">Изменить модели</button>
+      </div>
+    </details>
+    <div class="quick-prompts" role="group" aria-label="Быстрые запросы к совету ИИ">
+      <span id="quickPromptsTitle" class="quick-prompts-title">Запустить одним нажатием</span>
+      <div class="quick-prompts-scroll" id="quickPrompts">
+        <button type="button" class="quick-prompt" data-quick-id="home">5 улучшений</button>
+        <button type="button" class="quick-prompt" data-quick-id="first">Первый экран</button>
+        <button type="button" class="quick-prompt" data-quick-id="booking">Запись</button>
+        <button type="button" class="quick-prompt" data-quick-id="mobile">Мобильный UX</button>
+        <button type="button" class="quick-prompt" data-quick-id="spec">ТЗ для Codex</button>
+      </div>
+    </div>
+    <div class="composer">
+      <textarea id="question" rows="2" maxlength="12000" placeholder="Задайте вопрос совету ИИ…"></textarea>
+      <button id="sendButton" class="send-button" aria-label="Отправить"><span>➤</span></button>
+    </div>
+    <div class="opencode-entry">
+      <button id="openCodeStart" type="button" class="manual-mode-button">OpenCode · ручной режим</button>
+      <small id="manualModeHint">Без автоматической отправки · GLM / DeepSeek</small>
+    </div>
+    <div class="composer-tip">
+      <span data-i18n="tip">Enter — отправить · Shift+Enter — новая строка</span>
+      <span data-i18n="disclaimer">Не отправляйте приватные данные клиентов</span>
+    </div>
+  </div>
+</footer>
 </main>
 </div>
 <dialog id="settingsDialog" class="settings-dialog"><div class="dialog-head"><div><div class="eyebrow">HOLISTIC HOUSE · AI COUNCIL</div><h2 data-i18n="dialogTitle">Подключение и модели</h2></div><button id="closeSettings" class="icon-button" aria-label="Закрыть">✕</button></div><p data-i18n="dialogDesc">Подключите бесплатный OpenRouter. Для сравнения используются только модели с ценой $0 за запрос.</p>
