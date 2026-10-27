@@ -37,13 +37,22 @@
   const connectButton=document.getElementById('nvidiaDirectConnect'),disconnectNvidia=document.getElementById('nvidiaDirectDisconnect');
   if(connectButton){connectButton.hidden=connectedNvidia;connectButton.disabled=nvidiaConnectBusy;connectButton.textContent=
     settings?.lang?.()==='en'?'Connect and verify DeepSeek':'Подключить и проверить DeepSeek';}
-  if(disconnectNvidia)disconnectNvidia.hidden=!connectedNvidia;
+  if(disconnectNvidia)disconnectNvidia.hidden=!state.nvidia.key; // Allow deletion even after relay consent is revoked.
  for(const p of Object.keys(P)){const d=document.getElementById(p+'DirectStatus'),checkbox=document.getElementById(p+'FreeConfirm'),disconnect=document.getElementById(p+'DirectDisconnect');
   // Do not erase a freshly checked free-tier consent box when showing an error.
   if(checkbox && state[p].confirmed)checkbox.checked=true;
   if(disconnect)disconnect.disabled=!state[p].key;
-  if(d){d.textContent=state[p].status||(state[p].key?(settings?.lang?.()==='en'?'Connected (only usable if free-tier checkbox is confirmed)':'Ключ подключён; для использования подтвердите бесплатный тариф'):(settings?.lang?.()==='en'?'Not connected':'Не подключён'));
-    if(p==='nvidia')d.dataset.state=String(d.textContent).startsWith('⚠')?'error':String(d.textContent).startsWith('✓')?'success':'idle';}
+  if(d){
+    const fallback=valid(p)?
+      (settings?.lang?.()==='en'?'✓ Key saved; current provider response not rechecked.':'✓ Ключ сохранён; текущий ответ модели не проверялся.'):
+      state[p].key?
+        (p==='nvidia'&&!nvidiaRelayConsent?
+          (settings?.lang?.()==='en'?'Relay consent is off. DeepSeek calls are disabled.':'Согласие на передачу ключа выключено. DeepSeek не используется.'):
+          (settings?.lang?.()==='en'?'Key saved; confirm the free tier.':'Ключ сохранён; подтвердите бесплатный тариф.')):
+        (settings?.lang?.()==='en'?'Not connected':'Не подключён');
+    d.textContent=state[p].status||fallback;
+    if(p==='nvidia')d.dataset.state=String(d.textContent).startsWith('⚠')?'error':String(d.textContent).startsWith('✓')?'success':'idle';
+  }
  }}
  async function refresh(){render();try{await setup?.refresh?.();}catch{}}
  async function verifyGemini(raw){const ctl=new AbortController(),tid=setTimeout(()=>ctl.abort(),18000);try{
