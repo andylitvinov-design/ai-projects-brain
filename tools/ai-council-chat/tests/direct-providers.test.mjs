@@ -11,6 +11,7 @@ function harness(options={}){
    els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null});
  }
  els.set('nvidiaProxyConsent',{checked:false,onchange:null});
+ els.set('nvidiaUseTechnical',{disabled:true,textContent:'',onclick:null});
  els.set('geminiQuickCheck',{disabled:false,onclick:null});
  const document={getElementById:x=>els.get(x)};
  const fetch=async(url,opts)=>{
@@ -19,6 +20,7 @@ function harness(options={}){
   if(url.endsWith('/models'))return {ok:true,json:async()=>({data:[{id:'mistral-small-2603'}]})};
   if(options.geminiNetworkFail&&url.includes('generateContent'))throw Error('Load failed');
   if(url.includes('generateContent'))return {ok:true,json:async()=>({candidates:[{content:{parts:[{text:'Gemini analysis: concrete findings and acceptance tests'}]}}]})};
+  if(options.nvidiaEmpty&&url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:''},finish_reason:'length'}]})};
   if(url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:'NVIDIA DeepSeek: precise technical review'}}]})};
   if(options.mistralRateLimit&&url==='https://api.mistral.ai/v1/chat/completions')
     return {ok:false,status:429,json:async()=>({message:'Rate limit exceeded'})};
@@ -28,9 +30,9 @@ function harness(options={}){
  const globalThis={};
  const factory=new Function('globalThis','document','localStorage','sessionStorage','fetch','AbortController','setTimeout','clearTimeout',moduleText+';return globalThis.AICouncilExternalProviders;');
  const api=factory(globalThis,document,localStorage,sessionStorage,fetch,AbortController,setTimeout,clearTimeout);
- let refreshed=0;let errors=[];
- api.init({getRemember:()=>true,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=> 'ru'});
- return {api,sessionStorage,localStorage,els,requests,get refreshed(){return refreshed},errors};
+ let refreshed=0;let errors=[];const chosen=[];
+ api.init({getRemember:()=>true,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=> 'ru',chooseEngineeringModel:id=>{chosen.push(id);return true}});
+ return {api,sessionStorage,localStorage,els,requests,get refreshed(){return refreshed},errors,chosen};
 }
 test('only explicitly connected and free-tier-confirmed provider models appear',async()=>{
  const h=harness();
@@ -78,6 +80,10 @@ test('NVIDIA DeepSeek is gated by free-trial AND proxy transit consent; requests
  await h.els.get('nvidiaDirectConnect').onclick();
  assert.equal(h.api.models().length,1);
  assert.equal(h.api.models()[0].id,'nvidia-direct/deepseek-v4.1-flash:trial');
+ assert.equal(h.els.get('nvidiaUseTechnical').disabled,false,'explicit assign action enabled after verification');
+ await h.els.get('nvidiaUseTechnical').onclick();
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial']);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/экспертом №3/);
  assert.ok(h.requests.some(r=>r.url==='./api/nvidia-chat'));
  const a=h.requests[0];
  const body=JSON.parse(a.opts.body);
@@ -99,6 +105,20 @@ test('NVIDIA DeepSeek is gated by free-trial AND proxy transit consent; requests
  assert.equal(h.localStorage.getItem('ai-council-nvidia-relay-consent'),null);
 });
 
+test('NVIDIA cannot be marked connected when the provider returns no real text',async()=>{
+ const h=harness({nvidiaEmpty:true});
+ assert.equal(h.els.get('nvidiaUseTechnical').disabled,true,'cannot assign before connecting');
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;
+ h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.api.models().length,0,'no connected model after empty provider completion');
+ assert.equal(h.els.get('nvidiaUseTechnical').disabled,true);
+ assert.deepEqual(h.chosen,[],'no silent model selection');
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/реальный текстовый ответ/);
+ assert.equal(h.localStorage.getItem('ai-council-nvidia-nim-key'),null);
+});
 test('direct Mistral 429 enters local cooldown rather than burning more API requests',async()=>{
  const h=harness({mistralRateLimit:true});
  h.els.get('mistralDirectKey').value='mistral-free-key';
