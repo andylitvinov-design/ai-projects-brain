@@ -76,7 +76,7 @@ function updateUsage(){
 function setError(s){el('globalError').textContent=s;hide(el('globalError'),!s);}
 // "Saved key" is not proof of a current successful inference.
 function modelStatusSnapshot(input){
- const {modelId,index,round,listed,registryLoaded,connected,hasOpenRouterKey,openRouterVerified,openRouterChecking,busy,lang}=input;
+ const {modelId,index,round,listed,registryLoaded,connected,hasOpenRouterKey,openRouterVerified,openRouterChecking,busy,lang,probe}=input;
  const ru=lang!=='en',say=(a,b)=>ru?a:b;
  const done=(tone,label,mini)=>({tone,label,mini});
  if(!modelId)return done('needs',say('Не выбрана','Not selected'),'×');
@@ -87,6 +87,12 @@ function modelStatusSnapshot(input){
  if(!direct&&!hasOpenRouterKey)return done('needs',say('Нет ключа OpenRouter','No OpenRouter key'),'×');
  if(!direct&&openRouterChecking)return done('pending',say('Проверяем ключ','Checking key'),'…');
  if(!direct&&!openRouterVerified)return done('needs',say('Ключ не подтверждён','Key not verified'),'×');
+ if(probe?.at&&(!round?.created||probe.at>=round.created)){
+  if(probe.ok)return done('ok',say('Пробный ответ DeepSeek получен','DeepSeek probe replied'),'✓');
+  if(/(\b429\b|rate limit|quota exceeded)/i.test(String(probe.error||'')))
+   return done('rate',say('Пробный лимит 429','Trial quota 429'),'429');
+  return done('error',say('Проверка NVIDIA не прошла','NVIDIA check failed'),'!');
+ }
  const reply=index===3?
    (round?.synthesisModel===modelId?{model:modelId,status:round.synthesisStatus,error:round.synthesisError||'',text:round.synthesis||''}:null):
    (round?.answers?.[index]?.model===modelId?round.answers[index]:null);
@@ -110,7 +116,8 @@ function renderModelStatus(){
  const statuses=state.models.slice(0,4).map((id,i)=>modelStatusSnapshot({
    modelId:id,index:i,round,listed:freeModels.some(m=>m.id===id),registryLoaded:freeModels.length>0,
    connected:external.has(id),hasOpenRouterKey:!!key,openRouterVerified:connectionStatus==='valid',
-   openRouterChecking:connectionStatus==='checking',busy,lang:state.lang
+   openRouterChecking:connectionStatus==='checking',busy,lang:state.lang,
+   probe:id.startsWith('nvidia-direct/')?globalThis.AICouncilExternalProviders?.probeStatus?.('nvidia'):null
  }));
  const available=statuses.filter(x=>x.tone==='ok'||x.tone==='connected').length;
  const errors=statuses.filter(x=>x.tone==='rate'||x.tone==='error').length;
@@ -128,9 +135,16 @@ function renderModelStatus(){
   detail.append(node('span','model-status-role',names[i]));
   const name=node('strong','model-status-name',full);name.title=full;detail.append(name);
   const label=node('span','model-state',info.label);label.dataset.tone=info.tone;
-  const action=node('button','',ru?'Сменить':'Change');action.type='button';
-  action.setAttribute('aria-label',(ru?'Настроить модель: ':'Change model: ')+names[i]);
-  action.onclick=openSettings;
+  const canProbe=id.startsWith('nvidia-direct/')&&external.has(id);
+  const action=node('button','',canProbe?(ru?'Проверить · 1 запрос':'Test · 1 call'):(ru?'Сменить':'Change'));action.type='button';
+  action.setAttribute('aria-label',canProbe?(ru?'Проверить реальный ответ DeepSeek через NVIDIA, один запрос':'Test a real DeepSeek reply through NVIDIA, one call'):(ru?'Настроить модель: ':'Change model: ')+names[i]);
+  action.onclick=canProbe?async()=>{
+    if(action.disabled)return;
+    action.disabled=true;action.textContent=ru?'Проверяю…':'Checking…';
+    try{await globalThis.AICouncilExternalProviders?.probeNvidia?.();}
+    catch(e){setError((ru?'Проверка DeepSeek: ':'DeepSeek test: ')+String(e?.message||e).slice(0,170));}
+    finally{renderModelStatus();}
+  }:openSettings;
   row.append(detail,label,action);grid.append(row);
  });
 }
@@ -337,6 +351,6 @@ function startOpenCodeOnly(){
 }
 function bind(){el('newThread').onclick=()=>{if(busy)return;state.active=null;persist();renderAll();el('question').value='';closeSidebar();};el('menuButton').onclick=openSidebar;el('closeSidebar').onclick=closeSidebar;el('overlay').onclick=closeSidebar;['settingsButton','topSettings','connectBannerButton'].forEach(id=>el(id).onclick=openSettings);el('closeSettings').onclick=closeSettings;el('doneSettings').onclick=closeSettings;el('oauthButton').onclick=()=>startOAuth().catch(e=>setError(e.message));el('saveKey').onclick=()=>readInputKey().catch(e=>setError(e.message));el('verifyConnection').onclick=()=>verifyConnection();el('rememberDevice').onchange=e=>setRemember(e.target.checked);el('recommendedModels').onclick=applyRecommended;el('apiKey').addEventListener('keydown',e=>{if(e.key==='Enter')readInputKey();});el('disconnect').onclick=()=>{key='';connectionStatus='unverified';connectionMessage='';sessionStorage.removeItem(KEY_STORE);try{localStorage.removeItem(PERSIST_KEY);}catch{}renderAll();};el('langButton').onclick=()=>{state.lang=state.lang==='ru'?'en':'ru';persist();renderAll();};for(let i=0;i<4;i++)el('model'+i).onchange=e=>{state.models[i]=e.target.value;persist();renderModelStatus();};el('sendButton').onclick=ask;el('openCodeStart').onclick=startOpenCodeOnly;el('modelStatusSettings').onclick=openSettings;el('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});el('question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,180)+'px';});document.querySelectorAll('[data-quick-id]').forEach(b=>{b.onclick=()=>runQuickPrompt(b.dataset.quickId);});el('settingsDialog').addEventListener('click',e=>{if(e.target===el('settingsDialog'))closeSettings();});}
 async function init(){bind();
- globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang,chooseEngineeringModel});
+ globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang,chooseEngineeringModel,onProbe:renderModelStatus});
  persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();globalThis.AICouncilExternalProviders?.preferDeepSeekEngineering?.();}catch{}renderAll();if(!key&&new URLSearchParams(location.search).get('connect')==='1')openSettings();}
 init();
