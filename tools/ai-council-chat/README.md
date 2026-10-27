@@ -255,3 +255,10 @@ The existing NVIDIA NIM deepseek-ai/deepseek-v4.1-flash free-trial BYOK route re
 - Empty NVIDIA completions are now errors rather than success-looking placeholder answers; trial entitlement is never claimed without a real text response. HTTP 429/402 and revoked transit consent still fail closed.
 - Regression coverage: no OpenRouter catalog + verified external models, reject paid pseudo-free catalog entries, explicit click model selection, no-text probe and relay responses, unchanged key consent/cooldown boundaries.
 - Live NVIDIA entitlement and actual multi-model iPhone round still require the owner's optional trial key in the personal browser. Do not place the key in GitHub, ChatGPT, or Vercel environment variables.
+
+## 2026-10-27: owner-requested one-time automatic DeepSeek technical reviewer
+
+After the owner's explicit request, **DeepSeek V4.1 Flash through existing opt-in NVIDIA NIM BYOK** is automatically selected as the third/technical expert in AI Council Chat **when the browser already holds a prior verified NVIDIA key, free-trial confirmation and relay consent**, or immediately after the user connects with a real, nonempty provider response. No new server secret, payments, automatic provider call, or permission change is introduced.
+
+The preference is saved once in that browser (`ai-council-deepseek-engineering-preferred-v1`), leaving the other two experts and synthesis selection unchanged. Later manual reviewer changes are preserved; disconnecting NVIDIA clears the one-time marker. If the user only generated a key at NVIDIA but never connected it in this exact browser, it cannot be loaded by the server and no model is falsely marked connected. Reopening the same browser with previously stored credentials applies the preference without another click, **but does not revalidate a possibly expired NVIDIA key**. Real live text response and full independent council round still need acceptance on the account holding the key. Never paste the key into GitHub issues or chat.
+
