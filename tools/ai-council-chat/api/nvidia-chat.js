@@ -47,7 +47,7 @@ export async function POST(req){
   const data=await r.json().catch(()=>({}));
   const val=data.choices?.[0]?.message;
   const text=typeof val?.content==='string'?val.content:Array.isArray(val?.content)?val.content.filter(p=>p.type==='text').map(p=>p.text||'').join('\n'):'';
-  if(!text.trim()&&!data.choices?.length)return reply({error:'NVIDIA returned empty completion',finish_reason:data.choices?.[0]?.finish_reason||null},502);
-  return reply({ok:true,model:MODEL,choices:[{message:{role:'assistant',content:text||'(No textual answer returned)'},finish_reason:data.choices?.[0]?.finish_reason||null}]});
+  if(!text.trim())return reply({error:'NVIDIA returned no textual completion',finish_reason:data.choices?.[0]?.finish_reason||null},502);
+  return reply({ok:true,model:MODEL,choices:[{message:{role:'assistant',content:text},finish_reason:data.choices?.[0]?.finish_reason||null}]});
  }finally{clearTimeout(tid);}
 }
