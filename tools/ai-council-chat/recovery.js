@@ -78,9 +78,10 @@
  function render(){
   const r=currentFailure(),wrap=el('messages'),footer=el('quotaFooterBanner');
   const kind=r?sourceForRound(r):null;
-  if(footer){footer.replaceChildren();footer.classList.toggle('hidden',!r);}
+  // Direct provider limits are shown on the selected-model status strip; no duplicate sticky alert.
+  if(footer){footer.replaceChildren();footer.classList.toggle('hidden',!r||kind!=='openrouter');}
   if(!r||!wrap)return;
-  if(footer){
+  if(footer&&kind==='openrouter'){
    const info=document.createElement('span');info.textContent=kind==='openrouter'?
      (state.lang==='ru'?'OpenRouter 429: лимит бесплатных запросов':'OpenRouter 429: free tier limit'):
      providerText(kind,'title');

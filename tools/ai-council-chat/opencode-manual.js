@@ -12,14 +12,14 @@
  const valid=id=>MODELS.some(m=>m.id===id);
  const locale=options=>options.lang==='en'?'en':'ru';
  const language={ru:{
-  title:'OpenCode Free · GLM и DeepSeek (вручную)',
-  note:'Бесплатные модели работают внутри приложения OpenCode, не через API AI Council. Скопируйте задание, выберите модель Free в OpenCode и вставьте реальный ответ сюда. Запросов с сайта нет.',
-  privacy:'Только публичные данные. Не копируйте материалы клиентов, сведения о здоровье, переписки, токены или секреты. Бесплатный доступ временный.',
+  title:'OpenCode · ручной режим, не API',
+  note:'Скопируйте задание → получите ответ модели Free в OpenCode → вставьте ответ сюда. Автоматического запроса нет.',
+  privacy:'Только публичные данные. Не вставляйте сведения клиентов, здоровье, токены и секреты.',
   model:'Выберите модель OpenCode',task:'Задание для OpenCode',copy:'Скопировать задание',reply:'Реальный ответ выбранной модели',save:'Сохранить ответ',clear:'Удалить ответ',saved:'Вручную вставлено · источник не проверен через API',needed:'Для общего вывода импортируйте ответы обеих моделей.',aggregate:'Общий вывод через OpenCode',aggregateCopy:'Скопировать задание для сводки',aggregateReply:'Вставьте реальную сводку из OpenCode',aggregateSave:'Сохранить ручную сводку',aggregateSaved:'Ручная сводка · не автоматический ответ AI Council',copied:'Задание скопировано',fallback:'Выделен текст: скопируйте его вручную',missing:'Вставьте реальный ответ перед сохранением',noProof:'Импорт не подтверждает личность модели, качество вывода или проверку сайта. Существующая автоматическая сводка не пересчитывается.'},
  en:{
-  title:'OpenCode Free · GLM and DeepSeek (manual)',
-  note:'These free models run inside OpenCode, not via the AI Council API. Copy the prompt, select the Free model in OpenCode, then paste its real response here. This site makes no OpenCode requests.',
-  privacy:'Public material only. Do not paste client records, health information, messages, tokens or secrets. Free access is temporary.',
+  title:'OpenCode · manual, not API',
+  note:'Copy prompt → get a Free model reply in OpenCode → paste it here. No automatic provider request.',
+  privacy:'Public information only. Never paste client or health records, keys or secrets.',
   model:'Choose OpenCode model',task:'Prompt for OpenCode',copy:'Copy prompt',reply:'Real response from selected model',save:'Save response',clear:'Remove response',saved:'Manually pasted · provider identity not API-verified',needed:'Import both models to prepare a combined OpenCode review.',aggregate:'Combine in OpenCode',aggregateCopy:'Copy synthesis prompt',aggregateReply:'Paste actual OpenCode synthesis',aggregateSave:'Save manual synthesis',aggregateSaved:'Manual synthesis · not an automatic AI Council response',copied:'Prompt copied',fallback:'Text selected: copy it manually',missing:'Paste an actual response before saving',noProof:'Manual import does not establish model identity, quality, or site verification. Previous automatic synthesis is not recalculated.'}
  };
  function entries(round){
