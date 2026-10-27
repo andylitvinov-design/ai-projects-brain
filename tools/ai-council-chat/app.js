@@ -103,20 +103,32 @@ async function verifyConnection(){
 }
 async function loadModels(force=false){if(!force&&freeModels.length&&Date.now()-modelLoadedAt<15*60*1000)return freeModels;
  el('modelStatus').textContent=t('checking');
+ // Connected, explicitly free-tier-confirmed provider models remain usable even if
+ // the unrelated OpenRouter free-model catalog is down or rate limited.
+ const direct=globalThis.AICouncilExternalProviders?.models()||[];
+ let catalog=[],catalogError='';
  try{
-  const c=new AbortController(),tid=setTimeout(()=>c.abort(),20000);let response;
+  const c=new AbortController(),tid=setTimeout(()=>c.abort(),direct.length?6500:20000);let response;
   try{response=await fetch(API+'/models',{signal:c.signal,cache:'no-store'});}finally{clearTimeout(tid);}
-  if(!response.ok)throw new Error('HTTP '+response.status);const data=await response.json();
-  const found=(data.data||[]).filter(x=>x&&typeof x.id==='string'&&x.id.endsWith(':free')&&x.pricing&&x.pricing.prompt!==null&&x.pricing.prompt!==undefined&&x.pricing.completion!==null&&x.pricing.completion!==undefined&&Number(x.pricing.prompt)===0&&Number(x.pricing.completion)===0);
-  if(!found.length)throw new Error(t('noModels'));
-  freeModels=[...found.sort((a,b)=>(a.name||a.id).localeCompare(b.name||b.id)),...(globalThis.AICouncilExternalProviders?.models()||[])];modelLoadedAt=Date.now();
-  // Preserve explicit model choices even when provider lists change.
-  // Replacing an unavailable model without consent would silently alter the panel.
-  persist();fillModelSelects();
-  const missing=state.models.some(id=>!freeModels.some(m=>m.id===id));
-  el('modelStatus').textContent=t('ready')+freeModels.length+(missing?'\n⚠ '+t('unavailableModel'):'');
-  return freeModels;
- }catch(err){freeModels=[];el('modelStatus').textContent=t('noModels')+' '+(err.message||'');throw err;}
+  if(!response.ok)throw new Error('HTTP '+response.status);
+  const data=await response.json();
+  catalog=(data.data||[]).filter(x=>x&&typeof x.id==='string'&&x.id.endsWith(':free')&&x.pricing&&x.pricing.prompt!==null&&x.pricing.prompt!==undefined&&x.pricing.completion!==null&&x.pricing.completion!==undefined&&Number(x.pricing.prompt)===0&&Number(x.pricing.completion)===0);
+  catalog.sort((a,b)=>(a.name||a.id).localeCompare(b.name||b.id));
+  if(!catalog.length)catalogError=t('noModels');
+ }catch(err){catalogError=String(err?.message||err);}
+ freeModels=[...catalog,...direct];
+ if(!freeModels.length){
+  el('modelStatus').textContent=t('noModels')+' '+catalogError;
+  throw new Error(t('noModels')+' '+catalogError);
+ }
+ modelLoadedAt=Date.now();
+ // Never replace manually selected models without the owner's action.
+ persist();fillModelSelects();
+ const missing=state.models.some(id=>!freeModels.some(m=>m.id===id));
+ el('modelStatus').textContent=t('ready')+freeModels.length+
+   (catalogError?'\n⚠ OpenRouter: '+catalogError+(state.lang==='ru'?' · прямые подключения доступны':' · direct providers available'):'')+
+   (missing?'\n⚠ '+t('unavailableModel'):'');
+ return freeModels;
 }
 function fillModelSelects(){for(let i=0;i<4;i++){const select=el('model'+i);select.replaceChildren();freeModels.forEach(m=>{const opt=node('option','',(m.name||m.id)+' · '+m.id);opt.value=m.id;select.append(opt);});
  if(state.models[i]&&!freeModels.some(m=>m.id===state.models[i])){const stale=node('option','', '⚠ '+state.models[i]+' ('+(state.lang==='ru'?'недоступна':'unavailable')+')');stale.value=state.models[i];stale.disabled=true;select.prepend(stale);}
@@ -126,6 +138,15 @@ function applyRecommended(){if(!freeModels.length){el('modelStatus').textContent
   const vendors=[['nvidia','google'],['google','nvidia','dots-studio'],['poolside','cohere','google'],['nvidia','google','cohere']][i];
   return vendors.flatMap(v=>freeModels.filter(m=>m.id.startsWith(v+'/')&&m.architecture?.output_modalities?.includes('text')))[0]?.id||freeModels.find(m=>m.architecture?.output_modalities?.includes('text'))?.id||freeModels[0].id;});
  state.models=next;persist();fillModelSelects();el('modelStatus').textContent=t('recommendedApplied');}
+function chooseEngineeringModel(id){
+ // No silent roster change: only an explicit UI click after a verified NVIDIA connection.
+ if(id!=='nvidia-direct/deepseek-v4.1-flash:trial'||
+    !globalThis.AICouncilExternalProviders?.valid('nvidia')||
+    !freeModels.some(m=>m.id===id))return false;
+ state.models[2]=id;persist();fillModelSelects();
+ el('modelStatus').textContent=state.lang==='ru'?'DeepSeek назначен техническим экспертом':'DeepSeek selected as engineering reviewer';
+ return true;
+}
 async function startOAuth(){setError('');if(!window.crypto||!crypto.subtle){setError('Secure HTTPS is required for login.');return;}
  const bytes=new Uint8Array(48);crypto.getRandomValues(bytes);const verifier=Array.from(bytes,b=>String.fromCharCode(b)).join('');const base64=val=>btoa(val).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');const v=base64(verifier);
  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v));const challenge=base64(String.fromCharCode(...new Uint8Array(digest)));sessionStorage.setItem(VERIFIER,v);
@@ -202,6 +223,6 @@ function startOpenCodeOnly(){
 }
 function bind(){el('newThread').onclick=()=>{if(busy)return;state.active=null;persist();renderAll();el('question').value='';closeSidebar();};el('menuButton').onclick=openSidebar;el('closeSidebar').onclick=closeSidebar;el('overlay').onclick=closeSidebar;['settingsButton','topSettings','connectBannerButton'].forEach(id=>el(id).onclick=openSettings);el('closeSettings').onclick=closeSettings;el('doneSettings').onclick=closeSettings;el('oauthButton').onclick=()=>startOAuth().catch(e=>setError(e.message));el('saveKey').onclick=()=>readInputKey().catch(e=>setError(e.message));el('verifyConnection').onclick=()=>verifyConnection();el('rememberDevice').onchange=e=>setRemember(e.target.checked);el('recommendedModels').onclick=applyRecommended;el('apiKey').addEventListener('keydown',e=>{if(e.key==='Enter')readInputKey();});el('disconnect').onclick=()=>{key='';connectionStatus='unverified';connectionMessage='';sessionStorage.removeItem(KEY_STORE);try{localStorage.removeItem(PERSIST_KEY);}catch{}renderAll();};el('langButton').onclick=()=>{state.lang=state.lang==='ru'?'en':'ru';persist();renderAll();};for(let i=0;i<4;i++)el('model'+i).onchange=e=>{state.models[i]=e.target.value;persist();};el('sendButton').onclick=ask;el('openCodeStart').onclick=startOpenCodeOnly;el('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});el('question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,180)+'px';});document.querySelectorAll('.example').forEach(b=>{b.onclick=()=>{el('question').value=b.dataset.prompt;el('question').focus();if(!key)openSettings();};});el('settingsDialog').addEventListener('click',e=>{if(e.target===el('settingsDialog'))closeSettings();});}
 async function init(){bind();
- globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang});
+ globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang,chooseEngineeringModel});
  persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();}catch{}renderAll();if(!key&&new URLSearchParams(location.search).get('connect')==='1')openSettings();}
 init();

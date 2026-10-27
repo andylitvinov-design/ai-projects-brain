@@ -21,11 +21,13 @@
  function valid(p){return !!state[p].key&&state[p].confirmed&&(p!=='nvidia'||nvidiaRelayConsent);}
  function models(){return Object.keys(P).filter(valid).map(p=>({id:P[p].id,name:P[p].name+(p==='gemini'?' · AI Studio Free Tier':p==='mistral'?' · Experiment Free Tier':' · NVIDIA NIM free trial (limited)'),pricing:{prompt:'0',completion:'0'},architecture:{input_modalities:['text'],output_modalities:['text']},provider:p,freeProviderMode:'user-confirmed'}));}
  function render(){const checked=document.getElementById('nvidiaProxyConsent');if(checked)checked.checked=nvidiaRelayConsent;
+  const assign=document.getElementById('nvidiaUseTechnical');
+  if(assign){assign.disabled=!valid('nvidia');assign.textContent=settings?.lang?.()==='en'?'Use as engineering reviewer':'Назначить техэкспертом';}
  for(const p of Object.keys(P)){const d=document.getElementById(p+'DirectStatus'),checkbox=document.getElementById(p+'FreeConfirm'),disconnect=document.getElementById(p+'DirectDisconnect');
   // Do not erase a freshly checked free-tier consent box when showing an error.
   if(checkbox && state[p].confirmed)checkbox.checked=true;
   if(disconnect)disconnect.disabled=!state[p].key;
-  if(d){d.textContent=state[p].key?(state[p].status||(settings?.lang?.()==='en'?'Connected (only usable if free-tier checkbox is confirmed)':'Ключ подключён; для использования подтвердите бесплатный тариф')):(settings?.lang?.()==='en'?'Not connected':'Не подключён');}
+  if(d){d.textContent=state[p].status||(state[p].key?(settings?.lang?.()==='en'?'Connected (only usable if free-tier checkbox is confirmed)':'Ключ подключён; для использования подтвердите бесплатный тариф'):(settings?.lang?.()==='en'?'Not connected':'Не подключён'));}
  }}
  async function refresh(){render();try{await setup?.refresh?.();}catch{}}
  async function verifyGemini(raw){const ctl=new AbortController(),tid=setTimeout(()=>ctl.abort(),18000);try{
@@ -57,8 +59,8 @@
   if(!/^nvapi-[a-z0-9._-]{12,512}$/i.test(raw))throw Error('Ожидается ключ NVIDIA Build формата nvapi-…; другие ключи DeepSeek или OpenRouter не подходят.');
   const ctl=new AbortController(),tid=setTimeout(()=>ctl.abort(),60000);
   try{
-   const data=await nvidiaViaRelay(raw,[{role:'user',content:'Answer with one word: OK'}],128,ctl.signal,true);
-   if(!Array.isArray(data.choices)||!data.choices.length)throw Error('NVIDIA не вернула подтверждение доступа к DeepSeek.');
+   const data=await nvidiaViaRelay(raw,[{role:'user',content:'Answer with one word: OK'}],256,ctl.signal,true);
+   if(data.ok!==true||!String(data.choices?.[0]?.message?.content||'').trim())throw Error('NVIDIA не вернула реальный текстовый ответ DeepSeek. Доступ пока не подтверждён.');
   }finally{clearTimeout(tid);}
  }
  async function connect(p){
@@ -98,6 +100,15 @@
    const b=document.getElementById(p+'DirectConnect'),d=document.getElementById(p+'DirectDisconnect');
    if(b)b.onclick=()=>connect(p);if(d)d.onclick=()=>disconnect(p);
   }
+  const useTechnical=document.getElementById('nvidiaUseTechnical');
+  if(useTechnical)useTechnical.onclick=()=>{
+    if(!valid('nvidia'))return;
+    const selected=setup?.chooseEngineeringModel?.(P.nvidia.id)===true;
+    state.nvidia.status=selected?
+      (settings?.lang?.()==='en'?'✓ DeepSeek is now engineering reviewer #3. No request sent.':'✓ DeepSeek назначен экспертом №3 по технике. Запрос не отправлялся.'):
+      (settings?.lang?.()==='en'?'DeepSeek not selectable. Check current model catalog.':'DeepSeek не удалось выбрать. Проверь список моделей.');
+    render();
+  };
   const checkGemini=document.getElementById('geminiQuickCheck');
   if(checkGemini)checkGemini.onclick=async()=>{
     if(!valid('gemini')){state.gemini.status='Сначала подключи действующий ключ Gemini в этом браузере.';render();return;}
