@@ -119,9 +119,11 @@ function renderModelStatus(){
    openRouterChecking:connectionStatus==='checking',busy,lang:state.lang,
    probe:id.startsWith('nvidia-direct/')?globalThis.AICouncilExternalProviders?.probeStatus?.('nvidia'):null
  }));
- const available=statuses.filter(x=>x.tone==='ok'||x.tone==='connected').length;
+ const selected=state.models.filter(Boolean).length;
+ const responded=statuses.filter(x=>x.tone==='ok').length;
  const errors=statuses.filter(x=>x.tone==='rate'||x.tone==='error').length;
- headline.textContent=(ru?'Состав ИИ · ':'AI lineup · ')+available+(ru?' доступны по настройкам':' configured')+
+ headline.textContent=(ru?'Состав ИИ · ':'AI lineup · ')+selected+(ru?' выбраны':' selected')+
+   (responded?' · '+responded+(ru?' ответили':' responded'):'')+
    (errors?' · '+errors+(ru?' с ошибкой':' with errors'):'');
  grid.replaceChildren();mini.replaceChildren();
  statuses.forEach((info,i)=>{
@@ -147,6 +149,24 @@ function renderModelStatus(){
   }:openSettings;
   row.append(detail,label,action);grid.append(row);
  });
+ renderNvidiaShortcut();
+}
+function renderNvidiaShortcut(){
+ const banner=el('nvidiaSetupShortcut'),message=el('nvidiaShortcutText'),action=el('openNvidiaSetup');
+ if(!banner||!message||!action)return;
+ const connected=globalThis.AICouncilExternalProviders?.valid?.('nvidia')===true;
+ const chosen=state.models[2]==='nvidia-direct/deepseek-v4.1-flash:trial';
+ banner.hidden=connected&&chosen;
+ if(banner.hidden)return;
+ const ru=state.lang==='ru';
+ message.textContent=connected?
+   (ru?'DeepSeek подключён, но ещё не выбран техэкспертом':'DeepSeek connected but not selected as tech expert'):
+   (ru?'DeepSeek не подключён · нужен отдельный ключ NVIDIA':'DeepSeek not connected · separate NVIDIA key required');
+ action.textContent=connected?(ru?'Назначить №3':'Assign #3'):(ru?'Подключить':'Connect');
+}
+function openNvidiaSetup(){
+ openSettings();
+ requestAnimationFrame(()=>el('nvidiaProvider')?.scrollIntoView?.({block:'start',behavior:'auto'}));
 }
 function runQuickPrompt(id){
  if(busy)return false;
@@ -267,12 +287,13 @@ function applyRecommended(){if(!freeModels.length){el('modelStatus').textContent
   return vendors.flatMap(v=>freeModels.filter(m=>m.id.startsWith(v+'/')&&m.architecture?.output_modalities?.includes('text')))[0]?.id||freeModels.find(m=>m.architecture?.output_modalities?.includes('text'))?.id||freeModels[0].id;});
  state.models=next;persist();fillModelSelects();renderModelStatus();el('modelStatus').textContent=t('recommendedApplied');}
 function chooseEngineeringModel(id){
- // No silent roster change: only an explicit UI click after a verified NVIDIA connection.
+ // No silent roster change: only a verified NVIDIA consented connection or user action.
  if(id!=='nvidia-direct/deepseek-v4.1-flash:trial'||
     !globalThis.AICouncilExternalProviders?.valid('nvidia')||
     !freeModels.some(m=>m.id===id))return false;
  state.models[2]=id;persist();fillModelSelects();
  el('modelStatus').textContent=state.lang==='ru'?'DeepSeek назначен техническим экспертом':'DeepSeek selected as engineering reviewer';
+ renderModelStatus();
  return true;
 }
 async function startOAuth(){setError('');if(!window.crypto||!crypto.subtle){setError('Secure HTTPS is required for login.');return;}
@@ -349,8 +370,17 @@ function startOpenCodeOnly(){
  th.rounds.push({question:q,answers:[],synthesisModel:null,synthesisStatus:'partial',synthesis:'',synthesisError:'',manualMode:'opencode',created:Date.now()});
  el('question').value='';el('question').style.height='';setError('');persist();renderAll();scrollBottom();
 }
-function bind(){el('newThread').onclick=()=>{if(busy)return;state.active=null;persist();renderAll();el('question').value='';closeSidebar();};el('menuButton').onclick=openSidebar;el('closeSidebar').onclick=closeSidebar;el('overlay').onclick=closeSidebar;['settingsButton','topSettings','connectBannerButton'].forEach(id=>el(id).onclick=openSettings);el('closeSettings').onclick=closeSettings;el('doneSettings').onclick=closeSettings;el('oauthButton').onclick=()=>startOAuth().catch(e=>setError(e.message));el('saveKey').onclick=()=>readInputKey().catch(e=>setError(e.message));el('verifyConnection').onclick=()=>verifyConnection();el('rememberDevice').onchange=e=>setRemember(e.target.checked);el('recommendedModels').onclick=applyRecommended;el('apiKey').addEventListener('keydown',e=>{if(e.key==='Enter')readInputKey();});el('disconnect').onclick=()=>{key='';connectionStatus='unverified';connectionMessage='';sessionStorage.removeItem(KEY_STORE);try{localStorage.removeItem(PERSIST_KEY);}catch{}renderAll();};el('langButton').onclick=()=>{state.lang=state.lang==='ru'?'en':'ru';persist();renderAll();};for(let i=0;i<4;i++)el('model'+i).onchange=e=>{state.models[i]=e.target.value;persist();renderModelStatus();};el('sendButton').onclick=ask;el('openCodeStart').onclick=startOpenCodeOnly;el('modelStatusSettings').onclick=openSettings;el('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});el('question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,180)+'px';});document.querySelectorAll('[data-quick-id]').forEach(b=>{b.onclick=()=>runQuickPrompt(b.dataset.quickId);});el('settingsDialog').addEventListener('click',e=>{if(e.target===el('settingsDialog'))closeSettings();});}
+function bind(){el('newThread').onclick=()=>{if(busy)return;state.active=null;persist();renderAll();el('question').value='';closeSidebar();};el('menuButton').onclick=openSidebar;el('closeSidebar').onclick=closeSidebar;el('overlay').onclick=closeSidebar;['settingsButton','topSettings','connectBannerButton'].forEach(id=>el(id).onclick=openSettings);el('closeSettings').onclick=closeSettings;el('doneSettings').onclick=closeSettings;el('oauthButton').onclick=()=>startOAuth().catch(e=>setError(e.message));el('saveKey').onclick=()=>readInputKey().catch(e=>setError(e.message));el('verifyConnection').onclick=()=>verifyConnection();el('rememberDevice').onchange=e=>setRemember(e.target.checked);el('recommendedModels').onclick=applyRecommended;el('apiKey').addEventListener('keydown',e=>{if(e.key==='Enter')readInputKey();});el('disconnect').onclick=()=>{key='';connectionStatus='unverified';connectionMessage='';sessionStorage.removeItem(KEY_STORE);try{localStorage.removeItem(PERSIST_KEY);}catch{}renderAll();};el('langButton').onclick=()=>{state.lang=state.lang==='ru'?'en':'ru';persist();renderAll();};for(let i=0;i<4;i++)el('model'+i).onchange=e=>{state.models[i]=e.target.value;persist();renderModelStatus();};el('sendButton').onclick=ask;el('openCodeStart').onclick=startOpenCodeOnly;el('modelStatusSettings').onclick=openSettings;
+ el('openNvidiaSetup').onclick=()=>{
+  if(globalThis.AICouncilExternalProviders?.valid?.('nvidia')){
+    const chosen=chooseEngineeringModel('nvidia-direct/deepseek-v4.1-flash:trial');
+    if(chosen)return;
+  }
+  openNvidiaSetup();
+ };el('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});el('question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,180)+'px';});document.querySelectorAll('[data-quick-id]').forEach(b=>{b.onclick=()=>runQuickPrompt(b.dataset.quickId);});el('settingsDialog').addEventListener('click',e=>{if(e.target===el('settingsDialog'))closeSettings();});}
 async function init(){bind();
- globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang,chooseEngineeringModel,onProbe:renderModelStatus});
- persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();globalThis.AICouncilExternalProviders?.preferDeepSeekEngineering?.();}catch{}renderAll();if(!key&&new URLSearchParams(location.search).get('connect')==='1')openSettings();}
+ globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang,chooseEngineeringModel,onProbe:renderModelStatus,isEngineeringModel:id=>state.models[2]===id});
+ persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();globalThis.AICouncilExternalProviders?.preferDeepSeekEngineering?.();}catch{}renderAll();const connectMode=new URLSearchParams(location.search).get('connect');
+ if(connectMode==='deepseek')openNvidiaSetup();
+ else if(!key&&connectMode==='1')openSettings();}
 init();
