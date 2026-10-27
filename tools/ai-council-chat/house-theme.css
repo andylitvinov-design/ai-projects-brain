@@ -433,14 +433,14 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
 .model-status-summary{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;padding:8px 12px;list-style:none;cursor:pointer;min-width:0}
 .model-status-summary::-webkit-details-marker{display:none}
 .model-status-summary:focus-visible,.quick-prompt:focus-visible,.model-status-settings:focus-visible,.model-status-row button:focus-visible{outline:2px solid #874357;outline-offset:2px}
-.model-status-heading{display:flex;align-items:center;gap:7px;min-width:0;flex:1;color:#49362f;font-size:11px}
+.model-status-heading{display:flex;align-items:center;gap:7px;min-width:0;flex:1;color:#49362f;font-size:12px}
 .model-status-heading strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:750}
 .model-status-dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#748f79}
 .model-status-toggle{color:#8a6b60;font-size:10px;white-space:nowrap}
 .model-status-panel[open] .model-status-toggle{font-weight:700}
 .model-mini-roles{display:flex;align-items:center;gap:5px;min-width:0;width:100%;overflow-x:auto;scrollbar-width:none}
 .model-mini-roles::-webkit-scrollbar,.quick-prompts-scroll::-webkit-scrollbar{display:none}
-.model-mini-role{display:inline-flex;align-items:center;gap:4px;flex:0 0 auto;max-width:168px;padding:3px 7px;border:1px solid #e6dbd2;border-radius:99px;background:#fff;color:#695c52;font-size:10px;line-height:1.35;white-space:nowrap}
+.model-mini-role{display:inline-flex;align-items:center;gap:4px;flex:0 0 auto;max-width:168px;padding:4px 8px;border:1px solid #e6dbd2;border-radius:99px;background:#fff;color:#695c52;font-size:11px;line-height:1.35;white-space:nowrap}
 .model-mini-role[data-tone="rate"],.model-state[data-tone="rate"]{border-color:#ecc9c1;background:#fff2ed;color:#a34b43}
 .model-mini-role[data-tone="ok"],.model-state[data-tone="ok"]{border-color:#cfe3d3;background:#eef6ed;color:#376c50}
 .model-mini-role[data-tone="pending"],.model-state[data-tone="pending"]{border-color:#ead8b9;background:#fff7e9;color:#895d39}
@@ -452,18 +452,18 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
 .model-status-role{display:block;margin-bottom:2px;color:#877064;font-size:10px;font-weight:750}
 .model-status-name{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#45372f;font-size:12px;font-weight:650}
 .model-state{flex:0 0 auto;max-width:124px;padding:5px 7px;border:1px solid #e6d9cc;border-radius:99px;background:#f8f3ed;color:#78665a;font-size:10px;line-height:1.3;text-align:center}
-.model-status-row button,.model-status-settings{flex:0 0 auto;min-height:34px;padding:7px 10px;border:1px solid #dec9c1;border-radius:9px;background:#fffdf9;color:#733d51;font-size:11px;font-weight:700}
+.model-status-row button,.model-status-settings{flex:0 0 auto;min-height:40px;padding:7px 10px;border:1px solid #dec9c1;border-radius:9px;background:#fffdf9;color:#733d51;font-size:11px;font-weight:700}
 .model-status-foot{padding:9px 10px 11px;border-top:1px solid #efe4da;background:#fdf9f5}
 .model-status-foot .status-line{margin:0 0 5px;flex-wrap:wrap}
 .model-disclaimer{margin:0 0 7px;color:#8b7768;font-size:10px;line-height:1.45}
 .quick-prompts{display:flex;align-items:center;gap:9px;min-width:0;margin:0 0 9px}
 .quick-prompts-title{flex:0 0 auto;color:#7c6456;font-size:10px;font-weight:750}
 .quick-prompts-scroll{display:flex;align-items:center;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;scroll-snap-type:x proximity}
-.quick-prompt{flex:0 0 auto;scroll-snap-align:start;min-height:34px;padding:7px 11px;border:1px solid #dbcac0;border-radius:999px;background:#fffefb;color:#794356;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer}
+.quick-prompt{flex:0 0 auto;scroll-snap-align:start;min-height:40px;padding:7px 11px;border:1px solid #dbcac0;border-radius:999px;background:#fffefb;color:#794356;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}
 .quick-prompt:hover{background:#f9edef;border-color:#b88a9b}
 .quick-prompt:disabled{opacity:.58;cursor:wait}
 .opencode-entry{margin-top:4px!important;gap:7px!important}
-.opencode-entry .manual-mode-button{min-height:28px;padding:4px 9px;border:0;border-radius:9px;background:transparent;color:#836357;font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.opencode-entry .manual-mode-button{min-height:36px;padding:4px 9px;border:0;border-radius:9px;background:transparent;color:#836357;font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:2px}
 .opencode-entry small{font-size:10px;color:#948578}
 .opencode-manual-panel{background:#fdf9f4}
 .opencode-manual-panel .source-note{font-size:11px;line-height:1.4}
@@ -472,16 +472,16 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
  .composer-area{padding:7px 9px max(7px,env(safe-area-inset-bottom));}
  .model-status-panel{margin-bottom:7px;border-radius:11px}
  .model-status-summary{padding:6px 9px;gap:3px 7px}
- .model-status-heading{font-size:11px}
+ .model-status-heading{font-size:12px}
  .quick-prompts{display:block;margin-bottom:6px}
  .quick-prompts-title{display:block;margin:0 0 4px;font-size:10px}
  .quick-prompts-scroll{margin-right:-9px;padding:0 9px 2px 0}
- .quick-prompt{min-height:33px;font-size:11px;padding:7px 10px}
+ .quick-prompt{min-height:40px;font-size:12px;padding:8px 12px}
  .model-status-row{gap:6px}
- .model-status-row button{min-height:34px;padding:6px 8px}
+ .model-status-row button{min-height:40px;padding:7px 9px}
  .model-state{max-width:110px}
  .opencode-entry small,.composer-tip{display:none!important}
- .opencode-entry .manual-mode-button{padding:2px 5px;min-height:24px}
+ .opencode-entry .manual-mode-button{padding:5px 7px;min-height:36px}
  .composer{min-height:50px}
  .composer textarea{padding:5px 0}
  .opencode-manual-panel{margin:9px 7px;padding:9px}
@@ -490,7 +490,7 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
 }
 @media(max-width:350px){
  .model-status-summary{padding:6px 8px}
- .model-mini-role{font-size:9px;padding:3px 6px}
+ .model-mini-role{font-size:10px;padding:4px 6px}
  .model-status-name{font-size:11px}
  .model-state{max-width:90px;font-size:9px}
  .model-status-row button{font-size:10px;padding:6px}
