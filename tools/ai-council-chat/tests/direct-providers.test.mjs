@@ -12,6 +12,8 @@ function harness(options={}){
  }
  els.set('nvidiaProxyConsent',{checked:false,onchange:null});
  els.set('nvidiaUseTechnical',{disabled:true,textContent:'',onclick:null});
+ els.set('nvidiaPasteKey',{disabled:false,textContent:'',onclick:null});
+ els.set('nvidiaRoleStatus',{dataset:{},textContent:''});
  els.set('geminiQuickCheck',{disabled:false,onclick:null});
  const document={getElementById:x=>els.get(x)};
  const fetch=async(url,opts)=>{
@@ -28,11 +30,13 @@ function harness(options={}){
   if(url.includes('chat/completions'))return {ok:true,json:async()=>({choices:[{message:{content:'Review: exact URLs and tests'}}]})};
   return {ok:false,status:404,json:async()=>({})};
  };
- const globalThis={};
+ const globalThis={navigator:options.navigator};
  const factory=new Function('globalThis','document','localStorage','sessionStorage','fetch','AbortController','setTimeout','clearTimeout',moduleText+';return globalThis.AICouncilExternalProviders;');
  const api=factory(globalThis,document,localStorage,sessionStorage,fetch,AbortController,setTimeout,clearTimeout);
  let refreshed=0;let errors=[];const chosen=[];
- api.init({getRemember:()=>true,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=> 'ru',onProbe:()=>{refreshed++;},chooseEngineeringModel:id=>{chosen.push(id);return true}});
+ const setup={getRemember:()=>true,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=> 'ru',onProbe:()=>{refreshed++;},chooseEngineeringModel:id=>{chosen.push(id);return true}};
+ if(options.hasRole)setup.isEngineeringModel=id=>chosen.includes(id);
+ api.init(setup);
  return {api,sessionStorage,localStorage,els,requests,get refreshed(){return refreshed},errors,chosen};
 }
 test('only explicitly connected and free-tier-confirmed provider models appear',async()=>{
@@ -225,4 +229,51 @@ test('NVIDIA probe records real provider 429 and does not turn it into verified 
  assert.match(restored.api.probeStatus('nvidia').error,/429/);
  await assert.rejects(()=>restored.api.probeNvidia(),/cooling down/);
  assert.equal(restored.requests.length,1);
+});
+
+test('NVIDIA form shows missing-key and missing free-tier consent beside the button, without using the relay',async()=>{
+ const h=harness();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Generate API Key/);
+ assert.equal(h.els.get('nvidiaDirectStatus').dataset.state,'error');
+ assert.equal(h.requests.length,0,'blank key must not send');
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Шаг 3.*бесплатный/);
+ assert.equal(h.requests.length,0,'no free-tier confirmation must not send');
+ h.els.get('nvidiaFreeConfirm').checked=true;
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Шаг 3.*разрешите/);
+ assert.equal(h.requests.length,0,'without relay consent must not send');
+});
+test('Paste action reads clipboard only on explicit tap, masks it, and does not submit anything',async()=>{
+ let reads=0;
+ const key='nvapi-123456789abcdef';
+ const h=harness({navigator:{clipboard:{readText:async()=>{reads++;return key;}}}});
+ assert.equal(reads,0,'no automatic clipboard access during boot');
+ await h.els.get('nvidiaPasteKey').onclick();
+ assert.equal(reads,1);
+ assert.equal(h.els.get('nvidiaDirectKey').value,key);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Ключ вставлен/);
+ assert.equal(h.requests.length,0,'pasting never sends the secret to AI Council server');
+ assert.equal(JSON.stringify(h.api.probeStatus('nvidia')), 'null');
+});
+test('Clipboard denied displays native iPhone Paste fallback instead of losing the prompt',async()=>{
+ const h=harness({navigator:{clipboard:{readText:async()=>{throw Error('no permission');}}}});
+ await h.els.get('nvidiaPasteKey').onclick();
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Автовставка недоступна/);
+ assert.equal(h.requests.length,0);
+});
+test('A verified DeepSeek connection visibly becomes technical expert #3',async()=>{
+ const h=harness({hasRole:true});
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial']);
+ assert.match(h.els.get('nvidiaRoleStatus').textContent,/техническим экспертом №3/);
+ assert.equal(h.els.get('nvidiaRoleStatus').dataset.connected,'true');
+ assert.equal(h.els.get('nvidiaUseTechnical').hidden,true,'no redundant button after automatic assignment');
+ assert.equal(h.els.get('nvidiaDirectConnect').hidden,true,'no duplicate connect on confirmed account');
+ assert.equal(h.requests.length,1,'one real provider check only');
 });
