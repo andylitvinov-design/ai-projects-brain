@@ -54,6 +54,8 @@ test('manual synthesis requires two distinct imported free model responses and p
  assert.equal(api.synthesis(r).text,'merged comparison');
  r.openCodeSynthesis.model='untrusted/paid';
  assert.equal(api.synthesis(r),null);
+ r.openCodeSynthesis.model=GLM;delete r.openCodeManual[DEEP];
+ assert.equal(api.synthesis(r),null,'no stale synthesis when a source is removed');
 });
 test('manual panel saves and deletes a response without any network request',()=>{
  class El {
