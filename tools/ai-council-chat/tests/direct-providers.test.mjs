@@ -21,6 +21,7 @@ function harness(options={}){
   if(options.geminiNetworkFail&&url.includes('generateContent'))throw Error('Load failed');
   if(url.includes('generateContent'))return {ok:true,json:async()=>({candidates:[{content:{parts:[{text:'Gemini analysis: concrete findings and acceptance tests'}]}}]})};
   if(options.nvidiaEmpty&&url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:''},finish_reason:'length'}]})};
+  if(options.nvidiaLimit&&url.includes('./api/nvidia-chat'))return {ok:false,status:429,json:async()=>({error:'NVIDIA trial limit 429'})};
   if(url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:'NVIDIA DeepSeek: precise technical review'}}]})};
   if(options.mistralRateLimit&&url==='https://api.mistral.ai/v1/chat/completions')
     return {ok:false,status:429,json:async()=>({message:'Rate limit exceeded'})};
@@ -31,7 +32,7 @@ function harness(options={}){
  const factory=new Function('globalThis','document','localStorage','sessionStorage','fetch','AbortController','setTimeout','clearTimeout',moduleText+';return globalThis.AICouncilExternalProviders;');
  const api=factory(globalThis,document,localStorage,sessionStorage,fetch,AbortController,setTimeout,clearTimeout);
  let refreshed=0;let errors=[];const chosen=[];
- api.init({getRemember:()=>true,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=> 'ru',chooseEngineeringModel:id=>{chosen.push(id);return true}});
+ api.init({getRemember:()=>true,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=> 'ru',onProbe:()=>{refreshed++;},chooseEngineeringModel:id=>{chosen.push(id);return true}});
  return {api,sessionStorage,localStorage,els,requests,get refreshed(){return refreshed},errors,chosen};
 }
 test('only explicitly connected and free-tier-confirmed provider models appear',async()=>{
@@ -185,4 +186,43 @@ test('Gemini Load failed is diagnosed as a browser network failure, not a reject
  await h.els.get('geminiDirectConnect').onclick();
  await assert.rejects(()=>h.api.call('google-direct/gemini-3.8-flash:free-tier',[{role:'user',content:'Test'}]),
   /Google Gemini: network request failed.*NOT a confirmed bad API key/);
+});
+
+test('NVIDIA one-click probe uses saved consented key and reports actual text without storing secret',async()=>{
+ const h=harness();
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ const before=h.requests.length;
+ const result=await h.api.probeNvidia();
+ assert.equal(result.ok,true);
+ assert.match(result.text,/NVIDIA DeepSeek/);
+ assert.equal(h.requests.length,before+1,'exactly one opt-in trial call');
+ assert.equal(h.requests.at(-1).url,'./api/nvidia-chat');
+ assert.equal(h.api.probeStatus('nvidia').ok,true);
+ assert.equal(JSON.stringify(h.api.probeStatus('nvidia')).includes('nvapi-'),false);
+ await assert.rejects(()=>h.api.probeNvidia(),/cooling down/);
+ assert.equal(h.requests.length,before+1);
+ await h.els.get('nvidiaDirectDisconnect').onclick();
+ assert.equal(h.api.probeStatus('nvidia'),null);
+});
+test('NVIDIA probe refuses absent user confirmation and never silently sends',async()=>{
+ const h=harness();
+ await assert.rejects(()=>h.api.probeNvidia(),/not connected/);
+ assert.equal(h.requests.length,0);
+});
+test('NVIDIA probe records real provider 429 and does not turn it into verified success',async()=>{
+ const h=harness({nvidiaLimit:true});
+ const key='nvapi-123456789abcdef';
+ h.localStorage.setItem('ai-council-nvidia-nim-key',key);
+ h.localStorage.setItem('ai-council-nvidia-trial-confirmed','true');
+ h.localStorage.setItem('ai-council-nvidia-relay-consent','true');
+ // The harness initialized before persisted state; new harness reload simulates opening the app.
+ const restored=harness({nvidiaLimit:true,localStorage:h.localStorage});
+ await assert.rejects(()=>restored.api.probeNvidia(),/429/);
+ assert.equal(restored.api.probeStatus('nvidia').ok,false);
+ assert.match(restored.api.probeStatus('nvidia').error,/429/);
+ await assert.rejects(()=>restored.api.probeNvidia(),/cooling down/);
+ assert.equal(restored.requests.length,1);
 });

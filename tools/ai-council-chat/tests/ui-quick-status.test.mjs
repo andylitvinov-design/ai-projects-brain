@@ -106,3 +106,18 @@ test('direct-provider 429 is shown by model roles, never as a second large stick
  assert.match(manual,/Автоматического запроса нет/);
  assert.doesNotMatch(manual,/\bfetch\s*\(/);
 });
+
+test('DeepSeek status distinguishes a fresh successful provider probe from saved key alone',()=>{
+ const base=opts({modelId:'nvidia-direct/deepseek-v4.1-flash:trial',index:2});
+ assert.equal(snapshot(base).tone,'connected');
+ const now=Date.now();
+ const verified=snapshot({...base,probe:{ok:true,at:now}});
+ assert.equal(verified.tone,'ok');
+ assert.match(verified.label,/ответ DeepSeek/);
+ const limited=snapshot({...base,probe:{ok:false,at:now,error:'NVIDIA 429'}});
+ assert.equal(limited.tone,'rate');
+ const prior=snapshot({...base,probe:{ok:true,at:now-10000},round:{created:now,answers:[null,null,{model:base.modelId,status:'error',error:'429'}]}});
+ assert.equal(prior.tone,'rate','newer real round failure must beat older probe');
+ assert.match(app,/Test · 1 call/);
+ assert.match(app,/probeNvidia/);
+});
