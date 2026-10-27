@@ -8,6 +8,27 @@ const LEGACY_DEFAULTS=['google/gemma-4-31b-it:free','nvidia/nemotron-3.5-super-v
 // Never auto-switch a previously customized model; user can reapply this preset explicitly.
 const OLD_PRESET_20261016=['nvidia/nemotron-3.5-super-vl:free','dots-studio/dots-3-note-preview:free','cohere/north-mini-code:free','nvidia/nemotron-3-super-120b-a12b:free'];
 const DEFAULTS=['nvidia/nemotron-3.5-super-vl:free','google/gemma-4-31b-it:free','poolside/laguna-s-2.1:free','nvidia/nemotron-3-ultra-550b-a55b:free'];
+// Quick suggestions reuse the normal, opt-in model request path.
+const QUICK_PROMPTS=[
+ {id:'home',ruLabel:'5 улучшений',enLabel:'5 improvements',
+  ru:'Предложите 5 конкретных улучшений https://holistichouse.vercel.app для нового посетителя. Если страницу не открывали и не получили её HTML, называйте каждое замечание гипотезой, а не проверенным дефектом. Укажите ожидаемую пользу и способ проверки.',
+  en:'Suggest 5 specific improvements for new visitors to https://holistichouse.vercel.app. If you have not actually opened the page or received its HTML, mark each finding as a hypothesis, not a verified defect. Add user benefit and an acceptance check.'},
+ {id:'first',ruLabel:'Первый экран',enLabel:'First screen',
+  ru:'Предложите чёткий H1, подзаголовок и одну главную кнопку первого экрана Holistic House для нового посетителя. Это идеи, а не проверка живого сайта. Дайте 3 варианта и тесты.',
+  en:'Propose a clear H1, supporting line, and one primary first-screen action for a new Holistic House visitor. These are ideas, not claims of live-site testing. Provide 3 variants and checks.'},
+ {id:'booking',ruLabel:'Запись на сеанс',enLabel:'Session booking',
+  ru:'Проанализируйте предполагаемый путь Holistic House: услуга → запрос → согласие → подтверждение записи → оплата. Найдите потенциальные барьеры и дайте 5 проверяемых улучшений. Не выдавайте клик, заявку или бронирование за подтверждённую оплату.',
+  en:'Review the proposed Holistic House journey: service → consented request → confirmed booking → payment. Identify likely friction and give 5 testable improvements. Do not confuse a click or inquiry with a confirmed booking or payment.'},
+ {id:'mobile',ruLabel:'Мобильный UX',enLabel:'Mobile UX',
+  ru:'Подготовьте компактные предложения для мобильного UX Holistic House на iPhone 320–430 px: навигация, карточки услуг, тесты, CTA, доступность. Без скриншота или проверки браузером считайте это гипотезами. Добавьте критерии приёмки.',
+  en:'Suggest compact mobile UX improvements for Holistic House at 320–430px: navigation, service cards, tests, CTAs and accessibility. Without screenshots or a browser check, label them hypotheses. Include acceptance criteria.'},
+ {id:'spec',ruLabel:'ТЗ для Codex',enLabel:'Codex brief',
+  ru:'Составьте практическое ТЗ для Codex по 3 важнейшим улучшениям Holistic House: цель, затрагиваемые функции, защита приватности, EN/RU/ES, проверки и критерии приёмки. Не выдумывайте имена файлов или результаты тестов.',
+  en:'Draft a practical Codex implementation brief for three high-value Holistic House improvements: goals, affected flows, privacy, EN/RU/ES, checks and acceptance criteria. Do not invent source filenames or test results.'},
+ {id:'business',ruLabel:'Бизнес-идеи',enLabel:'Business ideas',
+  ru:'Сравните модель комиссии 20% с заказа и подписку для мастеров в небольшом маркетплейсе услуг. Дайте плюсы, риски, проверяемые гипотезы и рекомендуемый первый эксперимент без запуска реальных платежей.',
+  en:'Compare a 20% per-order commission against a subscription for practitioners in a small services marketplace. Give trade-offs, risks, verifiable hypotheses and a first experiment without real payment changes.'}
+];
 const ROLES=[
   {ru:'UX и понятность',en:'UX & clarity',prompt:'Independent UX reviewer. Focus on mobile usability, visual hierarchy, first impression, clarity, accessibility. Give up to 5 practical points. Separate observed facts from hypotheses.'},
   {ru:'Стратегия и продажи',en:'Strategy & conversion',prompt:'Independent product strategist. Focus on audience needs, offer clarity, funnel friction, prioritization and expected effort. Provide up to 5 concrete points. Do not invent data or conversion lifts.'},
@@ -53,9 +74,100 @@ function updateUsage(){
  el('usageCount').title=lang==='ru'?'Только запросы из этого браузера; квота OpenRouter общая для всего аккаунта и других приложений.':'Only this browser’s OpenRouter requests; real account quotas also include other clients.';
 }
 function setError(s){el('globalError').textContent=s;hide(el('globalError'),!s);}
-function renderLang(){document.documentElement.lang=state.lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const v=t(n.dataset.i18n);if(n.dataset.i18n==='hero')n.innerHTML=v;else n.textContent=v;});el('langButton').textContent=state.lang==='ru'?'EN':'RU';el('question').placeholder=t('placeholder');el('statusText').textContent=state.lang==='ru'?'До 4 запросов к выбранным ИИ · без платного автоперехода':'Up to 4 calls to selected AIs · no paid fallback';updateUsage();el('brandSubtitle').textContent=state.lang==='ru'?'Совет независимых ИИ':'Independent AI council';el('openCodeStart').textContent=state.lang==='ru'?'OpenCode Free · вручную':'OpenCode Free · manual';}
+// "Saved key" is not proof of a current successful inference.
+function modelStatusSnapshot(input){
+ const {modelId,index,round,listed,registryLoaded,connected,hasOpenRouterKey,openRouterVerified,openRouterChecking,busy,lang}=input;
+ const ru=lang!=='en',say=(a,b)=>ru?a:b;
+ const done=(tone,label,mini)=>({tone,label,mini});
+ if(!modelId)return done('needs',say('Не выбрана','Not selected'),'×');
+ if(!registryLoaded)return done('pending',say('Проверяем список','Checking catalog'),'…');
+ if(!listed)return done('needs',say('Недоступна в каталоге','Unavailable in catalog'),'×');
+ const direct=/^(google-direct|mistral-direct|nvidia-direct)\//.test(modelId);
+ if(direct&&!connected)return done('needs',say('Нет подключённого ключа','No connected key'),'×');
+ if(!direct&&!hasOpenRouterKey)return done('needs',say('Нет ключа OpenRouter','No OpenRouter key'),'×');
+ if(!direct&&openRouterChecking)return done('pending',say('Проверяем ключ','Checking key'),'…');
+ if(!direct&&!openRouterVerified)return done('needs',say('Ключ не подтверждён','Key not verified'),'×');
+ const reply=index===3?
+   (round?.synthesisModel===modelId?{model:modelId,status:round.synthesisStatus,error:round.synthesisError||'',text:round.synthesis||''}:null):
+   (round?.answers?.[index]?.model===modelId?round.answers[index]:null);
+ if(reply){
+  if(reply.status==='pending'&&busy)return done('pending',say('Генерирует ответ','Generating reply'),'…');
+  if(reply.status==='ok'&&String(reply.text||'').trim())return done('ok',say('Был ответ в раунде','Replied in prior round'),'✓');
+  if(/(\b429\b|rate limit|too many requests|quota exceeded|лимит запросов)/i.test(String(reply.error||'')))
+   return done('rate',say('Лимит 429 · прошлый раунд','429 · prior round'),'429');
+  if(reply.status==='error')return done('error',say('Ошибка в прошлом раунде','Error in prior round'),'!');
+  if(index===3&&reply.status==='partial')return done('pending',say('Сводная не завершена','Synthesis incomplete'),'…');
+ }
+ return direct?done('connected',say('Ключ сохранён · не проверен сейчас','Saved key · not checked now'),'○'):
+   done('connected',say('Ключ проверен · ответ не получен','Key checked · no reply yet'),'○');
+}
+function renderModelStatus(){
+ const headline=el('modelStatusHeadline'),grid=el('modelStatusGrid'),mini=el('modelMiniRoles');
+ if(!headline||!grid||!mini)return;
+ const ru=state.lang!=='en',round=(current()?.rounds||[]).slice().reverse().find(x=>Array.isArray(x.answers)&&x.answers.length>0)||null;
+ const external=new Set((globalThis.AICouncilExternalProviders?.models?.()||[]).map(x=>x.id));
+ const names=ru?['UX','Бизнес','Техника','Итог']:['UX','Product','Engineering','Synthesis'];
+ const statuses=state.models.slice(0,4).map((id,i)=>modelStatusSnapshot({
+   modelId:id,index:i,round,listed:freeModels.some(m=>m.id===id),registryLoaded:freeModels.length>0,
+   connected:external.has(id),hasOpenRouterKey:!!key,openRouterVerified:connectionStatus==='valid',
+   openRouterChecking:connectionStatus==='checking',busy,lang:state.lang
+ }));
+ const available=statuses.filter(x=>x.tone==='ok'||x.tone==='connected').length;
+ const errors=statuses.filter(x=>x.tone==='rate'||x.tone==='error').length;
+ headline.textContent=(ru?'Состав ИИ · ':'AI lineup · ')+available+(ru?' доступны по настройкам':' configured')+
+   (errors?' · '+errors+(ru?' с ошибкой':' with errors'):'');
+ grid.replaceChildren();mini.replaceChildren();
+ statuses.forEach((info,i)=>{
+  const id=state.models[i]||'',full=formatName(id);
+  const display=id.startsWith('google-direct/')?'Gemini':id.startsWith('mistral-direct/')?'Mistral':
+    id.startsWith('nvidia-direct/')?'DeepSeek':String(full||id).split(' · ')[0].slice(0,22);
+  const chip=node('span','model-mini-role',names[i]+' · '+display+' '+info.mini);
+  chip.dataset.tone=info.tone;chip.title=names[i]+': '+full+'. '+info.label;mini.append(chip);
+  const row=node('div','model-status-row');row.setAttribute('role','listitem');
+  const detail=node('div','model-status-detail');
+  detail.append(node('span','model-status-role',names[i]));
+  const name=node('strong','model-status-name',full);name.title=full;detail.append(name);
+  const label=node('span','model-state',info.label);label.dataset.tone=info.tone;
+  const action=node('button','',ru?'Сменить':'Change');action.type='button';
+  action.setAttribute('aria-label',(ru?'Настроить модель: ':'Change model: ')+names[i]);
+  action.onclick=openSettings;
+  row.append(detail,label,action);grid.append(row);
+ });
+}
+function runQuickPrompt(id){
+ if(busy)return false;
+ const preset=QUICK_PROMPTS.find(x=>x.id===id);
+ if(!preset)return false;
+ const textarea=el('question');textarea.value=preset[state.lang==='en'?'en':'ru'];
+ textarea.style.height='';
+ if(!key&&!(globalThis.AICouncilExternalProviders?.models?.()||[]).length){
+  setError(state.lang==='ru'?
+    'Для запуска подсказки подключите бесплатную модель. Вопрос уже подготовлен.':
+    'Connect an allowed free model to run this suggestion. The question is ready.');
+  openSettings();return false;
+ }
+ setError('');
+ void ask(); // Same explicit send, authentication, quotas and no-paid-fallback rules.
+ return true;
+}
+function setQuickButtonsBusy(value){
+ document.querySelectorAll('.quick-prompt').forEach(b=>{b.disabled=!!value;});
+}
+function renderLang(){document.documentElement.lang=state.lang;document.querySelectorAll('[data-i18n]').forEach(n=>{const v=t(n.dataset.i18n);if(n.dataset.i18n==='hero')n.innerHTML=v;else n.textContent=v;});el('langButton').textContent=state.lang==='ru'?'EN':'RU';el('question').placeholder=t('placeholder');el('statusText').textContent=state.lang==='ru'?'До 4 запросов к выбранным ИИ · без платного автоперехода':'Up to 4 calls to selected AIs · no paid fallback';updateUsage();el('brandSubtitle').textContent=state.lang==='ru'?'Совет независимых ИИ':'Independent AI council';el('openCodeStart').textContent=state.lang==='ru'?'↗ OpenCode · вручную':'↗ OpenCode · manual';
+ el('manualModeHint').textContent=state.lang==='ru'?'Без автоматической отправки · GLM / DeepSeek':'No automatic requests · GLM / DeepSeek';
+ el('quickPromptsTitle').textContent=state.lang==='ru'?'Запустить запрос:':'Run a request:';
+ el('modelStatusToggle').textContent=state.lang==='ru'?'Состав ▾':'Models ▾';
+ el('modelStatusSettings').textContent=state.lang==='ru'?'Изменить модели':'Change models';
+ el('modelStatusDisclaimer').textContent=state.lang==='ru'?
+   '«Ключ сохранён» не означает, что модель работает. Реальный ответ подтверждается только завершённым запросом. OpenCode — отдельный ручной режим.':
+   'A saved key does not prove the model currently responds. Only a completed request confirms a reply. OpenCode is manual-only.';
+ document.querySelectorAll('.quick-prompt').forEach(b=>{
+  const p=QUICK_PROMPTS.find(x=>x.id===b.dataset.quickId);
+  if(p){b.textContent=p[state.lang==='ru'?'ruLabel':'enLabel'];b.setAttribute('aria-label',(state.lang==='ru'?'Запустить: ':'Run now: ')+b.textContent);}
+ });
+}
 function renderSidebar(){const list=el('threadList');list.replaceChildren();if(!state.threads.length){list.append(node('div','small muted',t('empty')));return;}state.threads.slice().reverse().forEach(th=>{const row=node('button','thread-button'+(state.active===th.id?' active':''));row.type='button';row.append(node('span','', '▤'));row.append(node('span','thread-title',th.title));const del=node('button','thread-delete','×');del.title=t('delete');del.type='button';del.onclick=ev=>{ev.stopPropagation();if(busy)return;state.threads=state.threads.filter(x=>x.id!==th.id);if(state.active===th.id)state.active=null;persist();renderAll();};row.append(del);row.onclick=()=>{if(busy)return;state.active=th.id;persist();renderAll();closeSidebar();};list.append(row);});}
-function renderAll(){renderLang();renderSidebar();const th=current();hide(el('welcome'),!!(th&&th.rounds&&th.rounds.length));hide(el('connectBanner'),!!key||!!globalThis.AICouncilExternalProviders?.models()?.length);renderMessages();renderConnection();}
+function renderAll(){renderLang();renderSidebar();const th=current();hide(el('welcome'),!!(th&&th.rounds&&th.rounds.length));hide(el('connectBanner'),!!key||!!globalThis.AICouncilExternalProviders?.models()?.length);renderMessages();renderConnection();renderModelStatus();}
 function scrollBottom(){requestAnimationFrame(()=>{const s=el('contentScroll');s.scrollTop=s.scrollHeight;});}
 function renderMessages(){const wrap=el('messages');wrap.replaceChildren();const th=current();if(!th||!th.rounds)return;th.rounds.forEach((round,index)=>{
  const block=node('article','round');const b=node('div','user-bubble');b.append(node('div','round-meta',t('yours')+' · '+t('run')+' '+(index+1)));b.append(node('div','',round.question));block.append(b);
@@ -132,12 +244,12 @@ async function loadModels(force=false){if(!force&&freeModels.length&&Date.now()-
 }
 function fillModelSelects(){for(let i=0;i<4;i++){const select=el('model'+i);select.replaceChildren();freeModels.forEach(m=>{const opt=node('option','',(m.name||m.id)+' · '+m.id);opt.value=m.id;select.append(opt);});
  if(state.models[i]&&!freeModels.some(m=>m.id===state.models[i])){const stale=node('option','', '⚠ '+state.models[i]+' ('+(state.lang==='ru'?'недоступна':'unavailable')+')');stale.value=state.models[i];stale.disabled=true;select.prepend(stale);}
- select.value=state.models[i];}}
+ select.value=state.models[i];}renderModelStatus();}
 function applyRecommended(){if(!freeModels.length){el('modelStatus').textContent=t('noModels');return;}
  const next=DEFAULTS.map((wanted,i)=>{if(freeModels.some(m=>m.id===wanted))return wanted;
   const vendors=[['nvidia','google'],['google','nvidia','dots-studio'],['poolside','cohere','google'],['nvidia','google','cohere']][i];
   return vendors.flatMap(v=>freeModels.filter(m=>m.id.startsWith(v+'/')&&m.architecture?.output_modalities?.includes('text')))[0]?.id||freeModels.find(m=>m.architecture?.output_modalities?.includes('text'))?.id||freeModels[0].id;});
- state.models=next;persist();fillModelSelects();el('modelStatus').textContent=t('recommendedApplied');}
+ state.models=next;persist();fillModelSelects();renderModelStatus();el('modelStatus').textContent=t('recommendedApplied');}
 function chooseEngineeringModel(id){
  // No silent roster change: only an explicit UI click after a verified NVIDIA connection.
  if(id!=='nvidia-direct/deepseek-v4.1-flash:trial'||
@@ -187,9 +299,9 @@ async function modelRequest(model,messages,options={}){if(!freeModels.some(x=>x.
  if(out.choices?.[0]?.finish_reason==='length')text+='\n\n[OUTPUT LIMIT: response was truncated. Detailed verified evidence remains available in the original site evidence panel.]';
  return text.trim();}
 function historyContext(th){return (th.rounds||[]).slice(-3).map(r=>'Question: '+r.question.slice(0,2000)+'\nCombined response: '+(r.synthesis||'').slice(0,2400)).join('\n\n').slice(0,8000);}
-function persistRound(){persist();renderMessages();scrollBottom();const last=current()?.rounds?.at(-1);if(last)void globalThis.AICouncilTelegram?.maybeAutoSend(last,persist);}
+function persistRound(){persist();renderMessages();renderModelStatus();scrollBottom();const last=current()?.rounds?.at(-1);if(last)void globalThis.AICouncilTelegram?.maybeAutoSend(last,persist);}
 async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)return;if(!key&&!globalThis.AICouncilExternalProviders?.models()?.length){openSettings();return;}
- busy=true;el('sendButton').disabled=true;setError('');
+ busy=true;el('sendButton').disabled=true;setQuickButtonsBusy(true);setError('');
  try{
   await loadModels(true);
   if(!selectedModelsValid())throw new Error(t('staleModel'));
@@ -212,7 +324,7 @@ async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)re
   const detail=ok.map(x=>'MODEL '+x.model+(x.sharedRequest?' (shared model call, NOT an independent AI provider)':'')+':\n'+x.text.slice(0,5600)).join('\n\n');
   try{round.synthesis=await modelRequest(state.models[3],[{role:'system',content:globalThis.AICouncilQuality?.synthesisPrompt(state.lang,false)||'Combine independent reviews. Preserve each concrete detail, differences and verification.'},{role:'user',content:'Original question:\n'+q+'\n\nIndependent model responses:\n'+detail}],{maxTokens:4300,temperature:0.2});round.synthesisStatus='ok';}catch(e){round.synthesisStatus='error';round.synthesisError=e.message||'Unknown error';}
   persistRound();
- }catch(err){setError(err.message||t('sendFailed'));}finally{busy=false;el('sendButton').disabled=false;renderSidebar();}}
+ }catch(err){setError(err.message||t('sendFailed'));}finally{busy=false;el('sendButton').disabled=false;setQuickButtonsBusy(false);renderSidebar();renderModelStatus();}}
 function startOpenCodeOnly(){
  if(busy)return;
  const q=el('question').value.trim();if(!q){el('question').focus();setError(state.lang==='ru'?'Введите вопрос для OpenCode.':'Enter a question for OpenCode.');return;}
@@ -221,7 +333,7 @@ function startOpenCodeOnly(){
  th.rounds.push({question:q,answers:[],synthesisModel:null,synthesisStatus:'partial',synthesis:'',synthesisError:'',manualMode:'opencode',created:Date.now()});
  el('question').value='';el('question').style.height='';setError('');persist();renderAll();scrollBottom();
 }
-function bind(){el('newThread').onclick=()=>{if(busy)return;state.active=null;persist();renderAll();el('question').value='';closeSidebar();};el('menuButton').onclick=openSidebar;el('closeSidebar').onclick=closeSidebar;el('overlay').onclick=closeSidebar;['settingsButton','topSettings','connectBannerButton'].forEach(id=>el(id).onclick=openSettings);el('closeSettings').onclick=closeSettings;el('doneSettings').onclick=closeSettings;el('oauthButton').onclick=()=>startOAuth().catch(e=>setError(e.message));el('saveKey').onclick=()=>readInputKey().catch(e=>setError(e.message));el('verifyConnection').onclick=()=>verifyConnection();el('rememberDevice').onchange=e=>setRemember(e.target.checked);el('recommendedModels').onclick=applyRecommended;el('apiKey').addEventListener('keydown',e=>{if(e.key==='Enter')readInputKey();});el('disconnect').onclick=()=>{key='';connectionStatus='unverified';connectionMessage='';sessionStorage.removeItem(KEY_STORE);try{localStorage.removeItem(PERSIST_KEY);}catch{}renderAll();};el('langButton').onclick=()=>{state.lang=state.lang==='ru'?'en':'ru';persist();renderAll();};for(let i=0;i<4;i++)el('model'+i).onchange=e=>{state.models[i]=e.target.value;persist();};el('sendButton').onclick=ask;el('openCodeStart').onclick=startOpenCodeOnly;el('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});el('question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,180)+'px';});document.querySelectorAll('.example').forEach(b=>{b.onclick=()=>{el('question').value=b.dataset.prompt;el('question').focus();if(!key)openSettings();};});el('settingsDialog').addEventListener('click',e=>{if(e.target===el('settingsDialog'))closeSettings();});}
+function bind(){el('newThread').onclick=()=>{if(busy)return;state.active=null;persist();renderAll();el('question').value='';closeSidebar();};el('menuButton').onclick=openSidebar;el('closeSidebar').onclick=closeSidebar;el('overlay').onclick=closeSidebar;['settingsButton','topSettings','connectBannerButton'].forEach(id=>el(id).onclick=openSettings);el('closeSettings').onclick=closeSettings;el('doneSettings').onclick=closeSettings;el('oauthButton').onclick=()=>startOAuth().catch(e=>setError(e.message));el('saveKey').onclick=()=>readInputKey().catch(e=>setError(e.message));el('verifyConnection').onclick=()=>verifyConnection();el('rememberDevice').onchange=e=>setRemember(e.target.checked);el('recommendedModels').onclick=applyRecommended;el('apiKey').addEventListener('keydown',e=>{if(e.key==='Enter')readInputKey();});el('disconnect').onclick=()=>{key='';connectionStatus='unverified';connectionMessage='';sessionStorage.removeItem(KEY_STORE);try{localStorage.removeItem(PERSIST_KEY);}catch{}renderAll();};el('langButton').onclick=()=>{state.lang=state.lang==='ru'?'en':'ru';persist();renderAll();};for(let i=0;i<4;i++)el('model'+i).onchange=e=>{state.models[i]=e.target.value;persist();renderModelStatus();};el('sendButton').onclick=ask;el('openCodeStart').onclick=startOpenCodeOnly;el('modelStatusSettings').onclick=openSettings;el('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});el('question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,180)+'px';});document.querySelectorAll('[data-quick-id]').forEach(b=>{b.onclick=()=>runQuickPrompt(b.dataset.quickId);});el('settingsDialog').addEventListener('click',e=>{if(e.target===el('settingsDialog'))closeSettings();});}
 async function init(){bind();
  globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang,chooseEngineeringModel});
  persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();globalThis.AICouncilExternalProviders?.preferDeepSeekEngineering?.();}catch{}renderAll();if(!key&&new URLSearchParams(location.search).get('connect')==='1')openSettings();}
