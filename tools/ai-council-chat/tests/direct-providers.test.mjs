@@ -8,7 +8,7 @@ function store(){const m=new Map();return {getItem:k=>m.get(k)||null,setItem:(k,
 function harness(options={}){
  const sessionStorage=options.sessionStorage||store(),localStorage=options.localStorage||store(),els=new Map(),requests=[];
  for(const p of ['gemini','mistral','nvidia'])for(const suffix of ['DirectKey','FreeConfirm','DirectStatus','DirectDisconnect','DirectConnect']){
-   els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null});
+   els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null,dataset:{}});
  }
  els.set('nvidiaProxyConsent',{checked:false,onchange:null});
  els.set('nvidiaUseTechnical',{disabled:true,textContent:'',onclick:null});
