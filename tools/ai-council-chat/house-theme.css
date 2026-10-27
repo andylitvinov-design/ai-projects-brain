@@ -410,3 +410,19 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
 .telegram-bot-settings .rowlabel{display:flex;align-items:flex-start;gap:8px;margin:12px 0}
 .telegram-bot-settings .rowlabel input{margin-top:3px;flex-shrink:0}
 .telegram-bot-settings button{max-width:100%;white-space:normal}
+
+
+/* Optional OpenCode local free-model bridge: never presents as a live API. */
+.opencode-entry{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:7px}
+.opencode-entry .outline-button{min-height:36px;font-size:12px;padding:8px 12px}
+.opencode-entry small{font-size:11px;opacity:.75}
+.opencode-manual-panel{margin:13px 19px;padding:13px;border:1px solid #e1d4c9;border-radius:13px;background:#fcf7f0;overflow:hidden}
+.opencode-manual-panel summary{cursor:pointer;font-size:13px;font-weight:700;color:#68503e}
+.opencode-manual-panel .opencode-link{display:inline-block;margin-bottom:8px;font-size:12px}
+.opencode-select{display:block;width:100%;max-width:100%;min-height:43px;margin:7px 0 11px;padding:9px;border:1px solid #d4c7bb;border-radius:9px;background:#fff;color:#493b30;font-size:12px}
+.opencode-manual-panel .opencode-manual-input{display:block;width:100%;margin:8px 0;min-height:108px;padding:11px;border:1px solid #dacbbe;border-radius:9px;background:#fff;color:#302b25;font:inherit;font-size:13px;line-height:1.5;resize:vertical}
+.opencode-manual-panel .opencode-prompt{background:#faf2e9;min-height:92px}
+.opencode-controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.opencode-subtitle{font-size:14px;margin:20px 0 9px;color:#674d3c}
+.opencode-manual-panel .source-note{font-size:12px;line-height:1.55;color:#715e50;overflow-wrap:anywhere}
+@media(max-width:760px){.opencode-manual-panel{margin:11px 9px;padding:11px}.opencode-entry{gap:7px}.opencode-entry small{font-size:10px}}
