@@ -537,6 +537,8 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
 .nvidia-action-row .nvidia-connect{width:100%;min-height:48px;padding:12px 15px;border-radius:12px;font-size:14px;font-weight:800}
 .nvidia-action-row .outline-button{min-height:42px;padding:9px 12px;font-size:12px}
 .nvidia-action-row .link-button{min-height:38px;padding:7px 5px;font-size:12px}
+.nvidia-action-row .nvidia-cancel{min-height:43px;width:100%;border-color:#d4b9b5;background:#fff7f3;color:#874354;font-size:13px;font-weight:750}
+.nvidia-provider .nvidia-connect-status{white-space:normal;overflow-wrap:anywhere}
 .nvidia-action-row [hidden]{display:none!important}
 .nvidia-provider .nvidia-connect-status{padding:9px 11px;border-radius:9px;background:#f8f4ef;color:#675951;min-height:39px;font-size:12px;line-height:1.45}
 .nvidia-provider .nvidia-connect-status[data-state="error"]{background:#fff0f2;color:#9b4052}

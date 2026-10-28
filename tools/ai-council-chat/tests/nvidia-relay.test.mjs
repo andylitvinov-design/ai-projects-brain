@@ -66,3 +66,64 @@ test('An empty NVIDIA completion is an upstream error, never a verified dummy an
   assert.equal(JSON.stringify(value).includes('nvapi-'),false);
  }finally{globalThis.fetch=old;}
 });
+
+
+test('Explicit NVIDIA probe disables expensive thinking and strictly caps output without a second request',async()=>{
+ const previous=globalThis.fetch;let count=0,sent=null;
+ globalThis.fetch=async(url,opt)=>{
+  count++;sent=JSON.parse(opt.body);
+  assert.equal(url,'https://integrate.api.nvidia.com/v1/chat/completions');
+  return Response.json({choices:[{message:{content:'OK'},finish_reason:'stop'}]});
+ };
+ try{
+  const r=await POST(makeRequest(validBody({probe:true,max_tokens:1500})));
+  const v=await r.json();
+  assert.equal(r.status,200);
+  assert.equal(v.choices[0].message.content,'OK');
+  assert.equal(count,1,'no fallback or repeated paid call');
+  assert.equal(sent.model,MODEL);
+  assert.equal(sent.reasoning_effort,'none','short key verification should not spend its output budget on thinking');
+  assert.equal(sent.max_tokens,128,'bounded output independent of caller budget');
+  assert.equal(sent.stream,false);
+  assert.equal(JSON.stringify(v).includes('nvapi-'),false);
+ }finally{globalThis.fetch=previous;}
+});
+test('Ordinary opted-in NVIDIA Council conversation keeps its existing reasoning behavior',async()=>{
+ const previous=globalThis.fetch;let sent;
+ globalThis.fetch=async(url,opt)=>{
+  sent=JSON.parse(opt.body);
+  return Response.json({choices:[{message:{content:'Independent technical review'},finish_reason:'stop'}]});
+ };
+ try{
+  const r=await POST(makeRequest(validBody({probe:false,max_tokens:750})));
+  assert.equal(r.status,200);
+  assert.equal(sent.max_tokens,750);
+  assert.equal('reasoning_effort' in sent,false,'only the short probe is non-thinking');
+ }finally{globalThis.fetch=previous;}
+});
+test('NVIDIA upstream abort is a useful, non-secret timeout rather than hanging or claiming invalid key',async()=>{
+ const previous=globalThis.fetch;
+ globalThis.fetch=async()=>{const error=new Error('aborted');error.name='AbortError';throw error;};
+ try{
+  const r=await POST(makeRequest(validBody({probe:true})));
+  const v=await r.json();
+  assert.equal(r.status,503);
+  assert.match(v.error,/42 секунды/);
+  assert.match(v.error,/не доказательство неверного ключа/);
+  assert.equal(JSON.stringify(v).includes('nvapi-'),false);
+  assert.equal(v.choices,undefined);
+ }finally{globalThis.fetch=previous;}
+});
+test('Empty probe completion is not authorization success and does not expose provider reasoning',async()=>{
+ const previous=globalThis.fetch;
+ globalThis.fetch=async()=>Response.json({choices:[{message:{content:'',reasoning_content:'model internal trace'},finish_reason:'length'}]});
+ try{
+  const r=await POST(makeRequest(validBody({probe:true})));
+  const v=await r.json();
+  assert.equal(r.status,502);
+  assert.match(v.error,/без текстового ответа/);
+  assert.equal(v.finish_reason,'length');
+  assert.equal(v.choices,undefined);
+  assert.equal(JSON.stringify(v).includes('model internal trace'),false);
+ }finally{globalThis.fetch=previous;}
+});

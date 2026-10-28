@@ -32,8 +32,10 @@ export async function POST(req){
  if(!Array.isArray(msgs)||!msgs.length||msgs.length>7||msgs.some(m=>!m||!['system','user','assistant'].includes(m.role)||typeof m.content!=='string'||!SAFE_TEXT.test(m.content)))
    return reply({error:'Invalid messages'},400);
  if(msgs.reduce((n,m)=>n+m.content.length,0)>92000)return reply({error:'Conversation too long'},413);
- const tokens=Math.min(5300,Math.max(24,Number.isFinite(b.max_tokens)?Math.floor(b.max_tokens):1600));
- const isProbe=!!b.probe;
+ const isProbe=b.probe===true;
+ // A probe is exactly one bounded, low-token call. Do not waste a 256-token cap
+ // on model reasoning: a "length" finish with empty content is not a valid test.
+ const tokens=isProbe?128:Math.min(5300,Math.max(24,Number.isFinite(b.max_tokens)?Math.floor(b.max_tokens):1600));
  // No hidden paid fallbacks, no arbitrary URL, no dynamic providers or model IDs.
  const ctl=new AbortController(),tid=setTimeout(()=>ctl.abort(),isProbe?42000:120000);
  try{
@@ -41,13 +43,21 @@ export async function POST(req){
   try{r=await fetch(UPSTREAM,{
     method:'POST',redirect:'error',signal:ctl.signal,
     headers:{Authorization:'Bearer '+apiKey,'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({model:MODEL,messages:msgs,max_tokens:tokens,stream:false,temperature:1,top_p:0.95})
-  });}catch(e){return reply({error:e?.name==='AbortError'?'NVIDIA timed out':'NVIDIA network unavailable'},503);}
+    body:JSON.stringify({model:MODEL,messages:msgs,max_tokens:tokens,stream:false,temperature:1,top_p:0.95,
+      ...(isProbe?{reasoning_effort:'none'}:{})})
+  });}catch(e){return reply({error:e?.name==='AbortError'?
+      'NVIDIA не ответила на короткую проверку за 42 секунды. Это задержка сервиса, а не доказательство неверного ключа. Попробуй позже; автоматических повторов нет.':
+      'Не удалось установить соединение с NVIDIA. Проверь сеть и попробуй позже; автоматических повторов нет.'},503);}
   if(!r.ok)return reply({error:clientError(r.status),upstream_status:r.status},r.status>=500?502:r.status);
-  const data=await r.json().catch(()=>({}));
+  let data;
+  try{data=await r.json();}catch(e){return reply({error:e?.name==='AbortError'?
+    'NVIDIA не завершила передачу ответа до тайм-аута. Попробуй позже.':
+    'NVIDIA вернула неполный или нечитаемый ответ. Попробуй позже.'},502);}
   const val=data.choices?.[0]?.message;
   const text=typeof val?.content==='string'?val.content:Array.isArray(val?.content)?val.content.filter(p=>p.type==='text').map(p=>p.text||'').join('\n'):'';
-  if(!text.trim())return reply({error:'NVIDIA returned no textual completion',finish_reason:data.choices?.[0]?.finish_reason||null},502);
+  if(!text.trim())return reply({error:isProbe?
+    'NVIDIA завершила проверку без текстового ответа. Доступ к модели пока не подтверждён; пробный лимит или задержка провайдера возможны.':
+    'NVIDIA returned no textual completion',finish_reason:data.choices?.[0]?.finish_reason||null},502);
   return reply({ok:true,model:MODEL,choices:[{message:{role:'assistant',content:text},finish_reason:data.choices?.[0]?.finish_reason||null}]});
  }finally{clearTimeout(tid);}
 }

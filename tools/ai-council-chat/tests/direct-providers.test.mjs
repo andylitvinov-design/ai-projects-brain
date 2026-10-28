@@ -13,6 +13,7 @@ function harness(options={}){
  els.set('nvidiaProxyConsent',{checked:false,onchange:null});
  els.set('nvidiaUseTechnical',{disabled:true,textContent:'',onclick:null});
  els.set('nvidiaPasteKey',{disabled:false,textContent:'',onclick:null});
+ els.set('nvidiaCancelConnect',{disabled:false,textContent:'',onclick:null,hidden:true});
  els.set('nvidiaRoleStatus',{dataset:{},textContent:''});
  els.set('geminiQuickCheck',{disabled:false,onclick:null});
  const document={getElementById:x=>els.get(x)};
@@ -22,6 +23,11 @@ function harness(options={}){
   if(url.endsWith('/models'))return {ok:true,json:async()=>({data:[{id:'mistral-small-2603'}]})};
   if(options.geminiNetworkFail&&url.includes('generateContent'))throw Error('Load failed');
   if(url.includes('generateContent'))return {ok:true,json:async()=>({candidates:[{content:{parts:[{text:'Gemini analysis: concrete findings and acceptance tests'}]}}]})};
+  if(options.nvidiaHang&&url.includes('./api/nvidia-chat'))return new Promise((resolve,reject)=>{
+    if(opts.signal?.aborted){const e=new Error('Aborted');e.name='AbortError';reject(e);return;}
+    opts.signal?.addEventListener('abort',()=>{const e=new Error('Aborted');e.name='AbortError';reject(e);},{once:true});
+  });
+  if(options.nvidiaUnavailable&&url.includes('./api/nvidia-chat'))return {ok:false,status:503,json:async()=>({error:'NVIDIA endpoint unresponsive (503)'})};
   if(options.nvidiaEmpty&&url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:''},finish_reason:'length'}]})};
   if(options.nvidiaLimit&&url.includes('./api/nvidia-chat'))return {ok:false,status:429,json:async()=>({error:'NVIDIA trial limit 429'})};
   if(url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:'NVIDIA DeepSeek: precise technical review'}}]})};
@@ -32,7 +38,7 @@ function harness(options={}){
  };
  const globalThis={navigator:options.navigator};
  const factory=new Function('globalThis','document','localStorage','sessionStorage','fetch','AbortController','setTimeout','clearTimeout',moduleText+';return globalThis.AICouncilExternalProviders;');
- const api=factory(globalThis,document,localStorage,sessionStorage,fetch,AbortController,setTimeout,clearTimeout);
+ const api=factory(globalThis,document,localStorage,sessionStorage,fetch,AbortController,options.setTimeout||setTimeout,options.clearTimeout||clearTimeout);
  let refreshed=0;let errors=[];const chosen=[];
  const setup={getRemember:()=>true,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=> 'ru',onProbe:()=>{refreshed++;},chooseEngineeringModel:id=>{chosen.push(id);return true}};
  if(options.hasRole)setup.isEngineeringModel=id=>chosen.includes(id);
@@ -294,4 +300,49 @@ test('Previously saved NVIDIA key can be deleted even after relay consent was re
  assert.equal(localStorage.getItem('ai-council-nvidia-nim-key'),null);
  assert.equal(localStorage.getItem('ai-council-nvidia-trial-confirmed'),null);
  assert.equal(h.requests.length,0,'revocation and removal never contact NVIDIA');
+});
+
+
+test('NVIDIA slow response progresses to an explanatory status without issuing extra API calls',async()=>{
+ const timers=new Map();let next=0;
+ const h=harness({nvidiaHang:true,
+  setTimeout:(cb,ms)=>{const id=++next;timers.set(id,{cb,ms});return id;},
+  clearTimeout:id=>timers.delete(id)
+ });
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ const pending=h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.requests.length,1);
+ assert.equal(h.els.get('nvidiaDirectConnect').disabled,true);
+ assert.equal(h.els.get('nvidiaCancelConnect').hidden,false,'cancel remains available while in-flight');
+ const fire=ms=>{for(const t of [...timers.values()]){if(t.ms===ms){t.cb();break;}}};
+ fire(10000);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/автоматических повторов нет/);
+ fire(23000);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/можно отменить/);
+ assert.equal(h.requests.length,1,'progress messages are only local, not new model calls');
+ await h.els.get('nvidiaCancelConnect').onclick();
+ await pending;
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Проверка отменена/);
+ assert.equal(h.els.get('nvidiaDirectConnect').disabled,false);
+ assert.equal(h.els.get('nvidiaCancelConnect').hidden,true);
+ assert.equal(h.els.get('nvidiaDirectKey').value,'nvapi-123456789abcdef','unverified key remains only in masked field');
+ assert.equal(h.api.models().length,0,'canceled request must not mark DeepSeek connected');
+ assert.equal(h.requests.length,1,'cancel does not generate another call');
+});
+test('NVIDIA 503 does not mark a key as valid or retry behind the user',async()=>{
+ const h=harness({nvidiaUnavailable:true});
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.requests.length,1);
+ assert.equal(h.api.models().length,0);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/NVIDIA endpoint unresponsive/);
+ assert.equal(h.els.get('nvidiaDirectConnect').disabled,false);
+ assert.equal(h.els.get('nvidiaCancelConnect').hidden,true);
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.requests.length,1,'cooldown prevents immediately spending another free trial call');
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/не запускайте несколько проверок/i);
 });
