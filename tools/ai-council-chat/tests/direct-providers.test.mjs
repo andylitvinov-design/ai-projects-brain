@@ -344,5 +344,5 @@ test('NVIDIA 503 does not mark a key as valid or retry behind the user',async()=
  assert.equal(h.els.get('nvidiaCancelConnect').hidden,true);
  await h.els.get('nvidiaDirectConnect').onclick();
  assert.equal(h.requests.length,1,'cooldown prevents immediately spending another free trial call');
- assert.match(h.els.get('nvidiaDirectStatus').textContent,/не запускайте несколько проверок/);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/не запускайте несколько проверок/i);
 });
