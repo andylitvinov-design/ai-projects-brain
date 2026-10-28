@@ -17,6 +17,8 @@
  const state={gemini:{key:'',confirmed:false,status:''},mistral:{key:'',confirmed:false,status:''},nvidia:{key:'',confirmed:false,status:'',probe:null}};
  let nvidiaRelayConsent=false;
  let nvidiaProbeBusy=false,nvidiaNextProbeAt=0,nvidiaConnectBusy=false;
+ let nvidiaConnectController=null,nvidiaConnectCancelled=false,nvidiaNextConnectAt=0;
+ let nvidiaProgressTimers=[];
  let setup,signal,settings;
  function getSaved(p){const store=P[p];const remember=setup?.getRemember?.()||false;return sessionStorage.getItem(store.keyStore)||(remember?localStorage.getItem(store.keyStore)||'':'');}
  function read(){nvidiaRelayConsent=localStorage.getItem(RELAY_STORE)==='true';
@@ -38,6 +40,9 @@
   if(connectButton){connectButton.hidden=connectedNvidia;connectButton.disabled=nvidiaConnectBusy;connectButton.textContent=
     settings?.lang?.()==='en'?'Connect and verify DeepSeek':'Подключить и проверить DeepSeek';}
   if(disconnectNvidia)disconnectNvidia.hidden=!state.nvidia.key; // Allow deletion even after relay consent is revoked.
+  const cancelConnect=document.getElementById('nvidiaCancelConnect');
+  if(cancelConnect){cancelConnect.hidden=!nvidiaConnectBusy;cancelConnect.disabled=nvidiaConnectCancelled;
+    cancelConnect.textContent=settings?.lang?.()==='en'?'Cancel verification':'Отменить проверку';}
  for(const p of Object.keys(P)){const d=document.getElementById(p+'DirectStatus'),checkbox=document.getElementById(p+'FreeConfirm'),disconnect=document.getElementById(p+'DirectDisconnect');
   // Do not erase a freshly checked free-tier consent box when showing an error.
   if(checkbox && state[p].confirmed)checkbox.checked=true;
@@ -79,15 +84,37 @@
   if(!res.ok)throw Error(String(data.error||('AI Council / NVIDIA HTTP '+res.status)).slice(0,270));
   return data;
  }
- async function verifyNvidia(raw){
+ async function verifyNvidia(raw,controller=null){
   if(!nvidiaRelayConsent)throw Error('Отметь второе поле: разрешение передавать ключ NVIDIA через AI Council для обхода ограничения браузера.');
   if(!/^nvapi-[a-z0-9._-]{12,512}$/i.test(raw))throw Error('Ожидается ключ NVIDIA Build формата nvapi-…; другие ключи DeepSeek или OpenRouter не подходят.');
-  const ctl=new AbortController(),tid=setTimeout(()=>ctl.abort(),60000);
+  const ctl=controller||new AbortController(),tid=setTimeout(()=>ctl.abort(),52000);
   try{
-   const data=await nvidiaViaRelay(raw,[{role:'user',content:'Answer with one word: OK'}],256,ctl.signal,true);
+   // This is a one-tap, non-thinking NVIDIA probe. The server hard-limits it
+   // independently, never silently retries, and still requires real nonempty text.
+   const data=await nvidiaViaRelay(raw,[{role:'user',content:'Reply with exactly the word OK.'}],128,ctl.signal,true);
    if(data.ok!==true||!String(data.choices?.[0]?.message?.content||'').trim())throw Error('NVIDIA не вернула реальный текстовый ответ DeepSeek. Доступ пока не подтверждён.');
    return String(data.choices[0].message.content).trim();
   }finally{clearTimeout(tid);}
+ }
+ function stopNvidiaProgress(){
+  nvidiaProgressTimers.forEach(clearTimeout);nvidiaProgressTimers=[];
+ }
+ function startNvidiaProgress(){
+  stopNvidiaProgress();
+  const ru=settings?.lang?.()!=='en';
+  const messages=ru?[
+    [10000,'NVIDIA обрабатывает запрос. Это одна проверка, автоматических повторов нет.'],
+    [23000,'NVIDIA отвечает медленно. Проверку можно отменить — ключ останется в поле.'],
+    [37000,'Ответ NVIDIA всё ещё не получен. При превышении лимита ожидания появится ошибка, а не бесконечная загрузка.']
+  ]:[
+    [10000,'NVIDIA is processing one trial request. No automatic retries.'],
+    [23000,'NVIDIA is slow. You can cancel verification; the key stays in the field.'],
+    [37000,'Still no NVIDIA response. This check will end with an explicit timeout instead of spinning forever.']
+  ];
+  nvidiaProgressTimers=messages.map(([ms,message])=>setTimeout(()=>{
+    if(!nvidiaConnectBusy||nvidiaConnectCancelled)return;
+    state.nvidia.status='◷ '+message;render();
+  },ms));
  }
  async function connect(p){
   const input=document.getElementById(p+'DirectKey'),raw=input?.value.trim(),ok=document.getElementById(p+'FreeConfirm')?.checked;
@@ -100,10 +127,22 @@
     missing(settings?.lang?.()==='en'?'The key must be an NVIDIA Build key starting with nvapi-…':'Это должен быть ключ NVIDIA Build, начинающийся с nvapi-…');input?.focus?.();return;}
   if(!ok){missing(settings?.lang?.()==='en'?'Step 3: confirm free NVIDIA trial access with no paid billing.':'Шаг 3: отметьте бесплатный пробный режим NVIDIA без платного биллинга.');return;}
   if(p==='nvidia'&&!nvidiaRelayConsent){missing(settings?.lang?.()==='en'?'Step 3: allow transient key transfer through AI Council for this request.':'Шаг 3: разрешите передачу ключа через AI Council на время запроса.');return;}
-  if(p==='nvidia')nvidiaConnectBusy=true;
-  state[p].status=settings?.lang?.()==='en'?'Checking one real provider answer…':'Проверяю один реальный ответ модели…';render();
+  if(p==='nvidia'){
+    if(Date.now()<nvidiaNextConnectAt){
+      missing(settings?.lang?.()==='en'?
+        'A trial request was sent recently. Please avoid repeated checks while NVIDIA is slow.':
+        'Пробный запрос уже отправлялся недавно. Не запускайте несколько проверок подряд, пока NVIDIA отвечает медленно.');
+      return;
+    }
+    nvidiaConnectBusy=true;nvidiaConnectCancelled=false;
+    nvidiaConnectController=new AbortController();
+    nvidiaNextConnectAt=Date.now()+45000;
+    startNvidiaProgress();
+  }
+  state[p].status=settings?.lang?.()==='en'?'Checking a real NVIDIA reply (one trial request)…':'Проверяю реальный ответ NVIDIA (один пробный запрос)…';render();
   try{
-   if(p==='gemini')await verifyGemini(raw);else if(p==='mistral')await verifyMistral(raw);else {await verifyNvidia(raw);state.nvidia.probe={ok:true,at:Date.now()};}
+   if(p==='gemini')await verifyGemini(raw);else if(p==='mistral')await verifyMistral(raw);
+   else {await verifyNvidia(raw,nvidiaConnectController);if(nvidiaConnectCancelled)throw Error('Verification cancelled.');state.nvidia.probe={ok:true,at:Date.now()};}
    state[p].key=raw;state[p].confirmed=true;localStorage.setItem(P[p].confirm,'true');sessionStorage.setItem(P[p].keyStore,raw);
    if(setup?.getRemember?.())localStorage.setItem(P[p].keyStore,raw);
    else localStorage.removeItem(P[p].keyStore);
@@ -114,8 +153,18 @@
    // Connection required a genuine nonempty text response; apply owner's preferred
    // technical reviewer without requiring another click or model API call.
    if(p==='nvidia')preferDeepSeekEngineering(true);
-  }catch(e){state[p].status='⚠ '+String(e?.message||e).slice(0,180);render();}
-  finally{if(p==='nvidia'){nvidiaConnectBusy=false;render();}}
+  }catch(e){
+    const message=p==='nvidia'&&nvidiaConnectCancelled?
+      (settings?.lang?.()==='en'?'Verification cancelled. No model access was confirmed.':'Проверка отменена. Доступ DeepSeek пока не подтверждён.'):
+      String(e?.message||e).slice(0,250);
+    state[p].status='⚠ '+message;render();
+  }finally{
+    if(p==='nvidia'){
+      stopNvidiaProgress();
+      nvidiaConnectBusy=false;nvidiaConnectController=null;
+      nvidiaConnectCancelled=false;render();
+    }
+  }
  }
  async function disconnect(p){
   state[p].key='';state[p].confirmed=false;state[p].status='';
@@ -173,6 +222,16 @@
    const b=document.getElementById(p+'DirectConnect'),d=document.getElementById(p+'DirectDisconnect');
    if(b)b.onclick=()=>connect(p);if(d)d.onclick=()=>disconnect(p);
   }
+  const cancelNvidia=document.getElementById('nvidiaCancelConnect');
+  if(cancelNvidia)cancelNvidia.onclick=()=>{
+    if(!nvidiaConnectBusy||nvidiaConnectCancelled)return;
+    nvidiaConnectCancelled=true;
+    state.nvidia.status=settings?.lang?.()==='en'?
+      'Stopping NVIDIA verification… Your key remains in the field.':
+      'Останавливаю проверку NVIDIA… Ключ останется в поле.';
+    nvidiaConnectController?.abort();
+    stopNvidiaProgress();render();
+  };
   const pasteNvidia=document.getElementById('nvidiaPasteKey');
   if(pasteNvidia)pasteNvidia.onclick=async()=>{
     const input=document.getElementById('nvidiaDirectKey');
