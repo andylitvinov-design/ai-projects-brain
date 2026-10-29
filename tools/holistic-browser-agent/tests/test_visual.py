@@ -61,3 +61,15 @@ def test_reject_invalid_tolerance(tmp_path):
         with pytest.raises(PolicyError) as exc:
             compare_images(a,a,tolerance=value,runs_dir=tmp_path)
         assert exc.value.code=='INPUT_INVALID'
+
+
+def test_compare_storage_cap_removes_only_created_outputs(monkeypatch, tmp_path):
+    import hba.visual as visual
+    a=png(tmp_path/'ref.png', (0,0,0))
+    b=png(tmp_path/'actual.png', (255,255,255))
+    monkeypatch.setattr(visual, "MAX_ARTIFACT_BYTES", 1)
+    with pytest.raises(PolicyError) as exc:
+        compare_images(a,b,runs_dir=tmp_path)
+    assert exc.value.code == "STORAGE_LIMIT"
+    assert list((tmp_path/'visual').iterdir()) == []
+    assert Path(a).exists() and Path(b).exists()
