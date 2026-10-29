@@ -28,6 +28,7 @@ python -m hba doctor
 python -m hba plan examples/offline-fixture.json
 python -m hba run examples/offline-fixture.json
 python -m hba run examples/holistic-house-public.json
+PYTHONPATH=. python examples/public-readonly-matrix.py  # opt-in: 16 PUBLIC website visits, no login
 python -m hba compare /path/to/approved-reference.png /path/to/actual.png
 python -m hba status <32-character-run-id>
 python -m hba cancel <32-character-run-id>
@@ -62,6 +63,8 @@ python -m hba run examples/offline-fixture.json
 ```
 
 Browsers need to be installed/available. Tests include protected-route denial, cost denial, external/internal URL denial, form denial, unknown action/tool denial, malformed MCP requests, private path rejection and real Chromium exercise against the fixed offline fixture. Public site E2E is reported separately because network restrictions can block the current execution environment. A passing offline fixture is **synthetic**, not proof of Holistic House live flows.
+
+The separate 16-case PUBLIC matrix visits EN/RU/ES homes at 320, 375, 390, 430 and 1440 pixels and the unauthenticated EN tests catalogue at 390. It performs **only** allowed GET/HEAD navigation, a main-role assertion and an overflow check; no auth, write, forms, images uploaded, billable browser service or new deployment. It prints per-route sanitized JSON and **fails if any flow is incomplete, console-broken or restricted**. The GitHub Actions step uses `continue-on-error: true` to keep *core HBA tests* independent of *website quality*: inspect that step's logs and verdicts explicitly; an overall workflow SUCCESS does **not** establish full live-site PASS. Images, visual baseline, conversions and private data remain NOT_TESTED. Public requests do count toward the website's existing hosting traffic usage; do not use large repeat loops.
 
 ## Cost and authority
 
