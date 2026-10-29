@@ -49,6 +49,10 @@ def main(argv: list[str] | None = None) -> int:
     for cmd in ("status", "cancel"):
         tool = sub.add_parser(cmd)
         tool.add_argument("run_id")
+    compare = sub.add_parser("compare", help="Compare two LOCAL PNG screenshots; no external calls")
+    compare.add_argument("reference")
+    compare.add_argument("actual")
+    compare.add_argument("--tolerance", type=int, default=12)
     sub.add_parser("mcp", help="Run local stdio MCP bridge (never exposes a web listener)")
     args = p.parse_args(argv)
     try:
@@ -62,6 +66,9 @@ def main(argv: list[str] | None = None) -> int:
             result = read_status(args.run_id)
         elif args.command == "cancel":
             result = cancel_run(args.run_id)
+        elif args.command == "compare":
+            from .visual import compare_images
+            result = compare_images(args.reference, args.actual, tolerance=args.tolerance)
         else:
             from .mcp import serve_stdio
             serve_stdio()

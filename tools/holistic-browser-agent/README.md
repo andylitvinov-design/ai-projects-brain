@@ -28,6 +28,7 @@ python -m hba doctor
 python -m hba plan examples/offline-fixture.json
 python -m hba run examples/offline-fixture.json
 python -m hba run examples/holistic-house-public.json
+python -m hba compare /path/to/approved-reference.png /path/to/actual.png
 python -m hba status <32-character-run-id>
 python -m hba cancel <32-character-run-id>
 python -m hba mcp  # local stdio MCP, no HTTP port
@@ -75,3 +76,7 @@ Separate host installation, full visual reference diff, Next.js production SHA c
 A readable [INSTALL_MAC.command](./INSTALL_MAC.command) performs local venv/Playwright setup, an offline fixture run, and **asks before** registering the local MCP via the installed Codex CLI. It does not disable macOS Gatekeeper, expose a browser port, request tokens, or enable remote access. Review the script before running; macOS can warn about unsigned downloaded scripts. This installer is prepared but **has not been tested on the owner's Mac** (remote Desktop Commander call quota exhausted).
 
 The Codex MCP registration uses the verified current syntax `codex mcp add ... --env PYTHONPATH=<local-folder> -- <venv-python> -m hba mcp`; storing PYTHONPATH is necessary because Codex launches the Python process from an arbitrary directory. Never attach the user's personal browser profile or production cookies.
+
+## High-fidelity visual QA (local PNG comparison)
+
+the `compare` CLI command compares **two explicitly selected local PNG files** of identical dimensions. It records pixel-change ratio, average RGB difference, SHA-256 checksums, overlay/difference/side-by-side previews in a private local artifact directory. It never sends screenshots to a model, cloud, GitHub or analytics. Size/format checks prevent oversized/invalid uploads. The comparison score is a diagnostic only; reference review and click/E2E verification still require their own gates. `compare` is deliberately **not** a remote MCP tool, to avoid exposing arbitrary local files.
