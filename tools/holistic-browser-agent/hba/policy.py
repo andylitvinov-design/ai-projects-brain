@@ -67,7 +67,7 @@ def clean_origin(url: str) -> str:
 
 
 def safe_url(url: str, project: str, *, require_path: bool = False) -> str:
-    expected = PROJECT_ORIGINS.get(project)
+    expected = PROJECT_ORIGINS.get(project) if isinstance(project, str) else None
     if expected is None:
         raise PolicyError("PROJECT_UNKNOWN")
     if clean_origin(url) != expected:
@@ -114,14 +114,14 @@ def validate_manifest(obj: Any) -> dict[str, Any]:
     _ensure_keys(obj, {"schema_version", "project", "mode", "provider", "start_url", "viewport", "actions", "max_external_spend_usd"})
     if obj.get("schema_version") != SCHEMA_VERSION:
         raise PolicyError("INPUT_INVALID")
-    if obj.get("project") not in PROJECT_ORIGINS:
+    if not isinstance(obj.get("project"), str) or obj.get("project") not in PROJECT_ORIGINS:
         raise PolicyError("PROJECT_UNKNOWN")
     if obj.get("provider", "local_playwright") != "local_playwright":
         raise PolicyError("BLOCKED_COST")
     if obj.get("max_external_spend_usd", 0) != 0 or type(obj.get("max_external_spend_usd", 0)) not in (int, float):
         raise PolicyError("BLOCKED_COST")
     mode = obj.get("mode")
-    if mode not in {"PUBLIC_READONLY", "FIXTURE"}:
+    if not isinstance(mode, str) or mode not in {"PUBLIC_READONLY", "FIXTURE"}:
         raise PolicyError("INPUT_INVALID")
     vp = obj.get("viewport", {"width": 390, "height": 844})
     if not isinstance(vp, dict):
@@ -142,7 +142,7 @@ def validate_manifest(obj: Any) -> dict[str, Any]:
             raise PolicyError("INPUT_INVALID")
         _ensure_keys(item, {"op", "name", "role", "text", "url", "path_prefix", "value"})
         op = item.get("op")
-        if op not in ALLOWED_OPERATIONS:
+        if not isinstance(op, str) or op not in ALLOWED_OPERATIONS:
             raise PolicyError("INPUT_INVALID")
         if op in FIXTURE_ONLY and mode != "FIXTURE":
             raise PolicyError("BLOCKED_APPROVAL")
@@ -151,7 +151,7 @@ def validate_manifest(obj: Any) -> dict[str, Any]:
                 raise PolicyError("BLOCKED_APPROVAL")
             safe_url(item.get("url"), obj["project"], require_path=True)
         elif op == "assert_role":
-            if item.get("role") not in SAFE_ROLES:
+            if not isinstance(item.get("role"), str) or item.get("role") not in SAFE_ROLES:
                 raise PolicyError("INPUT_INVALID")
             if item.get("role") in {"main", "navigation", "status"}:
                 if item.get("name") is not None:
@@ -162,7 +162,7 @@ def validate_manifest(obj: Any) -> dict[str, Any]:
         elif op in {"click_link", "click_button", "fill"}:
             if not isinstance(item.get("name"), str) or not 1 <= len(item["name"]) <= 128:
                 raise PolicyError("INPUT_INVALID")
-            if op == "fill" and item.get("value") not in SAFE_FIXTURE_VALUES:
+            if op == "fill" and (not isinstance(item.get("value"), str) or item["value"] not in SAFE_FIXTURE_VALUES):
                 raise PolicyError("BLOCKED_PRIVACY")
         elif op == "assert_text":
             if not isinstance(item.get("text"), str) or not 1 <= len(item["text"]) <= 128:
