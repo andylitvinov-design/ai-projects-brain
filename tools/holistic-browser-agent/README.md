@@ -29,6 +29,7 @@ python -m hba plan examples/offline-fixture.json
 python -m hba run examples/offline-fixture.json
 python -m hba run examples/holistic-house-public.json
 PYTHONPATH=. python examples/public-readonly-matrix.py  # opt-in: 16 PUBLIC website visits, no login
+PYTHONPATH=. python examples/public-cta-checks.py  # opt-in: 3 public navigation-only CTA journeys
 python -m hba compare /path/to/approved-reference.png /path/to/actual.png
 python -m hba status <32-character-run-id>
 python -m hba cancel <32-character-run-id>
@@ -100,3 +101,5 @@ Public QA may be incomplete because strict network policies intentionally block 
 The fixed, reviewed `measure_layout` action returns only numeric viewport/main geometry, overflow, and counts of images, links and buttons. The 16 guest-only public browser scenarios now capture private local screenshots and log only SHA-256 hashes (not the images). An image blocked by the strict policy is counted as *broken_or_blocked*, and cannot be attributed to a site bug without independent checks. `PASS_PUBLIC_DOM_POLICY_LIMITED` means the allowed guest DOM/overflow assertions passed, but overall page fidelity is still NOT_VERIFIED. No authenticated screenshot or automatic upload to GitHub is permitted.
 
 On macOS, the installer probes a compatible already-installed Chrome/Chromium in an ephemeral context before downloading another Chromium. The script has executable Git mode and keeps Gatekeeper enabled. A clean `bash -n` CI pass is not a substitute for executing it on the actual owner Mac.
+
+The independent public CTA smoke checks known free-test, OPORA and free-written-review link destinations. It clicks only anchors and validates paths, never forms. A click is **not** a lead, booking, confirmation or payment; restricted assets make full site fidelity unverified.

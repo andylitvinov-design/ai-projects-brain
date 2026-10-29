@@ -66,3 +66,12 @@ jobs:
           PYTHONPATH: .
         run: |
           python examples/public-readonly-matrix.py
+      - name: Verify public CTA destinations only (no form submissions)
+        continue-on-error: true # website changes independent of HBA
+        timeout-minutes: 3
+        working-directory: tools/holistic-browser-agent
+        env:
+          HBA_RUNS_DIR: ${{ runner.temp }}/hba-public-cta-runs
+          PYTHONPATH: .
+        run: |
+          python examples/public-cta-checks.py
