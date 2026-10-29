@@ -151,3 +151,32 @@ def test_image_optimizer_denied_as_cost_risk():
 
 def test_public_service_discovery_stays_allowed():
     assert safe_url("https://holistichouse.vercel.app/en/explore/business", "holistic-house")
+
+
+@pytest.mark.parametrize("field,value,code", [
+    ("project", [], "PROJECT_UNKNOWN"),
+    ("project", {"owner": "holistic-house"}, "PROJECT_UNKNOWN"),
+    ("mode", [], "INPUT_INVALID"),
+    ("mode", {"PUBLIC_READONLY": True}, "INPUT_INVALID"),
+])
+def test_unhashable_policy_discriminants_fail_closed(field, value, code):
+    manifest = sample()
+    manifest[field] = value
+    deny(manifest, code)
+
+
+@pytest.mark.parametrize("action", [
+    {"op": [], "role": "heading", "name": "Test"},
+    {"op": {"execute_js": True}},
+    {"op": "assert_role", "role": [], "name": "Test"},
+])
+def test_malformed_action_discriminants_fail_closed(action):
+    manifest = sample()
+    manifest["actions"] = [action]
+    deny(manifest, "INPUT_INVALID")
+
+
+def test_malformed_fixture_value_rejected_before_browser():
+    manifest = sample()
+    manifest["actions"] = [{"op": "fill", "name": "Your goal", "value": ["medical"]}]
+    deny(manifest, "BLOCKED_PRIVACY")
