@@ -8,7 +8,7 @@ Local Chromium screenshot/DOM and simple UI checks without TinyFish wallet calls
 
 ## Local setup (no new paid services)
 
-Python 3.10+ and locally installed Chromium are prerequisites. On a machine where Python Playwright is not installed:
+Python 3.10–3.14 is required; Playwright's pinned Chromium may be installed locally using the commands below. A system Chromium executable is optional. On a machine where Python Playwright is not installed:
 
 ```bash
 cd tools/holistic-browser-agent
@@ -34,7 +34,7 @@ python -m hba cancel <32-character-run-id>
 python -m hba mcp  # local stdio MCP, no HTTP port
 ```
 
-`hba run` prints a JSON summary with `state`, `steps`, hash of manifest, screenshot filenames/checksums, redacted counters, and explicit `not_tested`. Images are private local files in `~/.local/share/hba/runs/<run-id>/`, never auto-uploaded. On authentication-required or private pages, the runner **must not** be used; it makes a fresh guest context and refuses mutating operations. The fixture has only synthetic content.
+`hba doctor` launches a small, synthetic, network-denied Chromium page, reporting `READY` only if it runs. It does **not** establish Codex compatibility or public-site E2E. `hba run` prints a JSON summary with `state`, `steps`, hash of manifest, screenshot filenames/checksums, redacted counters, and explicit `not_tested`. Images are private local files in `~/.local/share/hba/runs/<run-id>/`, never auto-uploaded. On authentication-required or private pages, the runner **must not** be used; it makes a fresh guest context and refuses mutating operations. The fixture has only synthetic content.
 
 Set `HBA_CHROMIUM_EXECUTABLE=/path/to/chromium` if Chromium is installed outside Playwright's default cache. Optional `HBA_RUNS_DIR=/path/to/private-local-runs` stores private artifacts; never set it to public site assets, a Git-tracked directory or a shared cloud folder.
 
@@ -69,14 +69,24 @@ This project makes **zero paid TinyFish calls and zero new paid API calls**. Loc
 
 ## Planned, not implemented
 
-Separate host installation, full visual reference diff, Next.js production SHA confirmation, secure test account/RLS E2E, remote/mobile MCP, provider delivery proofs, resilient multi-run queue, local reasoning model, and user-facing dashboard require independent validated work. No unapproved always-on automation or poller.
+Owner Mac installation, verified Codex-host MCP invocation, Next.js production SHA confirmation, secure test account/RLS E2E, remote/mobile MCP, provider delivery proofs, resilient multi-run queue, local reasoning model, and user-facing dashboard require independent validated work. **Offline pixel-based compare is implemented**, but it is not a semantic layout acceptance gate. No unapproved always-on automation or poller.
 
 ## macOS one-time installer (not executed on the owner's Mac)
 
-A readable [INSTALL_MAC.command](./INSTALL_MAC.command) performs local venv/Playwright setup, an offline fixture run, and **asks before** registering the local MCP via the installed Codex CLI. It does not disable macOS Gatekeeper, expose a browser port, request tokens, or enable remote access. Review the script before running; macOS can warn about unsigned downloaded scripts. This installer is prepared but **has not been tested on the owner's Mac** (remote Desktop Commander call quota exhausted).
+A readable [INSTALL_MAC.command](./INSTALL_MAC.command) reuses matching pinned packages, probes headless Chromium, installs its Playwright browser only when needed, runs an offline fixture, and **asks before** registering the local MCP via the installed Codex CLI. If that MCP name already points elsewhere, it stops instead of overwriting it. It does not disable macOS Gatekeeper, expose a browser port, request tokens, or enable remote access. Review the script before running; macOS can warn about unsigned downloaded scripts. This installer is prepared but **has not been tested on the owner's Mac** (last remote device check: Offline). Running bash syntax checks in CI does not prove installation on macOS.
 
 The Codex MCP registration uses the verified current syntax `codex mcp add ... --env PYTHONPATH=<local-folder> -- <venv-python> -m hba mcp`; storing PYTHONPATH is necessary because Codex launches the Python process from an arbitrary directory. Never attach the user's personal browser profile or production cookies.
 
 ## High-fidelity visual QA (local PNG comparison)
 
-the `compare` CLI command compares **two explicitly selected local PNG files** of identical dimensions. It records pixel-change ratio, average RGB difference, SHA-256 checksums, overlay/difference/side-by-side previews in a private local artifact directory. It never sends screenshots to a model, cloud, GitHub or analytics. Size/format checks prevent oversized/invalid uploads. The comparison score is a diagnostic only; reference review and click/E2E verification still require their own gates. `compare` is deliberately **not** a remote MCP tool, to avoid exposing arbitrary local files.
+The `compare` CLI command compares **two explicitly selected local PNG files** of identical dimensions. It records pixel-change ratio, average RGB difference, SHA-256 checksums, overlay/difference/side-by-side previews in a private local artifact directory. It never sends screenshots to a model, cloud, GitHub or analytics. Size/format checks prevent oversized/invalid uploads. The comparison score is a diagnostic only; reference review and click/E2E verification still require their own gates. `compare` is deliberately **not** a remote MCP tool, to avoid exposing arbitrary local files.
+
+## Recovery, diagnosis and safe removal
+
+Run `python -m hba doctor` first. If it reports `BLOCKED_DEVICE`, inspect the local Python/Playwright installation and (if needed) run `python -m playwright install chromium`. Re-running `INSTALL_MAC.command` preserves a working venv and stops on a conflicting Codex registration rather than overwriting another server.
+
+To disconnect **only this** MCP server, use `codex mcp get holistic-browser-agent --json` to confirm it points to the HBA venv, then `codex mcp remove holistic-browser-agent`. The `.venv` and `~/.local/share/hba/runs` can be removed manually after reviewing for retained evidence; the installer will not delete data. Do not alter Gatekeeper, Safari/Chrome profiles, unrelated MCP entries, global Python or Vercel settings.
+
+A **cancel** request creates a local flag; cancellation is observed between actions and again before terminal success. A currently blocking browser operation is not forcibly interrupted, and the stdio MCP serves calls serially, so in-process `hba_run` cannot be cancelled from that same MCP stream until it returns. Use a separate local `hba cancel <run-id>` process if an active run ID is known. This is a documented MVP limitation, **not** verified immediate cancellation or durable crash recovery.
+
+Public QA may be incomplete because strict network policies intentionally block some image optimizers, cross-origin assets and POST-backed Next.js behavior. Label those checks FAILED/NOT_TESTED; never call screenshots full-fidelity or count a UI click as a booked/paid conversion.
