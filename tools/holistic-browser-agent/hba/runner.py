@@ -144,7 +144,15 @@ def _execute(page: Any, spec: dict[str, Any], manifest: dict[str, Any], director
             raise PolicyError("BLOCKED_APPROVAL")
         _unique_visible(page.get_by_role("textbox", name=spec["name"], exact=True)).fill(spec["value"], timeout=10000)
     elif op == "assert_url":
-        if not urlsplit(page.url).path.startswith(spec["path_prefix"]):
+        # Segment boundary matters: /en/tests must not match /en/tests-private.
+        actual = urlsplit(page.url)
+        expected = spec["path_prefix"].rstrip("/") or "/"
+        matches = actual.path == expected or (
+            expected != "/" and actual.path.startswith(expected + "/")
+        )
+        if manifest["mode"] == "PUBLIC_READONLY" and (actual.query or actual.fragment):
+            matches = False
+        if not matches:
             raise PolicyError("ASSERTION_FAILED")
     elif op == "assert_no_overflow":
         # Fixed, reviewed diagnostic expression; never evaluate code from manifest/DOM.

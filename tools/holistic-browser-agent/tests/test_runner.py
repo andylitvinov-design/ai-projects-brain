@@ -243,3 +243,26 @@ def test_real_browser_denial_reason_is_code_only(monkeypatch, tmp_path):
     assert sum(out["network_denial_codes"].values()) == out["network_denied"]
     assert "VERY_PRIVATE_FIXTURE_MARKER" not in json.dumps(out)
     assert "token" not in json.dumps(out)
+
+
+def test_public_url_assertion_requires_segment_boundary_and_no_query(tmp_path):
+    from types import SimpleNamespace
+    from hba.runner import _execute
+
+    expected = {"op": "assert_url", "path_prefix": "/en/client/tests"}
+    manifest = {"project": "holistic-house", "mode": "PUBLIC_READONLY"}
+    harmless = {"network_denied": 0, "console_errors": 0}
+    def check(url):
+        page = SimpleNamespace(url=url)
+        _execute(page, expected, manifest, tmp_path, [], harmless)
+
+    check("https://holistichouse.vercel.app/en/client/tests")
+    check("https://holistichouse.vercel.app/en/client/tests/list")
+    for url in (
+        "https://holistichouse.vercel.app/en/client/tests-external",
+        "https://holistichouse.vercel.app/en/client/tests?token=synthetic",
+        "https://holistichouse.vercel.app/en/client/tests#extra",
+    ):
+        with pytest.raises(PolicyError) as exc:
+            check(url)
+        assert exc.value.code == "ASSERTION_FAILED"

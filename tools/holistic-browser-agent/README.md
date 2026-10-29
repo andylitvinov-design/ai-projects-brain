@@ -112,3 +112,5 @@ The run report includes `network_denial_codes` (fixed policy reason codes and co
 ### macOS compatibility CI
 
 A dedicated `macos-installer-smoke` job uses the **standard free public-repository `macos-15` runner** to execute `INSTALL_MAC.command` twice, verifying a real macOS Python/Chromium installation, synthetic offline browser actions and repeatability. It neither registers Codex nor touches global Python, user Chrome profiles or secrets. **It is not proof of installation or native Codex invocation on the owner's Mac.** The job is provisional until its exact HEAD CI completes.
+
+Public `assert_url` checks path **segment boundaries** rather than raw string prefixes, and rejects query/fragment changes when verifying the destination. A valid click alone never proves a saved lead, booking or payment.
