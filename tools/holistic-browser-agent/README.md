@@ -44,7 +44,7 @@ Use a local `stdio` tool server command `python -m hba mcp` with working directo
 
 ## Safeguards and known limitations
 
-- Only the exact hard-coded public `https://holistichouse.vercel.app` origin is permitted; protected app/admin/API/account routes and image optimizer endpoints are denied even on that origin. For the fixture, only the bundled HTML is loaded and **all browser requests are denied**.
+- Only the exact hard-coded public `https://holistichouse.vercel.app` origin is permitted. The publicly readable test catalogue (`/en/client/tests`, `/ru/client/tests`, `/es/client/tests`) is an explicit exact-path exception, **without query strings or descendant routes**; all other protected client/app/admin/API/account routes and the image optimizer are denied. For the fixture, only bundled HTML is loaded and **all browser requests are denied**.
 - Public route requests are GET/HEAD only; unexpected redirects and WebSockets are blocked. Service workers disabled. Cross-origin assets and even required framework POSTs may fail. A browser-level route is not a host firewall, and DNS/OS network containment is **not proven**; do not use it against hostile unknown websites.
 - Public click means links only; buttons/forms/attachments are forbidden. All inputs and screenshot filenames are schema-validated before any browser launch.
 - No auth, real client data, reports, payments, video renders, emails, Telegram messages, registrations, merges or production writes. Paid providers are not registered at all; max additional spend always 0.
