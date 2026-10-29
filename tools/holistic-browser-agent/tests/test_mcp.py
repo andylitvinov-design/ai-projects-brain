@@ -53,7 +53,7 @@ def test_malformed_mcp_tool_name_fails_closed():
     assert "INPUT_INVALID" in response["result"]["content"][0]["text"]
 
 
-def test_mcp_run_is_cancellable_from_same_stdio_process(monkeypatch, tmp_path):
+def test_mcp_run_is_cancellable_while_queued_from_same_stdio_process(monkeypatch, tmp_path):
     import os
     import threading
     import hba.mcp as mcp
@@ -65,15 +65,17 @@ def test_mcp_run_is_cancellable_from_same_stdio_process(monkeypatch, tmp_path):
 
     entered = threading.Event()
     resume = threading.Event()
-    original = runner._execute
+    original = mcp.run_manifest
 
-    def held_action(page, spec, manifest, directory, screenshots, counters):
+    def held_runner(manifest, *, run_id=None, chromium_executable=None):
+        # Synchronize BEFORE starting Chromium; don't confuse slow startup
+        # with cancellation correctness or add a timing-dependent failure.
         entered.set()
         if not resume.wait(timeout=15):
             raise RuntimeError("Synthetic worker released too late")
-        return original(page, spec, manifest, directory, screenshots, counters)
+        return original(manifest, run_id=run_id, chromium_executable=chromium_executable)
 
-    monkeypatch.setattr(runner, "_execute", held_action)
+    monkeypatch.setattr(mcp, "run_manifest", held_runner)
     manifest = {
         "schema_version": "hba.manifest.v1",
         "project": "holistic-house", "mode": "FIXTURE",
@@ -86,7 +88,7 @@ def test_mcp_run_is_cancellable_from_same_stdio_process(monkeypatch, tmp_path):
     run_id = job["run_id"]
     try:
         assert job["state"] == "QUEUED"
-        assert entered.wait(timeout=20), runner.read_status(run_id)
+        assert entered.wait(timeout=5), runner.read_status(run_id)
         busy = handle_message(request("tools/call", name="hba_run", arguments={"manifest": manifest}))
         assert busy["result"]["isError"] is True
         assert "RUN_BUSY" in busy["result"]["content"][0]["text"]
@@ -114,3 +116,30 @@ def test_mcp_run_rejects_paid_provider_without_job_creation(monkeypatch, tmp_pat
     assert output["result"]["isError"] is True
     assert "BLOCKED_COST" in output["result"]["content"][0]["text"]
     assert not list(tmp_path.iterdir())
+
+
+def test_mcp_run_finishes_real_chromium_fixture(monkeypatch, tmp_path):
+    import os
+    import hba.mcp as mcp
+    import hba.runner as runner
+
+    monkeypatch.setenv("HBA_RUNS_DIR", str(tmp_path))
+    if os.path.isfile("/usr/bin/chromium"):
+        monkeypatch.setenv("HBA_CHROMIUM_EXECUTABLE", "/usr/bin/chromium")
+    manifest = {
+        "schema_version": "hba.manifest.v1", "project": "holistic-house",
+        "mode": "FIXTURE", "viewport": {"width": 390, "height": 844},
+        "provider": "local_playwright", "max_external_spend_usd": 0,
+        "actions": [{"op": "assert_role", "role": "heading", "name": "Holistic House QA Fixture"},
+                    {"op": "assert_no_overflow"}],
+    }
+    response = handle_message(request("tools/call", name="hba_run", arguments={"manifest": manifest}))
+    job = json.loads(response["result"]["content"][0]["text"])
+    assert job["state"] == "QUEUED"
+    assert mcp._worker is not None
+    mcp._worker.join(timeout=35)
+    assert not mcp._worker.is_alive(), runner.read_status(job["run_id"], tmp_path)
+    status = runner.read_status(job["run_id"], tmp_path)
+    assert status["state"] == "SYNTHETIC_TEST_PASS", status
+    assert status["assertions_passed"] == 2
+    assert status["cost"] == {"paid_provider_calls": 0, "new_external_spend_usd": 0}
