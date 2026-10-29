@@ -15,12 +15,50 @@ from .runner import cancel_run, default_runs_dir, make_plan, read_status, run_ma
 
 
 def doctor() -> dict[str, Any]:
-    return {"app": "holistic-browser-agent", "version": "0.1.0",
-            "python": sys.version.split()[0], "playwright_installed": importlib.util.find_spec("playwright") is not None,
-            "chromium_system": shutil.which("chromium") or shutil.which("google-chrome"),
-            "remote_mcp_enabled": False, "tinyfish_paid_enabled": False,
-            "paid_provider_calls_allowed": 0, "allowed_external_spend_usd": 0,
-            "note": "Doctor checks local installation only; it does not prove a live browser journey."}
+    """Launch a local, network-blocked synthetic page: importable != operable."""
+    installed = importlib.util.find_spec("playwright") is not None
+    result: dict[str, Any] = {
+        "app": "holistic-browser-agent", "version": "0.1.0",
+        "python": sys.version.split()[0], "playwright_installed": installed,
+        "chromium_system": shutil.which("chromium") or shutil.which("google-chrome"),
+        "remote_mcp_enabled": False, "tinyfish_paid_enabled": False,
+        "paid_provider_calls_allowed": 0, "allowed_external_spend_usd": 0,
+        "state": "BLOCKED_DEVICE", "chromium_headless_probe": "FAIL",
+        "note": "Probe is an isolated local synthetic page; NOT a public-site journey or Codex integration test.",
+    }
+    if not installed:
+        result["failure_code"] = "PLAYWRIGHT_NOT_INSTALLED"
+        return result
+    try:
+        from playwright.sync_api import sync_playwright
+
+        with sync_playwright() as pw:
+            launch: dict[str, Any] = {"headless": True, "timeout": 15000}
+            executable = os.environ.get("HBA_CHROMIUM_EXECUTABLE")
+            if executable:
+                if not Path(executable).is_file():
+                    raise OSError("Browser executable missing")
+                launch["executable_path"] = executable
+            browser = pw.chromium.launch(**launch)
+            try:
+                context = browser.new_context(service_workers="block", accept_downloads=False)
+                try:
+                    context.route("**/*", lambda route: route.abort("blockedbyclient"))
+                    page = context.new_page()
+                    page.set_content('<main data-hba-probe="ok">local-only</main>', timeout=10000)
+                    if page.locator('main[data-hba-probe="ok"]').inner_text() != "local-only":
+                        raise RuntimeError("Synthetic probe failed")
+                finally:
+                    context.close()
+            finally:
+                browser.close()
+    except Exception:
+        # Do not leak local paths, profiles or runtime exception text into MCP output.
+        result["failure_code"] = "BROWSER_LAUNCH_FAILED"
+    else:
+        result["state"] = "READY"
+        result["chromium_headless_probe"] = "PASS"
+    return result
 
 
 def load_json(path: str) -> Any:
