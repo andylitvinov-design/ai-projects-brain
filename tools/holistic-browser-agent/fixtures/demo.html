@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HBA Zero-Cost Fixture</title>
+<style>body{margin:0;background:#f6eee1;color:#3a261e;font:16px Arial,sans-serif}main{max-width:960px;margin:auto;padding:28px}button,a{cursor:pointer;border-radius:8px}button{background:#714d3a;color:#fff;padding:10px 18px;border:0}a{color:#573a26}#result{padding:12px}</style></head>
+<body><main><h1>Holistic House QA Fixture</h1><p>Deterministic fixture: no external requests.</p>
+<nav aria-label="Main"><a href="#catalog">Explore</a></nav>
+<section id="catalog"><h2>Free Test</h2><label for="goal">Your goal</label>
+<input id="goal" aria-label="Your goal" type="text" placeholder="Your goal">
+<button type="button" onclick="document.querySelector('#result').textContent='Saved locally for QA'">Try</button>
+<p id="result" role="status">Ready</p></section></main></body></html>

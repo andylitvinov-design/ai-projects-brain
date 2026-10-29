@@ -1,0 +1,2 @@
+# Free, locally installed browser automation; no model or hosted browser SDK.
+playwright==1.57.0
