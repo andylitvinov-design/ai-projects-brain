@@ -40,7 +40,7 @@ Set `HBA_CHROMIUM_EXECUTABLE=/path/to/chromium` if Chromium is installed outside
 
 ## MCP for Codex/local client
 
-Use a local `stdio` tool server command `python -m hba mcp` with working directory at this folder. Supported tools: `hba_doctor`, `hba_plan`, `hba_run`, `hba_status`, `hba_cancel`. This is a small JSON-RPC/MCP subset intended for **local testing**; host compatibility and security restrictions must be verified before deployment. No network listener, remote OAuth, public tunnel, arbitrary shell, JavaScript evaluator, raw CDP, exposed clipboard, arbitrary filesystem path, or account access is provided. This does not automatically make the tool callable from ChatGPT on iPhone.
+Use a local `stdio` tool server command `python -m hba mcp` with working directory at this folder. **`hba_run` now returns a run ID rather than blocking until completion; call `hba_status` for terminal evidence.** Supported tools: `hba_doctor`, `hba_plan`, `hba_run`, `hba_status`, `hba_cancel`. This is a small JSON-RPC/MCP subset intended for **local testing**; host compatibility and security restrictions must be verified before deployment. No network listener, remote OAuth, public tunnel, arbitrary shell, JavaScript evaluator, raw CDP, exposed clipboard, arbitrary filesystem path, or account access is provided. This does not automatically make the tool callable from ChatGPT on iPhone.
 
 ## Safeguards and known limitations
 
@@ -87,6 +87,6 @@ Run `python -m hba doctor` first. If it reports `BLOCKED_DEVICE`, inspect the lo
 
 To disconnect **only this** MCP server, use `codex mcp get holistic-browser-agent --json` to confirm it points to the HBA venv, then `codex mcp remove holistic-browser-agent`. The `.venv` and `~/.local/share/hba/runs` can be removed manually after reviewing for retained evidence; the installer will not delete data. Do not alter Gatekeeper, Safari/Chrome profiles, unrelated MCP entries, global Python or Vercel settings.
 
-A **cancel** request creates a local flag; cancellation is observed between actions and again before terminal success. A currently blocking browser operation is not forcibly interrupted, and the stdio MCP serves calls serially, so in-process `hba_run` cannot be cancelled from that same MCP stream until it returns. Use a separate local `hba cancel <run-id>` process if an active run ID is known. This is a documented MVP limitation, **not** verified immediate cancellation or durable crash recovery.
+The local stdio MCP starts **one** short-lived browser worker in a thread and returns a QUEUED `run_id` immediately. `hba_status` and `hba_cancel` work through the **same** stdio client while the browser runs. A second overlapping `hba_run` returns `RUN_BUSY` before creating a job. Cancellation is cooperative: it is checked before launch, between actions and before reporting terminal success, but a blocking Playwright call cannot be interrupted immediately. Closing the MCP stdio pipe requests cancellation and joins the worker. This is not a persistent job scheduler, restart/resume facility or OS-level process sandbox.
 
 Public QA may be incomplete because strict network policies intentionally block some image optimizers, cross-origin assets and POST-backed Next.js behavior. Label those checks FAILED/NOT_TESTED; never call screenshots full-fidelity or count a UI click as a booked/paid conversion.
