@@ -199,7 +199,7 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
     result: dict[str, Any] = {
         "schema_version": "hba.run.v1", "run_id": run_id,
         "project": manifest["project"], "mode": manifest["mode"],
-        "manifest_sha256": fingerprint(manifest), "state": "RUNNING", "started_at": now(),
+        "manifest_sha256": fingerprint(manifest), "state": "RUNNING", "phase": "startup", "started_at": now(),
         "completed_at": None, "steps": [], "artifacts": [], "failure_code": None,
         "assertions_passed": 0, "network_denied": 0, "console_errors": 0,
         "cost": {"paid_provider_calls": 0, "new_external_spend_usd": 0},
@@ -225,13 +225,19 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
         try:
             if (directory / "cancel.flag").exists():
                 raise PolicyError("CANCELLED")
+            result["phase"] = "starting_playwright_driver"
+            _write_atomic(status_path, result)
             with sync_playwright() as pw:
+                result["phase"] = "launching_chromium"
+                _write_atomic(status_path, result)
                 kwargs: dict[str, Any] = {"headless": True}
                 if chromium_executable:
                     if not Path(chromium_executable).is_file():
                         raise PolicyError("BROWSER_EXECUTABLE_MISSING")
                     kwargs["executable_path"] = chromium_executable
                 browser = pw.chromium.launch(**kwargs)
+                result["phase"] = "creating_browser_context"
+                _write_atomic(status_path, result)
                 try:
                     context = browser.new_context(viewport=manifest["viewport"],
                                                   service_workers="block", accept_downloads=False)
@@ -265,6 +271,8 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
                     page.on("pageerror", lambda _error: counters.__setitem__(
                         "console_errors", counters["console_errors"] + 1))
                     context.on("page", lambda new_page: new_page.close() if new_page != page else None)
+                    result["phase"] = "loading_initial_document"
+                    _write_atomic(status_path, result)
                     if manifest["mode"] == "FIXTURE":
                         # Fixed, reviewed fixture; no arbitrary user-provided HTML path.
                         page.set_content(SAMPLE_HTML.read_text(encoding="utf-8"), wait_until="load")
@@ -273,6 +281,8 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
                         if response is None or response.status >= 400 or response.status < 200:
                             raise PolicyError("HTTP_UNEXPECTED")
                         safe_url(page.url, manifest["project"])
+                    result["phase"] = "executing_actions"
+                    _write_atomic(status_path, result)
                     for i, spec in enumerate(manifest["actions"]):
                         if (directory / "cancel.flag").exists():
                             raise PolicyError("CANCELLED")
@@ -296,6 +306,7 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
                     # must not be lost between the last action and the terminal status.
                     if (directory / "cancel.flag").exists():
                         raise PolicyError("CANCELLED")
+                    result["phase"] = "closing_chromium"
                     result["state"] = "SYNTHETIC_TEST_PASS" if manifest["mode"] == "FIXTURE" else "VERIFIED_READONLY"
                     context.close()
                 finally:

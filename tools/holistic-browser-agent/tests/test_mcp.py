@@ -191,9 +191,38 @@ def test_mcp_run_finishes_real_chromium_fixture(monkeypatch, tmp_path):
     job = json.loads(response["result"]["content"][0]["text"])
     assert job["state"] == "QUEUED"
     assert mcp._worker is not None
-    mcp._worker.join(timeout=35)
+    mcp._worker.join(timeout=25)
+    if mcp._worker.is_alive():
+        snapshot = runner.read_status(job["run_id"], tmp_path)
+        mcp._cancel_on_shutdown()
+        assert False, ("HBA worker exceeded 25s in phase=" +
+                       str(snapshot.get("phase", "missing")) +
+                       ", state=" + str(snapshot.get("state")))
     assert not mcp._worker.is_alive(), runner.read_status(job["run_id"], tmp_path)
     status = runner.read_status(job["run_id"], tmp_path)
     assert status["state"] == "SYNTHETIC_TEST_PASS", status
     assert status["assertions_passed"] == 2
     assert status["cost"] == {"paid_provider_calls": 0, "new_external_spend_usd": 0}
+
+
+def test_worker_module_runs_real_chromium_as_standalone_subprocess(monkeypatch, tmp_path):
+    import os
+    from hba.runner import reserve_run, read_status, _write_atomic
+
+    monkeypatch.setenv("HBA_RUNS_DIR", str(tmp_path))
+    if os.path.isfile("/usr/bin/chromium"):
+        monkeypatch.setenv("HBA_CHROMIUM_EXECUTABLE", "/usr/bin/chromium")
+    manifest = {"schema_version": "hba.manifest.v1", "project": "holistic-house",
+                "mode": "FIXTURE", "viewport": {"width": 390, "height": 844},
+                "actions": [{"op": "assert_no_overflow"}]}
+    run_id, prepared = reserve_run(manifest, runs_dir=tmp_path)
+    _write_atomic(tmp_path / run_id / "manifest.json", prepared)
+    proc = subprocess.run(
+        [sys.executable, "-m", "hba.worker", run_id],
+        timeout=25, check=False, capture_output=True, text=True,
+        env=os.environ.copy(),
+    )
+    result = read_status(run_id, tmp_path)
+    assert proc.returncode == 0, (result["state"], result.get("phase"),
+                                  result.get("failure_code"))
+    assert result["state"] == "SYNTHETIC_TEST_PASS"
