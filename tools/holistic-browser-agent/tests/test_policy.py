@@ -130,3 +130,24 @@ def test_run_id_disallows_traversal():
     assert safe_run_id("a"*32)
     for bad in ["../etc/passwd", "~", "a"*33, "b"*31, "Z"*32]:
         assert not safe_run_id(bad)
+
+
+@pytest.mark.parametrize("path", [
+    "/admin/videos", "/en/admin/youtube-upload", "/ru/app/practice", "/api/leads",
+    "/en/checkout", "/ru/clients", "/en/reports/abc", "/en/app/my-tests",
+    "/es/profile", "/en/practice?panel=clients", "/%61dmin/videos",
+])
+def test_protected_routes_rejected_even_on_own_domain(path):
+    with pytest.raises(PolicyError) as e:
+        safe_url("https://holistichouse.vercel.app" + path, "holistic-house")
+    assert e.value.code == "BLOCKED_PRIVACY"
+
+
+def test_image_optimizer_denied_as_cost_risk():
+    with pytest.raises(PolicyError) as e:
+        safe_url("https://holistichouse.vercel.app/_next/image?url=https://x&w=640", "holistic-house")
+    assert e.value.code == "BLOCKED_COST"
+
+
+def test_public_service_discovery_stays_allowed():
+    assert safe_url("https://holistichouse.vercel.app/en/explore/business", "holistic-house")

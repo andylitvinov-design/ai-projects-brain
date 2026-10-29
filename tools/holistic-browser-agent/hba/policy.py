@@ -72,6 +72,20 @@ def safe_url(url: str, project: str, *, require_path: bool = False) -> str:
     u = urlsplit(url)
     if require_path and (u.query or u.fragment):
         raise PolicyError("INPUT_INVALID")
+    # A fresh guest context is not consent to inspect personal/admin content.
+    # Also deny same-origin proxy/transform endpoints that can trigger services.
+    if "%" in u.path or "\\" in u.path or "//" in u.path:
+        raise PolicyError("BLOCKED_PRIVACY")
+    segments = [v.lower() for v in u.path.split("/") if v]
+    if segments and segments[0] in {"en", "ru", "es"}:
+        segments = segments[1:]
+    forbidden = {"app", "admin", "api", "account", "auth", "client", "clients",
+                 "profile", "practice", "dashboard", "reports", "report", "results",
+                 "sessions", "session", "checkout", "payment", "payments", "settings"}
+    if any(part in forbidden for part in segments):
+        raise PolicyError("BLOCKED_PRIVACY")
+    if len(segments) >= 2 and segments[0] == "_next" and segments[1] == "image":
+        raise PolicyError("BLOCKED_COST")
     return url
 
 
