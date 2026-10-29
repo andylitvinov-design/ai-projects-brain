@@ -1,0 +1,38 @@
+name: HBA local zero-budget checks
+
+on:
+  pull_request:
+    paths:
+      - "tools/holistic-browser-agent/**"
+      - ".github/workflows/hba-zero-budget.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hba-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  local-chromium:
+    runs-on: ubuntu-latest # GitHub standard runner is free on PUBLIC repositories.
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install pinned free dependencies and Chromium
+        working-directory: tools/holistic-browser-agent
+        run: |
+          python -m pip install --disable-pip-version-check -r requirements.txt pytest==8.4.2
+          python -m playwright install --with-deps chromium
+      - name: Verify Python and isolated Chromium security tests
+        working-directory: tools/holistic-browser-agent
+        env:
+          HBA_RUNS_DIR: ${{ runner.temp }}/hba-ci-runs
+        run: |
+          python -m compileall -q hba
+          python -m pytest -q tests
+          python -m hba plan examples/offline-fixture.json

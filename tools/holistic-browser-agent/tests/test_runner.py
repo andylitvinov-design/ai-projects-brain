@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -6,7 +7,7 @@ import pytest
 from hba.policy import PolicyError
 from hba.runner import cancel_run, make_plan, read_status, run_manifest
 
-CHROMIUM = "/usr/bin/chromium"
+CHROMIUM = os.environ.get("HBA_CHROMIUM_EXECUTABLE") or ("/usr/bin/chromium" if Path("/usr/bin/chromium").is_file() else None)
 
 
 def fixture(actions, width=390):

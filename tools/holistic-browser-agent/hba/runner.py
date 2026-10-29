@@ -225,7 +225,7 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None, chromium_executable:
                     context.on("page", lambda new_page: new_page.close() if new_page != page else None)
                     if manifest["mode"] == "FIXTURE":
                         # Fixed, reviewed fixture; no arbitrary user-provided HTML path.
-                        page.set_content(SAMPLE_HTML.read_text(encoding="utf-8"), wait_until="domcontentloaded")
+                        page.set_content(SAMPLE_HTML.read_text(encoding="utf-8"), wait_until="load")
                     else:
                         response = page.goto(manifest["start_url"], wait_until="domcontentloaded", timeout=12000)
                         if response is None or response.status >= 400 or response.status < 200:

@@ -60,7 +60,7 @@ python -m hba plan examples/offline-fixture.json
 python -m hba run examples/offline-fixture.json
 ```
 
-Browsers need to be installed/available. Tests include cost denial, external/internal URL denial, form denial, unknown action/tool denial, malformed MCP requests, private path rejection and real Chromium exercise against the fixed offline fixture. Public site E2E is reported separately because network restrictions can block the current execution environment. A passing offline fixture is **synthetic**, not proof of Holistic House live flows.
+Browsers need to be installed/available. Tests include protected-route denial, cost denial, external/internal URL denial, form denial, unknown action/tool denial, malformed MCP requests, private path rejection and real Chromium exercise against the fixed offline fixture. Public site E2E is reported separately because network restrictions can block the current execution environment. A passing offline fixture is **synthetic**, not proof of Holistic House live flows.
 
 ## Cost and authority
 
