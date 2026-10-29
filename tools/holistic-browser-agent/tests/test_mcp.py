@@ -45,3 +45,9 @@ def test_stdio_real_handshake_roundtrip():
 
 def test_notification_no_response():
     assert handle_message({"jsonrpc":"2.0", "method":"notifications/initialized"}) is None
+
+
+def test_malformed_mcp_tool_name_fails_closed():
+    response = handle_message(request("tools/call", name=["hba_run"], arguments={}))
+    assert response["result"]["isError"] is True
+    assert "INPUT_INVALID" in response["result"]["content"][0]["text"]
