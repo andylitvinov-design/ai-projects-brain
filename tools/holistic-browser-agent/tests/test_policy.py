@@ -180,3 +180,14 @@ def test_malformed_fixture_value_rejected_before_browser():
     manifest = sample()
     manifest["actions"] = [{"op": "fill", "name": "Your goal", "value": ["medical"]}]
     deny(manifest, "BLOCKED_PRIVACY")
+
+
+def test_exact_public_client_tests_catalogue_exception_without_leaking_client_routes():
+    # /en/client/tests renders a public catalogue to an unauthenticated GET.
+    for locale in ("en", "ru", "es"):
+        assert safe_url(f"https://holistichouse.vercel.app/{locale}/client/tests", "holistic-house")
+        for path in (f"/{locale}/client/tests/results", f"/{locale}/client/tests/secret",
+                     f"/{locale}/client/reports", f"/{locale}/client/tests?token=x"):
+            with pytest.raises(PolicyError) as exc:
+                safe_url("https://holistichouse.vercel.app" + path, "holistic-house")
+            assert exc.value.code == "BLOCKED_PRIVACY"
