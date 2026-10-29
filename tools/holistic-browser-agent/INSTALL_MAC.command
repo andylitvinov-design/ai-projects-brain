@@ -85,11 +85,12 @@ try:
     ok = (x.get("type") == "stdio"
           and x.get("command") == sys.argv[1]
           and x.get("args") == ["-m", "hba", "mcp"]
-          and (x.get("env") or {}).get("PYTHONPATH") == sys.argv[2])
+          and (x.get("env") or {}).get("PYTHONPATH") == sys.argv[2]
+          and (x.get("env") or {}).get("HBA_CHROMIUM_EXECUTABLE", "") == sys.argv[3])
 except (TypeError, ValueError, AttributeError):
     ok = False
 sys.exit(0 if ok else 1)
-' "$PY" "$ROOT"
+' "$PY" "$ROOT" "${HBA_CHROMIUM_EXECUTABLE:-}"
 }
 
 if command -v codex >/dev/null 2>&1; then
@@ -102,7 +103,11 @@ if command -v codex >/dev/null 2>&1; then
   else
     read -r -p 'Register local HBA stdio MCP in Codex? [y/N] ' confirm
     if [[ "$confirm" == 'y' || "$confirm" == 'Y' ]]; then
-      codex mcp add holistic-browser-agent --env "PYTHONPATH=$ROOT" -- "$PY" -m hba mcp
+      if [[ -n "${HBA_CHROMIUM_EXECUTABLE:-}" ]]; then
+        codex mcp add holistic-browser-agent --env "PYTHONPATH=$ROOT" --env "HBA_CHROMIUM_EXECUTABLE=$HBA_CHROMIUM_EXECUTABLE" -- "$PY" -m hba mcp
+      else
+        codex mcp add holistic-browser-agent --env "PYTHONPATH=$ROOT" -- "$PY" -m hba mcp
+      fi
     else
       echo 'MCP registration skipped; browser CLI remains usable.'
       exit 0
