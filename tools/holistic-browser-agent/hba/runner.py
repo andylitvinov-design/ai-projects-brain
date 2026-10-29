@@ -48,7 +48,7 @@ def read_status(run_id: str, runs_dir: Path | None = None) -> dict[str, Any]:
 
 def cancel_run(run_id: str, runs_dir: Path | None = None) -> dict[str, Any]:
     result = read_status(run_id, runs_dir)
-    if result["state"] in {"RUNNING", "VERIFYING"}:
+    if result["state"] in {"QUEUED", "RUNNING", "VERIFYING"}:
         directory = (runs_dir or default_runs_dir()) / run_id
         file = directory / "cancel.flag"
         file.write_text("cancel requested\n", encoding="utf-8")
@@ -149,7 +149,24 @@ def _execute(page: Any, spec: dict[str, Any], manifest: dict[str, Any], director
         raise PolicyError("INPUT_INVALID")
 
 
-def run_manifest(obj: Any, *, runs_dir: Path | None = None, chromium_executable: str | None = None) -> dict[str, Any]:
+def reserve_run(obj: Any, *, runs_dir: Path | None = None) -> tuple[str, dict[str, Any]]:
+    """Create a cancellable QUEUED record before MCP starts its single worker."""
+    manifest = validate_manifest(obj)
+    directory = (runs_dir or default_runs_dir()) / uuid.uuid4().hex
+    directory.mkdir(mode=0o700, parents=True)
+    os.chmod(directory, 0o700)
+    record = {
+        "schema_version": "hba.run.v1", "run_id": directory.name,
+        "state": "QUEUED", "manifest_sha256": fingerprint(manifest),
+        "project": manifest["project"], "mode": manifest["mode"],
+        "cost": {"paid_provider_calls": 0, "new_external_spend_usd": 0},
+    }
+    _write_atomic(directory / "status.json", record)
+    return directory.name, manifest
+
+
+def run_manifest(obj: Any, *, runs_dir: Path | None = None,
+                 chromium_executable: str | None = None, run_id: str | None = None) -> dict[str, Any]:
     """Runs ONLY validated built-in actions in isolated ephemeral Chromium.
 
     Public web requests are restricted to exact allowlisted HTTPS origin and
@@ -157,8 +174,18 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None, chromium_executable:
     sites, payment flows, arbitrary domains, and untrusted fixture files are out.
     """
     manifest = validate_manifest(obj)  # policy/cost gate before browser launch
-    directory = (runs_dir or default_runs_dir()) / uuid.uuid4().hex
-    directory.mkdir(mode=0o700, parents=True)
+    if run_id is None:
+        directory = (runs_dir or default_runs_dir()) / uuid.uuid4().hex
+        directory.mkdir(mode=0o700, parents=True)
+    else:
+        if not safe_run_id(run_id):
+            raise PolicyError("INPUT_INVALID")
+        directory = (runs_dir or default_runs_dir()) / run_id
+        if directory.is_symlink() or not directory.is_dir():
+            raise PolicyError("RUN_NOT_FOUND")
+        prior = read_status(run_id, runs_dir)
+        if prior.get("state") != "QUEUED" or prior.get("manifest_sha256") != fingerprint(manifest):
+            raise PolicyError("INPUT_INVALID")
     os.chmod(directory, 0o700)
     run_id = directory.name
     result: dict[str, Any] = {
@@ -172,6 +199,11 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None, chromium_executable:
     }
     status_path = directory / "status.json"
     _write_atomic(status_path, result)
+    # QUEUED jobs may be cancelled before the worker enters Playwright.
+    if (directory / "cancel.flag").exists():
+        result.update(state="CANCELLED", failure_code="CANCELLED", completed_at=now())
+        _write_atomic(status_path, result)
+        return result
     counters = {"network_denied": 0, "console_errors": 0}
     screenshots: list[dict[str, str]] = []
     started = time.monotonic()
@@ -183,6 +215,8 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None, chromium_executable:
         PWError = Exception  # only for handler below
     else:
         try:
+            if (directory / "cancel.flag").exists():
+                raise PolicyError("CANCELLED")
             with sync_playwright() as pw:
                 kwargs: dict[str, Any] = {"headless": True}
                 if chromium_executable:
