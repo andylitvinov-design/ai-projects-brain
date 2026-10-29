@@ -923,3 +923,24 @@ The owner should not need to inspect source code to understand status. If ChatGP
 - https://github.com/andylitvinov-design/ai-projects-brain/issues/233
 - https://github.com/andylitvinov-design/ai-projects-brain/issues/234
 - https://github.com/andylitvinov-design/ai-projects-brain/blob/main/systems/playwright-verification-mode.md
+
+---
+
+## Delivery checkpoint — 2026-10-29 · continuation of PR #260
+
+This checkpoint records **implementation**, not a claim that all requirements T01–T48 or owner-host acceptance tests have passed. It does not supersede the v2 architecture or create a new task.
+
+| Component / criterion | Source / evidence target | Current classification |
+| --- | --- | --- |
+| GitHub CI OS compatibility | `.github/workflows/hba-zero-budget.yml`: pinned `ubuntu-24.04`, Python 3.13, Playwright 1.57.0 | PATCHED; SUCCESS requires check on exact latest HEAD |
+| CLI `doctor` | `hba/cli.py`: headless Chromium synthetic probe with all requests denied | IMPLEMENTED; real CI/host result tracked separately |
+| `plan`, `run`, `status`, `cancel` | `hba/runner.py`, `tests/test_runner.py` | IMPLEMENTED; cancellation cooperative, not a kill of an active browser API call |
+| MCP stdio | `hba/mcp.py`: bounded single background worker; `hba_run` returns run ID; status/cancel remain available | IMPLEMENTED; native Codex client tool invocation on Mac NOT_TESTED |
+| Browser/fixture security | deny-by-default origin/method/cost policy; no arbitrary JS/shell; safe fixture input literals; Chromium negative tests | TARGETED TESTS ADDED; no OS egress sandbox attestation |
+| PNG compare | `hba/visual.py`: local diff, size limits, private artifacts | IMPLEMENTED; no semantic design acceptance inferred |
+| macOS installer | `INSTALL_MAC.command`: local venv/browser probe + conflicting MCP registration guard | SOURCE READY; owner Mac proof BLOCKED_DEVICE until online |
+| Public Holistic House | `examples/holistic-house-public.json`, allowlisted R0 only | Real Chromium viewport/locale E2E NOT_TESTED; synthetic browser tests are not substitutes |
+| T01–T48 and release safety | Baseline tests + focused added regression tests | PARTIAL; untested test IDs must never be represented as PASS |
+| Spend and privacy | No paid adapters, no cloud model/browser calls, no persistent browser profiles or real tokens | ZERO NEW PAID PROVIDER CALLS in this delivery; broader hosting costs not attested |
+
+**Operational separation:** Brain PR/CI success, native owner-Mac installation, and live Holistic House/browser/production SHA evidence are independent gates. Never merge or deploy website code as a side effect of HBA QA. When the last test run is incomplete, keep the PR in Draft and report the blocking layer. No additional scheduler, browser cloud, public CDP or tunnel is introduced.
