@@ -17,7 +17,7 @@ SCHEMA_VERSION = "hba.manifest.v1"
 ALLOWED_OPERATIONS = {
     "navigate", "assert_role", "assert_text", "assert_url",
     "click_link", "click_button", "fill", "screenshot",
-    "assert_no_overflow", "assert_no_console_errors",
+    "assert_no_overflow", "assert_no_console_errors", "measure_layout",
 }
 FIXTURE_ONLY = {"click_button", "fill"}
 # Fixture inputs must never accidentally encode medical data, tokens or PII in PNGs.

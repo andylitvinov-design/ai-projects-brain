@@ -82,7 +82,15 @@ def make_plan(obj: Any) -> dict[str, Any]:
 def _unique_visible(locator: Any) -> Any:
     count = locator.count()
     if count == 0:
-        raise PolicyError("LOCATOR_NOT_FOUND")
+        # DOMContentLoaded can precede hydration. Wait for one element, but
+        # never choose between equal-name controls after the DOM settles.
+        from playwright.sync_api import TimeoutError as PWTimeout
+        try:
+            locator.first.wait_for(state="visible", timeout=4000)
+        except PWTimeout as exc:
+            raise PolicyError("ELEMENT_NOT_ACTIONABLE" if locator.count()
+                              else "LOCATOR_NOT_FOUND") from exc
+        count = locator.count()
     if count != 1:
         raise PolicyError("LOCATOR_AMBIGUOUS")
     if not locator.is_visible() or not locator.is_enabled():
@@ -97,7 +105,7 @@ def _assert_role(page: Any, spec: dict[str, Any]) -> None:
     _unique_visible(page.get_by_role(role, **opts))
 
 
-def _execute(page: Any, spec: dict[str, Any], manifest: dict[str, Any], directory: Path, screenshots: list[dict[str, str]], counters: dict[str, int]) -> None:
+def _execute(page: Any, spec: dict[str, Any], manifest: dict[str, Any], directory: Path, screenshots: list[dict[str, str]], counters: dict[str, Any]) -> None:
     op = spec["op"]
     project = manifest["project"]
     fixture = manifest["mode"] == "FIXTURE"
@@ -146,6 +154,32 @@ def _execute(page: Any, spec: dict[str, Any], manifest: dict[str, Any], director
     elif op == "assert_no_console_errors":
         if counters["console_errors"]:
             raise PolicyError("ASSERTION_FAILED")
+    elif op == "measure_layout":
+        # Reviewed fixed expression: numeric geometry and counts only. No DOM
+        # content, URLs, arbitrary script, cookies or client data are recorded.
+        counters["layout"] = page.evaluate("""() => {
+          const root = document.documentElement;
+          const main = document.querySelector('main');
+          const rect = main ? main.getBoundingClientRect() : null;
+          const imgs = Array.from(document.querySelectorAll('img'));
+          const loaded = imgs.filter(img => img.complete && img.naturalWidth > 0).length;
+          const blocked = imgs.filter(img => img.complete && img.naturalWidth === 0).length;
+          return {
+            viewport_width: window.innerWidth,
+            viewport_height: window.innerHeight,
+            document_width: root.scrollWidth,
+            overflow_px: Math.max(0, root.scrollWidth - window.innerWidth),
+            main_present: Boolean(main),
+            main_x: rect ? Math.round(rect.x) : null,
+            main_width: rect ? Math.round(rect.width) : null,
+            image_total: imgs.length,
+            image_loaded: loaded,
+            image_broken_or_blocked: blocked,
+            image_pending: imgs.length - loaded - blocked,
+            links_total: document.querySelectorAll('a[href]').length,
+            buttons_total: document.querySelectorAll('button').length
+          };
+        }""")
     elif op == "screenshot":
         filename = f"{spec['name']}.png"
         path = directory / filename
@@ -339,6 +373,8 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
             result["state"] = "FAILED"
     result["network_denied"] = counters["network_denied"]
     result["console_errors"] = counters["console_errors"]
+    if "layout" in counters:
+        result["layout"] = counters["layout"]
     result["artifacts"] = screenshots
     result["completed_at"] = now()
     _write_atomic(status_path, result)

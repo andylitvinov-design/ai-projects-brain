@@ -193,3 +193,36 @@ def test_stale_running_status_does_not_claim_active_browser(tmp_path):
     assert report["failure_code"] == "STALE_WORKER_STATUS"
     # Readback does not erase original evidence or claim a confirmed kill.
     assert json.loads((directory / "status.json").read_text())["state"] == "RUNNING"
+
+
+def test_delayed_dom_hydration_does_not_false_fail(monkeypatch, tmp_path):
+    import hba.runner as runner
+    html = tmp_path / "delayed.html"
+    html.write_text(
+        '<html><body><script>setTimeout(() => {'
+        'document.body.innerHTML = "<main><h1>Hydrated safely</h1></main>";'
+        '}, 180);</script></body></html>', encoding="utf-8")
+    monkeypatch.setattr(runner, "SAMPLE_HTML", html)
+    out = run_manifest(fixture([action("assert_role", role="heading",
+                                        name="Hydrated safely")]), runs_dir=tmp_path,
+                       chromium_executable=CHROMIUM)
+    assert out["state"] == "SYNTHETIC_TEST_PASS", out
+
+
+def test_measure_layout_numeric_only_no_document_text(monkeypatch, tmp_path):
+    import hba.runner as runner
+    html = tmp_path / "layout.html"
+    html.write_text(
+        '<html><body><main>PRIVATE_FIXTURE_MARKER_NOT_TO_COPY'
+        '<img src="https://untrusted.invalid/pixel.png"></main></body></html>',
+        encoding="utf-8")
+    monkeypatch.setattr(runner, "SAMPLE_HTML", html)
+    out = run_manifest(fixture([action("measure_layout")]), runs_dir=tmp_path,
+                       chromium_executable=CHROMIUM)
+    assert out["state"] == "SYNTHETIC_TEST_PASS"
+    metrics = out["layout"]
+    assert metrics["viewport_width"] == 390
+    assert metrics["main_present"] is True
+    assert metrics["image_total"] == 1
+    assert out["network_denied"] >= 1
+    assert "PRIVATE_FIXTURE_MARKER_NOT_TO_COPY" not in json.dumps(out)
