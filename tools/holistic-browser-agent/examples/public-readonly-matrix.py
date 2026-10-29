@@ -27,6 +27,7 @@ def main() -> int:
 
     failures = 0
     restricted = 0
+    complete = 0
     for locale, path, width in results:
         manifest = {
             "schema_version": "hba.manifest.v1",
@@ -50,18 +51,29 @@ def main() -> int:
             passed = int(run.get("assertions_passed", 0))
         except PolicyError as exc:
             state, reason, network_denied, console_errors, passed = "BLOCKED", exc.code, 0, 0, 0
-        failures += state != "VERIFIED_READONLY"
         restricted += network_denied > 0
+        if state != "VERIFIED_READONLY":
+            verdict = "FAIL_PUBLIC_FLOW"
+            failures += 1
+        elif network_denied or console_errors:
+            # The allowed-site fetch may have blocked assets or JS failures:
+            # never call such a page fully verified.
+            verdict = "DEGRADED_UNVERIFIED"
+            failures += 1
+        else:
+            verdict = "PASS_PUBLIC_LAYOUT"
+            complete += 1
         print(json.dumps({
             "locale": locale, "width": width,
-            "route": path, "state": state, "failure_code": reason,
+            "route": path, "state": state, "verdict": verdict, "failure_code": reason,
             "passed_actions": passed, "network_denied": network_denied,
             "console_errors": console_errors, "restricted_assets": network_denied > 0,
             "not_tested": ["auth", "crm", "payments", "real_leads", "image_completeness", "visual_baseline"],
         }, sort_keys=True), flush=True)
     print(json.dumps({
         "public_browser_runs": len(results),
-        "functional_failures": failures, "restricted_network_runs": restricted,
+        "full_public_layout_passes": complete,
+        "incomplete_or_failed_runs": failures, "restricted_network_runs": restricted,
         "scope": "public GET/HEAD only; no client data, no paid providers",
         "caution": "Browser interception is not an OS network sandbox. Blocked assets make image QA incomplete.",
     }, sort_keys=True), flush=True)
