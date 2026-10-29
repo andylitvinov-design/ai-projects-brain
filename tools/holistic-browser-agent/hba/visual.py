@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .policy import PolicyError
-from .runner import default_runs_dir, now, _write_atomic
+from .runner import MAX_ARTIFACT_BYTES, default_runs_dir, now, _write_atomic
 
 MAX_INPUT_BYTES = 25 * 1024 * 1024
 MAX_PIXELS = 20_000_000
@@ -47,6 +47,8 @@ def compare_images(reference: str, actual: str, *, tolerance: int = 12, runs_dir
             if ri.width * ri.height > MAX_PIXELS:
                 raise PolicyError("IMAGE_TOO_LARGE")
             ref, act = ri.convert("RGB"), ai.convert("RGB")
+    except Image.DecompressionBombError as exc:
+        raise PolicyError("IMAGE_TOO_LARGE") from exc
     except (OSError, ValueError) as exc:
         raise PolicyError("IMAGE_INVALID") from exc
     diff = ImageChops.difference(ref, act)
@@ -64,11 +66,19 @@ def compare_images(reference: str, actual: str, *, tolerance: int = 12, runs_dir
     comparison.paste(ref, (0, 0))
     comparison.paste(act, (ref.width, 0))
     paths = {"diff": out_dir / "diff.png", "overlay": out_dir / "overlay.png", "side_by_side": out_dir / "side_by_side.png"}
-    diff.save(paths["diff"])
-    overlay.save(paths["overlay"])
-    comparison.save(paths["side_by_side"])
-    for p in paths.values():
-        os.chmod(p, 0o600)
+    try:
+        diff.save(paths["diff"])
+        overlay.save(paths["overlay"])
+        comparison.save(paths["side_by_side"])
+        for p in paths.values():
+            os.chmod(p, 0o600)
+        if sum(p.stat().st_size for p in paths.values()) > MAX_ARTIFACT_BYTES:
+            raise PolicyError("STORAGE_LIMIT")
+    except Exception:
+        for p in paths.values():
+            p.unlink(missing_ok=True)  # only own newly-created artifacts
+        out_dir.rmdir()
+        raise
     output: dict[str, Any] = {
         "state": "COMPARISON_COMPLETE", "created_at": now(), "width": ref.width, "height": ref.height,
         "tolerance": tolerance, "changed_pixel_ratio": ratio,
