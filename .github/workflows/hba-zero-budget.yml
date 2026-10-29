@@ -41,3 +41,12 @@ jobs:
           python -m hba doctor
           python -m hba plan examples/offline-fixture.json
           python -m hba run examples/offline-fixture.json
+      - name: Inspect public Holistic House in Chromium (separate non-blocking QA evidence)
+        continue-on-error: true # a site outage must not falsify core unit/CLI correctness
+        timeout-minutes: 6
+        working-directory: tools/holistic-browser-agent
+        env:
+          HBA_RUNS_DIR: ${{ runner.temp }}/hba-public-readonly-runs
+          PYTHONPATH: .
+        run: |
+          python examples/public-readonly-matrix.py
