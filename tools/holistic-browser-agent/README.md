@@ -69,3 +69,9 @@ This project makes **zero paid TinyFish calls and zero new paid API calls**. Loc
 ## Planned, not implemented
 
 Separate host installation, full visual reference diff, Next.js production SHA confirmation, secure test account/RLS E2E, remote/mobile MCP, provider delivery proofs, resilient multi-run queue, local reasoning model, and user-facing dashboard require independent validated work. No unapproved always-on automation or poller.
+
+## macOS one-time installer (not executed on the owner's Mac)
+
+A readable [INSTALL_MAC.command](./INSTALL_MAC.command) performs local venv/Playwright setup, an offline fixture run, and **asks before** registering the local MCP via the installed Codex CLI. It does not disable macOS Gatekeeper, expose a browser port, request tokens, or enable remote access. Review the script before running; macOS can warn about unsigned downloaded scripts. This installer is prepared but **has not been tested on the owner's Mac** (remote Desktop Commander call quota exhausted).
+
+The Codex MCP registration uses the verified current syntax `codex mcp add ... --env PYTHONPATH=<local-folder> -- <venv-python> -m hba mcp`; storing PYTHONPATH is necessary because Codex launches the Python process from an arbitrary directory. Never attach the user's personal browser profile or production cookies.
