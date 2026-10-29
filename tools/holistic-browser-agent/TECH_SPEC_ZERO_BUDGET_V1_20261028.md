@@ -949,3 +949,8 @@ This checkpoint records **implementation**, not a claim that all requirements T0
 ### Implementation addendum — 2026-10-29
 
 The local MCP worker is now an independently killable child process, with a supervisor deadline, cancellation process-group termination, parent-pipe disconnect guard, and one-shot execution claim. CI tests include external stdio discovery/invoke and CLI doctor/plan/run/status/cancel/compare. A fixed `measure_layout` browser action reports numeric responsive/image metrics; 16 public browser visits capture private, non-uploaded screenshots and hashes. Blocked assets remain policy-limited, not site PASS. The Mac installer prefers already available local Chromium and verifies the entire Codex stdio configuration. Owner Mac / native Codex invocation remain NOT_TESTED until an authorized host is online. T01–T48 full compliance is still PARTIAL; no OS-level network sandbox is asserted.
+
+
+### macOS GitHub runner acceptance gate (2026-10-29)
+
+The dedicated `macos-15` job on a standard public GitHub Actions runner performs two-pass installation with Python 3.13 and synthetic Chromium. Standard runners are free for public repositories; no paid larger runner or artifact upload is enabled. Exact-head result is required before claiming PASS. This is independent of owner-Mac installation and native Codex invocation, both `BLOCKED_DEVICE`/`NOT_TESTED` if the device stays offline.

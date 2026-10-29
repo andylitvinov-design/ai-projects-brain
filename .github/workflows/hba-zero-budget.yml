@@ -75,3 +75,26 @@ jobs:
           PYTHONPATH: .
         run: |
           python examples/public-cta-checks.py
+
+  macos-installer-smoke:
+    # Standard public-repo GitHub runner, never a paid larger runner.
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Run installer twice in clean Mac runner (no Codex account changes)
+        working-directory: tools/holistic-browser-agent
+        env:
+          HBA_RUNS_DIR: ${{ runner.temp }}/hba-macos-runs
+        run: |
+          bash -n INSTALL_MAC.command
+          printf 'n\n' | bash INSTALL_MAC.command
+          # Re-run to prove idempotence: packages/browser should be reused.
+          printf 'n\n' | bash INSTALL_MAC.command
+          .venv/bin/python -m compileall -q hba
+          .venv/bin/python -m hba plan examples/offline-fixture.json

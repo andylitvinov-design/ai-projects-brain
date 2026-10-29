@@ -108,3 +108,7 @@ The independent public CTA smoke checks known free-test, OPORA and free-written-
 ### Diagnosing incomplete public QA without weakening the policy
 
 The run report includes `network_denial_codes` (fixed policy reason codes and counts) and `http_error_groups` (4xx/5xx counts only). No failed request URLs, response bodies, headers or console messages are persisted. A denied request can itself trigger a browser console error; the two counters do not prove the same root cause. If the public matrix reports `PASS_PUBLIC_DOM_POLICY_LIMITED`, the basic layout/links can work but resource fidelity is **not** certified. Never relax the allowlist or enable chargeable Next.js image optimization solely to make all counters zero.
+
+### macOS compatibility CI
+
+A dedicated `macos-installer-smoke` job uses the **standard free public-repository `macos-15` runner** to execute `INSTALL_MAC.command` twice, verifying a real macOS Python/Chromium installation, synthetic offline browser actions and repeatability. It neither registers Codex nor touches global Python, user Chrome profiles or secrets. **It is not proof of installation or native Codex invocation on the owner's Mac.** The job is provisional until its exact HEAD CI completes.
