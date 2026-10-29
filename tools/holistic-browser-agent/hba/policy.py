@@ -20,6 +20,9 @@ ALLOWED_OPERATIONS = {
     "assert_no_overflow", "assert_no_console_errors",
 }
 FIXTURE_ONLY = {"click_button", "fill"}
+# Fixture inputs must never accidentally encode medical data, tokens or PII in PNGs.
+# Review this small public list when expanding synthetic test cases.
+SAFE_FIXTURE_VALUES = {"Business", "Sample", "Test", "Example"}
 SAFE_ROLES = {"heading", "link", "button", "main", "navigation", "textbox", "status"}
 RUN_ID_PATTERN = re.compile(r"^[0-9a-f]{32}$")
 
@@ -159,8 +162,8 @@ def validate_manifest(obj: Any) -> dict[str, Any]:
         elif op in {"click_link", "click_button", "fill"}:
             if not isinstance(item.get("name"), str) or not 1 <= len(item["name"]) <= 128:
                 raise PolicyError("INPUT_INVALID")
-            if op == "fill" and (not isinstance(item.get("value"), str) or len(item["value"]) > 256):
-                raise PolicyError("INPUT_INVALID")
+            if op == "fill" and item.get("value") not in SAFE_FIXTURE_VALUES:
+                raise PolicyError("BLOCKED_PRIVACY")
         elif op == "assert_text":
             if not isinstance(item.get("text"), str) or not 1 <= len(item["text"]) <= 128:
                 raise PolicyError("INPUT_INVALID")
