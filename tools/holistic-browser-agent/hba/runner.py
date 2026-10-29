@@ -250,6 +250,10 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None, chromium_executable:
                         finally:
                             item["completed_at"] = now()
                             _write_atomic(status_path, result)
+                    # A cancellation requested while the final action was running
+                    # must not be lost between the last action and the terminal status.
+                    if (directory / "cancel.flag").exists():
+                        raise PolicyError("CANCELLED")
                     result["state"] = "SYNTHETIC_TEST_PASS" if manifest["mode"] == "FIXTURE" else "VERIFIED_READONLY"
                     context.close()
                 finally:
