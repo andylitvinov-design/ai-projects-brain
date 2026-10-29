@@ -41,9 +41,22 @@ def read_status(run_id: str, runs_dir: Path | None = None) -> dict[str, Any]:
         raise PolicyError("INPUT_INVALID")
     path = (runs_dir or default_runs_dir()) / run_id / "status.json"
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        record = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError as exc:
         raise PolicyError("RUN_NOT_FOUND") from exc
+    if record.get("state") in {"QUEUED", "RUNNING", "VERIFYING"}:
+        timestamp = record.get("started_at") or record.get("queued_at")
+        if isinstance(timestamp, str):
+            try:
+                age = (datetime.now(timezone.utc) -
+                       datetime.fromisoformat(timestamp)).total_seconds()
+            except ValueError:
+                age = 0
+            if age > MAX_RUN_SECONDS + 120:
+                # An old active marker is not proof a worker still exists.
+                return {**record, "state": "UNCONFIRMED_INTERRUPTED",
+                        "failure_code": "STALE_WORKER_STATUS"}
+    return record
 
 
 def cancel_run(run_id: str, runs_dir: Path | None = None) -> dict[str, Any]:
@@ -157,7 +170,7 @@ def reserve_run(obj: Any, *, runs_dir: Path | None = None) -> tuple[str, dict[st
     os.chmod(directory, 0o700)
     record = {
         "schema_version": "hba.run.v1", "run_id": directory.name,
-        "state": "QUEUED", "manifest_sha256": fingerprint(manifest),
+        "state": "QUEUED", "queued_at": now(), "manifest_sha256": fingerprint(manifest),
         "project": manifest["project"], "mode": manifest["mode"],
         "cost": {"paid_provider_calls": 0, "new_external_spend_usd": 0},
     }

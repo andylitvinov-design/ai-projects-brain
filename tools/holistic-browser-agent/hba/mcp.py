@@ -40,9 +40,10 @@ def _spawn_worker(run_id: str) -> subprocess.Popen[bytes]:
         "XDG_CACHE_HOME", "TMPDIR", "LD_LIBRARY_PATH", "SYSTEMROOT", "WINDIR",
     }
     env = {key: value for key, value in os.environ.items() if key in allowed_env}
+    env["HBA_SUPERVISED_WORKER"] = "1"
     return subprocess.Popen(
         [sys.executable, "-m", "hba.worker", run_id],
-        stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
         close_fds=True, start_new_session=(os.name == "posix"), env=env,
     )
 
@@ -121,12 +122,14 @@ def _supervise(run_id: str) -> None:
         else:
             # A child disappearing without any terminal record is not SUCCESS.
             _record_incomplete(run_id, "WORKER_UNCONFIRMED_EXIT")
+        if proc is not None and proc.stdin is not None:
+            proc.stdin.close()
         with _worker_lock:
             _worker_process = None
 
 
 def _start_run(obj: Any) -> dict[str, Any]:
-    global _worker, _worker_id
+    global _worker, _worker_id, _worker_process
     with _worker_lock:
         if _worker is not None and _worker.is_alive():
             return {"state": "BLOCKED", "error_code": "RUN_BUSY", "paid_provider_calls": 0}

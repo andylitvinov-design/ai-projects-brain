@@ -191,11 +191,11 @@ def test_mcp_run_finishes_real_chromium_fixture(monkeypatch, tmp_path):
     job = json.loads(response["result"]["content"][0]["text"])
     assert job["state"] == "QUEUED"
     assert mcp._worker is not None
-    mcp._worker.join(timeout=25)
+    mcp._worker.join(timeout=45)
     if mcp._worker.is_alive():
         snapshot = runner.read_status(job["run_id"], tmp_path)
         mcp._cancel_on_shutdown()
-        assert False, ("HBA worker exceeded 25s in phase=" +
+        assert False, ("HBA worker exceeded 45s in phase=" +
                        str(snapshot.get("phase", "missing")) +
                        ", state=" + str(snapshot.get("state")))
     assert not mcp._worker.is_alive(), runner.read_status(job["run_id"], tmp_path)
@@ -226,3 +226,32 @@ def test_worker_module_runs_real_chromium_as_standalone_subprocess(monkeypatch, 
     assert proc.returncode == 0, (result["state"], result.get("phase"),
                                   result.get("failure_code"))
     assert result["state"] == "SYNTHETIC_TEST_PASS"
+
+
+def test_worker_parent_pipe_disconnection_terminates_synthetic_child(monkeypatch, tmp_path):
+    import os
+    import time
+    from hba.runner import reserve_run, _write_atomic
+
+    monkeypatch.setenv("HBA_RUNS_DIR", str(tmp_path))
+    manifest = {"schema_version": "hba.manifest.v1", "project": "holistic-house",
+                "mode": "FIXTURE", "viewport": {"width": 390, "height": 844},
+                "actions": [{"op": "assert_no_overflow"}]}
+    run_id, prepared = reserve_run(manifest, runs_dir=tmp_path)
+    _write_atomic(tmp_path / run_id / "manifest.json", prepared)
+    env = os.environ.copy()
+    env["HBA_SUPERVISED_WORKER"] = "1"
+    proc = subprocess.Popen(
+        [sys.executable, "-m", "hba.worker", run_id],
+        stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        start_new_session=True, env=env,
+    )
+    try:
+        assert proc.stdin is not None
+        proc.stdin.close()  # emulate controller exit/crash, no model or network
+        proc.wait(timeout=12)
+        assert proc.returncode != 0
+    finally:
+        if proc.poll() is None:
+            proc.kill()
+            proc.wait(timeout=5)

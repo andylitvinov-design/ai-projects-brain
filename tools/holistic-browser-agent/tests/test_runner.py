@@ -177,3 +177,19 @@ def test_reserved_run_is_single_execution_even_after_completion(tmp_path):
         run_manifest(prepared, run_id=run_id, runs_dir=tmp_path,
                      chromium_executable=CHROMIUM)
     assert len(list(tmp_path.glob("*/status.json"))) == 1
+
+
+def test_stale_running_status_does_not_claim_active_browser(tmp_path):
+    from datetime import datetime, timedelta, timezone
+    run_id = "a" * 32
+    directory = tmp_path / run_id
+    directory.mkdir()
+    old = (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()
+    (directory / "status.json").write_text(json.dumps({
+        "run_id": run_id, "state": "RUNNING", "started_at": old,
+    }))
+    report = read_status(run_id, tmp_path)
+    assert report["state"] == "UNCONFIRMED_INTERRUPTED"
+    assert report["failure_code"] == "STALE_WORKER_STATUS"
+    # Readback does not erase original evidence or claim a confirmed kill.
+    assert json.loads((directory / "status.json").read_text())["state"] == "RUNNING"

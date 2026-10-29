@@ -40,7 +40,23 @@ jobs:
           python -m pytest -q tests
           python -m hba doctor
           python -m hba plan examples/offline-fixture.json
-          python -m hba run examples/offline-fixture.json
+          run_json="$(python -m hba run examples/offline-fixture.json)"
+          printf '%s\n' "$run_json"
+          run_id="$(printf '%s' "$run_json" | python -c 'import json,sys; print(json.load(sys.stdin)["run_id"])')"
+          python -m hba status "$run_id"
+          python -m hba cancel "$run_id"
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import os
+          base = Path(os.environ["HBA_RUNS_DIR"])
+          base.mkdir(parents=True, exist_ok=True)
+          for name in ("reference", "actual"):
+              Image.new("RGB", (30, 30), (20, 40, 60)).save(base / (name + ".png"))
+          PY
+          python -m hba compare "$HBA_RUNS_DIR/reference.png" "$HBA_RUNS_DIR/actual.png"
+          PYTHONPATH=. python examples/mcp-client-smoke.py
+          python -m pytest -q tests/test_mcp.py -k "finishes_real_chromium_fixture or worker_module_runs_real_chromium"
       - name: Inspect public Holistic House in Chromium (separate non-blocking QA evidence)
         continue-on-error: true # a site outage must not falsify core unit/CLI correctness
         timeout-minutes: 6
