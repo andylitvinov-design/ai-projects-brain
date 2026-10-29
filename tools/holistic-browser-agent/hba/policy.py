@@ -97,16 +97,25 @@ def safe_url(url: str, project: str, *, require_path: bool = False) -> str:
     return url
 
 
-def request_allowed(url: str, method: str, project: str, *, fixture: bool = False) -> bool:
+def request_denial_code(url: str, method: str, project: str, *,
+                        fixture: bool = False) -> str | None:
+    """Use ONE central decision for route authorization and sanitized diagnosis.
+
+    Return an enumerable policy code, never a URL, HTTP body, token or JS data.
+    """
     if fixture:
-        return False  # Browser fixture never fetches anything, including localhost.
-    if method.upper() not in ("GET", "HEAD"):
-        return False
+        return "FIXTURE_NETWORK_DISABLED"
+    if not isinstance(method, str) or method.upper() not in ("GET", "HEAD"):
+        return "METHOD_NOT_ALLOWED"
     try:
         safe_url(url, project)
-        return True
-    except PolicyError:
-        return False
+    except PolicyError as exc:
+        return exc.code
+    return None
+
+
+def request_allowed(url: str, method: str, project: str, *, fixture: bool = False) -> bool:
+    return request_denial_code(url, method, project, fixture=fixture) is None
 
 
 def _check_positive_int(value: Any, min_v: int, max_v: int) -> bool:

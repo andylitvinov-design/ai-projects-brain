@@ -103,3 +103,8 @@ The fixed, reviewed `measure_layout` action returns only numeric viewport/main g
 On macOS, the installer probes a compatible already-installed Chrome/Chromium in an ephemeral context before downloading another Chromium. The script has executable Git mode and keeps Gatekeeper enabled. A clean `bash -n` CI pass is not a substitute for executing it on the actual owner Mac.
 
 The independent public CTA smoke checks known free-test, OPORA and free-written-review link destinations. It clicks only anchors and validates paths, never forms. A click is **not** a lead, booking, confirmation or payment; restricted assets make full site fidelity unverified.
+
+
+### Diagnosing incomplete public QA without weakening the policy
+
+The run report includes `network_denial_codes` (fixed policy reason codes and counts) and `http_error_groups` (4xx/5xx counts only). No failed request URLs, response bodies, headers or console messages are persisted. A denied request can itself trigger a browser console error; the two counters do not prove the same root cause. If the public matrix reports `PASS_PUBLIC_DOM_POLICY_LIMITED`, the basic layout/links can work but resource fidelity is **not** certified. Never relax the allowlist or enable chargeable Next.js image optimization solely to make all counters zero.

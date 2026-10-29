@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin, urlsplit
 
-from .policy import PolicyError, fingerprint, request_allowed, safe_run_id, safe_url, validate_manifest
+from .policy import PolicyError, fingerprint, request_denial_code, safe_run_id, safe_url, validate_manifest
 
 ROOT = Path(__file__).resolve().parent.parent
 SAMPLE_HTML = ROOT / "fixtures" / "demo.html"
@@ -259,7 +259,8 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
         result.update(state="CANCELLED", failure_code="CANCELLED", completed_at=now())
         _write_atomic(status_path, result)
         return result
-    counters = {"network_denied": 0, "console_errors": 0}
+    counters = {"network_denied": 0, "console_errors": 0,
+                "denial_codes": {}, "http_status_groups": {}}
     screenshots: list[dict[str, str]] = []
     started = time.monotonic()
     try:
@@ -291,24 +292,37 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
                     # Refuse ALL WebSocket connections, even to the allowed website.
                     context.route_web_socket("**/*", lambda ws: ws.close())
 
+                    def _denied(code: str) -> None:
+                        # Codes come only from our reviewed fixed policy taxonomy.
+                        counters["network_denied"] += 1
+                        reasons = counters["denial_codes"]
+                        reasons[code] = reasons.get(code, 0) + 1
+
                     def route_handler(route: Any) -> None:
                         request = route.request
-                        if not request_allowed(request.url, request.method, manifest["project"],
-                                               fixture=manifest["mode"] == "FIXTURE"):
-                            counters["network_denied"] += 1
+                        code = request_denial_code(
+                            request.url, request.method, manifest["project"],
+                            fixture=manifest["mode"] == "FIXTURE",
+                        )
+                        if code is not None:
+                            _denied(code)
                             route.abort("blockedbyclient")
                             return
                         try:
-                            # Do not allow redirects: a follow-up request may escape
-                            # ordinary route interception in some Playwright versions.
+                            # Follow no redirects, including same-origin redirects;
+                            # never let a follow-up escape a fresh policy decision.
                             response = route.fetch(max_redirects=0, timeout=12000)
                             if 300 <= response.status < 400:
-                                counters["network_denied"] += 1
+                                _denied("REDIRECT_BLOCKED")
                                 route.abort("blockedbyclient")
                             else:
+                                if response.status >= 400:
+                                    group = "HTTP_5XX" if response.status >= 500 else "HTTP_4XX"
+                                    groups = counters["http_status_groups"]
+                                    groups[group] = groups.get(group, 0) + 1
                                 route.fulfill(response=response)
                         except Exception:
-                            counters["network_denied"] += 1
+                            _denied("NETWORK_FETCH_FAILURE")
                             route.abort("failed")
 
                     context.route("**/*", route_handler)
@@ -372,6 +386,8 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
             result["failure_code"] = "INTERNAL_ERROR"
             result["state"] = "FAILED"
     result["network_denied"] = counters["network_denied"]
+    result["network_denial_codes"] = dict(sorted(counters["denial_codes"].items()))
+    result["http_error_groups"] = dict(sorted(counters["http_status_groups"].items()))
     result["console_errors"] = counters["console_errors"]
     if "layout" in counters:
         result["layout"] = counters["layout"]

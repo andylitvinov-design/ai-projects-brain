@@ -78,6 +78,8 @@ def main() -> int:
             "route": path, "state": state, "verdict": verdict, "failure_code": reason,
             "passed_actions": passed, "network_denied": network_denied,
             "console_errors": console_errors, "restricted_assets": network_denied > 0,
+            "network_denial_codes": run.get("network_denial_codes", {}) if state != "BLOCKED" else {},
+            "http_error_groups": run.get("http_error_groups", {}) if state != "BLOCKED" else {},
             "layout": layout, "screenshot_sha256": [a["sha256"] for a in artifacts],
             "not_tested": ["auth", "crm", "payments", "real_leads", "image_completeness", "visual_baseline"],
         }, sort_keys=True), flush=True)

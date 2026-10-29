@@ -191,3 +191,22 @@ def test_exact_public_client_tests_catalogue_exception_without_leaking_client_ro
             with pytest.raises(PolicyError) as exc:
                 safe_url("https://holistichouse.vercel.app" + path, "holistic-house")
             assert exc.value.code == "BLOCKED_PRIVACY"
+
+
+@pytest.mark.parametrize("url,method,fixture,code", [
+    ("https://holistichouse.vercel.app/", "GET", False, None),
+    ("https://holistichouse.vercel.app/", "HEAD", False, None),
+    ("https://holistichouse.vercel.app/", "POST", False, "METHOD_NOT_ALLOWED"),
+    ("https://holistichouse.vercel.app/", [], False, "METHOD_NOT_ALLOWED"),
+    ("https://evil.example/secret?token=private", "GET", False, "ORIGIN_NOT_ALLOWED"),
+    ("https://holistichouse.vercel.app/admin", "GET", False, "BLOCKED_PRIVACY"),
+    ("https://holistichouse.vercel.app/_next/image", "GET", False, "BLOCKED_COST"),
+    ("https://holistichouse.vercel.app/", "GET", True, "FIXTURE_NETWORK_DISABLED"),
+])
+def test_denial_reason_and_boolean_policy_agree_without_url_leak(url, method, fixture, code):
+    from hba.policy import request_denial_code
+    actual = request_denial_code(url, method, "holistic-house", fixture=fixture)
+    assert actual == code
+    assert request_allowed(url, method, "holistic-house", fixture=fixture) is (code is None)
+    assert "token" not in str(actual)
+    assert "private" not in str(actual)
