@@ -164,3 +164,16 @@ def test_synthetic_html_prompt_injection_cannot_exfiltrate(monkeypatch, tmp_path
     assert out["state"] == "SYNTHETIC_TEST_PASS"
     assert out["network_denied"] >= 2
     assert "SYNTHETIC_SECRET" not in (tmp_path/out["run_id"]/"status.json").read_text()
+
+
+def test_reserved_run_is_single_execution_even_after_completion(tmp_path):
+    from hba.runner import reserve_run
+    manifest = fixture([action("assert_no_overflow")])
+    run_id, prepared = reserve_run(manifest, runs_dir=tmp_path)
+    out = run_manifest(prepared, run_id=run_id, runs_dir=tmp_path,
+                       chromium_executable=CHROMIUM)
+    assert out["state"] == "SYNTHETIC_TEST_PASS"
+    with pytest.raises(PolicyError):
+        run_manifest(prepared, run_id=run_id, runs_dir=tmp_path,
+                     chromium_executable=CHROMIUM)
+    assert len(list(tmp_path.glob("*/status.json"))) == 1

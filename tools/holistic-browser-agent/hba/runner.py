@@ -186,6 +186,14 @@ def run_manifest(obj: Any, *, runs_dir: Path | None = None,
         prior = read_status(run_id, runs_dir)
         if prior.get("state") != "QUEUED" or prior.get("manifest_sha256") != fingerprint(manifest):
             raise PolicyError("INPUT_INVALID")
+        # Exactly one executor may claim a reserved run, including after a crash.
+        try:
+            claim = os.open(directory / "execution.lock",
+                            os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        except FileExistsError as exc:
+            raise PolicyError("RUN_ALREADY_STARTED") from exc
+        else:
+            os.close(claim)
     os.chmod(directory, 0o700)
     run_id = directory.name
     result: dict[str, Any] = {

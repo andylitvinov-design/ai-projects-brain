@@ -53,57 +53,111 @@ def test_malformed_mcp_tool_name_fails_closed():
     assert "INPUT_INVALID" in response["result"]["content"][0]["text"]
 
 
-def test_mcp_run_is_cancellable_while_queued_from_same_stdio_process(monkeypatch, tmp_path):
+def test_mcp_run_can_kill_owned_subprocess_and_reject_second_run(monkeypatch, tmp_path):
     import os
-    import threading
+    import time
     import hba.mcp as mcp
     import hba.runner as runner
 
     monkeypatch.setenv("HBA_RUNS_DIR", str(tmp_path))
-    if os.path.isfile("/usr/bin/chromium"):
-        monkeypatch.setenv("HBA_CHROMIUM_EXECUTABLE", "/usr/bin/chromium")
 
-    entered = threading.Event()
-    resume = threading.Event()
-    original = mcp.run_manifest
+    def intentionally_stuck(_run_id):
+        # A harmless synthetic child stands in for an unresponsive Chromium.
+        return subprocess.Popen(
+            [sys.executable, "-c", "import time; time.sleep(60)"],
+            stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL, start_new_session=(os.name == "posix"),
+        )
 
-    def held_runner(manifest, *, run_id=None, chromium_executable=None):
-        # Synchronize BEFORE starting Chromium; don't confuse slow startup
-        # with cancellation correctness or add a timing-dependent failure.
-        entered.set()
-        if not resume.wait(timeout=15):
-            raise RuntimeError("Synthetic worker released too late")
-        return original(manifest, run_id=run_id, chromium_executable=chromium_executable)
-
-    monkeypatch.setattr(mcp, "run_manifest", held_runner)
+    monkeypatch.setattr(mcp, "_spawn_worker", intentionally_stuck)
     manifest = {
-        "schema_version": "hba.manifest.v1",
-        "project": "holistic-house", "mode": "FIXTURE",
+        "schema_version": "hba.manifest.v1", "project": "holistic-house",
+        "mode": "FIXTURE", "viewport": {"width": 390, "height": 844},
         "provider": "local_playwright", "max_external_spend_usd": 0,
-        "viewport": {"width": 390, "height": 844},
         "actions": [{"op": "assert_no_overflow"}],
     }
-    started = handle_message(request("tools/call", name="hba_run", arguments={"manifest": manifest}))
-    job = json.loads(started["result"]["content"][0]["text"])
-    run_id = job["run_id"]
+    started = handle_message(request("tools/call", name="hba_run",
+                                     arguments={"manifest": manifest}))
+    record = json.loads(started["result"]["content"][0]["text"])
+    run_id = record["run_id"]
+    deadline = time.monotonic() + 8
+    proc = None
+    while time.monotonic() < deadline:
+        with mcp._worker_lock:
+            proc = mcp._worker_process
+        if proc is not None:
+            break
+        time.sleep(.03)
     try:
-        assert job["state"] == "QUEUED"
-        assert entered.wait(timeout=5), runner.read_status(run_id)
-        busy = handle_message(request("tools/call", name="hba_run", arguments={"manifest": manifest}))
-        assert busy["result"]["isError"] is True
+        assert proc is not None and proc.poll() is None
+        busy = handle_message(request("tools/call", name="hba_run",
+                                      arguments={"manifest": manifest}))
+        assert busy["result"]["isError"]
         assert "RUN_BUSY" in busy["result"]["content"][0]["text"]
-        stopped = handle_message(request("tools/call", name="hba_cancel", arguments={"run_id": run_id}))
-        assert json.loads(stopped["result"]["content"][0]["text"])["cancel_requested"] is True
+        cancelled = handle_message(request("tools/call", name="hba_cancel",
+                                           arguments={"run_id": run_id}))
+        assert json.loads(cancelled["result"]["content"][0]["text"])["cancel_requested"]
     finally:
-        resume.set()
         if mcp._worker is not None:
-            mcp._worker.join(timeout=25)
+            mcp._worker.join(timeout=12)
+        if proc is not None and proc.poll() is None:
+            mcp._terminate_tree(proc)
     assert mcp._worker is not None and not mcp._worker.is_alive()
-    status = json.loads(handle_message(request(
-        "tools/call", name="hba_status", arguments={"run_id": run_id}
-    ))["result"]["content"][0]["text"])
+    assert proc is not None and proc.poll() is not None
+    status = runner.read_status(run_id, tmp_path)
     assert status["state"] == "CANCELLED"
-    assert status["cost"] == {"paid_provider_calls": 0, "new_external_spend_usd": 0}
+    assert status["failure_code"] == "CANCELLED"
+
+
+def test_mcp_dead_worker_fails_not_succeeds(monkeypatch, tmp_path):
+    import hba.mcp as mcp
+    import hba.runner as runner
+    monkeypatch.setenv("HBA_RUNS_DIR", str(tmp_path))
+
+    def instant_crash(_run_id):
+        return subprocess.Popen([sys.executable, "-c", "import sys; sys.exit(37)"],
+                                stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL)
+
+    monkeypatch.setattr(mcp, "_spawn_worker", instant_crash)
+    manifest = {"schema_version": "hba.manifest.v1", "project": "holistic-house",
+                "mode": "FIXTURE", "viewport": {"width": 390, "height": 844},
+                "actions": [{"op": "assert_no_overflow"}]}
+    started = handle_message(request("tools/call", name="hba_run",
+                                     arguments={"manifest": manifest}))
+    run_id = json.loads(started["result"]["content"][0]["text"])["run_id"]
+    assert mcp._worker is not None
+    mcp._worker.join(timeout=12)
+    assert not mcp._worker.is_alive()
+    result = runner.read_status(run_id, tmp_path)
+    assert result["state"] == "FAILED"
+    assert result["failure_code"] == "WORKER_EXIT_NONZERO"
+
+
+def test_mcp_supervisor_timeout_kills_child(monkeypatch, tmp_path):
+    import hba.mcp as mcp
+    import hba.runner as runner
+    monkeypatch.setenv("HBA_RUNS_DIR", str(tmp_path))
+    monkeypatch.setattr(mcp, "MAX_RUN_SECONDS", -19.9)
+
+    def slow(_run_id):
+        return subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"],
+                                stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL, start_new_session=True)
+
+    monkeypatch.setattr(mcp, "_spawn_worker", slow)
+    manifest = {"schema_version": "hba.manifest.v1", "project": "holistic-house",
+                "mode": "FIXTURE", "viewport": {"width": 390, "height": 844},
+                "actions": [{"op": "assert_no_overflow"}]}
+    started = handle_message(request("tools/call", name="hba_run",
+                                     arguments={"manifest": manifest}))
+    run_id = json.loads(started["result"]["content"][0]["text"])["run_id"]
+    assert mcp._worker is not None
+    mcp._worker.join(timeout=12)
+    assert not mcp._worker.is_alive()
+    result = runner.read_status(run_id, tmp_path)
+    assert result["state"] == "FAILED"
+    assert result["failure_code"] == "WORKER_TIMEOUT"
 
 
 def test_mcp_run_rejects_paid_provider_without_job_creation(monkeypatch, tmp_path):
