@@ -79,6 +79,11 @@ def safe_url(url: str, project: str, *, require_path: bool = False) -> str:
     # Also deny same-origin proxy/transform endpoints that can trigger services.
     if "%" in u.path or "\\" in u.path or "//" in u.path:
         raise PolicyError("BLOCKED_PRIVACY")
+    # Explicitly verified PUBLIC catalogue, despite /client prefix. Never expose
+    # its dynamic descendants, reports, results, filters or query parameters.
+    if (u.path in {"/en/client/tests", "/ru/client/tests", "/es/client/tests"}
+            and not u.query and not u.fragment):
+        return url
     segments = [v.lower() for v in u.path.split("/") if v]
     if segments and segments[0] in {"en", "ru", "es"}:
         segments = segments[1:]
