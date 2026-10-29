@@ -1,0 +1,100 @@
+name: HBA local zero-budget checks
+
+on:
+  pull_request:
+    paths:
+      - "tools/holistic-browser-agent/**"
+      - ".github/workflows/hba-zero-budget.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hba-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  local-chromium:
+    runs-on: ubuntu-24.04 # Pin supported Playwright 1.57 platform; standard free public-repo runner.
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install pinned free dependencies and Chromium
+        working-directory: tools/holistic-browser-agent
+        run: |
+          python -m pip install --disable-pip-version-check -r requirements.txt pytest==8.4.2
+          python -m playwright install --with-deps chromium
+      - name: Verify Python and isolated Chromium security tests
+        working-directory: tools/holistic-browser-agent
+        env:
+          HBA_RUNS_DIR: ${{ runner.temp }}/hba-ci-runs
+        run: |
+          bash -n INSTALL_MAC.command
+          python -m compileall -q hba examples
+          python -m pytest -q tests
+          python -m hba doctor
+          python -m hba plan examples/offline-fixture.json
+          run_json="$(python -m hba run examples/offline-fixture.json)"
+          printf '%s\n' "$run_json"
+          run_id="$(printf '%s' "$run_json" | python -c 'import json,sys; print(json.load(sys.stdin)["run_id"])')"
+          python -m hba status "$run_id"
+          python -m hba cancel "$run_id"
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          import os
+          base = Path(os.environ["HBA_RUNS_DIR"])
+          base.mkdir(parents=True, exist_ok=True)
+          for name in ("reference", "actual"):
+              Image.new("RGB", (30, 30), (20, 40, 60)).save(base / (name + ".png"))
+          PY
+          python -m hba compare "$HBA_RUNS_DIR/reference.png" "$HBA_RUNS_DIR/actual.png"
+          PYTHONPATH=. python examples/mcp-client-smoke.py
+          python -m pytest -q tests/test_mcp.py -k "finishes_real_chromium_fixture or worker_module_runs_real_chromium"
+      - name: Inspect public Holistic House in Chromium (separate non-blocking QA evidence)
+        continue-on-error: true # a site outage must not falsify core unit/CLI correctness
+        timeout-minutes: 6
+        working-directory: tools/holistic-browser-agent
+        env:
+          HBA_RUNS_DIR: ${{ runner.temp }}/hba-public-readonly-runs
+          PYTHONPATH: .
+        run: |
+          python examples/public-readonly-matrix.py
+      - name: Verify public CTA destinations only (no form submissions)
+        continue-on-error: true # website changes independent of HBA
+        timeout-minutes: 3
+        working-directory: tools/holistic-browser-agent
+        env:
+          HBA_RUNS_DIR: ${{ runner.temp }}/hba-public-cta-runs
+          PYTHONPATH: .
+        run: |
+          python examples/public-cta-checks.py
+
+  macos-installer-smoke:
+    # Standard public-repo GitHub runner, never a paid larger runner.
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Run installer twice in clean Mac runner (no Codex account changes)
+        working-directory: tools/holistic-browser-agent
+        env:
+          HBA_RUNS_DIR: ${{ runner.temp }}/hba-macos-runs
+        run: |
+          bash -n INSTALL_MAC.command
+          printf 'n\n' | bash INSTALL_MAC.command
+          # Re-run to prove idempotence: packages/browser should be reused.
+          printf 'n\n' | bash INSTALL_MAC.command
+          .venv/bin/python -m compileall -q hba
+          .venv/bin/python -m hba plan examples/offline-fixture.json

@@ -1,0 +1,18 @@
+{
+  "schema_version": "hba.manifest.v1",
+  "project": "holistic-house",
+  "mode": "FIXTURE",
+  "provider": "local_playwright",
+  "max_external_spend_usd": 0,
+  "viewport": {"width": 390, "height": 844},
+  "actions": [
+    {"op": "assert_role", "role": "heading", "name": "Holistic House QA Fixture"},
+    {"op": "click_link", "name": "Explore"},
+    {"op": "fill", "name": "Your goal", "value": "Business"},
+    {"op": "click_button", "name": "Try"},
+    {"op": "assert_text", "text": "Saved locally for QA"},
+    {"op": "assert_no_overflow"},
+    {"op": "assert_no_console_errors"},
+    {"op": "screenshot", "name": "fixture-390"}
+  ]
+}

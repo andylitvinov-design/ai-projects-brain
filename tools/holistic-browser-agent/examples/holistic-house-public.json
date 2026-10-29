@@ -1,0 +1,15 @@
+{
+  "schema_version": "hba.manifest.v1",
+  "project": "holistic-house",
+  "mode": "PUBLIC_READONLY",
+  "provider": "local_playwright",
+  "max_external_spend_usd": 0,
+  "start_url": "https://holistichouse.vercel.app/",
+  "viewport": {"width": 390, "height": 844},
+  "actions": [
+    {"op": "assert_role", "role": "main"},
+    {"op": "assert_no_overflow"},
+    {"op": "screenshot", "name": "home-mobile-390"},
+    {"op": "assert_no_console_errors"}
+  ]
+}
