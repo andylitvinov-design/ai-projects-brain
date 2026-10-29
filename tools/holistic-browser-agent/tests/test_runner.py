@@ -80,12 +80,14 @@ def test_missing_browser_binary_reported(tmp_path):
     assert out["failure_code"] == "BROWSER_EXECUTABLE_MISSING"
 
 
-def test_no_client_input_in_status(tmp_path):
+def test_private_input_rejected_before_chromium_and_any_artifacts(tmp_path):
     secret = "SUPER_PRIVATE_TEST_INPUT_9173"
-    out = run_manifest(fixture([action("fill", name="Your goal", value=secret)]),
-                       runs_dir=tmp_path, chromium_executable=CHROMIUM)
-    assert out["state"] == "SYNTHETIC_TEST_PASS"
-    assert secret not in (tmp_path/out["run_id"]/"status.json").read_text()
+    with pytest.raises(PolicyError) as exc:
+        run_manifest(fixture([action("fill", name="Your goal", value=secret),
+                              action("screenshot", name="private")]),
+                     runs_dir=tmp_path, chromium_executable=CHROMIUM)
+    assert exc.value.code == "BLOCKED_PRIVACY"
+    assert list(tmp_path.iterdir()) == []
 
 
 def test_cooperative_cancel_and_no_fake_post(tmp_path):
