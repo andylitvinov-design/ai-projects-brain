@@ -130,3 +130,19 @@ def test_duplicate_screenshot_filename_denied(tmp_path):
     assert out["state"] == "FAILED"
     assert out["failure_code"] == "INPUT_INVALID"
     assert out["assertions_passed"] == 1
+
+
+def test_cancel_requested_during_final_action_never_reports_success(monkeypatch, tmp_path):
+    import hba.runner as runner
+    original = runner._execute
+
+    def cancel_after_last_action(page, spec, manifest, directory, screenshots, counters):
+        original(page, spec, manifest, directory, screenshots, counters)
+        (directory / "cancel.flag").write_text("cancel requested\\n", encoding="utf-8")
+
+    monkeypatch.setattr(runner, "_execute", cancel_after_last_action)
+    out = run_manifest(fixture([action("assert_no_overflow")]), runs_dir=tmp_path,
+                       chromium_executable=CHROMIUM)
+    assert out["state"] == "CANCELLED"
+    assert out["failure_code"] == "CANCELLED"
+    assert read_status(out["run_id"], tmp_path)["state"] == "CANCELLED"
