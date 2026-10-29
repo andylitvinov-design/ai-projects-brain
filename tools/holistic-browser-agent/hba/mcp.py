@@ -34,6 +34,8 @@ def _tool_result(name: str, args: dict[str, Any]) -> dict[str, Any]:
         raise PolicyError("INPUT_INVALID")
     expected = {"hba_doctor": set(), "hba_plan": {"manifest"}, "hba_run": {"manifest"},
                 "hba_status": {"run_id"}, "hba_cancel": {"run_id"}}
+    if not isinstance(name, str):
+        raise PolicyError("INPUT_INVALID")
     if name not in expected:
         raise PolicyError("TOOL_UNKNOWN")
     if set(args) != expected[name]:
