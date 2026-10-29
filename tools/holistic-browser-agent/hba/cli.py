@@ -18,7 +18,7 @@ def doctor() -> dict[str, Any]:
     """Launch a local, network-blocked synthetic page: importable != operable."""
     installed = importlib.util.find_spec("playwright") is not None
     result: dict[str, Any] = {
-        "app": "holistic-browser-agent", "version": "0.1.0",
+        "app": "holistic-browser-agent", "version": "0.2.0",
         "python": sys.version.split()[0], "playwright_installed": installed,
         "chromium_system": shutil.which("chromium") or shutil.which("google-chrome"),
         "remote_mcp_enabled": False, "tinyfish_paid_enabled": False,

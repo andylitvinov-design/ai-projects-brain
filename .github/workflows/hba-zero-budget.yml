@@ -36,7 +36,7 @@ jobs:
           HBA_RUNS_DIR: ${{ runner.temp }}/hba-ci-runs
         run: |
           bash -n INSTALL_MAC.command
-          python -m compileall -q hba
+          python -m compileall -q hba examples
           python -m pytest -q tests
           python -m hba doctor
           python -m hba plan examples/offline-fixture.json

@@ -944,3 +944,8 @@ This checkpoint records **implementation**, not a claim that all requirements T0
 | Spend and privacy | No paid adapters, no cloud model/browser calls, no persistent browser profiles or real tokens | ZERO NEW PAID PROVIDER CALLS in this delivery; broader hosting costs not attested |
 
 **Operational separation:** Brain PR/CI success, native owner-Mac installation, and live Holistic House/browser/production SHA evidence are independent gates. Never merge or deploy website code as a side effect of HBA QA. When the last test run is incomplete, keep the PR in Draft and report the blocking layer. No additional scheduler, browser cloud, public CDP or tunnel is introduced.
+
+
+### Implementation addendum — 2026-10-29
+
+The local MCP worker is now an independently killable child process, with a supervisor deadline, cancellation process-group termination, parent-pipe disconnect guard, and one-shot execution claim. CI tests include external stdio discovery/invoke and CLI doctor/plan/run/status/cancel/compare. A fixed `measure_layout` browser action reports numeric responsive/image metrics; 16 public browser visits capture private, non-uploaded screenshots and hashes. Blocked assets remain policy-limited, not site PASS. The Mac installer prefers already available local Chromium and verifies the entire Codex stdio configuration. Owner Mac / native Codex invocation remain NOT_TESTED until an authorized host is online. T01–T48 full compliance is still PARTIAL; no OS-level network sandbox is asserted.

@@ -1,4 +1,4 @@
-# Holistic Browser Agent — local MVP 0.1.0
+# Holistic Browser Agent — local MVP 0.2.0
 
 **Status: runnable local deterministic alpha, NOT installed on the owner's Mac, NOT live on Holistic House.** Tracks [Brain issue #259](https://github.com/andylitvinov-design/ai-projects-brain/issues/259). Implements a bounded part of the [HBA Zero-Budget v2 specification](./TECH_SPEC_ZERO_BUDGET_V1_20261028.md).
 
@@ -76,7 +76,7 @@ Owner Mac installation, verified Codex-host MCP invocation, Next.js production S
 
 ## macOS one-time installer (not executed on the owner's Mac)
 
-A readable [INSTALL_MAC.command](./INSTALL_MAC.command) reuses matching pinned packages, probes headless Chromium, installs its Playwright browser only when needed, runs an offline fixture, and **asks before** registering the local MCP via the installed Codex CLI. If that MCP name already points elsewhere, it stops instead of overwriting it. It does not disable macOS Gatekeeper, expose a browser port, request tokens, or enable remote access. Review the script before running; macOS can warn about unsigned downloaded scripts. This installer is prepared but **has not been tested on the owner's Mac** (last remote device check: Offline). Running bash syntax checks in CI does not prove installation on macOS.
+A readable [INSTALL_MAC.command](./INSTALL_MAC.command) reuses matching pinned packages, probes headless Chromium, installs its Playwright browser only when needed, runs an offline fixture, and **asks before** registering the local MCP via the installed Codex CLI. If that MCP name already points elsewhere, it stops instead of overwriting it. Existing entries must match the full Codex stdio command, arguments and PYTHONPATH. It does not disable macOS Gatekeeper, expose a browser port, request tokens, or enable remote access. Review the script before running; macOS can warn about unsigned downloaded scripts. This installer is prepared but **has not been tested on the owner's Mac** (last remote device check: Offline). Running bash syntax checks in CI does not prove installation on macOS.
 
 The Codex MCP registration uses the verified current syntax `codex mcp add ... --env PYTHONPATH=<local-folder> -- <venv-python> -m hba mcp`; storing PYTHONPATH is necessary because Codex launches the Python process from an arbitrary directory. Never attach the user's personal browser profile or production cookies.
 
@@ -98,3 +98,5 @@ Public QA may be incomplete because strict network policies intentionally block 
 ## Responsive public geometry without private-data extraction
 
 The fixed, reviewed `measure_layout` action returns only numeric viewport/main geometry, overflow, and counts of images, links and buttons. The 16 guest-only public browser scenarios now capture private local screenshots and log only SHA-256 hashes (not the images). An image blocked by the strict policy is counted as *broken_or_blocked*, and cannot be attributed to a site bug without independent checks. `PASS_PUBLIC_DOM_POLICY_LIMITED` means the allowed guest DOM/overflow assertions passed, but overall page fidelity is still NOT_VERIFIED. No authenticated screenshot or automatic upload to GitHub is permitted.
+
+On macOS, the installer probes a compatible already-installed Chrome/Chromium in an ephemeral context before downloading another Chromium. The script has executable Git mode and keeps Gatekeeper enabled. A clean `bash -n` CI pass is not a substitute for executing it on the actual owner Mac.

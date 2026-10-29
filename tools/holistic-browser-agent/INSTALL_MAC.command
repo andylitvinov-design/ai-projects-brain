@@ -49,8 +49,25 @@ then
   "$PY" -m pip install --disable-pip-version-check -r requirements.txt
 fi
 
-# Browser is installed only when the actual headless synthetic probe fails.
+# Probe an installed local browser with a fresh isolated context, never the
+# user's saved profile, cookies or Chrome debugging port. Fall back to Playwright.
+if [[ -z "${HBA_CHROMIUM_EXECUTABLE:-}" ]]; then
+  for candidate in \
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+    "/Applications/Chromium.app/Contents/MacOS/Chromium" \
+    "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"; do
+    if [[ -x "$candidate" ]]; then
+      export HBA_CHROMIUM_EXECUTABLE="$candidate"
+      if "$PY" -m hba doctor >/dev/null 2>&1; then
+        echo "Compatible existing Chromium-based browser detected."
+        break
+      fi
+      unset HBA_CHROMIUM_EXECUTABLE
+    fi
+  done
+fi
 if ! "$PY" -m hba doctor >/dev/null 2>&1; then
+  unset HBA_CHROMIUM_EXECUTABLE
   "$PY" -m playwright install chromium
 fi
 "$PY" -m hba doctor
@@ -59,26 +76,43 @@ fi
 
 echo
 echo 'Local synthetic Chromium check passed. No live website, client account or paid API was accessed.'
+# Validate the complete native Codex JSON configuration rather than grep paths.
+mcp_matches() {
+  codex mcp get holistic-browser-agent --json | "$PY" -c '
+import json, sys
+try:
+    x = json.load(sys.stdin).get("transport", {})
+    ok = (x.get("type") == "stdio"
+          and x.get("command") == sys.argv[1]
+          and x.get("args") == ["-m", "hba", "mcp"]
+          and (x.get("env") or {}).get("PYTHONPATH") == sys.argv[2])
+except (TypeError, ValueError, AttributeError):
+    ok = False
+sys.exit(0 if ok else 1)
+' "$PY" "$ROOT"
+}
+
 if command -v codex >/dev/null 2>&1; then
   if codex mcp get holistic-browser-agent --json >/dev/null 2>&1; then
-    if codex mcp get holistic-browser-agent --json | grep -Fq -- "$PY"; then
-      echo 'Existing Codex MCP entry points to this venv; preserved without changes.'
-    else
-      echo 'A DIFFERENT Codex MCP entry already uses holistic-browser-agent.' >&2
-      echo 'It was not overwritten. Review: codex mcp get holistic-browser-agent --json' >&2
+    if ! mcp_matches; then
+      echo 'Another Codex MCP already uses holistic-browser-agent; not overwritten.' >&2
       exit 3
     fi
+    echo 'Existing HBA Codex stdio registration verified.'
   else
     read -r -p 'Register local HBA stdio MCP in Codex? [y/N] ' confirm
     if [[ "$confirm" == 'y' || "$confirm" == 'Y' ]]; then
       codex mcp add holistic-browser-agent --env "PYTHONPATH=$ROOT" -- "$PY" -m hba mcp
     else
-      echo 'Codex MCP registration skipped; HBA CLI remains usable.'
+      echo 'MCP registration skipped; browser CLI remains usable.'
       exit 0
     fi
   fi
-  codex mcp get holistic-browser-agent --json
-  echo 'Codex registration checked. Actual Codex tool discovery/invocation still requires client verification.'
+  if ! mcp_matches; then
+    echo 'Codex registration does not match HBA command/args/env.' >&2
+    exit 3
+  fi
+  echo 'Codex configuration validated; actual host tool-call proof remains required.'
 else
-  echo 'Codex CLI not present. Browser CLI is verified; native MCP remains NOT_TESTED.'
+  echo 'Codex CLI not present. Browser CLI is verified; native MCP NOT_TESTED.'
 fi
