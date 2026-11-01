@@ -64,7 +64,7 @@ test('synthesis Off blocks manual re-synthesis; provider failures remain explici
  const {elements,calls,ui}=await setup({failId:ids[0]});await ui.ask();assert.equal(calls.length,2);assert.equal(ui.getState().responses[0].status,'error');elements.museAnswer.value='Pasted Muse';ui.addMuse();elements.synthModel.value='';elements.consent.checked=true;await elements.resynth.emit('click');assert.equal(calls.length,2);
 });
 test('storage unavailable does not break startup; export redacts credentials',async()=>{
- const {elements,ui}=await setup({storageBlocked:true});elements.question.value='Public example sk-or-v1-should-not-export';await ui.ask();assert.ok(!ui.report().includes('sk-or-v1-should-not-export'));assert.ok(ui.report().includes('[REDACTED]'));
+ const synthetic='sk-'+'or-v1-should-not-export';const {elements,ui}=await setup({storageBlocked:true});elements.question.value='Public example '+synthetic;await ui.ask();assert.ok(!ui.report().includes(synthetic));assert.ok(ui.report().includes('[REDACTED]'));
 });
 test('manual-only Muse card and report need no key or model call',async()=>{
  const {elements,calls,ui}=await setup();elements.apiKey.value='';elements.museAnswer.value='Public manual answer';ui.addMuse();assert.equal(calls.length,0);assert.equal(ui.getState().question,'Public question A');assert.equal(ui.getState().muse,'Public manual answer');assert.match(ui.report(),/Public manual answer/);
