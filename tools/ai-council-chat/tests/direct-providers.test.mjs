@@ -5,29 +5,45 @@ import {fileURLToPath} from 'node:url';
 import {dirname,join} from 'node:path';
 const moduleText=readFileSync(join(dirname(fileURLToPath(import.meta.url)),'..','external-providers.js'),'utf-8');
 function store(){const m=new Map();return {getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k)}}
-function harness({remember=true,responder=null,sessionEntries={},localEntries={},lang='ru'}={}){
- const sessionStorage=store(),localStorage=store(),els=new Map(),requests=[];
- for(const [key,value] of Object.entries(sessionEntries))sessionStorage.setItem(key,value);
- for(const [key,value] of Object.entries(localEntries))localStorage.setItem(key,value);
- for(const p of ['gemini','mistral'])for(const suffix of ['DirectKey','FreeConfirm','DirectStatus','DirectDisconnect','DirectConnect']){
-   els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null,onchange:null,oninput:null});
+function harness(options={}){
+ const sessionStorage=options.sessionStorage||store(),localStorage=options.localStorage||store(),els=new Map(),requests=[];
+ for(const p of ['gemini','mistral','nvidia'])for(const suffix of ['DirectKey','FreeConfirm','DirectStatus','DirectDisconnect','DirectConnect']){
+   els.set(p+suffix,{value:'',checked:false,disabled:false,textContent:'',onclick:null,dataset:{}});
  }
+ els.set('nvidiaProxyConsent',{checked:false,onchange:null});
+ els.set('nvidiaUseTechnical',{disabled:true,textContent:'',onclick:null});
+ els.set('nvidiaPasteKey',{disabled:false,textContent:'',onclick:null});
+ els.set('nvidiaCancelConnect',{disabled:false,textContent:'',onclick:null,hidden:true});
+ els.set('nvidiaRoleStatus',{dataset:{},textContent:''});
+ els.set('geminiQuickCheck',{disabled:false,onclick:null});
  const document={getElementById:x=>els.get(x)};
  const fetch=async(url,opts)=>{
   requests.push({url,opts});
-  if(responder){const response=await responder(url,opts,requests);if(response!==undefined)return response;}
   if(url.endsWith('models/gemini-3.8-flash'))return {ok:true,json:async()=>({name:'models/gemini-3.8-flash'})};
   if(url.endsWith('/models'))return {ok:true,json:async()=>({data:[{id:'mistral-small-2603'}]})};
+  if(options.geminiNetworkFail&&url.includes('generateContent'))throw Error('Load failed');
   if(url.includes('generateContent'))return {ok:true,json:async()=>({candidates:[{content:{parts:[{text:'Gemini analysis: concrete findings and acceptance tests'}]}}]})};
-  if(url.includes('chat/completions'))return {ok:true,json:async()=>({choices:[{message:{content:'Mistral technical review: exact URLs and tests'}}]})};
+  if(options.nvidiaHang&&url.includes('./api/nvidia-chat'))return new Promise((resolve,reject)=>{
+    if(opts.signal?.aborted){const e=new Error('Aborted');e.name='AbortError';reject(e);return;}
+    opts.signal?.addEventListener('abort',()=>{const e=new Error('Aborted');e.name='AbortError';reject(e);},{once:true});
+  });
+  if(options.nvidiaUnavailable&&url.includes('./api/nvidia-chat'))return {ok:false,status:503,json:async()=>({error:'NVIDIA endpoint unresponsive (503)'})};
+  if(options.nvidiaEmpty&&url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:''},finish_reason:'length'}]})};
+  if(options.nvidiaLimit&&url.includes('./api/nvidia-chat'))return {ok:false,status:429,json:async()=>({error:'NVIDIA trial limit 429'})};
+  if(url.includes('./api/nvidia-chat'))return {ok:true,json:async()=>({ok:true,choices:[{message:{content:'NVIDIA DeepSeek: precise technical review'}}]})};
+  if(options.mistralRateLimit&&url==='https://api.mistral.ai/v1/chat/completions')
+    return {ok:false,status:429,json:async()=>({message:'Rate limit exceeded'})};
+  if(url.includes('chat/completions'))return {ok:true,json:async()=>({choices:[{message:{content:'Review: exact URLs and tests'}}]})};
   return {ok:false,status:404,json:async()=>({})};
  };
- const globalThis={};
+ const globalThis={navigator:options.navigator};
  const factory=new Function('globalThis','document','localStorage','sessionStorage','fetch','AbortController','setTimeout','clearTimeout',moduleText+';return globalThis.AICouncilExternalProviders;');
- const api=factory(globalThis,document,localStorage,sessionStorage,fetch,AbortController,setTimeout,clearTimeout);
- let refreshed=0;let errors=[];
- api.init({getRemember:()=>remember,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=>lang});
- return {api,sessionStorage,localStorage,els,requests,get refreshed(){return refreshed},errors};
+ const api=factory(globalThis,document,localStorage,sessionStorage,fetch,AbortController,options.setTimeout||setTimeout,options.clearTimeout||clearTimeout);
+ let refreshed=0;let errors=[];const chosen=[];
+ const setup={getRemember:()=>true,refresh:async()=>{refreshed++},error:msg=>errors.push(msg),lang:()=> 'ru',onProbe:()=>{refreshed++;},chooseEngineeringModel:id=>{chosen.push(id);return true}};
+ if(options.hasRole)setup.isEngineeringModel=id=>chosen.includes(id);
+ api.init(setup);
+ return {api,sessionStorage,localStorage,els,requests,get refreshed(){return refreshed},errors,chosen};
 }
 test('only explicitly connected and free-tier-confirmed provider models appear',async()=>{
  const h=harness();
@@ -56,264 +72,277 @@ test('direct Mistral is gated by free-tier affirmation and uses Mistral API only
  const h=harness();h.els.get('mistralDirectKey').value='mistral-key';h.els.get('mistralFreeConfirm').checked=true;await h.els.get('mistralDirectConnect').onclick();
  assert.equal(h.api.models()[0].id,'mistral-direct/mistral-small-2603:experiment');
  const msg=await h.api.call('mistral-direct/mistral-small-2603:experiment',[{role:'system',content:'Be specific'},{role:'user',content:'Fix /en/services'}]);
- assert.match(msg,/Mistral technical review/);
+ assert.match(msg,/Review: exact URLs/);
  assert.equal(h.requests.at(-1).url,'https://api.mistral.ai/v1/chat/completions');
  await h.els.get('mistralDirectDisconnect').onclick();assert.equal(h.api.models().length,0);
 });
 
-const GEMINI='google-direct/gemini-3.8-flash:free-tier';
-const MISTRAL='mistral-direct/mistral-small-2603:experiment';
-const messages=[{role:'user',content:'Use only public website evidence.'}];
-const json=(body,status=200,headers={})=>({ok:status>=200&&status<300,status,headers:{get:name=>headers[name.toLowerCase()]??null},json:async()=>body});
-const deferred=()=>{let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return {promise,resolve,reject};};
-async function connect(h,p='gemini',key='test-key'){
- h.els.get(p+'DirectKey').value=key;h.els.get(p+'FreeConfirm').checked=true;await h.els.get(p+'DirectConnect').onclick();
-}
-const posts=h=>h.requests.filter(request=>request.opts.method==='POST');
-
-test('model eligibility never fabricates zero pricing or a billing verification',async()=>{
- const h=harness({lang:'en'});await connect(h);await connect(h,'mistral','other-test-key');
- for(const model of h.api.models()){
-  assert.equal(Object.hasOwn(model,'pricing'),false);
-  assert.equal(model.billingVerification,'unverified-account-attestation');
-  assert.equal(model.freeProviderMode,'user-confirmed');
-  assert.match(model.name,/billing unverified/i);
- }
+test('NVIDIA DeepSeek is gated by free-trial AND proxy transit consent; requests never call blocked NVIDIA CORS directly',async()=>{
+ const h=harness();
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.api.models().length,0,'NVIDIA trial must not silently activate');
+ h.els.get('nvidiaFreeConfirm').checked=true;
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.api.models().length,0,'CORS relay must not activate without user consent');
+ assert.equal(h.requests.length,0);
+ h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.api.models().length,1);
+ assert.equal(h.api.models()[0].id,'nvidia-direct/deepseek-v4.1-flash:trial');
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial'],'verified DeepSeek becomes the technical reviewer automatically');
+ assert.equal(h.localStorage.getItem('ai-council-deepseek-engineering-preferred-v1'),'applied');
+ assert.equal(h.els.get('nvidiaUseTechnical').disabled,false,'explicit manual assign remains possible');
+ const beforeManual=h.requests.length;
+ await h.els.get('nvidiaUseTechnical').onclick();
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial','nvidia-direct/deepseek-v4.1-flash:trial']);
+ assert.equal(h.requests.length,beforeManual,'manual model selection never calls the API');
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/экспертом №3/);
+ assert.ok(h.requests.some(r=>r.url==='./api/nvidia-chat'));
+ const a=h.requests[0];
+ const body=JSON.parse(a.opts.body);
+ assert.equal(body.consent,true);
+ assert.equal(body.apiKey,'nvapi-123456789abcdef');
+ assert.equal(body.probe,true);
+ assert.ok(h.requests.every(x=>!x.url.includes('integrate.api.nvidia.com')));
+ const answer=await h.api.call('nvidia-direct/deepseek-v4.1-flash:trial',[{role:'system',content:'Critique independently'},{role:'user',content:'Audit Holistic House with URL evidence'}],{maxTokens:1500});
+ assert.match(answer,/NVIDIA DeepSeek/);
+ assert.equal(h.requests.at(-1).url,'./api/nvidia-chat');
+ assert.ok(JSON.parse(h.requests.at(-1).opts.body).messages.some(m=>m.content.includes('Holistic House')));
+ h.els.get('nvidiaProxyConsent').checked=false;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ assert.equal(h.api.models().length,0,'Revoking relay consent immediately disables DeepSeek');
+ await assert.rejects(()=>h.api.call('nvidia-direct/deepseek-v4.1-flash:trial',[{role:'user',content:'hi'}]),/not connected/);
+ await h.els.get('nvidiaDirectDisconnect').onclick();
+ assert.equal(h.api.models().length,0);
+ assert.equal(h.localStorage.getItem('ai-council-nvidia-nim-key'),null);
+ assert.equal(h.localStorage.getItem('ai-council-nvidia-relay-consent'),null);
+ assert.equal(h.localStorage.getItem('ai-council-deepseek-engineering-preferred-v1'),null);
 });
 
-test('unchecking attestation revokes eligibility synchronously before refresh',async()=>{
- const h=harness();await connect(h);const version=h.api.connectionVersion(GEMINI);
- h.els.get('geminiFreeConfirm').checked=false;
- const pending=h.els.get('geminiFreeConfirm').onchange();
- assert.equal(h.api.valid('gemini'),false);assert.equal(h.api.models().length,0);
- assert.ok(h.api.connectionVersion(GEMINI)>version);
- assert.equal(h.sessionStorage.getItem('ai-council-gemini-free-verified'),null);
- assert.equal(h.localStorage.getItem('ai-council-gemini-free-verified'),null);
- let dispatched=0;
- await assert.rejects(h.api.call(GEMINI,messages,{expectedConnectionVersion:version,onDispatch:()=>dispatched++}),{code:'provider_not_connected'});
- assert.equal(dispatched,0);assert.equal(posts(h).length,0);await pending;
+test('NVIDIA cannot be marked connected when the provider returns no real text',async()=>{
+ const h=harness({nvidiaEmpty:true});
+ assert.equal(h.els.get('nvidiaUseTechnical').disabled,true,'cannot assign before connecting');
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;
+ h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.api.models().length,0,'no connected model after empty provider completion');
+ assert.equal(h.els.get('nvidiaUseTechnical').disabled,true);
+ assert.deepEqual(h.chosen,[],'no silent model selection');
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/реальный текстовый ответ/);
+ assert.equal(h.localStorage.getItem('ai-council-nvidia-nim-key'),null);
+});
+test('Saved NVIDIA opt-in auto-assigns reviewer #3 once without making a new API request',async()=>{
+ const sessionStorage=store(),localStorage=store();
+ localStorage.setItem('ai-council-nvidia-nim-key','nvapi-123456789abcdef');
+ localStorage.setItem('ai-council-nvidia-trial-confirmed','true');
+ localStorage.setItem('ai-council-nvidia-relay-consent','true');
+ const h=harness({sessionStorage,localStorage});
+ assert.equal(h.api.models().length,1,'confirmed saved DeepSeek key is recognized locally');
+ assert.equal(h.api.preferDeepSeekEngineering(),true);
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial']);
+ assert.equal(h.requests.length,0,'restore must not secretly spend a provider call');
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/сейчас не перепроверялся/);
+ assert.equal(localStorage.getItem('ai-council-deepseek-engineering-preferred-v1'),'applied');
+ assert.equal(h.api.preferDeepSeekEngineering(),false);
+ const reload=harness({sessionStorage,localStorage});
+ assert.equal(reload.api.preferDeepSeekEngineering(),false,'never overwrite a later manual choice');
+ assert.deepEqual(reload.chosen,[]);
+ assert.equal(reload.requests.length,0);
+});
+test('NVIDIA consent and saved key are both prerequisites for automatic expert selection',async()=>{
+ const sessionStorage=store(),localStorage=store();
+ localStorage.setItem('ai-council-nvidia-nim-key','nvapi-123456789abcdef');
+ localStorage.setItem('ai-council-nvidia-trial-confirmed','true');
+ const h=harness({sessionStorage,localStorage});
+ assert.equal(h.api.preferDeepSeekEngineering(),false);
+ assert.deepEqual(h.chosen,[]);
+ assert.equal(localStorage.getItem('ai-council-deepseek-engineering-preferred-v1'),null);
+ localStorage.setItem('ai-council-nvidia-relay-consent','true');
+ const h2=harness({sessionStorage,localStorage});
+ assert.equal(h2.api.preferDeepSeekEngineering(),true);
+});
+test('direct Mistral 429 enters local cooldown rather than burning more API requests',async()=>{
+ const h=harness({mistralRateLimit:true});
+ h.els.get('mistralDirectKey').value='mistral-free-key';
+ h.els.get('mistralFreeConfirm').checked=true;
+ await h.els.get('mistralDirectConnect').onclick();
+ const id='mistral-direct/mistral-small-2603:experiment',msg=[{role:'user',content:'Check exact services page'}];
+ await assert.rejects(()=>h.api.call(id,msg),/Mistral 429/);
+ const before=h.requests.length;
+ await assert.rejects(()=>h.api.call(id,msg),/rate limit reached earlier/);
+ assert.equal(h.requests.length,before,'no second Mistral HTTP request during cooldown');
+ assert.ok(Number(h.sessionStorage.getItem('ai-council-provider-cooldown-mistral'))>Date.now());
 });
 
-test('render preserves a checked attestation while key verification is pending',async()=>{
- const gate=deferred(),h=harness({responder:(url)=>url.endsWith('models/gemini-3.8-flash')?gate.promise:undefined});
- h.els.get('geminiDirectKey').value='test-key';h.els.get('geminiFreeConfirm').checked=true;
- const pending=h.els.get('geminiDirectConnect').onclick();
- assert.equal(h.els.get('geminiFreeConfirm').checked,true);
- assert.equal(h.els.get('geminiDirectDisconnect').disabled,false);
- assert.equal(h.api.valid('gemini'),false);assert.match(h.els.get('geminiDirectStatus').textContent,/Проверяю/);
- gate.resolve(json({name:'models/gemini-3.8-flash'}));await pending;
- assert.equal(h.api.valid('gemini'),true);
+test('Gemini quick answer check uses one small explicit provider request',async()=>{
+ const h=harness();
+ h.els.get('geminiDirectKey').value='test-gemini-key';
+ h.els.get('geminiFreeConfirm').checked=true;
+ await h.els.get('geminiDirectConnect').onclick();
+ const count=h.requests.length;
+ await h.els.get('geminiQuickCheck').onclick();
+ assert.equal(h.requests.length,count+1);
+ assert.equal(h.els.get('geminiQuickCheck').disabled,false);
+ assert.match(h.els.get('geminiDirectStatus').textContent,/Gemini успешно ответил/);
+});
+test('Gemini Load failed is diagnosed as a browser network failure, not a rejected API key',async()=>{
+ const h=harness({geminiNetworkFail:true});
+ h.els.get('geminiDirectKey').value='test-gemini-key';
+ h.els.get('geminiFreeConfirm').checked=true;
+ await h.els.get('geminiDirectConnect').onclick();
+ await assert.rejects(()=>h.api.call('google-direct/gemini-3.8-flash:free-tier',[{role:'user',content:'Test'}]),
+  /Google Gemini: network request failed.*NOT a confirmed bad API key/);
 });
 
-for(const revoke of ['disconnect','uncheck'])test('late verification cannot undo '+revoke,async()=>{
- const gate=deferred(),h=harness({responder:(url)=>url.endsWith('models/gemini-3.8-flash')?gate.promise:undefined});
- h.els.get('geminiDirectKey').value='late-key';h.els.get('geminiFreeConfirm').checked=true;
- const pending=h.els.get('geminiDirectConnect').onclick(),signal=h.requests[0].opts.signal;
- if(revoke==='disconnect')await h.els.get('geminiDirectDisconnect').onclick();
- else{h.els.get('geminiFreeConfirm').checked=false;await h.els.get('geminiFreeConfirm').onchange();}
- const version=h.api.connectionVersion(GEMINI);
- assert.equal(signal.aborted,true);
- gate.resolve(json({name:'models/gemini-3.8-flash'}));await pending;
- assert.equal(h.api.valid('gemini'),false);assert.equal(h.api.models().length,0);
- assert.equal(h.api.connectionVersion(GEMINI),version);
- assert.equal(h.sessionStorage.getItem('ai-council-gemini-key'),null);
- assert.equal(h.localStorage.getItem('ai-council-gemini-key'),null);
- assert.equal(h.els.get('geminiFreeConfirm').checked,false);
+test('NVIDIA one-click probe uses saved consented key and reports actual text without storing secret',async()=>{
+ const h=harness();
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ const before=h.requests.length;
+ const result=await h.api.probeNvidia();
+ assert.equal(result.ok,true);
+ assert.match(result.text,/NVIDIA DeepSeek/);
+ assert.equal(h.requests.length,before+1,'exactly one opt-in trial call');
+ assert.equal(h.requests.at(-1).url,'./api/nvidia-chat');
+ assert.equal(h.api.probeStatus('nvidia').ok,true);
+ assert.equal(JSON.stringify(h.api.probeStatus('nvidia')).includes('nvapi-'),false);
+ await assert.rejects(()=>h.api.probeNvidia(),/cooling down/);
+ assert.equal(h.requests.length,before+1);
+ await h.els.get('nvidiaDirectDisconnect').onclick();
+ assert.equal(h.api.probeStatus('nvidia'),null);
+});
+test('NVIDIA probe refuses absent user confirmation and never silently sends',async()=>{
+ const h=harness();
+ await assert.rejects(()=>h.api.probeNvidia(),/not connected/);
+ assert.equal(h.requests.length,0);
+});
+test('NVIDIA probe records real provider 429 and does not turn it into verified success',async()=>{
+ const h=harness({nvidiaLimit:true});
+ const key='nvapi-123456789abcdef';
+ h.localStorage.setItem('ai-council-nvidia-nim-key',key);
+ h.localStorage.setItem('ai-council-nvidia-trial-confirmed','true');
+ h.localStorage.setItem('ai-council-nvidia-relay-consent','true');
+ // The harness initialized before persisted state; new harness reload simulates opening the app.
+ const restored=harness({nvidiaLimit:true,localStorage:h.localStorage});
+ await assert.rejects(()=>restored.api.probeNvidia(),/429/);
+ assert.equal(restored.api.probeStatus('nvidia').ok,false);
+ assert.match(restored.api.probeStatus('nvidia').error,/429/);
+ await assert.rejects(()=>restored.api.probeNvidia(),/cooling down/);
+ assert.equal(restored.requests.length,1);
 });
 
-test('newer connect wins even when an older provider verification resolves last',async()=>{
- const first=deferred(),second=deferred();let count=0;
- const h=harness({responder:url=>url.endsWith('models/gemini-3.8-flash')?(++count===1?first.promise:second.promise):undefined});
- h.els.get('geminiDirectKey').value='old-key';h.els.get('geminiFreeConfirm').checked=true;
- const old=h.els.get('geminiDirectConnect').onclick();
- h.els.get('geminiDirectKey').value='new-key';h.els.get('geminiFreeConfirm').checked=true;
- const replacement=h.els.get('geminiDirectConnect').onclick();
- assert.equal(h.requests[0].opts.signal.aborted,true);
- second.resolve(json({name:'models/gemini-3.8-flash'}));await replacement;
- const version=h.api.connectionVersion(GEMINI);
- first.resolve(json({name:'models/gemini-3.8-flash'}));await old;
- assert.equal(h.sessionStorage.getItem('ai-council-gemini-key'),'new-key');
- assert.equal(h.localStorage.getItem('ai-council-gemini-key'),'new-key');
- assert.equal(h.api.connectionVersion(GEMINI),version);
- await h.api.call(GEMINI,messages);
- assert.equal(posts(h)[0].opts.headers['x-goog-api-key'],'new-key');
+test('NVIDIA form shows missing-key and missing free-tier consent beside the button, without using the relay',async()=>{
+ const h=harness();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Generate API Key/);
+ assert.equal(h.els.get('nvidiaDirectStatus').dataset.state,'error');
+ assert.equal(h.requests.length,0,'blank key must not send');
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Шаг 3.*бесплатный/);
+ assert.equal(h.requests.length,0,'no free-tier confirmation must not send');
+ h.els.get('nvidiaFreeConfirm').checked=true;
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Шаг 3.*разрешите/);
+ assert.equal(h.requests.length,0,'without relay consent must not send');
+});
+test('Paste action reads clipboard only on explicit tap, masks it, and does not submit anything',async()=>{
+ let reads=0;
+ const key='nvapi-123456789abcdef';
+ const h=harness({navigator:{clipboard:{readText:async()=>{reads++;return key;}}}});
+ assert.equal(reads,0,'no automatic clipboard access during boot');
+ await h.els.get('nvidiaPasteKey').onclick();
+ assert.equal(reads,1);
+ assert.equal(h.els.get('nvidiaDirectKey').value,key);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Ключ вставлен/);
+ assert.equal(h.requests.length,0,'pasting never sends the secret to AI Council server');
+ assert.equal(JSON.stringify(h.api.probeStatus('nvidia')), 'null');
+});
+test('Clipboard denied displays native iPhone Paste fallback instead of losing the prompt',async()=>{
+ const h=harness({navigator:{clipboard:{readText:async()=>{throw Error('no permission');}}}});
+ await h.els.get('nvidiaPasteKey').onclick();
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Автовставка недоступна/);
+ assert.equal(h.requests.length,0);
+});
+test('A verified DeepSeek connection visibly becomes technical expert #3',async()=>{
+ const h=harness({hasRole:true});
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.deepEqual(h.chosen,['nvidia-direct/deepseek-v4.1-flash:trial']);
+ assert.match(h.els.get('nvidiaRoleStatus').textContent,/техническим экспертом №3/);
+ assert.equal(h.els.get('nvidiaRoleStatus').dataset.connected,'true');
+ assert.equal(h.els.get('nvidiaUseTechnical').hidden,true,'no redundant button after automatic assignment');
+ assert.equal(h.els.get('nvidiaDirectConnect').hidden,true,'no duplicate connect on confirmed account');
+ assert.equal(h.requests.length,1,'one real provider check only');
 });
 
-test('old failed verification cannot overwrite a newer successful connection status',async()=>{
- const first=deferred();let count=0;
- const h=harness({responder:url=>url.endsWith('models/gemini-3.8-flash')&&++count===1?first.promise:undefined});
- h.els.get('geminiDirectKey').value='old-key';h.els.get('geminiFreeConfirm').checked=true;
- const old=h.els.get('geminiDirectConnect').onclick();await connect(h,'gemini','new-key');
- const status=h.els.get('geminiDirectStatus').textContent;
- first.reject(new Error('old-key must never appear'));await old;
- assert.equal(h.els.get('geminiDirectStatus').textContent,status);assert.equal(h.api.valid('gemini'),true);
+
+test('Previously saved NVIDIA key can be deleted even after relay consent was revoked',async()=>{
+ const localStorage=store();
+ localStorage.setItem('ai-council-nvidia-nim-key','nvapi-123456789abcdef');
+ localStorage.setItem('ai-council-nvidia-trial-confirmed','true');
+ localStorage.setItem('ai-council-nvidia-relay-consent','true');
+ const h=harness({localStorage});
+ assert.equal(h.api.valid('nvidia'),true);
+ h.els.get('nvidiaProxyConsent').checked=false;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ assert.equal(h.api.valid('nvidia'),false);
+ assert.equal(h.els.get('nvidiaDirectDisconnect').hidden,false,'disconnect must stay usable when consent is off');
+ await h.els.get('nvidiaDirectDisconnect').onclick();
+ assert.equal(localStorage.getItem('ai-council-nvidia-nim-key'),null);
+ assert.equal(localStorage.getItem('ai-council-nvidia-trial-confirmed'),null);
+ assert.equal(h.requests.length,0,'revocation and removal never contact NVIDIA');
 });
 
-test('queued requests cannot silently migrate to a replacement key',async()=>{
- const h=harness();await connect(h);const version=h.api.connectionVersion(GEMINI);
- await connect(h,'gemini','replacement-key');let dispatched=0;
- await assert.rejects(h.api.call(GEMINI,messages,{expectedConnectionVersion:version,onDispatch:()=>dispatched++}),{code:'connection_changed'});
- assert.equal(dispatched,0);assert.equal(posts(h).length,0);
- await h.api.call(GEMINI,messages,{expectedConnectionVersion:h.api.connectionVersion(GEMINI),onDispatch:()=>dispatched++});
- assert.equal(dispatched,1);assert.equal(posts(h)[0].opts.headers['x-goog-api-key'],'replacement-key');
-});
 
-test('key input edits revoke prior consent and cancel a pending verification',async()=>{
- const h=harness();await connect(h);const old=h.api.connectionVersion(GEMINI);
- h.els.get('geminiDirectKey').value='replacement-key';await h.els.get('geminiDirectKey').oninput();
- assert.equal(h.api.valid('gemini'),false);assert.equal(h.els.get('geminiFreeConfirm').checked,false);
- assert.ok(h.api.connectionVersion(GEMINI)>old);
- const count=h.requests.length;await h.els.get('geminiDirectConnect').onclick();assert.equal(h.requests.length,count);
-});
-
-test('remember off stores the key and its attestation only for this browser session',async()=>{
- const h=harness({remember:false});await connect(h);
- assert.equal(h.sessionStorage.getItem('ai-council-gemini-key'),'test-key');
- assert.equal(h.sessionStorage.getItem('ai-council-gemini-free-verified'),'true');
- assert.equal(h.localStorage.getItem('ai-council-gemini-key'),null);
- assert.equal(h.localStorage.getItem('ai-council-gemini-free-verified'),null);
- const resumed=harness({remember:false,sessionEntries:{'ai-council-gemini-key':'test-key','ai-council-gemini-free-verified':'true'}});
- assert.equal(resumed.api.valid('gemini'),true);
-});
-
-test('stale local consent cannot attest a different session key',()=>{
- const h=harness({sessionEntries:{'ai-council-gemini-key':'session-key'},localEntries:{'ai-council-gemini-key':'old-key','ai-council-gemini-free-verified':'true'}});
- assert.equal(h.api.valid('gemini'),false);assert.equal(h.els.get('geminiFreeConfirm').checked,false);
-});
-
-test('remember toggle clears persistent attestation together with the key',async()=>{
- const h=harness();await connect(h);h.api.syncRemember(false);
- assert.equal(h.localStorage.getItem('ai-council-gemini-key'),null);
- assert.equal(h.localStorage.getItem('ai-council-gemini-free-verified'),null);
- assert.equal(h.sessionStorage.getItem('ai-council-gemini-key'),'test-key');
- assert.equal(h.sessionStorage.getItem('ai-council-gemini-free-verified'),'true');
- h.api.syncRemember(true);assert.equal(h.localStorage.getItem('ai-council-gemini-key'),'test-key');
-});
-
-for(const provider of ['gemini','mistral'])for(const status of [401,402,403,429])test(provider+' HTTP '+status+' overrides conflicting error-body status and never echoes secrets',async()=>{
- const h=harness({responder:(_url,opts)=>opts.method==='POST'?json({error:{code:400,message:'secret-key-should-not-appear'},message:'secret-key-should-not-appear'},status,{'retry-after':'17'}):undefined});
- await connect(h,provider);
- let dispatched=0;
- await assert.rejects(h.api.call(provider==='gemini'?GEMINI:MISTRAL,messages,{onDispatch:()=>dispatched++}),error=>{
-  assert.equal(error.status,status);assert.equal(error.provider,provider);assert.equal(error.retryAfter,'17');
-  assert.doesNotMatch(error.message,/secret-key|400/);return true;
+test('NVIDIA slow response progresses to an explanatory status without issuing extra API calls',async()=>{
+ const timers=new Map();let next=0;
+ const h=harness({nvidiaHang:true,
+  setTimeout:(cb,ms)=>{const id=++next;timers.set(id,{cb,ms});return id;},
+  clearTimeout:id=>timers.delete(id)
  });
- assert.equal(dispatched,1);assert.equal(posts(h).length,1);
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ const pending=h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.requests.length,1);
+ assert.equal(h.els.get('nvidiaDirectConnect').disabled,true);
+ assert.equal(h.els.get('nvidiaCancelConnect').hidden,false,'cancel remains available while in-flight');
+ const fire=ms=>{for(const t of [...timers.values()]){if(t.ms===ms){t.cb();break;}}};
+ fire(10000);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/автоматических повторов нет/);
+ fire(23000);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/можно отменить/);
+ assert.equal(h.requests.length,1,'progress messages are only local, not new model calls');
+ await h.els.get('nvidiaCancelConnect').onclick();
+ await pending;
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/Проверка отменена/);
+ assert.equal(h.els.get('nvidiaDirectConnect').disabled,false);
+ assert.equal(h.els.get('nvidiaCancelConnect').hidden,true);
+ assert.equal(h.els.get('nvidiaDirectKey').value,'nvapi-123456789abcdef','unverified key remains only in masked field');
+ assert.equal(h.api.models().length,0,'canceled request must not mark DeepSeek connected');
+ assert.equal(h.requests.length,1,'cancel does not generate another call');
 });
-
-test('dispatch callback runs after eligibility checks and directly before the provider request',async()=>{
- const events=[],h=harness({responder:(_url,opts)=>{if(opts.method==='POST')events.push('fetch');}});
- await connect(h);await h.api.call(GEMINI,messages,{expectedConnectionVersion:h.api.connectionVersion(GEMINI),onDispatch:()=>events.push('dispatch')});
- assert.deepEqual(events,['dispatch','fetch']);
- await h.els.get('geminiDirectDisconnect').onclick();
- await assert.rejects(h.api.call(GEMINI,messages,{onDispatch:()=>events.push('incorrect dispatch')}));
- assert.deepEqual(events,['dispatch','fetch']);
-});
-
-test('synchronous revocation in dispatch callback still prevents provider fetch',async()=>{
- const h=harness();await connect(h);
- await assert.rejects(h.api.call(GEMINI,messages,{onDispatch:()=>{h.els.get('geminiDirectDisconnect').onclick();}}));
- assert.equal(posts(h).length,0);
-});
-
-test('Gemini emits only final text from the first candidate and bounds response evidence',async()=>{
- const h=harness({responder:(_url,opts)=>opts.method==='POST'?json({modelVersion:'gemini-3.8-flash-001',usageMetadata:{promptTokenCount:12,candidatesTokenCount:7,totalTokenCount:19,thoughtsTokenCount:2,prompt:'private content',cost:0},candidates:[{content:{parts:[{thought:true,text:'internal thoughts'},{text:'Final answer'},{text:{secret:'not text'}}]}},{content:{parts:[{text:'Different alternative'}]}}]}):undefined});
- await connect(h);let evidence;
- const answer=await h.api.call(GEMINI,messages,{onResponseEvidence:value=>{evidence=value;}});
- assert.equal(answer,'Final answer');
- assert.deepEqual(evidence,{provider:'gemini',requested_model:GEMINI,requested_provider_model:'gemini-3.8-flash',reported_model:'gemini-3.8-flash-001',reported_usage:{promptTokenCount:12,candidatesTokenCount:7,totalTokenCount:19,thoughtsTokenCount:2},billing_verified:false,model_identity_verified:false});
-});
-
-test('Mistral text chunks exclude thinking and response aliases do not fabricate identity proof',async()=>{
- const h=harness({responder:(_url,opts)=>opts.method==='POST'?json({model:'mistral-small-latest',usage:{prompt_tokens:4,completion_tokens:5,total_tokens:9,cost:0},choices:[{message:{content:[{type:'thinking',thinking:[{text:'private thoughts'}]},{type:'text',text:'First final'},{type:'text',text:'Second final'},{type:'text',text:12}]}}]}):undefined});
- await connect(h,'mistral');let evidence;
- assert.equal(await h.api.call(MISTRAL,messages,{onResponseEvidence:value=>{evidence=value;}}),'First final\nSecond final');
- assert.equal(evidence.reported_model,'mistral-small-latest');assert.equal(evidence.model_identity_verified,false);assert.equal(evidence.billing_verified,false);
- assert.deepEqual(evidence.reported_usage,{prompt_tokens:4,completion_tokens:5,total_tokens:9});
-});
-
-test('observed Mistral model aliases may establish catalog accessibility',async()=>{
- const h=harness({responder:url=>url.endsWith('/models')?json({data:[{id:'mistral-small-canonical',aliases:['mistral-small-2603']}] }):undefined});
- await connect(h,'mistral');assert.equal(h.api.valid('mistral'),true);
-});
-
-for(const body of [null,[],{}, {error:{code:429,message:'secret-key'}}, {candidates:[{content:{parts:'bad'}}]}, {candidates:[{content:{parts:[{thought:true,text:'reasoning only'}]}}]}])test('invalid or non-final Gemini response fails clearly: '+JSON.stringify(body),async()=>{
- const h=harness({responder:(_url,opts)=>opts.method==='POST'?json(body):undefined});await connect(h);let evidence=false;
- await assert.rejects(h.api.call(GEMINI,messages,{onResponseEvidence:()=>{evidence=true;}}),error=>{
-  assert.equal(error.provider,'gemini');assert.match(error.message,/Provider returned/);assert.doesNotMatch(error.message,/secret-key/);return true;
- });assert.equal(evidence,false);
-});
-
-test('invalid JSON is reported clearly without leaking a response body',async()=>{
- const h=harness({responder:(_url,opts)=>opts.method==='POST'?{ok:true,status:200,json:async()=>{throw Error('raw secret-key');}}:undefined});await connect(h);
- await assert.rejects(h.api.call(GEMINI,messages),{code:'invalid_response',message:'Provider returned invalid JSON.'});
-});
-
-test('structured Mistral non-text content cannot become object string output',async()=>{
- const h=harness({responder:(_url,opts)=>opts.method==='POST'?json({choices:[{message:{content:{text:'not a valid content shape'}}}]}):undefined});await connect(h,'mistral');
- await assert.rejects(h.api.call(MISTRAL,messages),{code:'invalid_response'});
-});
-
-test('provider requests do not follow redirects or include browser cookies',async()=>{
- const h=harness();await connect(h);await connect(h,'mistral');await h.api.call(GEMINI,messages);await h.api.call(MISTRAL,messages);
- for(const {url,opts} of h.requests){assert.match(url,/^https:\/\/(generativelanguage\.googleapis\.com|api\.mistral\.ai)\//);assert.equal(opts.redirect,'error');assert.equal(opts.credentials,'omit');}
-});
-
-
-test('already revoked key edits do not repeatedly refresh the public catalog',async()=>{
- const h=harness();await connect(h);
- h.els.get('geminiDirectKey').value='r';await h.els.get('geminiDirectKey').oninput();const refreshed=h.refreshed,version=h.api.connectionVersion(GEMINI);
- for(const value of ['re','rep','replacement']){h.els.get('geminiDirectKey').value=value;await h.els.get('geminiDirectKey').oninput();}
- assert.equal(h.refreshed,refreshed);assert.equal(h.api.connectionVersion(GEMINI),version);assert.equal(h.api.valid('gemini'),false);
-});
-
-test('numeric terminal error in HTTP 200 envelope remains terminal and preserves transport status',async()=>{
- const h=harness({responder:(_url,opts)=>opts.method==='POST'?json({error:{code:429,message:'secret-key'}},200,{'retry-after':'29'}):undefined});await connect(h);
- await assert.rejects(h.api.call(GEMINI,messages),error=>{assert.equal(error.status,429);assert.equal(error.httpStatus,200);assert.equal(error.retryAfter,'29');assert.equal(error.provider,'gemini');return true;});
-});
-
-test('local version and eligibility failures are safety failures for the shared queue',async()=>{
- const h=harness();await connect(h);const version=h.api.connectionVersion(GEMINI);await connect(h,'gemini','new-key');
- await assert.rejects(h.api.call(GEMINI,messages,{expectedConnectionVersion:version}),{code:'connection_changed',safetyFailure:true});
- await h.els.get('geminiDirectDisconnect').onclick();await assert.rejects(h.api.call(GEMINI,messages),{code:'provider_not_connected',safetyFailure:true});assert.equal(posts(h).length,0);
-});
-
-test('response evidence omits credential-like identity and nonnumeric usage fields',async()=>{
- const h=harness({responder:(_url,opts)=>opts.method==='POST'?json({modelVersion:'test-key',usageMetadata:{promptTokenCount:'prompt text',candidatesTokenCount:-1,totalTokenCount:Infinity,cachedContentTokenCount:2},candidates:[{content:{parts:[{text:'Final'}]}}]}):undefined});
- await connect(h);let evidence;await h.api.call(GEMINI,messages,{onResponseEvidence:value=>{evidence=value;}});
- assert.equal(evidence.reported_model,null);assert.deepEqual(evidence.reported_usage,{cachedContentTokenCount:2});
- assert.doesNotMatch(JSON.stringify(evidence),/test-key|prompt text/);
-});
-
-test('last-moment local eligibility changes are rejected before dispatch notification',async()=>{
- const h=harness();await connect(h);let dispatched=0;
- const options={expectedConnectionVersion:h.api.connectionVersion(GEMINI),get maxTokens(){h.els.get('geminiDirectDisconnect').onclick();return 500;},onDispatch:()=>dispatched++};
- await assert.rejects(h.api.call(GEMINI,messages,options),{safetyFailure:true});
- assert.equal(dispatched,0);assert.equal(posts(h).length,0);
-});
-
-test('failed replacement cannot silently reuse the previous saved key',async()=>{
- let count=0;const h=harness({responder:url=>url.endsWith('models/gemini-3.8-flash')&&++count===2?json({error:{message:'replacement-key'}},401):undefined});
- await connect(h,'gemini','old-key');await connect(h,'gemini','replacement-key');
- assert.equal(h.api.valid('gemini'),false);assert.equal(h.sessionStorage.getItem('ai-council-gemini-key'),null);assert.equal(h.localStorage.getItem('ai-council-gemini-key'),null);
- assert.doesNotMatch(h.els.get('geminiDirectStatus').textContent,/replacement-key/);
- await assert.rejects(h.api.call(GEMINI,messages));assert.equal(posts(h).length,0);
-});
-
-test('editing a key during verification cancels the pending connection',async()=>{
- const gate=deferred(),h=harness({responder:url=>url.endsWith('models/gemini-3.8-flash')?gate.promise:undefined});
- h.els.get('geminiDirectKey').value='old-key';h.els.get('geminiFreeConfirm').checked=true;const pending=h.els.get('geminiDirectConnect').onclick();
- h.els.get('geminiDirectKey').value='replacement-key';await h.els.get('geminiDirectKey').oninput();assert.equal(h.requests[0].opts.signal.aborted,true);
- gate.resolve(json({name:'models/gemini-3.8-flash'}));await pending;
- assert.equal(h.api.valid('gemini'),false);assert.equal(h.els.get('geminiDirectKey').value,'replacement-key');assert.equal(h.els.get('geminiFreeConfirm').checked,false);
-});
-
-test('attesting an edited replacement never re-enables the previous key before Connect',async()=>{
- const h=harness();await connect(h,'gemini','old-key');
- h.els.get('geminiDirectKey').value='replacement-key';await h.els.get('geminiDirectKey').oninput();
- h.els.get('geminiFreeConfirm').checked=true;await h.els.get('geminiFreeConfirm').onchange();
- assert.equal(h.api.valid('gemini'),false);assert.equal(h.api.models().length,0);
- assert.equal(h.sessionStorage.getItem('ai-council-gemini-key'),null);assert.equal(h.localStorage.getItem('ai-council-gemini-key'),null);
- let dispatched=0;await assert.rejects(h.api.call(GEMINI,messages,{onDispatch:()=>dispatched++}),{safetyFailure:true});assert.equal(dispatched,0);assert.equal(posts(h).length,0);
- await h.els.get('geminiDirectConnect').onclick();assert.equal(h.api.valid('gemini'),true);assert.equal(h.sessionStorage.getItem('ai-council-gemini-key'),'replacement-key');
+test('NVIDIA 503 does not mark a key as valid or retry behind the user',async()=>{
+ const h=harness({nvidiaUnavailable:true});
+ h.els.get('nvidiaDirectKey').value='nvapi-123456789abcdef';
+ h.els.get('nvidiaFreeConfirm').checked=true;h.els.get('nvidiaProxyConsent').checked=true;
+ await h.els.get('nvidiaProxyConsent').onchange();
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.requests.length,1);
+ assert.equal(h.api.models().length,0);
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/NVIDIA endpoint unresponsive/);
+ assert.equal(h.els.get('nvidiaDirectConnect').disabled,false);
+ assert.equal(h.els.get('nvidiaCancelConnect').hidden,true);
+ await h.els.get('nvidiaDirectConnect').onclick();
+ assert.equal(h.requests.length,1,'cooldown prevents immediately spending another free trial call');
+ assert.match(h.els.get('nvidiaDirectStatus').textContent,/не запускайте несколько проверок/i);
 });

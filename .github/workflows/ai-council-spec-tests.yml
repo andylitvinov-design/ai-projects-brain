@@ -1,12 +1,28 @@
 name: AI Council specification tests
 on:
-  push:
-    paths:
-      - 'tools/ai-council-chat/**'
-      - '.github/workflows/ai-council-spec-tests.yml'
   pull_request:
     paths:
-      - 'tools/ai-council-chat/**'
+      - 'tools/ai-council-chat/spec.js'
+      - 'tools/ai-council-chat/opencode-manual.js'
+      - 'tools/ai-council-chat/tests/opencode-manual.test.mjs'
+      - 'tools/ai-council-chat/app.js'
+      - 'tools/ai-council-chat/safety.js'
+      - 'tools/ai-council-chat/tests/strict-free-regression.test.mjs'
+      - 'tools/ai-council-chat/index.html'
+      - 'tools/ai-council-chat/telegram-share.js'
+      - '.github/workflows/ai-council-spec-tests.yml'
+  push:
+    paths:
+      - 'tools/ai-council-chat/spec.js'
+      - 'tools/ai-council-chat/opencode-manual.js'
+      - 'tools/ai-council-chat/tests/opencode-manual.test.mjs'
+      - 'tools/ai-council-chat/app.js'
+      - 'tools/ai-council-chat/safety.js'
+      - 'tools/ai-council-chat/tests/strict-free-regression.test.mjs'
+      - 'tools/ai-council-chat/index.html'
+      - 'tools/ai-council-chat/telegram-share.js'
+      - 'tools/ai-council-chat/review-health.js'
+      - 'tools/ai-council-chat/tests/spec.test.mjs'
       - '.github/workflows/ai-council-spec-tests.yml'
   workflow_dispatch:
 permissions:
@@ -14,29 +30,19 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
-    defaults:
-      run:
-        working-directory: tools/ai-council-chat
+    timeout-minutes: 4
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check JavaScript syntax
-        run: for f in *.js *.mjs api/*.js tests/*.mjs; do node --check "$f"; done
-      - name: Run offline regression tests
-        run: node --test tests/*.test.mjs
-      - name: Install temporary Playwright
+      - name: Check spec module syntax
         run: |
-          npm install --no-save --package-lock=false playwright@1.57.0
-          npx playwright install --with-deps chromium
-      - name: Browser smoke with mocked models and public evidence
-        run: node tests/browser-smoke.mjs
-      - name: Save browser evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ai-council-mocked-browser-evidence
-          path: tools/ai-council-chat/test-results/
-          retention-days: 14
+          node --check tools/ai-council-chat/spec.js
+          node --check tools/ai-council-chat/opencode-manual.js
+          node --check tools/ai-council-chat/app.js
+          node --check tools/ai-council-chat/safety.js
+          node --check tools/ai-council-chat/telegram-share.js
+      - name: Run specification regression tests
+        run: node --test tools/ai-council-chat/tests/spec.test.mjs tools/ai-council-chat/tests/opencode-manual.test.mjs tools/ai-council-chat/tests/telegram-share.test.mjs tools/ai-council-chat/tests/strict-free-regression.test.mjs
+

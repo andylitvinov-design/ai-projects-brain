@@ -1,0 +1,33 @@
+name: AI Council Telegram sharing tests
+on:
+  pull_request:
+    paths:
+      - 'tools/ai-council-chat/telegram-share.js'
+      - 'tools/ai-council-chat/api/telegram-deliver.js'
+      - 'tools/ai-council-chat/app.js'
+      - 'tools/ai-council-chat/index.html'
+      - 'tools/ai-council-chat/house-theme.css'
+      - 'tools/ai-council-chat/tests/telegram-share.test.mjs'
+      - 'tools/ai-council-chat/tests/telegram-deliver.test.mjs'
+      - '.github/workflows/ai-council-telegram-share-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-share:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax checks
+        run: |
+          node --check tools/ai-council-chat/telegram-share.js
+          node --check tools/ai-council-chat/api/telegram-deliver.js
+          node --check tools/ai-council-chat/app.js
+      - name: Real-response sharing and safety tests (offline)
+        run: node --test tools/ai-council-chat/tests/telegram-share.test.mjs tools/ai-council-chat/tests/telegram-deliver.test.mjs

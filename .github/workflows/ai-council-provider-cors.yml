@@ -31,7 +31,8 @@ jobs:
           const results=await page.evaluate(async()=>{
             const cases=[
               ['google','https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash',{'x-goog-api-key':'invalid-probe-key'}],
-              ['mistral','https://api.mistral.ai/v1/models',{Authorization:'Bearer invalid-probe-key'}]
+              ['mistral','https://api.mistral.ai/v1/models',{Authorization:'Bearer invalid-probe-key'}],
+              ['nvidia-deepseek','https://integrate.api.nvidia.com/v1/chat/completions',{Authorization:'Bearer invalid-probe-key','Content-Type':'application/json'}]
             ];
             const out=[];
             for(const [name,url,headers] of cases){
