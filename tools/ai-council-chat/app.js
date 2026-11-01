@@ -63,7 +63,7 @@ function escapeFilename(s){return s.replace(/[^a-z0-9_-]+/gi,'-').replace(/^-+|-
 function node(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
 function hide(n,yes){n.classList.toggle('hidden',!!yes);}
 function current(){return state.threads.find(x=>x.id===state.active);}
-function selectedModelsValid(){return state.models.slice(0,4).every(id=>freeModels.some(m=>m.id===id));}
+function selectedModelsValid(){return state.models.slice(0,4).every(id=>freeModels.some(m=>m.id===id&&globalThis.AICouncilSafety?.isFreeModel(m)));}
 function formatName(id){const m=freeModels.find(x=>x.id===id);return m?(m.name||m.id):id.split('/').pop();}
 function dateStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function useCount(){const day=dateStr(),old=safeJson(localStorage.getItem('ai-council-requests'),{day,count:0});return old.day===day?old.count||0:0;}
@@ -253,14 +253,14 @@ async function loadModels(force=false){if(!force&&freeModels.length&&Date.now()-
  el('modelStatus').textContent=t('checking');
  // Connected, explicitly free-tier-confirmed provider models remain usable even if
  // the unrelated OpenRouter free-model catalog is down or rate limited.
- const direct=globalThis.AICouncilExternalProviders?.models()||[];
+ const direct=[]; // Direct BYOK model pricing is not independently verifiable in strict-free Council.
  let catalog=[],catalogError='';
  try{
   const c=new AbortController(),tid=setTimeout(()=>c.abort(),direct.length?6500:20000);let response;
   try{response=await fetch(API+'/models',{signal:c.signal,cache:'no-store'});}finally{clearTimeout(tid);}
   if(!response.ok)throw new Error('HTTP '+response.status);
   const data=await response.json();
-  catalog=(data.data||[]).filter(x=>x&&typeof x.id==='string'&&x.id.endsWith(':free')&&x.pricing&&x.pricing.prompt!==null&&x.pricing.prompt!==undefined&&x.pricing.completion!==null&&x.pricing.completion!==undefined&&Number(x.pricing.prompt)===0&&Number(x.pricing.completion)===0);
+  catalog=globalThis.AICouncilSafety.freeCatalog(data.data||[]);
   catalog.sort((a,b)=>(a.name||a.id).localeCompare(b.name||b.id));
   if(!catalog.length)catalogError=t('noModels');
  }catch(err){catalogError=String(err?.message||err);}
@@ -307,33 +307,62 @@ async function finishOAuth(){const params=new URLSearchParams(location.search),c
  catch(e){setError(t('codeError')+' '+e.message);openSettings();}}
 async function readInputKey(){const s=el('apiKey').value.trim();if(!/^sk-or-/i.test(s)){setError(state.lang==='ru'?'Введите ключ OpenRouter, начинающийся с sk-or-':'Paste an OpenRouter key starting with sk-or-');return;}key=s;sessionStorage.setItem(KEY_STORE,s);try{localStorage.removeItem(PERSIST_KEY);}catch{}el('apiKey').value='';setError('');renderAll();if(await verifyConnection())closeSettings();}
 function timeoutFetch(url,options,time=85000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),time);return fetch(url,{...options,signal:controller.signal}).finally(()=>clearTimeout(timer));}
-async function modelRequest(model,messages,options={}){if(!freeModels.some(x=>x.id===model))throw new Error(t('staleModel'));
- // Direct-provider calls never pass through OpenRouter and use only user-approved free-tier accounts.
- if(globalThis.AICouncilExternalProviders?.ids?.includes(model)){
-   return globalThis.AICouncilExternalProviders.call(model,messages,options);
- }
- if(Date.now()<openRouterBackoffUntil){
-   throw new Error(state.lang==='ru'?
-      '429 OpenRouter: предыдущий запрос упёрся в лимит. Не повторяем платные/бесплатные вызовы автоматически. Используй подключённые Gemini/Mistral или подожди.':
-      '429 OpenRouter: quota/rate limit was reached. Calls paused temporarily; use connected Gemini/Mistral or wait.');
- }
+// Strict-free queue: one request at a time; auth, quota or cost uncertainty stops the round.
+let councilRequestQueue=Promise.resolve(),councilRequestHalt='',councilRequestEpoch=0;
+function haltCouncilRequests(message){
+ councilRequestHalt=String(message||'Unverified provider billing or account state');
+ councilRequestEpoch++;
+ return new Error(councilRequestHalt);
+}
+function modelRequest(model,messages,options={}){
+ const version=councilRequestEpoch,keyAtQueue=key;
+ const task=()=>performSafeCouncilRequest(model,messages,options,version,keyAtQueue);
+ const queued=councilRequestQueue.then(task,task);
+ councilRequestQueue=queued.catch(()=>{});
+ return queued;
+}
+async function performSafeCouncilRequest(model,messages,options,version,keyAtQueue){
+ const safety=globalThis.AICouncilSafety;
+ if(!safety)throw haltCouncilRequests('Strict-free safety component unavailable');
+ if(councilRequestHalt||version!==councilRequestEpoch)throw new Error(councilRequestHalt||'Earlier request was stopped');
+ if(!key||key!==keyAtQueue)throw new Error('Connection changed before request dispatch');
+ if(globalThis.AICouncilExternalProviders?.ids?.includes(model))
+   throw new Error('Direct Gemini, Mistral or NVIDIA billing is not verified zero; use a catalog-confirmed OpenRouter :free model');
+ if(Date.now()<openRouterBackoffUntil)throw new Error('OpenRouter quota backoff is active; no paid retry');
+ try{await loadModels(true);}catch(e){throw haltCouncilRequests('Free catalog verification unavailable; no provider call dispatched');}
+ if(councilRequestHalt||version!==councilRequestEpoch||key!==keyAtQueue)
+   throw new Error(councilRequestHalt||'Connection changed during catalog verification');
+ const record=freeModels.find(m=>m.id===model);
+ if(!safety.isFreeModel(record))throw haltCouncilRequests('Selected model lacks a verified all-zero live catalog price');
  const maxTokens=Math.max(800,Math.min(5500,Number(options.maxTokens)||2300));
  const temperature=Number.isFinite(options.temperature)?options.temperature:0.3;
  countCall();
- let res;try{res=await timeoutFetch(API+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':location.origin,'X-OpenRouter-Title':'AI Council Chat'},body:JSON.stringify({model,messages,max_tokens:maxTokens,temperature,stream:false})},Number(options.timeoutMs)||115000);}catch(e){if(e.name==='AbortError')throw new Error('Timeout: model response took too long');throw new Error(e.message||'Network error');}
- const out=await res.json().catch(()=>({}));if(!res.ok){let hint=out.error?.message||('HTTP '+res.status);if(res.status===401)hint='401: '+(state.lang==='ru'?'Неверный/просроченный ключ':'Invalid/expired API key');if(res.status===402)hint='402: '+(state.lang==='ru'?'Ограничение баланса OpenRouter':'OpenRouter balance restriction');if(res.status===429){
-   // This rate-limit is imposed by the OpenRouter account/provider, not the local-browser request counter.
-   openRouterBackoffUntil=Date.now()+10*60*1000;
-   sessionStorage.setItem('ai-council-openrouter-backoff-until',String(openRouterBackoffUntil));
-   updateUsage();
-   const details=String(out.error?.message||'').replace(/sk-or-[a-zA-Z0-9_-]{5,}/g,'[redacted]').slice(0,170);
-   hint='429 OpenRouter: '+(state.lang==='ru'?'лимит аккаунта или бесплатного провайдера (локальный счётчик не отражает общую квоту). ':'account/provider free-tier quota (local count is not your account balance). ')+details;
-  }throw new Error(String(hint).slice(0,280));}
- const msg=out.choices?.[0]?.message;let text=typeof msg?.content==='string'?msg.content:Array.isArray(msg?.content)?msg.content.filter(x=>x.type==='text').map(x=>x.text).join('\n'):'';
- if(!text&&msg?.reasoning)text=String(msg.reasoning).slice(0,2500);
+ let response;
+ try{
+   response=await timeoutFetch(API+'/chat/completions',{
+     method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key,'HTTP-Referer':location.origin,'X-OpenRouter-Title':'AI Council Chat'},
+     body:JSON.stringify({model,messages,max_tokens:maxTokens,temperature,stream:false,provider:safety.providerPolicy()})
+   },Number(options.timeoutMs)||115000);
+ }catch(e){throw new Error(e?.name==='AbortError'?'Timed out; no automatic retry':'Network error; no automatic paid retry');}
+ const out=await response.json().catch(()=>null);
+ if(!response.ok||out?.error){
+   const errorCode=Number(out?.error?.code)||response.status;
+   const terminal=[401,402,403,429].find(code=>code===response.status||code===errorCode);
+   if(terminal){
+     if(terminal===429){openRouterBackoffUntil=Date.now()+10*60*1000;try{sessionStorage.setItem('ai-council-openrouter-backoff-until',String(openRouterBackoffUntil));}catch{}}
+     throw haltCouncilRequests('HTTP '+terminal+': account authorization or free-tier quota halt; no further model calls');
+   }
+   throw new Error('HTTP '+response.status+': model unavailable without fallback');
+ }
+ const issue=safety.responseIssue(record,out);
+ if(issue)throw haltCouncilRequests(issue+'; further model requests stopped');
+ const msg=out?.choices?.[0]?.message;
+ let text=typeof msg?.content==='string'?msg.content:Array.isArray(msg?.content)?msg.content.filter(x=>x.type==='text').map(x=>x.text).join('\n'):'';
  if(!text.trim())throw new Error('Empty model response');
- if(out.choices?.[0]?.finish_reason==='length')text+='\n\n[OUTPUT LIMIT: response was truncated. Detailed verified evidence remains available in the original site evidence panel.]';
- return text.trim();}
+ if(out.choices?.[0]?.finish_reason==='length')text+='\n\n[OUTPUT LIMIT: response was truncated; verify original evidence.]';
+ options.onResponseEvidence?.({provider:'openrouter',requested_model:model,reported_model:out.model,reported_cost:out.usage.cost,reported_zero_cost_verified:true,model_identity_verified:true});
+ return text.trim();
+}
 function historyContext(th){return (th.rounds||[]).slice(-3).map(r=>'Question: '+r.question.slice(0,2000)+'\nCombined response: '+(r.synthesis||'').slice(0,2400)).join('\n\n').slice(0,8000);}
 function persistRound(){persist();renderMessages();renderModelStatus();scrollBottom();const last=current()?.rounds?.at(-1);if(last)void globalThis.AICouncilTelegram?.maybeAutoSend(last,persist);}
 async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)return;if(!key&&!globalThis.AICouncilExternalProviders?.models()?.length){openSettings();return;}
