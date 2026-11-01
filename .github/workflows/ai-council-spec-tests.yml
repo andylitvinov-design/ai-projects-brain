@@ -1,8 +1,22 @@
 name: AI Council specification tests
 on:
+  pull_request:
+    paths:
+      - 'tools/ai-council-chat/spec.js'
+      - 'tools/ai-council-chat/opencode-manual.js'
+      - 'tools/ai-council-chat/tests/opencode-manual.test.mjs'
+      - 'tools/ai-council-chat/app.js'
+      - 'tools/ai-council-chat/index.html'
+      - 'tools/ai-council-chat/telegram-share.js'
+      - '.github/workflows/ai-council-spec-tests.yml'
   push:
     paths:
       - 'tools/ai-council-chat/spec.js'
+      - 'tools/ai-council-chat/opencode-manual.js'
+      - 'tools/ai-council-chat/tests/opencode-manual.test.mjs'
+      - 'tools/ai-council-chat/app.js'
+      - 'tools/ai-council-chat/index.html'
+      - 'tools/ai-council-chat/telegram-share.js'
       - 'tools/ai-council-chat/review-health.js'
       - 'tools/ai-council-chat/tests/spec.test.mjs'
       - '.github/workflows/ai-council-spec-tests.yml'
@@ -19,6 +33,10 @@ jobs:
         with:
           node-version: '22'
       - name: Check spec module syntax
-        run: node --check tools/ai-council-chat/spec.js
+        run: |
+          node --check tools/ai-council-chat/spec.js
+          node --check tools/ai-council-chat/opencode-manual.js
+          node --check tools/ai-council-chat/app.js
+          node --check tools/ai-council-chat/telegram-share.js
       - name: Run specification regression tests
-        run: node --test tools/ai-council-chat/tests/spec.test.mjs
+        run: node --test tools/ai-council-chat/tests/spec.test.mjs tools/ai-council-chat/tests/opencode-manual.test.mjs tools/ai-council-chat/tests/telegram-share.test.mjs

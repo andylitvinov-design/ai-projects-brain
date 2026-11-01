@@ -23,11 +23,15 @@
     if(typeof round?.museManual==='string' && round.museManual.trim()){
       out.push('## Личный Muse — ручная вставка','',round.museManual.trim(),'');
     }
+    const opencode=global.AICouncilOpenCode?.entries?.(round)||[];
+    for(const x of opencode)out.push('## '+x.model+' — OpenCode manual import (not API-verified)','',x.text,'');
+    const openCodeSynthesis=global.AICouncilOpenCode?.synthesis?.(round);
+    if(openCodeSynthesis)out.push('## OpenCode manually pasted synthesis — '+openCodeSynthesis.model,'',openCodeSynthesis.text,'');
     if(round?.synthesisStatus==='ok' && round.synthesis){
       out.push('## Сводка (сформирована без ручного ответа Muse, если он добавлен позже)','',String(round.synthesis),'');
     }
     if(round?.tz)out.push('## Техническое задание','',String(round.tz),'');
-    out.push('Источники: только реальные ответы, полученные в AI Council, и явно вставленный пользователем Muse.','');
+    out.push('Источники: ответы AI Council и явно вставленные вручную Muse/OpenCode. Ручные ответы OpenCode не подтверждены API.','');
     return redact(out.join('\n'));
   }
   function telegramUrl(text){

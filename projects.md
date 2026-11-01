@@ -1,6 +1,6 @@
 # Projects
 
-Last inventory update: 2026-10-26.
+Last inventory update: 2026-07-01.
 
 This file mirrors the core records in `projects.json`. It lists public context only. Environment variables are names only, not values.
 

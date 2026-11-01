@@ -40,9 +40,9 @@
   <div id="siteAuditStatus" class="audit-status" aria-live="polite"><span data-i18n="auditLimit">Начинаем с открытых страниц Holistic House. Закрытые кабинеты и формы не проверяются.</span></div>
  </section>
  <div class="examples" id="examples">
-     <button class="example" data-prompt="Какие 5 улучшений сделают https://holistichouse.vercel.app более понятным новым посетителям? Не утверждайте, что открывали сайт, если нет содержимого страницы. Предложите проверяемые гипотезы."><span class="example-number">01</span><span data-i18n="example1">Как улучшить Holistic House?</span><span class="example-arrow">↗</span></button>
-     <button class="example" data-prompt="Сравните два подхода к монетизации маркетплейса услуг: комиссия с заказов 20% и подписка для мастеров. Сделайте рекомендации для небольшого проекта."><span class="example-number">02</span><span data-i18n="example2">Сравнить бизнес-идеи</span><span class="example-arrow">↗</span></button>
-     <button class="example" data-prompt="Предложите компактный мобильный дизайн экрана результатов психологического теста: шкалы, краткая оценка, кнопка получить рекомендации через кабинет. Составьте критерии приёмки."><span class="example-number">03</span><span data-i18n="example3">Оценить мобильный UX</span><span class="example-arrow">↗</span></button>
+     <button class="example" data-quick-id="home" data-prompt="Какие 5 улучшений сделают https://holistichouse.vercel.app более понятным новым посетителям? Не утверждайте, что открывали сайт, если нет содержимого страницы. Предложите проверяемые гипотезы."><span class="example-number">01</span><span data-i18n="example1">Как улучшить Holistic House?</span><span class="example-arrow">↗</span></button>
+     <button class="example" data-quick-id="business" data-prompt="Сравните два подхода к монетизации маркетплейса услуг: комиссия с заказов 20% и подписка для мастеров. Сделайте рекомендации для небольшого проекта."><span class="example-number">02</span><span data-i18n="example2">Сравнить бизнес-идеи</span><span class="example-arrow">↗</span></button>
+     <button class="example" data-quick-id="mobile" data-prompt="Предложите компактный мобильный дизайн экрана результатов психологического теста: шкалы, краткая оценка, кнопка получить рекомендации через кабинет. Составьте критерии приёмки."><span class="example-number">03</span><span data-i18n="example3">Оценить мобильный UX</span><span class="example-arrow">↗</span></button>
     </div>
     <div id="connectBanner" class="connect-banner"><div class="connect-symbol">⌁</div><div class="connect-copy"><b data-i18n="startFree">Начните бесплатно</b><small data-i18n="startDesc">Подключите OpenRouter — без оплаты и подписок. Ваш ключ не сохраняется на сервере.</small></div><button class="primary-button connect-btn" id="connectBannerButton" data-i18n="connect">Подключить</button></div>
   </section>
@@ -50,7 +50,50 @@
   <div id="globalError" class="global-error hidden" role="alert"></div>
   </div>
  </div>
- <footer class="composer-area"><div id="quotaFooterBanner" class="quota-footer-banner hidden" role="status"></div><div class="composer-wrap"><div id="statusLine" class="status-line"><span class="free-dot"></span><span id="statusText">3 эксперта + 1 агрегатор · 4 бесплатных запроса</span><span id="usageCount" class="usage"></span></div><div class="composer"><textarea id="question" rows="2" maxlength="12000" placeholder="Задайте вопрос совету ИИ…"></textarea><button id="sendButton" class="send-button" aria-label="Отправить"><span>➤</span></button></div><div class="composer-tip"><span data-i18n="tip">Enter — отправить · Shift+Enter — новая строка</span><span data-i18n="disclaimer">Не отправляйте приватные данные клиентов</span></div></div></footer>
+ <footer class="composer-area">
+  <div id="quotaFooterBanner" class="quota-footer-banner hidden" role="status"></div>
+  <div class="composer-wrap">
+    <details id="modelStatusPanel" class="model-status-panel">
+      <summary class="model-status-summary">
+        <span class="model-status-heading"><span class="model-status-dot" aria-hidden="true"></span><strong id="modelStatusHeadline">Модели · проверяем доступность</strong></span>
+        <span class="model-status-toggle" id="modelStatusToggle">Состав ▾</span>
+        <span id="modelMiniRoles" class="model-mini-roles" aria-label="Статусы выбранных моделей"></span>
+      </summary>
+      <div id="modelStatusGrid" class="model-status-grid" role="list" aria-live="polite"></div>
+      <div class="model-status-foot">
+        <div id="statusLine" class="status-line"><span id="statusText">До 4 запросов · без платного автоперехода</span><span id="usageCount" class="usage"></span></div>
+        <p id="modelStatusDisclaimer" class="model-disclaimer">«Ключ сохранён» не означает, что модель ответит. Ответ подтверждается только завершённым запросом.</p>
+        <button id="modelStatusSettings" class="model-status-settings" type="button">Изменить модели</button>
+      </div>
+    </details>
+    <div id="nvidiaSetupShortcut" class="nvidia-shortcut" role="status">
+      <span id="nvidiaShortcutText">DeepSeek не подключён · нужен ключ NVIDIA</span>
+      <button id="openNvidiaSetup" type="button">Подключить</button>
+    </div>
+    <div class="quick-prompts" role="group" aria-label="Быстрые запросы к совету ИИ">
+      <span id="quickPromptsTitle" class="quick-prompts-title">Запустить одним нажатием</span>
+      <div class="quick-prompts-scroll" id="quickPrompts">
+        <button type="button" class="quick-prompt" data-quick-id="home">5 улучшений</button>
+        <button type="button" class="quick-prompt" data-quick-id="first">Первый экран</button>
+        <button type="button" class="quick-prompt" data-quick-id="booking">Запись</button>
+        <button type="button" class="quick-prompt" data-quick-id="mobile">Мобильный UX</button>
+        <button type="button" class="quick-prompt" data-quick-id="spec">ТЗ для Codex</button>
+      </div>
+    </div>
+    <div class="composer">
+      <textarea id="question" rows="2" maxlength="12000" placeholder="Задайте вопрос совету ИИ…"></textarea>
+      <button id="sendButton" class="send-button" aria-label="Отправить"><span>➤</span></button>
+    </div>
+    <div class="opencode-entry">
+      <button id="openCodeStart" type="button" class="manual-mode-button">OpenCode · ручной режим</button>
+      <small id="manualModeHint">Без автоматической отправки · GLM / DeepSeek</small>
+    </div>
+    <div class="composer-tip">
+      <span data-i18n="tip">Enter — отправить · Shift+Enter — новая строка</span>
+      <span data-i18n="disclaimer">Не отправляйте приватные данные клиентов</span>
+    </div>
+  </div>
+</footer>
 </main>
 </div>
 <dialog id="settingsDialog" class="settings-dialog"><div class="dialog-head"><div><div class="eyebrow">HOLISTIC HOUSE · AI COUNCIL</div><h2 data-i18n="dialogTitle">Подключение и модели</h2></div><button id="closeSettings" class="icon-button" aria-label="Закрыть">✕</button></div><p data-i18n="dialogDesc">Подключите бесплатный OpenRouter. Для сравнения используются только модели с ценой $0 за запрос.</p>
@@ -88,15 +131,47 @@
     <div class="provider-controls"><button type="button" id="mistralDirectConnect" class="outline-button">Подключить Mistral</button><button type="button" id="mistralDirectDisconnect" class="link-button">Отключить</button></div>
     <div id="mistralDirectStatus" class="provider-status" role="status">Не подключён</div>
   </div>
-  <div class="external-provider">
-    <strong>DeepSeek V4.1 Flash</strong><span class="provider-free-tag">NVIDIA NIM · Free Trial (лимит)</span>
-    <p class="external-explain">Доступен как бесплатный пробный API NVIDIA — это не постоянный бесплатный тариф DeepSeek. <a href="https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/playground" target="_blank" rel="noopener noreferrer">Получить ключ NVIDIA ↗</a>. При подключении выполняется один маленький тестовый запрос.</p>
-    <input id="nvidiaDirectKey" type="password" autocomplete="off" spellcheck="false" placeholder="NVIDIA NIM API key (nvapi-…)"/>
-    <label><input type="checkbox" id="nvidiaFreeConfirm"/> Я подтверждаю, что использую только бесплатный пробный API NVIDIA, без платной подписки или подключения оплаты.</label>
-    <label class="nvidia-proxy-consent"><input type="checkbox" id="nvidiaProxyConsent"/> <strong>Разрешаю передавать мой ключ NVIDIA через защищённый сервер AI Council только на время запроса.</strong> NVIDIA блокирует прямые запросы из браузера (CORS). Сервер не сохраняет ключ, но технически получает его при каждом запросе. На общих устройствах не включать.</label>
-    <p class="provider-status nvidia-diagnostic">Для NVIDIA обязателен именно API-ключ из <a href="https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/build" target="_blank" rel="noopener noreferrer">NVIDIA Build → Get API Key</a>, обычно начинается с <code>nvapi-</code>. Не вставляй сюда токен DeepSeek, OpenRouter или NGC.</p>
-    <div class="provider-controls"><button type="button" id="nvidiaDirectConnect" class="outline-button">Подключить DeepSeek</button><button type="button" id="nvidiaDirectDisconnect" class="link-button">Отключить</button></div>
-    <div id="nvidiaDirectStatus" class="provider-status" role="status">Не подключён</div>
+  <div class="external-provider nvidia-provider" id="nvidiaProvider" aria-labelledby="nvidiaTitle">
+    <div class="nvidia-provider-title"><strong id="nvidiaTitle">DeepSeek V4.1 Flash</strong><span class="provider-free-tag">NVIDIA NIM · пробный API</span></div>
+    <p class="nvidia-connection-intro">NVIDIA подключается <strong>отдельно от OpenRouter</strong>. Созданный на сайте NVIDIA ключ не передаётся в AI Council автоматически.</p>
+    <div id="nvidiaRoleStatus" class="nvidia-role-status" role="status">DeepSeek не подключён</div>
+    <ol class="nvidia-steps">
+      <li class="nvidia-step">
+        <span class="nvidia-step-num" aria-hidden="true">1</span>
+        <div class="nvidia-step-body">
+          <span class="nvidia-step-title">Получить и скопировать ключ</span>
+          <p>На NVIDIA Build нажмите <strong>Generate API Key</strong>, затем скопируйте ключ <code>nvapi-…</code>.</p>
+          <a class="nvidia-key-link" href="https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash/build" target="_blank" rel="noopener noreferrer">Открыть NVIDIA Build <span aria-hidden="true">↗</span></a>
+        </div>
+      </li>
+      <li class="nvidia-step">
+        <span class="nvidia-step-num" aria-hidden="true">2</span>
+        <div class="nvidia-step-body">
+          <label for="nvidiaDirectKey" class="nvidia-step-title">Вставить ключ сюда</label>
+          <div class="nvidia-key-row">
+            <input id="nvidiaDirectKey" aria-describedby="nvidiaKeyHelp" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="nvapi-…" />
+            <button type="button" id="nvidiaPasteKey" class="outline-button">Вставить</button>
+          </div>
+          <p id="nvidiaKeyHelp">Ключ остаётся в этом браузере. Не отправляйте его в чат, Telegram или GitHub.</p>
+        </div>
+      </li>
+      <li class="nvidia-step">
+        <span class="nvidia-step-num" aria-hidden="true">3</span>
+        <div class="nvidia-step-body">
+          <span class="nvidia-step-title">Подтвердить и проверить</span>
+          <label class="nvidia-checkbox-row"><input type="checkbox" id="nvidiaFreeConfirm" /><span>Использую только <strong>бесплатный пробный доступ NVIDIA</strong>, без платного биллинга.</span></label>
+          <label class="nvidia-checkbox-row"><input type="checkbox" id="nvidiaProxyConsent" /><span><strong>Разрешаю передавать ключ через сервер AI Council</strong> только во время моих запросов к NVIDIA.</span></label>
+          <details class="nvidia-privacy-details"><summary>Как работает передача ключа?</summary><p>NVIDIA блокирует прямые запросы из браузера. Наш сервер получает ключ во время запроса и пересылает его NVIDIA; в базу данных ключ не записывается. Ключ может остаться в памяти этого браузера без шифрования при включённом «Запомнить». Не используйте общий телефон. Пробные лимиты зависят от NVIDIA.</p></details>
+        </div>
+      </li>
+    </ol>
+    <div class="nvidia-action-row">
+      <button type="button" id="nvidiaDirectConnect" class="primary-button nvidia-connect">Подключить и проверить DeepSeek</button>
+      <button type="button" id="nvidiaCancelConnect" class="outline-button nvidia-cancel" hidden>Отменить проверку</button>
+      <button type="button" id="nvidiaUseTechnical" class="outline-button" disabled hidden>Назначить экспертом №3</button>
+      <button type="button" id="nvidiaDirectDisconnect" class="link-button">Отключить</button>
+    </div>
+    <div id="nvidiaDirectStatus" class="provider-status nvidia-connect-status" role="status" aria-live="polite">Не подключён</div>
   </div>
   <p class="provider-danger">Важно: приложение может проверить ключ, но не может определить, подключена ли оплата в аккаунте Google/Mistral/NVIDIA. Выбирай только бесплатный или пробный проект без оплаты. Ключи Google/Mistral отправляются напрямую провайдерам. Ключ NVIDIA с твоего согласия проходит через сервер AI Council во время запроса и там не сохраняется. Muse Wonder в бесплатный режим не включён: через OpenRouter он платный.</p>
 </section><div class="dialog-foot"><span data-i18n="privacy">История и выбор моделей сохраняются в этом браузере. При включении «Запомнить» API-ключ тоже остаётся на этом устройстве.</span><button id="doneSettings" class="primary-button" data-i18n="done">Готово</button></div>
@@ -106,6 +181,7 @@
 <script src="./review-health.js" defer></script>
 <script src="./review-batch.js" defer></script>
 <script src="./telegram-share.js" defer></script>
+<script src="./opencode-manual.js" defer></script>
 <script src="./app.js" defer></script>
 <script src="./audit.js" defer></script>
 <script src="./spec.js" defer></script>

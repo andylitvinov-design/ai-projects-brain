@@ -39,7 +39,8 @@
   function showStatus(message,error=false){status.textContent=message;status.classList.toggle('spec-error',error);status.classList.toggle('spec-success',!error&&!!round?.tz&&round?.tzVersion===2&&!working);}
   function sources(r){
     const byModel=(r.answers||[]).filter(a=>a.status==='ok'&&a.text?.trim());
-    return byModel.map((a,i)=>({model:a.model||'Reviewer '+(i+1),answer:a.text.trim()}));
+    const manual=globalThis.AICouncilOpenCode?.entries?.(r)||[];
+    return [...byModel.map((a,i)=>({model:a.model||'Reviewer '+(i+1),answer:a.text.trim()})),...manual.map(x=>({model:x.model+' [manual OpenCode paste; API identity not verified]',answer:x.text}))];
   }
   function canGenerate(){const id=state.models[3];
     const direct=globalThis.AICouncilExternalProviders?.models()?.some(m=>m.id===id);
@@ -54,6 +55,8 @@
     if(r.siteAudit?.summary)parts.push('\n## '+(ru?'Проверенный охват сайта':'Verified site coverage')+'\n'+
       JSON.stringify({checked:r.siteAudit.summary.html_pages_checked,discovered:r.siteAudit.summary.discovered_public_pages,not_checked:r.siteAudit.summary.unreviewed_public_pages,flags:r.siteAudit.summary.issue_counts,limits:r.siteAudit.summary.coverage_note},null,2));
     if(r.synthesis)parts.push('\n## '+(ru?'Общий вывод (исходный текст)':'Original combined review')+'\n'+r.synthesis);
+    const pastedSynthesis=globalThis.AICouncilOpenCode?.synthesis?.(r);
+    if(pastedSynthesis)parts.push('\n## OpenCode manual synthesis (not API-verified: '+pastedSynthesis.model+')\n'+pastedSynthesis.text);
     if(r.evidenceAppendix)parts.push('\n## '+(ru?'Подтверждённые HTML-наблюдения':'Observed HTML findings')+'\n'+r.evidenceAppendix);
     parts.push('\n## '+yes);
     sources(r).forEach((x,i)=>parts.push('\n### '+(i+1)+'. '+x.model+'\n'+x.answer));
@@ -65,6 +68,8 @@
     const cols=['USER GOAL:\n'+(r.question||''),'REVIEWER RESPONSES (complete enough to retain unique concrete details):'];
     sources(r).forEach((s,i)=>cols.push('REVIEWER '+(i+1)+' / '+s.model+':\n'+s.answer.slice(0,13000)));
     cols.push('AGGREGATED REVIEW (not more authoritative than originals):\n'+String(r.synthesis||'').slice(0,20000));
+    const pastedSynthesis=globalThis.AICouncilOpenCode?.synthesis?.(r);
+    if(pastedSynthesis)cols.push('MANUALLY PASTED OpenCode synthesis (NOT API-verified; check source claims):\n'+pastedSynthesis.model+'\n'+pastedSynthesis.text);
     const evidence=r.siteAudit;
     if(evidence?.summary){
       cols.push('VERIFIED AUDIT COVERAGE:\n'+JSON.stringify(evidence.summary).slice(0,3800));

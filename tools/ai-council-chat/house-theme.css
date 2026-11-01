@@ -410,3 +410,153 @@ textarea.spec-editor:focus{outline:2px solid #bb8595;outline-offset:1px}
 .telegram-bot-settings .rowlabel{display:flex;align-items:flex-start;gap:8px;margin:12px 0}
 .telegram-bot-settings .rowlabel input{margin-top:3px;flex-shrink:0}
 .telegram-bot-settings button{max-width:100%;white-space:normal}
+
+
+/* Optional OpenCode local free-model bridge: never presents as a live API. */
+.opencode-entry{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:7px}
+.opencode-entry .outline-button{min-height:36px;font-size:12px;padding:8px 12px}
+.opencode-entry small{font-size:11px;opacity:.75}
+.opencode-manual-panel{margin:13px 19px;padding:13px;border:1px solid #e1d4c9;border-radius:13px;background:#fcf7f0;overflow:hidden}
+.opencode-manual-panel summary{cursor:pointer;font-size:13px;font-weight:700;color:#68503e}
+.opencode-manual-panel .opencode-link{display:inline-block;margin-bottom:8px;font-size:12px}
+.opencode-select{display:block;width:100%;max-width:100%;min-height:43px;margin:7px 0 11px;padding:9px;border:1px solid #d4c7bb;border-radius:9px;background:#fff;color:#493b30;font-size:12px}
+.opencode-manual-panel .opencode-manual-input{display:block;width:100%;margin:8px 0;min-height:108px;padding:11px;border:1px solid #dacbbe;border-radius:9px;background:#fff;color:#302b25;font:inherit;font-size:13px;line-height:1.5;resize:vertical}
+.opencode-manual-panel .opencode-prompt{background:#faf2e9;min-height:92px}
+.opencode-controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.opencode-subtitle{font-size:14px;margin:20px 0 9px;color:#674d3c}
+.opencode-manual-panel .source-note{font-size:12px;line-height:1.55;color:#715e50;overflow-wrap:anywhere}
+@media(max-width:760px){.opencode-manual-panel{margin:11px 9px;padding:11px}.opencode-entry{gap:7px}.opencode-entry small{font-size:10px}}
+
+
+/* Council mobile controls: model truth first, one-tap examples, compact manual mode. */
+.model-status-panel{margin:0 0 8px;border:1px solid #e7d9cf;border-radius:14px;background:#fffaf6;overflow:hidden}
+.model-status-summary{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;padding:8px 12px;list-style:none;cursor:pointer;min-width:0}
+.model-status-summary::-webkit-details-marker{display:none}
+.model-status-summary:focus-visible,.quick-prompt:focus-visible,.model-status-settings:focus-visible,.model-status-row button:focus-visible{outline:2px solid #874357;outline-offset:2px}
+.model-status-heading{display:flex;align-items:center;gap:7px;min-width:0;flex:1;color:#49362f;font-size:12px}
+.model-status-heading strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:750}
+.model-status-dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#748f79}
+.model-status-toggle{color:#8a6b60;font-size:10px;white-space:nowrap}
+.model-status-panel[open] .model-status-toggle{font-weight:700}
+.model-mini-roles{display:flex;align-items:center;gap:5px;min-width:0;width:100%;overflow-x:auto;scrollbar-width:none}
+.model-mini-roles::-webkit-scrollbar,.quick-prompts-scroll::-webkit-scrollbar{display:none}
+.model-mini-role{display:inline-flex;align-items:center;gap:4px;flex:0 0 auto;max-width:168px;padding:4px 8px;border:1px solid #e6dbd2;border-radius:99px;background:#fff;color:#695c52;font-size:11px;line-height:1.35;white-space:nowrap}
+.model-mini-role[data-tone="rate"],.model-state[data-tone="rate"]{border-color:#ecc9c1;background:#fff2ed;color:#a34b43}
+.model-mini-role[data-tone="ok"],.model-state[data-tone="ok"]{border-color:#cfe3d3;background:#eef6ed;color:#376c50}
+.model-mini-role[data-tone="pending"],.model-state[data-tone="pending"]{border-color:#ead8b9;background:#fff7e9;color:#895d39}
+.model-mini-role[data-tone="error"],.model-state[data-tone="error"]{border-color:#e9c6d0;background:#fff0f3;color:#994257}
+.model-status-grid{padding:4px 11px 2px;border-top:1px solid #efe4da}
+.model-status-row{display:flex;align-items:center;gap:9px;min-width:0;padding:9px 0;border-bottom:1px solid #f0e7de}
+.model-status-row:last-child{border-bottom:0}
+.model-status-detail{flex:1;min-width:0}
+.model-status-role{display:block;margin-bottom:2px;color:#877064;font-size:10px;font-weight:750}
+.model-status-name{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#45372f;font-size:12px;font-weight:650}
+.model-state{flex:0 0 auto;max-width:124px;padding:5px 7px;border:1px solid #e6d9cc;border-radius:99px;background:#f8f3ed;color:#78665a;font-size:10px;line-height:1.3;text-align:center}
+.model-status-row button,.model-status-settings{flex:0 0 auto;min-height:40px;padding:7px 10px;border:1px solid #dec9c1;border-radius:9px;background:#fffdf9;color:#733d51;font-size:11px;font-weight:700}
+.model-status-foot{padding:9px 10px 11px;border-top:1px solid #efe4da;background:#fdf9f5}
+.model-status-foot .status-line{margin:0 0 5px;flex-wrap:wrap}
+.model-disclaimer{margin:0 0 7px;color:#8b7768;font-size:10px;line-height:1.45}
+.quick-prompts{display:flex;align-items:center;gap:9px;min-width:0;margin:0 0 9px}
+.quick-prompts-title{flex:0 0 auto;color:#7c6456;font-size:10px;font-weight:750}
+.quick-prompts-scroll{display:flex;align-items:center;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;scroll-snap-type:x proximity}
+.quick-prompt{flex:0 0 auto;scroll-snap-align:start;min-height:40px;padding:7px 11px;border:1px solid #dbcac0;border-radius:999px;background:#fffefb;color:#794356;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}
+.quick-prompt:hover{background:#f9edef;border-color:#b88a9b}
+.quick-prompt:disabled{opacity:.58;cursor:wait}
+.opencode-entry{margin-top:4px!important;gap:7px!important}
+.opencode-entry .manual-mode-button{min-height:36px;padding:4px 9px;border:0;border-radius:9px;background:transparent;color:#836357;font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.opencode-entry small{font-size:10px;color:#948578}
+.opencode-manual-panel{background:#fdf9f4}
+.opencode-manual-panel .source-note{font-size:11px;line-height:1.4}
+.opencode-manual-panel .opencode-prompt{min-height:72px}
+@media(max-width:760px){
+ .composer-area{padding:7px 9px max(7px,env(safe-area-inset-bottom));}
+ .model-status-panel{margin-bottom:7px;border-radius:11px}
+ .model-status-summary{padding:6px 9px;gap:3px 7px}
+ .model-status-heading{font-size:12px}
+ .quick-prompts{display:block;margin-bottom:6px}
+ .quick-prompts-title{display:block;margin:0 0 4px;font-size:10px}
+ .quick-prompts-scroll{margin-right:-9px;padding:0 9px 2px 0}
+ .quick-prompt{min-height:40px;font-size:12px;padding:8px 12px}
+ .model-status-row{gap:6px}
+ .model-status-row button{min-height:40px;padding:7px 9px}
+ .model-state{max-width:110px}
+ .opencode-entry small,.composer-tip{display:none!important}
+ .opencode-entry .manual-mode-button{padding:5px 7px;min-height:36px}
+ .composer{min-height:50px}
+ .composer textarea{padding:5px 0}
+ .opencode-manual-panel{margin:9px 7px;padding:9px}
+ .opencode-manual-panel .opencode-manual-input{min-height:70px}
+ .opencode-manual-panel .opencode-prompt{min-height:67px}
+}
+@media(max-width:350px){
+ .model-status-summary{padding:6px 8px}
+ .model-mini-role{font-size:10px;padding:4px 6px}
+ .model-status-name{font-size:11px}
+ .model-state{max-width:90px;font-size:9px}
+ .model-status-row button{font-size:10px;padding:6px}
+ .topbar .free-pill{display:none}
+}
+@media(prefers-reduced-motion:reduce){.quick-prompt{scroll-behavior:auto;transition:none}}
+
+
+/* NVIDIA DeepSeek BYOK onboarding — one readable column on 320–430px iPhones.
+   Consent text must not split into parallel flex fragments around <strong>. */
+.nvidia-shortcut{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:0 0 8px;padding:8px 10px;border:1px solid #e4d4c4;border-radius:11px;background:#faf3e9;color:#654c41;font-size:12px;line-height:1.35}
+.nvidia-shortcut[hidden]{display:none!important}
+.nvidia-shortcut span{flex:1;min-width:0;overflow-wrap:anywhere}
+.nvidia-shortcut button{flex:0 0 auto;min-height:40px;padding:8px 11px;border:1px solid #b18c83;border-radius:9px;background:#fff9f3;color:#704152;font-size:12px;font-weight:750}
+.nvidia-shortcut button:focus-visible,.nvidia-provider button:focus-visible,.nvidia-provider a:focus-visible,.nvidia-provider summary:focus-visible{outline:3px solid #8d5266;outline-offset:2px}
+.nvidia-provider{scroll-margin-top:16px;overflow-wrap:anywhere}
+.nvidia-provider-title{display:flex;flex-wrap:wrap;align-items:center;gap:6px 9px}
+.nvidia-provider .nvidia-provider-title strong{margin:0;font-size:17px;line-height:1.35}
+.nvidia-provider .provider-free-tag{font-size:11px}
+.settings-dialog .nvidia-connection-intro{font-size:13px;line-height:1.55;margin:9px 0 5px}
+.nvidia-provider .nvidia-connection-intro strong{display:inline;margin:0;font-size:inherit}
+.nvidia-role-status{margin:10px 0 3px;padding:9px 11px;border-radius:9px;background:#f8f0e6;color:#765142;font-size:12px;font-weight:750;line-height:1.4}
+.nvidia-role-status[data-connected="true"]{background:#eaf2e9;color:#386b4a}
+.nvidia-steps{list-style:none;display:flex;flex-direction:column;margin:8px 0 12px;padding:0}
+.nvidia-step{display:grid;grid-template-columns:27px minmax(0,1fr);gap:9px;padding:12px 0;border-top:1px solid #ece0d4;min-width:0}
+.nvidia-step:first-child{border-top:0}
+.nvidia-step-num{display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:#f4ebe3;color:#815446;font-size:12px;font-weight:800}
+.nvidia-step-body{min-width:0;overflow-wrap:anywhere}
+.nvidia-provider .nvidia-step-title{display:block;min-width:0;color:#48372f;font-size:14px;font-weight:780;line-height:1.4;margin:2px 0 4px}
+.settings-dialog .nvidia-step-body p{margin:4px 0 9px;font-size:12px;line-height:1.55;color:#7c6c61}
+.nvidia-step-body p strong{display:inline;margin:0;font-size:inherit;color:#49382e}
+.nvidia-key-link{display:inline-flex;align-items:center;gap:5px;min-height:39px;padding:6px 11px;border:1px solid #d9c6b8;border-radius:8px;background:#fffcf8;color:#83513f;font-size:12px;font-weight:700;text-underline-offset:3px}
+.nvidia-key-row{display:flex;align-items:stretch;gap:7px;min-width:0;margin:9px 0 0}
+.nvidia-key-row input{flex:1 1 auto;min-width:0;width:100%;height:45px;border:1px solid #d9c6b8;border-radius:10px;background:#fff;color:#44352e;padding:9px 10px;font-size:16px}
+.nvidia-key-row button{flex:0 0 auto;min-width:78px;min-height:45px;padding:9px 12px;border:1px solid #bda69a;border-radius:10px;background:#fffaf5;color:#784359;font-size:12px;font-weight:750}
+.nvidia-provider .nvidia-checkbox-row{display:grid;grid-template-columns:21px minmax(0,1fr);align-items:start;gap:11px;margin:12px 0;padding:0;font-size:13px;line-height:1.55;color:#594940;white-space:normal}
+.nvidia-provider .nvidia-checkbox-row input{width:21px;height:21px;margin:1px 0 0;min-width:21px;flex:none;accent-color:var(--hh-wine)}
+.nvidia-provider .nvidia-checkbox-row span{display:block;min-width:0;overflow-wrap:anywhere}
+.nvidia-provider .nvidia-checkbox-row strong{display:inline!important;margin:0;font-size:inherit;font-weight:750;color:inherit;white-space:normal}
+.nvidia-privacy-details{margin:9px 0;padding:9px 11px;border:1px solid #efe3da;border-radius:9px;background:#fffcf8}
+.nvidia-privacy-details summary{cursor:pointer;color:#725a51;font-size:12px;font-weight:700}
+.settings-dialog .nvidia-privacy-details p{margin:9px 0 0;font-size:12px;line-height:1.55;color:#72645d}
+.nvidia-action-row{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:10px}
+.nvidia-action-row .nvidia-connect{width:100%;min-height:48px;padding:12px 15px;border-radius:12px;font-size:14px;font-weight:800}
+.nvidia-action-row .outline-button{min-height:42px;padding:9px 12px;font-size:12px}
+.nvidia-action-row .link-button{min-height:38px;padding:7px 5px;font-size:12px}
+.nvidia-action-row .nvidia-cancel{min-height:43px;width:100%;border-color:#d4b9b5;background:#fff7f3;color:#874354;font-size:13px;font-weight:750}
+.nvidia-provider .nvidia-connect-status{white-space:normal;overflow-wrap:anywhere}
+.nvidia-action-row [hidden]{display:none!important}
+.nvidia-provider .nvidia-connect-status{padding:9px 11px;border-radius:9px;background:#f8f4ef;color:#675951;min-height:39px;font-size:12px;line-height:1.45}
+.nvidia-provider .nvidia-connect-status[data-state="error"]{background:#fff0f2;color:#9b4052}
+.nvidia-provider .nvidia-connect-status[data-state="success"]{background:#eaf4e9;color:#34704e}
+@media(max-width:760px){
+ .settings-dialog{width:calc(100vw - 16px);max-width:100%;max-height:calc(100dvh - 18px);overflow-x:hidden;padding:17px 13px;border-radius:15px}
+ .external-panel{padding:12px 9px}
+ .nvidia-provider{padding:13px 11px}
+ .nvidia-role-status{font-size:12px}
+ .nvidia-provider .nvidia-checkbox-row{font-size:13px;line-height:1.5}
+ .nvidia-key-row input{font-size:16px}
+ .nvidia-step-body p{overflow-wrap:anywhere}
+ .nvidia-shortcut{font-size:11px;padding:6px 9px;gap:7px}
+ .nvidia-shortcut button{min-height:40px;padding:7px 10px}
+}
+@media(max-width:350px){
+ .nvidia-step{grid-template-columns:24px minmax(0,1fr);gap:7px}
+ .nvidia-step-num{width:24px;height:24px}
+ .nvidia-provider .nvidia-checkbox-row{grid-template-columns:20px minmax(0,1fr);gap:8px}
+ .nvidia-key-row button{min-width:67px;padding:8px;font-size:11px}
+}

@@ -229,3 +229,74 @@ The API route `api/telegram-deliver.js` enforces exact known origins, a constant
 - `node --test tools/ai-council-chat/tests/telegram-share.test.mjs tools/ai-council-chat/tests/telegram-deliver.test.mjs`
 - Mock-only PR CI proves code path and security checks, **not** real Telegram acceptance, iPhone Safari share UI, live provider calls, Vercel env setup or production delivery.
 - Follow normal branch/PR/review/merge + verified correct Vercel project, then one explicit owner test. No silent production deployment, account/billing or secret changes.
+
+## 2026-10-26: GLM 5.3 Flash Free and DeepSeek V4.1 Flash Free via OpenCode (manual bridge)
+
+OpenCode offers two free model identifiers: `opencode/glm-5.3-flash-free` and `opencode/deepseek-v4.1-flash-free`. The `-free` suffix matters. Its free inference is available **within OpenCode** and does not provide an unrestricted zero-cost API for third-party websites. The availability is temporary and may change. Official docs: https://opencode.ai/docs/models/ and https://opencode.ai/.
+
+**How the bridge works:**
+
+1. Type a public-only question in the AI Council composer and click **OpenCode Free · manual**. A browser-local discussion is created with no OpenRouter, Google, NVIDIA or OpenCode inference request.
+2. Expand the OpenCode manual section in the discussion. Choose GLM 5.3 Flash Free or DeepSeek V4.1 Flash Free, copy the evidence-aware prompt and run it in the OpenCode application with the matching model selected.
+3. Paste each **real** answer into its corresponding field and save. Responses are strictly marked `manual:opencode` and are **not** API-authenticated.
+4. After both independent responses are saved, copy the prepared synthesis prompt, ask the selected OpenCode model to compare them, and paste its real synthesis. Existing automatic synthesis is not silently recomputed.
+5. Existing Markdown export, Telegram report text and technical-specification source material include the manually imported and explicitly attributed answers.
+
+**Safety / deployment:** This code performs no OpenCode API calls and asks for no OpenCode key, never uses paid fallbacks, never accesses client records, and retains data in the browser's existing conversation storage. Never paste clients' health information, private messages, account/payment data, secrets or tokens into externally hosted models. A manual paste does not establish the model identity or prove site testing. Canonical current Git-linked app is `super10/ai-council-chat` (domain `https://ai-council-chat.vercel.app`, repository `andylitvinov-design/ai-projects-brain`, main branch). Do not confuse it with the separate older `ai-council-free` project. Merge triggers a new production build, but READY, exact SHA/aliases, browser behavior and actual OpenCode model replies still require independent verification.
+
+Offline CI: `node --check tools/ai-council-chat/opencode-manual.js` and `node --test tools/ai-council-chat/tests/opencode-manual.test.mjs`. User-side OpenCode account, 375px phone UI, real response imports and separate Vercel production deployment must be verified independently.
+
+## 2026-10-27: DeepSeek V4.1 provider resilience and explicit reviewer selection
+
+The existing NVIDIA NIM deepseek-ai/deepseek-v4.1-flash free-trial BYOK route remains the only DeepSeek transport. No paid API, new secret, new account, or automatic provider switch was added.
+
+- The model registry keeps already connected and consented Gemini/Mistral/NVIDIA direct providers available when OpenRouter's separate free-model catalog errors, times out, or has no $0 models. OpenRouter-only choices are marked unavailable, never silently replaced. Requests still require an eligible explicitly selected provider.
+- After a real nonempty NVIDIA model response in the opt-in connection probe, the owner can press **Назначить техэкспертом / Use as engineering reviewer** in Settings. Only expert #3 changes; other reviewers and the synthesizer are preserved. Pressing this button costs no API calls.
+- Empty NVIDIA completions are now errors rather than success-looking placeholder answers; trial entitlement is never claimed without a real text response. HTTP 429/402 and revoked transit consent still fail closed.
+- Regression coverage: no OpenRouter catalog + verified external models, reject paid pseudo-free catalog entries, explicit click model selection, no-text probe and relay responses, unchanged key consent/cooldown boundaries.
+- Live NVIDIA entitlement and actual multi-model iPhone round still require the owner's optional trial key in the personal browser. Do not place the key in GitHub, ChatGPT, or Vercel environment variables.
+
+## 2026-10-27: owner-requested one-time automatic DeepSeek technical reviewer
+
+After the owner's explicit request, **DeepSeek V4.1 Flash through existing opt-in NVIDIA NIM BYOK** is automatically selected as the third/technical expert in AI Council Chat **when the browser already holds a prior verified NVIDIA key, free-trial confirmation and relay consent**, or immediately after the user connects with a real, nonempty provider response. No new server secret, payments, automatic provider call, or permission change is introduced.
+
+The preference is saved once in that browser (`ai-council-deepseek-engineering-preferred-v1`), leaving the other two experts and synthesis selection unchanged. Later manual reviewer changes are preserved; disconnecting NVIDIA clears the one-time marker. If the user only generated a key at NVIDIA but never connected it in this exact browser, it cannot be loaded by the server and no model is falsely marked connected. Reopening the same browser with previously stored credentials applies the preference without another click, **but does not revalidate a possibly expired NVIDIA key**. Real live text response and full independent council round still need acceptance on the account holding the key. Never paste the key into GitHub issues or chat.
+
+
+## 2026-10-27 — iPhone model status and one-tap prompt UX
+
+The existing AI Council now provides a compact, always-visible model strip above the persistent composer, with an expandable panel for the **four selected roles** (UX, Product, Engineering, Synthesis). Each displays its selected model, evidence-based status and a **Change model** control. The panel deliberately distinguishes: saved provider key (not reverified), valid OpenRouter key (not a model reply), actual successful past response, historic 429 from the currently selected model, and disconnected/unavailable model. It does not claim a saved API key or HTTP 200 endpoint is a live successful inference.
+
+Five horizontally scrollable mobile quick prompts (site improvements, first screen, session booking, mobile UX and Codex brief) now send the **actual existing** free-tier Council request immediately after one tap, with RU/EN-specific bounded public prompts. The original three example cards use this same behavior. Missing API connections preserve the prepared prompt and open Settings rather than making a request. Concurrent repeated taps are blocked. Existing provider consent, no-paid-fallback, anonymity/privacy, and multi-model synthesis gates remain in place.
+
+OpenCode GLM/DeepSeek is distinctly labelled manual-only, with shorter copy; its responses are never shown as automated DeepSeek NVIDIA answers. Stale **direct-provider** 429 errors remain visible in the conversation and model list but no longer occupy a duplicate sticky composer banner. OpenRouter 429 recovery remains in the existing footer, and no automatic provider switch or retry is introduced.
+
+Verification: `node --check` for modified JS and `node --test` existing provider/registry/OpenCode cases plus `tests/ui-quick-status.test.mjs`, Vercel preview READY + canonical production SHA after merge. Real iPhone interactions, private BYOK credentials, model quotas and provider-completed messages still require authentic owner-side E2E; code and mock tests alone cannot certify external model service availability. No new databases, migrations, secrets, paid APIs, workflows or external sends.
+
+## 2026-10-27 — user-controlled live DeepSeek test without re-entering NVIDIA key
+
+The expanded selected-model status panel offers **Проверить · 1 запрос / Test · 1 call** when an already consented NVIDIA DeepSeek model is selected. A real click performs **one** small text generation through the existing fixed same-origin NVIDIA NIM relay using the already saved BYOK key; it never runs on page load, never discovers other models, never pays or falls back. The API response must have nonempty text. A result is shown transiently as real probe success or sanitized 429/permission/network error; no result or secret is persisted. A 30-second guard prevents repeated rapid calls. Disconnect clears the probe.
+
+This allows the owner to verify **real provider generation** from Safari/Telegram in-app browser without pasting a private key into chat or manually re-entering it when it is already stored on that browser origin. Test success is NOT proof of full three-reviewer + synthesis E2E. On other browser origins, initial BYOK connect and explicit free-trial / server-relay consent remain required. No automatic trial use, account mutation, paid API, secret migration, or telemetry of client records.
+
+## 2026-10-27 — NVIDIA Build key onboarding from the owner's iPhone screenshots
+
+The owner showed the official NVIDIA Build DeepSeek V4.1 Flash page still displaying **Generate API Key** and the AI Council NVIDIA card with **empty** masked key, unchecked free-trial confirmation, and checked transient relay consent. The previously selected technical reviewer was Poolside: OpenRouter sign-in is independent from the NVIDIA provider key. A generated/copyable key on NVIDIA Build cannot be read automatically by a different website origin or the ChatGPT/Telegram browser context.
+
+The existing NVIDIA setup card is now a compact, readable **3-step workflow** (Generate API Key at NVIDIA → explicitly paste the `nvapi-` key into the password field → affirm free unbilled trial and transient Vercel relay consent). A dedicated **Paste** control reads only the user's clipboard on an actual tap; if browser permission denies access it requests native tap-and-hold Paste. It does not call the provider. Both consent fields render as one-column grid rows with all text contained in the same span (fixing the old iPhone two-column flex wrapping). The sensitive transit details remain available in an accessible disclosure.
+
+The NVIDIA keyless or missing-consent submission now produces visible in-card status instead of a background error hidden by the modal; it fails closed and performs **zero** API calls. Successful existing fixed-model NVIDIA generation still auto-assigns DeepSeek as technical reviewer #3 and the UI reports it; no second API call or paid fallback. Redundant Connect/Assign buttons are hidden after success, leaving Disconnect. The persistent composer shows **DeepSeek not connected** with a direct settings shortcut until the owner actually connects, rather than claiming four working models; selected-model count is explicitly a selection count, not proof of inference. The deep link `https://ai-council-chat.vercel.app/?connect=deepseek` opens the relevant settings section.
+
+Security: the NVIDIA secret is never stored in GitHub, issue comments, the server environment or another user's workspace. The server temporarily receives it only during an explicitly consented request to NVIDIA. The user must complete the private provider action in the correct browser; screenshots, HTTP 200, CI mock and an API key created on NVIDIA's separate origin are not evidence of real authenticated E2E. No paid APIs, provider mutations or automatic requests are enabled.
+
+
+## 2026-10-27: DeepSeek NVIDIA probe slow/hang and explicit cancellation
+
+Owner screenshot showed a correctly masked `nvapi-` key and both required consents checked, but the UI remained at `Проверяю один реальный ответ модели…` with no useful progress or stop action. Root contributors in the existing integration:
+- NVIDIA `deepseek-ai/deepseek-v4.1-flash` can take much longer than a simple probe's upstream 42-second bound; do **not** classify this as a bad key. Public NVIDIA forum reports elevated latency (https://forums.developer.nvidia.com/t/deepseek-v4-1-flash-api-extremely-slow-3-5-minutes-for-simple-responses/385831). No verified owner-key response was available via GitHub/Vercel.
+- The previous probe requested `max_tokens=256` without disabling thinking; with default reasoning, the generated budget may be consumed without ordinary answer text. The regular Council review retains its original reasoning configuration.
+
+The same fixed, opt-in NVIDIA relay now asks for `reasoning_effort:'none'` **only** for a 128-output-token connection probe, with no paid/fallback call. It must receive a real nonempty text response to mark connected, and all errors are sanitized (no key or model trace). A bounded upstream timeout returns a clear provider-delay error instead of claiming the credential is invalid. Browser UI shows progress at several milestones, exposes **Отменить проверку / Cancel verification** during the in-flight call, keeps the password input on failure/cancel, disables rapid repeat probes for 45 seconds and never runs background retries. The user explicitly initiates any later attempt; cancellation may not reverse work already running at NVIDIA, so the cooldown avoids accidental duplicate calls.
+
+Regression tests cover 1-only probe, nonthinking mode and cap, preservation of normal reviewer behavior, timeout/key-redaction, empty text, slow request progress, cancellation and cooldown. No server-side storage of credentials, new account, paid API, billing, blanket fallback or unconsented request. Real E2E remains to be verified in the **same browser** holding the owner's key. Vercel GET 200 and mock tests are not proof of authenticated provider availability.
+
