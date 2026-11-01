@@ -29,6 +29,8 @@ test('model and usage response must match selected catalog and cost',()=>{
 });
 test('delivery path serializes review and denies paid fallback',()=>{
  const app=source('app.js'),html=source('index.html');
+ assert.equal(app.split('const STORE=').length-1,1,'no duplicated application bootstrap');
+ assert.equal(app.split('function historyContext(th)').length-1,1,'one history context source');
  assert.match(app,/councilRequestQueue\.then\(task,task\)/);
  assert.match(app,/await loadModels\(true\)/);
  assert.match(app,/provider:safety\.providerPolicy\(\)/);
