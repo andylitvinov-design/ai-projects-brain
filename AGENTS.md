@@ -1,5 +1,7 @@
 # Global Autonomous Project Rules
 
+**Mandatory across all projects when making GitHub code/PR changes:** read [GLOBAL_PR_ONE_PUBLISH_V1](systems/pr-one-publish-standard.md) before editing/publishing the branch. Prepare and test cohesive files before opening PR; publish one complete HEAD; avoid modifying it while protected CI runs except for a verified failure or urgent security fix. No new paid runners/automation or CI bypass. Agent preflight is required even when the target is another repo.
+
 Before working in this repository, read and apply the shared project-brain rules:
 
 - `https://raw.githubusercontent.com/andylitvinov-design/ai-projects-brain/main/systems/autonomous-project-executor.md`
