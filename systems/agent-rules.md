@@ -1,5 +1,9 @@
 # Agent Rules
 
+## Mandatory PR admission contract — GLOBAL_PR_ONE_PUBLISH_V1
+
+For **every** owned project (not only Holistic House), every coding agent, GitHub connector, Codex/Claude/Hermes executor or ChatGPT prompt that creates or edits a PR **must first read** [systems/pr-one-publish-standard.md](pr-one-publish-standard.md). Stage cohesive source, tests, docs and local checks *before opening the PR*; create one complete published HEAD, freeze it while exact-HEAD CI runs, and batch evidence-based repairs. No no-op CI wakes, unsafe check suppression or additional paid services. For non-PR work mark N/A. The target repo's stricter security/release controls continue to apply.
+
 Use these rules before working on any project listed in
 `projects.md` or `projects.json`. They are written for both
 ChatGPT and Codex.
