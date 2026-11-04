@@ -1,5 +1,7 @@
 # Codex Project Workflow
 
+**PR publication preflight (all projects):** apply [GLOBAL_PR_ONE_PUBLISH_V1](pr-one-publish-standard.md) before creating any task branch with an eventual PR or publishing changes to an existing PR. The order is prepare all cohesive code/tests/docs → local validation → one complete branch publication → open PR → wait for exact-HEAD checks → one verified repair batch if required. Do not open a partially implemented PR just to trigger tests.
+
 ## 0. Use autonomous project execution by default
 
 - Read and apply `systems/autonomous-project-executor.md` before project work.
