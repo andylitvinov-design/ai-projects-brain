@@ -1,5 +1,7 @@
 # Autonomous Project Executor
 
+**Cross-project PR/CI economy contract:** read [GLOBAL_PR_ONE_PUBLISH_V1](pr-one-publish-standard.md) whenever implementation can produce a GitHub PR, including ChatGPT mobile/Cloud, Codex, Claude, Hermes, and code-writing automations. Prepare/verify before PR opening, avoid repeated published HEAD updates and PR metadata CI triggers, never weaken mandatory final-HEAD checks, and avoid unverified new financial costs.
+
 This global operating mode applies to every user project listed in:
 
 - `projects.md`
