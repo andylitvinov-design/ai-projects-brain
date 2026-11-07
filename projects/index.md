@@ -61,3 +61,13 @@ Secondary, experimental, backup and archived projects remain discoverable throug
 - Do not expose or mutate secret/env values, private finance data, or owner sessions.
 - Do not merge auth/payment/destructive-data work without its explicit safe route.
 - Preserve historical records while correcting the canonical overlay.
+
+
+## Newly documented project capsules — 2026-11-07
+
+These two folders are public **project memory**, not new validated portfolio-health rows. The machine active portfolio overlay in `projects/portfolio-registry.json` still reflects its previous reconciled baseline, so discovery must also read the actual `projects/` directory:
+
+- [Agent Commander](agent-commander/PROJECT.md) — independent PR Monitor and task command center; source `andylitvinov-design/books/ops/pr-monitor/`. Current LIVE status needs verification.
+- [Holistic House](holistic-house/PROJECT.md) — main application and Video Studio; source `andylitvinov-design/books`. Current LIVE status needs verification.
+
+Use the corresponding `STATE.md`, `CHECKS.md` and `DECISIONS.md` after opening a capsule. Do not infer current PR/CI/live status from the existence of a file. Do not copy confidential user data into Brain.
