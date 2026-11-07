@@ -13,12 +13,13 @@
 <aside id="sidebar" class="sidebar">
  <div class="brand"><div class="logo" aria-hidden="true"><img src="./icon.svg" alt=""/></div><div class="brand-copy"><a class="brand-house" href="https://holistichouse.vercel.app" target="_blank" rel="noopener noreferrer">Holistic House</a><strong>AI Council</strong><span id="brandSubtitle">Совет независимых ИИ</span></div><button id="closeSidebar" class="icon-button sidebar-close" aria-label="Закрыть">✕</button></div>
  <button class="new-button" id="newThread">＋ <span data-i18n="new">Новый диалог</span></button>
+ <a class="sidebar-automations" href="https://holistichouse.vercel.app/admin/automations" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> <span data-i18n="automations">Автоматизации</span></a>
  <div class="sidebar-label" data-i18n="history">ИСТОРИЯ</div><div id="threadList" class="thread-list"></div>
  <div class="side-bottom"><div class="free-mark"><span class="free-dot"></span><span data-i18n="free">Только бесплатные модели</span></div><button id="settingsButton" class="settings-link">⚙ <span data-i18n="settings">Модели и подключение</span></button><a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer" class="small-link">OpenRouter ↗</a></div>
 </aside>
 <div id="overlay" class="overlay hidden"></div>
 <main class="main">
- <header class="topbar"><div class="top-left"><button id="menuButton" class="icon-button menu" aria-label="Открыть меню">☰</button><span class="top-logo" aria-hidden="true"><img src="./icon.svg" alt=""/></span><div><span class="top-house">Holistic House</span><b>AI Council</b><small data-i18n="subtitle">Несколько взглядов. Один вывод.</small></div></div><div class="top-actions"><span class="free-pill"><span class="free-dot"></span> FREE</span><button id="langButton" class="lang-button" aria-label="Change language">EN</button><button id="topSettings" class="icon-button" title="Настройки">⚙</button></div></header>
+ <header class="topbar"><div class="top-left"><button id="menuButton" class="icon-button menu" aria-label="Открыть меню">☰</button><span class="top-logo" aria-hidden="true"><img src="./icon.svg" alt=""/></span><div><span class="top-house">Holistic House</span><b>AI Council</b><small data-i18n="subtitle">Несколько взглядов. Один вывод.</small></div></div><div class="top-actions"><a class="top-automations" href="https://holistichouse.vercel.app/admin/automations" target="_blank" rel="noopener noreferrer" data-i18n="automations">Автоматизации</a><span class="free-pill"><span class="free-dot"></span> FREE</span><button id="langButton" class="lang-button" aria-label="Change language">EN</button><button id="topSettings" class="icon-button" title="Настройки">⚙</button></div></header>
  <div class="content-scroll" id="contentScroll">
   <div class="content-inner">
   <section id="welcome" class="welcome">
