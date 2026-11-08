@@ -391,7 +391,7 @@ async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)re
   const synthesisStart=Date.now();
   try{round.synthesis=await modelRequest(state.models[3],[{role:'system',content:globalThis.AICouncilQuality?.synthesisPrompt(state.lang,false)||'Combine independent reviews. Preserve each concrete detail, differences and verification.'},{role:'user',content:'Original question:\n'+q+'\n\nIndependent model responses:\n'+detail}],{maxTokens:4300,temperature:0.2,onRequestDispatched:()=>{round.synthesisRequestDispatched=true;},onResponseEvidence:e=>{round.synthesisEvidence={provider:e.provider,requested_model:e.requested_model,reported_model:e.reported_model,reported_cost:e.reported_cost};}});round.synthesisStatus='ok';}catch(e){round.synthesisStatus='error';round.synthesisError=e.message||'Unknown error';}finally{round.synthesisDurationMs=Date.now()-synthesisStart;}
   persistRound();
- }catch(err){setError(err.message||t('sendFailed'));}finally{busy=false;el('sendButton').disabled=false;setQuickButtonsBusy(false);renderSidebar();renderModelStatus();}}
+ }catch(err){setError(err.message||t('sendFailed'));}finally{busy=false;el('sendButton').disabled=false;setQuickButtonsBusy(false);renderSidebar();renderModelStatus();globalThis.AICouncilModelMonitor?.maybeRun();}}
 function startOpenCodeOnly(){
  if(busy)return;
  const q=el('question').value.trim();if(!q){el('question').focus();setError(state.lang==='ru'?'Введите вопрос для OpenCode.':'Enter a question for OpenCode.');return;}

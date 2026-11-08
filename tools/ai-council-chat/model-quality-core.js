@@ -4,6 +4,8 @@
  const VERSION=1;
  const DIMENSIONS={relevance:.25,specificity:.25,completeness:.20,evidence:.20,clarity:.10};
  const clamp=(value)=>Math.max(0,Math.min(10,Number(value)));
+ // Stable identifiers survive round deletion/reordering and invalidate stale grades when source text changes.
+ function digest(value){let h=2166136261;for(const char of String(value)){h=Math.imul(h^char.charCodeAt(0),16777619);}return (h>>>0).toString(36);}
  const validScore=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0&&value<=10;
  function records(threads){
   const list=[];
@@ -11,18 +13,18 @@
    if(!Array.isArray(thread.rounds))continue;
    thread.rounds.forEach((round,ri)=>{
     if(round.manualMode||!String(round.question||'').trim())return;
-    const seen=new Set(),prefix=String(thread.id)+':'+ri;
+    const seen=new Set(),roundKey=round.created?'at-'+round.created:'legacy-'+digest(JSON.stringify([round.question,round.answers,round.synthesis])),prefix=String(thread.id)+':'+roundKey;
     (round.answers||[]).forEach((answer,i)=>{
      if(!answer?.model||answer.status==='pending'||answer.status==='shared'||seen.has(answer.model))return;
      seen.add(answer.model); // one shared provider call is not multiple independent observations
      const ok=answer.status==='ok'&&!!String(answer.text||'').trim();
      if(!ok&&(answer.status!=='error'||answer.requestDispatched!==true))return;
-     list.push({id:prefix+':review:'+i,model:answer.model,kind:'review',role:i,created:round.created||thread.created||0,question:round.question,text:ok?answer.text:'',ok,latencyMs:Number.isFinite(answer.durationMs)?answer.durationMs:null,verifiedOutcome:false});
+     list.push({id:prefix+':review:'+i+':'+digest(JSON.stringify([round.question,answer.model,answer.status,answer.text,answer.error])),model:answer.model,kind:'review',role:i,created:round.created||thread.created||0,question:round.question,text:ok?answer.text:'',ok,latencyMs:Number.isFinite(answer.durationMs)?answer.durationMs:null,verifiedOutcome:false});
     });
     const model=round.synthesisModel;
     if(model&&(round.synthesisStatus==='ok'||(round.synthesisStatus==='error'&&round.synthesisRequestDispatched===true))){
      const ok=round.synthesisStatus==='ok'&&!!String(round.synthesis||'').trim();
-     list.push({id:prefix+':synthesis',model,kind:'synthesis',created:round.created||thread.created||0,question:round.question,text:ok?round.synthesis:'',ok,latencyMs:Number.isFinite(round.synthesisDurationMs)?round.synthesisDurationMs:null,verifiedOutcome:false});
+     list.push({id:prefix+':synthesis:'+digest(JSON.stringify([round.question,model,round.synthesisStatus,round.synthesis,round.synthesisError])),model,kind:'synthesis',created:round.created||thread.created||0,question:round.question,text:ok?round.synthesis:'',ok,latencyMs:Number.isFinite(round.synthesisDurationMs)?round.synthesisDurationMs:null,verifiedOutcome:false});
     }
    });
   }

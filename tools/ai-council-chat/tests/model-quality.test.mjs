@@ -63,3 +63,29 @@ test('ungraded answer selection is bounded and model-balanced',()=>{
  const selected=core.candidates(items,{},6);
  assert.equal(selected.length,6);assert.ok(selected.filter(x=>x.model==='beta').length>=2);
 });
+
+test('stable answer IDs survive removal of prior rounds and change when graded content changes',()=>{
+ const first={created:10,question:'First question',answers:[{model:'a/free:free',status:'ok',text:'First answer'}],synthesisStatus:'partial'};
+ const second={created:20,question:'Second question',answers:[{model:'b/free:free',status:'ok',text:'Second answer'}],synthesisStatus:'partial'};
+ const full=core.records([{id:'thread',rounds:[first,second]}]);
+ const kept=core.records([{id:'thread',rounds:[second]}]);
+ assert.equal(full[1].id,kept[0].id,'deleting previous round must not remap historical grades');
+ assert.notEqual(kept[0].id,core.records([{id:'thread',rounds:[{...second,answers:[{...second.answers[0],text:'Edited answer'}]}]}])[0].id,
+   'edited response must invalidate the previous evaluation');
+ assert.ok(!kept[0].id.includes('Second answer'),'the answer text must not be embedded in an identifier');
+});
+test('UI and both response flows expose explicit role filter and due check after completed work',()=>{
+ const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
+ const audit=readFileSync(new URL('../audit.js',import.meta.url),'utf8');
+ const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+ const ui=readFileSync(new URL('../model-quality-ui.js',import.meta.url),'utf8');
+ assert.match(app,/renderModelStatus\(\);globalThis\.AICouncilModelMonitor\?\.maybeRun\(\)/,
+   'finished ordinary rounds should permit an opt-in scheduled evaluation');
+ assert.match(audit,/renderSidebar\(\);globalThis\.AICouncilModelMonitor\?\.maybeRun\(\)/,
+   'finished site audits should permit an opt-in scheduled evaluation');
+ assert.match(html,/id="qualityRole"/);
+ assert.match(ui,/item\.kind==='synthesis'/);
+ assert.match(ui,/window\.addEventListener\('focus',maybeRun\)/);
+ assert.match(ui,/document\.visibilityState==='visible'/);
+ assert.match(ui,/settings\.consent/);
+});

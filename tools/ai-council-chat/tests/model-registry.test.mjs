@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {dirname,join} from 'node:path';
+import vm from 'node:vm';
 
 // Execute functions extracted from the production app instead of cloning their logic.
 const source=readFileSync(join(dirname(fileURLToPath(import.meta.url)),'..','app.js'),'utf8');
@@ -13,13 +14,16 @@ function extract(start,end){
 }
 const loadSource=extract('async function loadModels(', '\nfunction fillModelSelects(){');
 const chooseSource=extract('function chooseEngineeringModel(', '\nasync function startOAuth(){');
+const securityContext=vm.createContext({});
+vm.runInContext(readFileSync(join(dirname(fileURLToPath(import.meta.url)),'..','safety.js'),'utf8'),securityContext);
+const safe=securityContext.AICouncilSafety;
 const DEEPSEEK='nvidia-direct/deepseek-v4.1-flash:trial';
 const DIRECT={id:DEEPSEEK,name:'DeepSeek NVIDIA trial',pricing:{prompt:'0',completion:'0'},architecture:{output_modalities:['text']}};
 
 function registry(fetchMock,direct=[]){
  const body=[
   "const API='https://openrouter.ai/api/v1';",
-  "const globalThis={AICouncilExternalProviders:{models:()=>direct}};",
+  "const globalThis={AICouncilExternalProviders:{models:()=>direct},AICouncilSafety:safe};",
   "const state={lang:'ru',models:['ux','product','technical','synth']};",
   "let freeModels=[],modelLoadedAt=0,filled=0,persisted=0;",
   "const status={textContent:''},el=()=>status,t=k=>k==='ready'?'Ready: ':k;",
@@ -27,30 +31,32 @@ function registry(fetchMock,direct=[]){
   loadSource,
   "return {loadModels,get models(){return freeModels;},get selections(){return state.models;},get status(){return status.textContent;},get filled(){return filled;},get persisted(){return persisted;}};"
  ].join('\n');
- return new Function('fetch','direct',body)(fetchMock,direct);
+ return new Function('fetch','direct','safe',body)(fetchMock,direct,safe);
 }
 
-test('DeepSeek remains selectable if OpenRouter model catalog is unreachable',async()=>{
+test('Strict-free registry refuses unpriced direct BYOK fallback if OpenRouter catalog is unreachable',async()=>{
  const h=registry(async()=>{throw new Error('network unavailable');},[DIRECT]);
  const saved=h.selections.slice();
- const models=await h.loadModels(true);
- assert.deepEqual(models.map(x=>x.id),[DEEPSEEK]);
- assert.deepEqual(h.selections,saved,'manual choices never silently change');
- assert.equal(h.filled,1);
- assert.equal(h.persisted,1);
- assert.match(h.status,/OpenRouter: network unavailable/);
- assert.match(h.status,/прямые подключения доступны/);
+ await assert.rejects(()=>h.loadModels(true),/network unavailable/);
+ assert.deepEqual(h.models,[],'direct providers are never represented as catalog-verified zero price');
+ assert.deepEqual(h.selections,saved,'manual selections must not silently change');
+ assert.equal(h.filled,0);
+ assert.equal(h.persisted,0);
+ assert.match(h.status,/network unavailable/);
 });
-test('Only actually zero-price catalog entries are accepted alongside opted-in providers',async()=>{
+test('Catalog accepts only verified zero-price OpenRouter entries, excluding unverified direct providers',async()=>{
  const response={ok:true,json:async()=>({data:[
   {id:'bad/paid:free',name:'paid despite suffix',pricing:{prompt:'0.1',completion:'0'}},
   {id:'bad/unknown:free',name:'missing rate',pricing:{prompt:null,completion:'0'}},
+  {id:'bad/no-suffix',name:'not explicitly free',pricing:{prompt:'0',completion:'0'}},
   {id:'good/free:free',name:'free',pricing:{prompt:'0',completion:'0'},architecture:{output_modalities:['text']}}
  ]})};
  const h=registry(async()=>response,[DIRECT]);
  const found=await h.loadModels(true);
- assert.deepEqual(found.map(x=>x.id),['good/free:free',DEEPSEEK]);
+ assert.deepEqual(found.map(x=>x.id),['good/free:free']);
  assert.doesNotMatch(h.status,/OpenRouter:/);
+ assert.equal(h.filled,1);
+ assert.equal(h.persisted,1);
 });
 test('No direct providers and failed OpenRouter catalog remains a real error',async()=>{
  const h=registry(async()=>{throw new Error('network unavailable');});

@@ -12,6 +12,8 @@
 ## Grading and ranking
 
 - Default: deterministic per-model success/attempt metrics, with NO evaluation API calls.
+- Rankings may be filtered by current Council role: UX, product/strategy, engineering, and synthesizer. Overall comparisons are not substituted for cross-task calibrated benchmarks.
+- Grade keys bind a stable round timestamp, answer role and text fingerprint; removing an earlier round cannot transfer a grade to a different answer. An edited answer invalidates its old grade.
 - Only after explicit consent to sharing public/non-sensitive question + response excerpts with another free OpenRouter model, "Evaluate 6 answers" makes ONE strict-free request for up to six ungraded responses. The judge receives anonymized model identities and never scores its own answers. No paid fallback.
 - Five quality dimensions (0–10): relevance 25%, specificity 25%, completeness 20%, evidence honesty 20%, clarity 10%. Invalid, missing, duplicated JSON grades are rejected; no partial save.
 - Conservative composite: 0.8 * (sum(quality) + 3*5)/(rated_count + 3) + 0.2 * 10 * (successful_calls + 1)/(attempted_calls + 2). Fewer than five graded answers are labeled as a small sample.
@@ -20,6 +22,7 @@
 ## Schedule and privacy
 
 - Cadence: Manual (default), Daily, Weekly. Automatic checks only occur when the browser is open with a validated personal OpenRouter key, verified free model catalog, qualifying answers and consent. No independent overnight Vercel cron or locked-phone execution.
+- The due check runs after new Council questions or site audits and when a visible browser tab regains focus, not in a sleeping tab or a true background cron.
 - One free judge request per due attempt, with no unbounded retries. Every request goes through existing strict-free validation and quota halts.
 - Never enable this for confidential client, health or privileged material. Prompt injection in question/answer excerpts remains untrusted input.
 - The monitor has no server sync, payment, account mutation, Telegram delivery or deployment functions.

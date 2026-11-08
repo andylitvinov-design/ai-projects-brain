@@ -139,7 +139,7 @@
    }catch(e){round.synthesisStatus='error';round.synthesisError=String(e.message||e);}finally{round.synthesisDurationMs=Date.now()-synthesisStart;}
    persistRound();
   }catch(e){setError(tt('auditError')+String(e.message||e));status.textContent=tt('auditError')+String(e.message||e);}
-  finally{busy=false;scanning=false;btn.disabled=false;el('sendButton').disabled=false;renderSidebar();}
+  finally{busy=false;scanning=false;btn.disabled=false;el('sendButton').disabled=false;renderSidebar();globalThis.AICouncilModelMonitor?.maybeRun();}
  }
  el('auditSiteButton').onclick=runAudit;
  renderLang();

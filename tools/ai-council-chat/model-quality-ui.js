@@ -16,10 +16,12 @@
  function save(){try{localStorage.setItem(STORE,JSON.stringify(settings));return true;}catch{status(word('Ошибка сохранения рейтинга в этом браузере','Could not save ratings in this browser'));return false;}}
  function status(text){const n=el('qualityMessage');if(n)n.textContent=text;}
  function snapshot(){
-  const items=core.records(ctx?.getState()?.threads||[]),allowed=new Set(items.map(item=>item.id));
+  const all=core.records(ctx?.getState()?.threads||[]),allowed=new Set(all.map(item=>item.id));
   let pruned=false;
   for(const id of Object.keys(settings.grades))if(!allowed.has(id)){delete settings.grades[id];pruned=true;}
   if(pruned)save();
+  const role=el('qualityRole')?.value||'all';
+  const items=all.filter(item=>role==='all'||(role==='synthesis'?item.kind==='synthesis':item.kind==='review'&&String(item.role)===role));
   return {items,rows:core.summary(items,settings.grades)};
  }
  function refresh(){
@@ -85,6 +87,9 @@
   el('qualityExport').onclick=download;
   el('qualityConsent').onchange=event=>{settings.consent=!!event.target.checked;save();refresh();maybeRun();};
   el('qualityCadence').onchange=event=>{settings.cadence=event.target.value;save();refresh();maybeRun();};
+  el('qualityRole').onchange=()=>refresh();
+  window.addEventListener('focus',maybeRun);
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')maybeRun();});
   refresh();maybeRun();
  }
  g.AICouncilModelMonitor={init,refresh,maybeRun};
