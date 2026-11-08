@@ -10,6 +10,9 @@ on:
       - 'tools/ai-council-chat/tests/strict-free-regression.test.mjs'
       - 'tools/ai-council-chat/index.html'
       - 'tools/ai-council-chat/telegram-share.js'
+      - 'tools/ai-council-chat/model-quality-core.js'
+      - 'tools/ai-council-chat/model-quality-ui.js'
+      - 'tools/ai-council-chat/tests/model-quality.test.mjs'
       - '.github/workflows/ai-council-spec-tests.yml'
   push:
     paths:
@@ -23,6 +26,9 @@ on:
       - 'tools/ai-council-chat/telegram-share.js'
       - 'tools/ai-council-chat/review-health.js'
       - 'tools/ai-council-chat/tests/spec.test.mjs'
+      - 'tools/ai-council-chat/model-quality-core.js'
+      - 'tools/ai-council-chat/model-quality-ui.js'
+      - 'tools/ai-council-chat/tests/model-quality.test.mjs'
       - '.github/workflows/ai-council-spec-tests.yml'
   workflow_dispatch:
 permissions:
@@ -41,8 +47,10 @@ jobs:
           node --check tools/ai-council-chat/spec.js
           node --check tools/ai-council-chat/opencode-manual.js
           node --check tools/ai-council-chat/app.js
+          node --check tools/ai-council-chat/model-quality-core.js
+          node --check tools/ai-council-chat/model-quality-ui.js
           node --check tools/ai-council-chat/safety.js
           node --check tools/ai-council-chat/telegram-share.js
       - name: Run specification regression tests
-        run: node --test tools/ai-council-chat/tests/spec.test.mjs tools/ai-council-chat/tests/opencode-manual.test.mjs tools/ai-council-chat/tests/telegram-share.test.mjs tools/ai-council-chat/tests/strict-free-regression.test.mjs
+        run: node --test tools/ai-council-chat/tests/spec.test.mjs tools/ai-council-chat/tests/opencode-manual.test.mjs tools/ai-council-chat/tests/telegram-share.test.mjs tools/ai-council-chat/tests/strict-free-regression.test.mjs tools/ai-council-chat/tests/model-quality.test.mjs
 

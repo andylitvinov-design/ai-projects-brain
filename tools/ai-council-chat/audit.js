@@ -132,13 +132,14 @@
      persistRound();return;
    }
    const opinions=successes.map((a,i)=>'REVIEWER '+a.model+(a.sharedRequest?' (one provider shared between role sections; NOT independent models)':'')+'; detail quality '+JSON.stringify(a.specificity)+':\n'+a.text.slice(0,12000)).join('\n\n');
+   const synthesisStart=Date.now();
    try{
-    round.synthesis=await modelRequest(state.models[3],[{role:'system',content:Quality.synthesisPrompt(state.lang,true)},{role:'user',content:'TASK:\n'+q+'\nSCAN SUMMARY: '+JSON.stringify(data.summary).slice(0,2800)+'\n\nDETERMINISTIC HTTP/HTML FINDINGS (candidate fixes to validate):\n'+appendix.slice(0,8500)+'\n\nFULL REVIEWER FINDINGS:\n'+opinions}],{maxTokens:4900,temperature:0.17,timeoutMs:130000});
+    round.synthesis=await modelRequest(state.models[3],[{role:'system',content:Quality.synthesisPrompt(state.lang,true)},{role:'user',content:'TASK:\n'+q+'\nSCAN SUMMARY: '+JSON.stringify(data.summary).slice(0,2800)+'\n\nDETERMINISTIC HTTP/HTML FINDINGS (candidate fixes to validate):\n'+appendix.slice(0,8500)+'\n\nFULL REVIEWER FINDINGS:\n'+opinions}],{maxTokens:4900,temperature:0.17,timeoutMs:130000,onRequestDispatched:()=>{round.synthesisRequestDispatched=true;},onResponseEvidence:e=>{round.synthesisEvidence={provider:e.provider,requested_model:e.requested_model,reported_model:e.reported_model,reported_cost:e.reported_cost};}});
     round.synthesisStatus='ok';round.synthesisQuality=Quality.scoreSpecificity(round.synthesis);
-   }catch(e){round.synthesisStatus='error';round.synthesisError=String(e.message||e);}
+   }catch(e){round.synthesisStatus='error';round.synthesisError=String(e.message||e);}finally{round.synthesisDurationMs=Date.now()-synthesisStart;}
    persistRound();
   }catch(e){setError(tt('auditError')+String(e.message||e));status.textContent=tt('auditError')+String(e.message||e);}
-  finally{busy=false;scanning=false;btn.disabled=false;el('sendButton').disabled=false;renderSidebar();}
+  finally{busy=false;scanning=false;btn.disabled=false;el('sendButton').disabled=false;renderSidebar();globalThis.AICouncilModelMonitor?.maybeRun();}
  }
  el('auditSiteButton').onclick=runAudit;
  renderLang();

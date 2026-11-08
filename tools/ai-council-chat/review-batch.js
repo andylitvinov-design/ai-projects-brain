@@ -38,7 +38,10 @@
   const map=new Map();
   answers.forEach((a,i)=>{const key=a.model||'__missing_'+i;if(!map.has(key))map.set(key,[]);map.get(key).push(i);});
   const tasks=[...map.entries()].map(async([model,indices])=>{
-   const groups=indices.length>1,optionsForCall={...options,maxTokens:groups?Math.max(3400,Math.min(5400,indices.length*2400)):options.maxTokens};
+   const groups=indices.length>1,optionsForCall={...options,maxTokens:groups?Math.max(3400,Math.min(5400,indices.length*2400)):options.maxTokens,
+    onRequestDispatched:e=>{indices.forEach(i=>{answers[i].requestDispatched=true;});options.onRequestDispatched?.(e);},
+    onResponseEvidence:e=>{indices.forEach(i=>{answers[i].responseEvidence={provider:e.provider,requested_model:e.requested_model,reported_model:e.reported_model,reported_cost:e.reported_cost,reported_zero_cost_verified:e.reported_zero_cost_verified===true};});options.onResponseEvidence?.(e);}};
+   const startedAt=Date.now();
    if(groups)indices.forEach(i=>{answers[i].sharedRequest=true;answers[i].sharedRoles=indices.length;});
    try{
     const prepared=indices.map(i=>makeMessages(answers[i],i));
@@ -58,7 +61,7 @@
     }
    }catch(e){
     indices.forEach(i=>{answers[i].status='error';answers[i].error=String(e?.message||e);});
-   }finally{onUpdate?.();}
+   }finally{indices.forEach(i=>{answers[i].durationMs=Date.now()-startedAt;});onUpdate?.();}
   });
   await Promise.allSettled(tasks);
   return answers;
