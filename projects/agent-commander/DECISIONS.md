@@ -10,3 +10,8 @@
 **Write-back strategy:** updates to durable memory require reviewed GitHub changes. Automatic unsupervised writes are not enabled in this phase. Separate privacy/authorization design is needed before private task context can be persisted.
 
 **Costs:** no new paid services, vector store, background sync process or polling job.
+
+
+## 2026-11-07 · Agent-friendly compact context / CSP fix
+
+Put `START_HERE.md` first in the allowlisted project capsule; include `TASK_CONTEXT.md`, `OPERATIONS.md`, `RISKS.md` as source-linked read-only facts. Avoid duplicate memory DB or API keys. To read public `raw.githubusercontent.com` documents in a CSP-protected UI, add only that exact origin to `connect-src`, preserving existing security/Google SSO directives. This is a source-level decision; deployed behavior requires independently observed browser proof.
