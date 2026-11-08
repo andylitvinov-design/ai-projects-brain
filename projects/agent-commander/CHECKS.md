@@ -1,13 +1,18 @@
 # Agent Commander — Checks
 
+> 🧭 [Карта всей базы](../../index.md) · [Проектный диспетчер](../index.md) · [Быстрый старт Commander](START_HERE.md).  
+> **Связанный контекст:** [STATE.md](STATE.md) · [CODEX_BRIEF.md](CODEX_BRIEF.md) · [RISKS.md](RISKS.md) · [LOG.md](LOG.md).
+
 ## Source tests
+
+Original code and test files live in [books/ops/pr-monitor/tests](https://github.com/andylitvinov-design/books/tree/codex/bootstrap-books/ops/pr-monitor/tests); follow [CODEX_BRIEF.md](CODEX_BRIEF.md) and [risk holds](RISKS.md).
 ```bash
 node --test ops/pr-monitor/tests/commander-memory.test.mjs ops/pr-monitor/tests/commander-shell.test.mjs
 ```
 Execute from `books` repository root on the actual candidate HEAD. Broader required CI still applies.
 
 ## Manual mobile checks
-- /memory.html on iPhone widths 320, 390, 430: list, search, project selection, file preview, clipboard and "add to task".
+- [Memory page](https://holistic-house-pr-monitor.vercel.app/memory.html) on iPhone widths 320, 390, 430: list, search, project selection, file preview, clipboard and "add to task".
 - Unknown slug / 404 capsule / GitHub rate-limit / offline: explicit error; no fictitious state.
 - Open "Создать", type task, select memory, analyze, explicitly append Brain context, copy/transfer to protected editor.
 - Verify source links, no script/html injection and no private data; edits after fetch must not be silently overwritten.

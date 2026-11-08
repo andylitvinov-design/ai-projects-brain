@@ -1,5 +1,8 @@
 # Agent Commander — Project Passport
 
+> 🧭 [Карта всей базы](../../index.md) · [Проектный диспетчер](../index.md) · [Быстрый старт Commander](START_HERE.md).  
+> **Связанный контекст:** [START_HERE.md](START_HERE.md) · [STATE.md](STATE.md) · [SYSTEM_MAP.md](SYSTEM_MAP.md) · [TASK_CONTEXT.md](TASK_CONTEXT.md) · [DECISIONS.md](DECISIONS.md).
+
 - **project_key:** `agent-commander`
 - **type:** infra
 - **Purpose:** mobile agent command center: tasks, PR monitoring, project memory and controlled handoffs.
@@ -16,12 +19,12 @@
 2. Task intake: text/voice, editing and structured executor prompt with measurable acceptance criteria.
 3. GitHub PR → checks → merge → deployment → functional LIVE monitoring with evidence.
 4. Project memory browser that reads only the selected public capsule from AI Projects Brain, inserts source-linked context, and never treats memory as executable instruction.
-5. Future stage: trusted owner-only task execution and auditable write-back, only after separate authorization, verification and release.
+5. Future stage: trusted owner-only task execution and auditable write-back, only after separate authorization, verification and release; see [TASK_CONTEXT.md](TASK_CONTEXT.md) and [RISKS.md](RISKS.md).
 
 ## Agent Entry
 Trigger words: Agent Commander, командир агентов, PR Monitor, управление агентами, командный центр, PR очередь.
 
-Read in order: `STATE.md` → `PROJECT.md` → `SYSTEM_MAP.md` → `DECISIONS.md` → `CHECKS.md` → `CODEX_BRIEF.md`.
+Read in order: [STATE.md](STATE.md) → [PROJECT.md](PROJECT.md) → [SYSTEM_MAP.md](SYSTEM_MAP.md) → [DECISIONS.md](DECISIONS.md) → [CHECKS.md](CHECKS.md) → [CODEX_BRIEF.md](CODEX_BRIEF.md).
 Use `books/AGENTS.md` and the global `systems/pr-one-publish-standard.md` before any PR.
 Never confuse code merged to control branch with a completed manual Vercel release.
 
