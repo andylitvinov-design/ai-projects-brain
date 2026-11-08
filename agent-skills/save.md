@@ -118,6 +118,10 @@ Episodic memory should normally produce a derived procedural or semantic rule. D
 
 ---
 
+## Proactive conversation capture
+
+Proactive conversation capture is **an invitation to review a concise proposed memory update**, not automatic publication of every strong signal. See [conversation memory routing](../agent-memory/topics/memory-system.md). The scoring below identifies useful lessons; it does not override privacy, owner approval, GitHub write permissions, or Commander’s reviewed write-back boundary. On an explicit authorized `/save`, use the normal upsert procedure, report the exact resulting file or PR, and do not claim success before verification.
+
 ## When this skill is triggered
 
 Run this skill when the user explicitly writes one of these commands or phrases:

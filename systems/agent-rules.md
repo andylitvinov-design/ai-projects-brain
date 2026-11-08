@@ -1,5 +1,9 @@
 # Agent Rules
 
+## Proactive conversation-to-project memory (owner-approved 2026-11-08)
+
+When a voice/text dialogue contains a durable business idea, decision, repeated correction, task or constraint, proactively offer **one concise grouped memory proposal** at a natural milestone. Route through [conversation memory routing](../agent-memory/topics/memory-system.md) and the existing [`/save` lifecycle](../agent-skills/save.md). Verify project_key and approval status; never confuse a suggested write with a completed GitHub commit. This public repo must not contain private transcripts, customer data or secrets. No new database, background recording, automatic unsafe write or unapproved merge.
+
 ## Mandatory PR admission contract — GLOBAL_PR_ONE_PUBLISH_V1
 
 For **every** owned project (not only Holistic House), every coding agent, GitHub connector, Codex/Claude/Hermes executor or ChatGPT prompt that creates or edits a PR **must first read** [systems/pr-one-publish-standard.md](pr-one-publish-standard.md). Stage cohesive source, tests, docs and local checks *before opening the PR*; create one complete published HEAD, freeze it while exact-HEAD CI runs, and batch evidence-based repairs. No no-op CI wakes, unsafe check suppression or additional paid services. For non-PR work mark N/A. The target repo's stricter security/release controls continue to apply.
