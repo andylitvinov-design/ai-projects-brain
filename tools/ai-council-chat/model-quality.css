@@ -1,0 +1,29 @@
+/* Quality dashboard: same neutral editorial treatment as AI Council. */
+.sidebar-quality{display:block;width:100%;padding:12px 15px;border:1px solid rgba(111,78,67,.18);background:transparent;border-radius:12px;text-align:left;font:inherit;cursor:pointer;margin:10px 0;color:inherit}
+.sidebar-quality:hover{background:rgba(120,85,70,.07)}
+.quality-top-button{border:1px solid rgba(111,78,67,.25);border-radius:50%;width:37px;height:37px;background:transparent;color:inherit;font-size:19px;cursor:pointer}
+.quality-dialog{width:min(720px,calc(100vw - 20px));max-width:720px;max-height:min(90dvh,900px);overflow:auto;border:1px solid rgba(111,78,67,.25);border-radius:19px;padding:22px;background:#fbf8f3;color:#29201d;box-shadow:0 30px 70px #0005}
+.quality-dialog::backdrop{background:rgba(25,20,20,.58)}
+.quality-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.quality-dialog h2{font:600 clamp(24px,4vw,31px)/1.2 Georgia,serif;margin:0}
+.quality-hint{font-size:13px;line-height:1.5;color:#625b55;margin:11px 0 16px}
+.quality-control-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.quality-control-row label{font-size:13px;font-weight:600}
+.quality-control-row select{padding:8px 12px;background:#fff;border-radius:10px;border:1px solid #d7cfc6;min-width:160px}
+.quality-consent{display:flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.45;padding:10px;border:1px solid #ded5cb;border-radius:11px;background:#fff}
+.quality-consent input{margin-top:3px}
+.quality-actions{display:flex;gap:9px;margin:14px 0;flex-wrap:wrap}
+.quality-actions button{padding:10px 12px;border-radius:10px;border:1px solid #9b8580;background:#fff;color:#552c34;font:inherit;cursor:pointer}
+.quality-actions button:first-child{background:#742c42;color:#fff;border-color:#742c42}
+.quality-actions button:disabled{opacity:.45;cursor:not-allowed}
+.quality-status{font-size:13px;padding:8px 0;color:#625b55;line-height:1.45}
+.quality-ranking{display:grid;gap:10px;margin:16px 0}
+.quality-model-row{border:1px solid #ded5cb;border-radius:12px;padding:12px 14px;background:#fff;overflow-wrap:anywhere}
+.quality-model-head{display:flex;gap:10px;justify-content:space-between;align-items:center;font-size:14px}
+.quality-model-score{font-size:19px;color:#742c42;white-space:nowrap}
+.quality-model-meta{font-size:12px;color:#6b5c54;margin:7px 0 0;line-height:1.5}
+.quality-model-detail{margin-top:10px;font-size:12px;line-height:1.5}
+.quality-model-detail summary{cursor:pointer;color:#742c42}
+.quality-model-detail p{border-top:1px solid #eae4dd;padding-top:9px}
+.quality-empty{padding:24px;text-align:center;color:#6b5c54}
+@media(max-width:520px){.quality-dialog{padding:15px;max-height:95dvh}.quality-top-button{width:34px;height:34px}.quality-actions button{flex:1;min-width:130px}}

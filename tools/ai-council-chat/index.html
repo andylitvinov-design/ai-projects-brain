@@ -6,7 +6,7 @@
 <meta name="color-scheme" content="light"/>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://openrouter.ai https://generativelanguage.googleapis.com https://api.mistral.ai https://integrate.api.nvidia.com; img-src 'self' data: https://s.wordpress.com https://s0.wp.com https://holistichouse.vercel.app; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
 <title>AI Council | Holistic House</title>
-<link rel="icon" href="./icon.svg" type="image/svg+xml"/><link rel="manifest" href="./manifest.webmanifest"/><link rel="stylesheet" href="./styles.css"/><link rel="stylesheet" href="./house-theme.css"/>
+<link rel="icon" href="./icon.svg" type="image/svg+xml"/><link rel="manifest" href="./manifest.webmanifest"/><link rel="stylesheet" href="./styles.css"/><link rel="stylesheet" href="./house-theme.css"/><link rel="stylesheet" href="./model-quality.css"/>
 </head>
 <body>
 <div class="app-shell">
@@ -14,12 +14,13 @@
  <div class="brand"><div class="logo" aria-hidden="true"><img src="./icon.svg" alt=""/></div><div class="brand-copy"><a class="brand-house" href="https://holistichouse.vercel.app" target="_blank" rel="noopener noreferrer">Holistic House</a><strong>AI Council</strong><span id="brandSubtitle">Совет независимых ИИ</span></div><button id="closeSidebar" class="icon-button sidebar-close" aria-label="Закрыть">✕</button></div>
  <button class="new-button" id="newThread">＋ <span data-i18n="new">Новый диалог</span></button>
  <a class="sidebar-automations" href="https://holistichouse.vercel.app/admin/automations" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> <span data-i18n="automations">Автоматизации</span></a>
+ <button id="qualityButton" type="button" class="sidebar-quality">★ Рейтинг моделей</button>
  <div class="sidebar-label" data-i18n="history">ИСТОРИЯ</div><div id="threadList" class="thread-list"></div>
  <div class="side-bottom"><div class="free-mark"><span class="free-dot"></span><span data-i18n="free">Только бесплатные модели</span></div><button id="settingsButton" class="settings-link">⚙ <span data-i18n="settings">Модели и подключение</span></button><a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer" class="small-link">OpenRouter ↗</a></div>
 </aside>
 <div id="overlay" class="overlay hidden"></div>
 <main class="main">
- <header class="topbar"><div class="top-left"><button id="menuButton" class="icon-button menu" aria-label="Открыть меню">☰</button><span class="top-logo" aria-hidden="true"><img src="./icon.svg" alt=""/></span><div><span class="top-house">Holistic House</span><b>AI Council</b><small data-i18n="subtitle">Несколько взглядов. Один вывод.</small></div></div><div class="top-actions"><a class="top-automations" href="https://holistichouse.vercel.app/admin/automations" target="_blank" rel="noopener noreferrer" data-i18n="automations">Автоматизации</a><span class="free-pill"><span class="free-dot"></span> FREE</span><button id="langButton" class="lang-button" aria-label="Change language">EN</button><button id="topSettings" class="icon-button" title="Настройки">⚙</button></div></header>
+ <header class="topbar"><div class="top-left"><button id="menuButton" class="icon-button menu" aria-label="Открыть меню">☰</button><span class="top-logo" aria-hidden="true"><img src="./icon.svg" alt=""/></span><div><span class="top-house">Holistic House</span><b>AI Council</b><small data-i18n="subtitle">Несколько взглядов. Один вывод.</small></div></div><div class="top-actions"><a class="top-automations" href="https://holistichouse.vercel.app/admin/automations" target="_blank" rel="noopener noreferrer" data-i18n="automations">Автоматизации</a><span class="free-pill"><span class="free-dot"></span> FREE</span><button id="langButton" class="lang-button" aria-label="Change language">EN</button><button id="qualityTopButton" type="button" class="quality-top-button" title="Рейтинг моделей" aria-label="Рейтинг моделей">★</button><button id="topSettings" class="icon-button" title="Настройки">⚙</button></div></header>
  <div class="content-scroll" id="contentScroll">
   <div class="content-inner">
   <section id="welcome" class="welcome">
@@ -177,6 +178,17 @@
   <p class="provider-danger">Важно: приложение может проверить ключ, но не может определить, подключена ли оплата в аккаунте Google/Mistral/NVIDIA. Выбирай только бесплатный или пробный проект без оплаты. Ключи Google/Mistral отправляются напрямую провайдерам. Ключ NVIDIA с твоего согласия проходит через сервер AI Council во время запроса и там не сохраняется. Muse Wonder в бесплатный режим не включён: через OpenRouter он платный.</p>
 </section><div class="dialog-foot"><span data-i18n="privacy">История и выбор моделей сохраняются в этом браузере. При включении «Запомнить» API-ключ тоже остаётся на этом устройстве.</span><button id="doneSettings" class="primary-button" data-i18n="done">Готово</button></div>
 </dialog>
+<dialog id="qualityDialog" class="quality-dialog" aria-labelledby="qualityTitle">
+ <div class="quality-dialog-head"><h2 id="qualityTitle">★ Рейтинг моделей / Model quality</h2><button type="button" id="qualityClose" class="icon-button" aria-label="Close">✕</button></div>
+ <p class="quality-hint">История и рейтинг сохраняются только в этом браузере. Оценка другого ИИ не доказывает правильность ответа. / Browser-local model opinion, not fact verification.</p>
+ <p id="qualitySummary" class="quality-status" role="status"></p>
+ <div class="quality-control-row"><label for="qualityCadence">Проверка / Schedule</label><select id="qualityCadence"><option value="manual">Вручную / Manual</option><option value="daily">Ежедневно / Daily</option><option value="weekly">Еженедельно / Weekly</option></select></div>
+ <label class="quality-consent"><input id="qualityConsent" type="checkbox"/><span>Я разрешаю отправлять вопросы и ответы другому бесплатному ИИ для оценки. Только публичные материалы, без клиентских или медицинских данных. / I consent to share non-sensitive prompts and answers with a distinct free model for grading.</span></label>
+ <div class="quality-actions"><button type="button" id="qualityRun">Оценить до 6 ответов / Grade up to 6</button><button type="button" id="qualityExport">Экспорт CSV / Export</button></div>
+ <p id="qualityMessage" class="quality-status" role="status" aria-live="polite"></p><p id="qualityLast" class="quality-status"></p>
+ <div id="qualityRanking" class="quality-ranking" role="list"></div>
+ <p class="quality-hint">Автопроверка срабатывает только при открытом приложении и подтверждённом бесплатном API. На закрытом телефоне ночью не работает. Каждая оценка расходует один запрос бесплатной квоты.</p>
+</dialog>
 <script src="./quality.js" defer></script>
 <script src="./safety.js" defer></script>
 <script src="./external-providers.js" defer></script>
@@ -184,7 +196,9 @@
 <script src="./review-batch.js" defer></script>
 <script src="./telegram-share.js" defer></script>
 <script src="./opencode-manual.js" defer></script>
+<script src="./model-quality-core.js" defer></script>
 <script src="./app.js" defer></script>
+<script src="./model-quality-ui.js" defer></script>
 <script src="./audit.js" defer></script>
 <script src="./spec.js" defer></script>
 <script src="./recovery.js" defer></script>

@@ -337,6 +337,7 @@ async function performSafeCouncilRequest(model,messages,options,version,keyAtQue
  const maxTokens=Math.max(800,Math.min(5500,Number(options.maxTokens)||2300));
  const temperature=Number.isFinite(options.temperature)?options.temperature:0.3;
  countCall();
+ options.onRequestDispatched?.({provider:'openrouter',requested_model:model});
  let response;
  try{
    response=await timeoutFetch(API+'/chat/completions',{
@@ -360,11 +361,11 @@ async function performSafeCouncilRequest(model,messages,options,version,keyAtQue
  let text=typeof msg?.content==='string'?msg.content:Array.isArray(msg?.content)?msg.content.filter(x=>x.type==='text').map(x=>x.text).join('\n'):'';
  if(!text.trim())throw new Error('Empty model response');
  if(out.choices?.[0]?.finish_reason==='length')text+='\n\n[OUTPUT LIMIT: response was truncated; verify original evidence.]';
- options.onResponseEvidence?.({provider:'openrouter',requested_model:model,reported_model:out.model,reported_cost:out.usage.cost,reported_zero_cost_verified:true,model_identity_verified:true});
+ options.onResponseEvidence?.({provider:'openrouter',requested_model:model,reported_model:out.model,reported_cost:out.usage.cost,reported_zero_cost_verified:true,model_identity_verified:true,prompt_tokens:Number.isFinite(out.usage.prompt_tokens)?out.usage.prompt_tokens:null,completion_tokens:Number.isFinite(out.usage.completion_tokens)?out.usage.completion_tokens:null});
  return text.trim();
 }
 function historyContext(th){return (th.rounds||[]).slice(-3).map(r=>'Question: '+r.question.slice(0,2000)+'\nCombined response: '+(r.synthesis||'').slice(0,2400)).join('\n\n').slice(0,8000);}
-function persistRound(){persist();renderMessages();renderModelStatus();scrollBottom();const last=current()?.rounds?.at(-1);if(last)void globalThis.AICouncilTelegram?.maybeAutoSend(last,persist);}
+function persistRound(){persist();globalThis.AICouncilModelMonitor?.refresh();renderMessages();renderModelStatus();scrollBottom();const last=current()?.rounds?.at(-1);if(last)void globalThis.AICouncilTelegram?.maybeAutoSend(last,persist);}
 async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)return;if(!key&&!globalThis.AICouncilExternalProviders?.models()?.length){openSettings();return;}
  busy=true;el('sendButton').disabled=true;setQuickButtonsBusy(true);setError('');
  try{
@@ -387,7 +388,8 @@ async function ask(){if(busy)return;const q=el('question').value.trim();if(!q)re
    persistRound();return;
   }
   const detail=ok.map(x=>'MODEL '+x.model+(x.sharedRequest?' (shared model call, NOT an independent AI provider)':'')+':\n'+x.text.slice(0,5600)).join('\n\n');
-  try{round.synthesis=await modelRequest(state.models[3],[{role:'system',content:globalThis.AICouncilQuality?.synthesisPrompt(state.lang,false)||'Combine independent reviews. Preserve each concrete detail, differences and verification.'},{role:'user',content:'Original question:\n'+q+'\n\nIndependent model responses:\n'+detail}],{maxTokens:4300,temperature:0.2});round.synthesisStatus='ok';}catch(e){round.synthesisStatus='error';round.synthesisError=e.message||'Unknown error';}
+  const synthesisStart=Date.now();
+  try{round.synthesis=await modelRequest(state.models[3],[{role:'system',content:globalThis.AICouncilQuality?.synthesisPrompt(state.lang,false)||'Combine independent reviews. Preserve each concrete detail, differences and verification.'},{role:'user',content:'Original question:\n'+q+'\n\nIndependent model responses:\n'+detail}],{maxTokens:4300,temperature:0.2,onRequestDispatched:()=>{round.synthesisRequestDispatched=true;},onResponseEvidence:e=>{round.synthesisEvidence={provider:e.provider,requested_model:e.requested_model,reported_model:e.reported_model,reported_cost:e.reported_cost};}});round.synthesisStatus='ok';}catch(e){round.synthesisStatus='error';round.synthesisError=e.message||'Unknown error';}finally{round.synthesisDurationMs=Date.now()-synthesisStart;}
   persistRound();
  }catch(err){setError(err.message||t('sendFailed'));}finally{busy=false;el('sendButton').disabled=false;setQuickButtonsBusy(false);renderSidebar();renderModelStatus();}}
 function startOpenCodeOnly(){
@@ -408,7 +410,7 @@ function bind(){el('newThread').onclick=()=>{if(busy)return;state.active=null;pe
  };el('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask();}});el('question').addEventListener('input',e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,180)+'px';});document.querySelectorAll('[data-quick-id]').forEach(b=>{b.onclick=()=>runQuickPrompt(b.dataset.quickId);});el('settingsDialog').addEventListener('click',e=>{if(e.target===el('settingsDialog'))closeSettings();});}
 async function init(){bind();
  globalThis.AICouncilExternalProviders?.init({getRemember:()=>state.remember,refresh:()=>loadModels(true),error:setError,lang:()=>state.lang,chooseEngineeringModel,onProbe:renderModelStatus,isEngineeringModel:id=>state.models[2]===id});
- persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();globalThis.AICouncilExternalProviders?.preferDeepSeekEngineering?.();}catch{}renderAll();const connectMode=new URLSearchParams(location.search).get('connect');
+ persist();renderAll();await finishOAuth();if(key&&connectionStatus==='unverified')await verifyConnection();try{await loadModels();globalThis.AICouncilExternalProviders?.preferDeepSeekEngineering?.();}catch{}renderAll();globalThis.AICouncilModelMonitor?.init({getState:()=>state,request:modelRequest,models:()=>freeModels,isFreeModel:m=>globalThis.AICouncilSafety?.isFreeModel(m)===true,isBusy:()=>busy,hasKey:()=>!!key&&connectionStatus==='valid'});const connectMode=new URLSearchParams(location.search).get('connect');
  if(connectMode==='deepseek')openNvidiaSetup();
  else if(!key&&connectMode==='1')openSettings();}
 init();
