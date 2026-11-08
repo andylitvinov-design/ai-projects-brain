@@ -1,5 +1,9 @@
 # Agent Rules
 
+## Cross-project Business Brain (2026-11-08)
+
+For business strategy, project portfolio decisions and financial-risk monitoring, read [systems/business-brain-bridge.md](business-brain-bridge.md) before collecting context. Public GitHub project capsules and the owner-gated Supabase `business_brain` schema are separate privacy boundaries, not competing databases. Only authorized agents with a connected private source may read private entries. The owner-only Edge API is deployed but Commander UI login/consumption is NOT end-to-end verified; never claim otherwise. Do not copy private data into this public repository.
+
 ## Proactive conversation-to-project memory (owner-approved 2026-11-08)
 
 When a voice/text dialogue contains a durable business idea, decision, repeated correction, task or constraint, proactively offer **one concise grouped memory proposal** at a natural milestone. Route through [conversation memory routing](../agent-memory/topics/memory-system.md) and the existing [`/save` lifecycle](../agent-skills/save.md). Verify project_key and approval status; never confuse a suggested write with a completed GitHub commit. This public repo must not contain private transcripts, customer data or secrets. No new database, background recording, automatic unsafe write or unapproved merge.
