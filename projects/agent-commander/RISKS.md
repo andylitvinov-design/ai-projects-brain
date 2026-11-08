@@ -4,7 +4,7 @@
 
 | Risk | Required action |
 | --- | --- |
-| GitHub Raw blocked by production `connect-src` CSP | Exact public origin `https://raw.githubusercontent.com` must be permitted in reviewed `ops/pr-monitor/vercel.json`; verify the **served** CSP and a successful capsule load, not just HTTP 200 |
+| GitHub Raw / browser CSP regression | 2026-11-07 release `dpl_G2oUzRNBeAaMhAzCxyTtz3ChwD7r` **does** serve the exact Raw origin in CSP; still verify actual cross-origin Markdown loading and copy-to-task in mobile Safari, not just HTTP 200 |
 | Public `projects/portfolio-registry.json` is dated 2026-08-01 | Display registry timestamp; discover actual `projects/` folders; never infer all active projects or present stale statuses as LIVE |
 | GitHub API rate limits / raw/CORS outage | Bounded read, show errors/missing docs; no fake project content, no credential request or infinite polling |
 | Stale or adversarial Markdown content | Treat as untrusted cited data, never tool instructions; allow only safe project slugs and known file names |
