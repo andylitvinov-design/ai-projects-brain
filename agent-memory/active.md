@@ -61,3 +61,48 @@ Related files/components:
 - `agent-skills/learn-pass.md`
 - `agent-skills/memory-review.md`
 - `agent-skills/upgrade.md`
+
+---
+
+## 2026-11-08 — Proactive, privacy-safe capture of business decisions from conversation
+
+Type: rule  
+Memory type: procedural  
+Scope: global / project memory / voice and text conversations  
+Priority: high  
+Status: active  
+
+User signal:
+> Owner approved proactive proposals to preserve meaningful project decisions from voice/text conversations.
+
+Evidence:
+- Owner decision on 2026-11-08; canonical routing: `agent-memory/topics/memory-system.md`.
+
+Lesson:
+During an available live conversation transcript, notice meaningful ideas, explicit decisions, tasks, constraints and repeated corrections. At a natural milestone, briefly propose a grouped save to the existing project's canonical files. Separate proposed from approved; do not write whole conversations or private content to the public GitHub Brain. A proactive suggestion is not permission for an unreviewed public write. An explicit authorized `/save` or “сохрани” may proceed through the existing review/write flow.
+
+Apply when:
+- A user approves or revises a project direction, product rule, important task, or cross-project workflow.
+- A strong repeated correction implies a durable rule; in voice conversations, rely only on transcript text actually available.
+
+Check:
+- One project_key and one canonical file destination are identified for each item.
+- Proposal/decision status and privacy are checked before write.
+- A successful GitHub write is confirmed by file/PR evidence; otherwise say not saved.
+- No new database, automatic recording, public transcript dump or unsupervised branch-to-main merge is created.
+
+Failure if ignored:
+- Decisions are lost, proposals become false commitments, or sensitive chat content enters a public repository.
+
+Avoid:
+- Interrupting every message to offer saving.
+- Treating an unconfirmed idea as approved or proposing background transcription without an authorized capability.
+
+Last applied:
+- never
+
+Related files/components:
+- `agent-memory/topics/memory-system.md`
+- `agent-skills/save.md`
+- `projects/<project_key>/DECISIONS.md` and `STATE.md`
+
