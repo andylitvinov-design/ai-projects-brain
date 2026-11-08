@@ -1,30 +1,25 @@
-# Agent Commander — State
+# Agent Commander — Current State
 
-**Snapshot:** 2026-11-07 Toronto; GitHub PR states and Vercel responses rechecked in this task. Later runs must refresh them.
+**Verification snapshot:** 2026-11-07 Toronto. This is dated evidence, not a live state API.
 
-## Verified code and source
-- `books#3864` standalone shell — merged.
-- `books#3866` iPhone dictation and task decomposition — merged.
-- `books#3872` complete PR task tree — merged.
-- `books#3875` Skills Hub — merged.
-- `books#3878` read-only Brain memory browser / task context — merged.
-- `books#3914` Google owner SSO in control branch — merged.
-- `books#3922` focused CSP GitHub Raw / compact memory documents — **open at this snapshot**, exact-head checks not yet confirmed.
+## GitHub source milestones
+- Standalone shell / dictation / PR task tree / Skills Hub / project memory merged: `books#3864`, `#3866`, `#3872`, `#3875`, `#3878`.
+- Google owner SSO source: `books#3914`, merged. Server/browser auth functionality still requires its own protected tests.
+- Brain CSP and compact capsule loader fix: [books#3922](https://github.com/andylitvinov-design/books/pull/3922), **merged**; merge SHA `0d63fcb88d26eac7be3d7392faa7085aeba42aee`.
+- Durable project-memory handbook: [ai-projects-brain#268](https://github.com/andylitvinov-design/ai-projects-brain/pull/268), **merged**.
 
-## Observed deployment / issue
-- Canonical independent project: `holistic-house-pr-monitor`, Vercel project ID `prj_qD9cWLfw4sVE0Da9nqDyZxHkqI3L`.
-- At inspection, production READY deployment: `dpl_C9gf9u9rkg4M2vWWRyuYfpyDftwr`, bound to `holistic-house-pr-monitor.vercel.app`.
-- The `/memory.html` HTML and `/commander-memory.js` returned HTTP 200. **This is NOT full functional LIVE proof.**
-- **Confirmed browser blocker:** served CSP allowed `https://api.github.com` but not `https://raw.githubusercontent.com`, while JS reads raw Markdown. CSP fix must be built/deployed and the actual document fetch verified.
-- Production currently may differ from later control-branch code (e.g., Google SSO). Preserve full last working deployment file manifest; never publish a partial source tree.
+## Verified Vercel release (HTTP/source evidence)
+- Independent project `holistic-house-pr-monitor` (`prj_qD9cWLfw4sVE0Da9nqDyZxHkqI3L`), canonical origin https://holistic-house-pr-monitor.vercel.app.
+- **Production deployment:** `dpl_G2oUzRNBeAaMhAzCxyTtz3ChwD7r` returned `READY` and listed the canonical alias.
+- **Rollback baseline:** `dpl_C9gf9u9rkg4M2vWWRyuYfpyDftwr`; source comparison: 132 old vs 132 new files, **exactly two changed**: `commander-memory.js` and `vercel.json`; no deleted/added files. Previous serverless API routes preserved in manifest.
+- Canonical `/memory.html`, `/commander-memory.js`, `/commander-memory-page.js`, `/commander-memory.css`, `/task-editor.html`, `/pr-monitor.html`, `/skills.html`, `/chats.html`, `/automations.html` returned HTTP 200.
+- **Served CSP verified:** `connect-src` explicitly allows `https://api.github.com` and `https://raw.githubusercontent.com`, while retaining existing Google SSO origins and `default-src 'none'`.
+- Public `START_HERE.md`, `TASK_CONTEXT.md` and `OPERATIONS.md` retrieved from `ai-projects-brain/main`; deployed JS lists those allowlisted filenames.
 
-## Next actions
-1. Verify #3922 exact HEAD, protected checks, review/lease and merge only when eligible.
-2. Stage complete prior READY Vercel source manifest with verified narrow config/JS overlay; no extra paid services or new cron.
-3. Check live CSP, memory search, `START_HERE.md`, source links, copy-to-task and 320/390/430 mobile.
-4. If proof passes, append dated LIVE receipt to `LOG.md` / `STATE.md`; if not, document precise blocker and retain previous deployment ID for rollback.
+## Unverified / next
+- **Physical iPhone Safari / real browser JavaScript flow** (GitHub Raw CORS fetch, select project, preview, copy, append to task, protected owner handoff) was not executed from this session. Do not mark *end-to-end functional LIVE* as proven from HTTP 200 alone.
+- Run 320/390/430 mobile smoke; ensure live project search populates; no browser console CSP/CORS errors. Check free model and protected auth independently.
+- Any new code change must go through exact-HEAD checks and separate READY/alias/user-flow proof. Do not auto-write private task history to the public memory repo.
 
-## Ownership and privacy
-- Public Brain is **read-only, non-secret** context.
-- Protected task chat stores private executor history, leases and messages; do not replicate it in public Markdown.
-- GitHub PR check runs, owner auth and Vercel production routes are independently verified for each change.
+## Safety
+Public project memory is read-only and contains no client/private data, tokens or cookies. GitHub real PR/CI and actual Vercel runtime beat dated summaries in this file.

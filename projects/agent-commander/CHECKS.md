@@ -24,3 +24,11 @@ Execute from `books` repository root on the actual candidate HEAD. Broader requi
 - Verify GitHub API/read failure shows a message, without exposing tokens/credentials; forbidden path traversal rejected.
 - Verify selected memory adds bounded references to the editable task draft without changing existing task text or auto-dispatching.
 - Node focus `node --test ops/pr-monitor/tests/commander-memory.test.mjs ops/pr-monitor/tests/commander-shell.test.mjs` on the exact candidate; preserve stricter CI.
+
+## Release receipt · 2026-11-07 Toronto
+
+- GitHub source [#3922](https://github.com/andylitvinov-design/books/pull/3922) merged, and memory docs [#268](https://github.com/andylitvinov-design/ai-projects-brain/pull/268) merged.
+- Vercel production `dpl_G2oUzRNBeAaMhAzCxyTtz3ChwD7r`: READY, canonical alias set. Baseline for rollback: `dpl_C9gf9u9rkg4M2vWWRyuYfpyDftwr`.
+- Confirmed 132/132 source paths preserved (only `vercel.json` and `commander-memory.js` differ), 200 for memory assets and main public routes, CSP allows api.github.com/raw.githubusercontent.com and preserves Google SSO hosts.
+- Public Brain `START_HERE.md`, `TASK_CONTEXT.md` and `OPERATIONS.md` retrieved at `main`.
+- **NOT YET VERIFIED:** real interactive Safari content fetch, selecting a project, inserting into prompt, accessibility/mobile, authenticated editor authorization. Do not label that flow end-to-end passed.
