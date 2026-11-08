@@ -1,5 +1,8 @@
 # Agent Commander — Current State
 
+> 🧭 [Карта всей базы](../../index.md) · [Проектный диспетчер](../index.md) · [Быстрый старт Commander](START_HERE.md).  
+> **Связанный контекст:** [PROJECT.md](PROJECT.md) · [CHECKS.md](CHECKS.md) · [RISKS.md](RISKS.md) · [LOG.md](LOG.md) (архив).
+
 **Verification snapshot:** 2026-11-07 Toronto. This is dated evidence, not a live state API.
 
 ## GitHub source milestones
@@ -17,6 +20,8 @@
 - Public `START_HERE.md`, `TASK_CONTEXT.md` and `OPERATIONS.md` retrieved from `ai-projects-brain/main`; deployed JS lists those allowlisted filenames.
 
 ## Unverified / next
+
+Follow [release checks](CHECKS.md) and [stop conditions](RISKS.md); record dated outcomes in [LOG.md](LOG.md), not in a parallel state database.
 - **Physical iPhone Safari / real browser JavaScript flow** (GitHub Raw CORS fetch, select project, preview, copy, append to task, protected owner handoff) was not executed from this session. Do not mark *end-to-end functional LIVE* as proven from HTTP 200 alone.
 - Run 320/390/430 mobile smoke; ensure live project search populates; no browser console CSP/CORS errors. Check free model and protected auth independently.
 - Any new code change must go through exact-HEAD checks and separate READY/alias/user-flow proof. Do not auto-write private task history to the public memory repo.

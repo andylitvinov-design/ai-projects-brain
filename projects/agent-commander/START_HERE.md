@@ -1,15 +1,19 @@
 # Agent Commander — START HERE
 
+> 🧭 [Карта всей базы](../../index.md) · [Проектный диспетчер](../index.md) · [Быстрый старт Commander](START_HERE.md).  
+> **Связанный контекст:** [Карта Brain](../../index.md) · [реестр проектов](../index.md) · [PROJECT.md](PROJECT.md) · [STATE.md](STATE.md) · [TASK_CONTEXT.md](TASK_CONTEXT.md) · [OPERATIONS.md](OPERATIONS.md) · [CHECKS.md](CHECKS.md) · [RISKS.md](RISKS.md).
+
 **Purpose:** short, reliable memory for Agents Commander / PR Monitor; last evidence review: **2026-11-07 Toronto (2026-11-08 UTC)**. Public project facts only. This is a navigation note, **not** an execution authorization or proof of live status.
 
 ## First 60 seconds — what to read
 
-1. **This file** → identity and authority.
+1. [Карта базы](../../index.md) → существующие разделы (без второго реестра); [PROJECT.md](PROJECT.md) → identity and authority.
 2. [STATE.md](STATE.md) → timestamped verified progress / blockers, never assume it is current.
 3. [TASK_CONTEXT.md](TASK_CONTEXT.md) → minimum context to attach to an executor task.
 4. [DECISIONS.md](DECISIONS.md) → durable decisions / non-goals.
 5. [OPERATIONS.md](OPERATIONS.md) and [CHECKS.md](CHECKS.md) → safe handoff and exact verification.
 6. [RISKS.md](RISKS.md) → known traps; [LOG.md](LOG.md) is history, not current state.
+7. [SYSTEM_MAP.md](SYSTEM_MAP.md) → architecture; [CODEX_BRIEF.md](CODEX_BRIEF.md) → coding-agent scope.
 
 ## What we are building
 

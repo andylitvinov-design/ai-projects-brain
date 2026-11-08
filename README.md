@@ -1,5 +1,7 @@
 # AI Projects Brain
 
+**Карта всех разделов:** [index.md](index.md). **Память Agent Commander:** [START_HERE.md](projects/agent-commander/START_HERE.md). Работаем поверх существующих папок, без второй базы данных.
+
 This repository is the raw-text context base for ChatGPT and Codex agents working on Andrii Litvinov's active projects.
 
 It is intentionally public and text-first so agents can read current project context through `raw.githubusercontent.com` links without GitHub authentication.
