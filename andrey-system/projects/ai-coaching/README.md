@@ -16,3 +16,14 @@ The v2 concept and technical specification now include the ten-section report, t
 **Implementation issue:** https://github.com/andylitvinov-design/books/issues/4014  
 **Coaching Intelligence parent epic:** https://github.com/andylitvinov-design/books/issues/1774  
 **Existing GROW foundation:** https://github.com/andylitvinov-design/books/pull/3980
+
+
+## Integrated delivery map
+
+- Report / My Coaching Plan implementation workstream: https://github.com/andylitvinov-design/books/issues/4014
+- Full AI Coaching Platform programme: https://github.com/andylitvinov-design/books/issues/4016
+- Codex staged execution brief: https://github.com/andylitvinov-design/books/issues/4017
+- Parent Coaching Intelligence epic: https://github.com/andylitvinov-design/books/issues/1774
+- Initial GROW implementation dependency (verify current status): https://github.com/andylitvinov-design/books/pull/3980
+
+Use #4014 for report, Life Plan, archive and specialist journey implementation. Use #4016 as the overall delivery programme and #4017 for the staged Codex execution prompt. Do not create a second report/plan implementation issue.
