@@ -1,4 +1,4 @@
-# AI Coaching — Session Report v2
+# AI Coaching — Session Report v2.2
 
 Canonical documents for the Holistic House coaching report and continuity layer.
 
@@ -11,7 +11,7 @@ The report v2 work extends the current coaching session runner and existing My C
 
 
 ## Expanded architecture
-The v2 concept and technical specification now include the ten-section report, the three-part My Coaching Plan workspace (Life Plan / Coaching Reports / Specialist Journey), eight life domains, four optional self-ratings, client-confirmed action tracking, multi-specialist routing and recipient-scoped context sharing. See the full documents above.
+The v2.2 concept and technical specification now include the ten-section report, the three-part My Coaching Plan workspace (Life Plan / Coaching Reports / Specialist Journey), eight life domains, four optional self-ratings, client-confirmed action tracking, multi-specialist routing and recipient-scoped context sharing. See the full documents above.
 
 **Implementation issue:** https://github.com/andylitvinov-design/books/issues/4014  
 **Coaching Intelligence parent epic:** https://github.com/andylitvinov-design/books/issues/1774  
