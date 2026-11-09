@@ -478,3 +478,347 @@ Feature is accepted when:
 ## 15. Handoff instruction
 
 Begin with an audit of PR #3980 and the actual current branch. This is a report and plan-continuity layer, not a rewrite of the GROW runner. Coordinate merge dependencies if #3980 is still open. Do not claim LIVE until migrations, protected CI, production deployment and a real client-side end-to-end flow are verified.
+
+
+---
+
+# 16. Expanded information architecture and My Coaching Plan implementation
+
+This implementation section incorporates the 2026-11-09 reference screenshots and the verified existing application foundation.
+
+## 16.1 Current verified application assets to reuse
+
+On branch `codex/public-book-library`, the following assets exist:
+- `app_private.personal_coaching_sessions`: owner-scoped encrypted account payload, revision-protected, accessed through `hh_app_backend`; current migration uses one row per account.
+- `lib/personal-coaching/session-pdf.js`: browser-only, multi-page A4 PDF built from the exact saved questions/answers and client-confirmed action plan; no AI/provider or server PDF upload.
+- `components/coaching-action-plan.jsx`: editable action-plan component with goal, obstacle, chosen action, timing and optional self-rated confidence. Existing copy correctly states it is not an AI diagnosis.
+- `components/app/personal-coaching.jsx`, `lib/personal-coaching/guided-session.js`, `lib/personal-coaching/offline-intelligence.js`: existing session experience/catalog and deterministic contextual follow-ups.
+- `components/client-cabinet.jsx`, `components/client-cabinet-entry.tsx`, `components/client-session-cabinet-entry.jsx`: existing cabinet/document/session entry surfaces and private report/document history.
+- `docs/coaching/SESSION_PDF_REPORT_2026-10-24.md`: established PDF privacy, date, history, guest-vs-account and mobile acceptance contract.
+- `docs/coaching/CLIENT_MEMORY_CARE_JOURNEY_V4_20261106.md`: privacy-first memory principles. It is a separate memory capability and is not to be repurposed automatically as Life Plan storage.
+
+Important distinction: the current personal-session payload and PDF preserve source answers. They are not the proposed ten-section analytical report, a longitudinal Life Plan, or a specialist routing system. Do not replace or break the existing PDF contract.
+
+## 16.2 First mandatory audit before implementation
+
+Inspect current production branch and exact source before modifying:
+1. PR #3980 actual merge/open status and current head.
+2. Current session payload serializer, encryption, optimistic revision behavior, size/retention limits and session-history read path.
+3. Existing client cabinet navigation, My Profile/ProfileDomains and report/session catalog.
+4. Current profile domain data model and whether it already stores life-domain values.
+5. Existing private memory/goal/task structures, consent and RLS. Determine whether any structure is suitable for Life Plan and whether it can be reused without overloading sensitive-memory storage.
+6. Existing practitioner directory, service catalog, consultation report and file attachment models, to avoid another specialist registry or report archive.
+7. Existing APIs and tests for PDF, account deletion/export, report corrections and private document permissions.
+
+Produce an inventory matrix: component/path, current behavior, privacy model, reusable as-is / extend / not suitable, missing behavior, test coverage. Do not claim that My Coaching Plan is implemented merely because the cabinet, personal session history or a PDF exists.
+
+## 16.3 Data architecture — source of truth and storage choice
+
+Use the following domain separation:
+- **Session source**: existing encrypted personal coaching session record, preserving exact answered questions and historical scheme version.
+- **Report snapshot**: versioned canonical report, linked to session ID and derived from source answers + client confirmations. Prefer a dedicated private report row or an existing compatible private report entity if one exists.
+- **Life Plan**: structured current-state data organized by the eight domain keys; separate from session history and report snapshots.
+- **Goals/actions/check-ins**: structured entities linked to a plan domain and source report, not hidden inside a growing opaque session blob.
+- **Specialist Journey/handoff**: ordered recommendations and recipient-scoped permission records.
+- **Attachments**: reuse existing private document/file storage, linked by ID and owner; do not copy files into report JSON.
+
+Do not automatically place the whole report archive or Life Plan into the current one-row-per-account `personal_coaching_sessions.payload_ciphertext`. Its 120,000-character constraint and revision model are designed for private session payload, not an unbounded event history or multi-entity task store. Keep session source answers in place; only extend the payload if backward-compatible and small. Reuse existing normalized private tables where appropriate. If no compatible Life Plan/report entities exist, design a minimal additive schema after the audit; do not create a duplicate system in parallel.
+
+### Logical domain schema (adapt names to actual existing database conventions)
+
+```ts
+type LifeDomainKey =
+  | 'body_health'
+  | 'emotional_wellbeing'
+  | 'relationships'
+  | 'career_business'
+  | 'finance'
+  | 'personal_growth'
+  | 'lifestyle'
+  | 'meaning_purpose';
+
+type PlanDomain = {
+  id: string;
+  key: LifeDomainKey;
+  titleKey: string;
+  currentState: ClientOwnedText | null;
+  desiredState: ClientOwnedText | null;
+  status: 'not_started' | 'active' | 'paused' | 'completed';
+  priority: number | null;
+  updatedAt: string;
+};
+
+type ClientGoal = {
+  id: string;
+  domainId: string;
+  title: string;
+  description: string | null;
+  targetState: string | null;
+  status: 'draft' | 'active' | 'paused' | 'completed' | 'archived';
+  targetDate: string | null;
+  sourceReportId: string | null;
+  clientConfirmedAt: string | null;
+};
+
+type ClientAction = {
+  id: string;
+  goalId: string;
+  title: string;
+  details: string | null;
+  role: 'start' | 'reduce_friction' | 'review';
+  dueAt: string | null;
+  trigger: string | null;
+  minimumDoneDefinition: string | null;
+  obstacle: string | null;
+  fallback: string | null;
+  status: 'proposed' | 'accepted' | 'in_progress' | 'completed' | 'blocked' | 'deferred' | 'declined';
+  sourceReportId: string | null;
+  clientConfirmedAt: string | null;
+  completedAt: string | null;
+};
+
+type PlanCheckIn = {
+  id: string;
+  domainId: string;
+  goalId: string | null;
+  indicatorKey: string;
+  questionLabel: string;
+  scaleMin: number;
+  scaleMax: number;
+  value: number | string;
+  note: string | null;
+  recordedAt: string;
+  sourceReportId: string | null;
+};
+
+type SpecialistRoute = {
+  id: string;
+  status: 'proposed' | 'client_approved' | 'active' | 'completed' | 'paused' | 'declined';
+  steps: Array<{
+    order: number;
+    specialtyKey: string;
+    outcome: string;
+    rationale: string;
+    status: 'proposed' | 'approved' | 'booked' | 'completed' | 'skipped';
+  }>;
+};
+```
+
+`ClientOwnedText` is text written by the client or explicitly confirmed by them; keep provenance and revision metadata. This schema is logical only. Map to actual existing entities before writing migrations.
+
+### Initial domain seed
+
+Show eight standard domains, but do not create eight fake populated assessments. Domains begin empty/unrated until the client creates content or answers a relevant optional self-check-in. Do not calculate an overall score from missing fields.
+
+## 16.4 Report model and exact ten-section rendering
+
+Use the ten canonical sections defined in the concept:
+1. Session Overview
+2. Initial Situation
+3. Desired Outcome
+4. Key Discoveries
+5. Main Obstacles
+6. Strengths & Resources
+7. New Perspective
+8. Decisions
+9. Action Plan
+10. Follow-up
+
+Each section maps to typed data and evidence references. The renderer omits unsupported sections or uses a neutral “not explored in this session” label when section presence is important to explain. Do not generate padding. First viewport displays overview, outcome, key insight and first accepted/proposed action.
+
+The older closeout fields map as follows:
+- short result → Overview / outcome;
+- main difficulty → Main Obstacles;
+- desired result → Desired Outcome;
+- decisions → Decisions;
+- three actions → Action Plan;
+- continued-work advice → Follow-up / Specialist Journey;
+- report → full ten-section record;
+- add to My Coaching Plan → explicit plan-update review.
+
+The old PDF remains a source-answer export. The new report can provide its own optional PDF, generated from the canonical report snapshot, without changing the old download.
+
+## 16.5 My Coaching Plan cabinet UX
+
+### Navigation
+Add one My Coaching Plan entry in the existing authenticated client profile/cabinet. Use existing account identity and access route. Inside use three tabs/areas:
+- **Life Plan** (default)
+- **Coaching Reports**
+- **Specialist Journey**
+
+Do not duplicate top-level cabinet or sign-in. Use current localization and accessible mobile components.
+
+### Empty state
+When the client has no coaching or consultation reports:
+- welcoming explanation of the service;
+- CTA to start a first coaching session;
+- optional browse/select session/coach;
+- no blank charts, zero-valued life scores, or fabricated plan entries.
+
+### Life Plan dashboard
+Mobile order:
+1. current focus and next agreed action;
+2. compact Life Wheel/domain overview (only rated/populated areas);
+3. optional habit summary (only client-selected habits);
+4. activity trend with selectable 7/30/90-day interval (only actual logged actions/check-ins);
+5. eight life-domain cards.
+
+Desktop may show a domain list plus dashboard panels side by side. Avoid a wide table on mobile.
+
+### Eight life-domain cards
+- Body & Health
+- Emotional Wellbeing
+- Relationships
+- Career & Business
+- Finance
+- Personal Growth
+- Lifestyle
+- Meaning & Purpose
+
+Each domain detail page/panel contains:
+- current state;
+- desired state;
+- goals;
+- obstacles;
+- active actions;
+- completed actions;
+- history of changes/check-ins;
+- linked reports and attachments;
+- specialist recommendations related to this domain;
+- next review date.
+
+Allow each field to be edited by the client. Domain and goal content is not required and can remain empty. Do not classify sensitive health data as ordinary memory; apply existing sensitive-data consent and private access rules.
+
+### Coaching Reports archive
+Filter by source (AI Coach / human specialist), life domain, date and report type. Each card includes date, source/persona/specialist, topic, key result, related domain tags, status and Open. Detail view has the ten-section report, related source session and linked plan items. Show old source-answer PDFs as legacy/session exports, not as analytical reports.
+
+### Specialist Journey
+Show recommended specialist sequence as cards/steps: specialist type, problem/domain, expected deliverable, rationale, status and linked report/goal. Client can approve, change order, skip or decline. No automatic booking, payment, data transfer or message is created by approval of the recommendation alone.
+
+## 16.6 Multi-domain analysis and specialist routing
+
+At report creation, generate candidate domain tags only from explicit client statements and client confirmation. A case can involve several domains; store:
+- primary domain (client selected or confirmed);
+- secondary related domains;
+- confidence/evidence source for suggestions;
+- whether the client confirmed the mapping.
+
+Then propose a small route. Example:
+- Energy Coach → practical recovery/resource plan in Body & Health;
+- Career Coach → professional direction/priorities in Career & Business;
+- Relationship Coach → communication/boundaries plan in Relationships.
+
+Rules:
+- Never make the first coach solve all domains if the scope exceeds the coach's competence.
+- Prioritize the client's stated immediate need and avoid over-routing.
+- Explain why each specialist may help and what the client should receive.
+- A route can consist of one specialist or no specialist recommendation.
+- Recommendations are not a clinical referral and do not imply diagnosis.
+- Prefer existing coaching catalog and actual published specialist profiles; never invent a provider or availability.
+- Do not imply a specialist is booked until the real booking flow confirms it.
+
+## 16.7 Consent-bound specialist handoff
+
+Implement a context-packet preview. Default fields:
+- client-selected domain and goal;
+- specific question for recipient;
+- relevant current/desired state;
+- only client-approved report conclusions/excerpts;
+- accepted actions and their current status;
+- selected files/attachments;
+- source dates and data freshness.
+
+Before any data is shared, client must select the recipient and review the exact packet. Permission is scoped by recipient, purpose and fields; log grantedAt, consent version and revocation. No blanket “all my history” handoff. The recipient receives no raw transcripts, unrelated reports, or unrelated sensitive notes. Reuse existing verified practitioner/CRM request flow if present, but do not equate a recommended route with a lead, booking, paid consultation or consent to share. If the specialist is an AI persona, follow AI-processing consent separately and don't give it human practitioner privileges.
+
+## 16.8 Four session reflection indicators
+
+The reference proposes four 0–10 client self-ratings:
+- clarity;
+- confidence in the next step;
+- readiness to act;
+- perceived control over the situation.
+
+Ask at session start and close only when suitable for the session. Same wording, same scale, same locale semantics. Each answer is self-report, not clinical measurement. Add an optional “prefer not to rate”. Report values and differences in plain language, but don't label every numerical increase as success or infer mental-health improvement.
+
+For long-term trends, compare only the same indicator key/scale over time. Use neutral charts and labels: date, value, count, window. Show gaps explicitly. No global life-quality score by default.
+
+## 16.9 Data lineage and immutability
+
+Required links:
+- session → report snapshot;
+- report → source session;
+- report → client-approved plan update;
+- goal → domain;
+- action → goal and source report;
+- check-in → domain/goal and source report;
+- specialist route step → domain/goal/report;
+- handoff packet → source records + recipient + scoped consent;
+- attachment → report/domain owner.
+
+Report corrections create explicit revisions; do not rewrite prior versions silently. Current Life Plan values remain editable and retain history events. Re-importing the same action must be idempotent.
+
+## 16.10 Existing PDF and privacy constraints
+
+Preserve `lib/personal-coaching/session-pdf.js` contract:
+- on-device, browser-only PDF from exact source questions/answers and client-confirmed plan;
+- no network transfer of PDF bytes;
+- correct historical scheme/date;
+- RU/EN/ES;
+- guest-tab-only vs account-persisted disclosure.
+
+The new analytical Coaching Report is a separate structured document. If PDF export is added, render only from the saved canonical report JSON. Do not upload generated PDF to a server merely to produce a download.
+
+Reconcile My Coaching Plan with the existing privacy-first client-memory rules. Long-term memory opt-in, sensitive-data opt-in, prior-context opt-in, transcript-processing opt-in and specialist-sharing opt-in are distinct. No inference or automatic extraction of sensitive personal facts into memory.
+
+## 16.11 Delivery plan (updated)
+
+### P0 — audit and common contracts
+1. Audit PR #3980, current production/base branch, existing personal session payload and current cabinet.
+2. Inventory report/PDF/session/profile/memory/practitioner schemas and RLS. Identify whether My Coaching Plan already exists in source or only as product concept.
+3. Define ten-section report schema, evidence ledger, eight domain keys, goal/action/check-in types, specialist route and consent scope.
+4. Build migration-free adapters first to prove compatibility with current session history and cabinet.
+5. Preserve source-answer PDF and implement deterministic client-confirmable closeout.
+
+### P1 — report and Life Plan MVP
+6. Persist a versioned private report using existing compatible secure storage; add migration only if audit proves no suitable entity exists.
+7. Implement My Coaching Plan navigation, empty state and three core areas.
+8. Implement Life Plan with eight domain cards and editable client-owned current/desired state, goals, obstacles and actions.
+9. Implement Coaching Reports archive with AI/human source distinction, legacy import adapter and report detail.
+10. Connect accepted actions and report updates to plan using explicit confirmation and idempotency.
+11. Implement four optional before/after self-ratings and honest progress displays.
+
+### P2 — specialist pathway
+12. Map reports/confirmed goals to one or more life domains.
+13. Implement specialist recommendations using existing catalog and actual specialist profiles.
+14. Implement route approval, reordering, skip/decline and per-recipient context packet preview.
+15. Add scoped specialist sharing only after RLS, identity, consent and recipient tests.
+
+### P3 — longitudinal dashboard
+16. Life Wheel from client-rated domain values only.
+17. Opt-in habit tracker and real activity timeline (7/30/90 days).
+18. Follow-up/check-in prompts only after separate reminder consent and existing notifications approval.
+19. Optional report PDF from canonical JSON, keeping old source-answer PDF unchanged.
+
+No stage can claim LIVE from code-only tests. The exact production SHA, migrations, RLS, account isolation and real iPhone Safari acceptance must be verified.
+
+## 16.12 Acceptance criteria (expanded)
+
+- All ten report sections render in order where supported.
+- Closeout includes every required summary field and the client can correct it.
+- Action plan contains concrete, editable steps and never fabricates commitments.
+- Four self-ratings are client-entered and comparisons only use matched measures.
+- Existing encrypted session history and source-answer PDF remain intact.
+- My Coaching Plan is a single entry in the existing cabinet.
+- Empty state leads to first coaching session.
+- Three internal areas exist: Life Plan, Coaching Reports, Specialist Journey.
+- Eight life domains are present, independently editable and may remain empty.
+- Each domain supports current/desired state, goals, obstacles, active/completed actions, history and linked reports.
+- Report archive includes AI coach reports, human practitioner reports, approved attachments, recommendations and next appointment/follow-up date when real.
+- Reports from human specialists and AI coaches are visibly distinguished.
+- Multi-domain routing recommends suitable next specialist(s) with reasons and deliverables; no forced package/booking.
+- Specialists only receive the exact client-approved context packet; no automatic full-history access.
+- Life Wheel, habits and activity trends never invent values or activity.
+- Legacy session PDF stays an answer export; new report is a separate canonical report.
+- RLS, IDOR, consent revocation, export/delete and cross-account tests pass.
+- RU/EN/ES, mobile Safari, keyboard/screen-reader usability and PDF history pass.
+- No duplicate account, cabinet, report vault, client memory store or task manager is created.
