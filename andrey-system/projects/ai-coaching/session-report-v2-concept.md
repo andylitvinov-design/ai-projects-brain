@@ -410,3 +410,17 @@ Reuse first, but do not force unlike data into the same table:
 A report is a historical snapshot. Editing it creates a visible correction/revision; it does not rewrite what was originally confirmed. Current Life Plan values may change, but each material update records what changed, previous/new values, actor, source report/session/action/check-in, timestamp and revision.
 
 An accepted action imported twice must still create one plan item. A new report cannot silently overwrite an existing goal, due date or action. Similarity detection may suggest a possible relation to an existing goal, but the client chooses whether to link, update or create a separate goal.
+
+
+## 17. Existing Development Goals compatibility
+
+A further source audit found the existing owner-encrypted app_private.development_goals record and authenticated development-goals API. It uses DEVELOPMENT_GOALS_VERSION=1, a revisioned encrypted targets payload and four existing portrait sectors. Default target positions are initialized to 50, but those values are editable directional preferences, not measured current states or completed assessments.
+
+This existing feature is related but is not the new Life Plan:
+- do not rename the four portrait sectors as the eight Life Plan domains;
+- do not treat the default value 50 as a client baseline or progress score;
+- do not infer eight domain values from four unrelated sector targets;
+- keep its existing API and old clients backward-compatible;
+- include it in the migration audit and decide explicitly whether a safe adapter or a versioned extension is possible.
+
+The new Life Plan must store client-described current/desired state, goals, obstacles, action history and linked reports in a model that can represent all eight domains without misrepresenting the legacy target profile.
