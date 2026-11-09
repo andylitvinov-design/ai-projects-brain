@@ -166,3 +166,190 @@ Open PR #3980 is the current starting point for the authored GROW session and de
 ## 12. Success measures
 
 Measure report availability, open rate, client correction rate, action acceptance/edit rate, transfer rate into My Coaching Plan, action review/completion, repeat-session usefulness and safety/privacy incidents. Do not optimize only for number of actions or sessions. Clarity, a deliberate pause or referral to human support can be a valid result.
+
+
+---
+
+# 13. Unified information architecture: Coaching Report + My Coaching Plan
+
+This section consolidates the additional iPhone reference screens supplied on 2026-11-09 and supersedes any narrower interpretation of the report as a single end-of-session document.
+
+## 13.1 Three connected but distinct products
+
+1. **Coaching Report** — immutable, dated record of one AI-coach session or one human-specialist consultation, with client corrections as explicit versions.
+2. **My Coaching Plan** — the client's living, editable map of goals and development across life areas. It is not the report archive.
+3. **Specialist Journey** — an optional, client-approved sequence of work with different specialists when one issue spans several areas. It is not an automatic referral or sales funnel.
+
+A report can propose updates to the Life Plan and a specialist route. The client chooses which proposed changes to accept. The Plan links back to the source report; it does not absorb or rewrite the report.
+
+## 13.2 The canonical ten-section Coaching Report
+
+The full client-facing report uses this order. Empty or unsupported sections are omitted or explicitly marked as not explored; they are never filled with generic prose.
+
+1. **Session Overview** — topic, desired focus, date/time, duration, language, selected coach/specialist, session type and report ID.
+2. **Initial Situation** — what the client brought, in the client's own language or a confirmed paraphrase.
+3. **Desired Outcome** — what the client wanted to understand, decide, change or achieve.
+4. **Key Discoveries** — what the conversation actually clarified, with evidence and client confirmation where needed.
+5. **Main Obstacles** — the principal obstacle(s) that appeared; distinguish established facts from hypotheses.
+6. **Strengths & Resources** — existing capacities, supports, successful exceptions, useful relationships or skills identified by the client.
+7. **New Perspective** — a new interpretation, question or distinction the client recognizes as useful. Never present the coach's hypothesis as the client's insight without confirmation.
+8. **Decisions** — decisions the client explicitly made, plus separate items still undecided.
+9. **Action Plan** — client-edited and client-confirmed actions. Show up to three priority actions, with timing/trigger and a clear done definition. Do not invent commitments.
+10. **Follow-up** — how the client and coach will review results, which measures/questions matter, suggested next focus and any agreed follow-up date.
+
+The immediate closing screen is the compact form of these same ten sections, not a competing report schema. It must also satisfy the earlier closeout contract: short result, main difficulty, desired result, decisions, three action candidates, continuation recommendation and My Coaching Plan option.
+
+## 13.3 Action Plan: operational, not inspirational
+
+Every action card must answer:
+- What exactly will I do?
+- When, or after which trigger?
+- What is the smallest acceptable completion?
+- What may get in the way?
+- What is my fallback if that happens?
+- How will I know I did it?
+
+Recommended three roles:
+- **Start** — first small step, often the next day or first available slot.
+- **Reduce friction** — remove, postpone, delegate or simplify one obstacle.
+- **Review** — check the result after an agreed interval.
+
+The sample in the screenshots (start an important task, reduce overload, review after three days) is a format example, not a default prescription. Client and coach build it together. The client can keep one or two actions; the UI must not force exactly three commitments.
+
+Action statuses: proposed → accepted → in progress → completed; alternatively blocked, deferred or declined. A client can edit the action and preserve its provenance/version history.
+
+## 13.4 Change measurement
+
+At the beginning and end of a session, when appropriate, the client may self-rate four practical dimensions on the same 0–10 scale:
+- clarity;
+- confidence in the next step;
+- perceived readiness to act;
+- subjective sense of control over the situation.
+
+The client supplies every score. They are subjective reflection aids, not psychological tests, clinical metrics, or evidence of improved mental health. Compare only identical question keys and scales. If no baseline was captured, show “not measured”. Also allow the client to state that a rating is unchanged or worse.
+
+For Life Plan progress, each life area can have its own client-defined indicator. Do not combine unlike measures into one overall score unless a transparent, explicitly designed calculation and opt-in are approved. A Life Wheel is a navigation/overview view, not a psychometric diagnosis.
+
+## 13.5 My Coaching Plan — main cabinet workspace
+
+My Coaching Plan is the primary destination after the user clicks it in the existing client profile/cabinet.
+
+If there are no coaching reports or consultation reports:
+- show a welcoming empty state;
+- explain that the plan becomes more useful after the first coaching session;
+- offer a clear start-session CTA and available coach/session choices;
+- do not display an empty dashboard with fabricated 0% scores.
+
+When data exists, open the **Life Plan dashboard** first, with three main areas:
+
+### A. Life Plan
+The Life Plan contains eight independent life domains:
+1. **Body & Health** — energy, daily habits, wellbeing and health-related goals (not a medical record).
+2. **Emotional Wellbeing** — emotional balance, stress, regulation and support.
+3. **Relationships** — partnership, family, friendship, communication and boundaries.
+4. **Career & Business** — work, professional direction, business and leadership.
+5. **Finance** — financial goals, stability, planning and decisions; not investment advice.
+6. **Personal Growth** — learning, skills, creativity and personal development.
+7. **Lifestyle** — time, rest, environment, routines and quality of everyday life.
+8. **Meaning & Purpose** — values, direction, contribution and life meaning.
+
+Each domain can contain:
+- current state (client-described);
+- desired state;
+- one or more goals;
+- obstacles / risks;
+- active actions;
+- completed actions;
+- client-defined indicators and check-in history;
+- linked coaching and specialist reports;
+- optional next review date.
+
+Domains are independent and can be expanded or collapsed. The client can edit the wording and prioritization at any time. Do not require every domain to be completed. An empty domain remains available without implying a deficit.
+
+### B. Coaching Reports
+A chronological searchable/filterable archive of:
+- AI Coach session reports;
+- reports from human practitioners/specialists;
+- consultation summaries;
+- client-approved attachments and files;
+- recommendations and follow-up dates.
+
+Each entry shows source/type, specialist/coach, date, domain tags, concise outcome, availability/status, and links to the source session. AI coach and human reports must be visibly distinguished. Legacy documents stay accessible and are not silently rewritten into the new report schema.
+
+### C. Specialist Recommendations / Journey
+A multi-area problem can lead to a suggested route rather than forcing one coach to solve everything. Example: low energy → Energy Coach (resource recovery plan); professional uncertainty → Career Coach (professional priorities); relationship difficulty → Relationship Coach (communication plan).
+
+The recommendation engine must:
+- identify multiple life domains only when supported by the client's own words and confirmed by them;
+- distinguish the primary focus from related secondary areas;
+- suggest the smallest useful sequence of specialist sessions;
+- explain the intended outcome of each proposed specialist;
+- avoid duplicate or overlapping interventions;
+- let the client reorder, accept, edit, skip or reject recommendations;
+- avoid implying that the user must buy a package or meet every specialist.
+
+## 13.6 Minimum-context handoff between specialists
+
+A specialist must not receive the client's entire personal history by default.
+
+For each specialist handoff, create a scoped context packet containing only:
+- client-selected Life Plan domain and goal;
+- the specific question the client wants that specialist to address;
+- relevant client-approved current state and desired result;
+- relevant accepted actions and progress;
+- selected source report excerpts or conclusions explicitly approved for sharing;
+- safety/limitations information only when necessary and appropriately consented;
+- date, source and freshness of the information.
+
+The client previews the packet and explicitly grants access before it is shared. Consent is specific to the recipient/specialist and scope, can be revoked for future access, and is logged. The next specialist sees only the allowed packet, not all reports, raw transcripts or unrelated sensitive notes. AI personas are not human practitioners and must not be used to widen access.
+
+## 13.7 Dashboard and progress visualizations
+
+The Life Plan dashboard may contain:
+- a Life Wheel / domain overview with eight client-rated areas;
+- a habit summary based only on habits the client chose to track;
+- an activity trend for completed actions/check-ins over a selected period (e.g. 7 / 30 / 90 days);
+- current focus and next review.
+
+Every visual must show the underlying count, scale, time window and missing-data status. No score is calculated for an empty domain. The dashboard must not turn untracked behavior into a low rating. The Life Wheel is an optional self-reflection overview, not a clinical or objective ranking of life quality.
+
+## 13.8 Mobile and desktop information hierarchy
+
+Mobile first:
+1. current focus and next action;
+2. small progress overview;
+3. eight life-domain cards;
+4. latest report and follow-up;
+5. specialist journey.
+
+Desktop can show overview and domain detail side-by-side. The full report remains a readable document page. Avoid a single long table on mobile; use cards with concise summaries and expandable details.
+
+## 13.9 Cabinet navigation
+
+Add/retain a single **My Coaching Plan** entry in the existing authenticated client profile/cabinet.
+
+Inside it, navigation is:
+- Life Plan (default);
+- Coaching Reports;
+- Specialist Journey.
+
+The report catalog must remain accessible from the Life Plan and vice versa. Do not create a new login, second cabinet, or duplicate client identity. Empty state routes to first session. Existing legacy reports and documents are integrated into the archive through adapters, not by destructive migration.
+
+## 14. Unified product object map
+
+- Session: one conversation and its saved source answers.
+- Report: a versioned interpretation/record of that session, with evidence provenance.
+- Plan domain: one of eight living areas.
+- Goal: desired state inside a domain.
+- Action: a client-owned behavior that moves a goal forward.
+- Check-in: dated client observation/rating against an agreed indicator.
+- Resource: a practice/file/video selected from the approved library.
+- Specialist route: a client-approved ordered sequence of specialist work.
+- Handoff packet: recipient- and scope-limited context with a consent record.
+- Attachment: a private file linked to a report or domain.
+
+These are linked by stable IDs; do not duplicate the same goal/action into disconnected stores.
+
+## 15. Unified design rule
+
+**The report records what happened. The Life Plan records where the client is going. The Specialist Journey coordinates who may help next.** The three must be connected, but each keeps a distinct purpose, permission model and history.
