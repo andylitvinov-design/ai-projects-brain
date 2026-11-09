@@ -2,7 +2,7 @@
 
 **Repository:** andylitvinov-design/books  
 **Concept:** andylitvinov-design/ai-projects-brain → andrey-system/projects/ai-coaching/session-report-v2-concept.md  
-**Version:** 2.0 · **Date:** 2026-11-09
+**Version:** 2.2 · **Date:** 2026-11-09
 
 ## 0. Mission
 
