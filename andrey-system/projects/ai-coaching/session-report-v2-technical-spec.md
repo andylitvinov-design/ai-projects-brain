@@ -1048,3 +1048,28 @@ The feature is complete only when:
 - explicit client approval is required for plan updates and recipient-specific handoff;
 - no duplicate storage/account/cabinet/task system was introduced;
 - tests and live verification gates are evidenced.
+
+
+## 17.13 Existing Development Goals feature — compatibility boundary
+
+Additional verification found:
+- migration 20261017165000_hh_reports_development_goals.sql creates app_private.development_goals;
+- it stores one account-owned encrypted targets_ciphertext payload with optimistic revision;
+- lib/app/development-goals.js reads/writes the payload through the authenticated app backend;
+- lib/profile/development-program.js defines DEVELOPMENT_GOALS_VERSION=1, DEFAULT_DEVELOPMENT_TARGETS and normalizeDevelopmentGoals;
+- the current normalized model is fixed to four PORTRAIT_SECTORS with 0–100 directional targets, optional per-axis details, and a goalCheckin field;
+- API routing already exposes joined development-goals read/save operations via the existing app catch-all route.
+
+This is useful existing infrastructure but it is not the eight-domain Life Plan described in this specification. In particular, default values of 50 are neutral editable target positions, not measured current state, and must never appear as user progress or a Life Wheel rating.
+
+Required implementation decision:
+1. Preserve current development-goals reads/writes and version-1 payload compatibility.
+2. Inspect all consumers and the source portrait-sector definitions before any schema or UX change.
+3. Do not reinterpret four portrait sectors as Body & Health, Emotional Wellbeing, Relationships, Career & Business, Finance, Personal Growth, Lifestyle and Meaning & Purpose.
+4. Do not infer client current state from assessment scores or calculate an eight-domain Life Wheel from those four target values.
+5. Prefer a migration/adapter only if it can preserve the original values and provenance without conflating constructs. Otherwise keep the legacy Development Goals feature separate and create/reuse a suitable Life Plan model after the full DB audit.
+6. Add regression tests proving existing version-1 targets remain readable and no default 50 is presented as a measured score.
+
+Related legacy report progress:
+- lib/documents/report-progress.js and tests/report-progress-before-after.test.mjs support legacy “before/after” narrative rings for practitioner reports.
+- Those two generic historical values are not equivalent to the new four keyed coaching reflections. Do not use report prose parsing to populate clarity, confidence, readiness or perceived control. The new coaching ratings must have stable indicator keys and exact prompt/scale provenance.
