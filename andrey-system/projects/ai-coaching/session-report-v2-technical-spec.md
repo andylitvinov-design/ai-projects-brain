@@ -822,3 +822,229 @@ No stage can claim LIVE from code-only tests. The exact production SHA, migratio
 - RLS, IDOR, consent revocation, export/delete and cross-account tests pass.
 - RU/EN/ES, mobile Safari, keyboard/screen-reader usability and PDF history pass.
 - No duplicate account, cabinet, report vault, client memory store or task manager is created.
+
+
+---
+
+# 17. Verified implementation baseline — do not overstate existing functionality
+
+This audit addendum is based on source inspected on branch codex/public-book-library on 2026-11-09. Recheck exact production HEAD and merge state before implementation.
+
+## 17.1 Existing components and their actual scope
+
+| Path / data source | Current source-level behavior | Reuse decision |
+|---|---|---|
+| app_private.personal_coaching_sessions | One row per account; owner-scoped encrypted payload; revision protection | Keep session source; do not turn it into an unbounded report/plan store |
+| lib/app/personal-coaching.js | Server-side session lifecycle; current session + bounded history (MAX_HISTORY=8); action plan is one object with one actionText | Extend only session closeout compatibility; create normalized entities only after audit |
+| components/app/personal-coaching.jsx | Current self-guided private session UI, source answers, recap, history and PDF download | Extend final closeout and link to new report; preserve old session history |
+| components/coaching-action-plan.jsx | One editable action, goal, obstacle, when and optional confidence | Preserve for old sessions; new Action Plan needs up to three role-based action records |
+| lib/personal-coaching/session-pdf.js | Browser-only source-answer PDF; no server upload/provider | Keep unchanged as Session Answers PDF; add a distinct report renderer from canonical report JSON |
+| components/app/my-progress.jsx / lib/app/my-progress.mjs | Activity timeline/projection from existing sources; deliberately does not expose private notes or infer growth | Add navigation/link only; do not make it the Life Plan persistence layer |
+| components/app/profile-domains.jsx | Four diagnostic/profile categories (Psychology, Homeopathy, Wu Xing, Hypnotherapy) and authorized reports | Keep as existing profile area; do not map the eight Life Plan domains onto these four categories |
+| components/app/client-memory-workspace.jsx and client-memory data | Explicitly consented client memory records, separate sensitive-data/sharing settings | Respect it, but do not repurpose it as report storage or task manager |
+| components/client-cabinet.jsx | Legacy shared-document cabinet with private document list and separate navigation | Reuse authorized document sources through an adapter; canonical Life Plan remains in authenticated /[locale]/app |
+| docs/coaching/SESSION_PDF_REPORT_2026-10-24.md | Established guest-vs-account persistence, date, PDF and mobile contract | Preserve as compatibility requirement |
+
+Source-level availability is not equivalent to protected production deployment, completed database migration, full E2E, or user acceptance. No feature should be labeled LIVE from these files alone.
+
+## 17.2 Canonical navigation choice
+
+Implement My Coaching Plan inside the existing authenticated /[locale]/app workspace, linked from existing profile/cabinet navigation. Reuse account auth, locale, layout, mobile dock, privacy helpers and route conventions.
+
+Do not add a second cabinet at /client/[selector], do not create a second profile, and do not confuse current My Progress with the new Life Plan. My Progress is a read-only activity projection; it can provide a link into the plan. The four-category ProfileDomains UI remains a separate diagnostic/profile feature.
+
+Recommended route contract (adapt to current catch-all route conventions after code audit):
+- /[locale]/app/coaching-plan — Life Plan landing/default view.
+- /[locale]/app/coaching-plan/reports — Coaching Reports archive.
+- /[locale]/app/coaching-plan/journey — Specialist Journey.
+- /[locale]/app/coaching-plan/domains/[domainKey] — one life domain.
+
+These are logical route names. If the workspace uses an internal page key rather than standalone Next routes, follow that convention and keep deep links stable.
+
+## 17.3 Domain ownership and storage model
+
+Use separate bounded concepts; avoid a single ever-growing JSON blob:
+- existing session encrypted payload = session source and source-answer history;
+- report snapshot = immutable/versioned session or consultation deliverable;
+- Life Plan domain = current editable user-owned state for one of eight domains;
+- goal = target state within a domain;
+- action = a client-confirmed behavior linked to a goal and source report;
+- check-in = a client self-report against a specific indicator and scale;
+- plan event = audit/history of a material plan update;
+- specialist route = proposed/approved ordered work sequence;
+- handoff packet/consent = exact, recipient-limited context that may be shared.
+
+A normalized schema is preferred for report/goal/action/check-in/event queries and RLS. JSONB may hold versioned report content, but ownership, lifecycle state, source IDs, indexes and plan entities should remain queryable. Use encryption for sensitive narrative fields according to current application crypto conventions. Do not expose ciphertext or sensitive details through broad activity feeds.
+
+Candidate logical entities (names must be reconciled with existing schema before migration):
+- coaching_session_reports: owner, session source, report type/source, version, status, locale, structured report JSON, review metadata and timestamps.
+- coaching_plan_domains: owner, domain key, current/desired state, priority, status and revisions.
+- coaching_plan_goals: owner, domain ID, goal fields, target/status and provenance.
+- coaching_plan_actions: owner, goal ID, action role, behavior/timing/trigger/done definition/obstacle/fallback/status, accepted/complete timestamps and source report/session.
+- coaching_plan_checkins: owner, domain/goal, indicator key, exact question/scale/value/date/source.
+- coaching_plan_events: append-only state changes for goals/domains/actions and report import.
+- coaching_specialist_routes + route steps: ordered recommendations and client decisions.
+- coaching_context_shares: recipient-bound consent and exact shared context reference/manifest.
+
+These are candidate logical names only, not authorization to create duplicate tables. First inspect existing development-goal/report entities. The verified migration history includes 20261017165000_hh_reports_development_goals.sql; inspect its tables and API before proposing any new goals/actions. Reuse those if they correctly support the Life Plan lifecycle. If a new table is required, provide a migration mapping and a no-duplicate proof.
+
+## 17.4 Report-source adapters
+
+The Coaching Reports archive aggregates authorized source records; it does not copy them all into one raw table by default. Add source adapters:
+- ai_coach_session → canonical report snapshot linked to session ID;
+- human_consultation → existing consultation report/document with specialist and consultation IDs;
+- legacy_session_export → existing source-answer PDF metadata and session record, visibly marked as legacy/source export;
+- attachment → existing private file/document ID and access rules;
+- recommendation → existing practitioner recommendation record;
+- follow_up → real confirmed next appointment or agreed self-review date.
+
+Each archive card preserves source origin, owner authorization, date, specialist/persona, type, domain link, availability state and original open/download route. Do not say appointment booked from a recommendation or request. Use actual source data; unavailable report is not an empty archive.
+
+## 17.5 Life Plan data contract
+
+Use stable domain keys:
+body_health, emotional_wellbeing, relationships, career_business, finance, personal_growth, lifestyle, meaning_purpose.
+
+At domain level store client-owned current state, desired state, priority, status and optional next review. At goal level store title, target, rationale, status, target date and confirmation. Actions store the exact role-based schema from section 16. Each field carries provenance and revision.
+
+Do not make all eight domain records look like completed diagnostics. The UI may render eight empty domain cards as navigation, but there is no rating or progress value until the client supplies it.
+
+A life-domain indicator can be text, count, date or a client-selected 0–10 scale. Every numeric indicator records exact question text/key, scale bounds, direction, timestamp and source. Never average unlike scales into a single score.
+
+## 17.6 Three-action plan implementation detail
+
+The previous action component stores a single action. New report action cards support up to three separate rows with roles:
+1. start — one concrete first step;
+2. reduce_friction — one action that removes/delegates/postpones/simplifies an obstacle;
+3. review — a client-agreed check of what happened and what was learned.
+
+For each row collect title/behavior, due time or trigger (nullable if not stated), minimum definition of done, obstacle (optional), fallback (optional), status, client acceptance/edit/decline timestamp, source reference and Life Plan domain/goal link chosen or confirmed by client.
+
+The client can accept 0, 1, 2 or 3. An empty role remains absent; do not create fake default actions. If the client confirms more than three valuable commitments, group them into a plan goal and keep only the three highest-priority near-term actions in the immediate report, with additional actions available in the plan only if specifically confirmed.
+
+## 17.7 Specialist route and minimal-context handoff contract
+
+Use the existing published coaching/specialist catalog. A route recommendation references an actual existing specialist profile or coaching scheme. No invented practitioner names, schedules, rates or availability.
+
+Each route item has life domain(s), client-stated issue/question, intended deliverable, reason the specialist is relevant, scope boundary, sequence order when justified, and status: proposed, accepted, skipped, declined, consultation requested, booked or completed.
+
+Only a client-approved route can progress. Consultation request, confirmed booking, payment, report sharing and message delivery remain separate state transitions.
+
+Handoff packet contains exact recipient identity, purpose, client-selected domain/goal, relevant current/desired state, selected client-approved report conclusions, accepted actions/status, selected attachments, omitted-field list, consent version/scope/time and revocation state. Require preview and explicit confirmation. Recipient reads through server-side authorization, not a public link or client-provided ID. Revocation blocks future reads; explain that already downloaded copies cannot be recalled.
+
+## 17.8 End-of-session closeout UI state machine
+
+~~~text
+SESSION_ACTIVE
+  -> RECAP_DRAFT
+  -> CLIENT_CORRECTION
+  -> ACTION_REVIEW
+  -> PLAN_TRANSFER_PREVIEW
+  -> CLIENT_SAVE_CHOICE
+  -> SESSION_COMPLETED
+  -> REPORT_PENDING / REPORT_READY / DETERMINISTIC_FALLBACK
+  -> PLAN_LINKED (optional)
+~~~
+
+Closeout is recoverable after refresh. Client can confirm/edit report candidates, accept/edit/defer/decline each action, leave without adding anything to Life Plan, select domain/goal for accepted items and view the exact destination before transfer.
+
+Do not require cabinet saving or Life Plan transfer as a condition for completing a session. If the client declines persistent storage, the current result remains available in-session subject to existing guest/private behavior.
+
+## 17.9 Prior-session context and specialist continuity
+
+Prior context is not the same as report retention. For a new session:
+- default: use current session only;
+- when the client enables prior-context use, show a short selection of relevant plan goals/actions;
+- client chooses which domain/goal to bring in;
+- specialist handoff is separately consented and recipient-scoped;
+- AI-provider processing is a separate consent scope;
+- sensitive memory, test answers, practitioner notes and unrelated domains are excluded by default.
+
+Store approved context references and consent scope with the session version. Coach persona cannot widen access.
+
+## 17.10 Updated phased implementation order
+
+**G0 — Audit/ownership**
+1. Confirm production branch/HEAD, PR #3980 state/lease and current CI.
+2. Inspect 20261017165000_hh_reports_development_goals.sql and current development-goal APIs.
+3. Inspect report source tables, practitioner consultation records, private document/file access, current profile workspace and route resolver.
+4. Confirm whether any My Coaching Plan page/feature exists today. Distinguish source, deployed and E2E-verified status.
+5. Inventory RLS, encryption, revision, retention, export and delete before migration.
+6. Publish one reuse/extend/create matrix and baseline tests.
+
+**G1 — Session closeout and report**
+7. Preserve GROW and existing session/PDF contracts.
+8. Add structured, client-editable closeout with ten report sections.
+9. Generate deterministic report content from saved source answers + client-confirmed edits.
+10. Add versioned private report persistence or map to proven-compatible existing report storage.
+11. Add report archive adapter for existing AI sessions, human consultation reports, legacy session exports and attachments.
+12. Verify signed-in/private and guest behavior, including opt-in and failure states.
+
+**G2 — Life Plan MVP**
+13. Implement the single My Coaching Plan entry in authenticated /[locale]/app.
+14. Build Life Plan overview, empty state and eight domain cards.
+15. Implement domain current/desired state, goals, obstacles, priorities and review.
+16. Implement three-role actions with client acceptance/edit and statuses.
+17. Link report → domain → goal → action/check-in with history events and idempotency.
+
+**G3 — Change and progress**
+18. Add four optional session self-ratings (clarity, confidence, readiness, perceived control) with exact repeated prompts.
+19. Add domain-specific client indicators and timeline.
+20. Add optional Life Wheel, user-selected habits and 7/30/90 day activity projection from real data only.
+21. Preserve My Progress and profile diagnostic categories as separate views.
+
+**G4 — Specialist Journey and privacy handoff**
+22. Route multi-area goals using actual catalog/specialist profiles; client confirms domains and sequence.
+23. Preview minimum handoff packet and explicitly grant recipient-specific access.
+24. Test revocation, expired permission, recipient IDOR and no accidental report/attachment sharing.
+25. Keep booking/payment/messaging separate from recommendation and consent.
+
+**G5 — optional report enrichment and presentation**
+26. Only if the existing approved gateway/consent exists, add optional evidence-grounded AI report drafting. Otherwise deterministic report only.
+27. Add report PDF from canonical JSON without changing the source-answer PDF.
+28. Add localized charts, report feedback and review workflow.
+29. No new paid provider, external transcript transfer or automated reminders absent separate approval.
+
+## 17.11 Test matrix additions
+
+Unit:
+- current single-action actionPlan remains backward-compatible;
+- migration adapter does not delete/rewrite previous session history;
+- session history cap does not truncate new report archive;
+- report type/origin distinguishes AI, human, legacy export and attachment;
+- eight domain cards do not imply populated/assessed values;
+- My Progress and ProfileDomains are not used as Life Plan persistence;
+- action import is idempotent and cannot overwrite an unrelated goal;
+- domain/goal/action revisions retain source and actor;
+- no unauthorized field enters specialist packet;
+- revocation blocks future recipient access.
+
+Integration:
+- account A can read/update own plan/report;
+- account B cannot read, mutate or infer account A resources;
+- legacy human consultation reports appear only when client is authorized;
+- guest cannot see account Life Plan after session completion without login/explicit save path;
+- client can complete session without saving to Life Plan;
+- report correction creates revision; historical report remains retrievable;
+- report download uses same canonical JSON as web view.
+
+E2E:
+- empty My Coaching Plan → start GROW → finish → review report → accept one/two/three actions → select domains → save → reopen.
+- populated Life Plan → new session → propose update → choose create/link/update → old goal history preserved.
+- report archive filter AI vs human → open source → download authorized attachment.
+- multi-domain case → approve/reorder/skip specialist suggestions → preview data → grant selected recipient → recipient sees only packet.
+- withdraw handoff permission → future access denied.
+- RU/EN/ES, iPhone Safari and cross-account negative tests.
+
+## 17.12 Definition of done
+
+The feature is complete only when:
+- the ten-section report exists as a private, versioned record;
+- old source-answer PDF and source session history remain intact;
+- one My Coaching Plan is reachable inside the existing authenticated account workspace;
+- Life Plan has eight independent domains with current/desired states, goals, obstacles, active/completed actions and history;
+- Coaching Reports integrates authorized AI and human records plus legacy source exports/files;
+- specialist route is optional and uses actual catalog entries;
+- explicit client approval is required for plan updates and recipient-specific handoff;
+- no duplicate storage/account/cabinet/task system was introduced;
+- tests and live verification gates are evidenced.
