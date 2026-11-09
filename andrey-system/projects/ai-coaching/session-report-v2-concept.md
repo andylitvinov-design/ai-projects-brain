@@ -2,7 +2,7 @@
 
 **Status:** Product concept for implementation  
 **Product:** Holistic House · Personal Coaching  
-**Version:** 2.0 · 2026-11-09
+**Version:** 2.2 · 2026-11-09
 
 ## 1. Purpose
 
