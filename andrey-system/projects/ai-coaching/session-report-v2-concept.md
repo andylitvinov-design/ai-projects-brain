@@ -353,3 +353,60 @@ These are linked by stable IDs; do not duplicate the same goal/action into disco
 ## 15. Unified design rule
 
 **The report records what happened. The Life Plan records where the client is going. The Specialist Journey coordinates who may help next.** The three must be connected, but each keeps a distinct purpose, permission model and history.
+
+
+---
+
+# 16. Architecture decision record — verified baseline and product boundaries (2026-11-09)
+
+## 16.1 What exists today — and what it is not
+
+The following source-level facts were verified on branch codex/public-book-library on 2026-11-09. They are not proof that the entire flow is deployed or accepted in production.
+
+| Existing asset | Verified responsibility | Must not be mistaken for |
+|---|---|---|
+| app_private.personal_coaching_sessions + lib/app/personal-coaching.js | One owner-bound encrypted account payload, transaction lock, optimistic revision, current session and bounded history | A normalized report archive or unlimited Life Plan database |
+| components/coaching-action-plan.jsx + save action plan | Client-editable single action card: goal, obstacle, one chosen action, timing and optional confidence | The new three-role action plan with multiple independently tracked actions |
+| lib/personal-coaching/session-pdf.js | On-device A4 PDF with source questions, saved answers, reflections and confirmed action card | The new ten-section analytical Coaching Report |
+| components/app/my-progress.jsx + lib/app/my-progress.mjs | Read-only aggregation of existing activity, tests, courses, sessions, reports, documents and user-confirmed marks | Eight life-domain planning and progress workspace |
+| components/app/profile-domains.jsx | Four existing practitioner/profile perspectives: Psychology, Homeopathy, Wu Xing and Hypnotherapy | The eight Life Plan domains; do not replace or relabel these four profile views |
+| app/[locale]/app/memory + client-memory stores | Separate opt-in owner memory with sensitive-data, sharing and retention boundaries | A report store, task manager or automatic Life Plan extractor |
+| Legacy components/client-cabinet.jsx | Existing shared-document/report cabinet with legacy selectors and Google Cabinet bridge | A reason to create a new account or duplicate cabinet |
+
+The session service currently defines MAX_HISTORY=8, stores a combined encrypted account record and has a bounded ciphertext constraint. It saves one action-plan object in the current session. Do not keep appending unbounded reports, life domains, actions and change events into that payload.
+
+## 16.2 Canonical product placement
+
+The canonical user home for My Coaching Plan is the existing authenticated Holistic House account workspace under /[locale]/app. It should be reachable from existing profile/cabinet navigation and related My Progress/profile surfaces, using the same verified account identity.
+
+Do not implement a second login or make the legacy /client/[selector] shared-document cabinet the owner of Life Plan data. Existing legacy reports and documents can be surfaced through authorized adapters inside Coaching Reports, preserving original access controls.
+
+Within My Coaching Plan the three areas are:
+1. Life Plan — editable current goals and actions across eight life domains; default tab.
+2. Coaching Reports — authorized AI session reports, human specialist reports, consultation records and attachments.
+3. Specialist Journey — client-approved recommended work sequence and scoped handoffs.
+
+## 16.3 Data-source boundaries
+
+- Session answers remain the source of truth for what was said in that session.
+- Report snapshots are versioned, date-bound records that refer to one session or one human consultation.
+- Life Plan is the mutable current planning view. Changes are recorded as events/revisions and link back to the report/action/check-in that caused them.
+- My Progress remains a read-only activity projection; it may link to My Coaching Plan but must not become a second planning store.
+- Client AI Memory remains a separately consented memory feature. A goal appearing in a session does not become a persistent memory fact without explicit confirmation and appropriate memory consent.
+- Practitioner reports/documents are included only through their existing owner-authorized source. The archive must not silently copy private practitioner notes or unrelated attachments.
+
+## 16.4 Migration principle
+
+Reuse first, but do not force unlike data into the same table:
+- Preserve the current encrypted session payload and historical PDF export.
+- Reuse compatible report/document entities if the audit proves they support owner scope, revisions, report type, source session, access control, export and deletion.
+- If none exists, add a small normalized private report entity and only the minimum Life Plan domain/goal/action/check-in/event and specialist-route entities proven necessary by the audit.
+- Do not create a second account memory store or generic task manager.
+- The current encrypted memory item table is not automatically repurposed for plan actions or report snapshots.
+- Any new schema must support owner-bound authorization, consent scope, provenance, idempotency, timestamps, edit history, deletion/export and cross-account tests.
+
+## 16.5 Report and plan versioning
+
+A report is a historical snapshot. Editing it creates a visible correction/revision; it does not rewrite what was originally confirmed. Current Life Plan values may change, but each material update records what changed, previous/new values, actor, source report/session/action/check-in, timestamp and revision.
+
+An accepted action imported twice must still create one plan item. A new report cannot silently overwrite an existing goal, due date or action. Similarity detection may suggest a possible relation to an existing goal, but the client chooses whether to link, update or create a separate goal.
