@@ -19,7 +19,7 @@ class Element{
  async emit(event){for(const fn of this.events[event]??[])await fn({target:this});}
  scrollIntoView(){} focus(){} select(){} click(){} remove(){}
 }
-async function setup({failId,failStatus=503,storageBlocked=false}={}){
+async function setup({failId,failStatus=503,storageBlocked=false,embed=false}={}){
  const elements=Object.fromEntries([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>[m[1],new Element()]));
  // Parse the shipped HTML hierarchy, so hidden ancestors affect visibility.
  const stack=[];const voidTags=new Set(['input','meta','link','br','hr','img']);
@@ -36,11 +36,14 @@ async function setup({failId,failStatus=503,storageBlocked=false}={}){
  const document={getElementById:id=>elements[id],createElement:t=>new Element(t),body:new Element(),querySelectorAll(q){return [...new Set(q.split(',').flatMap(sel=>sel.startsWith('#')?[elements[sel.slice(1)]].filter(Boolean):sel==='[data-model]:checked'?modelBoxes().filter(el=>el.checked):sel==='[data-model]'?modelBoxes():[]))];}};
  const calls=[],writes=[],saved={};
  const fetcher=async(url,opts={})=>{if(url.endsWith('/models'))return Response.json({data:catalog});const b=JSON.parse(opts.body);calls.push(b);if(b.model===failId)return Response.json({error:{code:failStatus}},{status:failStatus});return Response.json({model:b.model,usage:{cost:0},choices:[{message:{content:'Answer '+b.model}}]});};
- const context=vm.createContext({document,Option:class extends Element{constructor(t,v){super('option');this.textContent=t;this.value=v;}},fetch:fetcher,AbortController,AbortSignal,setTimeout,clearTimeout,Date,URL,Blob,navigator:{clipboard:{writeText:async()=>{}}},sessionStorage:{getItem(k){if(storageBlocked)throw Error('blocked');return saved[k]??null;},setItem(k,v){writes.push(k);saved[k]=v;},removeItem(k){delete saved[k];}}});
- vm.runInContext(script.replace(/\}\)\(\);\s*$/,"globalThis.ui={ask,addMuse,report,getState:()=>state,requestStatus};})();"),context);
+ const parentWindow={sent:[],postMessage(message,origin){this.sent.push({message,origin});}};
+ const fakeWindow={location:{search:embed?'?embed=agents-director':''},handlers:{},addEventListener(name,fn){(this.handlers[name]??=[]).push(fn);},postMessage(){}};
+ fakeWindow.parent=embed?parentWindow:fakeWindow;
+ const context=vm.createContext({document,window:fakeWindow,URLSearchParams,Option:class extends Element{constructor(t,v){super('option');this.textContent=t;this.value=v;}},fetch:fetcher,AbortController,AbortSignal,setTimeout,clearTimeout,Date,URL,Blob,navigator:{clipboard:{writeText:async()=>{}}},sessionStorage:{getItem(k){if(storageBlocked)throw Error('blocked');return saved[k]??null;},setItem(k,v){writes.push(k);saved[k]=v;},removeItem(k){delete saved[k];}}});
+ vm.runInContext(script.replace(/\}\)\(\);\s*$/,"globalThis.ui={ask,addMuse,report,getState:()=>state,requestStatus,notifyDirector};})();"),context);
  await new Promise(r=>setImmediate(r));await new Promise(r=>setImmediate(r));
  elements.apiKey.value='mock-key';elements.question.value='Public question A';modelBoxes().slice(0,2).forEach(el=>el.checked=true);elements.consent.checked=true;
- return {elements,calls,writes,boxes:modelBoxes,ui:context.ui};
+ return {elements,calls,writes,boxes:modelBoxes,ui:context.ui,window:fakeWindow,parentWindow};
 }
 test('actual UI flow sends two same-input answers and one attributed free synthesis',async()=>{
  const {elements,calls,ui,writes}=await setup();await ui.ask();assert.equal(calls.length,3);assert.equal(calls[0].messages[1].content,calls[1].messages[1].content);assert.equal(calls[2].model,ids[2]);assert.match(calls[2].messages[1].content,/vendor\/one:free/);assert.equal(ui.getState().busy,false);assert.equal(elements.question.disabled,false);assert.deepEqual(writes,[]);
@@ -89,4 +92,61 @@ test('adding Muse after a summary clears stale summary and leaves exports visibl
  elements.museAnswer.value='Synthetic changed manual fixture';const before=calls.length;ui.addMuse();
  assert.equal(ui.getState().summary,'');assert.equal(elements.summaryText.isVisible(),false);
  assert.equal(elements.copyReport.isVisible(),true);assert.equal(calls.length,before);
+});
+
+
+const DIRECTOR_ORIGIN='https://holistic-house-pr-monitor.vercel.app';
+const DIRECTOR_PROTOCOL='HH_AI_COUNCIL_BRIDGE_V1';
+const PROMPT_ID='request-12345678-1234-1234';
+test('embedded Council rejects untrusted origins and sources, then accepts only the Director parent prompt',async()=>{
+ const {elements,window,parentWindow}=await setup({embed:true});
+ const receive=window.handlers.message[0];
+ const payload={protocol:DIRECTOR_PROTOCOL,type:'HH_AI_COUNCIL_SET_PROMPT_V1',requestId:PROMPT_ID,prompt:'Оцени новую функцию Commander.'};
+ await receive({origin:'https://evil.example',source:parentWindow,data:payload});
+ assert.equal(elements.question.value,'Public question A');
+ await receive({origin:DIRECTOR_ORIGIN,source:{},data:payload});
+ assert.equal(elements.question.value,'Public question A');
+ await receive({origin:DIRECTOR_ORIGIN,source:parentWindow,data:{...payload,requestId:'bad'}});
+ assert.equal(elements.question.value,'Public question A');
+ await receive({origin:DIRECTOR_ORIGIN,source:parentWindow,data:payload});
+ assert.equal(elements.question.value,payload.prompt);
+ assert.equal(elements.context.value,'');
+ assert.equal(elements.consent.checked,false);
+ assert.equal(elements.directorSaveConsent.checked,false);
+ assert.equal(parentWindow.sent.at(-1).origin,DIRECTOR_ORIGIN);
+ assert.equal(parentWindow.sent.at(-1).message.type,'HH_AI_COUNCIL_PROMPT_READY_V1');
+ assert.equal(parentWindow.sent.at(-1).message.requestId,PROMPT_ID);
+});
+test('embedded Council never sends a report to Director without explicit report-save consent',async()=>{
+ const {elements,ui,window,parentWindow}=await setup({embed:true});
+ const receive=window.handlers.message[0];
+ await receive({origin:DIRECTOR_ORIGIN,source:parentWindow,data:{protocol:DIRECTOR_PROTOCOL,type:'HH_AI_COUNCIL_SET_PROMPT_V1',requestId:PROMPT_ID,prompt:'Оцени продукт публично.'}});
+ elements.apiKey.value='mock-private-key';elements.consent.checked=true;
+ await ui.ask();
+ const sent=parentWindow.sent.map(x=>x.message);
+ assert.ok(sent.some(x=>x.type==='HH_AI_COUNCIL_DONE_V1'));
+ assert.ok(!sent.some(x=>x.type==='HH_AI_COUNCIL_RESULT_V1'));
+ assert.ok(sent.every(x=>!JSON.stringify(x).includes('mock-private-key')));
+});
+test('embedded Council returns only a redacted report after separate opt-in and supports acknowledged delivery',async()=>{
+ const {elements,calls,ui,window,parentWindow}=await setup({embed:true});
+ const receive=window.handlers.message[0];
+ await receive({origin:DIRECTOR_ORIGIN,source:parentWindow,data:{protocol:DIRECTOR_PROTOCOL,type:'HH_AI_COUNCIL_SET_PROMPT_V1',requestId:PROMPT_ID,prompt:'Проверь публичную страницу.'}});
+ elements.apiKey.value='mock-private-key';elements.consent.checked=true;elements.directorSaveConsent.checked=true;
+ await ui.ask();
+ const result=parentWindow.sent.map(x=>x.message).find(x=>x.type==='HH_AI_COUNCIL_RESULT_V1');
+ assert.ok(result);
+ assert.equal(result.requestId,PROMPT_ID);
+ assert.match(result.report,/Проверь публичную страницу/);
+ assert.ok(!result.report.includes('mock-private-key'));
+ assert.equal(result.report.length<=18000,true);
+ await receive({origin:DIRECTOR_ORIGIN,source:parentWindow,data:{protocol:DIRECTOR_PROTOCOL,type:'HH_AI_COUNCIL_SAVE_FAILED_V1',requestId:PROMPT_ID}});
+ assert.equal(elements.directorRetry.isVisible(),true);
+ elements.directorRetry.events.click[0]();
+ const retry=parentWindow.sent.map(x=>x.message).filter(x=>x.type==='HH_AI_COUNCIL_RESULT_V1');
+ assert.equal(retry.length,2);
+ await receive({origin:DIRECTOR_ORIGIN,source:parentWindow,data:{protocol:DIRECTOR_PROTOCOL,type:'HH_AI_COUNCIL_SAVE_ACK_V1',requestId:PROMPT_ID}});
+ assert.equal(elements.directorRetry.isVisible(),false);
+ assert.ok(!ui.report().includes('mock-private-key'));
+ assert.ok(calls.length>=2);
 });
