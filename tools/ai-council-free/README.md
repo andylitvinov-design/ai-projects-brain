@@ -47,3 +47,20 @@ Workflow `.github/workflows/ai-council-free-browser.yml` is PR-only/path-filtere
 Official setup: https://playwright.dev/docs/ci . From `tools/ai-council-free/browser-tests`, use `npm ci --ignore-scripts`, `npx --no-install playwright install --with-deps chromium webkit`, then `npm test`. Existing offline checks remain `node --test tools/ai-council-free/tests/*.test.mjs` from repository root. Browser tooling installation is development-only.
 
 Local browser installation attempt (2026-10-16 20:00 UTC): official Playwright 1.63.0 requested Chromium from cdn.playwright.dev into `/tmp`; the download was 0 MiB/corrupt (ZIP end-of-directory signature missing). Its automatic retries were interrupted. No alternative mirror or security bypass was attempted, and no six-viewport browser pass is claimed. Test discovery succeeds; the proposed public-repository CI is the remaining engine-validation route.
+
+
+## Agents Director embed bridge
+
+The existing Council can be embedded by the owner in the persistent Agents Director chat at
+https://holistic-house-pr-monitor.vercel.app/chats.html using the canonical origin
+https://ai-council-free-super10.vercel.app/.
+
+The versioned protocol is HH_AI_COUNCIL_BRIDGE_V1. Director sends only the current question and a UUID request ID. Receiving that prompt only fills the form; it never starts inference. The owner still chooses two or three currently catalog-verified :free models and accepts the Council's existing send consent before manually starting a request.
+
+A separate unchecked-by-default consent is required before the redacted report is returned to Director. Without this consent no answer text crosses back. The OpenRouter API key stays in the Council origin's browser memory/session storage and is never sent to the parent window, Director storage, logs, or GitHub.
+
+Both windows validate exact origin, window.source, protocol, type, request ID, and bounded payload. Director saves approved reports in its existing owner-private chat. Its event API caps each message at 1,800 characters, so the parent splits reports into bounded parts with deterministic event IDs; retry continues missing parts without duplicating saved chunks.
+
+Only public, non-sensitive questions may be sent to model providers. No chat transcript, Task Context Capsule, coaching, client, health, or financial data is injected by default. No server-side LLM proxy, new database, or paid provider is introduced.
+
+The static Vercel deployment is separate from GitHub and must be updated through its existing verified deployment process. Source changes and PR previews do not update the canonical production alias automatically. Real iPhone Safari/OpenRouter CORS validation is required before claiming LIVE.
