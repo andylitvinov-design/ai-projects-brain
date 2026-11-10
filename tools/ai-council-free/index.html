@@ -53,6 +53,8 @@
     </div>
     <p class="notice">OpenRouter и провайдеры получают текст и могут хранить его или использовать для обучения. Только публичные несекретные вопросы: без личных, клиентских, медицинских данных и ключей.</p>
     <label class="rowlabel"><input type="checkbox" id="consent"/> Разрешаю отправить этот публичный текст выбранным моделям, а их ответы и вставленный ответ Muse — выбранной модели сводки.</label>
+    <label id="directorSaveRow" class="rowlabel hidden"><input type="checkbox" id="directorSaveConsent"/> Дополнительно разрешаю после анализа сохранить полный отчёт в мой приватный чат Agents Director. API-ключ не передаётся.</label>
+    <button id="directorRetry" class="secondary hidden" type="button">Повторить сохранение отчёта в Director</button>
     <div class="action-row"><button class="primary" id="askBtn" type="button">Спросить бесплатно →</button><span class="status" id="status" role="status">Без оплаты и без платных моделей.</span></div>
     <div id="statusNotice" class="notice hidden" role="alert"></div>
     <p class="small" style="margin:10px 0 0">У OpenRouter бесплатный предел обычно 50 запросов в сутки, общий для аккаунта. При 429 дождись обновления лимита; никаких списаний или автоматического переключения на платную модель.</p>
@@ -65,8 +67,6 @@
   </section>
   <section class="panel hidden result-panel" id="summaryPanel">
     <div class="toolbar"><h2>Общий вывод и ТЗ</h2><div class="toolbar-actions"><button class="softbtn" id="copyReport" type="button">Копировать</button><button class="softbtn" id="downloadReport" type="button">Сохранить .md</button></div></div>
-    <label id="directorSaveRow" class="rowlabel hidden"><input type="checkbox" id="directorSaveConsent"/> Передать полный отчёт в приватный чат Agents Director (отдельное согласие; API-ключ не передаётся).</label>
-    <button id="directorRetry" class="secondary hidden" type="button">Повторить сохранение отчёта в Director</button>
     <div class="status" id="summaryStatus">Ожидаем ответы…</div><div class="result-text hidden" id="summaryText"></div>
     <p class="small" id="summaryTruth" style="margin-top:10px">Сводка формируется реальной бесплатной моделью после двух успешных ответов. Мнения ИИ не считаются доказанными фактами без отдельной проверки.</p>
   </section>
