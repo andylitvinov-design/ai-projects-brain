@@ -39,3 +39,10 @@
 5. Приватные чаты, клиентские данные, токены, финансовую/медицинскую информацию в этот публичный репозиторий не записывать.
 
 **Дополнительно:** [README.md](README.md) — описание репозитория; [INDEX.md](INDEX.md) — подробная прежняя карта; [CURRENT-FOCUS.md](CURRENT-FOCUS.md) — датированный фокус.
+
+## Two ChatGPT-first execution Skills
+
+- [«Доведи до LIVE» — PR recovery through real production](agent-skills/finish-to-live.md)
+- [«Проверь дизайн» — screenshot-to-LIVE iterative parity](agent-skills/check-design.md)
+- [ChatGPT phrase router](prompts/chatgpt-two-skills.md)
+- [Durable multi-session run contract](systems/resumable-skill-run-contract.md)

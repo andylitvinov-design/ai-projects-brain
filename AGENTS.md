@@ -74,3 +74,7 @@ For docs-only changes, verify:
 ## Final report
 
 Always report changed files, checks run, checks not run, risks, and whether project STATE/LOG or memory files need updates.
+
+## Two owner Skills
+
+For «доведи до лив» read agent-skills/finish-to-live.md; for «проверь дизайн» read agent-skills/check-design.md. ChatGPT entry: prompts/chatgpt-two-skills.md; multi-session state: systems/resumable-skill-run-contract.md. Existing one-publish and risk rules prevail. No false LIVE or design-parity success and no unverified background promises.
