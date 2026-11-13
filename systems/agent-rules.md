@@ -1,5 +1,15 @@
 # Agent Rules
 
+## Vercel Sandbox cost guard — 2026-11-13
+
+For agents working on Vercel team `super10` (especially the `books` repository), sandbox allocation is a **last resort**, not a default execution environment. Vercel session records show repeated repository clones, CI/merge tests and repeated attempts to install Playwright/Chromium; avoid paying for duplicate infrastructure work.
+
+1. **No sandbox for read-only work**: use available GitHub/Vercel connectors for PRs, files, logs, and deployment metadata; use direct HTTP checks for static site responses. Reuse existing trustworthy CI results rather than launching an isolated VM solely to collect the same evidence.
+2. **One short-lived session per independent task** when a writable local build or browser check is genuinely necessary. Batch relevant commands in that session; do not start multiple speculative sandboxes or create one per test. Default to minimum resources **1 vCPU / 2048 MB**, non-persistent state, and a **5-minute timeout**. A longer timeout (up to 20 minutes) needs a concrete test/build reason logged before creation.
+3. **Stop immediately after work**, including errors and timeouts. Use a cleanup/finally path; avoid idle sessions, snapshots and persistence when not essential. When a browser cannot run because native dependencies are missing, stop after the first reproducible diagnosis; do not repeatedly download Chromium or Linux packages in fresh sessions.
+4. **Cost evidence**: record the sandbox session ID, purpose, CPU/memory, timeout, actual start/stop and test/command result in the existing task receipt; no new database, cron, monitor, service or paid tier. Do not claim lower billing until the next measured Vercel Usage window.
+5. **Preserve the gates**: never skip required CI, browser safety checks, source review or LIVE verification to meet the sandbox cap. If a needed test cannot run safely inside the guard, hand it to existing CI or record `SANDBOX_BUDGET_HOLD` with the missing evidence and owner.
+
 ## Cross-project Business Brain (2026-11-08)
 
 For business strategy, project portfolio decisions and financial-risk monitoring, read [systems/business-brain-bridge.md](business-brain-bridge.md) before collecting context. Public GitHub project capsules and the owner-gated Supabase `business_brain` schema are separate privacy boundaries, not competing databases. Only authorized agents with a connected private source may read private entries. The owner-only Edge API is deployed but Commander UI login/consumption is NOT end-to-end verified; never claim otherwise. Do not copy private data into this public repository.
