@@ -1,9 +1,21 @@
-# Enable two Skills in ChatGPT
+# ChatGPT Skills — фактическая активация
 
-- In any ChatGPT Project: open project menu (...) > Project settings > Instructions. Paste the body of prompts/chatgpt-project-two-skills.md. Applies within that project.
-- For all new and existing ordinary chats: Settings > Personalization > Custom Instructions. On iOS: Settings > Customize ChatGPT. Paste the body of prompts/chatgpt-global-two-skills.md. Project settings may override global settings.
-- If the ChatGPT Skills feature is available in your workspace: Plugins > Skills > Create > Upload a SKILL.md ZIP from templates/chatgpt/skills. Installed Skills can activate on relevant user intent.
-- /live and /design are convenient TEXT aliases; /skill alone shows help. None is guaranteed to be a special platform slash command without an installed Skill.
+Two canonical workflows:
+- https://github.com/andylitvinov-design/ai-projects-brain/blob/main/agent-skills/finish-to-live.md
+- https://github.com/andylitvinov-design/ai-projects-brain/blob/main/agent-skills/check-design.md
 
-Sources: https://help.openai.com/en/articles/10169521-projects-in-chatgpt ; https://help.openai.com/en/articles/8096356-chatgpt-custom-instructions ; https://help.openai.com/en/articles/20001066-skills-in-chatgpt .
-Publishing GitHub docs does not directly change ChatGPT account/project settings or guarantee cross-session execution. Protected CI, permissions, ownership and actual task runners still govern actions.
+## Multi-cycle execution from ChatGPT
+Use ChatGPT **Work** when a long cloud task must continue after the user leaves. In Work, send "/live <PR or task>" to perform several causal repair -> exact-HEAD CI -> protected merge -> LIVE verification cycles. Work may pause for sign-in, approvals or tool restrictions. For "/design <page and approved reference>" use real browser screenshot comparisons, fix and recapture, then Finish to LIVE and recapture production. See prompts/chatgpt-work-two-skills.md.
+
+Ordinary Chat can use connected tools in its current turn; writing a GitHub file, a Custom Instruction or a plain-text slash alias does not schedule continuation. The Holistic House existing :10/:40/:30/:00 PR automation should be reused only for eligible registered root tasks, with no second source writer.
+
+## One-time ChatGPT entrypoints
+- Account: Settings > Personalization > Custom Instructions; on mobile Settings > Customize ChatGPT. Paste prompts/chatgpt-global-two-skills.md (provided separately as a ready text file).
+- Project: Project settings > Instructions, paste prompts/chatgpt-project-two-skills.md.
+- Native Skills: Plugins > Skills > Create > Upload from computer, if available. Official OpenAI documentation as of Nov 2026 limits ChatGPT native Skills to eligible Business, Enterprise, Healthcare and Edu workspaces; do not assume a personal plan can install. A user must finish any required installation/permissions in the UI.
+
+The user may write /live, /design, /skill live, /skill design, or natural Russian phrases. These are text aliases interpreted by instructions until a native Skill is actually installed. /skill alone means help.
+
+Current ChatGPT connector tools do NOT expose account Custom Instructions, Project Instructions or native Skill installation. The repository cannot silently change them. Never promise global installation without checking the account.
+
+Official docs: https://help.openai.com/en/articles/20001066-skills-in-chatgpt/ ; https://help.openai.com/en/articles/20001280-using-cloud-browser-in-chatgpt ; https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex
