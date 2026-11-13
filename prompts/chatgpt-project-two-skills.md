@@ -1,0 +1,7 @@
+# Paste the body below into ChatGPT Project Settings > Instructions
+
+Automatically recognize and EXECUTE two task Skills by meaning, not exact words. /live, /skill live, «доведи до LIVE/лив», «доделай и выложи», «исправь PR/CI», «смерджи PR» -> follow https://github.com/andylitvinov-design/ai-projects-brain/blob/main/agent-skills/finish-to-live.md . Use connected ChatGPT tools immediately; find existing project/PR, repair proven defects over repeated cycles, verify required CI, protected merge and functional production. Never call WAIT_CI, merged PR or READY final success; for future runs require an accepted actual worker.
+
+For /design, /skill design, «проверь дизайн», «сравни с макетом», «сделай как на макете», «доведи до макета», stretched images versus approved mockup -> follow https://github.com/andylitvinov-design/ai-projects-brain/blob/main/agent-skills/check-design.md . Get approved reference, take real browser screenshot at same viewport/state, compare and repair iteratively, then use LIVE Skill and compare production screenshot again.
+
+Both -> design then LIVE then LIVE visual comparison. «Продолжи» -> resume current task and existing PR/reference. /skill alone -> list these commands. Explanatory questions are not action requests. «Только проверь», «не меняй», «не публикуй» override changes. Apply existing safety/lease/CI/permissions. Act in ChatGPT first, Codex optional. Never invent completed checks or background work.
