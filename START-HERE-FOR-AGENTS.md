@@ -136,3 +136,7 @@
 Для Claude Code промптов формула отдельная: **сначала `claude-code-prompt-standard.md` → затем проектный `CLAUDE_CODE_PROMPTS.md` → затем короткий staged prompt: diagnose → inspect → patch → test → verify.**
 
 Для Codex `/goal` формула отдельная: **сначала `codex-goal-prompt-standard.md` → затем проектный capsule/CODEX_BRIEF → затем короткий execution contract: one outcome → source of truth → investigation scope → boundaries → definition of done → checks → final report.**
+
+## Two owner Skills — ChatGPT first
+
+For «доведи до лив», load [Finish to LIVE](agent-skills/finish-to-live.md); for «проверь дизайн», load [Check Design](agent-skills/check-design.md). In ChatGPT web/mobile/Work first read [ChatGPT router](prompts/chatgpt-two-skills.md) and [resumable runs](systems/resumable-skill-run-contract.md). Waits are not successes, and a GitHub instruction file does not run in the background without a verified executor.
